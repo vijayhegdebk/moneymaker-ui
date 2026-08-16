@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Money Maker — Trade Configs</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
+    <style>
+        .tc-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: end;
+            margin-bottom: 16px;
+        }
+        .tc-toolbar .form-row { margin-bottom: 0; min-width: 160px; }
+        .tc-toolbar .spacer    { flex: 1; }
+        .tc-date-control {
+            display: grid;
+            grid-template-columns: 34px minmax(140px, 1fr) 34px auto;
+            gap: 6px;
+            align-items: center;
+        }
+        .tc-date-step,
+        .tc-date-today {
+            min-height: 38px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            justify-content: center;
+        }
+        .tc-date-step { width: 34px; }
+
+        .tc-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+        .tc-form-grid .form-row { margin-bottom: 0; }
+        .tc-section-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-muted);
+            margin: 6px 0 10px;
+        }
+
+        .sma-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 10px;
+            align-items: end;
+            margin-bottom: 10px;
+        }
+        .sma-row .form-row { margin-bottom: 0; }
+        .sma-row .remove-btn {
+            padding: 10px 12px;
+            border: 1px solid rgba(0,0,0,0.08);
+            background: rgba(255,255,255,0.7);
+            border-radius: 10px;
+            cursor: pointer;
+            color: var(--danger);
+            font-weight: 600;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .report-table th,
+        .report-table td {
+            padding: 9px 10px;
+            text-align: left;
+            border-bottom: 1px dashed rgba(0,0,0,0.08);
+            white-space: nowrap;
+        }
+        .report-table thead th {
+            background: rgba(255,255,255,0.7);
+            font-weight: 600;
+            border-bottom: 1px solid rgba(0,0,0,0.12);
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        .report-table tbody tr:hover { background: rgba(0, 122, 255, 0.04); }
+        .report-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+        .report-scroll {
+            max-height: 520px;
+            overflow: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+        .row-actions { display: inline-flex; gap: 6px; }
+        .icon-btn {
+            padding: 5px 10px;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.75);
+            cursor: pointer;
+            font-size: 12px;
+            color: var(--text);
+        }
+        .icon-btn.danger { color: var(--danger); }
+        .icon-btn:hover { background: rgba(255,255,255,1); }
+
+        .pagination {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+        .pagination .page-info { color: var(--text-muted); font-size: 13px; }
+        .pagination .page-btn {
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.08);
+            background: rgba(255,255,255,0.75);
+            cursor: pointer;
+        }
+        .pagination .page-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+        .form-card-collapsed { display: none; }
+        .form-card-actions {
+            display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px;
+        }
+        .tc-context-note {
+            color: var(--text-muted);
+            font-size: 12px;
+            margin: -4px 0 12px;
+        }
+
+        .pill-tf {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: rgba(0, 122, 255, 0.10);
+            color: var(--primary-strong);
+            font-size: 11px;
+            font-weight: 600;
+            margin-right: 4px;
+        }
+        .empty-state {
+            text-align: center; padding: 28px 0; color: var(--text-muted);
+        }
+        .inline-alert {
+            margin-bottom: 14px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+        }
+        .inline-alert.error   { background: rgba(232,73,76,0.10);  color: #b6262a; }
+        .inline-alert.success { background: rgba(41,194,106,0.12); color: #1f8f4d; }
+
+        /* ── Bulk delete panel ─────────────────────────────────────────────── */
+        .bd-header {
+            display: flex; align-items: center; gap: 10px;
+            cursor: pointer; user-select: none;
+        }
+        .bd-header h3 { margin: 0; font-size: 15px; }
+        .bd-caret { transition: transform .15s ease; color: var(--text-muted); }
+        .bd-card-open .bd-caret { transform: rotate(90deg); }
+        .bd-hint { font-size: 12px; color: var(--text-muted); }
+        .bd-collapsed .bd-body { display: none; }
+        .bd-body { margin-top: 16px; }
+
+        .bd-modes { display: flex; gap: 18px; margin-bottom: 14px; }
+        .bd-radio { display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; }
+
+        .bd-cal-nav { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+        .bd-month-label { font-weight: 600; min-width: 150px; text-align: center; }
+
+        .bd-cal-dow, .bd-cal-grid {
+            display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;
+        }
+        .bd-cal-dow span {
+            text-align: center; font-size: 11px; text-transform: uppercase;
+            letter-spacing: .5px; color: var(--text-muted); padding-bottom: 4px;
+        }
+
+        /* Day tile. Zerodha-style: the number is the headline, the tile is tinted
+           by whether there is anything to act on. */
+        .bd-day {
+            min-height: 58px; border-radius: 10px; padding: 6px 4px;
+            display: flex; flex-direction: column; align-items: center; gap: 2px;
+            border: 2px solid transparent; font-size: 12px;
+            background: rgba(120,120,128,0.08); color: var(--text-muted);
+        }
+        .bd-day-num { font-size: 11px; opacity: .75; }
+        .bd-day-count { font-size: 15px; font-weight: 700; line-height: 1; }
+        .bd-day-dots { display: flex; gap: 3px; }
+        .bd-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+        .bd-dot-ce { background: #2f80ed; }
+        .bd-dot-pe { background: var(--warn); }
+
+        .bd-day.empty { visibility: hidden; }
+        .bd-day.has {
+            background: rgba(41,194,106,0.14); color: inherit; cursor: pointer;
+        }
+        .bd-day.has:hover { background: rgba(41,194,106,0.24); }
+        .bd-day.sel {
+            background: rgba(232,73,76,0.16);
+            border-color: var(--danger);
+            color: #b6262a;
+        }
+
+        .bd-legend {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 11px; color: var(--text-muted); margin-top: 10px;
+        }
+        .bd-chip { width: 12px; height: 12px; border-radius: 4px; display: inline-block; }
+        .bd-chip-sel  { background: rgba(232,73,76,0.16); border: 2px solid var(--danger); }
+        .bd-chip-has  { background: rgba(41,194,106,0.14); }
+        .bd-chip-none { background: rgba(120,120,128,0.08); }
+
+        .bd-runs-list { display: flex; flex-direction: column; gap: 8px; }
+        .bd-run {
+            display: flex; align-items: center; gap: 10px; cursor: pointer;
+            padding: 10px 12px; border-radius: 10px;
+            background: rgba(120,120,128,0.08); font-size: 13px;
+        }
+        .bd-run.sel { background: rgba(232,73,76,0.14); border: 1px solid var(--danger); }
+        .bd-run-meta { color: var(--text-muted); font-size: 12px; }
+
+        .bd-summary {
+            margin-top: 14px; padding: 10px 14px; border-radius: 10px;
+            background: rgba(120,120,128,0.08); font-size: 13px;
+        }
+        .bd-actions {
+            display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px;
+        }
+
+        .bd-modal {
+            position: fixed; inset: 0; z-index: 50;
+            background: rgba(0,0,0,0.35);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .bd-modal-card { max-width: 520px; width: calc(100% - 40px); }
+        .bd-confirm-body { font-size: 13px; line-height: 1.6; }
+        .bd-confirm-body .bd-warn { color: #b15e00; }
+
+        .badge-auto { background: rgba(255,149,0,0.18); color: #b15e00; }
+        .badge-manual { background: rgba(120,120,128,0.14); color: var(--text-muted); }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+
+<main class="page">
+    <h1 class="page-title">⚙ Trade Configs</h1>
+    <p class="page-subtitle">
+        Create / edit the trade configs and their SMA timeframes consumed by
+        <code>AnalysisScheduler</code>, <code>OrderScheduler</code> and <code>PositionScheduler</code>.
+        Writes invalidate the in-JVM date cache; live-mode edits to today refresh <code>SharedData.combinedDto</code> immediately.
+    </p>
+
+    <!-- ─────────────────── Filter + Add toolbar ─────────────────── -->
+    <div class="glass-card" style="margin-bottom: 18px;">
+        <div class="tc-toolbar">
+            <div class="form-row">
+                <label for="tc-filter-date">Trading date</label>
+                <div class="tc-date-control">
+                    <button id="tc-prev-date" class="btn btn-ghost tc-date-step" type="button" title="Previous day">&lt;</button>
+                    <input id="tc-filter-date" type="date" class="form-control" />
+                    <button id="tc-next-date" class="btn btn-ghost tc-date-step" type="button" title="Next day">&gt;</button>
+                    <button id="tc-today-date" class="btn btn-ghost tc-date-today" type="button">Today</button>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="tc-page-size">Rows per page</label>
+                <select id="tc-page-size" class="form-control">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+            <button id="tc-clear-filter" class="btn btn-ghost" type="button">Show all dates</button>
+            <button id="tc-refresh" class="btn btn-ghost" type="button">↻ Refresh</button>
+            <div class="spacer"></div>
+            <button id="tc-add" class="btn btn-primary" type="button">+ Add Trade Config</button>
+        </div>
+    </div>
+
+    <!-- ─────────── Bulk delete of auto-generated configs (collapsed) ─────────── -->
+    <div id="bd-card" class="glass-card bd-collapsed" style="margin-bottom: 18px;">
+        <div class="bd-header" id="bd-toggle">
+            <span class="bd-caret">▸</span>
+            <h3>🗑 Bulk delete auto-generated configs</h3>
+            <span class="badge badge-warn">AUTO_DOWNTREND</span>
+            <div class="spacer"></div>
+            <span id="bd-hint" class="bd-hint">Manual configs are never affected</span>
+        </div>
+
+        <div class="bd-body">
+            <div class="bd-modes">
+                <label class="bd-radio">
+                    <input type="radio" name="bd-mode" value="TRADING_DATE" checked />
+                    <span>Trading date</span>
+                </label>
+                <label class="bd-radio">
+                    <input type="radio" name="bd-mode" value="UPDATED_RANGE" />
+                    <span>Generation run</span>
+                </label>
+            </div>
+
+            <!-- Calendar picker -->
+            <div id="bd-calendar-pane">
+                <div class="bd-cal-nav">
+                    <button id="bd-prev-month" class="btn btn-ghost" type="button">‹</button>
+                    <span id="bd-month-label" class="bd-month-label">—</span>
+                    <button id="bd-next-month" class="btn btn-ghost" type="button">›</button>
+                    <div class="spacer"></div>
+                    <button id="bd-select-month" class="btn btn-ghost" type="button">Select all in month</button>
+                </div>
+
+                <div class="bd-cal-dow">
+                    <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span>
+                    <span>Fri</span><span>Sat</span><span>Sun</span>
+                </div>
+                <div id="bd-cal-grid" class="bd-cal-grid"></div>
+
+                <div class="bd-legend">
+                    <span class="bd-chip bd-chip-sel"></span> selected
+                    <span class="bd-chip bd-chip-has"></span> has configs
+                    <span class="bd-chip bd-chip-none"></span> none
+                </div>
+            </div>
+
+            <!-- Run picker -->
+            <div id="bd-runs-pane" style="display:none;">
+                <div id="bd-runs-list" class="bd-runs-list"></div>
+            </div>
+
+            <div id="bd-summary" class="bd-summary">Nothing selected.</div>
+
+            <div class="bd-actions">
+                <button id="bd-clear" class="btn btn-ghost" type="button">Clear</button>
+                <button id="bd-delete" class="btn btn-danger" type="button" disabled>🗑 Delete selected</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm dialog: populated from the server's own dry-run count -->
+    <div id="bd-confirm" class="bd-modal" style="display:none;">
+        <div class="bd-modal-card glass-card">
+            <div class="card-header"><h3>Confirm delete</h3></div>
+            <div id="bd-confirm-body" class="bd-confirm-body"></div>
+            <div class="bd-actions">
+                <button id="bd-confirm-cancel" class="btn btn-ghost" type="button">Cancel</button>
+                <button id="bd-confirm-ok" class="btn btn-danger" type="button">Yes, delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─────────────────── Inline form (hidden by default) ─────────────────── -->
+    <div id="tc-form-card" class="glass-card form-card-collapsed" style="margin-bottom: 18px;">
+        <div class="card-header">
+            <h3 id="tc-form-title">New trade config</h3>
+            <span id="tc-form-mode" class="badge badge-info">CREATE</span>
+        </div>
+
+        <div id="tc-form-alert" class="inline-alert" style="display:none;"></div>
+
+        <input type="hidden" id="tc-id" />
+        <p id="tc-context-note" class="tc-context-note"></p>
+
+        <div class="tc-section-title">Core</div>
+        <div class="tc-form-grid">
+            <div class="form-row">
+                <label for="tc-instrument">Instrument *</label>
+                <select id="tc-instrument" class="form-control"></select>
+            </div>
+            <div class="form-row">
+                <label for="tc-date">Trading date *</label>
+                <input id="tc-date" type="date" class="form-control" />
+            </div>
+            <div class="form-row">
+                <label for="tc-strategy">Strategy *</label>
+                <select id="tc-strategy" class="form-control"></select>
+            </div>
+            <div class="form-row">
+                <label for="tc-side">Trading side</label>
+                <select id="tc-side" class="form-control">
+                    <option value="">—</option>
+                    <option value="CE">CE (Call)</option>
+                    <option value="PE">PE (Put)</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="tc-txn">Transaction type</label>
+                <select id="tc-txn" class="form-control">
+                    <option value="">—</option>
+                    <option value="BUY">BUY</option>
+                    <option value="SELL">SELL</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="tc-section-title">Risk &amp; sizing</div>
+        <div class="tc-form-grid">
+            <div class="form-row">
+                <label for="tc-target">Target (per share)</label>
+                <input id="tc-target" type="number" step="0.01" class="form-control" />
+            </div>
+            <div class="form-row">
+                <label for="tc-sl">Stop loss (per share)</label>
+                <input id="tc-sl" type="number" step="0.01" class="form-control" />
+            </div>
+            <div class="form-row">
+                <label for="tc-max-loss">Max loss / day</label>
+                <input id="tc-max-loss" type="number" step="0.01" class="form-control" />
+            </div>
+            <div class="form-row">
+                <label for="tc-lots">Lot quantity</label>
+                <input id="tc-lots" type="number" step="1" class="form-control" />
+            </div>
+            <div class="form-row">
+                <label for="tc-trades-day">Max trades / day</label>
+                <input id="tc-trades-day" type="number" step="1" class="form-control" />
+            </div>
+            <div class="form-row">
+                <label for="tc-parallel">Max parallel trades</label>
+                <input id="tc-parallel" type="number" step="1" class="form-control" />
+            </div>
+        </div>
+
+        <div class="tc-section-title">Strike depth</div>
+        <div class="tc-form-grid">
+            <div class="form-row">
+                <label for="tc-option-depth">Option depth</label>
+                <input id="tc-option-depth" type="number" step="1" class="form-control" />
+            </div>
+            <div class="form-row">
+                <label for="tc-itm">ITM depth</label>
+                <input id="tc-itm" type="number" step="1" class="form-control" />
+            </div>
+            <div class="form-row">
+                <label for="tc-atm">ATM depth</label>
+                <input id="tc-atm" type="number" step="1" class="form-control" />
+            </div>
+            <div class="form-row">
+                <label for="tc-otm">OTM depth</label>
+                <input id="tc-otm" type="number" step="1" class="form-control" />
+            </div>
+        </div>
+
+        <div class="tc-section-title" style="display:flex; align-items:center; justify-content:space-between;">
+            <span>SMA timeframes</span>
+            <button id="tc-add-tf" class="icon-btn" type="button">+ Add timeframe</button>
+        </div>
+        <div id="tc-tf-rows"></div>
+        <p id="tc-tf-empty" style="color: var(--text-muted); font-size: 12px; margin: 0 0 12px;">
+            No timeframes yet. Click <b>+ Add timeframe</b> to attach one.
+        </p>
+
+        <div class="form-card-actions">
+            <button id="tc-save" class="btn btn-primary" type="button">💾 Save</button>
+            <button id="tc-save-similar" class="btn btn-ghost" type="button">Save + New Similar</button>
+            <button id="tc-cancel" class="btn btn-ghost" type="button">Cancel</button>
+        </div>
+    </div>
+
+    <!-- ─────────────────── Report ─────────────────── -->
+    <div class="glass-card">
+        <div class="card-header">
+            <h3>Configured trade configs</h3>
+            <span id="tc-count" class="badge badge-info">0 rows</span>
+        </div>
+        <div class="report-scroll">
+            <table class="report-table" id="tc-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Source</th>
+                        <th>Date</th>
+                        <th>Instrument</th>
+                        <th>Side</th>
+                        <th>Txn</th>
+                        <th>Strategy</th>
+                        <th class="num">Target</th>
+                        <th class="num">SL</th>
+                        <th class="num">Lots</th>
+                        <th class="num">Trades/day</th>
+                        <th class="num">Parallel</th>
+                        <th class="num">ITM</th>
+                        <th class="num">ATM</th>
+                        <th class="num">OTM</th>
+                        <th>Timeframes</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="tc-rows"></tbody>
+            </table>
+        </div>
+        <div id="tc-empty" class="empty-state">
+            No trade configs for the selected filter. Click <b>+ Add Trade Config</b> above to create one.
+        </div>
+        <div class="pagination">
+            <span id="tc-page-info" class="page-info">page 1 / 1</span>
+            <button id="tc-prev" class="page-btn" type="button">‹ Prev</button>
+            <button id="tc-next" class="page-btn" type="button">Next ›</button>
+        </div>
+    </div>
+</main>
+
+<script th:inline="javascript">
+(function () {
+    // ---------- state ----------
+    const LS_PREFIX = 'mm.tradeConfigs.';
+    const LS_KEYS = {
+        filterDate: LS_PREFIX + 'filterDate',
+        pageSize: LS_PREFIX + 'pageSize'
+    };
+    const state = {
+        page: 0,
+        size: 10,
+        date: null,
+        editingId: null,
+        instruments: [],
+        strategies: []
+    };
+
+    // ---------- elements ----------
+    const els = {
+        filterDate:   document.getElementById('tc-filter-date'),
+        prevDate:     document.getElementById('tc-prev-date'),
+        nextDate:     document.getElementById('tc-next-date'),
+        todayDate:    document.getElementById('tc-today-date'),
+        pageSize:     document.getElementById('tc-page-size'),
+        clearFilter:  document.getElementById('tc-clear-filter'),
+        refresh:      document.getElementById('tc-refresh'),
+        addBtn:       document.getElementById('tc-add'),
+
+        formCard:     document.getElementById('tc-form-card'),
+        formTitle:    document.getElementById('tc-form-title'),
+        formMode:     document.getElementById('tc-form-mode'),
+        formAlert:    document.getElementById('tc-form-alert'),
+        contextNote:  document.getElementById('tc-context-note'),
+
+        id:           document.getElementById('tc-id'),
+        instrument:   document.getElementById('tc-instrument'),
+        date:         document.getElementById('tc-date'),
+        strategy:     document.getElementById('tc-strategy'),
+        side:         document.getElementById('tc-side'),
+        txn:          document.getElementById('tc-txn'),
+        target:       document.getElementById('tc-target'),
+        sl:           document.getElementById('tc-sl'),
+        maxLoss:      document.getElementById('tc-max-loss'),
+        lots:         document.getElementById('tc-lots'),
+        tradesDay:    document.getElementById('tc-trades-day'),
+        parallel:     document.getElementById('tc-parallel'),
+        optionDepth:  document.getElementById('tc-option-depth'),
+        itm:          document.getElementById('tc-itm'),
+        atm:          document.getElementById('tc-atm'),
+        otm:          document.getElementById('tc-otm'),
+        tfRows:       document.getElementById('tc-tf-rows'),
+        tfEmpty:      document.getElementById('tc-tf-empty'),
+        addTf:        document.getElementById('tc-add-tf'),
+        save:         document.getElementById('tc-save'),
+        saveSimilar:  document.getElementById('tc-save-similar'),
+        cancel:       document.getElementById('tc-cancel'),
+
+        table:        document.getElementById('tc-table'),
+        rows:         document.getElementById('tc-rows'),
+        empty:        document.getElementById('tc-empty'),
+        count:        document.getElementById('tc-count'),
+        pageInfo:     document.getElementById('tc-page-info'),
+        prev:         document.getElementById('tc-prev'),
+        next:         document.getElementById('tc-next')
+    };
+
+    // ---------- helpers ----------
+    const today = () => localDateString(new Date());
+    const fmtNum = (v) => (v === null || v === undefined || v === '') ? '—' : v;
+    const setAlert = (msg, kind) => {
+        if (!msg) { els.formAlert.style.display = 'none'; return; }
+        els.formAlert.textContent = msg;
+        els.formAlert.className = 'inline-alert ' + (kind || 'error');
+        els.formAlert.style.display = '';
+    };
+    function localDateString(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return year + '-' + month + '-' + day;
+    }
+    function parseDateInput(value) {
+        if (!value) return null;
+        const parts = value.split('-').map(Number);
+        if (parts.length !== 3 || parts.some(Number.isNaN)) return null;
+        return new Date(parts[0], parts[1] - 1, parts[2]);
+    }
+    function storedValue(key) {
+        try {
+            return localStorage.getItem(key);
+        } catch (e) {
+            return null;
+        }
+    }
+    function persistState() {
+        try {
+            if (state.date) localStorage.setItem(LS_KEYS.filterDate, state.date);
+            else localStorage.removeItem(LS_KEYS.filterDate);
+            localStorage.setItem(LS_KEYS.pageSize, String(state.size));
+        } catch (e) {
+            // localStorage may be unavailable; keep the in-memory workflow alive.
+        }
+    }
+    function setFilterDate(value, reload) {
+        state.date = value || null;
+        els.filterDate.value = state.date || '';
+        state.page = 0;
+        persistState();
+        if (reload) loadList();
+    }
+    function stepFilterDate(days) {
+        const current = parseDateInput(els.filterDate.value || state.date || today());
+        if (!current) return;
+        current.setDate(current.getDate() + days);
+        setFilterDate(localDateString(current), true);
+    }
+
+    // ---------- dropdown bootstrapping ----------
+    async function loadInstruments() {
+        const r = await fetch('/api/trade-configs/instruments');
+        state.instruments = await r.json();
+        els.instrument.innerHTML = '<option value="">— select —</option>' +
+            state.instruments.map(i => `<option value="${i.id}">${i.name}</option>`).join('');
+    }
+    async function loadStrategies() {
+        const r = await fetch('/api/trade-configs/strategies');
+        state.strategies = await r.json();
+        els.strategy.innerHTML = '<option value="">— select —</option>' +
+            state.strategies.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+    }
+
+    // ---------- timeframe rows ----------
+    function addTimeframeRow(tf) {
+        const row = document.createElement('div');
+        row.className = 'sma-row';
+        row.innerHTML =
+            '<div class="form-row"><label>Time period (min)</label>' +
+                '<input data-tf="timePeriod" type="number" step="1" class="form-control" /></div>' +
+            '<div class="form-row"><label>SMA</label>' +
+                '<input data-tf="sma" type="number" step="1" class="form-control" /></div>' +
+            '<div class="form-row"><label>Slope</label>' +
+                '<input data-tf="slope" type="number" step="0.0001" class="form-control" /></div>' +
+            '<button type="button" class="remove-btn" title="Remove timeframe">✕</button>';
+        if (tf) {
+            row.querySelector('[data-tf="timePeriod"]').value = tf.timePeriod ?? '';
+            row.querySelector('[data-tf="sma"]').value        = tf.sma ?? '';
+            row.querySelector('[data-tf="slope"]').value      = tf.slope ?? '';
+            row.dataset.tfId = tf.id ?? '';
+        }
+        row.querySelector('.remove-btn').addEventListener('click', () => {
+            row.remove();
+            updateTfEmpty();
+        });
+        els.tfRows.appendChild(row);
+        updateTfEmpty();
+    }
+    function updateTfEmpty() {
+        els.tfEmpty.style.display = els.tfRows.children.length === 0 ? '' : 'none';
+    }
+    function collectTimeframes() {
+        return Array.from(els.tfRows.children).map(row => {
+            const tpRaw  = row.querySelector('[data-tf="timePeriod"]').value;
+            const smaRaw = row.querySelector('[data-tf="sma"]').value;
+            const slRaw  = row.querySelector('[data-tf="slope"]').value;
+            return {
+                id:         row.dataset.tfId ? Number(row.dataset.tfId) : null,
+                timePeriod: tpRaw  === '' ? null : Number(tpRaw),
+                sma:        smaRaw === '' ? null : Number(smaRaw),
+                slope:      slRaw  === '' ? null : Number(slRaw)
+            };
+        }).filter(tf => tf.timePeriod !== null && tf.sma !== null);
+    }
+
+    // ---------- form open/close ----------
+    function clearForm() {
+        els.id.value = '';
+        [els.target, els.sl, els.maxLoss, els.lots, els.tradesDay, els.parallel,
+         els.optionDepth, els.itm, els.atm, els.otm].forEach(e => e.value = '');
+        els.instrument.value = '';
+        els.strategy.value = '';
+        els.side.value = '';
+        els.txn.value = '';
+        els.date.value = state.date || today();
+        els.tfRows.innerHTML = '';
+        updateTfEmpty();
+        setAlert(null);
+    }
+    function updateContextNote(prefix) {
+        const selectedDate = els.date.value || state.date || today();
+        els.contextNote.textContent = (prefix || 'Working date') + ': ' + selectedDate;
+    }
+    function fillForm(view) {
+        els.id.value          = view.id ?? '';
+        els.instrument.value  = view.instrumentId ?? '';
+        els.date.value        = view.tradingDate ?? state.date ?? today();
+        els.strategy.value    = view.strategyId ?? '';
+        els.side.value        = view.tradingSide ?? '';
+        els.txn.value         = view.transactionType ?? '';
+        els.target.value      = view.target ?? '';
+        els.sl.value          = view.stopLoss ?? '';
+        els.maxLoss.value     = view.maxLoss ?? '';
+        els.lots.value        = view.lotQuantity ?? '';
+        els.tradesDay.value   = view.numberOfTradesPerDay ?? '';
+        els.parallel.value    = view.numberOfParallelTrades ?? '';
+        els.optionDepth.value = view.optionDepth ?? '';
+        els.itm.value         = view.itmDepth ?? '';
+        els.atm.value         = view.atmDepth ?? '';
+        els.otm.value         = view.otmDepth ?? '';
+        els.tfRows.innerHTML = '';
+        (view.timeframes || []).forEach(addTimeframeRow);
+        updateTfEmpty();
+    }
+    function openCreate() {
+        state.editingId = null;
+        els.formTitle.textContent = 'New trade config';
+        els.formMode.textContent  = 'CREATE';
+        els.formMode.className    = 'badge badge-info';
+        clearForm();
+        updateContextNote('Creating for');
+        els.formCard.classList.remove('form-card-collapsed');
+        els.formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        els.instrument.focus();
+    }
+    function openEdit(view) {
+        state.editingId = view.id;
+        els.formTitle.textContent = 'Edit trade config #' + view.id;
+        els.formMode.textContent  = 'EDIT';
+        els.formMode.className    = 'badge badge-warn';
+        clearForm();
+        fillForm(view);
+        updateContextNote('Editing date');
+        els.formCard.classList.remove('form-card-collapsed');
+        els.formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    function openClone(view) {
+        state.editingId = null;
+        els.formTitle.textContent = 'Clone trade config #' + view.id;
+        els.formMode.textContent  = 'CLONE';
+        els.formMode.className    = 'badge badge-info';
+        clearForm();
+        fillForm(Object.assign({}, view, { id: '' }));
+        els.id.value = '';
+        updateContextNote('Cloning for');
+        els.formCard.classList.remove('form-card-collapsed');
+        els.formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    function closeForm() {
+        els.formCard.classList.add('form-card-collapsed');
+        state.editingId = null;
+    }
+
+    // ---------- save ----------
+    function collectPayload() {
+        const num = (el) => el.value === '' ? null : Number(el.value);
+        return {
+            instrumentId:             num(els.instrument),
+            tradingDate:              els.date.value || null,
+            strategyId:               num(els.strategy),
+            tradingSide:              els.side.value || null,
+            transactionType:          els.txn.value  || null,
+            target:                   num(els.target),
+            stopLoss:                 num(els.sl),
+            maxLoss:                  num(els.maxLoss),
+            lotQuantity:              num(els.lots),
+            numberOfTradesPerDay:     num(els.tradesDay),
+            numberOfParallelTrades:   num(els.parallel),
+            optionDepth:              num(els.optionDepth),
+            itmDepth:                 num(els.itm),
+            atmDepth:                 num(els.atm),
+            otmDepth:                 num(els.otm),
+            timeframes:               collectTimeframes()
+        };
+    }
+    async function save(keepSimilar) {
+        const payload = collectPayload();
+        try {
+            els.save.disabled = true;
+            els.saveSimilar.disabled = true;
+            const url = state.editingId
+                ? '/api/trade-configs/' + state.editingId
+                : '/api/trade-configs';
+            const method = state.editingId ? 'PUT' : 'POST';
+            const r = await fetch(url, {
+                method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (!r.ok) {
+                const err = await r.json().catch(() => ({}));
+                setAlert(err.error || ('HTTP ' + r.status), 'error');
+                return;
+            }
+            const saved = await r.json();
+            if (saved && saved.tradingDate) {
+                setFilterDate(saved.tradingDate, false);
+            }
+            if (keepSimilar) {
+                state.editingId = null;
+                els.id.value = '';
+                els.formTitle.textContent = 'New trade config';
+                els.formMode.textContent  = 'CREATE';
+                els.formMode.className    = 'badge badge-info';
+                setAlert('Saved. Ready for the next similar config.', 'success');
+                updateContextNote('Creating for');
+            } else {
+                setAlert(state.editingId ? 'Updated.' : 'Created.', 'success');
+                closeForm();
+            }
+            await loadList();
+        } catch (e) {
+            setAlert(String(e), 'error');
+        } finally {
+            els.save.disabled = false;
+            els.saveSimilar.disabled = false;
+        }
+    }
+
+    // ---------- delete ----------
+    async function remove(id) {
+        if (!confirm('Delete trade config #' + id + '?')) return;
+        const r = await fetch('/api/trade-configs/' + id, { method: 'DELETE' });
+        if (!r.ok) {
+            const err = await r.json().catch(() => ({}));
+            alert(err.error || ('HTTP ' + r.status));
+            return;
+        }
+        await loadList();
+    }
+
+    // ---------- list / pagination ----------
+    async function loadList() {
+        const params = new URLSearchParams();
+        if (state.date) params.set('date', state.date);
+        params.set('page', String(state.page));
+        params.set('size', String(state.size));
+        const r = await fetch('/api/trade-configs?' + params.toString());
+        const data = await r.json();
+        renderList(data);
+    }
+
+    function renderList(data) {
+        const items = data.items || [];
+        els.rows.innerHTML = '';
+        items.forEach(v => {
+            const tfHtml = (v.timeframes || []).map(t =>
+                `<span class="pill-tf">${t.timePeriod}m / SMA${t.sma}${t.slope != null ? ' · sl' + t.slope : ''}</span>`
+            ).join('') || '<span style="color:var(--text-muted)">—</span>';
+            // Origin badge — without it AUTO and MANUAL rows are indistinguishable,
+            // which matters now that a generator writes into this table.
+            const isAuto = v.source === 'AUTO_DOWNTREND';
+            const srcHtml = '<span class="badge ' + (isAuto ? 'badge-auto">AUTO' : 'badge-manual">MANUAL')
+                + '</span>'
+                + (v.updatedDate
+                    ? '<div class="bd-run-meta">' + String(v.updatedDate).replace('T', ' ').slice(0, 16) + '</div>'
+                    : '');
+            const tr = document.createElement('tr');
+            tr.innerHTML =
+                '<td>' + v.id + '</td>' +
+                '<td>' + srcHtml + '</td>' +
+                '<td>' + fmtNum(v.tradingDate) + '</td>' +
+                '<td>' + fmtNum(v.instrumentName) + '</td>' +
+                '<td>' + fmtNum(v.tradingSide) + '</td>' +
+                '<td>' + fmtNum(v.transactionType) + '</td>' +
+                '<td>' + fmtNum(v.strategyId) + '</td>' +
+                '<td class="num">' + fmtNum(v.target) + '</td>' +
+                '<td class="num">' + fmtNum(v.stopLoss) + '</td>' +
+                '<td class="num">' + fmtNum(v.lotQuantity) + '</td>' +
+                '<td class="num">' + fmtNum(v.numberOfTradesPerDay) + '</td>' +
+                '<td class="num">' + fmtNum(v.numberOfParallelTrades) + '</td>' +
+                '<td class="num">' + fmtNum(v.itmDepth) + '</td>' +
+                '<td class="num">' + fmtNum(v.atmDepth) + '</td>' +
+                '<td class="num">' + fmtNum(v.otmDepth) + '</td>' +
+                '<td>' + tfHtml + '</td>' +
+                '<td><span class="row-actions">' +
+                    '<button class="icon-btn" data-edit="' + v.id + '">✎ Edit</button>' +
+                    '<button class="icon-btn" data-clone="' + v.id + '">Clone</button>' +
+                    '<button class="icon-btn danger" data-delete="' + v.id + '">🗑</button>' +
+                '</span></td>';
+            els.rows.appendChild(tr);
+        });
+        els.count.textContent = data.totalItems + ' row' + (data.totalItems === 1 ? '' : 's');
+        els.table.style.display = items.length ? '' : 'none';
+        els.empty.style.display = items.length ? 'none' : '';
+
+        const totalPages = Math.max(data.totalPages, 1);
+        els.pageInfo.textContent = 'page ' + (data.page + 1) + ' / ' + totalPages;
+        els.prev.disabled = data.page <= 0;
+        els.next.disabled = data.page + 1 >= totalPages;
+    }
+
+    // ---------- row actions (event delegation) ----------
+    els.rows.addEventListener('click', async (ev) => {
+        const editBtn = ev.target.closest('[data-edit]');
+        const cloneBtn = ev.target.closest('[data-clone]');
+        const delBtn  = ev.target.closest('[data-delete]');
+        if (editBtn) {
+            const id = editBtn.getAttribute('data-edit');
+            const r = await fetch('/api/trade-configs/' + id);
+            if (!r.ok) { alert('Load failed'); return; }
+            openEdit(await r.json());
+        } else if (cloneBtn) {
+            const id = cloneBtn.getAttribute('data-clone');
+            const r = await fetch('/api/trade-configs/' + id);
+            if (!r.ok) { alert('Load failed'); return; }
+            openClone(await r.json());
+        } else if (delBtn) {
+            await remove(delBtn.getAttribute('data-delete'));
+        }
+    });
+
+    // ---------- wire toolbar ----------
+    els.addBtn.addEventListener('click', openCreate);
+    els.cancel.addEventListener('click', closeForm);
+    els.save.addEventListener('click', () => save(false));
+    els.saveSimilar.addEventListener('click', () => save(true));
+    els.addTf.addEventListener('click', () => addTimeframeRow(null));
+    els.refresh.addEventListener('click', loadList);
+    els.prevDate.addEventListener('click', () => stepFilterDate(-1));
+    els.nextDate.addEventListener('click', () => stepFilterDate(1));
+    els.todayDate.addEventListener('click', () => setFilterDate(today(), true));
+    els.clearFilter.addEventListener('click', () => {
+        setFilterDate(null, true);
+    });
+    els.filterDate.addEventListener('change', () => {
+        setFilterDate(els.filterDate.value || null, true);
+    });
+    els.date.addEventListener('change', () => updateContextNote(state.editingId ? 'Editing date' : 'Creating for'));
+    els.pageSize.addEventListener('change', () => {
+        state.size = Number(els.pageSize.value) || 10;
+        state.page = 0;
+        persistState();
+        loadList();
+    });
+    els.prev.addEventListener('click', () => { if (state.page > 0) { state.page--; loadList(); } });
+    els.next.addEventListener('click', () => { state.page++; loadList(); });
+
+    // ---------- init ----------
+    (async function init() {
+        const storedDate = storedValue(LS_KEYS.filterDate);
+        const storedSize = Number(storedValue(LS_KEYS.pageSize));
+        state.size = Number.isFinite(storedSize) && storedSize > 0 ? storedSize : 10;
+        els.pageSize.value = String(state.size);
+        setFilterDate(storedDate || today(), false);
+        await Promise.all([loadInstruments(), loadStrategies()]);
+        await loadList();
+    })();
+})();
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Bulk delete of AUTO_DOWNTREND configs.
+
+   Kept in its own IIFE so it shares nothing with the CRUD script above beyond
+   the DOM — the only coupling is that a successful delete refreshes the table.
+   ══════════════════════════════════════════════════════════════════════════ */
+(function bulkDelete() {
+    const card     = document.getElementById('bd-card');
+    const toggle   = document.getElementById('bd-toggle');
+    const grid     = document.getElementById('bd-cal-grid');
+    const label    = document.getElementById('bd-month-label');
+    const summary  = document.getElementById('bd-summary');
+    const delBtn   = document.getElementById('bd-delete');
+    const calPane  = document.getElementById('bd-calendar-pane');
+    const runsPane = document.getElementById('bd-runs-pane');
+    const runsList = document.getElementById('bd-runs-list');
+    const modal    = document.getElementById('bd-confirm');
+    const modalBody= document.getElementById('bd-confirm-body');
+
+    const state = {
+        mode: 'TRADING_DATE',
+        month: startOfMonth(new Date()),
+        days: new Map(),      // 'yyyy-MM-dd' -> {total, ce, pe, combos}
+        selected: new Set(),  // 'yyyy-MM-dd'
+        runs: [],
+        selectedRun: null,
+        lastAnchor: null,     // for shift-click ranges
+        pending: null,        // dry-run result awaiting confirmation
+    };
+
+    function startOfMonth(d) { return new Date(d.getFullYear(), d.getMonth(), 1); }
+    function iso(d) {
+        return d.getFullYear() + '-' +
+               String(d.getMonth() + 1).padStart(2, '0') + '-' +
+               String(d.getDate()).padStart(2, '0');
+    }
+    function fmtDateTime(s) {
+        if (!s) return '';
+        return String(s).replace('T', ' ').slice(0, 19);
+    }
+
+    // ---------- data ----------
+    async function loadCalendar() {
+        const from = startOfMonth(state.month);
+        const to   = new Date(state.month.getFullYear(), state.month.getMonth() + 1, 0);
+        const res  = await fetch(`/api/trade-configs/auto/calendar?from=${iso(from)}&to=${iso(to)}`);
+        if (!res.ok) { state.days = new Map(); renderCalendar(); return; }
+        const data = await res.json();
+        state.days = new Map((data.days || []).map(d => [d.date, d]));
+        renderCalendar();
+    }
+
+    async function loadRuns() {
+        const res = await fetch('/api/trade-configs/auto/runs');
+        state.runs = res.ok ? await res.json() : [];
+        renderRuns();
+    }
+
+    // ---------- render ----------
+    function renderCalendar() {
+        const year  = state.month.getFullYear();
+        const month = state.month.getMonth();
+        label.textContent = state.month.toLocaleString(undefined, { month: 'long', year: 'numeric' });
+
+        const first = new Date(year, month, 1);
+        // JS weeks start Sunday; the grid starts Monday.
+        const lead  = (first.getDay() + 6) % 7;
+        const total = new Date(year, month + 1, 0).getDate();
+
+        const cells = [];
+        for (let i = 0; i < lead; i++) cells.push('<div class="bd-day empty"></div>');
+
+        for (let day = 1; day <= total; day++) {
+            const key  = iso(new Date(year, month, day));
+            const info = state.days.get(key);
+            const sel  = state.selected.has(key);
+            const cls  = ['bd-day', info ? 'has' : 'none', sel ? 'sel' : ''].join(' ').trim();
+
+            let inner = `<span class="bd-day-num">${day}</span>`;
+            if (info) {
+                const dots =
+                    (info.ce > 0 ? '<span class="bd-dot bd-dot-ce"></span>' : '') +
+                    (info.pe > 0 ? '<span class="bd-dot bd-dot-pe"></span>' : '');
+                inner += `<span class="bd-day-count">${info.total}</span>`
+                       + `<span class="bd-day-dots">${dots}</span>`;
+            }
+            cells.push(`<div class="${cls}" data-date="${key}" ${info ? '' : 'aria-disabled="true"'}>${inner}</div>`);
+        }
+        grid.innerHTML = cells.join('');
+        renderSummary();
+    }
+
+    function renderRuns() {
+        if (!state.runs.length) {
+            runsList.innerHTML = '<div class="empty-state">No generation runs recorded yet.</div>';
+            return;
+        }
+        runsList.innerHTML = state.runs.map((r, i) => {
+            const dates = (r.tradingDates || []);
+            const span  = dates.length
+                ? `${dates[0]} → ${dates[dates.length - 1]}`
+                : '—';
+            const sel = state.selectedRun === i ? ' sel' : '';
+            return `<div class="bd-run${sel}" data-run="${i}">
+                        <input type="radio" name="bd-run" ${sel ? 'checked' : ''} />
+                        <span><b>${fmtDateTime(r.ranAt)}</b></span>
+                        <span class="bd-run-meta">${r.configs} config(s) · ${span}</span>
+                    </div>`;
+        }).join('');
+    }
+
+    function renderSummary() {
+        if (state.mode === 'TRADING_DATE') {
+            if (!state.selected.size) {
+                summary.textContent = 'Nothing selected.';
+                delBtn.disabled = true;
+                return;
+            }
+            let configs = 0, combos = 0;
+            const parts = [];
+            [...state.selected].sort().forEach(k => {
+                const info = state.days.get(k);
+                if (!info) return;
+                configs += info.total;
+                combos  += info.combos;
+                parts.push(`${k} (${info.total})`);
+            });
+            summary.innerHTML =
+                `<b>${state.selected.size} date(s) · ${configs} config(s) · ${combos} timeframe row(s)</b>`
+                + `<div class="bd-run-meta" style="margin-top:6px;">${parts.join('   ')}</div>`;
+            delBtn.disabled = configs === 0;
+        } else {
+            const run = state.runs[state.selectedRun];
+            if (!run) {
+                summary.textContent = 'No run selected.';
+                delBtn.disabled = true;
+                return;
+            }
+            summary.innerHTML =
+                `<b>Run at ${fmtDateTime(run.ranAt)} · ${run.configs} config(s)</b>`
+                + `<div class="bd-run-meta" style="margin-top:6px;">`
+                + `trading dates: ${(run.tradingDates || []).join(', ') || '—'}</div>`;
+            delBtn.disabled = run.configs === 0;
+        }
+    }
+
+    // ---------- selection ----------
+    grid.addEventListener('click', (e) => {
+        const cell = e.target.closest('.bd-day');
+        if (!cell || !cell.classList.contains('has')) return;
+        const key = cell.dataset.date;
+
+        if (e.shiftKey && state.lastAnchor) {
+            // Range select across populated days only.
+            const keys = [...state.days.keys()].sort();
+            const a = keys.indexOf(state.lastAnchor);
+            const b = keys.indexOf(key);
+            if (a !== -1 && b !== -1) {
+                keys.slice(Math.min(a, b), Math.max(a, b) + 1)
+                    .forEach(k => state.selected.add(k));
+            }
+        } else {
+            state.selected.has(key) ? state.selected.delete(key) : state.selected.add(key);
+            state.lastAnchor = key;
+        }
+        renderCalendar();
+    });
+
+    runsList.addEventListener('click', (e) => {
+        const row = e.target.closest('.bd-run');
+        if (!row) return;
+        state.selectedRun = Number(row.dataset.run);
+        renderRuns();
+        renderSummary();
+    });
+
+    document.getElementById('bd-select-month').addEventListener('click', () => {
+        const prefix = `${state.month.getFullYear()}-${String(state.month.getMonth() + 1).padStart(2, '0')}`;
+        [...state.days.keys()].filter(k => k.startsWith(prefix)).forEach(k => state.selected.add(k));
+        renderCalendar();
+    });
+
+    document.getElementById('bd-clear').addEventListener('click', () => {
+        state.selected.clear();
+        state.selectedRun = null;
+        state.lastAnchor = null;
+        renderCalendar();
+        renderRuns();
+        renderSummary();
+    });
+
+    document.getElementById('bd-prev-month').addEventListener('click', () => {
+        state.month = new Date(state.month.getFullYear(), state.month.getMonth() - 1, 1);
+        loadCalendar();
+    });
+    document.getElementById('bd-next-month').addEventListener('click', () => {
+        state.month = new Date(state.month.getFullYear(), state.month.getMonth() + 1, 1);
+        loadCalendar();
+    });
+
+    document.querySelectorAll('input[name="bd-mode"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            state.mode = e.target.value;
+            const byDate = state.mode === 'TRADING_DATE';
+            calPane.style.display  = byDate ? '' : 'none';
+            runsPane.style.display = byDate ? 'none' : '';
+            if (!byDate && !state.runs.length) loadRuns();
+            renderSummary();
+        });
+    });
+
+    toggle.addEventListener('click', () => {
+        const opening = card.classList.contains('bd-collapsed');
+        card.classList.toggle('bd-collapsed');
+        card.classList.toggle('bd-card-open');
+        if (opening && !state.days.size) loadCalendar();
+    });
+
+    // ---------- delete ----------
+    function buildRequest(dryRun) {
+        if (state.mode === 'TRADING_DATE') {
+            return { mode: 'TRADING_DATE', dates: [...state.selected].sort(), dryRun };
+        }
+        const run = state.runs[state.selectedRun];
+        return {
+            mode: 'UPDATED_RANGE',
+            updatedFrom: run.updatedFrom,
+            updatedTo: run.updatedTo,
+            dryRun
+        };
+    }
+
+    async function post(body) {
+        const res = await fetch('/api/trade-configs/auto/delete', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+        return { ok: res.ok, data: await res.json() };
+    }
+
+    // Always preview first: the number shown in the dialog is the server's, not
+    // one derived from cached calendar counts that may be stale.
+    delBtn.addEventListener('click', async () => {
+        delBtn.disabled = true;
+        const { ok, data } = await post(buildRequest(true));
+        delBtn.disabled = false;
+        if (!ok) { alert(data.error || 'Preview failed'); return; }
+
+        state.pending = buildRequest(false);
+        const dates = Object.entries(data.byDate || {})
+            .map(([d, n]) => `${d} (${n})`).join('   ') || '—';
+
+        let html = `<p>${data.message}</p>`
+                 + `<p class="bd-run-meta">${dates}</p>`;
+        if (data.skippedWithTrades > 0) {
+            html += `<p class="bd-warn">⚠ ${data.skippedWithTrades} config(s) will be kept `
+                  + `because trade_order rows reference them — deleting those would break `
+                  + `the audit trail.</p>`;
+        }
+        html += `<p><b>This cannot be undone.</b></p>`;
+        modalBody.innerHTML = html;
+        modal.style.display = 'flex';
+    });
+
+    document.getElementById('bd-confirm-cancel').addEventListener('click', () => {
+        modal.style.display = 'none';
+        state.pending = null;
+    });
+
+    document.getElementById('bd-confirm-ok').addEventListener('click', async () => {
+        if (!state.pending) return;
+        const { ok, data } = await post(state.pending);
+        modal.style.display = 'none';
+        state.pending = null;
+        if (!ok) { alert(data.error || 'Delete failed'); return; }
+
+        state.selected.clear();
+        state.selectedRun = null;
+        await loadCalendar();
+        await loadRuns();
+        renderSummary();
+
+        // Refresh the table below so it cannot show rows that no longer exist.
+        document.getElementById('tc-refresh')?.click();
+        alert(data.message);
+    });
+})();
+</script>
+</body>
+</html>

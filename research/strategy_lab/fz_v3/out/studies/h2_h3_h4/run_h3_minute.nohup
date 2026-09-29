@@ -14,3 +14,4 @@ h3_volume start Tue Sep 29 04:06:39 2026 ledger sha f2c2f7154dd30e85
   build cross-check hv2/hv3 (N=20): {'hv2_20': True, 'hv3_20': True}
     cell 1/54 {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} kept 4190 diff -104.92 pct 27.4 p 0.7431
     cell 21/54 {"M": 5, "N": 20, "gate": "take_only_agree", "v": 3} kept 1066 diff 17.47 pct 97.0 p 0.9235
+    cell 41/54 {"M": 15, "N": 20, "gate": "skip_if_none", "v": 4} kept 1475 diff -108.52 pct 91.2 p 0.5222

@@ -20,7 +20,9 @@ refit without that feature and both versions are reported; a rule that uses a ti
 """
 import os, sys, json, time
 sys.dont_write_bytecode = True
+os.environ.setdefault("OMP_NUM_THREADS", "1")                          # one thread per fit (OpenMP spin-waits under a loaded box); the permutations run in 4 processes
 import numpy as np, pandas as pd
+from joblib import Parallel, delayed
 from scipy import stats as sst
 from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.metrics import roc_auc_score
@@ -53,6 +55,10 @@ def oof_auc(T, X, y, rng=None):
     return float(roc_auc_score(yy[is_idx], oof[is_idx])), oof
 
 
+def _perm_auc(T, X, y, seed):
+    return oof_auc(T, X, y, np.random.default_rng(seed))[0]
+
+
 def run_tf(tf, fh):
     T = H.load(tf)
     Xdf, src = H.design(T)
@@ -75,7 +81,8 @@ def run_tf(tf, fh):
         X = Xdf[cols].to_numpy(dtype=float)
         t0 = time.time(); auc, oof = oof_auc(T, X, y)
         rng = np.random.default_rng(int(H._sha(f"drift|{tf}|{name}"), 16) % (2 ** 32))
-        perm = [oof_auc(T, X, y, rng)[0] for _ in range(N_PERM)]
+        seeds = [int(s) for s in rng.integers(0, 2 ** 32 - 1, size=N_PERM)]          # one seed per permutation: reproducible in parallel
+        perm = Parallel(n_jobs=4)(delayed(_perm_auc)(T, X, y, s) for s in seeds)
         out["variants"][name] = dict(columns=len(cols), auc_oof=round(auc, 4), perm_auc_p50=round(float(np.median(perm)), 4), perm_auc_p95=round(float(np.quantile(perm, 0.95)), 4),
                                      perm_auc_max=round(float(np.max(perm)), 4), n_perm=N_PERM, seconds=round(time.time() - t0, 1))
         log(f"{tf} {name}: OOF AUC {auc:.4f} (permuted p50 {np.median(perm):.4f}, p95 {np.quantile(perm, 0.95):.4f}) in {time.time() - t0:.0f}s", fh)

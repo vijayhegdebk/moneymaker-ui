@@ -46,10 +46,11 @@ block sign test, CPCV 5th percentile, PBO, DSR, SPA, bootstrap CI (`harness.go_n
   unpicked commit restored (append-only union, ids unique; commit 9b82a7e), and a mirror loop copied every orphaned log back from
   `/proc/<pid>/fd` until the processes exited (scratchpad `mirror_logs.sh`), so the logs on disk are complete. 43 commits since
   the base, all signed.
-- **GitHub.** Pushes are refused for kiran6154/money-maker and for the user's own repositories alike ("Claude doesn't have GitHub
-  access ... for your organization"); the API refuses `create_repository` (403). The user must install the Claude GitHub App on
-  the account that will hold the repository, then (for a new home) create an empty private `vijayhegdebk/money-maker`; then
-  `add_repo` + push + draft PR from here.
+- **GitHub.** kiran6154/money-maker still refuses pushes (the Claude GitHub App is not installed there) and the API refuses
+  `create_repository`. After the user installed the app on their own account and named the target (17:15 IST), both branches were
+  pushed with full history to **vijayhegdebk/moneymaker-ui** (remote `mirror`; `research/strategy-lab` at 0acda42 = the peers'
+  latest, `research/strategy-lab-pwxiug` after merging that base in, merge commit f9f52d9) and the draft PR opened:
+  https://github.com/vijayhegdebk/moneymaker-ui/pull/1 (base `research/strategy-lab`). Every later checkpoint is pushed there.
 
 ## Next (in order)
 1. When `features_shortlist/minute/shortlist.json`, `features_shortlist/5minute/shortlist.json` and `studies/importance/FINDINGS.md`

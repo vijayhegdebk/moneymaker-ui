@@ -1,0 +1,10 @@
+                                                          policy  mean_per_lot  diff_vs_foundation  random_pct  regret_vs_oracle_free  signflip_blocks_p1      boot_diff_ci90
+0                 Foundation L1 exit (stop / next CHoCH / 15:25)      -1009.61                0.00        97.0                3569.61                 NaN                 NaN
+1  ST9 R-ladder (3 lots, stop 50, 1R/2R, trail 3R lag 1) per lot      -1010.71               -1.10        97.0                3570.71              0.3286      [-66.95, 63.6]
+2                                         C nested-CV pick (OOF)       -923.04               86.57       100.0                3483.03              0.0149      [22.1, 151.74]
+3                                     C in-sample best (a trial)       -904.77              104.84       100.0                3464.77              0.0125     [36.72, 172.77]
+4                                    B hindsight imitation (OOF)       -908.80              100.80       100.0                3468.80              0.0129     [32.95, 167.98]
+5                               A FQI pessimistic ensemble (OOF)       -972.05               37.56        99.8                3532.05              0.2034     [-26.69, 99.52]
+6       hindsight oracle, best close exit, no stop (upper bound)       2560.00             3569.61       100.0                   0.00              0.0002  [3289.45, 3881.03]
+7             hindsight oracle on the Foundation-stop trajectory       1357.95             2367.55       100.0                1202.05              0.0002  [2186.03, 2544.05]
+8                       random exit (2,000 draws): mean of means      -1078.86              -69.25        50.0                3638.86                 NaN                 NaN

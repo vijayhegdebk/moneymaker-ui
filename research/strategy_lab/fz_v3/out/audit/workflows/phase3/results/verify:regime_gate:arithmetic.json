@@ -1,0 +1,9 @@
+{
+ "agentId": "a306eb006a5e69b37",
+ "label": "verify:regime_gate:arithmetic",
+ "phase": "Verify",
+ "result": null,
+ "key": "v2:03430ae10c646ecc5b7f2ba4082ba2331b91492913b9e0a7e354ea9b99e73768",
+ "transcript": "audit/workflows/phase3/agent-a306eb006a5e69b37.jsonl",
+ "meta": "audit/workflows/phase3/agent-a306eb006a5e69b37.meta.json"
+}

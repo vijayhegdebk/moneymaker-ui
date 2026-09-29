@@ -1,0 +1,9 @@
+{
+ "agentId": "a51df8ad85732a7a3",
+ "label": "verify:regime_gate:leakage",
+ "phase": "Verify",
+ "result": null,
+ "key": "v2:5071dd15bcec8fad05e324606a46516b5fa4edf2a4dd5d351051ce5763c9f261",
+ "transcript": "audit/workflows/phase3/agent-a51df8ad85732a7a3.jsonl",
+ "meta": "audit/workflows/phase3/agent-a51df8ad85732a7a3.meta.json"
+}

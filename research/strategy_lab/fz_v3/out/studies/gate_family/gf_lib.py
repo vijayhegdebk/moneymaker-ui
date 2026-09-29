@@ -105,6 +105,21 @@ import harness as H          # noqa: E402
 import imp_lib               # noqa: E402  the importance study's feature assembly (the same 276 / 238 matrix)
 import tapes                 # noqa: E402  the rule grammar evaluator and the null tapes
 
+# sklearn 1.9's HistGradientBoosting bins every feature with _weighted_percentile when sample_weight is given (254 sorted percentile
+# calls per feature): a fixed ~25 s per fit on this box (measured: 1.8 s without weights, 27 s with, 22 s at 20 iterations) that only
+# moves the bin EDGES; the weights still enter the loss (gradients / hessians) exactly as designed. The bin mapper below bins with the
+# unweighted quantiles (sklearn's behaviour before 1.7). Stated in FINDINGS; every HGB fit of this study uses it.
+from sklearn.ensemble._hist_gradient_boosting import gradient_boosting as _skl_gb   # noqa: E402
+from sklearn.ensemble._hist_gradient_boosting.binning import _BinMapper as _SklBinMapper   # noqa: E402
+
+
+class _UnweightedBinMapper(_SklBinMapper):
+    def fit(self, X, y=None, sample_weight=None): return super().fit(X, y, None)
+
+
+_skl_gb._BinMapper = _UnweightedBinMapper
+HGB_BINNING_NOTE = "bin thresholds = unweighted quantiles (sklearn < 1.7 behaviour); sample weights enter the loss only"
+
 RES = os.path.join(HERE, "results")
 STUDY = "gate_family"
 TAU_GRID = [round(x, 2) for x in np.arange(0.10, 0.401, 0.05)]
@@ -113,7 +128,11 @@ WREC_MIN = 0.90
 MIN_LEAF = {"minute": 100, "5minute": 40}
 N_Q, INNER_K = 30, 4
 SC_BINS, SC_MAX, SC_SCALE = 5, {"minute": 12, "5minute": 6}, 20
-SC_C_PATH = [4.0, 2.0, 1.0, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625, 0.0078125, 0.0039, 0.002, 0.001]
+SC_C_PATH = [round(4.0 / 1.4 ** k, 6) for k in range(30)]       # 4.0 .. 0.00016, factor 1.4: the largest C with <= SC_MAX source features is kept
+SC_SEARCH = os.environ.get("GF_SC_SEARCH", "bisect")             # how that C is found: "linear" (walk the grid from the top; the first 5minute runs) or
+                                                                   # "bisect" (bisection over the grid index; the same target when n_src is monotone in C);
+                                                                   # the scorecard's ledger rows carry c_search so the two procedures are distinct trials
+KEPT_FLOOR = 0.20                                                  # DM-1 selection floor for the policy learners: kept share >= 20% of the training rows
 H5_STOP_GAIN, MAX_RULES, MAX_DEPTH = 200.0, 8, 3
 N_TREES, BAG_DEPTH_MAIN, BAG_DEPTHS_SENS, BAG_MIN_LEAF_FRAC = 300, 4, (3, 5), 0.05
 HGB = dict(max_depth=3, max_iter=200, learning_rate=0.05, l2_regularization=1.0, early_stopping=False, random_state=0)
@@ -310,7 +329,7 @@ class CondBank:
                 conds += [(j, "<=", 0.5), (j, ">", 0.5)]
                 with np.errstate(invalid="ignore"): mats += [(x <= 0.5) & np.isfinite(x), (x > 0.5) & np.isfinite(x)]
                 continue
-            thr = np.unique(np.quantile(xf, np.linspace(0, 1, n_q + 2)[1:-1]))
+            thr = np.unique(np.round(np.quantile(xf, np.linspace(0, 1, n_q + 2)[1:-1]), 6))   # rounded exactly as the rule JSON carries it
             thr = [float(t) for t in thr if (xf <= t).any() and (xf > t).any()]
             for t in thr:
                 with np.errstate(invalid="ignore"):
@@ -347,32 +366,41 @@ def rules_keep(Fx, rules, tf):
     return ~fires if mode == "skip" else fires
 
 
-def greedy_rules(bank, rows, v, mode, min_support, max_rules=MAX_RULES, max_depth=MAX_DEPTH, stop_gain=None):
+def matvec(B, vec, chunk=2048):
+    """B (rows x conditions, uint8) transposed times vec, in float32 chunks of conditions (no full float copy of B)."""
+    out = np.empty(B.shape[1], dtype=np.float64); v = np.asarray(vec, dtype=np.float32)
+    for c0 in range(0, B.shape[1], chunk):
+        out[c0:c0 + chunk] = B[:, c0:c0 + chunk].T.astype(np.float32) @ v
+    return out
+
+
+def greedy_rules(bank, rows, v, mode, min_support, max_rules=MAX_RULES, max_depth=MAX_DEPTH, stop_gain=None, kept_floor=None):
     """Greedy conjunctive rule list over the bank's conditions on `rows`.
     mode 'fidelity': v = +1 (target skip) / -1 (target take) [weights allowed]; gain = covered sum of v; stop when gain <= 0.
     mode 'expectancy': v = winsorised net; gain = kept mean after skipping the covered rows minus the kept mean before; stop when
-    gain < stop_gain (H5: 200 INR/trade) or a leaf floor would be broken (covered >= min_support, remaining kept >= min_support)."""
-    B = bank.B[rows].astype(np.float32); n, m = B.shape
+    gain < stop_gain (H5: 200 INR/trade) or a floor would be broken (covered >= min_support; remaining kept >= max(min_support,
+    kept_floor x n): the DM-1 selection floor 'kept share >= 20%', so the search cannot win by skipping nearly everything)."""
+    B = bank.B[rows]; n, m = B.shape
     alive = np.ones(n, dtype=bool); rules, trace = [], []
     vv = np.asarray(v, dtype=np.float32)
+    floor_n = max(min_support, int(math.ceil(kept_floor * n))) if kept_floor else min_support
     for r in range(max_rules):
         S_rem, N_rem = float(vv[alive].sum()), int(alive.sum())
         def gains(mask):
-            cov_sum = B.T @ (vv * mask); cov_n = B.T @ mask.astype(np.float32)
+            cov_sum = matvec(B, vv * mask); cov_n = matvec(B, mask.astype(np.float32))
             if mode == "fidelity":
                 g = cov_sum.copy(); ok = cov_n >= min_support
             else:
                 rem_n = N_rem - cov_n
                 with np.errstate(all="ignore"):
                     g = (S_rem - cov_sum) / np.maximum(rem_n, 1) - S_rem / max(N_rem, 1)
-                ok = (cov_n >= min_support) & (rem_n >= min_support)
+                ok = (cov_n >= min_support) & (rem_n >= floor_n)
             g = np.where(ok, g, -np.inf); return g, cov_sum, cov_n
         g, cs, cn = gains(alive)
         if not np.isfinite(g).any(): break
         c1 = int(np.argmax(g)); best_g = float(g[c1]); conds = [c1]; mask = alive & (B[:, c1] > 0)
         for _ in range(max_depth - 1):
-            g2, _, _ = gains(mask)
-            g2[bank.feature_of == bank.feature_of[c1]] = g2[bank.feature_of == bank.feature_of[c1]]  # same-feature ranges allowed
+            g2, _, _ = gains(mask)                          # same-feature ranges (a <= x <= b) are allowed; the same or the complementary condition is not
             for c in conds: g2[c] = -np.inf; g2[bank.complement[c]] = -np.inf
             if not np.isfinite(g2).any(): break
             c2 = int(np.argmax(g2))
@@ -391,8 +419,9 @@ def greedy_rules(bank, rows, v, mode, min_support, max_rules=MAX_RULES, max_dept
 def policy_tree(bank, rows, r, depth, min_leaf):
     """Greedy (depth 1 = exact) value-maximising tree over the bank's `<=` / `>` condition pairs. Returns the skip rules (condition
     index lists) and the tree value on `rows`. Rows falling out of both children (NaN) are taken by default."""
-    B = bank.B[rows].astype(np.float32); rr = np.asarray(r, dtype=np.float32)
+    B = bank.B[rows]; rr = np.asarray(r, dtype=np.float32)
     left_idx = np.array([i for i in range(len(bank.conds)) if i % 2 == 0], dtype=int)   # the `<=` / `!=` half; complement = i + 1
+    Bl, Br = np.ascontiguousarray(B[:, left_idx]), np.ascontiguousarray(B[:, left_idx + 1])
     skip_rules, nodes = [], []
 
     def grow(mask, path, d):
@@ -402,8 +431,8 @@ def policy_tree(bank, rows, r, depth, min_leaf):
             if S <= 0 and n > 0: skip_rules.append(list(path))
             nodes.append(dict(path=[bank.cond_json(i) for i in path], n=n, sum=round(S, 1), take=S > 0)); return leaf_val
         m = mask.astype(np.float32)
-        cs_l = B[:, left_idx].T @ (rr * m); cn_l = B[:, left_idx].T @ m
-        cs_r = B[:, left_idx + 1].T @ (rr * m); cn_r = B[:, left_idx + 1].T @ m
+        cs_l = matvec(Bl, rr * m); cn_l = matvec(Bl, m)
+        cs_r = matvec(Br, rr * m); cn_r = matvec(Br, m)
         drop = S - cs_l - cs_r                                          # NaN rows: taken by default
         val = np.maximum(0, cs_l) + np.maximum(0, cs_r) + drop
         ok = (cn_l >= min_leaf) & (cn_r >= min_leaf)
@@ -420,14 +449,31 @@ def policy_tree(bank, rows, r, depth, min_leaf):
     return skip_rules, value, nodes
 
 
-def tree_to_rules(tree, cols, info, bank_like_round=6):
-    """Skip rules (leaves predicting class 0 = skip) of a fitted sklearn DecisionTreeClassifier, in the grammar; rules with an
-    inexpressible condition (missing indicator / =nan level) are dropped and counted."""
+def apply_kept_floor(nodes, n_rows, kept_floor):
+    """DM-1 selection floor for the policy tree: maximise value subject to kept share >= kept_floor. Among the leaves, every
+    positive-sum leaf is taken; if that keeps fewer than the floor, skip leaves are switched to take in decreasing order of mean
+    net until the floor is met (the constrained optimum for a fixed partition). Returns (skip paths, n_kept, flipped leaves)."""
+    need = int(math.ceil(kept_floor * n_rows))
+    take = [nd for nd in nodes if nd["take"]]; skip = [nd for nd in nodes if not nd["take"] and nd["n"] > 0]
+    kept = sum(nd["n"] for nd in take); flipped = []
+    skip.sort(key=lambda nd: -(nd["sum"] / max(nd["n"], 1)))
+    while kept < need and skip:
+        nd = skip.pop(0); nd["take"] = True; nd["flipped_for_floor"] = True; kept += nd["n"]; flipped.append(nd["path"])
+    return [nd["path"] for nd in skip], kept, flipped
+
+
+def tree_to_rules(tree, cols, info, bank_like_round=6, tau=0.5):
+    """Skip rules (leaves whose class-1 share < tau; 0.5 = the majority vote) of a fitted sklearn DecisionTreeClassifier, in the
+    grammar; rules with an inexpressible condition (missing indicator / =nan level) are dropped and counted."""
     t = tree.tree_; rules, dropped = [], 0
+    classes = [bool(c) for c in tree.classes_]
+    if len(classes) == 1: return [], 0                      # a constant target: nothing to skip (True) or no expressible rule (False)
+    i1 = classes.index(True)
     def walk(node, path):
         nonlocal dropped
         if t.children_left[node] == -1:
-            if np.argmax(t.value[node][0]) == 0 and len(path):
+            v = t.value[node][0]; p1 = v[i1] / v.sum() if v.sum() > 0 else 0.0
+            if p1 < tau and len(path):
                 cj = []
                 for j, op, thr in path:
                     inf = info[cols[j]]
@@ -502,6 +548,7 @@ class ScorecardLearner(Learner):
     def _bins(self, X, cols, info, fit_rows):
         self.edges, self.binary = {}, {}
         for j, c in enumerate(cols):
+            if info[c]["kind"] == "na": continue                  # a missing indicator / `=nan` level is not expressible in a shipped scorecard
             x = X[fit_rows, j]; x = x[~np.isnan(x)]
             if len(x) == 0: continue
             u = np.unique(x)
@@ -522,15 +569,42 @@ class ScorecardLearner(Learner):
         Z, names = self._design(X)
         self.names = names
         feats_of = np.array([n[0] for n in names])
-        chosen = None
-        for C in SC_C_PATH:
+        def fit_c(C):
             with warnings.catch_warnings():
                 warnings.simplefilter("ignore")
                 m = LogisticRegression(penalty="l1", C=C, solver="liblinear", max_iter=300, random_state=0).fit(Z, y, sample_weight=w)
-            nz = np.abs(m.coef_[0]) > 1e-9
-            n_src = len(set(feats_of[nz].tolist()))
-            chosen = (C, m, n_src)
-            if n_src <= self.max_feats: break
+            return m, len(set(feats_of[np.abs(m.coef_[0]) > 1e-9].tolist()))
+        fixed_C = ctx.get("fixed_C")
+        if fixed_C is not None:                              # an inner fold: refit at the outer training fold's C (the sparsity target was met there)
+            m, n_src = fit_c(fixed_C); chosen, prev = (fixed_C, m, n_src), None
+        elif SC_SEARCH == "linear":                          # the first runs (5minute, both sub-families): walk the grid from the top
+            chosen, prev = None, None
+            for C in SC_C_PATH:
+                m, n_src = fit_c(C); chosen = (C, m, n_src)
+                if n_src <= self.max_feats: break
+                prev = (C, m, n_src)
+        else:                                                # bisection over the same grid for the largest C with n_src <= max (n_src monotone in C assumed)
+            cache = {}
+            def n_at(k):
+                if k not in cache: cache[k] = fit_c(SC_C_PATH[k])
+                return cache[k][1]
+            lo_k, hi_k = 0, len(SC_C_PATH) - 1                # invariant: n_at(hi_k) <= max (or hi_k is the last grid point)
+            if n_at(lo_k) <= self.max_feats: k_star = lo_k
+            else:
+                while hi_k - lo_k > 1:
+                    mid = (lo_k + hi_k) // 2
+                    if n_at(mid) <= self.max_feats: hi_k = mid
+                    else: lo_k = mid
+                k_star = hi_k
+            m, n_src = cache[k_star]; chosen = (SC_C_PATH[k_star], m, n_src)
+            prev = (SC_C_PATH[k_star - 1], cache[k_star - 1][0], cache[k_star - 1][1]) if k_star > 0 and (k_star - 1) in cache else None
+        if chosen[2] == 0 and prev is not None:            # the path jumped from > max to 0: bisect (log scale) for 1 <= n <= max
+            lo, hi = chosen[0], prev[0]
+            for _ in range(10):
+                mid = math.sqrt(lo * hi); m, n_src = fit_c(mid)
+                if 1 <= n_src <= self.max_feats: chosen = (mid, m, n_src); lo = mid
+                elif n_src > self.max_feats: hi = mid
+                else: lo = mid
         self.C, self.m, self.n_src = chosen
         coef = self.m.coef_[0]; mx = np.abs(coef).max()
         self.points = np.round(coef * SC_SCALE / mx).astype(int) if mx > 0 else np.zeros(len(coef), dtype=int)
@@ -595,9 +669,12 @@ class PolicyLearner(Learner):
         lo, hi = np.quantile(r, [0.01, 0.99]); rw = np.clip(r, lo, hi)
         if self.form == "ptree":
             conds, value, nodes = policy_tree(bank, rows, rw, self.depth, self.min_leaf)
-            self.rules = rules_json(conds, bank); self.value, self.nodes = value, nodes; self.trace = None
+            skip_paths, n_kept, flipped = apply_kept_floor(nodes, len(rows), KEPT_FLOOR)
+            self.rules = [{"if": p, "then": "skip"} for p in skip_paths if p]           # an empty path = the root as a skip leaf: not a rule
+            if any(not p for p in skip_paths): self.rules = []                             # a root-level skip cannot meet the floor: take all
+            self.value, self.nodes, self.trace = value, nodes, dict(kept_after_floor=n_kept, flipped_for_floor=flipped)
         else:
-            conds, trace = greedy_rules(bank, rows, rw, "expectancy", self.min_leaf, stop_gain=H5_STOP_GAIN)
+            conds, trace = greedy_rules(bank, rows, rw, "expectancy", self.min_leaf, stop_gain=H5_STOP_GAIN, kept_floor=KEPT_FLOOR)
             self.rules = rules_json(conds, bank); self.trace = trace; self.value = None; self.nodes = None
         return self
     def decide(self, Fx, tf): return rules_keep(Fx, self.rules, tf)
@@ -623,11 +700,12 @@ def fit_split(name, make, T, X, Fx, cols, info, tr, te, tf, ctx, decay=False):
         L.fit(Xn[tr], y[tr], w_tr, net[tr], lctx); inner = L.oob
     else:
         inner = np.full(len(tr), np.nan); pos = {i: k for k, i in enumerate(tr)}
+        L.fit(Xn[tr], y[tr], w_tr, net[tr], lctx)
+        ictx = dict(lctx, fixed_C=L.C) if (L.kind == "score" and SC_SEARCH == "bisect") else lctx   # bisect runs: inner folds at the outer fold's C
         for tr_i, te_i in inner_groups(T, tr):
             w_i, _ = make_weights(net[tr_i], y[tr_i], decay_weights(T.setup_i[tr_i]) if decay else None)
-            Li = make().fit(Xn[tr_i], y[tr_i], w_i, net[tr_i], lctx)
+            Li = make().fit(Xn[tr_i], y[tr_i], w_i, net[tr_i], ictx)
             inner[[pos[i] for i in te_i]] = Li.score(Xn[te_i])
-        L.fit(Xn[tr], y[tr], w_tr, net[tr], lctx)
         if np.isnan(inner).any(): inner = np.where(np.isnan(inner), np.nanmean(inner), inner)
     s_te = L.score(Xn[te]); s_tr = L.score(Xn[tr])
     if L.kind == "score":

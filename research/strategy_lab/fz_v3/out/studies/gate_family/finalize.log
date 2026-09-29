@@ -1,0 +1,5 @@
+[13:16:14 +    0.0s rss  204.9 MB] === minute
+[13:16:16 +    1.8s rss  229.6 MB] minute family: 47 rows (40 L1), PBO(diff) 0.2353, SPA p 0.8545 (unstud 0.5), eff trials 1.64, 1.6s
+[13:16:16 +    1.9s rss  219.6 MB] === 5minute
+[13:16:18 +    3.7s rss  236.0 MB] 5minute family: 106 rows (98 L1), PBO(diff) 0.606, SPA p 0.4535 (unstud 0.666), eff trials 1.06, 1.7s
+[13:16:18 +    4.1s rss  239.0 MB] FINDINGS.md and findings.json written; null_result=True; candidates=[]

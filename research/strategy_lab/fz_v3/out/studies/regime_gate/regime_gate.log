@@ -1,0 +1,126 @@
+[13:10:51 +    0.2s] 5minute L1: 1002 units, IS 826; posteriors loaded for ['hmm3', 'hmm4', 'gmm4', 'jump4', 'jump3'] (IS rows only)
+[13:10:51 +    0.2s] cluster question: n_shortlisted 0; states in the n_choch cluster ['gmm3_p0', 'gmm4_p1', 'hmm3_map_run', 'hmm3_p0', 'hmm4_map_run', 'hmm4_p2', 'jump4_state']; elsewhere {'gmm3_p1': 5, 'gmm3_p2': 0, 'gmm3_map': 0, 'gmm4_p0': 5, 'gmm4_p2': 5, 'gmm4_p3': 0, 'gmm4_map': 0, 'hmm3_p1': 5, 'hmm3_p2': 0, 'hmm3_map': 0, 'hmm4_p0': 5, 'hmm4_p1': 5, 'hmm4_p3': 5, 'hmm4_map': 0, 'jump3_state': 25, 'jump3_run': 25, 'jump4_run': 0}
+[13:10:51 +    0.2s] state tables done
+[13:10:52 +    1.7s]   grid hmm3 tau 0.5 chop 0: kept 431 (0.5218) diff 231.85 ctrl 6.5 id 37bac8efaad7a903
+[13:10:54 +    3.2s]   grid hmm3 tau 0.6 chop 0: kept 445 (0.5387) diff 240.75 ctrl 13.4 id e6d6b2f868d15341
+[13:10:55 +    5.0s]   grid hmm3 tau 0.7 chop 0: kept 452 (0.5472) diff 262.27 ctrl 12.7 id 78d1b8d699d3f11b
+[13:10:57 +    6.9s]   grid hmm3 tau 0.8 chop 0: kept 460 (0.5569) diff 254.44 ctrl 11.4 id dfcebb737e83c4c9
+[13:10:59 +    8.7s]   grid hmm3 tau 0.9 chop 0: kept 476 (0.5763) diff 173.33 ctrl 7.1 id 7b81cc446973d21d
+[13:11:01 +   11.0s]   grid hmm4 tau 0.5 chop 1: kept 790 (0.9564) diff 235.04 ctrl 44.4 id d0233944f31dba83
+[13:11:03 +   13.1s]   grid hmm4 tau 0.6 chop 1: kept 795 (0.9625) diff 326.82 ctrl 57.0 id df871eff3b636a9c
+[13:11:06 +   15.1s]   grid hmm4 tau 0.7 chop 1: kept 796 (0.9637) diff 344.02 ctrl 53.4 id 5fdb6e5327a4311d
+[13:11:08 +   17.5s]   grid hmm4 tau 0.8 chop 1: kept 797 (0.9649) diff 520.65 ctrl 63.3 id be15bfb43744b2a9
+[13:11:10 +   19.7s]   grid hmm4 tau 0.9 chop 1: kept 804 (0.9734) diff 1128.16 ctrl 77.5 id 3428d4310a05f59b
+[13:11:12 +   21.4s]   grid gmm4 tau 0.5 chop 1: kept 428 (0.5182) diff 484.42 ctrl 1.6 id 8983638faf6671d2
+[13:11:14 +   23.3s]   grid gmm4 tau 0.6 chop 1: kept 443 (0.5363) diff 337.29 ctrl 1.1 id 8c01b08a82717fd2
+[13:11:15 +   24.8s]   grid gmm4 tau 0.7 chop 1: kept 461 (0.5581) diff 302.67 ctrl 0.5 id e23aefb0f61d708b
+[13:11:17 +   26.7s]   grid gmm4 tau 0.8 chop 1: kept 490 (0.5932) diff 268.38 ctrl 1.2 id ce38ee11d026461b
+[13:11:19 +   28.4s]   grid gmm4 tau 0.9 chop 1: kept 524 (0.6344) diff 116.22 ctrl 3.4 id 99cc849ba31c97bd
+[13:11:20 +   30.0s]   grid jump4 tau 0.5 chop 1: kept 505 (0.6114) diff 453.1 ctrl 100.0 id eae12cb14cca03b5
+[13:11:22 +   31.5s]   grid jump4 tau 0.6 chop 1: kept 505 (0.6114) diff 453.1 ctrl 100.0 id 01c028a37ffc2d62
+[13:11:24 +   33.6s]   grid jump4 tau 0.7 chop 1: kept 505 (0.6114) diff 453.1 ctrl 100.0 id d74e83507b736d1f
+[13:11:26 +   35.1s]   grid jump4 tau 0.8 chop 1: kept 505 (0.6114) diff 453.1 ctrl 100.0 id b341f754fa37699c
+[13:11:27 +   36.8s]   grid jump4 tau 0.9 chop 1: kept 505 (0.6114) diff 453.1 ctrl 100.0 id 054bded46d11afe9
+[13:11:29 +   38.5s]   grid jump3 tau 0.5 chop 1: kept 650 (0.7869) diff 55.44 ctrl 24.4 id 246ab9c4256e15f5
+[13:11:31 +   40.6s]   grid jump3 tau 0.6 chop 1: kept 650 (0.7869) diff 55.44 ctrl 23.4 id b3d51cf675b59b49
+[13:11:33 +   43.1s]   grid jump3 tau 0.7 chop 1: kept 650 (0.7869) diff 55.44 ctrl 22.2 id 4146bc5fb78bb6dd
+[13:11:36 +   45.2s]   grid jump3 tau 0.8 chop 1: kept 650 (0.7869) diff 55.44 ctrl 21.8 id 3980c2ad34d9a6ff
+[13:11:38 +   47.6s]   grid jump3 tau 0.9 chop 1: kept 650 (0.7869) diff 55.44 ctrl 21.9 id 0f3bf882433e2ef3
+[13:11:40 +   49.2s]   nested hmm3: chops [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0] taus [0.5, 0.5, 0.8, 0.8, 0.7, 0.8, 0.7, 0.5, 0.7, 0.5, 0.7, 0.8] kept 479 (0.5799) diff -509.09 ctrl 0.9 perm 0.1 blocks 4 id f04d658f0f2cd264
+[13:11:41 +   50.9s]   nested hmm4: chops [3, 2, 2, 1, 1, 1, 2, 3, 1, 1, 1, 2] taus [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9] kept 595 (0.7203) diff -910.4 ctrl 6.7 perm 0.009 blocks 3 id 0af965c7aa190f00
+[13:11:43 +   52.7s]   nested gmm4: chops [2, 2, 1, 2, 1, 1, 1, 2, 1, 2, 2, 2] taus [0.9, 0.9, 0.5, 0.9, 0.5, 0.5, 0.5, 0.9, 0.5, 0.9, 0.9, 0.8] kept 574 (0.6949) diff -108.9 ctrl 11.2 perm 0.7431 blocks 7 id 760b31266f2a2979
+[13:11:44 +   54.1s]   nested jump4: chops [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] taus [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9] kept 505 (0.6114) diff 453.1 ctrl 100.0 perm 0.1554 blocks 7 id 9d7f9977cc402b7a
+[13:11:46 +   55.6s]   nested jump3: chops [2, 1, 2, 1, 1, 1, 1, 1, 0, 1, 2, 2] taus [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9] kept 534 (0.6465) diff -731.58 ctrl 0.4 perm 0.0275 blocks 2 id 16d86a30133971e4
+[13:12:05 +   74.1s]   cpcv hmm3: diff median -482.5 p5 -703.28 min -751.58 share>0 0.0 kept median 0.586 picks [[0, 0.5], [0, 0.6], [0, 0.7], [0, 0.8], [1, 0.5], [1, 0.6], [2, 0.5]]
+[13:12:25 +   94.7s]   cpcv hmm4: diff median -559.62 p5 -883.41 min -885.2 share>0 0.0 kept median 0.7264 picks [[0, 0.5], [1, 0.9], [2, 0.9], [3, 0.9]]
+[13:12:46 +  115.4s]   cpcv gmm4: diff median -130.68 p5 -298.33 min -369.26 share>0 0.182 kept median 0.6913 picks [[0, 0.8], [1, 0.5], [2, 0.8], [2, 0.9]]
+[13:13:05 +  134.5s]   cpcv jump4: diff median 203.49 p5 -351.99 min -543.7 share>0 0.545 kept median 0.6259 picks [[1, 0.9], [2, 0.9]]
+[13:13:23 +  152.5s]   cpcv jump3: diff median -615.15 p5 -689.87 min -717.92 share>0 0.0 kept median 0.6356 picks [[0, 0.9], [1, 0.9], [2, 0.9]]
+[13:13:24 +  153.2s]   distil hmm3: skip share 0.4528 fidelity OOF 0.914 (majority 0.5472) in-sample 0.9322 expressible True features ['bar_range_atr', 'bars_since_choch', 'dist_prot_dir_atr', 'move_since_choch_pts', 'n_choch_since_bos_today']
+[13:13:25 +  154.7s]   distilled gate hmm3: kept 437 diff 300.36 id 56df6406dda24d86
+[13:13:25 +  155.0s]   distil hmm4: skip share 0.0266 fidelity OOF 0.9625 (majority 0.9734) in-sample 0.9818 expressible True features ['bar_body_pts', 'n_choch_since_bos', 'range_3h_atr']
+[13:13:28 +  157.1s]   distilled gate hmm4: kept 813 diff -12.13 id d381c2c0921ed6cf
+[13:13:28 +  157.4s]   distil gmm4: skip share 0.4818 fidelity OOF 0.8692 (majority 0.5182) in-sample 0.9031 expressible True features ['bar_range_atr', 'bar_range_pts', 'bars_since_choch', 'fz_dist_band_edge_behind', 'last_sl_bars_ago', 'n_choch_since_bos_today']
+[13:13:29 +  159.0s]   distilled gate gmm4: kept 394 diff 12.85 id 18d0cf5ba5b1f542
+[13:13:30 +  159.4s]   distil jump4: skip share 0.3886 fidelity OOF 0.8196 (majority 0.6114) in-sample 0.8511 expressible False features ['choch_run', 'gap_pts', 'n_choch_today', 'range_3h_atr', 'room_behind_dist_atr', 'sess_range_atr', 'vol_ratio60']
+[13:13:30 +  159.7s]   distil jump3: skip share 0.2131 fidelity OOF 0.9031 (majority 0.7869) in-sample 0.9298 expressible True features ['alt_dir6', 'bars_since_bos', 'n_flip_since_bos', 'room_edge_dist_dir_atr']
+[13:13:32 +  161.4s]   distilled gate jump3: kept 660 diff -657.35 id b4642aef127b8d07
+[13:13:35 +  164.3s] family: 89 rows, PBO(diff) 0.3194, SPA p 0.0015 (unstud 0.0), eff trials 1.8
+[13:13:35 +  165.0s] refitting the frozen state models on the real fit window (as build_ext.py did)
+[13:13:51 +  180.9s]   gmm4 refit: converged True in 26 it
+[13:14:00 +  189.3s]   hmm3 refit: converged True in 51 it
+[13:14:15 +  204.3s]   hmm4 refit: converged True in 91 it
+[13:14:21 +  210.4s]   jump3 refit: lambda* = 32
+[13:14:28 +  217.7s]   jump4 refit: lambda* = 16
+[13:14:28 +  218.0s] refit verification vs ext_features.parquet at 1012 SETUPs: {'hmm3': {'max_abs_diff': 6.741379066088626e-09, 'identical_map': True}, 'hmm4': {'max_abs_diff': 1.6033844252305585e-09, 'identical_map': True}, 'gmm4': {'max_abs_diff': 0.0, 'identical_map': True}, 'jump4': {'max_abs_diff': 0.0, 'identical_map': True}, 'jump3': {'max_abs_diff': 0.0, 'identical_map': True}} -> OK
+[13:14:29 +  218.4s]   tape gmm_0: hmm3 -283.91, hmm4 -12.76, gmm4 -2.52, jump4 238.0, jump3 101.62
+[13:14:29 +  219.0s]   tape gmm_1: hmm3 -75.76, hmm4 -1649.34, gmm4 -273.0, jump4 -214.2, jump3 0.32
+[13:14:30 +  219.5s]   tape gmm_2: hmm3 -205.07, hmm4 725.53, gmm4 245.53, jump4 -635.59, jump3 506.1
+[13:14:30 +  219.9s]   tape gmm_3: hmm3 284.46, hmm4 -1271.68, gmm4 186.78, jump4 423.97, jump3 -227.03
+[13:14:31 +  220.3s]   tape gmm_4: hmm3 -259.37, hmm4 562.94, gmm4 -115.72, jump4 -185.37, jump3 -29.63
+[13:14:31 +  220.7s]   tape gmm_5: hmm3 -324.7, hmm4 948.85, gmm4 -411.88, jump4 297.04, jump3 -93.55
+[13:14:31 +  221.1s]   tape gmm_7: hmm3 -262.57, hmm4 -709.84, gmm4 -274.5, jump4 -183.4, jump3 510.39
+[13:14:32 +  221.6s]   tape gmm_8: hmm3 433.73, hmm4 96.0, gmm4 415.21, jump4 127.15, jump3 285.27
+[13:14:32 +  222.0s]   tape gmm_9: hmm3 -259.55, hmm4 91.03, gmm4 -532.89, jump4 197.19, jump3 688.8
+[13:14:33 +  222.4s]   tape gmm_10: hmm3 -55.91, hmm4 1072.41, gmm4 -48.21, jump4 -193.52, jump3 347.29
+[13:14:33 +  223.0s]   tape gmm_11: hmm3 19.5, hmm4 -3517.99, gmm4 -29.38, jump4 387.9, jump3 -618.3
+[13:14:34 +  223.3s]   tape gmm_12: hmm3 64.68, hmm4 -34.99, gmm4 174.68, jump4 -459.43, jump3 320.57
+[13:14:34 +  223.9s]   tape gmm_15: hmm3 -41.63, hmm4 -449.26, gmm4 5.12, jump4 382.89, jump3 -231.32
+[13:14:35 +  224.3s]   tape gmm_17: hmm3 55.38, hmm4 174.09, gmm4 -11.36, jump4 -228.24, jump3 586.73
+[13:14:35 +  224.8s]   tape gmm_21: hmm3 -75.64, hmm4 -778.81, gmm4 20.66, jump4 122.15, jump3 -496.78
+[13:14:36 +  225.2s]   tape gmm_22: hmm3 -103.84, hmm4 997.47, gmm4 20.58, jump4 -245.69, jump3 46.53
+[13:14:36 +  225.8s]   tape gmm_23: hmm3 64.47, hmm4 913.46, gmm4 70.76, jump4 89.53, jump3 -82.76
+[13:14:37 +  226.3s]   tape gmm_24: hmm3 -331.98, hmm4 -470.65, gmm4 -265.58, jump4 229.64, jump3 -429.56
+[13:14:37 +  226.7s]   tape gmm_25: hmm3 -31.87, hmm4 100.12, gmm4 275.19, jump4 -158.93, jump3 283.67
+[13:14:38 +  227.1s]   tape gmm_26: hmm3 238.42, hmm4 175.9, gmm4 193.28, jump4 275.19, jump3 -337.24
+[13:14:38 +  227.5s]   tape segment_0: hmm3 -183.88, hmm4 125.48, gmm4 -159.84, jump4 -11.11, jump3 -162.34
+[13:14:38 +  228.0s]   tape segment_1: hmm3 -609.05, hmm4 -28.66, gmm4 -621.02, jump4 161.98, jump3 36.47
+[13:14:39 +  228.4s]   tape segment_2: hmm3 154.95, hmm4 423.74, gmm4 285.4, jump4 219.3, jump3 -316.45
+[13:14:39 +  228.7s]   tape segment_4: hmm3 -682.56, hmm4 65.49, gmm4 -304.34, jump4 -129.28, jump3 -3.03
+[13:14:40 +  229.1s]   tape segment_5: hmm3 184.95, hmm4 -827.52, gmm4 205.83, jump4 207.91, jump3 -169.88
+[13:14:40 +  229.5s]   tape segment_6: hmm3 -19.35, hmm4 1105.88, gmm4 77.44, jump4 479.54, jump3 -138.26
+[13:14:40 +  229.9s]   tape segment_8: hmm3 70.55, hmm4 722.04, gmm4 15.13, jump4 38.15, jump3 -153.83
+[13:14:41 +  230.3s]   tape segment_10: hmm3 486.64, hmm4 -832.39, gmm4 346.79, jump4 47.43, jump3 356.27
+[13:14:41 +  230.8s]   tape segment_11: hmm3 227.84, hmm4 371.29, gmm4 56.93, jump4 191.88, jump3 287.83
+[13:14:42 +  231.3s]   tape segment_12: hmm3 -542.45, hmm4 53.81, gmm4 -388.04, jump4 406.03, jump3 -174.59
+[13:14:42 +  231.7s]   tape segment_13: hmm3 -213.62, hmm4 304.61, gmm4 -334.99, jump4 -868.83, jump3 665.77
+[13:14:43 +  232.2s]   tape segment_14: hmm3 435.01, hmm4 63.83, gmm4 489.21, jump4 303.26, jump3 -209.45
+[13:14:43 +  232.5s]   tape segment_15: hmm3 -86.76, hmm4 253.89, gmm4 -114.23, jump4 -563.49, jump3 340.8
+[13:14:43 +  233.0s]   tape segment_17: hmm3 -285.75, hmm4 338.99, gmm4 -103.68, jump4 -248.75, jump3 611.5
+[13:14:44 +  233.4s]   tape segment_18: hmm3 -107.55, hmm4 1330.09, gmm4 -28.53, jump4 428.66, jump3 -216.22
+[13:14:44 +  233.8s]   tape segment_19: hmm3 119.25, hmm4 445.49, gmm4 216.65, jump4 -55.59, jump3 144.84
+[13:14:45 +  234.2s]   tape segment_20: hmm3 274.74, hmm4 520.09, gmm4 19.3, jump4 -762.99, jump3 275.53
+[13:14:45 +  234.7s]   tape segment_21: hmm3 -41.42, hmm4 -102.2, gmm4 -144.08, jump4 -121.0, jump3 -79.62
+[13:14:46 +  235.2s]   tape segment_22: hmm3 217.0, hmm4 -368.54, gmm4 307.03, jump4 -481.99, jump3 26.94
+[13:14:46 +  235.6s]   tape segment_23: hmm3 173.57, hmm4 31.61, gmm4 82.18, jump4 -231.5, jump3 -435.6
+[13:14:46 +  235.9s]   tape session_1: hmm3 560.55, hmm4 -824.23, gmm4 436.04, jump4 -447.04, jump3 606.23
+[13:14:47 +  236.3s]   tape session_4: hmm3 531.74, hmm4 1190.44, gmm4 266.59, jump4 -497.65, jump3 918.81
+[13:14:47 +  236.7s]   tape session_8: hmm3 -349.79, hmm4 242.97, gmm4 -179.47, jump4 -643.15, jump3 190.92
+[13:14:48 +  237.2s]   tape session_9: hmm3 729.77, hmm4 660.98, gmm4 573.73, jump4 -290.78, jump3 158.82
+[13:14:48 +  237.6s]   tape session_10: hmm3 441.34, hmm4 674.17, gmm4 375.96, jump4 463.98, jump3 -420.67
+[13:14:49 +  238.1s]   tape session_11: hmm3 401.55, hmm4 361.88, gmm4 508.14, jump4 -234.97, jump3 163.33
+[13:14:49 +  238.5s]   tape session_12: hmm3 795.25, hmm4 55.94, gmm4 778.47, jump4 242.27, jump3 430.55
+[13:14:49 +  239.0s]   tape session_14: hmm3 226.18, hmm4 -650.89, gmm4 380.48, jump4 98.92, jump3 272.98
+[13:14:50 +  239.4s]   tape session_15: hmm3 -0.17, hmm4 1450.07, gmm4 106.4, jump4 -55.93, jump3 14.09
+[13:14:50 +  239.7s]   tape session_19: hmm3 388.73, hmm4 844.18, gmm4 491.02, jump4 -40.27, jump3 115.7
+[13:14:51 +  240.2s]   tape session_21: hmm3 274.48, hmm4 1002.5, gmm4 218.84, jump4 -250.86, jump3 -315.78
+[13:14:51 +  240.6s]   tape session_23: hmm3 774.74, hmm4 262.3, gmm4 132.53, jump4 184.23, jump3 215.87
+[13:14:51 +  241.1s]   tape session_24: hmm3 -125.39, hmm4 998.27, gmm4 -28.43, jump4 163.85, jump3 76.3
+[13:14:52 +  241.5s]   tape session_25: hmm3 374.8, hmm4 510.36, gmm4 145.87, jump4 497.14, jump3 278.59
+[13:14:52 +  242.0s]   tape session_26: hmm3 169.98, hmm4 1259.1, gmm4 -253.34, jump4 -226.57, jump3 8.32
+[13:14:53 +  242.4s]   tape session_29: hmm3 956.85, hmm4 -65.13, gmm4 1177.39, jump4 -97.99, jump3 434.68
+[13:14:53 +  242.8s]   tape session_30: hmm3 767.06, hmm4 2374.65, gmm4 835.83, jump4 445.87, jump3 -480.45
+[13:14:54 +  243.2s]   tape session_32: hmm3 528.05, hmm4 -34.25, gmm4 459.62, jump4 -556.36, jump3 395.96
+[13:14:54 +  243.6s]   tape session_33: hmm3 568.11, hmm4 654.13, gmm4 810.05, jump4 -304.16, jump3 -188.44
+[13:14:54 +  244.1s]   tape session_34: hmm3 443.88, hmm4 -208.4, gmm4 590.28, jump4 -49.95, jump3 4.02
+[13:14:54 +  244.1s]   null tapes hmm3: fixed diff 262.27 vs gmm p95 291.92 / segment p95 437.59 / session same-sign 0.85 -> False
+[13:14:54 +  244.1s]   null tapes hmm4: fixed diff 1128.16 vs gmm p95 1001.22 / segment p95 1117.09 / session same-sign 0.75 -> True
+[13:14:54 +  244.1s]   null tapes gmm4: fixed diff 484.42 vs gmm p95 282.19 / segment p95 353.91 / session same-sign 0.85 -> True
+[13:14:54 +  244.1s]   null tapes jump4: fixed diff 453.1 vs gmm p95 389.7 / segment p95 431.2 / session same-sign 0.35 -> False
+[13:14:54 +  244.1s]   null tapes jump3: fixed diff 55.44 vs gmm p95 591.83 / segment p95 614.21 / session same-sign 0.8 -> False
+[13:14:54 +  244.1s]   go/no-go hmm3: nested passed False (failing ['diff>0', 'diff_top1_removed>0', 'kept_mean_slip8>0', 'sign_blocks>=8/12', 'control_pct>=95', 'cpcv_p5_diff>0', 'pbo<=0.2', 'dsr_p<0.1', 'boot_ci_excludes_0', 'null_tape:real_diff>gmm_p95', 'null_tape:real_diff>segment_p95']); fixed passed False; beats matched H2 False; candidate False
+[13:14:54 +  244.1s]   go/no-go hmm4: nested passed False (failing ['diff>0', 'diff_top1_removed>0', 'kept_mean_slip8>0', 'sign_blocks>=8/12', 'control_pct>=95', 'cpcv_p5_diff>0', 'pbo<=0.2', 'dsr_p<0.1', 'boot_ci_excludes_0']); fixed passed False; beats matched H2 False; candidate False
+[13:14:54 +  244.1s]   go/no-go gmm4: nested passed False (failing ['diff>0', 'diff_top1_removed>0', 'kept_mean_slip8>0', 'sign_blocks>=8/12', 'control_pct>=95', 'cpcv_p5_diff>0', 'pbo<=0.2', 'dsr_p<0.1', 'boot_ci_excludes_0']); fixed passed False; beats matched H2 False; candidate False
+[13:14:54 +  244.1s]   go/no-go jump4: nested passed False (failing ['kept_mean_slip8>0', 'sign_blocks>=8/12', 'cpcv_p5_diff>0', 'pbo<=0.2', 'dsr_p<0.1', 'boot_ci_excludes_0', 'null_tape:session_same_sign>=0.75']); fixed passed False; beats matched H2 True; candidate False
+[13:14:54 +  244.1s]   go/no-go jump3: nested passed False (failing ['diff>0', 'diff_top1_removed>0', 'kept_mean_slip8>0', 'sign_blocks>=8/12', 'control_pct>=95', 'cpcv_p5_diff>0', 'pbo<=0.2', 'dsr_p<0.1', 'boot_ci_excludes_0', 'null_tape:real_diff>gmm_p95', 'null_tape:real_diff>segment_p95']); fixed passed False; beats matched H2 False; candidate False
+[13:14:55 +  244.2s] done: 89 ledger rows in the family; candidates none (null result); results -> /home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/results.json; runtime 244.1s, max RSS 535.9 MB; ledger sha 48625a58eac73cde

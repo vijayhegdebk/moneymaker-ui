@@ -1,0 +1,275 @@
+[13:07:39 +    0.0s rss  203.3 MB] start tf=minute sub=h5_full stages=['oof12', 'cpcv', 'frozen', 'robust', 'diag'] jobs=2 OMP=2
+[13:07:42 rss 314.7 MB] minute: design 244 + ext 61 -> dropped nan>40% 11, const 6, binary 2nd level 4, duplicates 32; + 24 missing indicators = 276 features
+[13:07:43 +    4.2s rss  313.1 MB] minute h5_full: 274 features after dropping time proxies ['sl', 'n_events_asof']; clusters 38; pairs [('sl', 'ffd_close_dstar'), ('sl', 'n_events_asof'), ('card_this_bars', 'sl'), ('room_ahead_dist_atr', 'room_behind_dist_atr'), ('card_vol_ratio', 'room_behind_dist_atr')]
+[13:07:43 +    4.2s rss  307.9 MB] features (5266, 274), IS rows 4452, models ['dt3', 'h5rules', 'hgbc', 'scorecard']
+[13:07:43 +    4.3s rss  313.0 MB] L1 average uniqueness on IS 1.0000
+[13:07:43 +    4.3s rss  313.0 MB] === dt3: H5 DecisionTreeClassifier depth <= 3, min leaf 100, nested tau (done: [])
+[13:07:44 +    5.3s rss  310.8 MB]   dt3 fold 0: tau=0.15 kept_te=0.990 1.0s
+[13:07:45 +    6.2s rss  310.8 MB]   dt3 fold 1: tau=0.1 kept_te=1.000 0.9s
+[13:07:46 +    7.2s rss  310.8 MB]   dt3 fold 2: tau=0.1 kept_te=1.000 1.0s
+[13:07:47 +    8.0s rss  310.8 MB]   dt3 fold 3: tau=0.1 kept_te=1.000 0.9s
+[13:07:48 +    8.9s rss  310.8 MB]   dt3 fold 4: tau=0.25 kept_te=0.590 0.9s
+[13:07:49 +    9.8s rss  310.8 MB]   dt3 fold 5: tau=0.2 kept_te=0.528 0.9s
+[13:07:49 +   10.6s rss  310.8 MB]   dt3 fold 6: tau=0.1 kept_te=1.000 0.8s
+[13:07:50 +   11.5s rss  310.8 MB]   dt3 fold 7: tau=0.2 kept_te=0.883 0.9s
+[13:07:51 +   12.5s rss  310.8 MB]   dt3 fold 8: tau=0.1 kept_te=1.000 1.0s
+[13:07:52 +   13.5s rss  310.8 MB]   dt3 fold 9: tau=0.1 kept_te=1.000 1.0s
+[13:07:53 +   14.4s rss  310.8 MB]   dt3 fold 10: tau=0.1 kept_te=1.000 0.9s
+[13:07:54 +   15.3s rss  310.8 MB]   dt3 fold 11: tau=0.15 kept_te=1.000 0.9s
+[13:08:02 +   22.7s rss  313.8 MB]   dt3 OOF: id 6eb8d4e138950e9a kept 0.92 diff -84.63 ctrl 0.0 perm 0.5617 wrec 0.9546 signs 2
+[13:08:03 +   23.7s rss  308.2 MB]   dt3_decay fold 0: tau=0.1 kept_te=0.990 0.9s
+[13:08:03 +   24.5s rss  308.2 MB]   dt3_decay fold 1: tau=0.1 kept_te=1.000 0.8s
+[13:08:04 +   25.5s rss  308.2 MB]   dt3_decay fold 2: tau=0.15 kept_te=1.000 1.0s
+[13:08:05 +   26.4s rss  308.2 MB]   dt3_decay fold 3: tau=0.1 kept_te=1.000 0.9s
+[13:08:06 +   27.4s rss  308.2 MB]   dt3_decay fold 4: tau=0.25 kept_te=0.674 1.0s
+[13:08:07 +   28.4s rss  308.2 MB]   dt3_decay fold 5: tau=0.2 kept_te=0.528 1.1s
+[13:08:08 +   29.3s rss  308.2 MB]   dt3_decay fold 6: tau=0.1 kept_te=1.000 0.9s
+[13:08:09 +   30.2s rss  308.2 MB]   dt3_decay fold 7: tau=0.15 kept_te=0.857 0.9s
+[13:08:10 +   31.0s rss  308.2 MB]   dt3_decay fold 8: tau=0.25 kept_te=0.959 0.8s
+[13:08:11 +   31.9s rss  308.2 MB]   dt3_decay fold 9: tau=0.1 kept_te=1.000 0.8s
+[13:08:12 +   32.9s rss  308.2 MB]   dt3_decay fold 10: tau=0.3 kept_te=0.688 1.0s
+[13:08:13 +   33.8s rss  308.2 MB]   dt3_decay fold 11: tau=0.1 kept_te=0.852 0.9s
+[13:08:13 +   33.8s rss  308.2 MB]   dt3 oof12 done in 29.5s
+[13:08:22 +   43.0s rss  326.5 MB]   dt3 cpcv split 11/66 (9s)
+[13:08:31 +   52.6s rss  326.6 MB]   dt3 cpcv split 22/66 (19s)
+[13:08:41 +   62.0s rss  326.6 MB]   dt3 cpcv split 33/66 (28s)
+[13:08:51 +   71.8s rss  308.2 MB]   dt3 cpcv split 44/66 (38s)
+[13:09:00 +   81.1s rss  308.2 MB]   dt3 cpcv split 55/66 (47s)
+[13:09:11 +   92.2s rss  308.2 MB]   dt3 cpcv split 66/66 (58s)
+[13:10:39 +  179.7s rss  309.9 MB]   dt3 CPCV: median -50.77 p5 -452.25 share>0 0.364 ctrl med 5.0
+[13:10:41 +  181.7s rss  368.5 MB]   dt3 frozen rules (0): id ffa1bac4d59cd10a kept 1.0 diff None ctrl None fidelity 0.92
+[13:10:41 +  182.0s rss  377.6 MB]   dt3 frozen tree (0 rules, tau 0.1): id befd646cea1b2866 kept 1.0 diff None
+[13:10:43 +  183.9s rss  412.5 MB]   dt3@L0 fold 0: tau=0.2 kept_te=1.000 1.0s
+[13:10:44 +  184.7s rss  412.5 MB]   dt3@L0 fold 1: tau=0.15 kept_te=1.000 0.9s
+[13:10:44 +  185.6s rss  412.5 MB]   dt3@L0 fold 2: tau=0.1 kept_te=1.000 0.8s
+[13:10:45 +  186.4s rss  412.5 MB]   dt3@L0 fold 3: tau=0.2 kept_te=0.957 0.8s
+[13:10:46 +  187.3s rss  412.5 MB]   dt3@L0 fold 4: tau=0.1 kept_te=1.000 0.9s
+[13:10:47 +  188.3s rss  412.5 MB]   dt3@L0 fold 5: tau=0.15 kept_te=1.000 1.0s
+[13:10:48 +  189.2s rss  412.5 MB]   dt3@L0 fold 6: tau=0.2 kept_te=0.988 0.9s
+[13:10:49 +  190.2s rss  412.5 MB]   dt3@L0 fold 7: tau=0.2 kept_te=1.000 1.1s
+[13:10:50 +  191.2s rss  412.5 MB]   dt3@L0 fold 8: tau=0.2 kept_te=0.907 1.0s
+[13:10:51 +  192.1s rss  412.5 MB]   dt3@L0 fold 9: tau=0.1 kept_te=1.000 0.9s
+[13:10:52 +  193.1s rss  412.5 MB]   dt3@L0 fold 10: tau=0.1 kept_te=1.000 1.0s
+[13:10:53 +  194.2s rss  412.5 MB]   dt3@L0 fold 11: tau=0.1 kept_te=1.000 1.1s
+[13:10:53 +  194.2s rss  412.5 MB]   dt3 robust L0: on-label diff -140.75 kept 0.9904
+[13:10:54 +  195.2s rss  412.5 MB]   dt3@L2x1 fold 0: tau=0.3 kept_te=0.710 1.0s
+[13:10:55 +  196.0s rss  412.5 MB]   dt3@L2x1 fold 1: tau=0.3 kept_te=0.582 0.8s
+[13:10:56 +  196.9s rss  412.5 MB]   dt3@L2x1 fold 2: tau=0.3 kept_te=0.628 0.9s
+[13:10:57 +  197.9s rss  412.5 MB]   dt3@L2x1 fold 3: tau=0.3 kept_te=0.330 0.9s
+[13:10:58 +  198.8s rss  412.5 MB]   dt3@L2x1 fold 4: tau=0.35 kept_te=0.223 0.9s
+[13:10:58 +  199.7s rss  412.5 MB]   dt3@L2x1 fold 5: tau=0.4 kept_te=0.214 0.9s
+[13:10:59 +  200.6s rss  412.5 MB]   dt3@L2x1 fold 6: tau=0.35 kept_te=0.413 0.9s
+[13:11:00 +  201.6s rss  412.5 MB]   dt3@L2x1 fold 7: tau=0.35 kept_te=0.500 1.0s
+[13:11:02 +  202.7s rss  412.5 MB]   dt3@L2x1 fold 8: tau=0.35 kept_te=0.535 1.1s
+[13:11:03 +  203.7s rss  412.5 MB]   dt3@L2x1 fold 9: tau=0.35 kept_te=0.481 1.0s
+[13:11:04 +  204.8s rss  412.5 MB]   dt3@L2x1 fold 10: tau=0.35 kept_te=0.370 1.0s
+[13:11:05 +  205.7s rss  412.5 MB]   dt3@L2x1 fold 11: tau=0.35 kept_te=0.373 0.9s
+[13:11:05 +  205.7s rss  412.5 MB]   dt3 robust L2x1: on-label diff 134.34 kept 0.4425; on L1 diff 68.0
+[13:11:06 +  206.7s rss  412.5 MB]   dt3@L2x2 fold 0: tau=0.2 kept_te=0.914 1.0s
+[13:11:07 +  207.8s rss  412.5 MB]   dt3@L2x2 fold 1: tau=0.2 kept_te=0.930 1.1s
+[13:11:08 +  208.8s rss  412.5 MB]   dt3@L2x2 fold 2: tau=0.1 kept_te=0.932 1.0s
+[13:11:09 +  209.7s rss  412.5 MB]   dt3@L2x2 fold 3: tau=0.1 kept_te=0.847 1.0s
+[13:11:09 +  210.6s rss  412.5 MB]   dt3@L2x2 fold 4: tau=0.15 kept_te=0.695 0.9s
+[13:11:10 +  211.6s rss  412.5 MB]   dt3@L2x2 fold 5: tau=0.3 kept_te=0.642 1.0s
+[13:11:11 +  212.5s rss  412.5 MB]   dt3@L2x2 fold 6: tau=0.1 kept_te=0.830 0.8s
+[13:11:12 +  213.3s rss  412.5 MB]   dt3@L2x2 fold 7: tau=0.2 kept_te=0.936 0.8s
+[13:11:13 +  214.4s rss  412.5 MB]   dt3@L2x2 fold 8: tau=0.2 kept_te=0.929 1.1s
+[13:11:14 +  215.3s rss  412.5 MB]   dt3@L2x2 fold 9: tau=0.3 kept_te=0.904 0.9s
+[13:11:15 +  216.2s rss  412.5 MB]   dt3@L2x2 fold 10: tau=0.2 kept_te=0.902 1.0s
+[13:11:16 +  217.1s rss  412.5 MB]   dt3@L2x2 fold 11: tau=0.3 kept_te=0.680 0.9s
+[13:11:16 +  217.1s rss  412.5 MB]   dt3 robust L2x2: on-label diff 102.24 kept 0.8347; on L1 diff 18.89
+[13:11:17 +  218.1s rss  412.5 MB]   dt3@L3 fold 0: tau=0.1 kept_te=1.000 0.9s
+[13:11:18 +  219.1s rss  412.5 MB]   dt3@L3 fold 1: tau=0.35 kept_te=0.943 1.0s
+[13:11:19 +  219.9s rss  412.5 MB]   dt3@L3 fold 2: tau=0.1 kept_te=1.000 0.9s
+[13:11:20 +  220.8s rss  412.5 MB]   dt3@L3 fold 3: tau=0.35 kept_te=1.000 0.9s
+[13:11:21 +  221.8s rss  412.5 MB]   dt3@L3 fold 4: tau=0.4 kept_te=0.803 1.0s
+[13:11:22 +  222.7s rss  412.5 MB]   dt3@L3 fold 5: tau=0.3 kept_te=1.000 0.9s
+[13:11:23 +  223.7s rss  412.5 MB]   dt3@L3 fold 6: tau=0.3 kept_te=0.976 1.0s
+[13:11:24 +  224.7s rss  412.5 MB]   dt3@L3 fold 7: tau=0.3 kept_te=1.000 1.0s
+[13:11:25 +  225.8s rss  412.5 MB]   dt3@L3 fold 8: tau=0.35 kept_te=1.000 1.0s
+[13:11:26 +  226.7s rss  412.5 MB]   dt3@L3 fold 9: tau=0.1 kept_te=1.000 1.0s
+[13:11:27 +  228.0s rss  412.5 MB]   dt3@L3 fold 10: tau=0.3 kept_te=0.965 1.2s
+[13:11:28 +  229.0s rss  412.5 MB]   dt3@L3 fold 11: tau=0.1 kept_te=1.000 1.1s
+[13:11:28 +  229.1s rss  412.5 MB]   dt3 robust L3: on-label diff -0.23 kept 0.9742; on L1 diff -721.3
+[13:11:28 +  229.1s rss  412.5 MB] === h5rules: H5 greedy rule list by training kept expectancy (stop < 200 INR/trade) (done: [])
+[13:11:30 +  231.5s rss  401.0 MB]   h5rules fold 0: tau=None kept_te=0.253 rules=1 2.4s
+[13:11:32 +  233.4s rss  401.0 MB]   h5rules fold 1: tau=None kept_te=0.258 rules=1 1.9s
+[13:11:36 +  236.8s rss  399.0 MB]   h5rules fold 2: tau=None kept_te=0.185 rules=1 3.4s
+[13:11:39 +  239.9s rss  399.0 MB]   h5rules fold 3: tau=None kept_te=0.246 rules=1 3.1s
+[13:11:40 +  241.5s rss  398.9 MB]   h5rules fold 4: tau=None kept_te=0.244 rules=1 1.6s
+[13:11:42 +  242.9s rss  399.0 MB]   h5rules fold 5: tau=None kept_te=0.182 rules=1 1.4s
+[13:11:44 +  244.9s rss  399.0 MB]   h5rules fold 6: tau=None kept_te=0.252 rules=1 2.0s
+[13:11:46 +  246.9s rss  442.7 MB]   h5rules fold 7: tau=None kept_te=0.083 rules=2 2.0s
+[13:11:48 +  248.8s rss  443.9 MB]   h5rules fold 8: tau=None kept_te=0.335 rules=1 2.0s
+[13:11:49 +  250.4s rss  399.1 MB]   h5rules fold 9: tau=None kept_te=0.261 rules=1 1.6s
+[13:11:51 +  252.3s rss  443.7 MB]   h5rules fold 10: tau=None kept_te=0.254 rules=1 1.9s
+[13:11:53 +  254.3s rss  399.0 MB]   h5rules fold 11: tau=None kept_te=0.250 rules=1 2.0s
+[13:11:58 +  258.7s rss  399.0 MB]   h5rules OOF: id fb304f64598b7850 kept 0.2338 diff 102.61 ctrl 0.1 perm 0.2599 wrec 0.3265 signs 7
+[13:11:58 +  258.7s rss  404.8 MB]   h5rules oof12 done in 29.6s
+[13:12:15 +  276.6s rss  461.3 MB]   h5rules cpcv split 11/66 (18s)
+[13:12:34 +  295.6s rss  461.7 MB]   h5rules cpcv split 22/66 (37s)
+[13:12:53 +  313.8s rss  461.7 MB]   h5rules cpcv split 33/66 (55s)
+[13:13:12 +  333.2s rss  461.8 MB]   h5rules cpcv split 44/66 (74s)
+[13:13:30 +  351.2s rss  461.1 MB]   h5rules cpcv split 55/66 (92s)
+[13:13:53 +  374.1s rss  460.0 MB]   h5rules cpcv split 66/66 (115s)
+[13:14:54 +  435.0s rss  460.3 MB]   h5rules CPCV: median -20.02 p5 -98.24 share>0 0.364 ctrl med 0.1
+[13:15:03 +  444.1s rss  460.3 MB]   h5rules frozen policy (1 rules): id d6038024f7398392 kept 0.252 diff 417.74 ctrl 0.0
+[13:15:06 +  447.6s rss  500.0 MB]   h5rules@L0 fold 0: tau=None kept_te=0.223 rules=1 2.1s
+[13:15:08 +  449.4s rss  484.0 MB]   h5rules@L0 fold 1: tau=None kept_te=0.212 rules=1 1.8s
+[13:15:10 +  451.1s rss  482.2 MB]   h5rules@L0 fold 2: tau=None kept_te=0.163 rules=1 1.7s
+[13:15:11 +  452.5s rss  482.2 MB]   h5rules@L0 fold 3: tau=None kept_te=0.248 rules=1 1.4s
+[13:15:13 +  454.0s rss  482.3 MB]   h5rules@L0 fold 4: tau=None kept_te=0.218 rules=1 1.5s
+[13:15:15 +  456.2s rss  482.3 MB]   h5rules@L0 fold 5: tau=None kept_te=0.339 rules=2 2.2s
+[13:15:16 +  457.6s rss  482.3 MB]   h5rules@L0 fold 6: tau=None kept_te=0.267 rules=1 1.4s
+[13:15:18 +  459.6s rss  482.3 MB]   h5rules@L0 fold 7: tau=None kept_te=0.242 rules=1 2.0s
+[13:15:21 +  461.7s rss  482.3 MB]   h5rules@L0 fold 8: tau=None kept_te=0.291 rules=1 2.1s
+[13:15:22 +  463.1s rss  482.3 MB]   h5rules@L0 fold 9: tau=None kept_te=0.310 rules=1 1.4s
+[13:15:24 +  465.0s rss  482.3 MB]   h5rules@L0 fold 10: tau=None kept_te=0.270 rules=1 1.9s
+[13:15:25 +  466.5s rss  482.3 MB]   h5rules@L0 fold 11: tau=None kept_te=0.278 rules=2 1.5s
+[13:15:25 +  466.5s rss  482.3 MB]   h5rules robust L0: on-label diff -114.55 kept 0.2541
+[13:15:27 +  467.9s rss  482.2 MB]   h5rules@L2x1 fold 0: tau=None kept_te=0.331 rules=1 1.4s
+[13:15:28 +  469.4s rss  482.2 MB]   h5rules@L2x1 fold 1: tau=None kept_te=1.000 rules=0 1.4s
+[13:15:30 +  470.8s rss  482.2 MB]   h5rules@L2x1 fold 2: tau=None kept_te=0.276 rules=1 1.4s
+[13:15:31 +  472.2s rss  482.2 MB]   h5rules@L2x1 fold 3: tau=None kept_te=0.346 rules=1 1.4s
+[13:15:32 +  473.6s rss  482.2 MB]   h5rules@L2x1 fold 4: tau=None kept_te=0.223 rules=2 1.4s
+[13:15:34 +  475.2s rss  482.2 MB]   h5rules@L2x1 fold 5: tau=None kept_te=0.243 rules=2 1.6s
+[13:15:35 +  476.6s rss  482.2 MB]   h5rules@L2x1 fold 6: tau=None kept_te=0.215 rules=1 1.4s
+[13:15:38 +  478.7s rss  482.2 MB]   h5rules@L2x1 fold 7: tau=None kept_te=0.241 rules=1 2.1s
+[13:15:39 +  480.7s rss  482.2 MB]   h5rules@L2x1 fold 8: tau=None kept_te=0.276 rules=1 1.9s
+[13:15:41 +  482.0s rss  482.2 MB]   h5rules@L2x1 fold 9: tau=None kept_te=0.267 rules=1 1.3s
+[13:15:43 +  483.9s rss  482.2 MB]   h5rules@L2x1 fold 10: tau=None kept_te=0.185 rules=1 1.8s
+[13:15:44 +  485.4s rss  482.2 MB]   h5rules@L2x1 fold 11: tau=None kept_te=0.285 rules=1 1.5s
+[13:15:44 +  485.4s rss  482.2 MB]   h5rules robust L2x1: on-label diff 1.61 kept 0.3333; on L1 diff 4.62
+[13:15:46 +  486.9s rss  482.2 MB]   h5rules@L2x2 fold 0: tau=None kept_te=0.341 rules=1 1.5s
+[13:15:47 +  488.6s rss  482.2 MB]   h5rules@L2x2 fold 1: tau=None kept_te=0.286 rules=2 1.7s
+[13:15:49 +  489.9s rss  482.2 MB]   h5rules@L2x2 fold 2: tau=None kept_te=0.307 rules=1 1.3s
+[13:15:50 +  491.3s rss  482.2 MB]   h5rules@L2x2 fold 3: tau=None kept_te=0.198 rules=1 1.4s
+[13:15:52 +  492.7s rss  482.2 MB]   h5rules@L2x2 fold 4: tau=None kept_te=0.205 rules=2 1.4s
+[13:15:53 +  494.2s rss  482.2 MB]   h5rules@L2x2 fold 5: tau=None kept_te=0.223 rules=1 1.5s
+[13:15:55 +  495.7s rss  482.2 MB]   h5rules@L2x2 fold 6: tau=None kept_te=0.229 rules=1 1.5s
+[13:15:56 +  497.6s rss  482.2 MB]   h5rules@L2x2 fold 7: tau=None kept_te=0.222 rules=1 1.9s
+[13:15:58 +  499.5s rss  482.2 MB]   h5rules@L2x2 fold 8: tau=None kept_te=0.276 rules=1 1.9s
+[13:16:00 +  500.9s rss  482.2 MB]   h5rules@L2x2 fold 9: tau=None kept_te=0.287 rules=2 1.4s
+[13:16:02 +  503.3s rss  482.2 MB]   h5rules@L2x2 fold 10: tau=None kept_te=0.145 rules=2 2.3s
+[13:16:04 +  504.7s rss  482.2 MB]   h5rules@L2x2 fold 11: tau=None kept_te=0.312 rules=1 1.4s
+[13:16:04 +  504.7s rss  482.2 MB]   h5rules robust L2x2: on-label diff 103.22 kept 0.2588; on L1 diff 12.01
+[13:16:05 +  506.3s rss  482.2 MB]   h5rules@L3 fold 0: tau=None kept_te=1.000 rules=0 1.6s
+[13:16:07 +  508.2s rss  482.2 MB]   h5rules@L3 fold 1: tau=None kept_te=1.000 rules=0 1.9s
+[13:16:08 +  509.7s rss  482.2 MB]   h5rules@L3 fold 2: tau=None kept_te=1.000 rules=0 1.5s
+[13:16:10 +  510.8s rss  482.2 MB]   h5rules@L3 fold 3: tau=None kept_te=1.000 rules=0 1.2s
+[13:16:11 +  512.3s rss  482.2 MB]   h5rules@L3 fold 4: tau=None kept_te=1.000 rules=0 1.5s
+[13:16:12 +  513.6s rss  482.2 MB]   h5rules@L3 fold 5: tau=None kept_te=1.000 rules=0 1.3s
+[13:16:14 +  515.2s rss  482.2 MB]   h5rules@L3 fold 6: tau=None kept_te=1.000 rules=0 1.6s
+[13:16:16 +  517.7s rss  482.2 MB]   h5rules@L3 fold 7: tau=None kept_te=1.000 rules=0 2.5s
+[13:16:18 +  519.2s rss  482.2 MB]   h5rules@L3 fold 8: tau=None kept_te=1.000 rules=0 1.5s
+[13:16:19 +  520.5s rss  482.2 MB]   h5rules@L3 fold 9: tau=None kept_te=1.000 rules=0 1.3s
+[13:16:21 +  522.1s rss  482.2 MB]   h5rules@L3 fold 10: tau=None kept_te=1.000 rules=0 1.6s
+[13:16:22 +  523.2s rss  482.2 MB]   h5rules@L3 fold 11: tau=None kept_te=1.000 rules=0 1.2s
+[13:16:22 +  523.3s rss  482.2 MB]   h5rules robust L3: on-label diff None kept 1.0; on L1 diff None
+[13:16:22 +  523.3s rss  482.2 MB] === hgbc: (b) HGB classifier, interaction_cst = clusters + pairs, monotone H2 columns (done: [])
+[13:16:29 +  529.8s rss  484.4 MB]   hgbc fold 0: tau=0.15 kept_te=0.949 6.5s
+[13:16:35 +  535.9s rss  484.7 MB]   hgbc fold 1: tau=0.1 kept_te=0.997 6.2s
+[13:16:42 +  543.0s rss  484.8 MB]   hgbc fold 2: tau=0.2 kept_te=0.930 7.1s
+[13:16:49 +  549.8s rss  485.1 MB]   hgbc fold 3: tau=0.1 kept_te=0.990 6.8s
+[13:16:56 +  557.2s rss  485.3 MB]   hgbc fold 4: tau=0.1 kept_te=0.990 7.4s
+[13:17:03 +  564.7s rss  485.6 MB]   hgbc fold 5: tau=0.2 kept_te=0.733 7.4s
+[13:17:11 +  572.3s rss  486.0 MB]   hgbc fold 6: tau=0.1 kept_te=0.962 7.7s
+[13:17:18 +  579.4s rss  486.4 MB]   hgbc fold 7: tau=0.15 kept_te=0.970 7.1s
+[13:17:26 +  587.2s rss  486.9 MB]   hgbc fold 8: tau=0.2 kept_te=0.929 7.8s
+[13:17:34 +  594.8s rss  487.6 MB]   hgbc fold 9: tau=0.2 kept_te=0.890 7.7s
+[13:17:41 +  602.1s rss  487.9 MB]   hgbc fold 10: tau=0.15 kept_te=0.965 7.3s
+[13:17:47 +  608.3s rss  488.3 MB]   hgbc fold 11: tau=0.15 kept_te=0.957 6.2s
+[13:17:54 +  614.9s rss  490.4 MB]   hgbc OOF: id ed555607c723ea4a kept 0.94 diff 49.2 ctrl 2.4 perm 0.7646 wrec 0.9736 signs 8
+[13:18:01 +  622.3s rss  493.4 MB]   hgbc distilled rules: id 992945112fc07f5b kept 0.9769 diff -132.31 fidelity 0.9403
+[13:18:10 +  631.3s rss  493.6 MB]   hgbc distilled tree: id 855b2d2f4462116b kept 0.9751 diff -104.6 fidelity 0.9394
+[13:18:12 +  633.5s rss  569.0 MB]   SHAP top5: [('n_swings_1h', 0.0817), ('session_bar', 0.0802), ('atr_bps', 0.0743), ('last_closed_net_asof', 0.069), ('fz_band_width', 0.0666)]
+[13:18:17 +  638.4s rss  569.8 MB]   hgbc_decay fold 0: tau=0.2 kept_te=0.904 4.9s
+[13:18:22 +  643.5s rss  570.2 MB]   hgbc_decay fold 1: tau=0.2 kept_te=0.933 5.1s
+[13:18:27 +  648.6s rss  570.7 MB]   hgbc_decay fold 2: tau=0.2 kept_te=0.943 5.1s
+[13:18:32 +  653.5s rss  571.1 MB]   hgbc_decay fold 3: tau=0.1 kept_te=0.988 4.9s
+[13:18:38 +  658.8s rss  571.3 MB]   hgbc_decay fold 4: tau=0.1 kept_te=0.990 5.3s
+[13:18:43 +  664.5s rss  571.9 MB]   hgbc_decay fold 5: tau=0.15 kept_te=0.862 5.7s
+[13:18:49 +  669.9s rss  572.3 MB]   hgbc_decay fold 6: tau=0.1 kept_te=0.974 5.5s
+[13:18:54 +  675.2s rss  572.8 MB]   hgbc_decay fold 7: tau=0.1 kept_te=0.996 5.2s
+[13:19:00 +  680.9s rss  573.2 MB]   hgbc_decay fold 8: tau=0.15 kept_te=0.988 5.8s
+[13:19:05 +  686.0s rss  573.6 MB]   hgbc_decay fold 9: tau=0.2 kept_te=0.866 5.0s
+[13:19:11 +  691.8s rss  574.0 MB]   hgbc_decay fold 10: tau=0.1 kept_te=0.983 5.9s
+[13:19:16 +  697.2s rss  574.5 MB]   hgbc_decay fold 11: tau=0.1 kept_te=0.984 5.4s
+[13:19:21 +  702.3s rss  574.9 MB]   hgbc_nomono fold 0: tau=0.1 kept_te=0.985 5.1s
+[13:19:26 +  707.3s rss  575.2 MB]   hgbc_nomono fold 1: tau=0.1 kept_te=0.997 4.9s
+[13:19:31 +  711.9s rss  575.6 MB]   hgbc_nomono fold 2: tau=0.2 kept_te=0.930 4.6s
+[13:19:36 +  716.7s rss  576.1 MB]   hgbc_nomono fold 3: tau=0.1 kept_te=0.990 4.8s
+[13:19:40 +  721.6s rss  576.5 MB]   hgbc_nomono fold 4: tau=0.1 kept_te=0.990 4.8s
+[13:19:45 +  725.9s rss  577.0 MB]   hgbc_nomono fold 5: tau=0.2 kept_te=0.733 4.4s
+[13:19:50 +  730.8s rss  577.5 MB]   hgbc_nomono fold 6: tau=0.1 kept_te=0.962 4.9s
+[13:19:55 +  736.0s rss  577.9 MB]   hgbc_nomono fold 7: tau=0.15 kept_te=0.970 5.1s
+[13:20:00 +  741.4s rss  579.9 MB]   hgbc_nomono fold 8: tau=0.2 kept_te=0.935 5.5s
+[13:20:06 +  747.1s rss  580.4 MB]   hgbc_nomono fold 9: tau=0.2 kept_te=0.906 5.7s
+[13:20:11 +  752.6s rss  590.1 MB]   hgbc_nomono fold 10: tau=0.15 kept_te=0.965 5.5s
+[13:20:16 +  757.6s rss  590.4 MB]   hgbc_nomono fold 11: tau=0.15 kept_te=0.957 5.0s
+[13:20:16 +  757.6s rss  590.4 MB]   hgbc oof12 done in 234.3s
+[13:21:30 +  831.0s rss  609.6 MB]   hgbc cpcv split 11/66 (73s)
+[13:22:41 +  902.0s rss  610.3 MB]   hgbc cpcv split 22/66 (144s)
+[13:23:54 +  975.4s rss  610.8 MB]   hgbc cpcv split 33/66 (218s)
+[13:25:11 + 1052.0s rss  614.3 MB]   hgbc cpcv split 44/66 (294s)
+[13:26:23 + 1124.5s rss  614.8 MB]   hgbc cpcv split 55/66 (367s)
+[13:27:37 + 1197.8s rss  617.6 MB]   hgbc cpcv split 66/66 (440s)
+[13:29:00 + 1280.9s rss  621.5 MB]   hgbc CPCV: median 59.29 p5 -56.56 share>0 0.818 ctrl med 11.8
+[13:30:19 + 1360.5s rss  621.5 MB]   hgbc distilled rules CPCV: median 27.83 p5 -102.12 share>0 0.727
+[13:31:38 + 1439.6s rss  621.5 MB]   hgbc distilled tree CPCV: median 43.83 p5 -113.35 share>0 0.545
+[13:31:40 + 1441.1s rss  621.5 MB]   hgbc frozen rules (0): id 905b2888192fedb7 kept 1.0 diff None ctrl None fidelity 0.94
+[13:31:45 + 1446.7s rss  640.3 MB]   hgbc@L0 fold 0: tau=0.2 kept_te=0.892 4.6s
+[13:31:50 + 1451.4s rss  640.3 MB]   hgbc@L0 fold 1: tau=0.15 kept_te=0.969 4.7s
+[13:31:55 + 1456.0s rss  640.4 MB]   hgbc@L0 fold 2: tau=0.2 kept_te=0.891 4.7s
+[13:32:00 + 1460.7s rss  640.5 MB]   hgbc@L0 fold 3: tau=0.15 kept_te=0.959 4.7s
+[13:32:04 + 1465.3s rss  640.7 MB]   hgbc@L0 fold 4: tau=0.15 kept_te=0.977 4.6s
+[13:32:09 + 1470.5s rss  640.8 MB]   hgbc@L0 fold 5: tau=0.2 kept_te=0.797 5.1s
+[13:32:14 + 1475.3s rss  641.0 MB]   hgbc@L0 fold 6: tau=0.15 kept_te=0.940 4.8s
+[13:32:19 + 1480.0s rss  641.1 MB]   hgbc@L0 fold 7: tau=0.2 kept_te=0.903 4.7s
+[13:32:24 + 1484.7s rss  641.4 MB]   hgbc@L0 fold 8: tau=0.15 kept_te=0.988 4.7s
+[13:32:28 + 1489.4s rss  641.5 MB]   hgbc@L0 fold 9: tau=0.15 kept_te=0.972 4.7s
+[13:32:33 + 1494.4s rss  641.7 MB]   hgbc@L0 fold 10: tau=0.15 kept_te=0.960 4.9s
+[13:32:38 + 1499.5s rss  641.8 MB]   hgbc@L0 fold 11: tau=0.15 kept_te=0.942 5.2s
+[13:32:38 + 1499.6s rss  641.8 MB]   hgbc robust L0: on-label diff 349.0 kept 0.9329
+[13:32:43 + 1504.6s rss  641.8 MB]   hgbc@L2x1 fold 0: tau=0.3 kept_te=0.568 5.0s
+[13:32:49 + 1509.8s rss  641.8 MB]   hgbc@L2x1 fold 1: tau=0.35 kept_te=0.572 5.1s
+[13:32:54 + 1514.7s rss  641.8 MB]   hgbc@L2x1 fold 2: tau=0.3 kept_te=0.547 5.0s
+[13:32:58 + 1519.7s rss  641.8 MB]   hgbc@L2x1 fold 3: tau=0.3 kept_te=0.381 4.9s
+[13:33:04 + 1524.8s rss  641.8 MB]   hgbc@L2x1 fold 4: tau=0.3 kept_te=0.274 5.2s
+[13:33:09 + 1529.8s rss  641.8 MB]   hgbc@L2x1 fold 5: tau=0.3 kept_te=0.240 5.0s
+[13:33:14 + 1534.9s rss  641.9 MB]   hgbc@L2x1 fold 6: tau=0.25 kept_te=0.467 5.1s
+[13:33:19 + 1540.0s rss  641.9 MB]   hgbc@L2x1 fold 7: tau=0.35 kept_te=0.485 5.1s
+[13:33:24 + 1545.2s rss  642.0 MB]   hgbc@L2x1 fold 8: tau=0.3 kept_te=0.541 5.1s
+[13:33:29 + 1550.1s rss  642.1 MB]   hgbc@L2x1 fold 9: tau=0.35 kept_te=0.441 4.9s
+[13:33:34 + 1555.1s rss  642.3 MB]   hgbc@L2x1 fold 10: tau=0.35 kept_te=0.370 5.0s
+[13:33:39 + 1560.7s rss  642.3 MB]   hgbc@L2x1 fold 11: tau=0.3 kept_te=0.438 5.6s
+[13:33:40 + 1560.7s rss  642.3 MB]   hgbc robust L2x1: on-label diff 146.65 kept 0.4418; on L1 diff 144.41
+[13:33:44 + 1565.6s rss  642.3 MB]   hgbc@L2x2 fold 0: tau=0.3 kept_te=0.770 4.9s
+[13:33:49 + 1570.5s rss  642.3 MB]   hgbc@L2x2 fold 1: tau=0.25 kept_te=0.907 4.9s
+[13:33:54 + 1575.6s rss  642.3 MB]   hgbc@L2x2 fold 2: tau=0.3 kept_te=0.784 5.1s
+[13:34:00 + 1580.8s rss  642.3 MB]   hgbc@L2x2 fold 3: tau=0.25 kept_te=0.725 5.2s
+[13:34:05 + 1585.9s rss  642.3 MB]   hgbc@L2x2 fold 4: tau=0.25 kept_te=0.621 5.1s
+[13:34:10 + 1591.3s rss  642.3 MB]   hgbc@L2x2 fold 5: tau=0.25 kept_te=0.630 5.4s
+[13:34:15 + 1596.0s rss  642.4 MB]   hgbc@L2x2 fold 6: tau=0.25 kept_te=0.724 4.7s
+[13:34:20 + 1601.2s rss  642.5 MB]   hgbc@L2x2 fold 7: tau=0.3 kept_te=0.793 5.2s
+[13:34:25 + 1606.5s rss  642.5 MB]   hgbc@L2x2 fold 8: tau=0.25 kept_te=0.906 5.3s
+[13:34:30 + 1611.5s rss  642.6 MB]   hgbc@L2x2 fold 9: tau=0.25 kept_te=0.836 5.0s
+[13:34:36 + 1616.9s rss  642.6 MB]   hgbc@L2x2 fold 10: tau=0.25 kept_te=0.769 5.4s
+[13:34:41 + 1622.6s rss  642.7 MB]   hgbc@L2x2 fold 11: tau=0.25 kept_te=0.822 5.7s
+[13:34:41 + 1622.7s rss  642.7 MB]   hgbc robust L2x2: on-label diff 80.66 kept 0.7698; on L1 diff -49.7
+[13:34:47 + 1627.9s rss  642.7 MB]   hgbc@L3 fold 0: tau=0.35 kept_te=0.975 5.2s
+[13:34:52 + 1632.8s rss  642.7 MB]   hgbc@L3 fold 1: tau=0.35 kept_te=0.887 4.9s
+[13:34:57 + 1637.7s rss  642.7 MB]   hgbc@L3 fold 2: tau=0.4 kept_te=0.945 4.9s
+[13:35:01 + 1642.2s rss  642.7 MB]   hgbc@L3 fold 3: tau=0.25 kept_te=1.000 4.5s
+[13:35:06 + 1647.1s rss  642.7 MB]   hgbc@L3 fold 4: tau=0.25 kept_te=1.000 5.0s
+[13:35:11 + 1652.3s rss  642.7 MB]   hgbc@L3 fold 5: tau=0.3 kept_te=1.000 5.1s
+[13:35:16 + 1657.0s rss  642.7 MB]   hgbc@L3 fold 6: tau=0.3 kept_te=0.998 4.7s
+[13:35:21 + 1661.9s rss  642.8 MB]   hgbc@L3 fold 7: tau=0.35 kept_te=0.962 5.0s
+[13:35:26 + 1667.1s rss  642.9 MB]   hgbc@L3 fold 8: tau=0.3 kept_te=0.994 5.2s
+[13:35:31 + 1672.1s rss  642.9 MB]   hgbc@L3 fold 9: tau=0.35 kept_te=0.976 5.0s
+[13:35:36 + 1677.6s rss  643.0 MB]   hgbc@L3 fold 10: tau=0.1 kept_te=1.000 5.5s
+[13:35:42 + 1683.0s rss  643.0 MB]   hgbc@L3 fold 11: tau=0.25 kept_te=1.000 5.4s
+[13:35:42 + 1683.1s rss  643.0 MB]   hgbc robust L3: on-label diff -0.78 kept 0.9778; on L1 diff -949.44
+[13:35:42 + 1683.1s rss  643.0 MB] === scorecard: (e) scorecard, <= 12 source features by the L1 path (done: [])
+[13:36:57 + 1758.6s rss  638.1 MB]   scorecard fold 0: tau=0.3 kept_te=1.000 75.5s
+[13:38:10 + 1831.6s rss  637.0 MB]   scorecard fold 1: tau=0.35 kept_te=0.905 73.0s

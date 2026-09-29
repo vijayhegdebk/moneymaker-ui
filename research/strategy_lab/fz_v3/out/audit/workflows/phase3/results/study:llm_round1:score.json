@@ -1,0 +1,9 @@
+{
+ "agentId": "a4968154f969af0b2",
+ "label": "study:llm_round1:score",
+ "phase": "Studies",
+ "result": null,
+ "key": "v2:aad68a694a7eb867be7771bda2300ba67d8584e7bef075c9a4ef6632ae56a19f",
+ "transcript": "audit/workflows/phase3/agent-a4968154f969af0b2.jsonl",
+ "meta": "audit/workflows/phase3/agent-a4968154f969af0b2.meta.json"
+}

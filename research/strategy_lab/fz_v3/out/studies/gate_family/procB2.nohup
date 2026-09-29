@@ -1,0 +1,102 @@
+[13:40:57 +    0.0s rss  202.9 MB] start tf=minute sub=h5_full stages=['oof12', 'cpcv', 'frozen', 'robust', 'diag'] jobs=2 OMP=2
+[13:41:00 rss 313.7 MB] minute: design 244 + ext 61 -> dropped nan>40% 11, const 6, binary 2nd level 4, duplicates 32; + 24 missing indicators = 276 features
+[13:41:01 +    3.8s rss  312.5 MB] minute h5_full: 274 features after dropping time proxies ['sl', 'n_events_asof']; clusters 38; pairs [('sl', 'ffd_close_dstar'), ('sl', 'n_events_asof'), ('card_this_bars', 'sl'), ('room_ahead_dist_atr', 'room_behind_dist_atr'), ('card_vol_ratio', 'room_behind_dist_atr')]
+[13:41:01 +    3.8s rss  318.3 MB] features (5266, 274), IS rows 4452, models ['dt3', 'h5rules', 'hgbc', 'scorecard']
+[13:41:01 +    3.8s rss  320.6 MB] L1 average uniqueness on IS 1.0000
+[13:41:01 +    3.8s rss  320.6 MB] === dt3: H5 DecisionTreeClassifier depth <= 3, min leaf 100, nested tau (done: ['oof12', 'cpcv', 'frozen', 'robust'])
+[13:41:01 +    3.9s rss  321.9 MB] === h5rules: H5 greedy rule list by training kept expectancy (stop < 200 INR/trade) (done: ['oof12', 'cpcv', 'frozen', 'robust'])
+[13:41:01 +    3.9s rss  321.9 MB] === hgbc: (b) HGB classifier, interaction_cst = clusters + pairs, monotone H2 columns (done: ['oof12', 'cpcv', 'frozen', 'robust'])
+[13:41:01 +    3.9s rss  322.0 MB] === scorecard: (e) scorecard, <= 12 source features by the L1 path (done: [])
+[13:41:11 +   14.0s rss  359.2 MB]   scorecard fold 0: tau=0.3 kept_te=0.927 10.1s
+[13:41:18 +   21.0s rss  385.5 MB]   scorecard fold 1: tau=0.3 kept_te=0.979 7.0s
+[13:41:26 +   28.7s rss  385.5 MB]   scorecard fold 2: tau=0.3 kept_te=1.000 7.7s
+[13:41:32 +   34.9s rss  385.5 MB]   scorecard fold 3: tau=0.35 kept_te=0.896 6.2s
+[13:41:40 +   42.7s rss  385.8 MB]   scorecard fold 4: tau=0.25 kept_te=1.000 7.8s
+[13:41:47 +   49.8s rss  386.3 MB]   scorecard fold 5: tau=0.3 kept_te=1.000 7.1s
+[13:41:53 +   56.1s rss  386.4 MB]   scorecard fold 6: tau=0.1 kept_te=1.000 6.3s
+[13:42:05 +   68.1s rss  386.5 MB]   scorecard fold 7: tau=0.35 kept_te=0.906 12.0s
+[13:42:14 +   76.8s rss  386.6 MB]   scorecard fold 8: tau=0.3 kept_te=1.000 8.7s
+[13:42:21 +   83.7s rss  386.7 MB]   scorecard fold 9: tau=0.3 kept_te=0.892 6.9s
+[13:42:29 +   91.5s rss  386.7 MB]   scorecard fold 10: tau=0.35 kept_te=0.873 7.8s
+[13:42:39 +  101.9s rss  386.8 MB]   scorecard fold 11: tau=0.35 kept_te=1.000 10.4s
+[13:42:46 +  108.6s rss  389.1 MB]   scorecard OOF: id a84520b8ab87f49e kept 0.9571 diff 152.61 ctrl 37.4 perm 0.4353 wrec 0.9814 signs 4
+[13:42:53 +  116.3s rss  392.7 MB]   scorecard distilled rules: id af93af8ebc3ae9f5 kept 0.9937 diff 130.08 fidelity 0.9602
+[13:43:01 +  124.2s rss  392.9 MB]   scorecard distilled tree: id cbc8df04b485a517 kept 0.9553 diff 70.27 fidelity 0.9757
+[13:43:09 +  131.7s rss  392.9 MB]   scorecard_decay fold 0: tau=0.3 kept_te=1.000 7.5s
+[13:43:14 +  137.1s rss  392.9 MB]   scorecard_decay fold 1: tau=0.3 kept_te=1.000 5.4s
+[13:43:20 +  143.3s rss  392.9 MB]   scorecard_decay fold 2: tau=0.3 kept_te=1.000 6.2s
+[13:43:26 +  148.3s rss  392.9 MB]   scorecard_decay fold 3: tau=0.35 kept_te=0.794 5.1s
+[13:43:31 +  153.5s rss  392.9 MB]   scorecard_decay fold 4: tau=0.25 kept_te=1.000 5.1s
+[13:43:36 +  159.3s rss  392.9 MB]   scorecard_decay fold 5: tau=0.3 kept_te=1.000 5.8s
+[13:43:41 +  163.8s rss  392.9 MB]   scorecard_decay fold 6: tau=0.3 kept_te=1.000 4.5s
+[13:43:48 +  171.0s rss  392.9 MB]   scorecard_decay fold 7: tau=0.1 kept_te=1.000 7.2s
+[13:43:53 +  175.8s rss  392.9 MB]   scorecard_decay fold 8: tau=0.3 kept_te=1.000 4.8s
+[13:43:58 +  180.9s rss  392.9 MB]   scorecard_decay fold 9: tau=0.35 kept_te=0.814 5.0s
+[13:44:03 +  185.4s rss  392.9 MB]   scorecard_decay fold 10: tau=0.35 kept_te=0.988 4.5s
+[13:44:10 +  192.9s rss  392.9 MB]   scorecard_decay fold 11: tau=0.35 kept_te=1.000 7.5s
+[13:44:10 +  192.9s rss  392.9 MB]   scorecard oof12 done in 189.0s
+[13:45:17 +  260.1s rss  390.6 MB]   scorecard cpcv split 11/66 (67s)
+[13:46:29 +  332.3s rss  412.0 MB]   scorecard cpcv split 22/66 (139s)
+[13:47:39 +  402.2s rss  414.9 MB]   scorecard cpcv split 33/66 (209s)
+[13:48:55 +  477.7s rss  415.3 MB]   scorecard cpcv split 44/66 (285s)
+[13:50:02 +  544.5s rss  415.8 MB]   scorecard cpcv split 55/66 (352s)
+[13:51:47 +  649.4s rss  418.6 MB]   scorecard cpcv split 66/66 (457s)
+[13:53:03 +  725.4s rss  420.6 MB]   scorecard CPCV: median 63.54 p5 -14.58 share>0 0.909 ctrl med 1.5
+[13:54:18 +  800.7s rss  420.6 MB]   scorecard distilled rules CPCV: median 56.1 p5 -24.96 share>0 0.909
+[13:55:35 +  878.0s rss  420.6 MB]   scorecard distilled tree CPCV: median 75.34 p5 -5.92 share>0 0.909
+[13:55:37 +  879.9s rss  454.1 MB]   scorecard frozen rules (0): id 4ecc5c62750ac629 kept 1.0 diff None ctrl None fidelity 0.9571
+[13:55:50 +  893.2s rss  454.2 MB]   scorecard frozen scorecard (9 features): id 603b3e7e57bb46b0 kept 0.9823 diff 323.89 ctrl 53.4
+[13:55:58 +  900.5s rss  456.1 MB]   scorecard@L0 fold 0: tau=0.1 kept_te=1.000 6.2s
+[13:56:03 +  906.2s rss  456.4 MB]   scorecard@L0 fold 1: tau=0.1 kept_te=1.000 5.8s
+[13:56:15 +  917.7s rss  456.4 MB]   scorecard@L0 fold 2: tau=0.4 kept_te=0.974 11.5s
+[13:56:23 +  925.9s rss  456.4 MB]   scorecard@L0 fold 3: tau=0.1 kept_te=1.000 8.2s
+[13:56:31 +  933.3s rss  456.4 MB]   scorecard@L0 fold 4: tau=0.1 kept_te=1.000 7.4s
+[13:56:39 +  942.0s rss  456.6 MB]   scorecard@L0 fold 5: tau=0.4 kept_te=1.000 8.6s
+[13:56:47 +  949.4s rss  456.6 MB]   scorecard@L0 fold 6: tau=0.1 kept_te=1.000 7.5s
+[13:56:56 +  958.8s rss  457.5 MB]   scorecard@L0 fold 7: tau=0.4 kept_te=0.907 9.4s
+[13:57:04 +  967.2s rss  458.3 MB]   scorecard@L0 fold 8: tau=0.1 kept_te=1.000 8.4s
+[13:57:13 +  976.3s rss  458.3 MB]   scorecard@L0 fold 9: tau=0.4 kept_te=1.000 9.1s
+[13:57:20 +  982.9s rss  458.3 MB]   scorecard@L0 fold 10: tau=0.1 kept_te=1.000 6.6s
+[13:57:26 +  989.0s rss  458.3 MB]   scorecard@L0 fold 11: tau=0.1 kept_te=1.000 6.1s
+[13:57:26 +  989.0s rss  458.3 MB]   scorecard robust L0: on-label diff 350.71 kept 0.9922
+[13:57:32 +  995.1s rss  458.3 MB]   scorecard@L2x1 fold 0: tau=0.35 kept_te=0.563 6.1s
+[13:57:38 + 1001.2s rss  458.3 MB]   scorecard@L2x1 fold 1: tau=0.35 kept_te=0.572 6.1s
+[13:57:44 + 1007.2s rss  458.3 MB]   scorecard@L2x1 fold 2: tau=0.3 kept_te=0.484 6.0s
+[13:57:50 + 1012.6s rss  458.3 MB]   scorecard@L2x1 fold 3: tau=0.3 kept_te=0.391 5.4s
+[13:57:56 + 1018.8s rss  458.3 MB]   scorecard@L2x1 fold 4: tau=0.3 kept_te=0.272 6.2s
+[13:58:01 + 1024.1s rss  458.3 MB]   scorecard@L2x1 fold 5: tau=0.35 kept_te=0.240 5.2s
+[13:58:06 + 1028.9s rss  458.3 MB]   scorecard@L2x1 fold 6: tau=0.35 kept_te=0.420 4.8s
+[13:58:13 + 1035.8s rss  458.3 MB]   scorecard@L2x1 fold 7: tau=0.35 kept_te=0.481 6.9s
+[13:58:19 + 1042.1s rss  458.3 MB]   scorecard@L2x1 fold 8: tau=0.25 kept_te=0.606 6.3s
+[13:58:25 + 1047.4s rss  458.3 MB]   scorecard@L2x1 fold 9: tau=0.3 kept_te=0.523 5.3s
+[13:58:31 + 1053.4s rss  458.3 MB]   scorecard@L2x1 fold 10: tau=0.25 kept_te=0.474 6.1s
+[13:58:36 + 1059.2s rss  458.3 MB]   scorecard@L2x1 fold 11: tau=0.25 kept_te=0.480 5.8s
+[13:58:36 + 1059.3s rss  458.3 MB]   scorecard robust L2x1: on-label diff 135.73 kept 0.4528; on L1 diff 135.65
+[13:58:42 + 1064.7s rss  458.3 MB]   scorecard@L2x2 fold 0: tau=0.3 kept_te=0.884 5.5s
+[13:58:47 + 1069.7s rss  458.3 MB]   scorecard@L2x2 fold 1: tau=0.3 kept_te=0.794 5.0s
+[13:58:53 + 1075.5s rss  458.3 MB]   scorecard@L2x2 fold 2: tau=0.3 kept_te=0.909 5.8s
+[13:58:57 + 1079.9s rss  458.3 MB]   scorecard@L2x2 fold 3: tau=0.3 kept_te=0.633 4.4s
+[13:59:02 + 1084.8s rss  458.3 MB]   scorecard@L2x2 fold 4: tau=0.3 kept_te=0.608 4.9s
+[13:59:08 + 1090.4s rss  458.3 MB]   scorecard@L2x2 fold 5: tau=0.3 kept_te=0.346 5.6s
+[13:59:13 + 1095.7s rss  458.3 MB]   scorecard@L2x2 fold 6: tau=0.3 kept_te=0.731 5.3s
+[13:59:19 + 1101.8s rss  458.3 MB]   scorecard@L2x2 fold 7: tau=0.3 kept_te=0.914 6.0s
+[13:59:24 + 1107.2s rss  458.3 MB]   scorecard@L2x2 fold 8: tau=0.3 kept_te=0.688 5.4s
+[13:59:30 + 1113.1s rss  458.3 MB]   scorecard@L2x2 fold 9: tau=0.3 kept_te=0.848 5.9s
+[13:59:38 + 1121.0s rss  458.3 MB]   scorecard@L2x2 fold 10: tau=0.3 kept_te=0.827 7.9s
+[13:59:45 + 1127.4s rss  458.3 MB]   scorecard@L2x2 fold 11: tau=0.3 kept_te=0.857 6.4s
+[13:59:45 + 1127.5s rss  458.3 MB]   scorecard robust L2x2: on-label diff 53.0 kept 0.7545; on L1 diff 22.72
+[13:59:50 + 1133.2s rss  458.3 MB]   scorecard@L3 fold 0: tau=0.1 kept_te=1.000 5.7s
+[13:59:58 + 1140.4s rss  458.3 MB]   scorecard@L3 fold 1: tau=0.1 kept_te=1.000 7.2s
+[14:00:03 + 1145.8s rss  458.3 MB]   scorecard@L3 fold 2: tau=0.1 kept_te=1.000 5.5s
+[14:00:08 + 1150.7s rss  458.3 MB]   scorecard@L3 fold 3: tau=0.1 kept_te=1.000 4.9s
+[14:00:14 + 1157.2s rss  458.3 MB]   scorecard@L3 fold 4: tau=0.1 kept_te=1.000 6.5s
+[14:00:22 + 1165.2s rss  458.3 MB]   scorecard@L3 fold 5: tau=0.1 kept_te=1.000 8.0s
+[14:00:29 + 1171.6s rss  458.3 MB]   scorecard@L3 fold 6: tau=0.1 kept_te=1.000 6.4s
+[14:00:36 + 1178.3s rss  458.3 MB]   scorecard@L3 fold 7: tau=0.1 kept_te=1.000 6.7s
+[14:00:43 + 1185.9s rss  458.3 MB]   scorecard@L3 fold 8: tau=0.1 kept_te=1.000 7.5s
+[14:00:51 + 1193.7s rss  458.3 MB]   scorecard@L3 fold 9: tau=0.1 kept_te=1.000 7.9s
+[14:00:57 + 1199.4s rss  458.3 MB]   scorecard@L3 fold 10: tau=0.1 kept_te=1.000 5.7s
+[14:01:04 + 1207.1s rss  458.3 MB]   scorecard@L3 fold 11: tau=0.1 kept_te=1.000 7.7s
+[14:01:04 + 1207.1s rss  458.3 MB]   scorecard robust L3: on-label diff None kept 1.0; on L1 diff None
+[14:01:04 + 1207.2s rss  458.1 MB] oof parquet: 17808 rows -> oof_minute_h5_full.parquet
+[14:01:04 + 1207.2s rss  458.1 MB] ALL DONE tf=minute sub=h5_full in 1207s, peak rss 458.1 MB

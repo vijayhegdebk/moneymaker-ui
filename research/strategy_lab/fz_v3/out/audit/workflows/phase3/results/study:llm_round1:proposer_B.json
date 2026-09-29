@@ -1,0 +1,9 @@
+{
+ "agentId": "a02b141249199e5b4",
+ "label": "study:llm_round1:proposer_B",
+ "phase": "Studies",
+ "result": null,
+ "key": "v2:b661bea5e9ea6cead1921c9559f8fd283b546a276cfcceb27280a9ad534a4a1f",
+ "transcript": "audit/workflows/phase3/agent-a02b141249199e5b4.jsonl",
+ "meta": "audit/workflows/phase3/agent-a02b141249199e5b4.meta.json"
+}

@@ -1,0 +1,8 @@
+full     lints    k=1   win=anchored  d=294     14.1s take_share=0.448 lots_taken_mean=0.26 states=826 last=TS sample <= 0 deterministic=True incremental_vs_recompute_max_abs_dmu=3.62e-13
+full     lints    k=1   win=1000      d=294     14.1s take_share=0.448 lots_taken_mean=0.26 states=826 last=TS sample <= 0
+full     logts    k=1   win=anchored  d=294    102.3s take_share=0.518 lots_taken_mean=0.07 states=826 last=pW-(1-p)L <= 0
+full     logts    k=10  win=300       d=294      8.9s take_share=0.523 lots_taken_mean=0.07 states=83 last=pW-(1-p)L > 0
+context  hgb_reg  k=1   win=anchored  d=12      78.2s take_share=0.213 lots_taken_mean=0.75 states=826 last=E[net] <= 0
+context  hgb_cls  k=1   win=anchored  d=12      98.9s take_share=0.496 lots_taken_mean=0.58 states=826 last=p >= tau (record)
+context  logts    k=1   win=anchored  d=12       1.3s take_share=0.205 lots_taken_mean=1.12 states=826 last=pW-(1-p)L <= 0
+{"time": "2025-12-31 09:15:00", "setup_i": 76546, "session_idx": 1025, "dir": "up", "hour_bin": "<09:25", "features": "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0]", "n_closed": 825, "n_pending": 0, "decision": "skip", "reason": "pW-(1-p)L <= 0", "score": 0.336012, "value": -497.744132, "p_model": 0.336012, "p_win": 0.3049, "tau": null, "W": 4831.56, "L": 2904.95, "kelly_f": null, "lots": 0, "state": "dafba6793b6c2186", "fill": 26169.5, "exit_time": "2025-12-31 15:25:00", "exit_reason": "eod", "mfe_pts": 155.5, "mae_pts": -39.3, "pts": 130.5, "gross": 7832.5, "costs": 1146.71, "net": 7335.79, "R": 0.4959, "equity_1lot": -135407.79, "drawdown_1lot": -137363.67, "equity_sized": -205901.87, "drawdown_sized": -207857.75, "rolling_pf100": 0.554, "n_taken_closed": 169, "taken_net": 0.0}

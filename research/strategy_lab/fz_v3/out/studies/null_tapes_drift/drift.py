@@ -33,9 +33,10 @@ sys.path.insert(0, OUT)
 import harness as H                                                     # noqa: E402
 
 EARLY_END = "2023-09-30"
-N_PERM = 20
+SMOKE = os.environ.get("DRIFT_SMOKE") == "1"                            # code-path test only: tiny model, 1 permutation, nothing cached or delivered
+N_PERM = 1 if SMOKE else 20
 TIME_PROXY_RHO = 0.9
-HGB = dict(max_iter=300, learning_rate=0.05, max_leaf_nodes=15, min_samples_leaf=40, l2_regularization=1.0, random_state=0, early_stopping=False)
+HGB = dict(max_iter=5 if SMOKE else 300, learning_rate=0.05, max_leaf_nodes=15, min_samples_leaf=40, l2_regularization=1.0, random_state=0, early_stopping=False)
 
 
 def log(msg, fh):
@@ -79,13 +80,20 @@ def run_tf(tf, fh):
                hgb=HGB, time_proxies={c: round(rho[c], 4) for c in proxies}, variants={})
     for name, cols in (("A_all_asof", list(Xdf.columns)), ("B_without_time_proxies", [c for c in Xdf.columns if c not in proxies])):
         X = Xdf[cols].to_numpy(dtype=float)
-        t0 = time.time(); auc, oof = oof_auc(T, X, y)
-        rng = np.random.default_rng(int(H._sha(f"drift|{tf}|{name}"), 16) % (2 ** 32))
-        seeds = [int(s) for s in rng.integers(0, 2 ** 32 - 1, size=N_PERM)]          # one seed per permutation: reproducible in parallel
-        perm = Parallel(n_jobs=4)(delayed(_perm_auc)(T, X, y, s) for s in seeds)
-        out["variants"][name] = dict(columns=len(cols), auc_oof=round(auc, 4), perm_auc_p50=round(float(np.median(perm)), 4), perm_auc_p95=round(float(np.quantile(perm, 0.95)), 4),
-                                     perm_auc_max=round(float(np.max(perm)), 4), n_perm=N_PERM, seconds=round(time.time() - t0, 1))
-        log(f"{tf} {name}: OOF AUC {auc:.4f} (permuted p50 {np.median(perm):.4f}, p95 {np.quantile(perm, 0.95):.4f}) in {time.time() - t0:.0f}s", fh)
+        cache = os.path.join(HERE, f"drift_cache_{tf}_{name}.json")           # the fits are deterministic (seeded); a cached variant is not refit
+        if os.path.exists(cache) and not SMOKE:
+            out["variants"][name] = json.load(open(cache)); auc = out["variants"][name]["auc_oof"]
+            log(f"{tf} {name}: cached OOF AUC {auc:.4f} (permuted p50 {out['variants'][name]['perm_auc_p50']:.4f}, p95 {out['variants'][name]['perm_auc_p95']:.4f})", fh)
+        else:
+            t0 = time.time(); auc, oof = oof_auc(T, X, y)
+            rng = np.random.default_rng(int(H._sha(f"drift|{tf}|{name}"), 16) % (2 ** 32))
+            seeds = [int(s) for s in rng.integers(0, 2 ** 32 - 1, size=N_PERM)]          # one seed per permutation: reproducible in parallel
+            perm = Parallel(n_jobs=4)(delayed(_perm_auc)(T, X, y, s) for s in seeds)
+            out["variants"][name] = dict(columns=len(cols), auc_oof=round(auc, 4), perm_auc_p50=round(float(np.median(perm)), 4), perm_auc_p95=round(float(np.quantile(perm, 0.95)), 4),
+                                         perm_auc_max=round(float(np.max(perm)), 4), n_perm=N_PERM, perm_aucs=[round(float(p), 4) for p in perm], seeds=seeds,
+                                         seconds=round(time.time() - t0, 1))
+            if not SMOKE: json.dump(out["variants"][name], open(cache, "w"), indent=1)
+            log(f"{tf} {name}: OOF AUC {auc:.4f} (permuted p50 {np.median(perm):.4f}, p95 {np.quantile(perm, 0.95):.4f}) in {time.time() - t0:.0f}s", fh)
         if name.startswith("B"):
             m = HistGradientBoostingClassifier(**HGB).fit(X[is_idx], y[is_idx])
             try:

@@ -4,3 +4,4 @@
 [05:01:36 +    2.4s rss   374MB] truncation check: setups before cut [3767, 3767] same keys True max |diff| 0.0 PASS True
 [05:01:36 +    2.5s rss   374MB] kernel bank saved (seed 3795216026): dilation counts [496, 303, 205, 176, 123, 110, 89, 93, 86, 66, 67, 77, 61, 48, 0], pair share 0.504, channel use [439, 466, 443, 402, 392, 442, 425]
 [05:01:37 +    3.4s rss   398MB] design matrix (4452, 244) (base as-of columns), flattened window (4452, 420)
+[05:02:02 +   28.9s rss   470MB] numba JIT 1.38s; one full transform (4452, 2000) in 23.92s (34.0 MB float32); PPV mean 0.4515, constant kernels 2

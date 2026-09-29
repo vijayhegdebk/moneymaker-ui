@@ -47,3 +47,59 @@
 [04:41:36] evaluated minute gmm_5: units 1312, setups/sess 5.4049, frozen_st7_st8 diff -90.26 pct 28.6 choch2_skip diff 173.19 pct 71.2 sl_above_median_skip diff 26.14 pct 46.4
 [04:42:19] built minute gmm_6: 101.8s, peak rss 489.5 MB
 [04:42:32] evaluated minute gmm_6: units 1500, setups/sess 6.1741, frozen_st7_st8 diff -97.52 pct 26.1 choch2_skip diff 94.5 pct 69.8 sl_above_median_skip diff -63.9 pct 56.0
+[04:42:47] built minute gmm_7: 71.3s, peak rss 516.2 MB
+[04:42:51] evaluated minute gmm_7: units 1338, setups/sess 5.4818, frozen_st7_st8 diff -3.53 pct 64.8 choch2_skip diff -4.22 pct 38.6 sl_above_median_skip diff 37.9 pct 72.2
+[04:42:52] minute done in 2016s
+{
+ "gmm": {
+  "choch2_skip": [
+   105.34,
+   246.98,
+   -72.5
+  ],
+  "frozen_st7_st8": [
+   -93.89,
+   23.0,
+   -19.71
+  ],
+  "sl_above_median_skip": [
+   32.02,
+   96.58,
+   12.07
+  ]
+ },
+ "segment": {
+  "choch2_skip": [
+   -61.29,
+   144.79,
+   -72.5
+  ],
+  "frozen_st7_st8": [
+   16.51,
+   272.51,
+   -19.71
+  ],
+  "sl_above_median_skip": [
+   37.22,
+   129.55,
+   12.07
+  ]
+ },
+ "session": {
+  "choch2_skip": [
+   -78.84,
+   136.47,
+   -72.5
+  ],
+  "frozen_st7_st8": [
+   76.99,
+   468.29,
+   -19.71
+  ],
+  "sl_above_median_skip": [
+   -22.91,
+   94.14,
+   12.07
+  ]
+ }
+}

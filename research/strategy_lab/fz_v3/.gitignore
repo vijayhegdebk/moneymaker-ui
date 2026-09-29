@@ -12,3 +12,6 @@ out/studies/*/*.npz
 out/studies/*/*.pkl
 out/studies/*/*.png
 __pycache__/
+
+# the root .gitignore ignores build/ folders; the FZ v3 build scripts are code, not artefacts
+!out/build/

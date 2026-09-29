@@ -1,6 +1,6 @@
 # FZ v3 audit index
 
-Regenerated 2026-09-29T18:08:23 by `audit_export.py`. Every agent of the program is listed with its full transcript (every prompt, tool call, tool result and final report) and its structured verdict. The harness ledger (`ledger/trials.jsonl`, one row per configuration ever scored; `ledger/vectors/<id>_<split>.npz`, the per-session vectors behind PBO / SPA / bootstrap) and the registrations (`ledger/registrations.jsonl`, hashed pre-registrations, corrections, candidates, the OOS opening) are committed as they are. The main session's own record is the commit history of branch `research/strategy-lab-pwxiug` plus `PROGRESS.md`.
+Regenerated 2026-09-29T18:44:25 by `audit_export.py`. Every agent of the program is listed with its full transcript (every prompt, tool call, tool result and final report) and its structured verdict. The harness ledger (`ledger/trials.jsonl`, one row per configuration ever scored; `ledger/vectors/<id>_<split>.npz`, the per-session vectors behind PBO / SPA / bootstrap) and the registrations (`ledger/registrations.jsonl`, hashed pre-registrations, corrections, candidates, the OOS opening) are committed as they are. The main session's own record is the commit history of branch `research/strategy-lab-pwxiug` plus `PROGRESS.md`.
 
 ## Workflows
 
@@ -42,7 +42,7 @@ Regenerated 2026-09-29T18:08:23 by `audit_export.py`. Every agent of the program
 | repair:session_stop | Repair | aab80629544f3a62c | `audit/workflows/phase1/agent-aab80629544f3a62c.jsonl` | `audit/workflows/phase1/results/repair:session_stop.json` |
 | recheck:session_stop | Repair | a3c00cd6268108ba3 | `audit/workflows/phase1/agent-a3c00cd6268108ba3.jsonl` | `audit/workflows/phase1/results/recheck:session_stop.json` |
 
-### exit_policy_followup (run wf_82d49a78-1f8; script `None`; journal `audit/workflows/exit_policy_followup/journal.jsonl`)
+### exit_policy_followup (run wf_82d49a78-1f8; script `workflows/exit_policy_followup.js`; journal `audit/workflows/exit_policy_followup/journal.jsonl`)
 
 | agent label | phase | agentId | transcript | structured result |
 |---|---|---|---|---|
@@ -84,6 +84,17 @@ Regenerated 2026-09-29T18:08:23 by `audit_export.py`. Every agent of the program
 | verify:importance:arithmetic | Verify | a8fa567e4387bd1b6 | `audit/workflows/phase2/agent-a8fa567e4387bd1b6.jsonl` | `audit/workflows/phase2/results/verify:importance:arithmetic.json` |
 | repair:importance | Repair | ab1fe3b4846387a6c | `audit/workflows/phase2/agent-ab1fe3b4846387a6c.jsonl` | `audit/workflows/phase2/results/repair:importance.json` |
 | recheck:importance | Repair | a1bfa346fb0ba633d | `audit/workflows/phase2/agent-a1bfa346fb0ba633d.jsonl` | `audit/workflows/phase2/results/recheck:importance.json` |
+
+### closeout (run wf_ce417d59-c83; script `workflows/closeout.js`; journal `audit/workflows/closeout/journal.jsonl`)
+
+| agent label | phase | agentId | transcript | structured result |
+|---|---|---|---|---|
+| write:report | Write | addaa360438a08f11 | `audit/workflows/closeout/agent-addaa360438a08f11.jsonl` | `audit/workflows/closeout/results/write:report.json` |
+| write:s49_docs | Write | a08279407720b5db7 | `audit/workflows/closeout/agent-a08279407720b5db7.jsonl` | `audit/workflows/closeout/results/write:s49_docs.json` |
+| verify:closeout:numbers | Verify | a692fa6577c3d68ea | `audit/workflows/closeout/agent-a692fa6577c3d68ea.jsonl` | `audit/workflows/closeout/results/verify:closeout:numbers.json` |
+| verify:closeout:claims | Verify | ac3b1eb2489271cf8 | `audit/workflows/closeout/agent-ac3b1eb2489271cf8.jsonl` | `audit/workflows/closeout/results/verify:closeout:claims.json` |
+| repair:closeout | Repair | a8fe11080be94d98f | `audit/workflows/closeout/agent-a8fe11080be94d98f.jsonl` | `audit/workflows/closeout/results/repair:closeout.json` |
+| recheck:closeout | Repair | aeefe280826b015cc | `audit/workflows/closeout/agent-aeefe280826b015cc.jsonl` | `audit/workflows/closeout/results/recheck:closeout.json` |
 
 ### phase3 (run wf_e200b95a-fcc; script `workflows/phase3.js`; journal `audit/workflows/phase3/journal.jsonl`)
 

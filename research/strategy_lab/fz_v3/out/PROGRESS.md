@@ -93,8 +93,21 @@ block sign test, CPCV 5th percentile, PBO, DSR, SPA, bootstrap CI (`harness.go_n
    journal, the cut-off ones re-run with the same prompt and continue from the files (STUDY_AGENT_BRIEF.md "Resuming");
    (c) then steps 2-5 below; (d) `python audit_export.py`, commit, `git push origin research/strategy-lab-pwxiug` at each step.
 
-## Next (in order)
-1. Phase 3 running (above; run wf_e200b95a-fcc). Phases 1, 1b, 2 and the exit_policy follow-up are complete and verified.
+## PROGRAM DONE (2026-09-29 ~18:50 UTC)
+- Phase 3 complete and verified (run wf_e200b95a-fcc, 18 agents; refuters minor only): gate_family, operating_point_sizing,
+  llm_round1, regime_gate, online_learner all **null**; no candidate frozen (`candidates/` never created).
+- OOS opened once (`oos_once.py` 18:06 UTC, `results/oos.json`): comparators only. Frozen ST7/ST8 on OOS L1: 1m kept 130/814,
+  diff +485, control pct 93.2, perm p 0.075; 5m kept 68/176, diff -748, pct 49.5, p 0.30 (SE ~185 / ~375; two standing caveats).
+- Close-out (run wf_ce417d59-c83): `REPORT.md` written, S49 filled in `docs/STRATEGY_ANALYSIS_TODO.md`, pointers in
+  `research/strategy_lab/README.md` and `FZ.md`; two fact-checkers found 14 issues (7 material: a false 5-pt universal, a
+  misstated volume range, cell vs gate wording, Monte-Carlo control re-draws called "reproduce", two ledger ids for one form,
+  inconsistent LLM rule counts, ceiling described as 276-feature on 5m), repaired, rechecked (minor left).
+- **Outcome: nothing survived. No strategy_13 / strategy_14 file; the sleeve stays a card; Strategies 5-8 untouched.** The user
+  decisions are listed in REPORT.md section 5 and S49.
+- The hourly resume routine is deleted. A new session continues from this file, REPORT.md and S49.
+
+## Next (in order) - superseded by PROGRAM DONE above; kept as the record of the plan
+1. Phase 3 (run wf_e200b95a-fcc). Phases 1, 1b, 2 and the exit_policy follow-up are complete and verified.
 2. `python oos_once.py` once, for the frozen candidates (at most three per timeframe) + the comparators -> `results/oos.json`.
 3. `REPORT.md` (the trading playbook: what to take / skip by regime, time, volume, level; how to size and exit; IS and OOS numbers
    with the controls; the two caveats; what did NOT survive and why), update `QUALITY.md`, fill `docs/STRATEGY_ANALYSIS_TODO.md`

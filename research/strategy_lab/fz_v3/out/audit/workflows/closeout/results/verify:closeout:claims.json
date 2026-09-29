@@ -1,0 +1,69 @@
+{
+ "agentId": "ac3b1eb2489271cf8",
+ "label": "verify:closeout:claims",
+ "phase": "Verify",
+ "result": {
+  "refuted": true,
+  "severity": "material",
+  "issues": [
+   {
+    "what": "Headline universal claim exceeds the evidence: \"Every kept book of every study stays negative at 5 and at 8 pts slippage\" is false at 5 pts. The cited source covers only the operating_point study's 326 books, and the REPORT's own \u00a74.12 reports a kept book with a positive mean at the label's 5 pts slippage.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/REPORT.md lines 23-24 (\u00a71); repeated in spirit at \u00a74.12 line 347",
+    "evidence": "studies/online_learner/FINDINGS.md \u00a70 line 7: row `19f7ff81224bafa0` (context/lints/k1/1000/pf e0.3 s1) kept 68 of 4452, kept mean +112.36 vs skipped -1,027.01, kept PF 1.077, kept mean at 8 pts -277.61 (L1 label = 5 pts slippage). REPORT \u00a74.12 line 347 itself prints \"+112.36 / +1,139.37\". Also L0 robustness rows in studies/h1_gate_audit/FINDINGS.md \u00a73 lines 85-86: 5 min take_only `2ad039c7d19cf22d` kept mean +126.30, take_or_reenter `5d3759e3d6038faa` +133.81. The parenthetical source (operating_point_sizing/FINDINGS.md \u00a70: 0 of 326 at 8 pts, 1 at 3 pts) supports only that study's books and only the 8-pt part. No verdict changes (the row fails 9 go/no-go items incl. kept_share and kept_n), but the sentence as written is not what the files say.",
+    "fix": "Rewrite as: \"No kept book of any study has a positive mean at 8 pts slippage (operating_point_sizing \u00a70: 0 of 326; online_learner \u00a70: 0 of 468 paths per timeframe; every phase-3 finalist's slip8 item fails); at the label's 5 pts the only positive kept means are a 68-trade online-learner path (+112.36, `19f7ff81224bafa0`, fails kept share / kept n / control) and L0 robustness rows.\""
+   },
+   {
+    "what": "Inconsistent and mis-scaled LLM rule counts in the one-page table: the 1 min column says \"0 of 16 + 32 LLM rules\" while the 5 min column says \"0 of 32\"; neither is the per-timeframe count.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/REPORT.md line 38 (\u00a71 table, row \"a learned rule\")",
+    "evidence": "studies/llm_hypotheses/FINDINGS.md \u00a73: 8 round-0 rules per timeframe (16 in all); studies/llm_round1/FINDINGS.md \u00a78: 8 round-1 rules per half per timeframe (16 per timeframe, 32 in all). Per timeframe the count is 8 + 16 = 24; 16 + 32 = 48 is the program total, and \"32\" in the 5 min cell matches neither.",
+    "fix": "Write \"0 of 8 + 16 LLM rules\" in both timeframe columns (or state the program total 16 + 32 once in the prose)."
+   },
+   {
+    "what": "Ambiguous go/no-go sentence can be read as saying the 1 min frozen gate passes the kept-share floor.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/REPORT.md lines 93-94 (\u00a72.2): \"fails every IS go/no-go item except the kept-n floors, and on 1 min also the kept-share floor\"",
+    "evidence": "results/pre_registration.json `frozen_go_no_go`: minute/L1 kept_share>=20% = false (0.1673), kept_n>=300 = true; 5minute/L1 kept_share>=20% = true (0.3935), kept_n>=80 = true. So 5 min passes two items, 1 min passes one.",
+    "fix": "\"It fails every IS go/no-go item except the kept-n floors (both timeframes) and the kept-share floor on 5 min; on 1 min it also fails kept share (16.7 % < 20 %).\""
+   },
+   {
+    "what": "Undercount of the log tails lost to the 06:24 inode incident: the REPORT says two, the study files name three.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/REPORT.md lines 410-411 (\u00a76)",
+    "evidence": "studies/rocket_ceiling/FINDINGS.md \u00a78a (final three lines lost); studies/exit_policy/FINDINGS.md \u00a711.6 (04_a_minute.log summary line lost); studies/importance/FINDINGS.md line 69 and caveat line 572: \"the minute cpcv log lacks its two closing lines ... an inode unlinked by the 06:24 checkout; cpcv_minute.json and its 11 ledger rows are complete\". QUALITY.md says the affected logs are named in the FINDINGS.",
+    "fix": "\"Three log tails were lost at process exit (the rocket run's final three lines; the 1 min FQI's summary line; the importance minute cpcv log's two closing lines); each value is in the study's JSON and the ledger shas reproduce.\""
+   },
+   {
+    "what": "The ceiling model is described as keeping every row on both timeframes and as a 276-feature model for 5 min; on 5 min it has 238 features and its OOF gate skipped 7 rows (kept 0.9915) with diff +817.94.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/REPORT.md line 38 (\u00a71 table: \"the ceiling model (276-feature bagging) ranks winners at OOF AUC 0.59 (1 min) / 0.50 (5 min) and its gate keeps every row\"); /home/user/money-maker/research/strategy_lab/FZ.md line 480 (\u00a720: \"the 276-feature bagging ceiling ... 0.50 on 5m and its gate keeps every row\")",
+    "evidence": "studies/importance/FINDINGS.md line 311 (5minute features in the model 238) and line 319 (`1a12e823ea7cf4c7` gate kept n 819, kept share 0.9915, diff 817.94, control pct 88.4, 1 sign block); line 75 (minute: kept 4452, share 1.0000). The REPORT's own \u00a74.5 table (line 218) states this correctly.",
+    "fix": "\"the ceiling model (276 / 238-feature bagging) ranks winners at OOF AUC 0.59 / 0.50; its gate keeps every row on 1 min and 99.15 % of rows on 5 min\" in REPORT \u00a71 and FZ.md \u00a720."
+   },
+   {
+    "what": "S49 gives the engine lock-out count as a range \"12\u201322 of 84\" that mixes two flag definitions without saying so; the study's own rule gives 22.",
+    "where": "/home/user/money-maker/docs/STRATEGY_ANALYSIS_TODO.md line 453 (S49 Protocol row): \"12\u201322 of 84 first-build tapes had an engine lock-out\"",
+    "evidence": "studies/null_tapes_drift/FINDINGS.md \u00a75c line 254: \"32 of 122 tapes built are locked (22 of 84 in the first build); the refuters' tail rule ... flags 17 of them\"; \u00a78 line 361: \"the refuters' tail rule finds 12 of 84\"; \u00a72b table: first-build locked 6+4+10+0+1+1 = 22. The range comes from PROGRESS.md line 29, not from the FINDINGS.",
+    "fix": "\"22 of 84 first-build tapes (32 of 122 built) had an engine lock-out by the study's frozen-run rule (12 by the refuters' tail rule)\"."
+   },
+   {
+    "what": "Internal inconsistency in the description of the 1 min hour x direction near-miss: \u00a71 gives \"nested +190 to +192, ctrl 22-47, CPCV p5 +153 to +160, 9-10/12 blocks\" while \u00a74.8 gives \"+185 to +245, 9-11 of 12, p5 +131 to +160, ctrl 12-57\", without saying that \u00a71 quotes only the two distilled finalist rows.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/REPORT.md line 34 (\u00a71 table, \"time of day\" row) vs lines 269-272 (\u00a74.8)",
+    "evidence": "studies/gate_family/FINDINGS.md \u00a70 line 7 gives the family-wide range (+185 to +245, 9-11 of 12, p5 +131 to +160, control 12-57); the finalist-set rows (lines 311, 314) give bag4 -> rules `78097a5957985c81` diff 192.23, ctrl 46.6, p5 152.97, 10 blocks and hgbc -> tree `d753e432605450f5` diff 189.88, ctrl 21.9, p5 159.75, 9 blocks, which is what \u00a71 quotes. Both are in the file; the \u00a71 cell does not name its rows.",
+    "fix": "In \u00a71 add the two ledger ids (`78097a5957985c81`, `d753e432605450f5`) after the range, or use the \u00a70 range in both places."
+   },
+   {
+    "what": "Refuter verdicts (\"Refuters minor only\" etc.) are sourced from `audit/AUDIT.md`, a file outside the source list the task permitted; the claims themselves check out.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/REPORT.md lines 134-135 (\u00a74 preamble), 122 (\u00a73), 393-398 (\u00a76)",
+    "evidence": "audit/AUDIT.md lines 126-259 list every verify/recheck agent with refuted/severity; the material rows are exactly llm_round0, h2_h3_h4, session_stop, exit_policy, null_tapes_drift, importance, and the studies the REPORT calls \"minor only\" (ext_features, h1, rocket, gate_family, operating_point, llm_round1, regime_gate, online_learner) are minor there. Not a number error; a provenance note.",
+    "fix": "Keep the citation but say in \u00a74's preamble that AUDIT.md is the only source outside the study folders used for these verdicts (or move the refuter outcomes to cite each study's own repair section, which every FINDINGS carries)."
+   },
+   {
+    "what": "Column header \"best rule on the scored rows\" is ambiguous: for 5 min B->A the REPORT lists r1B_f5 (largest positive diff), while the FINDINGS name r1B_f7 as the best by max-T family-wise p.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/REPORT.md line 314 (\u00a74.10 table)",
+    "evidence": "studies/llm_round1/FINDINGS.md \u00a70 line 13: \"direction B -> A ... best max-T family-wise p 0.9905 (`r1B_f7`: diff -905.82, control pct 83.8, perm p 0.0620)\"; line 190: r1B_f5 diff 866.18, ctrl 91.5, perm p 0.1629, max-T fw p 1.0000.",
+    "fix": "Rename the column \"best positive-diff rule\" or add r1B_f7 (diff -905.82, perm p 0.062, wrong sign) beside r1B_f5 as the FINDINGS' max-T best."
+   }
+  ],
+  "verified": "Read in the prescribed order: PROGRESS.md, QUALITY.md, README.md, BRIEF.md, results/pre_registration.json, results/oos.json (comparators only, candidates: []), all 14 studies' FINDINGS.md (h2_h3_h4 \u00a71-\u00a73; gate_family \u00a70-\u00a71, \u00a73, finalist tables, multiplicity, \u00a76-\u00a78; session_stop \u00a70, \u00a7R, \u00a75; importance definitions, ceilings, diagnostics, shortlists, repair; operating_point \u00a70, multiplicity, \u00a75; online_learner \u00a70, multiplicity/go-no-go; exit_policy, null_tapes_drift, llm_hypotheses, llm_round1, regime_gate, rocket_ceiling, ext_features, h1_gate_audit in full), both shortlist.json files, ledger/registrations.jsonl (11 lines), harness.py lines 470-620, `wc -l ledger/trials.jsonl` = 4226, audit/AUDIT.md verdict lines. Then checked every number in REPORT.md (449 lines), the S49 row (docs/STRATEGY_ANALYSIS_TODO.md lines 447-457), FZ.md \u00a720 (lines 475-490) and the README sentence (line 45) against those sources. Confirmed correct: the book and cost figures (4,452 / -1,009.61 / 15.6 % / 1,047.54; 826 / -757.05 / 27.7 % / 1,049.86; L0 4,502 / -921.83; 832 / -276.76); every frozen-gate IS and OOS statistic in \u00a72.2 and S49 (13) against oos.json incl. slip3/slip8, recall/precision, top-decile, PF, kept sessions, control and perm p, the SE 185/375 and the two window caveats, drift AUC 1.00 / 0.9989; the break tests; the splitter and go/no-go rule; all 11 registration lines, shas, timestamps and both corrections; H1 variant rows and ids, the bridge (3.73M / 3.88M / -0.15M; 265k / 526k / -261k), precision vs base, big-winner and hour tables; H2/H3/H4 \u00a71 rows, ids, fail counts, CHoCH-count means and n, volume and level tables, 0 of 264 cells; session_stop N1/N3/N4, the 48-cell OOF row 642553fa41dfcc97 and its family stats, 5 min as-run N1 not rejected and grid not run; exit_policy C/B/A/ST9/oracle numbers, CPCV, PBO, SPA as coded and repaired (0.396 -> 0.322, 0.4965 -> 0.185), the 45-trade / 15,174 / +153.38 / -67.49 decomposition, gate x exit kept means; importance ceilings, AUC-drop diagnostic (2 of 38: clusters 0 and 13; 0 of 39), family PBO/SPA, off-ledger dry runs; rocket stop -0.0073 and gate family; null-tape certificate cells (all 18), lock-out counts 22 of 84 / 32 of 122, run lengths 76-932, drift AUC 0.9733 / 0.9472 vs p95 0.52; gate_family finalists (d753e432605450f5, cbc8df04b485a517, 2aae111dbdd37a49, d14eb10f08c1c59e), frozen rows f4cda9399a97d95b / 890ef76be2db79b5 / afd754b8cc67c0d6 / f773bc09dbf984b2, tape numbers 233.87 / 562.14 / 87.5th, family 432 / 540 rows, PBO 0.4045 / 0.517, SPA 0.936 / 0.0565, 292 excluded, slip8 -1,378 / -1,396 / -1,089; operating_point rows 2ae774587330de07 / a28e09da4070d513, 0 of 326 at 8 pts, 1 at 3 pts (+99.00), CRC 939.65 vs 2,170.28; LLM round 0 and round 1 rows, unions, family sizes 200/197/138/134 and 389/264, Holm 0.096, r1B_m1 wrong sign; regime_gate nested rows, fail counts 11/9/9/7/11, tape verdicts, fidelities 0.914/0.869/0.903, 7b shares 0.792/0.583/0.105; online_learner best rows, PF, families, Kelly 38 of 68 / 68 of 140, warm-up 30; refuter verdicts against AUDIT.md; the 4,226-line ledger count; harness line references. Rule 0(c) framing, the empty-shortlist rule, the interruptions and harness changes, and the \\\"Unquantified\\\" marker are present as the lens requires. Not verified: the S49 \\\"Earlier measurement retained\\\" bridge numbers (results/history versions from another session, outside this program's files)."
+ },
+ "key": "v2:f957617b49d6d95e5048f6a313be3f0700f32ce58a6f4f3b231e04e1c6cba8e0",
+ "transcript": "audit/workflows/closeout/agent-ac3b1eb2489271cf8.jsonl",
+ "meta": "audit/workflows/closeout/agent-ac3b1eb2489271cf8.meta.json"
+}

@@ -82,6 +82,25 @@ book's mean per session fell from +631 to -498 in 2023); the IS / OOS boundary C
 break at 5%, so OOS is read as the same process and no time-decay weighting is forced (the c = 0.5 variant is still reported as a
 sensitivity in the meta-label study, as the design says).
 
+## Run log: interruptions, repairs, harness changes (2026-09-29)
+
+- **Two cut-offs by the model's usage limit** (about 06:30-11:00 UTC and 14:05-15:20 UTC). The studies' own `nohup` processes
+  kept running; the agents were resumed with the workflow journal cache and continued from the files (`STUDY_AGENT_BRIEF.md`,
+  "Resuming"). Nothing was rerun that had finished; the logs that lost their final lines are named in the affected FINDINGS.
+- **Git incident** (06:24 UTC): the re-signing rebase stalled and its checkout replaced every tracked file's inode, so the running
+  processes wrote their logs to unlinked inodes until a mirror loop copied them back (`PROGRESS.md`). One ledger row was restored
+  from the unpicked commit; the ledger is append-only and its ids are unique (checked at every checkpoint).
+- **Harness changes during the run**, each traced to a refuter's finding and applied so that a pass can only become a fail:
+  `spa` excludes near-degenerate candidates from the studentised family (min active sessions) and reports White's unstudentised
+  statistic; the activity test is a 0.01 INR tolerance (`SPA_ACTIVE_TOL_INR`), not 1e-9 (lab replays carry ~1e-3 INR of float
+  noise against the 2-dp labels); `go_no_go` requires the null-tape checks and the candidate's columns (`TIME_PROXIES` = `sl`,
+  `n_events_asof` refused as calendar rules; they stay in the design matrices of the studies that were running, so the refusal
+  is at the candidate). `oos_once.py` refuses a candidate whose provenance lacks those checks.
+- **Registrations corrected, never rewritten**: the shortlist note "frozen before any gate search" -> "frozen before the phase-3
+  gate studies" (1,600 pre-registered grid rows preceded it); the round-0 rule with a unit error; all as appended lines.
+- **OOS opened once** (`oos_once.py`, `results/oos.json`, registration line `oos_opened`): no candidate had passed, so only the
+  comparators were scored (raw book and the frozen ST7/ST8 gate, both labels, both timeframes).
+
 ## Splitter (`harness.check_splits`)
 
 12 contiguous blocks of 85-86 IS sessions; IS rows per block 1m 170-512, 5m 31-83; purged training rows per block 0-29 (1m),

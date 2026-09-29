@@ -19,7 +19,7 @@ WF_SRC = os.path.join(SRC, "subagents", "workflows")
 TASKS_SRC = os.path.join("/tmp/claude-0/-home-user-money-maker", SESSION, "tasks")
 AUDIT = os.path.join(HERE, "audit")
 WF_NAMES = {"wf_55c65499-a4f": "phase1", "wf_9d4b7078-af8": "phase1b", "wf_b5100757-3f4": "phase2",
-            "wf_82d49a78-1f8": "exit_policy_followup", "wf_e200b95a-fcc": "phase3"}   # extended as phases run
+            "wf_82d49a78-1f8": "exit_policy_followup", "wf_e200b95a-fcc": "phase3", "wf_ce417d59-c83": "closeout"}
 OTHER_AGENTS = {"a323ac82be404d736": "github_api_mirror_attempt"}
 
 

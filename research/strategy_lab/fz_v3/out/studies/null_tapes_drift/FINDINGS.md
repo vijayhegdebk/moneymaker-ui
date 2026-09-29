@@ -151,8 +151,10 @@ Scale-free (x2 price level gives identical counts): **True**. Re-basing the real
 | tf | IS units (early / late) | design cols | time proxies removed in B | AUC A (all as-of) | AUC B (no time proxies) | permuted AUC p50 / p95 (B) |
 |---|---|---|---|---|---|---|
 | 5minute | 826 (412 / 414) | 236 | n_events_asof (rho +1.00), sl (rho +0.93) | 0.9031 | **0.9472** | 0.4930 / 0.5255 |
+| minute | 4452 (2268 / 2184) | 244 | n_events_asof (rho +1.00), sl (rho +0.94) | 0.9961 | **0.9733** | 0.4985 / 0.5239 |
 
 - **5minute reading**: with the time proxies the periods separate at AUC 0.903; without them AUC 0.947 against a permutation p95 of 0.525: the IS-early and IS-late feature distributions are distinguishable well above chance (covariate drift inside IS is real, and a rule learned on all of IS is learned on a mixture); the ranked features below say where. Removing the calendar proxies `n_events_asof`, `sl` did not lower the separation (A - B = -0.044): their information is redundant with the level- and volatility-dependent features, and a monotone-in-time column's cut points generalise slightly worse across purged blocks.
+- **minute reading**: with the time proxies the periods separate at AUC 0.996; without them AUC 0.973 against a permutation p95 of 0.524: the IS-early and IS-late feature distributions are distinguishable well above chance (covariate drift inside IS is real, and a rule learned on all of IS is learned on a mixture); the ranked features below say where. The gap A - B = +0.023 is the part of the separation carried by `n_events_asof`, `sl` alone.
 
 ### 5minute: top 20 drifted features (variant B, mean |SHAP|; direction = mean in IS-late vs IS-early; shift in pooled sd; KS between the periods)
 
@@ -181,6 +183,33 @@ Scale-free (x2 price level gives identical counts): **True**. Re-basing the real
 
 Top-5 source columns (a selected rule using one of these is refit without it): `atr14`, `atr_bps`, `hv3_ratio`, `n_rooms_alive`, `range_3h_pts`.
 
+### minute: top 20 drifted features (variant B, mean |SHAP|; direction = mean in IS-late vs IS-early; shift in pooled sd; KS between the periods)
+
+| rank | feature | source column | mean abs SHAP | mean early | mean late | shift (sd) | KS | direction |
+|---|---|---|---|---|---|---|---|---|
+| 1 | `atr_bps` | `atr_bps` | 3.0734 | 5.2337 | 4.2373 | -0.474 | 0.233 | lower in IS-late |
+| 2 | `atr14` | `atr14` | 2.7177 | 9.1659 | 9.8903 | 0.176 | 0.118 | higher in IS-late |
+| 3 | `days_to_expiry` | `days_to_expiry` | 0.2120 | 13.5066 | 15.2967 | 0.196 | 0.143 | higher in IS-late |
+| 4 | `gap_pts` | `gap_pts` | 0.2053 | -2.3843 | 6.2642 | 0.097 | 0.100 | higher in IS-late |
+| 5 | `sess_cumvol_ratio20s` | `sess_cumvol_ratio20s` | 0.1687 | 1.0004 | 1.0517 | 0.117 | 0.078 | higher in IS-late |
+| 6 | `range_3h_pts` | `range_3h_pts` | 0.1366 | 106.5850 | 113.6839 | 0.119 | 0.070 | higher in IS-late |
+| 7 | `n_rooms_alive` | `n_rooms_alive` | 0.1044 | 7.7328 | 8.0440 | 0.120 | 0.070 | higher in IS-late |
+| 8 | `sess_range_atr` | `sess_range_atr` | 0.0998 | 15.3851 | 14.8538 | -0.082 | 0.074 | lower in IS-late |
+| 9 | `n_bos_today` | `n_bos_today` | 0.0978 | 12.6578 | 11.6680 | -0.127 | 0.061 | lower in IS-late |
+| 10 | `hv3_ratio` | `hv3_ratio` | 0.0779 | 4.8150 | 4.9747 | 0.052 | 0.058 | higher in IS-late |
+| 11 | `fz_band_width` | `fz_band_width` | 0.0777 | 17.2116 | 17.2318 | 0.009 | 0.045 | higher in IS-late |
+| 12 | `today_net_asof` | `today_net_asof` | 0.0760 | -6,712.8549 | -7,946.2621 | -0.185 | 0.086 | lower in IS-late |
+| 13 | `pos_in_session_range` | `pos_in_session_range` | 0.0729 | 0.4822 | 0.4927 | 0.037 | 0.030 | higher in IS-late |
+| 14 | `sess_vol_vs_prev_sess` | `sess_vol_vs_prev_sess` | 0.0622 | 1.0139 | 1.0520 | 0.084 | 0.072 | higher in IS-late |
+| 15 | `n_choch_3h` | `n_choch_3h` | 0.0602 | 7.8959 | 8.1795 | 0.071 | 0.053 | higher in IS-late |
+| 16 | `dow` | `dow` | 0.0593 | 2.0207 | 2.0348 | 0.010 | 0.014 | higher in IS-late |
+| 17 | `range_1h_pts` | `range_1h_pts` | 0.0496 | 66.1874 | 69.4325 | 0.085 | 0.036 | higher in IS-late |
+| 18 | `fz_band_width_atr` | `fz_band_width_atr` | 0.0492 | 2.1622 | 2.0369 | -0.147 | 0.109 | lower in IS-late |
+| 19 | `card_vol_ratio` | `card_vol_ratio` | 0.0482 | 0.5547 | 0.6304 | 0.112 | 0.037 | higher in IS-late |
+| 20 | `close_pos_in_bar` | `close_pos_in_bar` | 0.0476 | 0.5055 | 0.5046 | -0.003 | 0.050 | lower in IS-late |
+
+Top-5 source columns (a selected rule using one of these is refit without it): `atr14`, `atr_bps`, `days_to_expiry`, `gap_pts`, `sess_cumvol_ratio20s`.
+
 **Rule for the gate studies**: a selected rule that uses one of top5_sources (variant B) is refit without that feature and both versions are reported in the study's FINDINGS; a rule that uses a time proxy (time_proxies) is refused as a calendar rule, not a market rule; a rule that uses any feature of top20_drifted carries the feature's std_shift as a caveat
 
 **Not run here**: IS-vs-OOS adversarial validation (runs after the single OOS evaluation, in oos_once.py's post-mortem, label-free, explanatory only).
@@ -205,7 +234,7 @@ Pass rule (pre-registered, DESIGN_PANEL (c) + Judge 1): the candidate's real-tap
 - `sl` (the stop price level) is in `Table.asof_columns()` although it is a raw price (|rho| 0.93 with time on 5 minutes); `n_events_asof` is a cumulative count since the data start (rho 1.0). Both are time proxies, excluded in variant B, and a rule using either is refused; the harness allow-list should carry them in NOT_FEATURES (reported, not changed here).
 - The 1-minute tapes are one trading year (247 IS sessions) with 8 tapes per generator: their null percentiles rest on 8 values and are wider than the 5-minute ones; the 5-minute nulls are the primary certificate, as both judges asked.
 - Falsification: if a real gate's diff sat above the GMM/segment p95 while the gate is known to be pure engine mechanics (e.g. the stop-distance gate on the real tape), the null would be too narrow; section 4 shows what the mechanical gates read on the real tape against their own nulls.
-- Drift inside IS is large (section 6) and its top of the ranking is the volatility / price-level regime (5minute: `atr_bps` (lower, -0.51 sd), `atr14` (higher, +0.30 sd), `range_3h_pts` (higher, +0.27 sd), `n_rooms_alive` (higher, +0.02 sd), `hv3_ratio` (higher, +0.12 sd)): the tape went from ~17,500 to ~26,300 while volatility in bps fell, so every point-denominated column (`*_pts`, `atr14`, `sl_dist_pts`, `fz_band_width`, `fz_dist_band_edge_*`, `gap_pts`) drifts with the level. A rule on such a column is a level rule; the gate studies should express thresholds in the `_atr` / `_bps` forms and the CPCV path distribution, not the pooled IS number, is what a drifting IS supports.
+- Drift inside IS is large (section 6) and its top of the ranking is the volatility / price-level regime (5minute: `atr_bps` (lower, -0.51 sd), `atr14` (higher, +0.30 sd), `range_3h_pts` (higher, +0.27 sd), `n_rooms_alive` (higher, +0.02 sd), `hv3_ratio` (higher, +0.12 sd); minute: `atr_bps` (lower, -0.47 sd), `atr14` (higher, +0.18 sd), `days_to_expiry` (higher, +0.20 sd), `gap_pts` (higher, +0.10 sd), `sess_cumvol_ratio20s` (higher, +0.12 sd)): the tape went from ~17,500 to ~26,300 while volatility in bps fell, so every point-denominated column (`*_pts`, `atr14`, `sl_dist_pts`, `fz_band_width`, `fz_dist_band_edge_*`, `gap_pts`) drifts with the level. A rule on such a column is a level rule; the gate studies should express thresholds in the `_atr` / `_bps` forms and the CPCV path distribution, not the pooled IS number, is what a drifting IS supports.
 
 ## 9. Null result statement
 
@@ -214,6 +243,7 @@ This study searches no gate and proposes no candidate (`candidates: []`, `null_r
 ## 10. Files
 
 - `FINDINGS.md`
+- `drift.json`
 - `drift.log`
 - `drift.py`
 - `drift_5minute.json`
@@ -221,6 +251,9 @@ This study searches no gate and proposes no candidate (`candidates: []`, `null_r
 - `drift_cache_5minute_A_all_asof.json`
 - `drift_cache_5minute_B_without_time_proxies.json`
 - `drift_cache_minute_A_all_asof.json`
+- `drift_cache_minute_B_without_time_proxies.json`
+- `drift_minute.json`
+- `drift_minute_features.csv`
 - `drift_run.log`
 - `drift_run2.log`
 - `drift_run3_5minute.log`
@@ -246,4 +279,5 @@ This study searches no gate and proposes no candidate (`candidates: []`, `null_r
 - `tape_results.jsonl`
 - `tapes.py`
 - `write_findings.py`
+- `write_findings_resume.log`
 - `tapes/<tf>/<gen>_<k>/` (per tape: `tape_meta.json`, `build.log`, `meta.json`, `features.parquet`, `trades.parquet`, `sessions.parquet`, `bars.parquet`, `events.parquet`, `setups.parquet`, ...; `tape.csv` kept for k = 0 only, every tape reproduces from its seed)

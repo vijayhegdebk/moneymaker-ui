@@ -54,14 +54,28 @@ block sign test, CPCV 5th percentile, PBO, DSR, SPA, bootstrap CI (`harness.go_n
   User (17:30 IST): "Stop pushing to kiran6154" - the remotes are now `origin` = vijayhegdebk/moneymaker-ui (push target) and
   `upstream` = kiran6154/money-maker (fetch only, push URL disabled).
 
+## Phase 2 result (17:40 IST) and phase 3 launch
+- **The frozen shortlist is empty on both timeframes** (`features_shortlist/<tf>/shortlist.json`, sha 66f6e004... / 4747257f...,
+  registered 11:31:33 UTC; correction lines 12:07 UTC: "frozen before the phase-3 gate studies", not "before any gate search"):
+  0 of 38 / 39 clusters pass the pre-registered rule (log-loss MDA mean > std AND top-8 stability). The full 276 / 238-feature
+  bagging is a ceiling: 1m OOF AUC 0.59, gate keeps every row, CPCV diff median -19; 5m AUC 0.50. Two refuters found material
+  issues (the registration note, an unnamed SPA-best row, internal contradictions, dry runs outside the ledger); repaired and
+  rechecked (minor left). The study itself notes the statistic's weakness: the balanced forest is mis-calibrated under weighted
+  log-loss, and an AUC-drop version of the rule would pass 2 clusters on 1m (cluster 0 = the 09:15-09:25 hour bin group, cluster 13
+  card_read=FIRST_PRINT); re-opening the vocabulary is a user decision (new registration). The 5m family's SPA-best row is SFI
+  cluster 25 (`jump3_state`, `jump3_run`: diff +827, control 100th pct, perm p 0.078, 8/12 blocks) - handed to regime_gate.
+- Rocket ceiling: null; the pre-registered stop fired (CPCV p5 of the stacked-minus-tabular AUC gain -0.0073 < 0.03); no
+  distillation; refuters minor only.
+- **Phase 3 launched 12:10 UTC** (`workflows/phase3.js`, run wf_e200b95a-fcc) under the EMPTY-SHORTLIST RULE written into the
+  script: gate_family = (I) context-only family (hour_bin one-hot + dir) and (II) H5 as pre-registered in S49 on the full as-of
+  table, labelled "outside the frozen shortlist"; llm_round1 tables = hour_bin / fz_read / dir plus the top-8 MDA cluster
+  representatives as a labelled exploratory vocabulary; online_learner on the context features plus the linear learners on the
+  full design as a labelled sensitivity; regime_gate on 5m with jump3 added (reason recorded); operating point / sizing as designed.
+  Anything found outside the shortlist can be frozen as a candidate only with that provenance, for the user to accept or reject.
+
 ## Next (in order)
-1. When `features_shortlist/minute/shortlist.json`, `features_shortlist/5minute/shortlist.json` and `studies/importance/FINDINGS.md`
-   exist: launch `workflows/phase3.js` (Workflow tool, inline script or scriptPath): gate_family (meta-label + policy tree + H5,
-   distilled rule list / scorecard, candidate frozen to `candidates/gate_family_<tf>.json` only if go/no-go passes),
-   operating_point_sizing (conformal winner coverage, CRC, Pareto front for the user, slippage 3/5/8; sizing only if a gate passed,
-   default "one lot or skip"), llm_round1 (cross-fitted tables A/B, two separate proposer agents, scorer with max-T over cells
-   shown + rules), regime_gate (conditional on the importance verdict; 5m only), online_learner (walk-forward learn-after-each-trade
-   policy with the journal, `studies/online_learner/online.py` with `run(T, cfg, rows)`; candidate `candidates/online_<tf>.json`).
+1. Phase 3 running (above). Still running from the resume: phase 1 (`repair:session_stop` + recheck), phase 1b
+   (`null_tapes_drift` repair round), the exit_policy follow-up (verdicts in, repair if material).
 2. `python oos_once.py` once, for the frozen candidates (at most three per timeframe) + the comparators -> `results/oos.json`.
 3. `REPORT.md` (the trading playbook: what to take / skip by regime, time, volume, level; how to size and exit; IS and OOS numbers
    with the controls; the two caveats; what did NOT survive and why), update `QUALITY.md`, fill `docs/STRATEGY_ANALYSIS_TODO.md`

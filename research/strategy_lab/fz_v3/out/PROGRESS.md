@@ -54,7 +54,12 @@ block sign test, CPCV 5th percentile, PBO, DSR, SPA, bootstrap CI (`harness.go_n
   latest, `research/strategy-lab-pwxiug` after merging that base in, merge commit f9f52d9) and the draft PR opened:
   https://github.com/vijayhegdebk/moneymaker-ui/pull/1 (base `research/strategy-lab`). Every later checkpoint is pushed there.
   User (17:30 IST): "Stop pushing to kiran6154" - the remotes are now `origin` = vijayhegdebk/moneymaker-ui (push target) and
-  `upstream` = kiran6154/money-maker (fetch only, push URL disabled).
+  `upstream` = kiran6154/money-maker (fetch only, push URL disabled). **The environment resets `origin` to kiran6154 when the
+  session reconnects** (seen 15:28 UTC): before every push run `git remote set-url origin https://github.com/vijayhegdebk/moneymaker-ui`.
+- **Second cut-off** (session limit, ~14:05-15:20 UTC): phase 3 lost gate_family, llm_round1 (proposers + scorer),
+  online_learner and the regime_gate refuters; regime_gate itself completed (null, 5 minutes: no state gate passes; the jump4
+  cell's SPA gain is the within-session first-SETUP effect). Relaunched 15:30 UTC with `resumeFromRunId` wf_e200b95a-fcc; the
+  hourly routine `FZ v3 hourly resume check` (trig_017kukM72FiSf5pDviLBoDy5) covers any further cut.
 
 ## Phase 2 result (17:40 IST) and phase 3 launch
 - **The frozen shortlist is empty on both timeframes** (`features_shortlist/<tf>/shortlist.json`, sha 66f6e004... / 4747257f...,

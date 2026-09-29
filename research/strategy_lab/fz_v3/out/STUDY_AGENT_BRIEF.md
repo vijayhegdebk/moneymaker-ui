@@ -73,6 +73,17 @@ last checkpoint if the script saves per-fold or per-split results. States at the
   FINDINGS.md / findings.json is still to write.
 - `exit_policy`: `04_a_fqi.py minute` finished (`a_result_minute.json`); a follow-up agent folds it in (task in PROGRESS.md).
 
+Second cut-off (session limit, about 14:05-15:20 UTC), phase 3 states at the resume (15:30 UTC):
+- `gate_family`: three of the four `run_gf.py` runs finished (`run_5minute_context.log`, `run_5minute_h5_full.log`,
+  `run_minute_h5_full.log` end with ALL DONE); the fourth, minute / context (`run_minute_context.log`, `procA.nohup`), was killed
+  with its agent at 14:03 during `hgbc@L0 fold 4`: restart only that run, from its checkpoints if the driver saves them; then
+  finalize.py, the null-tape check and the harness go/no-go items added at 12:55 UTC (section above), FINDINGS.
+- `llm_round1`: step 1 done (tables A/B both timeframes, `scorer.py`, cell counts, `NOTES.md`); the two proposers and the scorer
+  never ran.
+- `online_learner`: `run_5minute.log`, `results/`, `smoke_timing.log` exist; read them to see which configs finished.
+- `regime_gate`: complete (null); only its two refuters are re-run.
+- `operating_point_sizing`: not started (it waits for gate_family's `oof_<tf>.parquet`).
+
 ## Program-level rules added 2026-09-29 12:55 UTC (from the null_tapes_drift refuters; binding for every candidate)
 
 - `harness.go_no_go(...)` now has two more required items. `null_tape=` takes the `checks` dict of

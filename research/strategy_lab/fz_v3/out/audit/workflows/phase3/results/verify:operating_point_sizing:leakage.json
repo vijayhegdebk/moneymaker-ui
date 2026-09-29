@@ -1,0 +1,45 @@
+{
+ "agentId": "a0aa69e1e12fbbbf8",
+ "label": "verify:operating_point_sizing:leakage",
+ "phase": "Verify",
+ "result": {
+  "refuted": false,
+  "severity": "minor",
+  "issues": [
+   {
+    "what": "The CRC ledger rows are partly in-sample with respect to their own threshold choice: lambda* is picked from a 20-lambda grid (x 3 alphas; x 3 bins on minute) by the kept clipped loss on the last-200-session calibration block, none of those lambda evaluations is a ledger row, and the chosen gate is then scored on ALL IS rows, of which the calibration block is 36% (minute, 1605/4452) / 49% (5minute, 408/826). FINDINGS reports only the realised risk before the block, not that the row's diff / control percentile include the selection block.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/operating_point_sizing/operating_point.py:298-316 (lambda table on cal_rows, only `best` goes to H.score over is_idx) and :327-348 (per-bin); FINDINGS.md section 1 (3) and the 'Best controlled row' at line 584",
+    "evidence": "Reproduced: minute h5_full/scorecard CRC alpha 800 (row 2ae774587330de07, the minute 'best controlled row', diff 249.89): diff on the block rows -514.38 (81 kept) vs +832.77 on the pre-block rows (108 kept); 5minute context/scorecard lambda 0.40 (d81a3d5c7614cfa1, diff 199.44): block +653.78 vs pre-block -244.94. The rows fail go/no-go regardless (control pct 0.0 / 82.0), so the null verdict stands.",
+    "fix": "State in FINDINGS that the CRC rows' kept-vs-skipped numbers include the calibration block on which lambda* was chosen, and add a ledger row (or at least the diff / control) of the chosen gate on the pre-block rows only; count the lambda grid as trials or say explicitly that the certificate rule, not diff, selected it."
+   },
+   {
+    "what": "The CRC 'finite-sample certificate' is stated without its monotonicity condition: Conformal Risk Control (Angelopoulos et al. 2022) requires the loss to be monotone in lambda; the risk used here (mean clipped loss of the kept units per session) is not monotone in coverage, so 'the largest lambda with certificate <= alpha' is not a valid CRC selection without monotonising the risk curve, and the certificate can be exceeded at intermediate lambdas.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/operating_point_sizing/operating_point.py:298-312; FINDINGS.md section 1 (3) and section 7 caveats (only exchangeability is footnoted)",
+    "evidence": "results_minute.json models.h5_full/scorecard.crc.table: certificate 781.23 (0.05), 1193.94 (0.10), 1369.06 (0.15), 1451.22 (0.20), 1519.92 (0.25), 1561.94 (0.30), then 1556.63 (0.35), 1542.93 (0.40), 1511.40 (0.45): non-monotone. The design panel prescribed the same rule, and the study's own conclusion (the certificate does not transfer) is only strengthened by this, so the verdict is unchanged.",
+    "fix": "Footnote the monotonicity requirement next to the exchangeability caveat, or monotonise the certificate curve (running max over lambda) before picking lambda*."
+   },
+   {
+    "what": "A stated range understates the measured numbers: the one-paragraph result says the realised pre-block risk is '1.3-4x the certificate on every model' (the agent's summary said 1.3-4.5x); the largest ratio is 4.88x.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/operating_point_sizing/FINDINGS.md:7 and :1062",
+    "evidence": "results_5minute.json h5_full/scorecard crc.chosen: certificate 304.87, realised_risk_before_block 1488.92 -> 4.88x at all three alphas; minimum 1.38x (minute h5_full/scorecard alpha 1200: 1645.61 / 1193.94).",
+    "fix": "Write '1.4-4.9x' (or compute the range from the results file in write_findings.py instead of a literal)."
+   },
+   {
+    "what": "One item of the conformal design's exchangeability check is not run: 'coverage per IS year and against the regime study's break tests' (quant-ml-canon-conformal-skip, method). Per-fold coverage over the 12 time-contiguous blocks is reported instead, which is a reasonable proxy but is not stated as the substitute.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/operating_point_sizing/operating_point.py:191-211 (per-fold only); DESIGN_PANEL.md:266",
+    "evidence": "No per-year coverage table in results_*.json or FINDINGS.md; grep for 'year' in FINDINGS.md finds none.",
+    "fix": "Add a one-line note that per-fold (block) coverage stands in for per-year coverage, or add the per-year table (seconds)."
+   },
+   {
+    "what": "Latent bug (not triggered): go_no_go on the best row declares the model's source columns from features.json; a conformal_timebin / crc_timebin row also reads `time` (a NOT_FEATURES identity column) and would pass the no_time_proxy_columns item if it were the best row.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/operating_point_sizing/operating_point.py:382-384",
+    "evidence": "Both best rows (minute crc 2ae774587330de07, 5minute conformal a28e09da4070d513) are class-taxonomy rows, so the declared columns are correct for this run (183 / 160 columns, no `sl`, `n_events_asof`, label prefixes or identity columns among them).",
+    "fix": "Append 'time' to `cols` when best['family'] ends with '_timebin'."
+   }
+  ],
+  "verified": "Read STUDY_AGENT_BRIEF.md, OUT/README.md, DESIGN_PANEL sections conformal-skip / bet-sizing / DM-4 / DM-5, FINDINGS.md (definitions, both family sections, sizing, caveats), findings.json keys, all three scripts, both run logs, sizing_verdict.log; harness.score / metrics / read_ledger / go_no_go. Re-run cheap checks without modifying any file: (a) ledger: 326 operating_point rows (minute 178, 5minute 148; 174 / 144 with a defined diff, the 8 without are coverage c=1.0), no rows before the run, no duplicate ids, sub-family counts match FINDINGS (aci 40, conformal 20, coverage 76, crc 10/12, conformal_timebin 20, crc_timebin 12), every h5_full row's note carries 'outside the frozen shortlist' (88/88 minute, 72/72 5minute); (b) reproduced the conformal alpha 0.10 keep mask from oof_<tf>.parquet for 4 tf/model pairs: kept share, winner coverage and diff match the ledger rows exactly (e.g. 5minute h5_full/scorecard 0.8668 / 0.8996 / 481.16; minute context/hgbc 0.8655 / 0.9006 / 187.40); (c) ACI outcome-before-exit leak: replayed ACI releasing each winner's score and alpha update only at its exit bar - 0 rows differ from the as-coded masks on both timeframes and for every alpha tested, because no IS unit's SETUP bar precedes the previous unit's exit bar (lab lock), so the online step reads no label early; (d) declared source columns for h5_full (183 / 160) contain no TIME_PROXIES, NOT_FEATURES or label-prefixed names; context columns are hour_bin one-hot + dir; (e) the finalists named in ROLE match gate_family findings.json (minute: context hgbc->tree, h5_full scorecard->tree; 5minute: context pt2, h5_full scorecard->rules) and the sizing_verdict text numbers (control 21.9, PBO 0.4045, SPA 0.936, slip8 -1378, 5minute CPCV p5 -433.92, 11 items) match gate_family's near_miss; (f) cost-sensitivity counts match the ledger (0 rows with kept_mean_slip8 > 0 on either tf; 1 with slip3 > 0 = 99.00, 5minute context/scorecard coverage 0.10); best controlled rows match; the family-level PBO / SPA / effective trials are read from the results files; (g) OUT/candidates does not exist, no OOS split read anywhere in the scripts (all indexing through T.is_mask), sizing fitted nothing. The reported null result (no candidate, sizing 'lots = 1 or skip') is correct; the issues above are disclosure / wording gaps that do not change it."
+ },
+ "key": "v2:62a0afdd70199de27c7be4bfe0cc201a867c105aa495d9d35c550e60168e744f",
+ "transcript": "audit/workflows/phase3/agent-a0aa69e1e12fbbbf8.jsonl",
+ "meta": "audit/workflows/phase3/agent-a0aa69e1e12fbbbf8.meta.json"
+}

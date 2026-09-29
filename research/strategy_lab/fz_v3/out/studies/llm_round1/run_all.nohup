@@ -1,0 +1,111 @@
+=== scorer.py all 2026-09-29T17:08:46 ===
+registration half A: sha256 b9d335bc05bd42eb0d508c16a6cb08fee08fc0ba333846f44d4fa2dcfa7f29bc appended; copy /home/user/money-maker/research/strategy_lab/fz_v3/out/ledger/registered/rules_round1_A.b9d335bc.json
+[A->B minute] 8 round-1 rules, 184 labelled cells seen, family size 200; scoring rows 2044 (2023-11-07..2025-12-31)
+[A->B minute] r1A_m1         skipped   379 kept  1665 diff 7.69 top1off -52.31 ctrl 5.4 perm_p 0.965 loserR 0.1919 winR(w) 0.8737 | L0 diff 116.91 ctrl 23.1
+[A->B minute] r1A_m2         skipped   321 kept  1723 diff 77.27 top1off 100.91 ctrl 24.4 perm_p 0.6757 loserR 0.1584 winR(w) 0.8814 | L0 diff 184.75 ctrl 35.6
+[A->B minute] r1A_m3         skipped    66 kept  1978 diff 294.57 top1off 83.02 ctrl 75.0 perm_p 0.4088 loserR 0.0347 winR(w) 0.9954 | L0 diff 428.82 ctrl 73.8
+[A->B minute] r1A_m4         skipped   533 kept  1511 diff -8.44 top1off 25.43 ctrl 74.2 perm_p 0.9515 loserR 0.2659 winR(w) 0.7236 | L0 diff -24.75 ctrl 48.9
+[A->B minute] r1A_m5         skipped   548 kept  1496 diff -61.66 top1off -213.94 ctrl 1.9 perm_p 0.6812 loserR 0.2711 winR(w) 0.7747 | L0 diff -77.39 ctrl 5.1
+[A->B minute] r1A_m6         skipped   157 kept  1887 diff 250.02 top1off 28.27 ctrl 78.0 perm_p 0.3063 loserR 0.0798 winR(w) 0.9625 | L0 diff 470.46 ctrl 96.3
+[A->B minute] r1A_m7         skipped   314 kept  1730 diff 86.02 top1off -9.35 ctrl 76.0 perm_p 0.6227 loserR 0.1595 winR(w) 0.8882 | L0 diff 281.11 ctrl 71.5
+[A->B minute] r1A_m8         skipped    26 kept  2018 diff 113.28 top1off -94.11 ctrl 18.1 perm_p 0.8381 loserR 0.015 winR(w) 1.0 | L0 diff 51.9 ctrl 9.2
+[A->B minute] union: skipped 1415 kept 629 diff -25.71 ctrl 17.2 perm_p 0.8551
+[A->B minute] round-0 on half B: r0_m1 56.08, r0_m2 263.92, r0_m3 85.15, r0_m4 -194.95, r0_m5 5.93, r0_m6 664.63, r0_m7 144.52, r0_m8 None
+[A->B minute] max-T: family 199 masks (188 testable) of size 200; null p95 of max|t| 5.756; best member two_way:fz_readxhour_bin:NEW|10 |t| 4.429 fw p 0.1959; rules: r1A_m1 t 0.046 fw_p 1.0, r1A_m2 t 0.434 fw_p 1.0, r1A_m3 t 0.804 fw_p 1.0, r1A_m4 t -0.057 fw_p 1.0, r1A_m5 t -0.421 fw_p 1.0, r1A_m6 t 1.027 fw_p 1.0, r1A_m7 t 0.479 fw_p 1.0, r1A_m8 t 0.196 fw_p 1.0
+[A->B minute] family: PBO(diff) 0.701 SPA p 0.7465 (unstud. 0.663) eff. trials 1.19; 76 s
+[A->B 5minute] 8 round-1 rules, 122 labelled cells seen, family size 138; scoring rows 398 (2023-11-07..2025-12-31)
+[A->B 5minute] r1A_f1         skipped   112 kept   286 diff -635.81 top1off -417.92 ctrl 49.6 perm_p 0.2319 loserR 0.2635 winR(w) 0.6004 | L0 diff -1218.69 ctrl 38.1
+[A->B 5minute] r1A_f2         skipped    88 kept   310 diff 633.03 top1off 637.39 ctrl 87.9 perm_p 0.2704 loserR 0.2331 winR(w) 0.8598 | L0 diff 1165.49 ctrl 76.8
+[A->B 5minute] r1A_f3         skipped   107 kept   291 diff -258.96 top1off -285.01 ctrl 20.4 perm_p 0.6297 loserR 0.2736 winR(w) 0.7035 | L0 diff 360.68 ctrl 23.3
+[A->B 5minute] r1A_f4         skipped    73 kept   325 diff 1023.69 top1off 780.46 ctrl 70.1 perm_p 0.1064 loserR 0.2061 winR(w) 0.8952 | L0 diff 1988.77 ctrl 94.3
+[A->B 5minute] r1A_f5         skipped    32 kept   366 diff 495.08 top1off 277.77 ctrl 10.9 perm_p 0.5872 loserR 0.0777 winR(w) 0.9569 | L0 diff 1249.09 ctrl 48.9
+[A->B 5minute] r1A_f6         skipped    30 kept   368 diff 992.35 top1off 776.61 ctrl 88.2 perm_p 0.2734 loserR 0.0845 winR(w) 0.9665 | L0 diff 2131.32 ctrl 95.3
+[A->B 5minute] r1A_f7         skipped    36 kept   362 diff -269.07 top1off -489.53 ctrl 55.9 perm_p 0.7496 loserR 0.0777 winR(w) 0.8901 | L0 diff -2493.64 ctrl 88.2
+[A->B 5minute] r1A_f8         skipped    25 kept   373 diff -343.28 top1off -557.14 ctrl 8.5 perm_p 0.7361 loserR 0.0608 winR(w) 0.9499 | L0 diff 1086.55 ctrl 53.1
+[A->B 5minute] union: skipped 304 kept 94 diff -609.22 ctrl 17.6 perm_p 0.2894
+[A->B 5minute] round-0 on half B: r0_f1 -411.8, r0_f2 -1364.52, r0_f3 -507.82, r0_f4 -381.59, r0_f5 -481.09, r0_f6 181.12, r0_f7 -116.82, r0_f8 2815.56
+[A->B 5minute] max-T: family 137 masks (126 testable) of size 138; null p95 of max|t| 3.869; best member one_way:card_leave_kind:normal |t| 2.617 fw p 0.6607; rules: r1A_f1 t -1.177 fw_p 1.0, r1A_f2 t 1.082 fw_p 1.0, r1A_f3 t -0.473 fw_p 1.0, r1A_f4 t 1.632 fw_p 1.0, r1A_f5 t 0.554 fw_p 1.0, r1A_f6 t 1.079 fw_p 1.0, r1A_f7 t -0.318 fw_p 1.0, r1A_f8 t -0.343 fw_p 1.0
+[A->B 5minute] family: PBO(diff) 0.6615 SPA p 0.404 (unstud. 0.3905) eff. trials 1.32; 24 s
+scores_A.json written; ledger 39263cc8a1e76151 -> a03c3dc0277bb5ab
+registration half B: sha256 a65f06b9226ceda2a2eab9d81a3f1a942522d44e4474a5ca43a8dcbb1de9a18d appended; copy /home/user/money-maker/research/strategy_lab/fz_v3/out/ledger/registered/rules_round1_B.a65f06b9.json
+[B->A minute] 8 round-1 rules, 181 labelled cells seen, family size 197; scoring rows 2408 (2021-10-01..2023-11-06)
+[B->A minute] r1B_m1         skipped    52 kept  2356 diff -1325.28 top1off -349.36 ctrl 100.0 perm_p 0.002 loserR 0.0168 winR(w) 0.9016 | L0 diff -1217.05 ctrl 100.0
+[B->A minute] r1B_m2         skipped    29 kept  2379 diff 17.2 top1off -139.6 ctrl 3.0 perm_p 0.9625 loserR 0.0143 winR(w) 1.0 | L0 diff 321.17 ctrl 14.8
+[B->A minute] r1B_m3         skipped    62 kept  2346 diff 75.06 top1off -83.95 ctrl 15.9 perm_p 0.8056 loserR 0.0256 winR(w) 0.9866 | L0 diff 338.14 ctrl 49.2
+[B->A minute] r1B_m4         skipped    46 kept  2362 diff 247.0 top1off 89.11 ctrl 34.9 perm_p 0.4793 loserR 0.0202 winR(w) 0.9955 | L0 diff 299.88 ctrl 67.5
+[B->A minute] r1B_m5         skipped   151 kept  2257 diff 134.86 top1off 50.7 ctrl 34.7 perm_p 0.5017 loserR 0.0626 winR(w) 0.9558 | L0 diff 190.63 ctrl 46.5
+[B->A minute] r1B_m6         skipped   438 kept  1970 diff -65.66 top1off -107.7 ctrl 1.1 perm_p 0.5962 loserR 0.176 winR(w) 0.7871 | L0 diff -286.96 ctrl 2.4
+[B->A minute] r1B_m7         skipped   419 kept  1989 diff -175.57 top1off -64.29 ctrl 4.5 perm_p 0.1594 loserR 0.1706 winR(w) 0.7938 | L0 diff -383.48 ctrl 2.8
+[B->A minute] r1B_m8         skipped   211 kept  2197 diff -134.94 top1off -50.45 ctrl 18.8 perm_p 0.4278 loserR 0.0873 winR(w) 0.8863 | L0 diff -328.36 ctrl 42.1
+[B->A minute] union: skipped 1134 kept 1274 diff -162.41 ctrl 4.2 perm_p 0.0975
+[B->A minute] round-0 on half A: r0_m1 -69.76, r0_m2 -40.79, r0_m3 -77.34, r0_m4 -9.51, r0_m5 27.24, r0_m6 None, r0_m7 -87.59, r0_m8 None
+[B->A minute] max-T: family 196 masks (185 testable) of size 197; null p95 of max|t| 4.673; best member one_way:hour_bin:<09:25 |t| 4.473 fw p 0.0655; rules: r1B_m1 t -4.025 fw_p 0.1449, r1B_m2 t 0.039 fw_p 1.0, r1B_m3 t 0.248 fw_p 1.0, r1B_m4 t 0.706 fw_p 1.0, r1B_m5 t 0.683 fw_p 1.0, r1B_m6 t -0.529 fw_p 1.0, r1B_m7 t -1.391 fw_p 1.0, r1B_m8 t -0.797 fw_p 1.0
+[B->A minute] family: PBO(diff) 0.5449 SPA p 0.4365 (unstud. 0.6925) eff. trials 1.14; 85 s
+[B->A 5minute] 8 round-1 rules, 118 labelled cells seen, family size 134; scoring rows 428 (2021-10-01..2023-11-06)
+[B->A 5minute] r1B_f1         skipped    39 kept   389 diff -272.87 top1off 492.46 ctrl 66.5 perm_p 0.6847 loserR 0.0797 winR(w) 0.8722 | L0 diff -298.91 ctrl 45.5
+[B->A 5minute] r1B_f2         skipped    70 kept   358 diff 612.77 top1off 337.7 ctrl 82.0 perm_p 0.2629 loserR 0.1761 winR(w) 0.8413 | L0 diff 2229.44 ctrl 80.2
+[B->A 5minute] r1B_f3         skipped    31 kept   397 diff 390.19 top1off 141.57 ctrl 61.8 perm_p 0.6297 loserR 0.0831 winR(w) 0.9445 | L0 diff 2309.62 ctrl 95.2
+[B->A 5minute] r1B_f4         skipped    55 kept   373 diff -1039.41 top1off -487.37 ctrl 93.1 perm_p 0.0885 loserR 0.1229 winR(w) 0.7994 | L0 diff -10.5 ctrl 19.9
+[B->A 5minute] r1B_f5         skipped    53 kept   375 diff 866.18 top1off 603.84 ctrl 91.5 perm_p 0.1629 loserR 0.1362 winR(w) 0.9268 | L0 diff 1832.51 ctrl 66.5
+[B->A 5minute] r1B_f6         skipped    78 kept   350 diff -330.63 top1off -614.4 ctrl 10.7 perm_p 0.5432 loserR 0.1694 winR(w) 0.8109 | L0 diff -774.55 ctrl 38.5
+[B->A 5minute] r1B_f7         skipped   103 kept   325 diff -905.82 top1off -508.48 ctrl 83.8 perm_p 0.062 loserR 0.2126 winR(w) 0.6225 | L0 diff -463.41 ctrl 81.7
+[B->A 5minute] r1B_f8         skipped    25 kept   403 diff 148.85 top1off -96.27 ctrl 29.8 perm_p 0.8751 loserR 0.0565 winR(w) 0.9485 | L0 diff 2898.41 ctrl 58.0
+[B->A 5minute] union: skipped 269 kept 159 diff -22.62 ctrl 75.5 perm_p 0.9525
+[B->A 5minute] round-0 on half A: r0_f1 -1344.08, r0_f2 -1059.1, r0_f3 359.23, r0_f4 -1068.15, r0_f5 -632.1, r0_f6 270.04, r0_f7 319.59, r0_f8 None
+[B->A 5minute] max-T: family 133 masks (123 testable) of size 134; null p95 of max|t| 3.862; best member two_way:fz_readxhour_bin:LEAVE|<09:25 |t| 2.644 fw p 0.6222; rules: r1B_f1 t -0.39 fw_p 1.0, r1B_f2 t 1.125 fw_p 1.0, r1B_f3 t 0.502 fw_p 1.0, r1B_f4 t -1.727 fw_p 0.999, r1B_f5 t 1.417 fw_p 1.0, r1B_f6 t -0.634 fw_p 1.0, r1B_f7 t -1.923 fw_p 0.9905, r1B_f8 t 0.173 fw_p 1.0
+[B->A 5minute] family: PBO(diff) 0.4267 SPA p 0.219 (unstud. 0.375) eff. trials 1.34; 25 s
+scores_B.json written; ledger a03c3dc0277bb5ab -> 2253e804fdfa3ab9
+combine: Holm over the rules of the round: 32 round-1 rules + 16 round-0 = m 48; min adjusted p 0.096
+[combine minute] direction A->B: eligible [] -> L_A = []
+[combine minute] direction B->A: eligible [] -> L_B = []
+[crossfit minute] no rule chosen in either direction: the fixed crossed list is empty (no ledger row; keep everything)
+[crossfit minute] oof12 block 0: rules of B selected on 1990 training rows of half A -> chosen []
+[crossfit minute] oof12 block 1: rules of B selected on 2014 training rows of half A -> chosen []
+[crossfit minute] oof12 block 2: rules of B selected on 2004 training rows of half A -> chosen []
+[crossfit minute] oof12 block 3: rules of B selected on 1870 training rows of half A -> chosen []
+[crossfit minute] oof12 block 4: rules of B selected on 2018 training rows of half A -> chosen []
+[crossfit minute] oof12 block 5: rules of B selected on 2067 training rows of half A -> chosen []
+[crossfit minute] oof12 block 6: rules of A selected on 1604 training rows of half B -> chosen []
+[crossfit minute] oof12 block 7: rules of A selected on 1778 training rows of half B -> chosen []
+[crossfit minute] oof12 block 8: rules of A selected on 1874 training rows of half B -> chosen []
+[crossfit minute] oof12 block 9: rules of A selected on 1545 training rows of half B -> chosen []
+[crossfit minute] oof12 block 10: rules of A selected on 1851 training rows of half B -> chosen []
+[crossfit minute] oof12 block 11: rules of A selected on 1532 training rows of half B -> chosen []
+[crossfit minute] oof12: kept 4452 skipped 0 diff None ctrl None perm_p None sign_blocks None
+/home/user/money-maker/research/strategy_lab/fz_v3/out/harness.py:329: RuntimeWarning: All-NaN slice encountered
+  res = dict(paths=len(out), diff_median=round(float(np.nanmedian(d)), 2), diff_p5=round(float(np.nanquantile(d, 0.05)), 2),
+/usr/local/lib/python3.11/dist-packages/numpy/lib/_nanfunctions_impl.py:1573: RuntimeWarning: All-NaN slice encountered
+  return _nanquantile_unchecked(
+/home/user/money-maker/research/strategy_lab/fz_v3/out/harness.py:330: RuntimeWarning: All-NaN slice encountered
+  diff_min=round(float(np.nanmin(d)), 2), diff_share_positive=round(float((d > 0).mean()), 3),
+/home/user/money-maker/research/strategy_lab/fz_v3/out/harness.py:334: RuntimeWarning: All-NaN slice encountered
+  res.update(control_pct_median=round(float(np.nanmedian(c)), 1), control_pct_p5=round(float(np.nanquantile(c, 0.05)), 1))
+[crossfit minute] CPCV: 66 splits, blocks with a non-empty selection 0 of 132; diff median None p5 None share>0 0.0 kept share median 1.0 ctrl median None
+[crossfit minute] go/no-go on oof12: fail
+[combine 5minute] direction A->B: eligible [] -> L_A = []
+[combine 5minute] direction B->A: eligible [] -> L_B = []
+[crossfit 5minute] no rule chosen in either direction: the fixed crossed list is empty (no ledger row; keep everything)
+[crossfit 5minute] oof12 block 0: rules of B selected on 343 training rows of half A -> chosen []
+[crossfit 5minute] oof12 block 1: rules of B selected on 343 training rows of half A -> chosen []
+[crossfit 5minute] oof12 block 2: rules of B selected on 386 training rows of half A -> chosen []
+[crossfit 5minute] oof12 block 3: rules of B selected on 344 training rows of half A -> chosen []
+[crossfit 5minute] oof12 block 4: rules of B selected on 356 training rows of half A -> chosen []
+[crossfit 5minute] oof12 block 5: rules of B selected on 355 training rows of half A -> chosen []
+[crossfit 5minute] oof12 block 6: rules of A selected on 317 training rows of half B -> chosen []
+[crossfit 5minute] oof12 block 7: rules of A selected on 347 training rows of half B -> chosen []
+[crossfit 5minute] oof12 block 8: rules of A selected on 319 training rows of half B -> chosen []
+[crossfit 5minute] oof12 block 9: rules of A selected on 318 training rows of half B -> chosen []
+[crossfit 5minute] oof12 block 10: rules of A selected on 366 training rows of half B -> chosen []
+[crossfit 5minute] oof12 block 11: rules of A selected on 315 training rows of half B -> chosen []
+[crossfit 5minute] oof12: kept 826 skipped 0 diff None ctrl None perm_p None sign_blocks None
+/home/user/money-maker/research/strategy_lab/fz_v3/out/harness.py:329: RuntimeWarning: All-NaN slice encountered
+  res = dict(paths=len(out), diff_median=round(float(np.nanmedian(d)), 2), diff_p5=round(float(np.nanquantile(d, 0.05)), 2),
+/usr/local/lib/python3.11/dist-packages/numpy/lib/_nanfunctions_impl.py:1573: RuntimeWarning: All-NaN slice encountered
+  return _nanquantile_unchecked(
+/home/user/money-maker/research/strategy_lab/fz_v3/out/harness.py:330: RuntimeWarning: All-NaN slice encountered
+  diff_min=round(float(np.nanmin(d)), 2), diff_share_positive=round(float((d > 0).mean()), 3),
+/home/user/money-maker/research/strategy_lab/fz_v3/out/harness.py:334: RuntimeWarning: All-NaN slice encountered
+  res.update(control_pct_median=round(float(np.nanmedian(c)), 1), control_pct_p5=round(float(np.nanquantile(c, 0.05)), 1))
+[crossfit 5minute] CPCV: 66 splits, blocks with a non-empty selection 0 of 132; diff median None p5 None share>0 0.0 kept share median 1.0 ctrl median None
+[crossfit 5minute] go/no-go on oof12: fail
+combine done in 1496.5 s; null_result True; ledger 2253e804fdfa3ab9 -> 92dc548b205f174f

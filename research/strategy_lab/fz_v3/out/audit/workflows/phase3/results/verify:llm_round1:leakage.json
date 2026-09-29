@@ -1,0 +1,9 @@
+{
+ "agentId": "a02c85e0ec8a111e2",
+ "label": "verify:llm_round1:leakage",
+ "phase": "Verify",
+ "result": null,
+ "key": "v2:4572e85eb2dcbc079a72432c3c48edfd10c985db532f72c5cab5eb8d420a479f",
+ "transcript": "audit/workflows/phase3/agent-a02c85e0ec8a111e2.jsonl",
+ "meta": "audit/workflows/phase3/agent-a02c85e0ec8a111e2.meta.json"
+}

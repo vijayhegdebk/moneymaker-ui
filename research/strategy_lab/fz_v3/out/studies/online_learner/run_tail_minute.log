@@ -47,3 +47,8 @@
 [minute] tail skip context__hgb_reg__k1__300__pf (written meanwhile)
 [minute] tail skip context__hgb_reg__k1__1000__net (written meanwhile)
 [minute] tail skip context__hgb_reg__k1__1000__pf (written meanwhile)
+[minute] tail job context__hgb_cls__k1__anchored__x                   662.6s heads 2  (1595s elapsed)
+[minute] tail skip context__hgb_cls__k1__300__x (written meanwhile)
+[minute] tail skip context__hgb_cls__k1__1000__x (written meanwhile)
+[minute] tail skip full__logts__k1__anchored__x (written meanwhile)
+[minute] tail worker done in 1595s

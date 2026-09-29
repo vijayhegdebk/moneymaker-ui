@@ -1,0 +1,397 @@
+{
+ "tf": "minute",
+ "cut": "2025-06-30 12:00:00",
+ "rows_is": 4452,
+ "rows_before_cut": 3767,
+ "trunc_rows_before_cut": 3767,
+ "common_setups": 3767,
+ "closed_before_cut": 3767,
+ "labels_identical_closed_before_cut": true,
+ "jobs": [
+  {
+   "job": "context__lints__k1__anchored__net",
+   "heads": [
+    {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "net"
+    }
+   ],
+   "seconds": 22.6,
+   "head_0": {
+    "head": {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   },
+   "head_1": {
+    "head": {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   }
+  },
+  {
+   "job": "context__lints__k10__300__pf",
+   "heads": [
+    {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "pf"
+    },
+    {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "pf"
+    }
+   ],
+   "seconds": 18.8,
+   "head_0": {
+    "head": {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "pf"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   },
+   "head_1": {
+    "head": {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "pf"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   }
+  },
+  {
+   "job": "context__lints__k50__1000__net",
+   "heads": [
+    {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "net"
+    }
+   ],
+   "seconds": 17.7,
+   "head_0": {
+    "head": {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   },
+   "head_1": {
+    "head": {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   }
+  },
+  {
+   "job": "context__logts__k1__anchored__x",
+   "heads": [
+    {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "net"
+    }
+   ],
+   "seconds": 44.1,
+   "head_0": {
+    "head": {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   },
+   "head_1": {
+    "head": {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   }
+  },
+  {
+   "job": "context__logts__k10__300__x",
+   "heads": [
+    {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "net"
+    }
+   ],
+   "seconds": 20.2,
+   "head_0": {
+    "head": {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   },
+   "head_1": {
+    "head": {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   }
+  },
+  {
+   "job": "context__logts__k50__1000__x",
+   "heads": [
+    {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "net"
+    }
+   ],
+   "seconds": 19.9,
+   "head_0": {
+    "head": {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   },
+   "head_1": {
+    "head": {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   }
+  },
+  {
+   "job": "context__hgb_reg__k50__anchored__net",
+   "heads": [
+    {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    }
+   ],
+   "seconds": 83.0,
+   "head_0": {
+    "head": {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   }
+  },
+  {
+   "job": "context__hgb_cls__k50__1000__x",
+   "heads": [
+    {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    }
+   ],
+   "seconds": 77.1,
+   "head_0": {
+    "head": {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   }
+  },
+  {
+   "job": "full__lints__k10__1000__net",
+   "heads": [
+    {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "net"
+    }
+   ],
+   "seconds": 54.2,
+   "head_0": {
+    "head": {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   },
+   "head_1": {
+    "head": {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   }
+  },
+  {
+   "job": "full__logts__k50__anchored__x",
+   "heads": [
+    {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "net"
+    }
+   ],
+   "seconds": 163.7,
+   "head_0": {
+    "head": {
+     "explore": 0.0,
+     "seed": 0,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   },
+   "head_1": {
+    "head": {
+     "explore": 0.3,
+     "seed": 1,
+     "reward": "net"
+    },
+    "deterministic": true,
+    "equals_stored": true,
+    "truncation_prefix_identical": true,
+    "truncation_build_identical": true,
+    "n_compared": 3767,
+    "decisions_differ": 0
+   }
+  }
+ ],
+ "all_pass": true
+}

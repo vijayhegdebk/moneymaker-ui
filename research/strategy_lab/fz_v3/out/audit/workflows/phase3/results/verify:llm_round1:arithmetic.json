@@ -1,0 +1,9 @@
+{
+ "agentId": "a7482c8e6f57f6323",
+ "label": "verify:llm_round1:arithmetic",
+ "phase": "Verify",
+ "result": null,
+ "key": "v2:fcd4eb218e2929874ff27f9d089e590d6391d6e06eec544736b8050b36328aea",
+ "transcript": "audit/workflows/phase3/agent-a7482c8e6f57f6323.jsonl",
+ "meta": "audit/workflows/phase3/agent-a7482c8e6f57f6323.meta.json"
+}

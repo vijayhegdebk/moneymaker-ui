@@ -1,0 +1,418 @@
+{
+ "round": 1,
+ "half_seen": "A",
+ "written_at": "2026-09-29T16:20:02+00:00",
+ "proposer": "DESIGN_PANEL deep-sequence-llm-hypotheses, round-1 proposer (half A only)",
+ "shortlist_state": {
+  "minute": {
+   "n_shortlisted": 0,
+   "allowed_columns": [],
+   "sha256_prefix": "66f6e004bd93e47c"
+  },
+  "5minute": {
+   "n_shortlisted": 0,
+   "allowed_columns": [],
+   "sha256_prefix": "4747257f41ecb40f"
+  },
+  "note": "EMPTY-SHORTLIST RULE applies on both timeframes: every rule below is exploratory and uses only columns printed in the half-A tables; provenance = {\"vocabulary\": \"outside the frozen shortlist (importance rule failed for every cluster)\"}."
+ },
+ "vocabulary_provenance": {
+  "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)"
+ },
+ "label": "L1",
+ "half_A_window": "2021-10-01 .. 2023-11-06 (harness blocks 0-5, IS only)",
+ "base_rate_half_A": {
+  "minute": {
+   "n": 2408,
+   "mean_net_inr": -958,
+   "win_rate": 0.158
+  },
+  "5minute": {
+   "n": 428,
+   "mean_net_inr": -677,
+   "win_rate": 0.297
+  }
+ },
+ "excluded_on_purpose": [
+  "ffd_close_dstar (level rule / calendar-time proxy per the table caveat; needs a new per-bar lab routine)",
+  "days_to_expiry, gap_pts, *_pts (drift with price level / calendar per null_tapes_drift)",
+  "sl, n_events_asof and the three REFUSED interaction pairs",
+  "the listed interaction pairs were not used: no half-A table shows their joint cells, so no cell could motivate a threshold"
+ ],
+ "inputs_read": [
+  "research/strategy_lab/fz_v3/BRIEF.md",
+  "research/strategy_lab/fz_v3/out/data/README.md",
+  "research/strategy_lab/fz_v3/out/features_ext/README.md",
+  "research/strategy_lab/fz_v3/out/features_shortlist/minute/shortlist.json",
+  "research/strategy_lab/fz_v3/out/features_shortlist/5minute/shortlist.json",
+  "research/strategy_lab/fz_v3/out/studies/llm_round1/tables_minute_A.md",
+  "research/strategy_lab/fz_v3/out/studies/llm_round1/tables_5minute_A.md"
+ ],
+ "minute": [
+  {
+   "id": "r1A_m1",
+   "if": [
+    [
+     "fz_read",
+     "in",
+     [
+      "THIN",
+      "REJECT",
+      "ACCEPTED"
+     ]
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_minute_A.md and carries the provenance 'outside the frozen shortlist'. User: 'check how price reacts in visibly high volume; those levels will be respected'. A THIN read is a band with no visible volume behind it, and REJECT / ACCEPTED are reads where the band did not hold price the way a respected level does. In half A these three reads are the worst of the read table: THIN -1,151 / WR 0.091 (n 295), REJECT -1,060 / 0.098 (n 92), ACCEPTED -1,186 / 0.113 (n 71) against a base of -958 / 0.158. 'It should avoid only loss trades': these cells lose at 2x the base rate of losing while skipping few winners.",
+   "cells": [
+    "one_way:fz_read:THIN",
+    "one_way:fz_read:REJECT",
+    "one_way:fz_read:ACCEPTED",
+    "two_way:fz_readxhour_bin:THIN|11",
+    "two_way:fz_readxhour_bin:THIN|12",
+    "two_way:fz_readxhour_bin:REJECT|10",
+    "two_way:fz_readxhour_bin:REJECT|11",
+    "two_way:fz_readxhour_bin:ACCEPTED|11",
+    "two_way:fz_readxhour_bin:ACCEPTED|10"
+   ]
+  },
+  {
+   "id": "r1A_m2",
+   "if": [
+    [
+     "hour_bin",
+     "==",
+     "11"
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_minute_A.md and carries the provenance 'outside the frozen shortlist'. User: 'it's different for different time'. The 11 o'clock bin is the worst hour of half A on 1 minute: -1,095 / WR 0.096 (n 356) against -958 / 0.158; every read in that hour is below base (LEAVE -1,048 / 0.128, PENDING -862 / 0.140, THIN -1,341 / 0.034, NEW -911 / 0.091). Late-morning 1-minute CHoCHs are the sideways chop the user said is hurting.",
+   "cells": [
+    "one_way:hour_bin:11",
+    "two_way:fz_readxhour_bin:LEAVE|11",
+    "two_way:fz_readxhour_bin:PENDING|11",
+    "two_way:fz_readxhour_bin:THIN|11",
+    "two_way:fz_readxhour_bin:NEW|11"
+   ]
+  },
+  {
+   "id": "r1A_m3",
+   "if": [
+    [
+     "hour_bin",
+     "in",
+     [
+      "11",
+      "12"
+     ]
+    ],
+    [
+     "fz_read",
+     "in",
+     [
+      "NEW",
+      "FIRST_PRINT",
+      "RECYCLE"
+     ]
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_minute_A.md and carries the provenance 'outside the frozen shortlist'. User: 'it's different for different time' and 'if it breaks there will be a large move, else price retests'. A band that is brand new, first-printed or recycled in the midday hours (11-12) has not yet been tested by visible volume, and in half A these six cells are near-zero win rate: NEW|11 -911 / 0.091 (22), NEW|12 -1,067 / 0.040 (25), FIRST_PRINT|11 -1,423 / 0.000 (13), FIRST_PRINT|12 -1,459 / 0.091 (11), RECYCLE|11 -1,527 / 0.000 (13), RECYCLE|12 -951 / 0.000 (11). Small cells: a candidate to confirm on half B, not a conviction.",
+   "cells": [
+    "two_way:fz_readxhour_bin:NEW|11",
+    "two_way:fz_readxhour_bin:NEW|12",
+    "two_way:fz_readxhour_bin:FIRST_PRINT|11",
+    "two_way:fz_readxhour_bin:FIRST_PRINT|12",
+    "two_way:fz_readxhour_bin:RECYCLE|11",
+    "two_way:fz_readxhour_bin:RECYCLE|12"
+   ]
+  },
+  {
+   "id": "r1A_m4",
+   "if": [
+    [
+     "n_choch_since_bos",
+     "==",
+     0
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_minute_A.md and carries the provenance 'outside the frozen shortlist'. User: 'if it breaks there will be a large move' and 'CHoCH and CHoCH and no breaks then it's sideways'. On the 1-minute half A the user's k >= 2 direction is NOT what the table shows: 0 CHoCHs since the last BOS (the break already happened after this CHoCH, so the SETUP is chasing a move that has already broken) is the worst bucket, -1,111 / WR 0.138 (n 636), for both directions (down -1,114 / 0.139, up -1,107 / 0.138), while 3 and 4 CHoCHs since BOS are the best (-627 / 0.161, -637 / 0.191). This rule tests the 'chasing a completed break' reading; it deliberately records that the sideways hypothesis (n_choch_since_bos >= 2) does not mark losers on 1 minute in this half.",
+   "cells": [
+    "one_way:n_choch_since_bos:0",
+    "two_way:n_choch_since_bosxdir:0|down",
+    "two_way:n_choch_since_bosxdir:0|up",
+    "one_way:n_choch_since_bos:3",
+    "one_way:n_choch_since_bos:4"
+   ]
+  },
+  {
+   "id": "r1A_m5",
+   "if": [
+    [
+     "hv3_dir_agree",
+     "==",
+     true
+    ],
+    [
+     "hv3_bars_since",
+     ">=",
+     6
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_minute_A.md and carries the provenance 'outside the frozen shortlist'. User: 'check how price reacts in visibly high volume ... if it breaks there will be a large move'. A visibly-high-volume bar (vol_ratio20 >= 3) in the SETUP's own direction that printed 6 or more bars ago and still needs a fresh CHoCH to enter means the volume did not produce the large move: the reaction is stale. In half A: True|6-15 bars -1,055 / WR 0.091 (220), True|16-60 bars -1,126 / 0.109 (385), True|>=61 bars -955 / 0.079 (38), against -904 / 0.185 when the bar is the SETUP bar itself (True|0 bars). Bars-since 6 is a printed bucket boundary; NaN (no such bar in the session) never fires.",
+   "cells": [
+    "two_way:hv3_dir_agreexhv3_bars_since:True|6-15 bars",
+    "two_way:hv3_dir_agreexhv3_bars_since:True|16-60 bars",
+    "two_way:hv3_dir_agreexhv3_bars_since:True|>=61 bars",
+    "two_way:hv3_dir_agreexhv3_bars_since:True|0 bars",
+    "one_way:hv3_bars_since:16-60 bars"
+   ]
+  },
+  {
+   "id": "r1A_m6",
+   "if": [
+    [
+     "fz_visit_n",
+     "==",
+     3
+    ],
+    [
+     "fz_read",
+     "!=",
+     "LEAVE"
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_minute_A.md and carries the provenance 'outside the frozen shortlist'. User: 'else price retests, retests and respects'. A third visit to the same band that is not a LEAVE is the second retest with price still inside or rejected at the level, i.e. the band is being respected and the CHoCH inside it is sideways noise. Half A visit-3 cells other than LEAVE: ACCEPTED -1,502 / 0.000 (13), RECYCLE -1,168 / 0.000 (11), REJECT -1,437 / 0.095 (21), THIN -1,425 / 0.050 (60), PENDING -1,250 / 0.155 (84); the LEAVE visit-3 cell is kept (-689 / 0.239, 71) because a leave is the break the user wants.",
+   "cells": [
+    "two_way:fz_visit_nxfz_read:3|ACCEPTED",
+    "two_way:fz_visit_nxfz_read:3|RECYCLE",
+    "two_way:fz_visit_nxfz_read:3|REJECT",
+    "two_way:fz_visit_nxfz_read:3|THIN",
+    "two_way:fz_visit_nxfz_read:3|PENDING",
+    "two_way:fz_visit_nxfz_read:3|LEAVE",
+    "one_way:fz_visit_n:3"
+   ]
+  },
+  {
+   "id": "r1A_m7",
+   "if": [
+    [
+     "room_ahead_dist_atr",
+     ">=",
+     1.4782
+    ],
+    [
+     "room_ahead_dist_atr",
+     "<",
+     2.4394
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_minute_A.md and carries the provenance 'outside the frozen shortlist'. User: 'those levels will be respected: if it breaks there will be a large move, else price retests'. A room edge sitting 1.5 to 2.4 ATR ahead of the entry is a wall the trade has to run into before it can become a large move, and it is too far for the entry itself to be the break. Half A deciles: [1.4782, 1.8541) -1,187 / WR 0.109 (221) and [1.8541, 2.4394) -1,085 / 0.136 (221), the two worst deciles of the column against -958 / 0.158; both thresholds are printed decile edges.",
+   "cells": [
+    "one_way:room_ahead_dist_atr:[1.4782, 1.8541)",
+    "one_way:room_ahead_dist_atr:[1.8541, 2.4394)",
+    "one_way:room_ahead_dist_atr:[0.6662, 0.8849)"
+   ]
+  },
+  {
+   "id": "r1A_m8",
+   "if": [
+    [
+     "hour_bin",
+     "==",
+     ">=15:20"
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_minute_A.md and carries the provenance 'outside the frozen shortlist'. User: 'it's different for different time'. A SETUP at or after 15:20 has at most five minutes before the 15:25 intraday cut, so it cannot become the large move; in half A the bin has zero winners: -975 / WR 0.000 (n 29), and every read in it is 0.000 (LEAVE -942 / 0.000 / 10, PENDING -991 / 0.000 / 8). Small n, but skipping it cannot cost a winner in this half.",
+   "cells": [
+    "one_way:hour_bin:>=15:20",
+    "two_way:fz_readxhour_bin:LEAVE|>=15:20",
+    "two_way:fz_readxhour_bin:PENDING|>=15:20"
+   ]
+  }
+ ],
+ "5minute": [
+  {
+   "id": "r1A_f1",
+   "if": [
+    [
+     "fz_gate",
+     "==",
+     "TAKE"
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_5minute_A.md and carries the provenance 'outside the frozen shortlist'. User: 'bands exist to take me to profit not to loss'. On the 5-minute half A the frozen ST8 gate's own TAKE set is the worst bucket: TAKE -1,350 / WR 0.250 (n 116) against BLOCK +11 / 0.379 (103) and WATCH -655 / 0.279 (208), base -677 / 0.297. As a hypothesis for half B: the band's TAKE reason is selecting the sideways CHoCHs rather than the breaks. If it confirms, the ST8 take logic is inverted for this timeframe and the user must decide; if it does not, the gate is simply uninformative.",
+   "cells": [
+    "one_way:fz_gate:TAKE",
+    "one_way:fz_gate:BLOCK",
+    "one_way:fz_gate:WATCH"
+   ]
+  },
+  {
+   "id": "r1A_f2",
+   "if": [
+    [
+     "fz_read",
+     "==",
+     "PENDING"
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_5minute_A.md and carries the provenance 'outside the frozen shortlist'. User: 'if it breaks there will be a large move, else price retests, retests and respects'. PENDING is a band whose read is not yet decided: price is still inside, neither broken nor left. In half A it is the only large read below base: -1,208 / WR 0.264 (n 106) against LEAVE -548 / 0.299 (241), NEW -429 / 0.385 (39), THIN +235 / 0.357 (28); worst at visit 1 (-1,777 / 0.185, 27) and in the 10-13 hours (10: -1,904 / 0.182; 11: -1,782 / 0.200; 12: -1,313 / 0.200; 13: -1,639 / 0.250).",
+   "cells": [
+    "one_way:fz_read:PENDING",
+    "two_way:fz_visit_nxfz_read:1|PENDING",
+    "two_way:fz_readxhour_bin:PENDING|10",
+    "two_way:fz_readxhour_bin:PENDING|11",
+    "two_way:fz_readxhour_bin:PENDING|12",
+    "two_way:fz_readxhour_bin:PENDING|13"
+   ]
+  },
+  {
+   "id": "r1A_f3",
+   "if": [
+    [
+     "hour_bin",
+     "in",
+     [
+      "11",
+      "12"
+     ]
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_5minute_A.md and carries the provenance 'outside the frozen shortlist'. User: 'it's different for different time'. The 11 and 12 bins are the two worst hours of the 5-minute half A: 11 -1,434 / WR 0.241 (54), 12 -1,313 / 0.200 (65), against -677 / 0.297; every labelled read in those hours is negative (LEAVE|11 -1,161, LEAVE|12 -1,195, PENDING|11 -1,782, PENDING|12 -1,313, NEW|11 -1,108). Midday 5-minute CHoCHs are the sideways trades the user said are hurting; the 13-14 bins by contrast are the best (-385 / 0.325, -311 / 0.420).",
+   "cells": [
+    "one_way:hour_bin:11",
+    "one_way:hour_bin:12",
+    "two_way:fz_readxhour_bin:LEAVE|11",
+    "two_way:fz_readxhour_bin:LEAVE|12",
+    "two_way:fz_readxhour_bin:PENDING|11",
+    "two_way:fz_readxhour_bin:PENDING|12",
+    "one_way:hour_bin:13",
+    "one_way:hour_bin:14"
+   ]
+  },
+  {
+   "id": "r1A_f4",
+   "if": [
+    [
+     "n_choch_since_bos",
+     "==",
+     2
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_5minute_A.md and carries the provenance 'outside the frozen shortlist'. User's exact observation: 'if CHoCH and CHoCH and no breaks then it's sideways; trades in sideways are hurting'. On the 5-minute half A exactly two CHoCHs since the last BOS is the worst regime bucket: -1,190 / WR 0.243 (n 70) against -612 / 0.308 at 0 and -605 / 0.305 at 1, and it is bad in both directions (down -1,073 / 0.250 / 32, up -1,288 / 0.237 / 38). The rule is written as == 2 (not >= 2) because the 3 bucket recovers (-262 / 0.368, 38); >= 2 would skip that cell.",
+   "cells": [
+    "one_way:n_choch_since_bos:2",
+    "two_way:n_choch_since_bosxdir:2|down",
+    "two_way:n_choch_since_bosxdir:2|up",
+    "one_way:n_choch_since_bos:3",
+    "one_way:n_choch_since_bos:0",
+    "one_way:n_choch_since_bos:1"
+   ]
+  },
+  {
+   "id": "r1A_f5",
+   "if": [
+    [
+     "hv3_dir_agree",
+     "==",
+     true
+    ],
+    [
+     "hv3_bars_since",
+     ">=",
+     2
+    ],
+    [
+     "hv3_bars_since",
+     "<",
+     13
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_5minute_A.md and carries the provenance 'outside the frozen shortlist'. User: 'check how price reacts in visibly high volume ... if it breaks there will be a large move'. A visibly-high-volume 5-minute bar (vol_ratio20 >= 3) in the SETUP's direction that printed 2 to 12 bars ago (10 to 60 minutes) without the trade being already under way means the volume failed to produce the move and the CHoCH is a late retest. Half A: True|2-3 bars -1,635 / WR 0.091 (11), True|4-12 bars -1,740 / 0.120 (25); the same-bar case (True|0 bars -1,035 / 0.333) and the old case (True|>=13 bars +43 / 0.370) are kept. Thresholds 2 and 13 are printed bucket boundaries; NaN never fires.",
+   "cells": [
+    "two_way:hv3_dir_agreexhv3_bars_since:True|2-3 bars",
+    "two_way:hv3_dir_agreexhv3_bars_since:True|4-12 bars",
+    "two_way:hv3_dir_agreexhv3_bars_since:True|0 bars",
+    "two_way:hv3_dir_agreexhv3_bars_since:True|>=13 bars",
+    "one_way:hv3_bars_since:2-3 bars"
+   ]
+  },
+  {
+   "id": "r1A_f6",
+   "if": [
+    [
+     "touch_room_last",
+     "==",
+     "held"
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_5minute_A.md and carries the provenance 'outside the frozen shortlist'. User: 'those levels will be respected: if it breaks there will be a large move, else price retests, retests and respects'. When the last touch of a room edge in the past hour HELD (no close beyond it by 0.5 ATR within 15 minutes), the level has just been respected and the CHoCH is a rotation inside the room, not a break. Half A: held -1,039 / WR 0.194 (n 31) against broke -262 / 0.314 (70) and none -789 / 0.328 (238), base -677 / 0.297. Small cell; a candidate for half B.",
+   "cells": [
+    "one_way:touch_room_last:held",
+    "one_way:touch_room_last:broke",
+    "one_way:touch_room_last:none"
+   ]
+  },
+  {
+   "id": "r1A_f7",
+   "if": [
+    [
+     "touch_prot_last",
+     "in",
+     [
+      "none",
+      "na"
+     ]
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_5minute_A.md and carries the provenance 'outside the frozen shortlist'. User: 'those levels will be respected'. When the engine's protected level has not been touched at all in the last hour ('none') or has no verdict ('na'), price is drifting away from the level it should be reacting to: there is no level being tested, so neither a break nor a respect can carry the trade. Half A: none -1,921 / WR 0.229 (35), na -2,009 / 0.182 (11), against held -543 / 0.298 (302) and pending -407 / 0.346 (78). Small cells; a candidate for half B.",
+   "cells": [
+    "one_way:touch_prot_last:none",
+    "one_way:touch_prot_last:na",
+    "one_way:touch_prot_last:held",
+    "one_way:touch_prot_last:pending"
+   ]
+  },
+  {
+   "id": "r1A_f8",
+   "if": [
+    [
+     "fz_visit_n",
+     "==",
+     3
+    ],
+    [
+     "fz_read",
+     "in",
+     [
+      "LEAVE",
+      "PENDING"
+     ]
+    ]
+   ],
+   "then": "skip",
+   "reason": "EXPLORATORY: the frozen shortlist has allowed_columns = [] (importance rule failed for every cluster), so this rule uses only columns printed in tables_5minute_A.md and carries the provenance 'outside the frozen shortlist'. User: 'else price retests, retests and respects'. A third visit to the same band on 5 minutes is the second retest; in half A the two large visit-3 reads are the worst cells of the visit x read table: LEAVE -2,096 / WR 0.143 (21) and PENDING -1,675 / 0.286 (14), while visit 2 LEAVE is +607 / 0.294 (34) and visit >= 4 LEAVE is -380 / 0.298 (57). THIN at visit 3 (+1,816 / 0.429, 7) is deliberately excluded. Small cells; a candidate for half B.",
+   "cells": [
+    "two_way:fz_visit_nxfz_read:3|LEAVE",
+    "two_way:fz_visit_nxfz_read:3|PENDING",
+    "two_way:fz_visit_nxfz_read:2|LEAVE",
+    "two_way:fz_visit_nxfz_read:>=4|LEAVE",
+    "two_way:fz_visit_nxfz_read:3|THIN",
+    "one_way:fz_visit_n:3"
+   ]
+  }
+ ]
+}

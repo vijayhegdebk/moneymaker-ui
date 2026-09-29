@@ -1,0 +1,62 @@
+finalize start 2026-09-29T17:37:41
+[minute] 468 online rows, 4 comparator rows
+[minute] finalist ('context', 'lints'): 19f7ff81224bafa0 kept_pf 1.077 diff 1139.37 ctrl 0.1 row_pass False
+[minute] finalist ('context', 'logts'): 5c797e3cc7ae4435 kept_pf 1.073 diff 1153.51 ctrl 0.0 row_pass False
+[minute] finalist ('full', 'lints'): 750d04b5a33f2dd4 kept_pf 0.522 diff 337.39 ctrl 27.4 row_pass False
+[minute] finalist ('context', 'hgb_reg'): 4088c72f7461afba kept_pf 0.412 diff 110.92 ctrl 0.0 row_pass False
+[minute] finalist ('context', 'hgb_cls'): f7bf12c9755185ff kept_pf 0.376 diff 35.98 ctrl 0.1 row_pass False
+[minute] finalist ('full', 'logts'): ee3bb53f8c7251b8 kept_pf 0.344 diff 101.29 ctrl 81.2 row_pass False
+  null tapes for 19f7ff81224bafa0 (online/context/lints/k1/1000/pf, explore 0.3, seed 1)
+    tape gmm_0        n  1650 kept 0.0188 diff    -100.6 (2s)
+    tape gmm_1        n  1578 kept 0.0196 diff   -336.81 (2s)
+    tape gmm_2        n  1403 kept 0.0278 diff    142.78 (2s)
+    tape gmm_3        n  1244 kept  0.037 diff   -400.97 (1s)
+    tape gmm_4        n  1470 kept 0.0265 diff    140.35 (2s)
+    tape gmm_5        n  1312 kept 0.0267 diff   -124.01 (2s)
+    tape gmm_6        n  1500 kept  0.028 diff   -189.63 (2s)
+    tape gmm_7        n  1338 kept 0.0247 diff    256.35 (2s)
+    tape segment_0    n   613 kept 0.0522 diff   -837.14 (0s)
+    tape segment_1    n  1245 kept 0.0297 diff    -76.95 (1s)
+    tape segment_2    n   951 kept 0.0715 diff    875.57 (1s)
+    tape segment_4    n  1316 kept 0.0236 diff   -113.84 (1s)
+    tape segment_5    n  1284 kept 0.0265 diff      99.6 (1s)
+    tape segment_6    n  1008 kept 0.0317 diff    -51.22 (1s)
+    tape segment_7    n  1243 kept 0.0265 diff   -265.01 (1s)
+    tape segment_8    n   917 kept 0.0414 diff    377.78 (1s)
+    tape session_0    n  1101 kept 0.0318 diff    -67.67 (1s)
+    tape session_1    n  1332 kept  0.024 diff   -264.99 (2s)
+    tape session_2    n  1130 kept 0.0292 diff   -255.78 (1s)
+    tape session_4    n   840 kept 0.0512 diff    -47.99 (1s)
+    tape session_5    n  1445 kept 0.0208 diff    -304.2 (2s)
+    tape session_6    n   962 kept 0.0416 diff   -276.89 (1s)
+    tape session_7    n   937 kept 0.0448 diff    306.39 (1s)
+    tape session_9    n  1092 kept 0.0293 diff     92.92 (1s)
+[minute] full go/no-go 19f7ff81224bafa0: passed False; failing ['kept_share>=20%', 'kept_n>=300', 'kept_mean_slip8>0', 'sign_blocks>=8/12', 'control_pct>=95', 'pbo<=0.2', 'dsr_p<0.1', 'spa_p<=0.10', 'null_tape:session_same_sign>=0.75']
+  null tapes for 750d04b5a33f2dd4 (online/full/lints/k50/anchored/pf, explore 0.3, seed 4)
+    tape gmm_0        n  1650 kept 0.1915 diff     26.85 (2s)
+    tape gmm_1        n  1578 kept  0.154 diff   -136.67 (2s)
+    tape gmm_2        n  1403 kept 0.1896 diff    -61.19 (2s)
+    tape gmm_3        n  1244 kept 0.2613 diff    102.92 (2s)
+    tape gmm_4        n  1470 kept 0.1864 diff   -178.82 (2s)
+    tape gmm_5        n  1312 kept 0.2073 diff   -101.47 (2s)
+    tape gmm_6        n  1500 kept 0.2293 diff    -14.74 (2s)
+    tape gmm_7        n  1338 kept 0.1951 diff     -13.6 (2s)
+    tape segment_0    n   613 kept 0.3703 diff   -232.72 (1s)
+    tape segment_1    n  1245 kept 0.1944 diff    -93.35 (2s)
+    tape segment_2    n   951 kept 0.3028 diff    260.78 (1s)
+    tape segment_4    n  1316 kept 0.1922 diff   -113.53 (2s)
+    tape segment_5    n  1284 kept 0.2142 diff    364.45 (2s)
+    tape segment_6    n  1008 kept  0.251 diff   -146.01 (1s)
+    tape segment_7    n  1243 kept 0.2293 diff     19.75 (2s)
+    tape segment_8    n   917 kept 0.2999 diff     14.71 (1s)
+    tape session_0    n  1101 kept  0.257 diff    114.39 (1s)
+    tape session_1    n  1332 kept  0.235 diff     -13.1 (2s)
+    tape session_2    n  1130 kept 0.2938 diff    229.86 (1s)
+    tape session_4    n   840 kept 0.3857 diff     35.93 (1s)
+    tape session_5    n  1445 kept 0.1882 diff   -208.88 (2s)
+    tape session_6    n   962 kept 0.2963 diff    234.27 (1s)
+    tape session_7    n   937 kept   0.27 diff    117.98 (1s)
+    tape session_9    n  1092 kept 0.2408 diff    317.71 (1s)
+[minute] full go/no-go 750d04b5a33f2dd4: passed False; failing ['kept_share>=20%', 'kept_mean_slip8>0', 'sign_blocks>=8/12', 'control_pct>=95', 'pbo<=0.2', 'dsr_p<0.1', 'spa_p<=0.10']
+[minute] null result: no row passes the row-level items
+finalize done 2026-09-29T17:41:56; ledger sha 92dc548b205f174f

@@ -1,6 +1,6 @@
 # FZ v3 audit index
 
-Regenerated 2026-09-29T16:53:08 by `audit_export.py`. Every agent of the program is listed with its full transcript (every prompt, tool call, tool result and final report) and its structured verdict. The harness ledger (`ledger/trials.jsonl`, one row per configuration ever scored; `ledger/vectors/<id>_<split>.npz`, the per-session vectors behind PBO / SPA / bootstrap) and the registrations (`ledger/registrations.jsonl`, hashed pre-registrations, corrections, candidates, the OOS opening) are committed as they are. The main session's own record is the commit history of branch `research/strategy-lab-pwxiug` plus `PROGRESS.md`.
+Regenerated 2026-09-29T17:52:30 by `audit_export.py`. Every agent of the program is listed with its full transcript (every prompt, tool call, tool result and final report) and its structured verdict. The harness ledger (`ledger/trials.jsonl`, one row per configuration ever scored; `ledger/vectors/<id>_<split>.npz`, the per-session vectors behind PBO / SPA / bootstrap) and the registrations (`ledger/registrations.jsonl`, hashed pre-registrations, corrections, candidates, the OOS opening) are committed as they are. The main session's own record is the commit history of branch `research/strategy-lab-pwxiug` plus `PROGRESS.md`.
 
 ## Workflows
 
@@ -108,6 +108,12 @@ Regenerated 2026-09-29T16:53:08 by `audit_export.py`. Every agent of the program
 | verify:regime_gate:arithmetic | Verify | acb8cf7b76963b60f | `audit/workflows/phase3/agent-acb8cf7b76963b60f.jsonl` | `audit/workflows/phase3/results/verify:regime_gate:arithmetic.json` |
 | study:operating_point_sizing | Studies | a76837570614e1d17 | `audit/workflows/phase3/agent-a76837570614e1d17.jsonl` | `audit/workflows/phase3/results/study:operating_point_sizing.json` |
 | verify:gate_family:leakage | Verify | a09cca30a8483f610 | `audit/workflows/phase3/agent-a09cca30a8483f610.jsonl` | `audit/workflows/phase3/results/verify:gate_family:leakage.json` |
+| verify:gate_family:arithmetic | Verify | a53099bef0eb0c65a | `audit/workflows/phase3/agent-a53099bef0eb0c65a.jsonl` | `audit/workflows/phase3/results/verify:gate_family:arithmetic.json` |
+| study:llm_round1:score | Studies | afba0937dac5549ac | `audit/workflows/phase3/agent-afba0937dac5549ac.jsonl` | `audit/workflows/phase3/results/study:llm_round1:score.json` |
+| verify:operating_point_sizing:leakage | Verify | a0aa69e1e12fbbbf8 | `audit/workflows/phase3/agent-a0aa69e1e12fbbbf8.jsonl` | `audit/workflows/phase3/results/verify:operating_point_sizing:leakage.json` |
+| verify:operating_point_sizing:arithmetic | Verify | a3c836f8d66123c23 | `audit/workflows/phase3/agent-a3c836f8d66123c23.jsonl` | `audit/workflows/phase3/results/verify:operating_point_sizing:arithmetic.json` |
+| verify:llm_round1:leakage | Verify | a02c85e0ec8a111e2 | `audit/workflows/phase3/agent-a02c85e0ec8a111e2.jsonl` | `audit/workflows/phase3/results/verify:llm_round1:leakage.json` |
+| verify:llm_round1:arithmetic | Verify | a7482c8e6f57f6323 | `audit/workflows/phase3/agent-a7482c8e6f57f6323.jsonl` | `audit/workflows/phase3/results/verify:llm_round1:arithmetic.json` |
 
 ## Studies
 
@@ -136,7 +142,8 @@ Regenerated 2026-09-29T16:53:08 by `audit_export.py`. Every agent of the program
 - folder `studies/gate_family/` (100 files); FINDINGS: `studies/gate_family/FINDINGS.md`; findings.json: yes
 - study:gate_family (phase3, a9da6406214d23e57):  -> `audit/workflows/phase3/results/study:gate_family.json`
 - study:gate_family (phase3, a15f18296d7b28ce5): completed=True null_result=True -> `audit/workflows/phase3/results/study:gate_family.json`
-- verify:gate_family:leakage (phase3, a09cca30a8483f610):  -> `audit/workflows/phase3/results/verify:gate_family:leakage.json`
+- verify:gate_family:leakage (phase3, a09cca30a8483f610): refuted=False severity=minor issues=4 -> `audit/workflows/phase3/results/verify:gate_family:leakage.json`
+- verify:gate_family:arithmetic (phase3, a53099bef0eb0c65a): refuted=False severity=minor issues=4 -> `audit/workflows/phase3/results/verify:gate_family:arithmetic.json`
 
 ### h1_gate_audit
 
@@ -181,7 +188,7 @@ Regenerated 2026-09-29T16:53:08 by `audit_export.py`. Every agent of the program
 
 ### llm_round1
 
-- folder `studies/llm_round1/` (20 files); FINDINGS: not written yet; findings.json: no
+- folder `studies/llm_round1/` (33 files); FINDINGS: `studies/llm_round1/FINDINGS.md`; findings.json: yes
 - study:llm_round1:tables (phase3, ac13a14f7946836cc):  -> `audit/workflows/phase3/results/study:llm_round1:tables.json`
 - study:llm_round1:proposer_A (phase3, a59eebb3ce714bc53):  -> `audit/workflows/phase3/results/study:llm_round1:proposer_A.json`
 - study:llm_round1:proposer_B (phase3, a02b141249199e5b4):  -> `audit/workflows/phase3/results/study:llm_round1:proposer_B.json`
@@ -189,6 +196,9 @@ Regenerated 2026-09-29T16:53:08 by `audit_export.py`. Every agent of the program
 - study:llm_round1:tables (phase3, abda61f9a3efeb746):  -> `audit/workflows/phase3/results/study:llm_round1:tables.json`
 - study:llm_round1:proposer_A (phase3, a54ccc74db3ab32f2):  -> `audit/workflows/phase3/results/study:llm_round1:proposer_A.json`
 - study:llm_round1:proposer_B (phase3, a75c2ab06e26e21f4):  -> `audit/workflows/phase3/results/study:llm_round1:proposer_B.json`
+- study:llm_round1:score (phase3, afba0937dac5549ac): completed=True null_result=True -> `audit/workflows/phase3/results/study:llm_round1:score.json`
+- verify:llm_round1:leakage (phase3, a02c85e0ec8a111e2):  -> `audit/workflows/phase3/results/verify:llm_round1:leakage.json`
+- verify:llm_round1:arithmetic (phase3, a7482c8e6f57f6323):  -> `audit/workflows/phase3/results/verify:llm_round1:arithmetic.json`
 
 ### null_tapes_drift
 
@@ -202,14 +212,16 @@ Regenerated 2026-09-29T16:53:08 by `audit_export.py`. Every agent of the program
 
 ### online_learner
 
-- folder `studies/online_learner/` (356 files); FINDINGS: `studies/online_learner/FINDINGS.md`; findings.json: yes
+- folder `studies/online_learner/` (363 files); FINDINGS: `studies/online_learner/FINDINGS.md`; findings.json: yes
 - study:online_learner (phase3, a798e739d44c01f7d):  -> `audit/workflows/phase3/results/study:online_learner.json`
-- study:online_learner (phase3, a836873a7ae09333b):  -> `audit/workflows/phase3/results/study:online_learner.json`
+- study:online_learner (phase3, a836873a7ae09333b): completed=True null_result=True -> `audit/workflows/phase3/results/study:online_learner.json`
 
 ### operating_point_sizing
 
 - folder `studies/operating_point_sizing/` (15 files); FINDINGS: `studies/operating_point_sizing/FINDINGS.md`; findings.json: yes
 - study:operating_point_sizing (phase3, a76837570614e1d17): completed=False null_result=True -> `audit/workflows/phase3/results/study:operating_point_sizing.json`
+- verify:operating_point_sizing:leakage (phase3, a0aa69e1e12fbbbf8): refuted=False severity=minor issues=5 -> `audit/workflows/phase3/results/verify:operating_point_sizing:leakage.json`
+- verify:operating_point_sizing:arithmetic (phase3, a3c836f8d66123c23): refuted=False severity=minor issues=4 -> `audit/workflows/phase3/results/verify:operating_point_sizing:arithmetic.json`
 
 ### regime_gate
 

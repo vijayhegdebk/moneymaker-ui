@@ -164,6 +164,19 @@ def main():
             L.append("The 1-minute tapes are one trading year (247 sessions) starting at the real IS first open (17,523.70), so `last close` and `ATR14 median` are not "
                      "comparable with the real 5-year IS values in this table; the per-session rates and return moments are.")
         L.append("")
+    # ---- engine scale / ordering check
+    esc_p = os.path.join(HERE, "engine_scale_check.json")
+    if os.path.exists(esc_p):
+        esc = json.load(open(esc_p))
+        L.append("### 5b. Engine scale and ordering check (`engine_scale_check.json`; 5-minute IS full sessions, Strategy 2 rules)\n")
+        L.append("| bars | CHoCH / session | BOS / session | SETUPs / session | swings |")
+        L.append("|---|---|---|---|---|")
+        for k, v in esc["runs"].items():
+            L.append(f"| {k.replace('_', ' ')} | {v['choch_per_session']:.3f} | {v['bos_per_session']:.3f} | {v['setups_per_session']:.3f} | {v['swings']:,} |")
+        L.append(f"\nScale-free (x2 price level gives identical counts): **{esc['scale_free']}**. Re-basing the real sessions with the real gaps reproduces the real counts exactly; "
+                 "redrawing the gaps or shuffling the sessions moves the CHoCH rate by ~+17% and removing the gaps altogether by ~+50%: the engine's event rate is a "
+                 "property of the multi-day path, which is exactly what a null tape randomises, so per-tape SETUP counts vary (section 5 min / max) and the null distributions "
+                 "carry that variance.\n")
     # ---- drift
     if drift:
         L.append("## 6. Adversarial validation IS-early vs IS-late (`drift.json`)\n")

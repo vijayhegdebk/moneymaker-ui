@@ -1,2 +1,6 @@
 [05:22:54] 5minute: IS units 826 (early 412, late 414), design (1002, 236)
 [05:22:54] 5minute: time proxies (|rho| >= 0.9 with session_idx): [('n_events_asof', 1.0), ('sl', 0.928)]
+[05:23:07] 5minute A_all_asof: OOF AUC 0.8643 (permuted p50 0.4753, p95 0.4753) in 13s
+[05:23:18] 5minute B_without_time_proxies: OOF AUC 0.6663 (permuted p50 0.4553, p95 0.4553) in 10s
+[05:23:19] 5minute top-10 drifted (B): atr14 (higher in IS-late, shift +0.30 sd), atr_bps (lower in IS-late, shift -0.51 sd), close_vs_sess_open_pts (lower in IS-late, shift -0.04 sd), hour_bin=09 (higher in IS-late, shift +0.06 sd), hour_bin=11 (lower in IS-late, shift -0.06 sd), hour_bin=12 (higher in IS-late, shift +0.01 sd), hour_bin=13 (lower in IS-late, shift -0.05 sd), hour_bin=10 (higher in IS-late, shift +0.14 sd), session_bar (lower in IS-late, shift -0.10 sd), hour (lower in IS-late, shift -0.10 sd)
+[05:23:19] drift_smoke.json written

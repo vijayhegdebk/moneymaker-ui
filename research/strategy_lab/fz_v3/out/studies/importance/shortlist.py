@@ -1,6 +1,6 @@
 """Step (8): the frozen shortlist per timeframe from results_<tf>.json, its registration in the ledger, FINDINGS.md and findings.json.
 python shortlist.py            (both timeframes must have run; refuses to register twice)."""
-import os, sys, json, hashlib, datetime as D
+import os, sys, json, hashlib, datetime as D, collections
 import numpy as np, pandas as pd
 sys.dont_write_bytecode = True
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -57,6 +57,27 @@ RUN_NOTES = {
     "5minute": "one single-thread process (--stage all, started before the stage split): 3682 s (05:14-06:15 UTC), finalize included. Max RSS 391 MB.",
 }
 DIAG = json.load(open(os.path.join(SRC, "mda_diag.json"))) if os.path.exists(os.path.join(SRC, "mda_diag.json")) else {}
+# repair round (2026-09-29): the audit facts (ledger ordering, dry-run inventory, MDA-diff definedness) and the registrations as they stand
+AUDIT = json.load(open(os.path.join(HERE, "repair_audit.json"))) if os.path.exists(os.path.join(HERE, "repair_audit.json")) else None
+if not DRY: assert AUDIT is not None, "run repair_audit.py first (repair round of 2026-09-29)"
+REGS_PATH = os.path.join(OUT, "ledger", "registrations.jsonl")
+REGS = [json.loads(x) for x in open(REGS_PATH, encoding="utf-8") if x.strip()] if os.path.exists(REGS_PATH) else []
+PHASE3 = "gate_family, llm_round1, regime_gate"
+
+
+def ordering_text():
+    """The true ordering of the shortlist registration against the ledger (issue 1 of the repair), from repair_audit.json."""
+    if not AUDIT: return "ordering: see repair_audit.json"
+    o = AUDIT["issue1_ordering"]; gs = o["gate_search_families_before"]
+    return (f"registered {o['registration_at']} UTC, after {o['gate_search_rows_before']} gate-search ledger rows (" + ", ".join(f"{f} {v['n']}" for f, v in gs.items())
+            + f"; {o['ledger_rows_before_registration']} rows in all) and before the phase-3 gate studies ({PHASE3}: {o['phase3_rows_at_registration']} ledger rows at registration, "
+            f"{o['phase3_rows_now']} now)")
+
+
+def reg_records(tf):
+    pre = [r for r in REGS if r.get("kind") == "pre_registration" and r.get("what") == f"feature shortlist {tf}"]
+    cor = [r for r in REGS if r.get("kind") == "correction" and f"feature shortlist {tf}" in r.get("corrects", "")]
+    return (pre[-1] if pre else None), (cor[-1] if cor else None)
 
 
 # ---------------------------------------------------------------- the shortlist
@@ -113,8 +134,13 @@ for tf in TFS:
     json.dump(clean(shortlists[tf]), open(p, "w"), indent=1, default=str)
     sha = hashlib.sha256(open(p, "rb").read()).hexdigest(); shortlists[tf]["sha256"] = sha
     if DRY: print(f"{tf}: DRY shortlist written to {p} (not registered)"); continue
+    # the note states the ledger as it stands at registration (data, not a claim about what ran before: the repair of 2026-09-29 corrected
+    # the earlier phrase 'frozen before any gate search', which was false as a data-ordering fact)
+    fams = collections.Counter(r["family"].split("/")[0] for r in H.read_ledger(split=None))
+    note = (f"frozen before the phase-3 gate studies ({PHASE3}); the ledger held {sum(fams.values())} rows at registration: "
+            + ", ".join(f"{f} {n}" for f, n in sorted(fams.items())))
     rec = dict(kind="pre_registration", what=f"feature shortlist {tf}", file=f"features_shortlist/{tf}/shortlist.json", sha256=sha,
-               registered_at=D.datetime.now().isoformat(timespec="seconds"), note="frozen before any gate search",
+               registered_at=D.datetime.now().isoformat(timespec="seconds"), note=note,
                n_clusters=len(shortlists[tf]["clusters"]), n_allowed_columns=len(shortlists[tf]["allowed_columns"]), interaction_pairs=5,
                ledger_sha_at_registration=H.ledger_sha())
     with open(regs_path, "a", encoding="utf-8") as f: f.write(json.dumps(rec) + "\n")
@@ -125,7 +151,9 @@ M = []
 M.append("# importance: FINDINGS (DESIGN_PANEL quant-ml-canon-feature-importance, both judges' fixes)\n")
 M.append("**What this study is.** The feature-vocabulary pass: which clusters of as-of columns (base design + the 61 extended columns handed here by the "
          "regime-breaks, regime-states, motif-shapelet and rocket-probe judges) carry information about the L1 outcome under the harness splitter; the "
-         "shortlist of at most 8 clusters per timeframe that the gate studies may draw features from, frozen in the ledger before any gate search; the FFD "
+         f"shortlist of at most 8 clusters per timeframe that the gate studies may draw features from, frozen in the ledger before the phase-3 gate studies ({PHASE3}; "
+         "the H1-H5, session_stop, llm round 0, rocket and exit_policy searches preceded it and were not restricted to it: 'Repair', issue 1, and the `correction` "
+         "records in `ledger/registrations.jsonl`); the FFD "
          "verdict; the five interaction pairs that are the only depth-2/3 conjunctions allowed downstream. This study proposes **no gate**: the only kept-vs-skipped "
          "numbers are the ledger rows of the OOF gates it had to evaluate (the full bagged model at its training-fold tau, each SFI cluster at its tau, the CPCV paths "
          "of the full model), reported as ceilings, never as candidates. IS only.\n")
@@ -191,6 +219,13 @@ for tf in TFS:
 
     M.append("### Clustered importance table (all clusters, sorted by log-loss MDA)\n")
     M.append(f"Full table with members, per-period MDA values and SFI ledger ids: `importance_clusters_{tf}.csv`; per-feature MDI, tier, coverage and README definition: `importance_features_{tf}.csv`.\n")
+    fl = fm["folds"]; fdef = [f for f in fl if f["oof_diff"] is not None]
+    fdef_txt = ("it is undefined for every cluster on this timeframe. " if not fdef else
+                "the values shown come from fold " + ", ".join(str(f["fold"]) for f in fdef) + " alone ("
+                + ", ".join("{} test rows, tau {}, kept {}".format(f["n_te"], f["tau"], f["kept_share"]) for f in fdef) + ") and have no std, so 'pass' is 'no' by construction. ")
+    M.append(f"Note on the 'MDA diff' columns (the design's 'metric that matters': the permutation drop in the OOF kept-vs-skipped difference at the fold's tau). It exists only where the fold's OOF gate "
+             f"skipped something. On {tf} the training-fold tau rule kept every test row in {len(fl) - len(fdef)} of {len(fl)} folds, so the statistic is undefined there ('-'); " + fdef_txt
+             + "The log-loss MDA was therefore the only evaluable statistic and is the pass rule: a deviation from the design's emphasis forced by an undefined statistic, not a noise finding ('Repair', issue 2).\n")
     hdr = "| rank | cluster | representative | n | MDA ll mean | std | ratio | pass | MDA diff mean | std | pass | MDI | SFI ll | SFI AUC | SFI diff | SFI kept | SFI ctrl pct | " + " | ".join(f"rank {pn}" for pn in pnames) + " | top-8 periods | stable | eligible |"
     M.append(hdr); M.append("|" + "---|" * (hdr.count("|") - 1))
     for _, r in t.iterrows():
@@ -219,7 +254,15 @@ for tf in TFS:
         M.append(f"| mean OOF probability vs winner share (unweighted / |net|-weighted) | {dg['mean_oof_probability']} vs {dg['winner_share']} / {dg['winner_share_net_weighted']} |")
         M.append(f"| OOF weighted log-loss: model vs the constant predictor at the weighted winner share | {dg['wlogloss_model_oof']} vs {dg['wlogloss_constant_at_weighted_share']} ({'model better' if dg['model_beats_constant_in_wlogloss'] else 'the constant is better: the forest is mis-calibrated under balanced class weights'}) |")
         M.append(f"| clusters passing an AUC-drop version of the same rule (mean drop > std across folds) | {dg['n_clusters_auc_pass']} of {dg['n_clusters']} |")
-        M.append(f"| clusters with negative / exactly-zero log-loss MDA | {dg['n_clusters_ll_negative']} / {dg['n_clusters_ll_zero']} |")
+        M.append(f"| clusters with negative / exactly-zero log-loss MDA (recomputed at float32 precision, like the stored `p_perm`) | {dg['n_clusters_ll_negative']} / {dg['n_clusters_ll_zero']} |")
+        if "n_clusters_ll_zero_by_identity" in dg:
+            M.append(f"| exactly-zero clusters by prediction identity (`p_perm == float32(p_oof)` on every IS row and permutation) | {dg['n_clusters_ll_zero_by_identity']} of {dg['n_clusters']}; the text above says {dg['text_claim_exactly_zero_from_table']} ({'agree' if dg['zero_counts_agree'] else 'DISAGREE'}); "
+                     f"float64-base rounding noise that hid them before the repair: max {dg['float64_base_noise_max_abs']:.1e} |")
+        prc = dg.get("period_rank_check")
+        if prc:
+            M.append(f"| stability ranks recomputed as run vs float32-consistent | table reproduced {fmt(prc['rank_as_run_matches_table'])}; clusters whose top-8 count differs: {len(prc['clusters_rank_changed'])}"
+                     + (f" (all never-split: {fmt(prc['clusters_rank_changed_never_split'])})" if prc['clusters_rank_changed'] else "")
+                     + f"; stability flags that would change: {len(prc['clusters_stab_changed'])}; eligible clusters as run / consistent: {prc['eligible_as_run']} / {prc['eligible_consistent']} |")
         M.append("")
         M.append("| AUC rank | cluster | representative | AUC drop mean | std | ratio | folds positive | pooled-OOF AUC drop | log-loss MDA mean |\n|---|---|---|---|---|---|---|---|---|")
         rep_of = dict(zip(t.cluster, t.representative)); ll_of = dict(zip(t.cluster, t.mda_ll_mean))
@@ -272,7 +315,11 @@ for tf in TFS:
 
     sl = shortlists[tf]
     M.append(f"### The shortlist ({sl['n_shortlisted']} clusters; {sl['n_clusters_mda_pass']} of {sl['n_clusters_total']} pass MDA, {sl['n_clusters_stability_pass']} pass stability, {sl['n_clusters_eligible']} pass both; cap 8)\n")
-    M.append(f"Frozen at `features_shortlist/{tf}/shortlist.json`, sha256 `{sl['sha256']}`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: {len(sl['allowed_columns'])}.\n")
+    pre, cor = reg_records(tf)
+    M.append(f"Frozen at `features_shortlist/{tf}/shortlist.json`, sha256 `{sl['sha256']}`, registered in `ledger/registrations.jsonl`"
+             + (f" at {pre['registered_at']} UTC" if pre else "") + f": frozen before the phase-3 gate studies ({ordering_text()})"
+             + (f"; the registration's own note 'frozen before any gate search' was false and is corrected by the `correction` record of {cor['registered_at']} (never edited; 'Repair', issue 1)" if cor else "")
+             + f". Allowed columns for the gate studies: {len(sl['allowed_columns'])}.\n")
     if sl["clusters"]:
         M.append("| # | cluster | representative | definition (README) | members | MDA ll mean / std | MDA diff mean / std | " + " / ".join(pnames) + " ranks |\n|---|---|---|---|---|---|---|---|")
         for e in sl["clusters"]:
@@ -312,8 +359,32 @@ M.append("## Candidates\n")
 M.append("None. This study fixes the vocabulary (the shortlist JSON + the five interaction pairs) and proposes no gate; the full model and the SFI gates are ledger rows for the family's PBO / SPA and are ceilings, not configs.\n")
 
 M.append("## Caveats\n")
+def _diff_defined(tf):
+    fl = R[tf]["full_model"]["folds"]; d = [f for f in fl if f["oof_diff"] is not None]
+    return f"{len(fl) - len(d)}/{len(fl)} folds undefined on {tf}" + (f" (the one defined: fold {d[0]['fold']}, {d[0]['n_te']} test rows, kept {d[0]['kept_share']}, diff {d[0]['oof_diff']})" if len(d) == 1 else "")
+
+
+def _dry_caveat():
+    if not AUDIT: return "Dry runs: see repair_audit.json."
+    d = AUDIT["issue3_dry_runs"]; lg = d["logs"]
+    return ("Off-ledger debug evaluations (repair, issue 3): before the real run, `run_importance.py --dry` (20 trees; `harness.score` monkey-patched to `harness.metrics` with controls off, "
+            f"no ledger row) ran on the real {d['timeframe']} IS table with the real L1 label in {len(lg)} logs ("
+            + ", ".join(f"`{n}` {r['first']}..{r['last']} UTC" for n, r in lg.items()) + f"). They printed the OOF gate difference of {d['distinct_configurations']} distinct configurations "
+            f"({d['distinct_by_kind']['full_model']} full-model depths, {d['distinct_by_kind']['sfi']} SFI clusters; {d['distinct_configurations_with_a_defined_number']} with a defined difference, the rest kept every row), "
+            f"{d['configuration_numbers_total']} configuration-level numbers in all ({d['configuration_numbers_defined']} defined; the seeds are fixed, so every pass printed the same numbers: identical across logs "
+            f"{'yes' if d['identical_across_logs'] else 'NO'}) plus {d['fold_numbers_total']} fold-level differences ({d['fold_numbers_defined']} defined). None is in the ledger, none is counted by the family's "
+            f"PBO / SPA / effective trials (the ledger holds the 300-tree runs: {d['ledger_rows_importance_5minute']} rows on 5minute), and no reported number rests on them; they are listed so the count is honest. "
+            "The BRIEF forbids private kept-vs-skipped arithmetic: this is recorded as a deviation. `--dry` now shuffles net / pts / net_slip within the IS rows (seed 0) before any fit, so a dry run can no longer "
+            "produce a real kept-vs-skipped number off-ledger (verification: `dry_repair_check_main.nohup`, `dry_repair_check_sfi.nohup`, outputs `dry_repair_check/`).")
+
+
 cav = [
-    "The primary MDA statistic is the permutation drop in OOF weighted log-loss; the kept-vs-skipped MDA at the fold's tau is reported with its own mean / std but is not the pass rule (on 70-370 test rows per fold its std exceeds its mean for nearly every cluster, as Judge 1 foresaw).",
+    "The primary MDA statistic is the permutation drop in OOF weighted log-loss. The design also names the drop in the OOF kept-vs-skipped expectancy at the fold's tau 'the metric that matters' (DESIGN_PANEL.md, "
+    "method step 4); in this run that statistic is UNDEFINED in nearly every fold, not noisy: the training-fold tau rule (max kept mean s.t. |net|-weighted winner recall >= 0.90 on the OOB probabilities) chose the "
+    "grid floor or a tau every test probability cleared, so the OOF gate skipped nothing and `harness.metrics` returns no difference (" + "; ".join(_diff_defined(tf) for tf in TFS) + "). The 5minute 'MDA diff mean' "
+    "column is therefore a single-fold number with no std, and the minute column is empty. The log-loss MDA was the only evaluable statistic and is the pass rule: a deviation from the design's emphasis forced by "
+    "the data, not a noise finding. An earlier wording of this caveat ('its std exceeds its mean for nearly every cluster') described a statistic that does not exist in this run and is corrected ('Repair', issue 2).",
+    _dry_caveat(),
     "Per-period stability re-scores the same 12 fold models on the rows of each period (no refit inside a year: a 12-block CV does not exist inside ~1,100 rows / 170 winners, and refitting there would be the noise Judge 2 warns of); it measures whether the relation learned on the other blocks holds in that period.",
     "tau is chosen on the training fold's out-of-bag probabilities (the bagging's own inner out-of-fold estimate), not on an inner CV; OOB probabilities of a 300-tree bagging are out-of-fold for every training row.",
     "Two-level one-hots keep one level; exact duplicates are dropped; missing indicators are de-duplicated by NaN pattern: these are stated preprocessing steps, not searches.",
@@ -332,6 +403,84 @@ cav = [
     "document were produced after the pause. Nothing was rerun; the minute cpcv log lacks its two closing lines (orphaned inode, see PROGRESS.md), cpcv_minute.json and the 11 ledger rows are complete.",
 ]
 M += [f"- {c}" for c in cav]
+
+# ---------------------------------------------------------------- Repair (2026-09-29, after the adversarial refuters)
+repair = {}
+if AUDIT:
+    M.append("\n## Repair (2026-09-29, after the adversarial refuters)\n")
+    M.append("Four issues were confirmed by the refuters and are repaired here. No model was refitted and no ledger trial row was added or changed; the ledger is append-only and received two `correction` records; "
+             "the two shortlist files and their shas are unchanged (verified by `repair_audit.py`). Every table above holds the same numbers as before the repair except the supplementary-diagnostic rows named under "
+             "issue 4. Facts: `repair_audit.json` (from the ledger, the registrations, the dry logs and the fold tables), `mda_diag.json` (re-run), `repair_audit.log`, `mda_diag.log` (the first version's log is kept as `mda_diag_v1.log`).\n")
+    o = AUDIT["issue1_ordering"]
+    M.append("### 1. The registration note 'frozen before any gate search' was false as a data-ordering fact\n")
+    M.append("| item | value |\n|---|---|")
+    M.append(f"| registration of both shortlists | {o['registration_at']} UTC (`ledger/registrations.jsonl` lines 3-4; note 'frozen before any gate search') |")
+    M.append(f"| ledger rows before / after the registration | {o['ledger_rows_before_registration']} / {o['ledger_rows_after_registration']} (of {o['ledger_rows_total_now']} now) |")
+    M.append(f"| of which searches for a new skip rule (the BRIEF: a gate is any rule that turns a SETUP into skip) | {o['gate_search_rows_before']}: " + ", ".join(f"{f} {v['n']} ({v['first'][11:]}..{v['last'][11:]} UTC)" for f, v in o["gate_search_families_before"].items()) + " |")
+    M.append("| other rows before | " + ", ".join(f"{f} {v['n']} ({v['OTHER']})" for f, v in o["other_rows_before"].items()) + " |")
+    M.append("| rows after | " + ", ".join(f"{k} {v['n']} ({v['first'][11:]} UTC)" for k, v in o["rows_after_registration"].items()) + " |")
+    M.append(f"| phase-3 gate studies ({', '.join(o['phase3_families'])}) | {o['phase3_rows_at_registration']} ledger rows at registration, {o['phase3_rows_now']} now |")
+    M.append("| shortlist files | " + "; ".join(f"{tf}: sha `{v['sha256_now'][:16]}...` unchanged {fmt(v['unchanged'])}, {v['n_clusters']} clusters, {v['n_allowed_columns']} allowed columns" for tf, v in o["shortlist_files"].items()) + " |")
+    corr = [r for r in REGS if r.get("kind") == "correction" and "feature shortlist" in r.get("corrects", "")]
+    M.append(f"| `correction` records appended (the file is never edited) | {len(corr)}: " + "; ".join(f"{r['corrects']} -> {r['registered_at']}" for r in corr) + " |")
+    M.append(f"\nThe true claim is **frozen before the phase-3 gate studies**. The H2/H3/H4, session_stop, llm round 0, rocket and exit_policy searches ran first ({o['gate_search_rows_before']} ledger rows) and were not "
+             "restricted to this vocabulary (no shortlist file existed before the registration; their multiplicity is carried by their own ledger families). The ordering that matters for PBO is the one against the "
+             f"phase-3 studies ({PHASE3}), whose feature vocabulary this shortlist restricts, and that ordering holds ({o['phase3_rows_at_registration']} rows at registration). The shortlist is empty on both timeframes, "
+             "so no column choice could have been informed by the earlier searches. Same class of false provenance claim as the llm round 0 note the program corrected at 2026-09-29T05:09:16 (line 2 of the registrations file). "
+             "Changed: the `correction` records (one per registration, mirroring that precedent); the sentence in 'What this study is'; the 'Frozen at' paragraphs of both shortlist sections; `shortlist.py` now writes a "
+             "data-driven note (the ledger's families and row count at registration) instead of the false phrase; `findings.json` carries the ordering under `repair` and `registrations`.\n")
+    M.append("### 2. The kept-vs-skipped MDA at the fold's tau was undefined, not noisy\n")
+    M.append("| timeframe | folds with a defined OOF gate difference | folds where the gate kept every test row | taus chosen | clusters with a defined MDA-diff mean / std | MDA-diff pass | log-loss MDA pass |\n|---|---|---|---|---|---|---|")
+    for tf in TFS:
+        d = AUDIT["issue2_mda_diff_defined"][tf]
+        M.append(f"| {tf} | {d['folds_with_defined_oof_diff']} of {d['n_folds']}" + (" (" + "; ".join(f"fold {x['fold']}: {x['n_te']} test rows, tau {x['tau']}, kept {x['kept_share']}, diff {x['oof_diff']}" for x in d["folds_defined"]) + ")" if d["folds_defined"] else "")
+                 + f" | {d['folds_kept_everything']} | {sorted(set(d['taus']))} | {d['clusters_with_mda_diff_mean']} / {d['clusters_with_mda_diff_std']} of {d['n_clusters']} | {d['clusters_mda_diff_pass']} | {d['clusters_mda_ll_pass']} |")
+    lsf = AUDIT["issue2_mda_diff_defined"]["5minute"].get("largest_single_fold_diff_mean")
+    M.append("\nThe design (DESIGN_PANEL.md, method step 4) names the drop in OOF kept-vs-skipped expectancy at the fold's tau 'the metric that matters'. The earlier caveat 1 said it was 'not the pass rule (on 70-370 "
+             "test rows per fold its std exceeds its mean for nearly every cluster)': that described a statistic that does not exist in this run. Where the fold's OOF gate keeps every test row, `harness.metrics` "
+             "returns no difference and the permutation drop of an undefined number is undefined; the minute column is empty for all clusters and the 5minute 'MDA diff mean' is a single-fold number with no std"
+             + (f" (the largest, cluster {lsf['cluster']}: {lsf['value']:.1f} INR, is one fold)" if lsf else "") + ". The log-loss MDA was therefore the only evaluable statistic and is the pass rule. This is a "
+             "deviation from the design's emphasis forced by the data (the tau rule's 'keep everything' outcome), not a noise finding. Changed: caveat 1, the note above each clustered table, this section; the table "
+             "columns themselves are unchanged (they were '-' where undefined). What would have made the statistic evaluable: a tau rule that skips something in every fold (a kept-share ceiling), which is a different "
+             "design and would be a new registration.\n")
+    d = AUDIT["issue3_dry_runs"]
+    M.append("### 3. Off-ledger kept-vs-skipped numbers in the dry runs\n")
+    M.append("| dry log | UTC | stage | trees | configuration-level gate differences (defined) | fold-level gate differences (defined) | ended normally |\n|---|---|---|---|---|---|---|")
+    for name, r in d["logs"].items():
+        h = r["header"] or {}
+        M.append(f"| `{name}` | {r['first']}..{r['last']} | {h.get('stage')} | {h.get('trees')} | {r['config_numbers']} ({r['config_numbers_defined']}) | {r['fold_numbers']} ({r['fold_numbers_defined']}) | {fmt(r['ended_normally'])} |")
+    M.append(f"\nUnder `--dry`, `harness.score` was monkey-patched to `harness.metrics` (controls off, no ledger row; `run_importance.py` lines 29-35 of the original) and the runs used the real {d['timeframe']} IS table "
+             f"with the real L1 label at {d['trees']} trees. Distinct configurations with a printed OOF gate difference: **{d['distinct_configurations']}** ({d['distinct_by_kind']['full_model']} full-model depths, "
+             f"{d['distinct_by_kind']['sfi']} SFI clusters), {d['distinct_configurations_with_a_defined_number']} of them with a defined difference (the others kept every row); {d['configuration_numbers_total']} "
+             f"configuration-level numbers printed in all ({d['configuration_numbers_defined']} defined) plus {d['fold_numbers_total']} fold-level differences ({d['fold_numbers_defined']} defined). The seeds are fixed, "
+             f"so every pass printed the same numbers (identical across logs: {fmt(d['identical_across_logs'])}). These evaluations are not in the ledger and are not counted by the family's PBO / SPA / effective trials "
+             f"(the ledger holds the 300-tree runs: {d['ledger_rows_importance_5minute']} rows on 5minute); no reported number rests on them; they are listed so the count is honest, and the deviation from the BRIEF's "
+             "rule ('no private kept-vs-skipped arithmetic anywhere') is recorded, not excused. They were not scored retroactively into an `importance/dry` family: 20-tree variants would enter the family's PBO / SPA / "
+             "effective-trial count as if they had been candidates, which they were not (a debug of the code paths), and the disclosure here is the honest record. Changed: `run_importance.py --dry` now shuffles net / "
+             "pts / net_slip within the IS rows (seed 0; OOS rows are never touched) before any fit, so a dry run can no longer produce a real kept-vs-skipped number off-ledger; the dry output folder is overridable "
+             "(`IMP_DRY_DIR`) so a check does not overwrite the `dry/` evidence; verification: `dry_repair_check_main.nohup` / `dry_repair_check_sfi.nohup` (outputs under `dry_repair_check/`), whose printed differences "
+             "are those of the destroyed pairing.\n")
+    M.append("### 4. The exactly-zero contradiction (text 18 / 14 vs diagnostic 0 / 0)\n")
+    M.append("| timeframe | text: clusters with MDA exactly 0 in every fold | diagnostic before the repair | after: float32-consistent log-loss / by prediction identity | agree | never-split clusters | float64-base rounding noise (max abs) |\n|---|---|---|---|---|---|---|")
+    for tf in TFS:
+        dg = DIAG.get(tf, {})
+        M.append(f"| {tf} | {dg.get('text_claim_exactly_zero_from_table')} | 0 | {dg.get('n_clusters_ll_zero')} / {dg.get('n_clusters_ll_zero_by_identity')} | {fmt(dg.get('zero_counts_agree'))} | {dg.get('never_split_clusters')} | {dg.get('float64_base_noise_max_abs', float('nan')):.1e} |")
+    prc_txt = "; ".join(f"{tf}: table ranks reproduced {fmt(DIAG[tf]['period_rank_check']['rank_as_run_matches_table'])}, top-8 count differs for {len(DIAG[tf]['period_rank_check']['clusters_rank_changed'])} cluster(s)"
+                        + (f" (all never-split: {fmt(DIAG[tf]['period_rank_check']['clusters_rank_changed_never_split'])})" if DIAG[tf]['period_rank_check']['clusters_rank_changed'] else "")
+                        + f", stability flag would change for {len(DIAG[tf]['period_rank_check']['clusters_stab_changed'])}, eligible clusters {DIAG[tf]['period_rank_check']['eligible_as_run']} -> {DIAG[tf]['period_rank_check']['eligible_consistent']}"
+                        for tf in TFS if "period_rank_check" in DIAG.get(tf, {}))
+    M.append("\nCause: `p_perm` is stored as float32 (`imp_lib.full_model_pass`, memory) while `p_oof` is float64. The main stage computed its table from the float64 predictions before storage, so the table's zeros "
+             "are exact and the text's 18 / 14 was right; `mda_diag.py` recomputed the drop against the float64 base and got ~1e-9 instead of 0 for a never-split cluster, so its exact-zero test never fired and its "
+             "json said 0 / 0. Changed: `mda_diag.py` rounds the base to float32 before every comparison (like-for-like), takes the per-permutation differences before averaging (as the main stage does) and also "
+             "tests 'exactly zero' by prediction identity; re-run; the diagnostic rows now agree with the text. The stability ranks were checked the same way (`period_rank_check` in `mda_diag.json`): "
+             "`imp_lib.period_mda` compares float64 base with float32 permuted predictions too, so every never-split cluster carries one identical rounding constant per period (a tie among them, not a re-order); "
+             + prc_txt + ". `imp_lib.py` is unchanged in behaviour (a comment at the `p_perm` allocation documents the precision); the main stage was not re-run, since its numbers are unaffected.\n")
+    repair = dict(at=AUDIT["at"], issues={
+        "1_registration_note": dict(false_claim="frozen before any gate search", true_claim=f"frozen before the phase-3 gate studies ({PHASE3})", ordering=o,
+                                    corrections=[dict(corrects=r["corrects"], registered_at=r["registered_at"]) for r in corr], files_changed=["ledger/registrations.jsonl (append)", "shortlist.py", "FINDINGS.md", "findings.json"]),
+        "2_mda_diff_undefined": dict(AUDIT["issue2_mda_diff_defined"], statement="the kept-vs-skipped MDA at the fold's tau is undefined wherever the OOF gate kept every test row; the log-loss MDA is the only evaluable statistic and the pass rule; a deviation from the design's emphasis, not a noise finding"),
+        "3_dry_runs_off_ledger": dict(AUDIT["issue3_dry_runs"], scored_into_ledger=False, verification_logs=["studies/importance/dry_repair_check_main.nohup", "studies/importance/dry_repair_check_sfi.nohup"]),
+        "4_exact_zero": {tf: {k: DIAG[tf].get(k) for k in ("n_clusters", "n_clusters_ll_zero", "n_clusters_ll_zero_by_identity", "text_claim_exactly_zero_from_table", "zero_counts_agree", "never_split_clusters", "float64_base_noise_max_abs", "period_rank_check")} for tf in TFS if tf in DIAG}})
 M.append("\n## Files\n")
 files = []
 for tf in TFS:
@@ -343,6 +492,8 @@ files += ["studies/importance/main_minute.json", "studies/importance/mda_minute.
           "studies/importance/run_5minute.nohup", "studies/importance/mda_diag.py", "studies/importance/mda_diag.json", "studies/importance/mda_diag_minute.csv", "studies/importance/mda_diag_5minute.csv",
           "studies/importance/mda_diag.log", "studies/importance/imp_lib.py", "studies/importance/run_importance.py", "studies/importance/run_all.sh", "studies/importance/shortlist.py",
           "studies/importance/shortlist.log", "studies/importance/probe.py", "studies/importance/bag_probe.py", "studies/importance/bag_probe.log", "studies/importance/xgb_probe.py", "studies/importance/xgb_probe.log",
+          "studies/importance/repair_audit.py", "studies/importance/repair_audit.json", "studies/importance/repair_audit.log", "studies/importance/mda_diag_v1.log",
+          "studies/importance/dry_repair_check_main.nohup", "studies/importance/dry_repair_check_sfi.nohup", "studies/importance/dry_repair_check/run_5minute.log",
           "ledger/registrations.jsonl"]
 M += [f"- `{f}`" for f in files]
 open(os.path.join(SRC, "FINDINGS.md"), "w", encoding="utf-8").write("\n".join(M) + "\n")
@@ -362,7 +513,10 @@ fj = dict(study="importance", design="quant-ml-canon-feature-importance (both ju
                                clusters_table=R[tf]["clusters_table"]) for tf in TFS},
           ffd_verdict=ffd_verdict, candidates=[], null_result=all(shortlists[tf]["n_shortlisted"] == 0 for tf in TFS),
           ledger_families=["importance/full_model", "importance/full_model/cpcv", "importance/sfi"], caveats=cav, files=files,
-          diagnostic_not_pass_rule=DIAG, run_notes=RUN_NOTES,
-          registrations={tf: dict(file=f"features_shortlist/{tf}/shortlist.json", sha256=shortlists[tf]["sha256"]) for tf in TFS})
+          diagnostic_not_pass_rule=DIAG, run_notes=RUN_NOTES, repair=repair,
+          registrations={tf: dict(file=f"features_shortlist/{tf}/shortlist.json", sha256=shortlists[tf]["sha256"],
+                                  registered_at=(reg_records(tf)[0] or {}).get("registered_at"), note_as_registered=(reg_records(tf)[0] or {}).get("note"),
+                                  note_corrected=f"frozen before the phase-3 gate studies ({PHASE3})", correction_registered_at=(reg_records(tf)[1] or {}).get("registered_at"),
+                                  ordering=ordering_text()) for tf in TFS})
 json.dump(clean(fj), open(os.path.join(SRC, "findings.json"), "w"), indent=1, default=str)
 print("FINDINGS.md and findings.json written;", {tf: shortlists[tf]["n_shortlisted"] for tf in TFS}, ffd_verdict)

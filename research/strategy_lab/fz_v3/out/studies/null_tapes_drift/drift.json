@@ -2,7 +2,7 @@
  "study": "null_tapes_drift",
  "part": "d: adversarial validation IS-early vs IS-late",
  "not_run_here": "IS-vs-OOS adversarial validation (runs after the single OOS evaluation, in oos_once.py's post-mortem, label-free, explanatory only)",
- "rule_for_gate_studies": "a selected rule that uses one of top5_sources (variant B) is refit without that feature and both versions are reported in the study's FINDINGS; a rule that uses a time proxy (time_proxies) is refused as a calendar rule, not a market rule; a rule that uses any feature of top20_drifted carries the feature's std_shift as a caveat",
+ "rule_for_gate_studies": "a selected rule that uses one of top5_sources (variant B) is refit without that feature and both versions are reported in the study's FINDINGS; a rule that uses a time proxy (time_proxies) is a calendar rule, not a market rule: tapes.rule_mask refuses it (PermissionError) and the gate studies refuse it on the real tape by the same rule (harness.NOT_FEATURES does not carry these columns: reported, not changed here); a rule that uses any feature of top20_drifted carries the feature's std_shift as a caveat",
  "timeframes": {
   "5minute": {
    "tf": "5minute",

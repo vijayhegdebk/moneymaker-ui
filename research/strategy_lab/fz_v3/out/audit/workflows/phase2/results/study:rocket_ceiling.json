@@ -1,9 +1,36 @@
 {
- "agentId": "a2fa1fcd6089ef4ee",
+ "agentId": "ac30beac6ae6623fe",
  "label": "study:rocket_ceiling",
  "phase": "Studies",
- "result": null,
+ "result": {
+  "study": "rocket_ceiling",
+  "completed": true,
+  "null_result": true,
+  "key_numbers": "{\"resume\": \"rocket_ceiling.py had finished on its own at 07:12:37 UTC during the usage-limit pause (previous agent cut off 06:44 UTC between CPCV splits 43 and 49); nothing rerun; only finalize_family.py (family recheck + run integrity, 0 ledger rows), write_findings.py -> FINDINGS.md + findings.json were run\", \"design\": \"1m only, L=60, K=2000 kernels (seed 3795216026), 7 channels, L1 label, IS 4452 units (OOS 814 = row count only), truncation check PASS (max |diff| 0.0 on 3767 SETUPs before 2025-06-30)\", \"oof12_auc\": {\"tabular\": 0.5887, \"stacked\": 0.5892, \"rocket\": 0.5884, \"pca16\": 0.5474}, \"cpcv_11_paths_auc_gain_stacked_minus_tabular\": {\"median\": -0.0016, \"p5\": -0.0073, \"min\": -0.0079, \"max\": 0.0076, \"share_positive\": 0.455}, \"cpcv_gain_rocket_minus_tabular\": {\"median\": -0.0063, \"p5\": -0.0165}, \"cpcv_gain_pca16_minus_tabular\": {\"median\": -0.0447, \"p5\": -0.0556}, \"pre_registered_stop\": \"p5 gain stacked-tabular = -0.0073 < 0.03 -> STOP, no distillation, no candidate\", \"judge1_footnote_every_block_gain_below_0.02\": false, \"gates_12_oof_rows\": \"families rocket/{rocket,pca16,tabular,stacked} x skip 0.3/0.5/0.7; best OOF diff tabular q0.3 id 7594408d55b3a8c9 +125.03 INR/trade (control pct 4.9, perm p 0.1774, diff_top1_removed -60.08, slip8 kept mean -1367.75, sign blocks 9/12, CPCV diff median 98.01 p5 6.15); rocket q0.3 id 80e5e282bcb601dc +123.06 (control pct 0.0, perm p 0.1474, CPCV diff p5 102.97); no gate passes go_no_go\", \"family\": {\"design_family\": \"1 x 1 x 3\", \"ledger_rows\": \"12 OOF + 132 CPCV = 144\", \"effective_trials\": 1.49, \"pbo_diff\": 0.4298, \"pbo_kept_mean\": 0.6926, \"spa_p_studentised\": 0.762, \"spa_p_unstudentised_revised_harness\": 0.783, \"rc_p\": 0.9445, \"dsr_p_best\": 0.9371, \"boot90_diff_ci_best\": [22.03, 224.11], \"go_no_go_best\": false, \"failed_checks\": [\"diff_top1_removed>0\", \"kept_mean_slip8>0\", \"control_pct>=95\", \"pbo<=0.2\", \"dsr_p<0.1\", \"spa_p<=0.10\"]}, \"recheck_with_current_harness\": \"all of effective_trials, PBO, SPA (studentised), DSR, bootstrap CI, go_no_go reproduce exactly from ledger vectors; 0 of 12 excluded by the new min-active filter (candidates active in 281-462 of 578 sessions, threshold 28)\", \"run_integrity\": \"12 OOF rows match ledger field by field; ledger script_sha 771f509e5cc4faf8 == file on disk; results.json ledger_sha_after 621159330c8bb103 == sha of ledger prefix of 1746 rows (exactly after the last rocket CPCV row, before importance row at 07:14:41); log truncated by the 06:24 checkout-inode incident (final 3 log lines missing, explained in PROGRESS.md)\", \"timing_rss\": \"total 7864.5 s (78 folds done at 7102.5 s), one 4452x2000 transform 23.92 s, numba JIT 1.38 s, peak RSS 504 MB; PPV matrix 34 MB float32 for IS rows (design's 5266x2000 = 42 MB counts OOS rows, not built)\", \"candidate_slot\": \"none (Judge 1): the study never gets a candidate slot; its 144 trials count toward multiplicity\"}",
+  "candidates": "none \u2014 null result; this study never gets a candidate slot (Judge 1); the pre-registered stop fired (CPCV p5 AUC gain stacked minus tabular = -0.0073 < 0.03) so no distillation ran; the win_* window summaries (win_sign_agree10, win_dd_extreme_atr, win_range_slope) are already in features_ext/minute/ext_features.parquet for the importance study (coverage on IS units 1.0 / 1.0 / 0.9816)",
+  "files": [
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/FINDINGS.md",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/findings.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/finalize_family.py",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/family_recheck.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/finalize.log",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/write_findings.py",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/rocket_ceiling.py",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/rocket_lib.py",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/results.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/rocket_ceiling.log",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/run.nohup",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/fold_auc.csv",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/path_auc.csv",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/gates.csv",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/cpcv_gate_paths.csv",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/windows_trunc_check.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/kernels.npz",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/rocket_ceiling/oof_scores.npz"
+  ],
+  "problems": "(1) The on-disk log (rocket_ceiling.log == run.nohup) ends at the last gate row; the run's final three log lines (family stats, 'distillation not run', 'done in') were lost to the 06:24 checkout-inode incident described in PROGRESS.md. Not a run failure: results.json's ledger_sha_after reproduces exactly as the ledger prefix ending at the last rocket row, and the ledger script_sha equals the file on disk; documented in FINDINGS section 8a. (2) results.json's SPA predates the harness.spa revision; the revised statistic (studentised 0.762 unchanged, unstudentised 0.783, 0 candidates excluded) was recomputed from ledger vectors and reported alongside in section 6a, no ledger row added. (3) The shared ledger grew from 1758 to 1762 rows during this session from the concurrently running importance study, none from this study. (4) Nothing committed (per brief)."
+ },
  "key": "v2:e9f5ccf28ac0bf3bae7222e964c85b2f3d1f21df4459c71af466dd1a8b44f469",
- "transcript": "audit/workflows/phase2/agent-a2fa1fcd6089ef4ee.jsonl",
- "meta": "audit/workflows/phase2/agent-a2fa1fcd6089ef4ee.meta.json"
+ "transcript": "audit/workflows/phase2/agent-ac30beac6ae6623fe.jsonl",
+ "meta": "audit/workflows/phase2/agent-ac30beac6ae6623fe.meta.json"
 }

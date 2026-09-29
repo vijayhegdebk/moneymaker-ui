@@ -321,6 +321,10 @@ def full_model_pass(T, Xa, clusters, depth, tf, logf=None, with_mda=True):
     n = T.n
     p_oof = np.full(n, np.nan); tau_row = np.full(n, np.nan); w_row = np.full(n, np.nan); fold_row = np.full(n, -1)
     K = len(clusters)
+    # float32 storage (K x 5 x n; the fold statistics below are computed from the float64 predictions BEFORE storage). A consumer
+    # that compares p_perm with the float64 p_oof sees rounding noise of ~1e-9 in log-loss where the permutation changed nothing;
+    # period_mda below does so (the noise is one constant per period shared by every never-split cluster: a tie, not a re-order),
+    # and mda_diag.py compares at float32 precision (repair of 2026-09-29, FINDINGS.md 'Repair' issue 4).
     p_perm = np.full((K, N_PERM, n), np.nan, dtype=np.float32) if with_mda else None
     mdi = np.zeros((12, len(cols)))
     folds = []

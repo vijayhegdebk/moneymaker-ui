@@ -1,0 +1,9 @@
+{
+ "agentId": "a2c71169fc9472778",
+ "label": "recheck:exit_policy_followup",
+ "phase": "Repair",
+ "result": null,
+ "key": "v2:61b2ecd65eed38dfd8e81eaa6916cd9ed796ec166f41eac89e8048d2c812917a",
+ "transcript": "audit/workflows/exit_policy_followup/agent-a2c71169fc9472778.jsonl",
+ "meta": "audit/workflows/exit_policy_followup/agent-a2c71169fc9472778.meta.json"
+}

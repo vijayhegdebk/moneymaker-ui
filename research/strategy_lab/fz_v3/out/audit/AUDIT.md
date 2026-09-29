@@ -1,6 +1,6 @@
 # FZ v3 audit index
 
-Regenerated 2026-09-29T11:16:26 by `audit_export.py`. Every agent of the program is listed with its full transcript (every prompt, tool call, tool result and final report) and its structured verdict. The harness ledger (`ledger/trials.jsonl`, one row per configuration ever scored; `ledger/vectors/<id>_<split>.npz`, the per-session vectors behind PBO / SPA / bootstrap) and the registrations (`ledger/registrations.jsonl`, hashed pre-registrations, corrections, candidates, the OOS opening) are committed as they are. The main session's own record is the commit history of branch `research/strategy-lab-pwxiug` plus `PROGRESS.md`.
+Regenerated 2026-09-29T12:18:18 by `audit_export.py`. Every agent of the program is listed with its full transcript (every prompt, tool call, tool result and final report) and its structured verdict. The harness ledger (`ledger/trials.jsonl`, one row per configuration ever scored; `ledger/vectors/<id>_<split>.npz`, the per-session vectors behind PBO / SPA / bootstrap) and the registrations (`ledger/registrations.jsonl`, hashed pre-registrations, corrections, candidates, the OOS opening) are committed as they are. The main session's own record is the commit history of branch `research/strategy-lab-pwxiug` plus `PROGRESS.md`.
 
 ## Workflows
 
@@ -29,6 +29,28 @@ Regenerated 2026-09-29T11:16:26 by `audit_export.py`. Every agent of the program
 | recheck:llm_round0 | Repair | a56b18e1224f43f4d | `audit/workflows/phase1/agent-a56b18e1224f43f4d.jsonl` | `audit/workflows/phase1/results/recheck:llm_round0.json` |
 | recheck:h2_h3_h4 | Repair | aae0d01b5691fc702 | `audit/workflows/phase1/agent-aae0d01b5691fc702.jsonl` | `audit/workflows/phase1/results/recheck:h2_h3_h4.json` |
 | recheck:session_stop | Repair | aa90baa907599adc8 | `audit/workflows/phase1/agent-aa90baa907599adc8.jsonl` | `audit/workflows/phase1/results/recheck:session_stop.json` |
+| verify:ext_features:leakage | Verify | ac554d2c4c3ed57e7 | `audit/workflows/phase1/agent-ac554d2c4c3ed57e7.jsonl` | `audit/workflows/phase1/results/verify:ext_features:leakage.json` |
+| verify:ext_features:arithmetic | Verify | a22f88d60d0ef5c46 | `audit/workflows/phase1/agent-a22f88d60d0ef5c46.jsonl` | `audit/workflows/phase1/results/verify:ext_features:arithmetic.json` |
+| verify:llm_round0:leakage | Verify | a68236ba5b85577d1 | `audit/workflows/phase1/agent-a68236ba5b85577d1.jsonl` | `audit/workflows/phase1/results/verify:llm_round0:leakage.json` |
+| verify:llm_round0:arithmetic | Verify | a4917ef41f1da6bbc | `audit/workflows/phase1/agent-a4917ef41f1da6bbc.jsonl` | `audit/workflows/phase1/results/verify:llm_round0:arithmetic.json` |
+| verify:h1_gate_audit:leakage | Verify | a60acc94d12d03442 | `audit/workflows/phase1/agent-a60acc94d12d03442.jsonl` | `audit/workflows/phase1/results/verify:h1_gate_audit:leakage.json` |
+| verify:h1_gate_audit:arithmetic | Verify | a7d11ab374d476750 | `audit/workflows/phase1/agent-a7d11ab374d476750.jsonl` | `audit/workflows/phase1/results/verify:h1_gate_audit:arithmetic.json` |
+| verify:h2_h3_h4:leakage | Verify | a5b6d6b55f34d172c | `audit/workflows/phase1/agent-a5b6d6b55f34d172c.jsonl` | `audit/workflows/phase1/results/verify:h2_h3_h4:leakage.json` |
+| verify:h2_h3_h4:arithmetic | Verify | a68ace3d21ac75d88 | `audit/workflows/phase1/agent-a68ace3d21ac75d88.jsonl` | `audit/workflows/phase1/results/verify:h2_h3_h4:arithmetic.json` |
+| verify:session_stop:leakage | Verify | abfafc66be6a6d8ee | `audit/workflows/phase1/agent-abfafc66be6a6d8ee.jsonl` | `audit/workflows/phase1/results/verify:session_stop:leakage.json` |
+| verify:session_stop:arithmetic | Verify | abd9f684f36ef4935 | `audit/workflows/phase1/agent-abd9f684f36ef4935.jsonl` | `audit/workflows/phase1/results/verify:session_stop:arithmetic.json` |
+| repair:session_stop | Repair | aab80629544f3a62c | `audit/workflows/phase1/agent-aab80629544f3a62c.jsonl` | `audit/workflows/phase1/results/repair:session_stop.json` |
+| recheck:session_stop | Repair | a3c00cd6268108ba3 | `audit/workflows/phase1/agent-a3c00cd6268108ba3.jsonl` | `audit/workflows/phase1/results/recheck:session_stop.json` |
+
+### exit_policy_followup (run wf_82d49a78-1f8; script `None`; journal `audit/workflows/exit_policy_followup/journal.jsonl`)
+
+| agent label | phase | agentId | transcript | structured result |
+|---|---|---|---|---|
+| followup:exit_policy | Follow-up | affacd33b0caa9890 | `audit/workflows/exit_policy_followup/agent-affacd33b0caa9890.jsonl` | `audit/workflows/exit_policy_followup/results/followup:exit_policy.json` |
+| verify:exit_policy_followup:leakage | Verify | af9e6d17aac42f178 | `audit/workflows/exit_policy_followup/agent-af9e6d17aac42f178.jsonl` | `audit/workflows/exit_policy_followup/results/verify:exit_policy_followup:leakage.json` |
+| verify:exit_policy_followup:arithmetic | Verify | a5f9341e21cac7c31 | `audit/workflows/exit_policy_followup/agent-a5f9341e21cac7c31.jsonl` | `audit/workflows/exit_policy_followup/results/verify:exit_policy_followup:arithmetic.json` |
+| repair:exit_policy_followup | Repair | a2086570640a363fe | `audit/workflows/exit_policy_followup/agent-a2086570640a363fe.jsonl` | `audit/workflows/exit_policy_followup/results/repair:exit_policy_followup.json` |
+| recheck:exit_policy_followup | Repair | a2c71169fc9472778 | `audit/workflows/exit_policy_followup/agent-a2c71169fc9472778.jsonl` | `audit/workflows/exit_policy_followup/results/recheck:exit_policy_followup.json` |
 
 ### phase1b (run wf_9d4b7078-af8; script `workflows/phase1b.js`; journal `audit/workflows/phase1b/journal.jsonl`)
 
@@ -38,6 +60,14 @@ Regenerated 2026-09-29T11:16:26 by `audit_export.py`. Every agent of the program
 | study:null_tapes_drift | Studies | a672b3f04fd37340a | `audit/workflows/phase1b/agent-a672b3f04fd37340a.jsonl` | `audit/workflows/phase1b/results/study:null_tapes_drift.json` |
 | verify:exit_policy:leakage | Verify | a8dbe4e991e1efee7 | `audit/workflows/phase1b/agent-a8dbe4e991e1efee7.jsonl` | `audit/workflows/phase1b/results/verify:exit_policy:leakage.json` |
 | verify:exit_policy:arithmetic | Verify | ad997f004dc62e286 | `audit/workflows/phase1b/agent-ad997f004dc62e286.jsonl` | `audit/workflows/phase1b/results/verify:exit_policy:arithmetic.json` |
+| study:null_tapes_drift | Studies | aaf4bfe3c33b6b10c | `audit/workflows/phase1b/agent-aaf4bfe3c33b6b10c.jsonl` | `audit/workflows/phase1b/results/study:null_tapes_drift.json` |
+| verify:exit_policy:leakage | Verify | a23436ca2aa96f5f0 | `audit/workflows/phase1b/agent-a23436ca2aa96f5f0.jsonl` | `audit/workflows/phase1b/results/verify:exit_policy:leakage.json` |
+| verify:exit_policy:arithmetic | Verify | a27323cae47775d69 | `audit/workflows/phase1b/agent-a27323cae47775d69.jsonl` | `audit/workflows/phase1b/results/verify:exit_policy:arithmetic.json` |
+| verify:null_tapes_drift:leakage | Verify | a76929d834615ef18 | `audit/workflows/phase1b/agent-a76929d834615ef18.jsonl` | `audit/workflows/phase1b/results/verify:null_tapes_drift:leakage.json` |
+| verify:null_tapes_drift:arithmetic | Verify | af6dd0a604185cc01 | `audit/workflows/phase1b/agent-af6dd0a604185cc01.jsonl` | `audit/workflows/phase1b/results/verify:null_tapes_drift:arithmetic.json` |
+| repair:exit_policy | Repair | a587fab1b464f38bc | `audit/workflows/phase1b/agent-a587fab1b464f38bc.jsonl` | `audit/workflows/phase1b/results/repair:exit_policy.json` |
+| repair:null_tapes_drift | Repair | ab48a4b1b8f1b0821 | `audit/workflows/phase1b/agent-ab48a4b1b8f1b0821.jsonl` | `audit/workflows/phase1b/results/repair:null_tapes_drift.json` |
+| recheck:exit_policy | Repair | a5ad42c6954f97d05 | `audit/workflows/phase1b/agent-a5ad42c6954f97d05.jsonl` | `audit/workflows/phase1b/results/recheck:exit_policy.json` |
 
 ### phase2 (run wf_b5100757-3f4; script `workflows/phase2.js`; journal `audit/workflows/phase2/journal.jsonl`)
 
@@ -45,15 +75,27 @@ Regenerated 2026-09-29T11:16:26 by `audit_export.py`. Every agent of the program
 |---|---|---|---|---|
 | study:importance | Studies | a7b1704339f2fe9f3 | `audit/workflows/phase2/agent-a7b1704339f2fe9f3.jsonl` | `audit/workflows/phase2/results/study:importance.json` |
 | study:rocket_ceiling | Studies | a2fa1fcd6089ef4ee | `audit/workflows/phase2/agent-a2fa1fcd6089ef4ee.jsonl` | `audit/workflows/phase2/results/study:rocket_ceiling.json` |
+| study:rocket_ceiling | Studies | ac30beac6ae6623fe | `audit/workflows/phase2/agent-ac30beac6ae6623fe.jsonl` | `audit/workflows/phase2/results/study:rocket_ceiling.json` |
+| study:importance | Studies | a04cad7c712ee4682 | `audit/workflows/phase2/agent-a04cad7c712ee4682.jsonl` | `audit/workflows/phase2/results/study:importance.json` |
+| verify:rocket_ceiling:leakage | Verify | a2917b650223bf474 | `audit/workflows/phase2/agent-a2917b650223bf474.jsonl` | `audit/workflows/phase2/results/verify:rocket_ceiling:leakage.json` |
+| verify:rocket_ceiling:arithmetic | Verify | ab61d12adcdaea20f | `audit/workflows/phase2/agent-ab61d12adcdaea20f.jsonl` | `audit/workflows/phase2/results/verify:rocket_ceiling:arithmetic.json` |
+| verify:importance:leakage | Verify | a5b5429fe5c53d1d3 | `audit/workflows/phase2/agent-a5b5429fe5c53d1d3.jsonl` | `audit/workflows/phase2/results/verify:importance:leakage.json` |
+| verify:importance:arithmetic | Verify | a8fa567e4387bd1b6 | `audit/workflows/phase2/agent-a8fa567e4387bd1b6.jsonl` | `audit/workflows/phase2/results/verify:importance:arithmetic.json` |
+| repair:importance | Repair | ab1fe3b4846387a6c | `audit/workflows/phase2/agent-ab1fe3b4846387a6c.jsonl` | `audit/workflows/phase2/results/repair:importance.json` |
+| recheck:importance | Repair | a1bfa346fb0ba633d | `audit/workflows/phase2/agent-a1bfa346fb0ba633d.jsonl` | `audit/workflows/phase2/results/recheck:importance.json` |
 
 ## Studies
 
 ### exit_policy
 
-- folder `studies/exit_policy/` (3228 files); FINDINGS: `studies/exit_policy/FINDINGS.md`; findings.json: yes
+- folder `studies/exit_policy/` (3247 files); FINDINGS: `studies/exit_policy/FINDINGS.md`; findings.json: yes
 - study:exit_policy (phase1b, a522174ba8150a407): completed=False null_result=True -> `audit/workflows/phase1b/results/study:exit_policy.json`
 - verify:exit_policy:leakage (phase1b, a8dbe4e991e1efee7): refuted=False severity=minor issues=4 -> `audit/workflows/phase1b/results/verify:exit_policy:leakage.json`
 - verify:exit_policy:arithmetic (phase1b, ad997f004dc62e286): refuted=False severity=minor issues=6 -> `audit/workflows/phase1b/results/verify:exit_policy:arithmetic.json`
+- verify:exit_policy:leakage (phase1b, a23436ca2aa96f5f0): refuted=False severity=minor issues=5 -> `audit/workflows/phase1b/results/verify:exit_policy:leakage.json`
+- verify:exit_policy:arithmetic (phase1b, a27323cae47775d69): refuted=True severity=material issues=4 -> `audit/workflows/phase1b/results/verify:exit_policy:arithmetic.json`
+- repair:exit_policy (phase1b, a587fab1b464f38bc): completed=True null_result=True -> `audit/workflows/phase1b/results/repair:exit_policy.json`
+- recheck:exit_policy (phase1b, a5ad42c6954f97d05):  -> `audit/workflows/phase1b/results/recheck:exit_policy.json`
 
 ### ext_features
 
@@ -61,6 +103,8 @@ Regenerated 2026-09-29T11:16:26 by `audit_export.py`. Every agent of the program
 - study:ext_features (phase1, a3de9c19dd17bae32): completed=True null_result=False -> `audit/workflows/phase1/results/study:ext_features.json`
 - verify:ext_features:leakage (phase1, a8b1339a7713e3bb6): refuted=False severity=minor issues=3 -> `audit/workflows/phase1/results/verify:ext_features:leakage.json`
 - verify:ext_features:arithmetic (phase1, a8241582cdda501d3): refuted=False severity=minor issues=5 -> `audit/workflows/phase1/results/verify:ext_features:arithmetic.json`
+- verify:ext_features:leakage (phase1, ac554d2c4c3ed57e7): refuted=False severity=minor issues=4 -> `audit/workflows/phase1/results/verify:ext_features:leakage.json`
+- verify:ext_features:arithmetic (phase1, a22f88d60d0ef5c46): refuted=False severity=minor issues=5 -> `audit/workflows/phase1/results/verify:ext_features:arithmetic.json`
 
 ### h1_gate_audit
 
@@ -68,6 +112,8 @@ Regenerated 2026-09-29T11:16:26 by `audit_export.py`. Every agent of the program
 - study:h1_gate_audit (phase1, aafde4eaad2ffbc29): completed=True null_result=True -> `audit/workflows/phase1/results/study:h1_gate_audit.json`
 - verify:h1_gate_audit:leakage (phase1, a9562abd73478a1c2): refuted=False severity=minor issues=4 -> `audit/workflows/phase1/results/verify:h1_gate_audit:leakage.json`
 - verify:h1_gate_audit:arithmetic (phase1, ad1e0a52c0b0578e7): refuted=False severity=minor issues=6 -> `audit/workflows/phase1/results/verify:h1_gate_audit:arithmetic.json`
+- verify:h1_gate_audit:leakage (phase1, a60acc94d12d03442): refuted=False severity=minor issues=6 -> `audit/workflows/phase1/results/verify:h1_gate_audit:leakage.json`
+- verify:h1_gate_audit:arithmetic (phase1, a7d11ab374d476750): refuted=False severity=minor issues=4 -> `audit/workflows/phase1/results/verify:h1_gate_audit:arithmetic.json`
 
 ### h2_h3_h4
 
@@ -77,11 +123,18 @@ Regenerated 2026-09-29T11:16:26 by `audit_export.py`. Every agent of the program
 - verify:h2_h3_h4:arithmetic (phase1, a9e0abdbd7fb7639c): refuted=True severity=material issues=4 -> `audit/workflows/phase1/results/verify:h2_h3_h4:arithmetic.json`
 - repair:h2_h3_h4 (phase1, a18ed65f3524cbba5): completed=True null_result=True -> `audit/workflows/phase1/results/repair:h2_h3_h4.json`
 - recheck:h2_h3_h4 (phase1, aae0d01b5691fc702): refuted=False severity=minor issues=2 -> `audit/workflows/phase1/results/recheck:h2_h3_h4.json`
+- verify:h2_h3_h4:leakage (phase1, a5b6d6b55f34d172c): refuted=False severity=minor issues=3 -> `audit/workflows/phase1/results/verify:h2_h3_h4:leakage.json`
+- verify:h2_h3_h4:arithmetic (phase1, a68ace3d21ac75d88): refuted=False severity=minor issues=4 -> `audit/workflows/phase1/results/verify:h2_h3_h4:arithmetic.json`
 
 ### importance
 
-- folder `studies/importance/` (67 files); FINDINGS: not written yet; findings.json: no
+- folder `studies/importance/` (102 files); FINDINGS: `studies/importance/FINDINGS.md`; findings.json: yes
 - study:importance (phase2, a7b1704339f2fe9f3):  -> `audit/workflows/phase2/results/study:importance.json`
+- study:importance (phase2, a04cad7c712ee4682): completed=True null_result=True -> `audit/workflows/phase2/results/study:importance.json`
+- verify:importance:leakage (phase2, a5b5429fe5c53d1d3): refuted=True severity=material issues=7 -> `audit/workflows/phase2/results/verify:importance:leakage.json`
+- verify:importance:arithmetic (phase2, a8fa567e4387bd1b6): refuted=True severity=material issues=6 -> `audit/workflows/phase2/results/verify:importance:arithmetic.json`
+- repair:importance (phase2, ab1fe3b4846387a6c): completed=True null_result=True -> `audit/workflows/phase2/results/repair:importance.json`
+- recheck:importance (phase2, a1bfa346fb0ba633d): refuted=False severity=minor issues=1 -> `audit/workflows/phase2/results/recheck:importance.json`
 
 ### llm_hypotheses
 
@@ -91,16 +144,25 @@ Regenerated 2026-09-29T11:16:26 by `audit_export.py`. Every agent of the program
 - verify:llm_round0:arithmetic (phase1, a0dafb56d058c04fe): refuted=True severity=material issues=5 -> `audit/workflows/phase1/results/verify:llm_round0:arithmetic.json`
 - repair:llm_round0 (phase1, ac2e54d13077cbbfc): completed=True null_result=True -> `audit/workflows/phase1/results/repair:llm_round0.json`
 - recheck:llm_round0 (phase1, a56b18e1224f43f4d): refuted=False severity=minor issues=3 -> `audit/workflows/phase1/results/recheck:llm_round0.json`
+- verify:llm_round0:leakage (phase1, a68236ba5b85577d1): refuted=False severity=minor issues=4 -> `audit/workflows/phase1/results/verify:llm_round0:leakage.json`
+- verify:llm_round0:arithmetic (phase1, a4917ef41f1da6bbc): refuted=False severity=minor issues=5 -> `audit/workflows/phase1/results/verify:llm_round0:arithmetic.json`
 
 ### null_tapes_drift
 
-- folder `studies/null_tapes_drift/` (1560 files); FINDINGS: `studies/null_tapes_drift/FINDINGS.md`; findings.json: yes
+- folder `studies/null_tapes_drift/` (2358 files); FINDINGS: `studies/null_tapes_drift/FINDINGS.md`; findings.json: yes
 - study:null_tapes_drift (phase1b, a672b3f04fd37340a):  -> `audit/workflows/phase1b/results/study:null_tapes_drift.json`
+- study:null_tapes_drift (phase1b, aaf4bfe3c33b6b10c): completed=True null_result=True -> `audit/workflows/phase1b/results/study:null_tapes_drift.json`
+- verify:null_tapes_drift:leakage (phase1b, a76929d834615ef18): refuted=True severity=material issues=4 -> `audit/workflows/phase1b/results/verify:null_tapes_drift:leakage.json`
+- verify:null_tapes_drift:arithmetic (phase1b, af6dd0a604185cc01): refuted=False severity=minor issues=5 -> `audit/workflows/phase1b/results/verify:null_tapes_drift:arithmetic.json`
+- repair:null_tapes_drift (phase1b, ab48a4b1b8f1b0821):  -> `audit/workflows/phase1b/results/repair:null_tapes_drift.json`
 
 ### rocket_ceiling
 
-- folder `studies/rocket_ceiling/` (25 files); FINDINGS: not written yet; findings.json: no
+- folder `studies/rocket_ceiling/` (30 files); FINDINGS: `studies/rocket_ceiling/FINDINGS.md`; findings.json: yes
 - study:rocket_ceiling (phase2, a2fa1fcd6089ef4ee):  -> `audit/workflows/phase2/results/study:rocket_ceiling.json`
+- study:rocket_ceiling (phase2, ac30beac6ae6623fe): completed=True null_result=True -> `audit/workflows/phase2/results/study:rocket_ceiling.json`
+- verify:rocket_ceiling:leakage (phase2, a2917b650223bf474): refuted=False severity=minor issues=5 -> `audit/workflows/phase2/results/verify:rocket_ceiling:leakage.json`
+- verify:rocket_ceiling:arithmetic (phase2, ab61d12adcdaea20f): refuted=False severity=minor issues=4 -> `audit/workflows/phase2/results/verify:rocket_ceiling:arithmetic.json`
 
 ### session_stop
 
@@ -110,6 +172,10 @@ Regenerated 2026-09-29T11:16:26 by `audit_export.py`. Every agent of the program
 - verify:session_stop:arithmetic (phase1, afe6dd09508e6eea7): refuted=False severity=minor issues=5 -> `audit/workflows/phase1/results/verify:session_stop:arithmetic.json`
 - repair:session_stop (phase1, ab771f33db99f61c4):  -> `audit/workflows/phase1/results/repair:session_stop.json`
 - recheck:session_stop (phase1, aa90baa907599adc8):  -> `audit/workflows/phase1/results/recheck:session_stop.json`
+- verify:session_stop:leakage (phase1, abfafc66be6a6d8ee): refuted=True severity=material issues=6 -> `audit/workflows/phase1/results/verify:session_stop:leakage.json`
+- verify:session_stop:arithmetic (phase1, abd9f684f36ef4935): refuted=True severity=material issues=4 -> `audit/workflows/phase1/results/verify:session_stop:arithmetic.json`
+- repair:session_stop (phase1, aab80629544f3a62c): completed=True null_result=True -> `audit/workflows/phase1/results/repair:session_stop.json`
+- recheck:session_stop (phase1, a3c00cd6268108ba3):  -> `audit/workflows/phase1/results/recheck:session_stop.json`
 
 ## Other agents
 

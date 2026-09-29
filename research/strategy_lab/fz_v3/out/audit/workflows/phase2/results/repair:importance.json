@@ -1,0 +1,39 @@
+{
+ "agentId": "ab1fe3b4846387a6c",
+ "label": "repair:importance",
+ "phase": "Repair",
+ "result": {
+  "study": "importance (repair round)",
+  "completed": true,
+  "null_result": true,
+  "key_numbers": "{\"issue1_registration_note\": {\"false_claim\": \"frozen before any gate search\", \"true_claim\": \"frozen before the phase-3 gate studies (gate_family, llm_round1, regime_gate)\", \"registration_at\": \"2026-09-29T11:31:33\", \"ledger_rows_before\": 1759, \"rows_after\": 3, \"gate_search_rows_before\": 1600, \"families_before\": {\"h2\": 900, \"h3\": 312, \"h4\": 132, \"rocket\": 144, \"session_stop\": 73, \"llm_hypotheses/round0\": 36, \"exit_policy/gate_x_exit\": 3}, \"other_before\": {\"comparator\": 4, \"h1_audit\": 44, \"null_tapes_drift\": 6, \"importance_own\": 105}, \"phase3_rows_at_registration\": 0, \"phase3_rows_now\": 0, \"corrections_appended\": 2, \"correction_registered_at\": \"2026-09-29T12:07:12\", \"registrations_jsonl_lines\": \"4 -> 6 (append only)\", \"shortlist_sha_unchanged\": {\"minute\": \"66f6e004...\", \"5minute\": \"4747257f...\"}, \"shortlist_py_note_now\": \"data-driven: ledger families + row count at registration\"}, \"issue2_mda_diff_undefined\": {\"minute\": \"0/12 folds defined (gate kept 100% in all 12; taus 0.05 x11, 0.31 x1); mda_diff_mean defined 0/38\", \"5minute\": \"1/12 folds defined (fold 1: 83 rows, tau 0.37, kept 0.9157, diff 1366.55); mda_diff_mean defined 39/39 from that single fold, std 0/39; cluster 17 value 1713.1 is one fold\", \"pass_rule\": \"log-loss MDA was the only evaluable statistic; stated as a deviation from the design's emphasis, not a noise finding; caveat 1 rewritten, note added above each clustered table\"}, \"issue3_dry_runs_off_ledger\": {\"logs\": [\"dry_5minute_attempt1.nohup 04:52-05:08 (ended abnormally)\", \"dry_5minute.nohup 05:09-05:12\", \"dry_stage_main.nohup 05:33-05:37\", \"dry_stage_sfi.nohup 05:33-05:38\"], \"timeframe\": \"5minute, real L1 label, 20 trees, harness.metrics controls off, no ledger row\", \"distinct_configurations\": 42, \"distinct_with_defined_diff\": 24, \"configuration_level_numbers\": 126, \"defined\": 72, \"fold_level_numbers\": 108, \"fold_defined\": 60, \"identical_across_logs_by_seed\": true, \"scored_into_ledger\": false, \"disclosed_as_caveat_and_repair_section\": true, \"fix\": \"run_importance.py --dry shuffles net/pts/net_slip within IS rows (seed 0, OOS untouched) before any fit; IMP_DRY_DIR keeps checks out of dry/; verification runs main 57 s, sfi 56 s, both ended normally\"}, \"issue4_exact_zero\": {\"cause\": \"p_perm float32 vs p_oof float64; mda_diag compared across precisions (drop ~1e-9 instead of 0)\", \"after_repair\": {\"minute\": \"18 exactly-zero by float32-consistent log-loss = 18 by prediction identity = text 18\", \"5minute\": \"14 = 14 = 14\"}, \"float64_base_noise_max_abs\": {\"minute\": 2.7e-10, \"5minute\": 1.3e-09}, \"period_rank_check\": \"table ranks reproduced exactly on both tfs; noise is one constant per period shared by all never-split clusters (tie, not re-order); min |MDA| of split clusters 9.5e-07 (minute) / 2.6e-06 (5minute) >> noise; 0 clusters change rank or stability flag; eligible 0 -> 0\", \"main_stage_rerun\": false}, \"unchanged_results\": {\"shortlist\": {\"minute\": 0, \"5minute\": 0}, \"mda_pass\": {\"minute\": \"0/38\", \"5minute\": \"0/39\"}, \"ffd_verdict\": \"FFD not adopted\", \"candidates\": 0, \"ledger_trials_rows\": 1762, \"no_trial_row_added_or_changed\": true}}",
+  "candidates": "none (null vocabulary on both timeframes; unchanged by the repair)",
+  "problems": "Dry trials were disclosed (caveat + Repair section) rather than scored retroactively into an importance/dry family: 20-tree debug variants would enter the family PBO/SPA/effective-trial count as if they had been candidates. imp_lib.py float32 storage of p_perm is left as is (behaviour unchanged, comment added) because the main-stage statistics were computed in float64 before storage and re-running main would only reproduce them hours later; the fix is in the consumer (mda_diag.py). The nested-quote f-string in the first shortlist.py edit failed on Python 3.11 and was corrected before the successful run. Pre-existing: dry_5minute_attempt1.nohup ended abnormally (crash during the interactions step, before any repair).",
+  "files": [
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/FINDINGS.md",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/findings.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/repair_audit.py",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/repair_audit.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/repair_audit.log",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/mda_diag.py",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/mda_diag.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/mda_diag_minute.csv",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/mda_diag_5minute.csv",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/mda_diag.log",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/mda_diag_v1.log",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/run_importance.py",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/imp_lib.py",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/shortlist.py",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/shortlist.log",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/dry_repair_check_main.nohup",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/dry_repair_check_sfi.nohup",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/dry_repair_check/run_5minute.log",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/ledger/registrations.jsonl",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/features_shortlist/minute/shortlist.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/features_shortlist/5minute/shortlist.json"
+  ]
+ },
+ "key": "v2:80d5a07e777214424744c316b62be6adfb808876a2d6135c55e1e828d5493c29",
+ "transcript": "audit/workflows/phase2/agent-ab1fe3b4846387a6c.jsonl",
+ "meta": "audit/workflows/phase2/agent-ab1fe3b4846387a6c.meta.json"
+}

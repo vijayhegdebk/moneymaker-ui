@@ -4390,7 +4390,8 @@
   "importance/sfi"
  ],
  "caveats": [
-  "The primary MDA statistic is the permutation drop in OOF weighted log-loss; the kept-vs-skipped MDA at the fold's tau is reported with its own mean / std but is not the pass rule (on 70-370 test rows per fold its std exceeds its mean for nearly every cluster, as Judge 1 foresaw).",
+  "The primary MDA statistic is the permutation drop in OOF weighted log-loss. The design also names the drop in the OOF kept-vs-skipped expectancy at the fold's tau 'the metric that matters' (DESIGN_PANEL.md, method step 4); in this run that statistic is UNDEFINED in nearly every fold, not noisy: the training-fold tau rule (max kept mean s.t. |net|-weighted winner recall >= 0.90 on the OOB probabilities) chose the grid floor or a tau every test probability cleared, so the OOF gate skipped nothing and `harness.metrics` returns no difference (12/12 folds undefined on minute; 11/12 folds undefined on 5minute (the one defined: fold 1, 83 test rows, kept 0.9157, diff 1366.55)). The 5minute 'MDA diff mean' column is therefore a single-fold number with no std, and the minute column is empty. The log-loss MDA was the only evaluable statistic and is the pass rule: a deviation from the design's emphasis forced by the data, not a noise finding. An earlier wording of this caveat ('its std exceeds its mean for nearly every cluster') described a statistic that does not exist in this run and is corrected ('Repair', issue 2).",
+  "Off-ledger debug evaluations (repair, issue 3): before the real run, `run_importance.py --dry` (20 trees; `harness.score` monkey-patched to `harness.metrics` with controls off, no ledger row) ran on the real 5minute IS table with the real L1 label in 4 logs (`dry_5minute_attempt1.nohup` 04:52:33..05:08:10 UTC, `dry_5minute.nohup` 05:09:46..05:12:47 UTC, `dry_stage_main.nohup` 05:33:21..05:37:34 UTC, `dry_stage_sfi.nohup` 05:33:22..05:38:02 UTC). They printed the OOF gate difference of 42 distinct configurations (3 full-model depths, 39 SFI clusters; 24 with a defined difference, the rest kept every row), 126 configuration-level numbers in all (72 defined; the seeds are fixed, so every pass printed the same numbers: identical across logs yes) plus 108 fold-level differences (60 defined). None is in the ledger, none is counted by the family's PBO / SPA / effective trials (the ledger holds the 300-tree runs: 53 rows on 5minute), and no reported number rests on them; they are listed so the count is honest. The BRIEF forbids private kept-vs-skipped arithmetic: this is recorded as a deviation. `--dry` now shuffles net / pts / net_slip within the IS rows (seed 0) before any fit, so a dry run can no longer produce a real kept-vs-skipped number off-ledger (verification: `dry_repair_check_main.nohup`, `dry_repair_check_sfi.nohup`, outputs `dry_repair_check/`).",
   "Per-period stability re-scores the same 12 fold models on the rows of each period (no refit inside a year: a 12-block CV does not exist inside ~1,100 rows / 170 winners, and refitting there would be the noise Judge 2 warns of); it measures whether the relation learned on the other blocks holds in that period.",
   "tau is chosen on the training fold's out-of-bag probabilities (the bagging's own inner out-of-fold estimate), not on an inner CV; OOB probabilities of a 300-tree bagging are out-of-fold for every training row.",
   "Two-level one-hots keep one level; exact duplicates are dropped; missing indicators are de-duplicated by NaN pattern: these are stated preprocessing steps, not searches.",
@@ -4449,14 +4450,23 @@
   "studies/importance/bag_probe.log",
   "studies/importance/xgb_probe.py",
   "studies/importance/xgb_probe.log",
+  "studies/importance/repair_audit.py",
+  "studies/importance/repair_audit.json",
+  "studies/importance/repair_audit.log",
+  "studies/importance/mda_diag_v1.log",
+  "studies/importance/dry_repair_check_main.nohup",
+  "studies/importance/dry_repair_check_sfi.nohup",
+  "studies/importance/dry_repair_check/run_5minute.log",
   "ledger/registrations.jsonl"
  ],
  "diagnostic_not_pass_rule": {
   "minute": {
    "n_is": 4452,
    "n_clusters": 38,
-   "ll_mda_check_max_abs_diff": 7.641171298402184e-10,
+   "ll_mda_check_max_abs_diff": 1.0356100968369076e-09,
    "ll_mda_check_pass": true,
+   "ll_mda_check_float64_base_max_abs_diff": 7.641171298402184e-10,
+   "float32_precision_note": "p_perm is float32; the base p_oof is rounded to float32 before every comparison here (like-for-like); the main stage computed its table in float64 before storage",
    "pooled_oof_auc": 0.5935,
    "fold_auc": [
     0.6052,
@@ -4482,7 +4492,76 @@
    "model_beats_constant_in_wlogloss": false,
    "n_clusters_auc_pass": 2,
    "n_clusters_ll_negative": 15,
-   "n_clusters_ll_zero": 0,
+   "n_clusters_ll_positive": 5,
+   "n_clusters_ll_zero": 18,
+   "n_clusters_ll_zero_by_identity": 18,
+   "text_claim_exactly_zero_from_table": 18,
+   "zero_counts_agree": true,
+   "never_split_clusters": [
+    8,
+    14,
+    16,
+    18,
+    19,
+    20,
+    21,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    33,
+    35,
+    37
+   ],
+   "float64_base_noise_max_abs": 2.7149296699668923e-10,
+   "period_rank_check": {
+    "periods": {
+     "2022": {
+      "n_rows": 1428,
+      "noise_constant_never_split": 8.95232e-10,
+      "noise_is_one_constant": true,
+      "min_abs_mda_of_split_clusters": 9.49231745495105e-07,
+      "n_clusters_rank_differs": 0,
+      "rank_as_run_matches_table": true
+     },
+     "2023": {
+      "n_rows": 1096,
+      "noise_constant_never_split": -1.449193e-09,
+      "noise_is_one_constant": true,
+      "min_abs_mda_of_split_clusters": 9.082424076645167e-06,
+      "n_clusters_rank_differs": 0,
+      "rank_as_run_matches_table": true
+     },
+     "2024": {
+      "n_rows": 840,
+      "noise_constant_never_split": 2.04981e-10,
+      "noise_is_one_constant": true,
+      "min_abs_mda_of_split_clusters": 8.829127073295418e-06,
+      "n_clusters_rank_differs": 0,
+      "rank_as_run_matches_table": true
+     },
+     "2025": {
+      "n_rows": 1088,
+      "noise_constant_never_split": 2.74364e-10,
+      "noise_is_one_constant": true,
+      "min_abs_mda_of_split_clusters": 4.128541137315977e-06,
+      "n_clusters_rank_differs": 0,
+      "rank_as_run_matches_table": true
+     }
+    },
+    "rank_as_run_matches_table": true,
+    "clusters_rank_changed": [],
+    "clusters_rank_changed_never_split": true,
+    "clusters_stab_changed": [],
+    "eligible_as_run": 0,
+    "eligible_consistent": 0,
+    "mda_ll_pass_any": false,
+    "stab_as_run_matches_table": true
+   },
    "top5_by_auc_mda": [
     {
      "cluster": 0,
@@ -4529,8 +4608,10 @@
   "5minute": {
    "n_is": 826,
    "n_clusters": 39,
-   "ll_mda_check_max_abs_diff": 1.9070120260483367e-09,
+   "ll_mda_check_max_abs_diff": 2.1145229437313957e-09,
    "ll_mda_check_pass": true,
+   "ll_mda_check_float64_base_max_abs_diff": 1.9070120260483367e-09,
+   "float32_precision_note": "p_perm is float32; the base p_oof is rounded to float32 before every comparison here (like-for-like); the main stage computed its table in float64 before storage",
    "pooled_oof_auc": 0.4974,
    "fold_auc": [
     0.5337,
@@ -4556,7 +4637,56 @@
    "model_beats_constant_in_wlogloss": false,
    "n_clusters_auc_pass": 0,
    "n_clusters_ll_negative": 19,
-   "n_clusters_ll_zero": 0,
+   "n_clusters_ll_positive": 6,
+   "n_clusters_ll_zero": 14,
+   "n_clusters_ll_zero_by_identity": 14,
+   "text_claim_exactly_zero_from_table": 14,
+   "zero_counts_agree": true,
+   "never_split_clusters": [
+    8,
+    15,
+    19,
+    24,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    35,
+    37,
+    38
+   ],
+   "float64_base_noise_max_abs": 1.2503443003186732e-09,
+   "period_rank_check": {
+    "periods": {
+     "H1_2021-10..2023-09": {
+      "n_rows": 412,
+      "noise_constant_never_split": 8.0355e-10,
+      "noise_is_one_constant": true,
+      "min_abs_mda_of_split_clusters": 2.5625138512896937e-06,
+      "n_clusters_rank_differs": 0,
+      "rank_as_run_matches_table": true
+     },
+     "H2_2023-10..2025-12": {
+      "n_rows": 414,
+      "noise_constant_never_split": 2.455224e-09,
+      "noise_is_one_constant": true,
+      "min_abs_mda_of_split_clusters": 1.2691795601771361e-05,
+      "n_clusters_rank_differs": 0,
+      "rank_as_run_matches_table": true
+     }
+    },
+    "rank_as_run_matches_table": true,
+    "clusters_rank_changed": [],
+    "clusters_rank_changed_never_split": true,
+    "clusters_stab_changed": [],
+    "eligible_as_run": 0,
+    "eligible_consistent": 0,
+    "mda_ll_pass_any": false,
+    "stab_as_run_matches_table": true
+   },
    "top5_by_auc_mda": [
     {
      "cluster": 1,
@@ -4605,14 +4735,605 @@
   "minute": "three parallel single-thread processes (run_all.sh): main 5871 s (05:33-07:11 UTC), sfi 5592 s (-07:06), cpcv 6047 s (-07:14); finalize 11:27 after the usage-limit pause (the cpcv log lacks its two closing lines: the process wrote them to an inode unlinked by the 06:24 checkout; cpcv_minute.json and its 11 ledger rows are complete). Max RSS 448 MB (main).",
   "5minute": "one single-thread process (--stage all, started before the stage split): 3682 s (05:14-06:15 UTC), finalize included. Max RSS 391 MB."
  },
+ "repair": {
+  "at": "2026-09-29T12:07:12",
+  "issues": {
+   "1_registration_note": {
+    "false_claim": "frozen before any gate search",
+    "true_claim": "frozen before the phase-3 gate studies (gate_family, llm_round1, regime_gate)",
+    "ordering": {
+     "registration_at": "2026-09-29T11:31:33",
+     "ledger_rows_total_now": 1762,
+     "ledger_rows_before_registration": 1759,
+     "ledger_rows_after_registration": 3,
+     "gate_search_rows_before": 1600,
+     "gate_search_families_before": {
+      "exit_policy": {
+       "n": 3,
+       "first": "2026-09-29T04:29:19",
+       "last": "2026-09-29T11:30:47"
+      },
+      "h2": {
+       "n": 900,
+       "first": "2026-09-29T03:59:29",
+       "last": "2026-09-29T05:59:42"
+      },
+      "h3": {
+       "n": 312,
+       "first": "2026-09-29T04:01:59",
+       "last": "2026-09-29T05:53:23"
+      },
+      "h4": {
+       "n": 132,
+       "first": "2026-09-29T04:05:00",
+       "last": "2026-09-29T05:56:17"
+      },
+      "llm_hypotheses": {
+       "n": 36,
+       "first": "2026-09-29T05:09:27",
+       "last": "2026-09-29T05:13:15"
+      },
+      "rocket": {
+       "n": 144,
+       "first": "2026-09-29T07:00:02",
+       "last": "2026-09-29T07:12:37"
+      },
+      "session_stop": {
+       "n": 73,
+       "first": "2026-09-29T04:07:17",
+       "last": "2026-09-29T06:36:37"
+      }
+     },
+     "gate_search_subfamilies_before": {
+      "exit_policy/gate_x_exit": {
+       "n": 3,
+       "first": "2026-09-29T04:29:19",
+       "last": "2026-09-29T11:30:47"
+      },
+      "h2/both": {
+       "n": 720,
+       "first": "2026-09-29T04:00:03",
+       "last": "2026-09-29T05:44:02"
+      },
+      "h2/choch": {
+       "n": 24,
+       "first": "2026-09-29T03:59:29",
+       "last": "2026-09-29T05:05:22"
+      },
+      "h2/nested_cv": {
+       "n": 4,
+       "first": "2026-09-29T04:04:56",
+       "last": "2026-09-29T05:44:35"
+      },
+      "h2/nested_cv/cpcv": {
+       "n": 44,
+       "first": "2026-09-29T04:05:17",
+       "last": "2026-09-29T05:49:05"
+      },
+      "h2/nested_cv_minskip": {
+       "n": 4,
+       "first": "2026-09-29T05:29:27",
+       "last": "2026-09-29T05:55:47"
+      },
+      "h2/nested_cv_minskip/cpcv": {
+       "n": 44,
+       "first": "2026-09-29T05:33:11",
+       "last": "2026-09-29T05:59:42"
+      },
+      "h2/range": {
+       "n": 60,
+       "first": "2026-09-29T03:59:40",
+       "last": "2026-09-29T05:07:37"
+      },
+      "h3/gate": {
+       "n": 216,
+       "first": "2026-09-29T04:01:59",
+       "last": "2026-09-29T04:46:31"
+      },
+      "h3/nested_cv": {
+       "n": 4,
+       "first": "2026-09-29T04:03:07",
+       "last": "2026-09-29T04:46:49"
+      },
+      "h3/nested_cv/cpcv": {
+       "n": 44,
+       "first": "2026-09-29T04:03:13",
+       "last": "2026-09-29T04:50:20"
+      },
+      "h3/nested_cv_minskip": {
+       "n": 4,
+       "first": "2026-09-29T05:29:46",
+       "last": "2026-09-29T05:48:50"
+      },
+      "h3/nested_cv_minskip/cpcv": {
+       "n": 44,
+       "first": "2026-09-29T05:31:55",
+       "last": "2026-09-29T05:53:23"
+      },
+      "h4/nested_cv": {
+       "n": 4,
+       "first": "2026-09-29T04:05:15",
+       "last": "2026-09-29T04:24:47"
+      },
+      "h4/nested_cv/cpcv": {
+       "n": 44,
+       "first": "2026-09-29T04:05:18",
+       "last": "2026-09-29T04:30:33"
+      },
+      "h4/nested_cv_minskip": {
+       "n": 4,
+       "first": "2026-09-29T05:39:26",
+       "last": "2026-09-29T05:53:44"
+      },
+      "h4/nested_cv_minskip/cpcv": {
+       "n": 44,
+       "first": "2026-09-29T05:39:48",
+       "last": "2026-09-29T05:56:17"
+      },
+      "h4/touch_gate": {
+       "n": 36,
+       "first": "2026-09-29T04:05:00",
+       "last": "2026-09-29T04:24:15"
+      },
+      "llm_hypotheses/round0": {
+       "n": 36,
+       "first": "2026-09-29T05:09:27",
+       "last": "2026-09-29T05:13:15"
+      },
+      "rocket/pca16": {
+       "n": 3,
+       "first": "2026-09-29T07:03:12",
+       "last": "2026-09-29T07:05:27"
+      },
+      "rocket/pca16/cpcv": {
+       "n": 33,
+       "first": "2026-09-29T07:03:18",
+       "last": "2026-09-29T07:06:20"
+      },
+      "rocket/rocket": {
+       "n": 3,
+       "first": "2026-09-29T07:00:02",
+       "last": "2026-09-29T07:02:15"
+      },
+      "rocket/rocket/cpcv": {
+       "n": 33,
+       "first": "2026-09-29T07:00:08",
+       "last": "2026-09-29T07:03:06"
+      },
+      "rocket/stacked": {
+       "n": 3,
+       "first": "2026-09-29T07:09:35",
+       "last": "2026-09-29T07:11:47"
+      },
+      "rocket/stacked/cpcv": {
+       "n": 33,
+       "first": "2026-09-29T07:09:40",
+       "last": "2026-09-29T07:12:37"
+      },
+      "rocket/tabular": {
+       "n": 3,
+       "first": "2026-09-29T07:06:26",
+       "last": "2026-09-29T07:08:40"
+      },
+      "rocket/tabular/cpcv": {
+       "n": 33,
+       "first": "2026-09-29T07:06:32",
+       "last": "2026-09-29T07:09:29"
+      },
+      "session_stop/combined": {
+       "n": 1,
+       "first": "2026-09-29T04:13:41",
+       "last": "2026-09-29T04:13:41"
+      },
+      "session_stop/grid": {
+       "n": 48,
+       "first": "2026-09-29T04:07:17",
+       "last": "2026-09-29T06:35:08"
+      },
+      "session_stop/nested": {
+       "n": 2,
+       "first": "2026-09-29T04:11:47",
+       "last": "2026-09-29T06:35:16"
+      },
+      "session_stop/nested/cpcv": {
+       "n": 22,
+       "first": "2026-09-29T04:12:04",
+       "last": "2026-09-29T06:36:37"
+      }
+     },
+     "other_rows_before": {
+      "comparator": {
+       "OTHER": "the frozen ST7/ST8 comparator",
+       "n": 4,
+       "first": "2026-09-29T03:02:06",
+       "last": "2026-09-29T03:02:14"
+      },
+      "h1": {
+       "OTHER": "the H1 audit of the frozen gate's own components (not a new rule)",
+       "n": 44,
+       "first": "2026-09-29T03:37:01",
+       "last": "2026-09-29T03:42:09"
+      },
+      "importance": {
+       "OTHER": "this study's own OOF gates (ceilings)",
+       "n": 105,
+       "first": "2026-09-29T05:30:20",
+       "last": "2026-09-29T07:15:42"
+      },
+      "null_tapes_drift": {
+       "OTHER": "the real-tape reference rows of the null-tape study",
+       "n": 6,
+       "first": "2026-09-29T04:05:50",
+       "last": "2026-09-29T04:23:34"
+      }
+     },
+     "rows_after_registration": {
+      "exit_policy/gate_x_exit 5minute": {
+       "n": 3,
+       "first": "2026-09-29T11:32:02",
+       "last": "2026-09-29T11:32:05"
+      }
+     },
+     "first_gate_search_row": "2026-09-29T03:59:29 h2/choch",
+     "last_gate_search_row_before_registration": "2026-09-29T11:30:47 exit_policy/gate_x_exit",
+     "phase3_families": [
+      "gate_family",
+      "operating_point_sizing",
+      "llm_round1",
+      "regime_gate",
+      "online_learner"
+     ],
+     "phase3_rows_at_registration": 0,
+     "phase3_rows_now": 0,
+     "importance_rows": {
+      "importance/full_model": {
+       "n": 6,
+       "first": "2026-09-29T05:30:20",
+       "last": "2026-09-29T07:08:56"
+      },
+      "importance/full_model/cpcv": {
+       "n": 22,
+       "first": "2026-09-29T06:15:12",
+       "last": "2026-09-29T07:15:42"
+      },
+      "importance/sfi": {
+       "n": 77,
+       "first": "2026-09-29T05:37:48",
+       "last": "2026-09-29T07:06:30"
+      }
+     },
+     "shortlist_files": {
+      "minute": {
+       "file": "features_shortlist/minute/shortlist.json",
+       "sha256_registered": "66f6e004bd93e47c55ca219785a9a30f36d618cbbbd215cfcbad5a44412b5bdb",
+       "sha256_now": "66f6e004bd93e47c55ca219785a9a30f36d618cbbbd215cfcbad5a44412b5bdb",
+       "unchanged": true,
+       "n_clusters": 0,
+       "n_allowed_columns": 0
+      },
+      "5minute": {
+       "file": "features_shortlist/5minute/shortlist.json",
+       "sha256_registered": "4747257f41ecb40f1b3c27ea35cc50868d7c6b91f84f61ab7666911aef019dc9",
+       "sha256_now": "4747257f41ecb40f1b3c27ea35cc50868d7c6b91f84f61ab7666911aef019dc9",
+       "unchanged": true,
+       "n_clusters": 0,
+       "n_allowed_columns": 0
+      }
+     },
+     "precedent": "registrations.jsonl line 2: the 'correction' record of 2026-09-29T05:09:16 for the llm round 0 claim 'hashed before any labelled table ... existed'"
+    },
+    "corrections": [
+     {
+      "corrects": "pre_registration 'feature shortlist minute' registered 2026-09-29T11:31:33",
+      "registered_at": "2026-09-29T12:07:12"
+     },
+     {
+      "corrects": "pre_registration 'feature shortlist 5minute' registered 2026-09-29T11:31:33",
+      "registered_at": "2026-09-29T12:07:12"
+     }
+    ],
+    "files_changed": [
+     "ledger/registrations.jsonl (append)",
+     "shortlist.py",
+     "FINDINGS.md",
+     "findings.json"
+    ]
+   },
+   "2_mda_diff_undefined": {
+    "minute": {
+     "n_folds": 12,
+     "folds_with_defined_oof_diff": 0,
+     "folds_defined": [],
+     "folds_kept_everything": 12,
+     "taus": [
+      0.05,
+      0.05,
+      0.05,
+      0.05,
+      0.05,
+      0.31,
+      0.05,
+      0.05,
+      0.05,
+      0.05,
+      0.05,
+      0.05
+     ],
+     "n_clusters": 38,
+     "clusters_with_mda_diff_mean": 0,
+     "clusters_with_mda_diff_std": 0,
+     "clusters_mda_diff_pass": 0,
+     "clusters_mda_ll_pass": 0,
+     "largest_single_fold_diff_mean": null
+    },
+    "5minute": {
+     "n_folds": 12,
+     "folds_with_defined_oof_diff": 1,
+     "folds_defined": [
+      {
+       "fold": 1,
+       "n_te": 83,
+       "tau": 0.37,
+       "oof_diff": 1366.55,
+       "kept_share": 0.9157
+      }
+     ],
+     "folds_kept_everything": 11,
+     "taus": [
+      0.05,
+      0.37,
+      0.05,
+      0.05,
+      0.05,
+      0.05,
+      0.05,
+      0.05,
+      0.05,
+      0.05,
+      0.36,
+      0.05
+     ],
+     "n_clusters": 39,
+     "clusters_with_mda_diff_mean": 39,
+     "clusters_with_mda_diff_std": 0,
+     "clusters_mda_diff_pass": 0,
+     "clusters_mda_ll_pass": 0,
+     "largest_single_fold_diff_mean": {
+      "cluster": 17,
+      "value": 1713.1219999999998
+     }
+    },
+    "statement": "the kept-vs-skipped MDA at the fold's tau is undefined wherever the OOF gate kept every test row; the log-loss MDA is the only evaluable statistic and the pass rule; a deviation from the design's emphasis, not a noise finding"
+   },
+   "3_dry_runs_off_ledger": {
+    "logs": {
+     "dry_5minute_attempt1.nohup": {
+      "first": "04:52:33",
+      "last": "05:08:10",
+      "header": {
+       "tf": "5minute",
+       "stage": "all",
+       "trees": 20
+      },
+      "config_numbers": 42,
+      "config_numbers_defined": 24,
+      "fold_numbers": 36,
+      "fold_numbers_defined": 20,
+      "ended_normally": false
+     },
+     "dry_5minute.nohup": {
+      "first": "05:09:46",
+      "last": "05:12:47",
+      "header": {
+       "tf": "5minute",
+       "stage": "all",
+       "trees": 20
+      },
+      "config_numbers": 42,
+      "config_numbers_defined": 24,
+      "fold_numbers": 36,
+      "fold_numbers_defined": 20,
+      "ended_normally": true
+     },
+     "dry_stage_main.nohup": {
+      "first": "05:33:21",
+      "last": "05:37:34",
+      "header": {
+       "tf": "5minute",
+       "stage": "main",
+       "trees": 20
+      },
+      "config_numbers": 3,
+      "config_numbers_defined": 3,
+      "fold_numbers": 36,
+      "fold_numbers_defined": 20,
+      "ended_normally": true
+     },
+     "dry_stage_sfi.nohup": {
+      "first": "05:33:22",
+      "last": "05:38:02",
+      "header": {
+       "tf": "5minute",
+       "stage": "sfi",
+       "trees": 20
+      },
+      "config_numbers": 39,
+      "config_numbers_defined": 21,
+      "fold_numbers": 0,
+      "fold_numbers_defined": 0,
+      "ended_normally": true
+     }
+    },
+    "timeframe": "5minute",
+    "label": "L1 (real)",
+    "trees": 20,
+    "scorer": "harness.metrics(T, keep, IS rows, 'dry', controls=False) monkey-patched over harness.score: no ledger row",
+    "distinct_configurations": 42,
+    "distinct_by_kind": {
+     "full_model": 3,
+     "sfi": 39
+    },
+    "configuration_numbers_total": 126,
+    "configuration_numbers_defined": 72,
+    "distinct_configurations_with_a_defined_number": 24,
+    "fold_numbers_total": 108,
+    "fold_numbers_defined": 60,
+    "identical_across_logs": true,
+    "n_configs_not_identical": 0,
+    "ledger_rows_importance_5minute": 53,
+    "fix": "run_importance.py --dry now shuffles net / pts / net_slip within the IS rows (seed 0) before any fit; verification run: dry_repair_check_*.nohup, outputs dry_repair_check/",
+    "scored_into_ledger": false,
+    "verification_logs": [
+     "studies/importance/dry_repair_check_main.nohup",
+     "studies/importance/dry_repair_check_sfi.nohup"
+    ]
+   },
+   "4_exact_zero": {
+    "minute": {
+     "n_clusters": 38,
+     "n_clusters_ll_zero": 18,
+     "n_clusters_ll_zero_by_identity": 18,
+     "text_claim_exactly_zero_from_table": 18,
+     "zero_counts_agree": true,
+     "never_split_clusters": [
+      8,
+      14,
+      16,
+      18,
+      19,
+      20,
+      21,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      33,
+      35,
+      37
+     ],
+     "float64_base_noise_max_abs": 2.7149296699668923e-10,
+     "period_rank_check": {
+      "periods": {
+       "2022": {
+        "n_rows": 1428,
+        "noise_constant_never_split": 8.95232e-10,
+        "noise_is_one_constant": true,
+        "min_abs_mda_of_split_clusters": 9.49231745495105e-07,
+        "n_clusters_rank_differs": 0,
+        "rank_as_run_matches_table": true
+       },
+       "2023": {
+        "n_rows": 1096,
+        "noise_constant_never_split": -1.449193e-09,
+        "noise_is_one_constant": true,
+        "min_abs_mda_of_split_clusters": 9.082424076645167e-06,
+        "n_clusters_rank_differs": 0,
+        "rank_as_run_matches_table": true
+       },
+       "2024": {
+        "n_rows": 840,
+        "noise_constant_never_split": 2.04981e-10,
+        "noise_is_one_constant": true,
+        "min_abs_mda_of_split_clusters": 8.829127073295418e-06,
+        "n_clusters_rank_differs": 0,
+        "rank_as_run_matches_table": true
+       },
+       "2025": {
+        "n_rows": 1088,
+        "noise_constant_never_split": 2.74364e-10,
+        "noise_is_one_constant": true,
+        "min_abs_mda_of_split_clusters": 4.128541137315977e-06,
+        "n_clusters_rank_differs": 0,
+        "rank_as_run_matches_table": true
+       }
+      },
+      "rank_as_run_matches_table": true,
+      "clusters_rank_changed": [],
+      "clusters_rank_changed_never_split": true,
+      "clusters_stab_changed": [],
+      "eligible_as_run": 0,
+      "eligible_consistent": 0,
+      "mda_ll_pass_any": false,
+      "stab_as_run_matches_table": true
+     }
+    },
+    "5minute": {
+     "n_clusters": 39,
+     "n_clusters_ll_zero": 14,
+     "n_clusters_ll_zero_by_identity": 14,
+     "text_claim_exactly_zero_from_table": 14,
+     "zero_counts_agree": true,
+     "never_split_clusters": [
+      8,
+      15,
+      19,
+      24,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      35,
+      37,
+      38
+     ],
+     "float64_base_noise_max_abs": 1.2503443003186732e-09,
+     "period_rank_check": {
+      "periods": {
+       "H1_2021-10..2023-09": {
+        "n_rows": 412,
+        "noise_constant_never_split": 8.0355e-10,
+        "noise_is_one_constant": true,
+        "min_abs_mda_of_split_clusters": 2.5625138512896937e-06,
+        "n_clusters_rank_differs": 0,
+        "rank_as_run_matches_table": true
+       },
+       "H2_2023-10..2025-12": {
+        "n_rows": 414,
+        "noise_constant_never_split": 2.455224e-09,
+        "noise_is_one_constant": true,
+        "min_abs_mda_of_split_clusters": 1.2691795601771361e-05,
+        "n_clusters_rank_differs": 0,
+        "rank_as_run_matches_table": true
+       }
+      },
+      "rank_as_run_matches_table": true,
+      "clusters_rank_changed": [],
+      "clusters_rank_changed_never_split": true,
+      "clusters_stab_changed": [],
+      "eligible_as_run": 0,
+      "eligible_consistent": 0,
+      "mda_ll_pass_any": false,
+      "stab_as_run_matches_table": true
+     }
+    }
+   }
+  }
+ },
  "registrations": {
   "minute": {
    "file": "features_shortlist/minute/shortlist.json",
-   "sha256": "66f6e004bd93e47c55ca219785a9a30f36d618cbbbd215cfcbad5a44412b5bdb"
+   "sha256": "66f6e004bd93e47c55ca219785a9a30f36d618cbbbd215cfcbad5a44412b5bdb",
+   "registered_at": "2026-09-29T11:31:33",
+   "note_as_registered": "frozen before any gate search",
+   "note_corrected": "frozen before the phase-3 gate studies (gate_family, llm_round1, regime_gate)",
+   "correction_registered_at": "2026-09-29T12:07:12",
+   "ordering": "registered 2026-09-29T11:31:33 UTC, after 1600 gate-search ledger rows (exit_policy 3, h2 900, h3 312, h4 132, llm_hypotheses 36, rocket 144, session_stop 73; 1759 rows in all) and before the phase-3 gate studies (gate_family, llm_round1, regime_gate: 0 ledger rows at registration, 0 now)"
   },
   "5minute": {
    "file": "features_shortlist/5minute/shortlist.json",
-   "sha256": "4747257f41ecb40f1b3c27ea35cc50868d7c6b91f84f61ab7666911aef019dc9"
+   "sha256": "4747257f41ecb40f1b3c27ea35cc50868d7c6b91f84f61ab7666911aef019dc9",
+   "registered_at": "2026-09-29T11:31:33",
+   "note_as_registered": "frozen before any gate search",
+   "note_corrected": "frozen before the phase-3 gate studies (gate_family, llm_round1, regime_gate)",
+   "correction_registered_at": "2026-09-29T12:07:12",
+   "ordering": "registered 2026-09-29T11:31:33 UTC, after 1600 gate-search ledger rows (exit_policy 3, h2 900, h3 312, h4 132, llm_hypotheses 36, rocket 144, session_stop 73; 1759 rows in all) and before the phase-3 gate studies (gate_family, llm_round1, regime_gate: 0 ledger rows at registration, 0 now)"
   }
  }
 }

@@ -55,12 +55,301 @@
      "kept_mean_slip8": -1130.23
     }
    },
+   "real_health": {
+    "tf": "5minute",
+    "sessions": 1026,
+    "longest_frozen_run_sessions": 68,
+    "frozen_sessions_total": 537,
+    "longest_choch_free_sessions": 69,
+    "setups": 832,
+    "setups_per_session": 0.8109,
+    "dead_tail_share": 0.001,
+    "definition": "a session is frozen when prot does not change inside it, equals the previous session's last prot and no CHoCH occurs; IS sessions only"
+   },
    "generators": {
     "gmm": {
      "tapes": 20,
+     "tapes_built": 20,
+     "tapes_original": 20,
+     "tapes_healthy": 14,
+     "tapes_certificate": 14,
+     "tapes_locked_original": 6,
+     "lockout_rate_original": 0.3,
+     "lockout_rate_all_built": 0.3,
+     "certificate_tapes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      15,
+      17
+     ],
+     "locked_tapes": [
+      {
+       "k": 6,
+       "tape": "tapes/5minute/gmm_6",
+       "dead_sessions": 726,
+       "dead_share": 0.7076,
+       "dead_tail_share": 0.6248,
+       "longest_frozen_run_sessions": 641,
+       "longest_choch_free_sessions": 641,
+       "last_choch_date": "2023-05-03",
+       "last_setup_time": "2023-05-03 10:25:00",
+       "setups_per_session": 0.3645,
+       "setup_rate_ratio_to_real": 0.4495,
+       "prot_last": 24642.1,
+       "close_last": 43826.4,
+       "prot_gap_pts": 19184.3,
+       "reasons": [
+        "dead share 0.708 >= 0.2"
+       ]
+      },
+      {
+       "k": 13,
+       "tape": "tapes/5minute/gmm_13",
+       "dead_sessions": 643,
+       "dead_share": 0.6267,
+       "dead_tail_share": 0.0721,
+       "longest_frozen_run_sessions": 327,
+       "longest_choch_free_sessions": 570,
+       "last_choch_date": "2025-09-12",
+       "last_setup_time": "2025-09-12 10:30:00",
+       "setups_per_session": 0.4454,
+       "setup_rate_ratio_to_real": 0.5493,
+       "prot_last": 24152.2,
+       "close_last": 27937.7,
+       "prot_gap_pts": 3785.5,
+       "reasons": [
+        "dead share 0.627 >= 0.2"
+       ]
+      },
+      {
+       "k": 14,
+       "tape": "tapes/5minute/gmm_14",
+       "dead_sessions": 237,
+       "dead_share": 0.231,
+       "dead_tail_share": 0.0019,
+       "longest_frozen_run_sessions": 163,
+       "longest_choch_free_sessions": 167,
+       "last_choch_date": "2025-12-29",
+       "last_setup_time": "2025-12-29 09:20:00",
+       "setups_per_session": 0.9064,
+       "setup_rate_ratio_to_real": 1.1178,
+       "prot_last": 21374.95,
+       "close_last": 21876.9,
+       "prot_gap_pts": 501.95,
+       "reasons": [
+        "dead share 0.231 >= 0.2"
+       ]
+      },
+      {
+       "k": 16,
+       "tape": "tapes/5minute/gmm_16",
+       "dead_sessions": 498,
+       "dead_share": 0.4854,
+       "dead_tail_share": 0.4864,
+       "longest_frozen_run_sessions": 498,
+       "longest_choch_free_sessions": 499,
+       "last_choch_date": "2023-11-28",
+       "last_setup_time": "2023-11-29 09:15:00",
+       "setups_per_session": 0.5819,
+       "setup_rate_ratio_to_real": 0.7176,
+       "prot_last": 24759.85,
+       "close_last": 41860.0,
+       "prot_gap_pts": 17100.15,
+       "reasons": [
+        "dead share 0.485 >= 0.2"
+       ]
+      },
+      {
+       "k": 18,
+       "tape": "tapes/5minute/gmm_18",
+       "dead_sessions": 891,
+       "dead_share": 0.8684,
+       "dead_tail_share": 0.8713,
+       "longest_frozen_run_sessions": 891,
+       "longest_choch_free_sessions": 894,
+       "last_choch_date": "2022-04-20",
+       "last_setup_time": "2022-04-20 14:30:00",
+       "setups_per_session": 0.1667,
+       "setup_rate_ratio_to_real": 0.2055,
+       "prot_last": 18425.3,
+       "close_last": 40508.95,
+       "prot_gap_pts": 22083.65,
+       "reasons": [
+        "dead share 0.868 >= 0.2",
+        "setup rate 0.206 x real < 0.333"
+       ]
+      },
+      {
+       "k": 19,
+       "tape": "tapes/5minute/gmm_19",
+       "dead_sessions": 577,
+       "dead_share": 0.5624,
+       "dead_tail_share": 0.5653,
+       "longest_frozen_run_sessions": 577,
+       "longest_choch_free_sessions": 580,
+       "last_choch_date": "2023-07-28",
+       "last_setup_time": "2023-07-28 11:10:00",
+       "setups_per_session": 0.46,
+       "setup_rate_ratio_to_real": 0.5673,
+       "prot_last": 25011.4,
+       "close_last": 41861.2,
+       "prot_gap_pts": 16849.8,
+       "reasons": [
+        "dead share 0.562 >= 0.2"
+       ]
+      }
+     ],
      "gates": {
       "choch2_skip": {
+       "n": 14,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        15,
+        17
+       ],
+       "diff_p5": -399.45,
+       "diff_p50": 91.75,
+       "diff_p95": 528.47,
+       "diff_mean": 32.68,
+       "diff_min": -430.0,
+       "diff_max": 554.66,
+       "diff_share_positive": 0.571,
+       "control_pct_p50": 3.75,
+       "control_pct_p95": 62.7,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.69,
+       "units_p50": 1074.5,
+       "units_min": 917.0,
+       "units_max": 1211.0,
+       "real_diff": 257.83,
+       "real_control_pct": 46.6,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 78.6,
+       "tapes_same_sign_as_real": 0.571
+      },
+      "frozen_st7_st8": {
+       "n": 14,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        15,
+        17
+       ],
+       "diff_p5": -97.64,
+       "diff_p50": 255.12,
+       "diff_p95": 576.22,
+       "diff_mean": 257.95,
+       "diff_min": -154.89,
+       "diff_max": 676.36,
+       "diff_share_positive": 0.857,
+       "control_pct_p50": 96.85,
+       "control_pct_p95": 99.87,
+       "control_pct_share_ge95": 0.571,
+       "kept_share_p50": 0.31,
+       "units_p50": 1074.5,
+       "units_min": 917.0,
+       "units_max": 1211.0,
+       "real_diff": -365.62,
+       "real_control_pct": 12.4,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 0.0,
+       "tapes_same_sign_as_real": 0.143
+      },
+      "sl_above_median_skip": {
+       "n": 14,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        15,
+        17
+       ],
+       "diff_p5": -226.89,
+       "diff_p50": 97.75,
+       "diff_p95": 490.0,
+       "diff_mean": 109.29,
+       "diff_min": -228.98,
+       "diff_max": 642.33,
+       "diff_share_positive": 0.714,
+       "control_pct_p50": 96.75,
+       "control_pct_p95": 100.0,
+       "control_pct_share_ge95": 0.643,
+       "kept_share_p50": 0.5,
+       "units_p50": 1074.5,
+       "units_min": 917.0,
+       "units_max": 1211.0,
+       "real_diff": 33.65,
+       "real_control_pct": 99.8,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 42.9,
+       "tapes_same_sign_as_real": 0.714
+      }
+     },
+     "gates_all_original": {
+      "choch2_skip": {
        "n": 20,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+       ],
        "diff_p5": -385.35,
        "diff_p50": 91.75,
        "diff_p95": 516.38,
@@ -73,6 +362,8 @@
        "control_pct_share_ge95": 0.0,
        "kept_share_p50": 0.69,
        "units_p50": 988.0,
+       "units_min": 170.0,
+       "units_max": 1211.0,
        "real_diff": 257.83,
        "real_control_pct": 46.6,
        "real_above_tape_p95": false,
@@ -81,6 +372,28 @@
       },
       "frozen_st7_st8": {
        "n": 20,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+       ],
        "diff_p5": -236.46,
        "diff_p50": 191.66,
        "diff_p95": 708.82,
@@ -93,6 +406,8 @@
        "control_pct_share_ge95": 0.55,
        "kept_share_p50": 0.31,
        "units_p50": 988.0,
+       "units_min": 170.0,
+       "units_max": 1211.0,
        "real_diff": -365.62,
        "real_control_pct": 12.4,
        "real_above_tape_p95": false,
@@ -101,6 +416,28 @@
       },
       "sl_above_median_skip": {
        "n": 20,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+       ],
        "diff_p5": -262.72,
        "diff_p50": 97.75,
        "diff_p95": 483.41,
@@ -113,6 +450,8 @@
        "control_pct_share_ge95": 0.5,
        "kept_share_p50": 0.5,
        "units_p50": 988.0,
+       "units_min": 170.0,
+       "units_max": 1211.0,
        "real_diff": 33.65,
        "real_control_pct": 99.8,
        "real_above_tape_p95": false,
@@ -120,7 +459,145 @@
        "tapes_same_sign_as_real": 0.7
       }
      },
+     "gates_healthy_original": {
+      "choch2_skip": {
+       "n": 14,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        15,
+        17
+       ],
+       "diff_p5": -399.45,
+       "diff_p50": 91.75,
+       "diff_p95": 528.47,
+       "diff_mean": 32.68,
+       "diff_min": -430.0,
+       "diff_max": 554.66,
+       "diff_share_positive": 0.571,
+       "control_pct_p50": 3.75,
+       "control_pct_p95": 62.7,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.69,
+       "units_p50": 1074.5,
+       "units_min": 917.0,
+       "units_max": 1211.0,
+       "real_diff": 257.83,
+       "real_control_pct": 46.6,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 78.6,
+       "tapes_same_sign_as_real": 0.571
+      },
+      "frozen_st7_st8": {
+       "n": 14,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        15,
+        17
+       ],
+       "diff_p5": -97.64,
+       "diff_p50": 255.12,
+       "diff_p95": 576.22,
+       "diff_mean": 257.95,
+       "diff_min": -154.89,
+       "diff_max": 676.36,
+       "diff_share_positive": 0.857,
+       "control_pct_p50": 96.85,
+       "control_pct_p95": 99.87,
+       "control_pct_share_ge95": 0.571,
+       "kept_share_p50": 0.31,
+       "units_p50": 1074.5,
+       "units_min": 917.0,
+       "units_max": 1211.0,
+       "real_diff": -365.62,
+       "real_control_pct": 12.4,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 0.0,
+       "tapes_same_sign_as_real": 0.143
+      },
+      "sl_above_median_skip": {
+       "n": 14,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        15,
+        17
+       ],
+       "diff_p5": -226.89,
+       "diff_p50": 97.75,
+       "diff_p95": 490.0,
+       "diff_mean": 109.29,
+       "diff_min": -228.98,
+       "diff_max": 642.33,
+       "diff_share_positive": 0.714,
+       "control_pct_p50": 96.75,
+       "control_pct_p95": 100.0,
+       "control_pct_share_ge95": 0.643,
+       "kept_share_p50": 0.5,
+       "units_p50": 1074.5,
+       "units_min": 917.0,
+       "units_max": 1211.0,
+       "real_diff": 33.65,
+       "real_control_pct": 99.8,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 42.9,
+       "tapes_same_sign_as_real": 0.714
+      }
+     },
+     "units_per_tape": {
+      "all_built_min": 170,
+      "all_built_max": 1211,
+      "certificate_min": 917,
+      "certificate_max": 1211,
+      "locked": [
+       370,
+       445,
+       917,
+       589,
+       170,
+       467
+      ]
+     },
      "poor_null_flag": false,
+     "poor_null_tapes": [
+      6,
+      13,
+      14,
+      16,
+      18,
+      19
+     ],
      "reality": {
       "ret_std_bps": {
        "tape_p50": 7.06,
@@ -234,13 +711,375 @@
        "real": 20.337,
        "ratio_p50_to_real": 1.166
       }
+     },
+     "reality_certificate": {
+      "ret_std_bps": {
+       "tape_p50": 7.07,
+       "tape_min": 6.98,
+       "tape_max": 7.15,
+       "real": 7.369,
+       "ratio_p50_to_real": 0.959
+      },
+      "ret_kurt_excess": {
+       "tape_p50": 6.21,
+       "tape_min": 6.04,
+       "tape_max": 6.77,
+       "real": 14.585,
+       "ratio_p50_to_real": 0.426
+      },
+      "absret_ac1": {
+       "tape_p50": 0.11,
+       "tape_min": 0.1,
+       "tape_max": 0.12,
+       "real": 0.2339,
+       "ratio_p50_to_real": 0.466
+      },
+      "absret_ac2": {
+       "tape_p50": 0.03,
+       "tape_min": 0.02,
+       "tape_max": 0.04,
+       "real": 0.2337,
+       "ratio_p50_to_real": 0.12
+      },
+      "absret_ac3": {
+       "tape_p50": 0.01,
+       "tape_min": -0.0,
+       "tape_max": 0.02,
+       "real": 0.2184,
+       "ratio_p50_to_real": 0.035
+      },
+      "absret_ac4": {
+       "tape_p50": 0.0,
+       "tape_min": -0.01,
+       "tape_max": 0.01,
+       "real": 0.2104,
+       "ratio_p50_to_real": 0.005
+      },
+      "absret_ac5": {
+       "tape_p50": 0.0,
+       "tape_min": -0.0,
+       "tape_max": 0.01,
+       "real": 0.2109,
+       "ratio_p50_to_real": 0.009
+      },
+      "choch_per_session": {
+       "tape_p50": 1.69,
+       "tape_min": 1.44,
+       "tape_max": 1.99,
+       "real": 1.2037,
+       "ratio_p50_to_real": 1.406
+      },
+      "bos_per_session": {
+       "tape_p50": 5.59,
+       "tape_min": 5.51,
+       "tape_max": 5.75,
+       "real": 5.4279,
+       "ratio_p50_to_real": 1.031
+      },
+      "setups_per_session": {
+       "tape_p50": 1.06,
+       "tape_min": 0.9,
+       "tape_max": 1.19,
+       "real": 0.8109,
+       "ratio_p50_to_real": 1.308
+      },
+      "l1_units_per_session": {
+       "tape_p50": 1.05,
+       "tape_min": 0.89,
+       "tape_max": 1.18,
+       "real": 0.8051,
+       "ratio_p50_to_real": 1.301
+      },
+      "l1_mean_net": {
+       "tape_p50": -1113.12,
+       "tape_min": -1315.0,
+       "tape_max": -936.56,
+       "real": -757.05,
+       "ratio_p50_to_real": 1.47
+      },
+      "l1_win_rate": {
+       "tape_p50": 0.25,
+       "tape_min": 0.23,
+       "tape_max": 0.27,
+       "real": 0.2772,
+       "ratio_p50_to_real": 0.899
+      },
+      "frozen_kept_share": {
+       "tape_p50": 0.31,
+       "tape_min": 0.28,
+       "tape_max": 0.35,
+       "real": 0.3935,
+       "ratio_p50_to_real": 0.78
+      },
+      "close_last": {
+       "tape_p50": 25903.67,
+       "tape_min": 18001.3,
+       "tape_max": 39818.75,
+       "real": 26300.0,
+       "ratio_p50_to_real": 0.985
+      },
+      "atr14_median": {
+       "tape_p50": 23.2,
+       "tape_min": 20.11,
+       "tape_max": 31.13,
+       "real": 20.337,
+       "ratio_p50_to_real": 1.141
+      }
      }
     },
     "segment": {
      "tapes": 20,
+     "tapes_built": 20,
+     "tapes_original": 20,
+     "tapes_healthy": 16,
+     "tapes_certificate": 16,
+     "tapes_locked_original": 4,
+     "lockout_rate_original": 0.2,
+     "lockout_rate_all_built": 0.2,
+     "certificate_tapes": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      6,
+      8,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      17,
+      18,
+      19
+     ],
+     "locked_tapes": [
+      {
+       "k": 3,
+       "tape": "tapes/5minute/segment_3",
+       "dead_sessions": 436,
+       "dead_share": 0.425,
+       "dead_tail_share": 0.425,
+       "longest_frozen_run_sessions": 436,
+       "longest_choch_free_sessions": 436,
+       "last_choch_date": "2024-02-27",
+       "last_setup_time": "2024-02-27 09:45:00",
+       "setups_per_session": 0.5712,
+       "setup_rate_ratio_to_real": 0.7043,
+       "prot_last": 21537.15,
+       "close_last": 36606.15,
+       "prot_gap_pts": 15069.0,
+       "reasons": [
+        "dead share 0.425 >= 0.2"
+       ]
+      },
+      {
+       "k": 7,
+       "tape": "tapes/5minute/segment_7",
+       "dead_sessions": 850,
+       "dead_share": 0.8285,
+       "dead_tail_share": 0.8314,
+       "longest_frozen_run_sessions": 850,
+       "longest_choch_free_sessions": 853,
+       "last_choch_date": "2022-06-21",
+       "last_setup_time": "2022-06-21 09:40:00",
+       "setups_per_session": 0.1881,
+       "setup_rate_ratio_to_real": 0.232,
+       "prot_last": 16273.4,
+       "close_last": 29884.5,
+       "prot_gap_pts": 13611.1,
+       "reasons": [
+        "dead share 0.828 >= 0.2",
+        "setup rate 0.232 x real < 0.333"
+       ]
+      },
+      {
+       "k": 9,
+       "tape": "tapes/5minute/segment_9",
+       "dead_sessions": 283,
+       "dead_share": 0.2758,
+       "dead_tail_share": 0.0049,
+       "longest_frozen_run_sessions": 283,
+       "longest_choch_free_sessions": 284,
+       "last_choch_date": "2025-12-23",
+       "last_setup_time": "2025-12-23 14:20:00",
+       "setups_per_session": 0.8382,
+       "setup_rate_ratio_to_real": 1.0337,
+       "prot_last": 28437.1,
+       "close_last": 29052.45,
+       "prot_gap_pts": 615.35,
+       "reasons": [
+        "dead share 0.276 >= 0.2"
+       ]
+      },
+      {
+       "k": 16,
+       "tape": "tapes/5minute/segment_16",
+       "dead_sessions": 221,
+       "dead_share": 0.2154,
+       "dead_tail_share": 0.0,
+       "longest_frozen_run_sessions": 221,
+       "longest_choch_free_sessions": 226,
+       "last_choch_date": "2025-12-31",
+       "last_setup_time": "2025-12-31 12:50:00",
+       "setups_per_session": 0.73,
+       "setup_rate_ratio_to_real": 0.9003,
+       "prot_last": 36061.2,
+       "close_last": 36174.75,
+       "prot_gap_pts": 113.55,
+       "reasons": [
+        "dead share 0.215 >= 0.2"
+       ]
+      }
+     ],
      "gates": {
       "choch2_skip": {
+       "n": 16,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19
+       ],
+       "diff_p5": -238.75,
+       "diff_p50": 1.05,
+       "diff_p95": 470.93,
+       "diff_mean": 57.18,
+       "diff_min": -267.98,
+       "diff_max": 579.55,
+       "diff_share_positive": 0.5,
+       "control_pct_p50": 4.8,
+       "control_pct_p95": 35.65,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.68,
+       "units_p50": 943.5,
+       "units_min": 803.0,
+       "units_max": 1100.0,
+       "real_diff": 257.83,
+       "real_control_pct": 46.6,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 81.2,
+       "tapes_same_sign_as_real": 0.5
+      },
+      "frozen_st7_st8": {
+       "n": 16,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19
+       ],
+       "diff_p5": -226.98,
+       "diff_p50": 147.05,
+       "diff_p95": 582.39,
+       "diff_mean": 153.94,
+       "diff_min": -240.48,
+       "diff_max": 642.26,
+       "diff_share_positive": 0.625,
+       "control_pct_p50": 96.1,
+       "control_pct_p95": 99.8,
+       "control_pct_share_ge95": 0.562,
+       "kept_share_p50": 0.36,
+       "units_p50": 943.5,
+       "units_min": 803.0,
+       "units_max": 1100.0,
+       "real_diff": -365.62,
+       "real_control_pct": 12.4,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 0.0,
+       "tapes_same_sign_as_real": 0.375
+      },
+      "sl_above_median_skip": {
+       "n": 16,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19
+       ],
+       "diff_p5": -669.11,
+       "diff_p50": -100.11,
+       "diff_p95": 671.15,
+       "diff_mean": -55.28,
+       "diff_min": -715.66,
+       "diff_max": 860.19,
+       "diff_share_positive": 0.5,
+       "control_pct_p50": 98.45,
+       "control_pct_p95": 99.85,
+       "control_pct_share_ge95": 0.812,
+       "kept_share_p50": 0.5,
+       "units_p50": 943.5,
+       "units_min": 803.0,
+       "units_max": 1100.0,
+       "real_diff": 33.65,
+       "real_control_pct": 99.8,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 56.2,
+       "tapes_same_sign_as_real": 0.5
+      }
+     },
+     "gates_all_original": {
+      "choch2_skip": {
        "n": 20,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+       ],
        "diff_p5": -230.95,
        "diff_p50": 35.06,
        "diff_p95": 441.96,
@@ -253,6 +1092,8 @@
        "control_pct_share_ge95": 0.0,
        "kept_share_p50": 0.68,
        "units_p50": 894.0,
+       "units_min": 191.0,
+       "units_max": 1100.0,
        "real_diff": 257.83,
        "real_control_pct": 46.6,
        "real_above_tape_p95": false,
@@ -261,6 +1102,28 @@
       },
       "frozen_st7_st8": {
        "n": 20,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+       ],
        "diff_p5": -244.33,
        "diff_p50": 164.72,
        "diff_p95": 566.42,
@@ -273,6 +1136,8 @@
        "control_pct_share_ge95": 0.5,
        "kept_share_p50": 0.36,
        "units_p50": 894.0,
+       "units_min": 191.0,
+       "units_max": 1100.0,
        "real_diff": -365.62,
        "real_control_pct": 12.4,
        "real_above_tape_p95": false,
@@ -281,6 +1146,28 @@
       },
       "sl_above_median_skip": {
        "n": 20,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+       ],
        "diff_p5": -721.53,
        "diff_p50": -212.74,
        "diff_p95": 620.74,
@@ -293,6 +1180,8 @@
        "control_pct_share_ge95": 0.75,
        "kept_share_p50": 0.5,
        "units_p50": 894.0,
+       "units_min": 191.0,
+       "units_max": 1100.0,
        "real_diff": 33.65,
        "real_control_pct": 99.8,
        "real_above_tape_p95": false,
@@ -300,7 +1189,147 @@
        "tapes_same_sign_as_real": 0.4
       }
      },
+     "gates_healthy_original": {
+      "choch2_skip": {
+       "n": 16,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19
+       ],
+       "diff_p5": -238.75,
+       "diff_p50": 1.05,
+       "diff_p95": 470.93,
+       "diff_mean": 57.18,
+       "diff_min": -267.98,
+       "diff_max": 579.55,
+       "diff_share_positive": 0.5,
+       "control_pct_p50": 4.8,
+       "control_pct_p95": 35.65,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.68,
+       "units_p50": 943.5,
+       "units_min": 803.0,
+       "units_max": 1100.0,
+       "real_diff": 257.83,
+       "real_control_pct": 46.6,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 81.2,
+       "tapes_same_sign_as_real": 0.5
+      },
+      "frozen_st7_st8": {
+       "n": 16,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19
+       ],
+       "diff_p5": -226.98,
+       "diff_p50": 147.05,
+       "diff_p95": 582.39,
+       "diff_mean": 153.94,
+       "diff_min": -240.48,
+       "diff_max": 642.26,
+       "diff_share_positive": 0.625,
+       "control_pct_p50": 96.1,
+       "control_pct_p95": 99.8,
+       "control_pct_share_ge95": 0.562,
+       "kept_share_p50": 0.36,
+       "units_p50": 943.5,
+       "units_min": 803.0,
+       "units_max": 1100.0,
+       "real_diff": -365.62,
+       "real_control_pct": 12.4,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 0.0,
+       "tapes_same_sign_as_real": 0.375
+      },
+      "sl_above_median_skip": {
+       "n": 16,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19
+       ],
+       "diff_p5": -669.11,
+       "diff_p50": -100.11,
+       "diff_p95": 671.15,
+       "diff_mean": -55.28,
+       "diff_min": -715.66,
+       "diff_max": 860.19,
+       "diff_share_positive": 0.5,
+       "control_pct_p50": 98.45,
+       "control_pct_p95": 99.85,
+       "control_pct_share_ge95": 0.812,
+       "kept_share_p50": 0.5,
+       "units_p50": 943.5,
+       "units_min": 803.0,
+       "units_max": 1100.0,
+       "real_diff": 33.65,
+       "real_control_pct": 99.8,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 56.2,
+       "tapes_same_sign_as_real": 0.5
+      }
+     },
+     "units_per_tape": {
+      "all_built_min": 191,
+      "all_built_max": 1100,
+      "certificate_min": 803,
+      "certificate_max": 1100,
+      "locked": [
+       578,
+       191,
+       843,
+       744
+      ]
+     },
      "poor_null_flag": false,
+     "poor_null_tapes": [
+      3,
+      7,
+      9,
+      16
+     ],
      "reality": {
       "ret_std_bps": {
        "tape_p50": 7.32,
@@ -414,13 +1443,466 @@
        "real": 20.337,
        "ratio_p50_to_real": 1.056
       }
+     },
+     "reality_certificate": {
+      "ret_std_bps": {
+       "tape_p50": 7.33,
+       "tape_min": 7.09,
+       "tape_max": 7.5,
+       "real": 7.369,
+       "ratio_p50_to_real": 0.995
+      },
+      "ret_kurt_excess": {
+       "tape_p50": 11.48,
+       "tape_min": 5.94,
+       "tape_max": 22.38,
+       "real": 14.585,
+       "ratio_p50_to_real": 0.787
+      },
+      "absret_ac1": {
+       "tape_p50": 0.23,
+       "tape_min": 0.2,
+       "tape_max": 0.25,
+       "real": 0.2339,
+       "ratio_p50_to_real": 0.966
+      },
+      "absret_ac2": {
+       "tape_p50": 0.21,
+       "tape_min": 0.18,
+       "tape_max": 0.26,
+       "real": 0.2337,
+       "ratio_p50_to_real": 0.903
+      },
+      "absret_ac3": {
+       "tape_p50": 0.19,
+       "tape_min": 0.17,
+       "tape_max": 0.23,
+       "real": 0.2184,
+       "ratio_p50_to_real": 0.88
+      },
+      "absret_ac4": {
+       "tape_p50": 0.18,
+       "tape_min": 0.15,
+       "tape_max": 0.22,
+       "real": 0.2104,
+       "ratio_p50_to_real": 0.845
+      },
+      "absret_ac5": {
+       "tape_p50": 0.18,
+       "tape_min": 0.15,
+       "tape_max": 0.22,
+       "real": 0.2109,
+       "ratio_p50_to_real": 0.832
+      },
+      "choch_per_session": {
+       "tape_p50": 1.41,
+       "tape_min": 1.22,
+       "tape_max": 1.65,
+       "real": 1.2037,
+       "ratio_p50_to_real": 1.17
+      },
+      "bos_per_session": {
+       "tape_p50": 5.33,
+       "tape_min": 5.18,
+       "tape_max": 5.41,
+       "real": 5.4279,
+       "ratio_p50_to_real": 0.981
+      },
+      "setups_per_session": {
+       "tape_p50": 0.93,
+       "tape_min": 0.79,
+       "tape_max": 1.08,
+       "real": 0.8109,
+       "ratio_p50_to_real": 1.143
+      },
+      "l1_units_per_session": {
+       "tape_p50": 0.92,
+       "tape_min": 0.78,
+       "tape_max": 1.07,
+       "real": 0.8051,
+       "ratio_p50_to_real": 1.142
+      },
+      "l1_mean_net": {
+       "tape_p50": -1039.03,
+       "tape_min": -1136.8,
+       "tape_max": -697.61,
+       "real": -757.05,
+       "ratio_p50_to_real": 1.372
+      },
+      "l1_win_rate": {
+       "tape_p50": 0.26,
+       "tape_min": 0.22,
+       "tape_max": 0.29,
+       "real": 0.2772,
+       "ratio_p50_to_real": 0.93
+      },
+      "frozen_kept_share": {
+       "tape_p50": 0.36,
+       "tape_min": 0.34,
+       "tape_max": 0.38,
+       "real": 0.3935,
+       "ratio_p50_to_real": 0.905
+      },
+      "close_last": {
+       "tape_p50": 23928.3,
+       "tape_min": 18891.4,
+       "tape_max": 36095.15,
+       "real": 26300.0,
+       "ratio_p50_to_real": 0.91
+      },
+      "atr14_median": {
+       "tape_p50": 20.79,
+       "tape_min": 17.34,
+       "tape_max": 28.48,
+       "real": 20.337,
+       "ratio_p50_to_real": 1.022
+      }
      }
     },
     "session": {
      "tapes": 20,
+     "tapes_built": 20,
+     "tapes_original": 20,
+     "tapes_healthy": 10,
+     "tapes_certificate": 10,
+     "tapes_locked_original": 10,
+     "lockout_rate_original": 0.5,
+     "lockout_rate_all_built": 0.5,
+     "certificate_tapes": [
+      1,
+      4,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15,
+      19
+     ],
+     "locked_tapes": [
+      {
+       "k": 0,
+       "tape": "tapes/5minute/session_0",
+       "dead_sessions": 577,
+       "dead_share": 0.5624,
+       "dead_tail_share": 0.5741,
+       "longest_frozen_run_sessions": 577,
+       "longest_choch_free_sessions": 589,
+       "last_choch_date": "2023-07-17",
+       "last_setup_time": "2023-07-17 12:50:00",
+       "setups_per_session": 0.3236,
+       "setup_rate_ratio_to_real": 0.399,
+       "prot_last": 24505.7,
+       "close_last": 49313.4,
+       "prot_gap_pts": 24807.7,
+       "reasons": [
+        "dead share 0.562 >= 0.2"
+       ]
+      },
+      {
+       "k": 2,
+       "tape": "tapes/5minute/session_2",
+       "dead_sessions": 352,
+       "dead_share": 0.3431,
+       "dead_tail_share": 0.0331,
+       "longest_frozen_run_sessions": 352,
+       "longest_choch_free_sessions": 353,
+       "last_choch_date": "2025-11-12",
+       "last_setup_time": "2025-11-12 15:15:00",
+       "setups_per_session": 0.6238,
+       "setup_rate_ratio_to_real": 0.7692,
+       "prot_last": 20426.65,
+       "close_last": 22737.25,
+       "prot_gap_pts": 2310.6,
+       "reasons": [
+        "dead share 0.343 >= 0.2"
+       ]
+      },
+      {
+       "k": 3,
+       "tape": "tapes/5minute/session_3",
+       "dead_sessions": 242,
+       "dead_share": 0.2359,
+       "dead_tail_share": 0.0088,
+       "longest_frozen_run_sessions": 242,
+       "longest_choch_free_sessions": 242,
+       "last_choch_date": "2025-12-17",
+       "last_setup_time": "2025-12-17 12:45:00",
+       "setups_per_session": 0.7183,
+       "setup_rate_ratio_to_real": 0.8858,
+       "prot_last": 29550.45,
+       "close_last": 31359.7,
+       "prot_gap_pts": 1809.25,
+       "reasons": [
+        "dead share 0.236 >= 0.2"
+       ]
+      },
+      {
+       "k": 5,
+       "tape": "tapes/5minute/session_5",
+       "dead_sessions": 297,
+       "dead_share": 0.2895,
+       "dead_tail_share": 0.0,
+       "longest_frozen_run_sessions": 166,
+       "longest_choch_free_sessions": 168,
+       "last_choch_date": "2025-12-31",
+       "last_setup_time": "2025-12-31 14:50:00",
+       "setups_per_session": 0.6335,
+       "setup_rate_ratio_to_real": 0.7813,
+       "prot_last": null,
+       "close_last": 27039.0,
+       "prot_gap_pts": null,
+       "reasons": [
+        "dead share 0.289 >= 0.2"
+       ]
+      },
+      {
+       "k": 6,
+       "tape": "tapes/5minute/session_6",
+       "dead_sessions": 438,
+       "dead_share": 0.4269,
+       "dead_tail_share": 0.0,
+       "longest_frozen_run_sessions": 438,
+       "longest_choch_free_sessions": 447,
+       "last_choch_date": "2025-12-31",
+       "last_setup_time": "2025-12-31 15:05:00",
+       "setups_per_session": 0.4698,
+       "setup_rate_ratio_to_real": 0.5793,
+       "prot_last": 35184.75,
+       "close_last": 35136.3,
+       "prot_gap_pts": -48.45,
+       "reasons": [
+        "dead share 0.427 >= 0.2"
+       ]
+      },
+      {
+       "k": 7,
+       "tape": "tapes/5minute/session_7",
+       "dead_sessions": 730,
+       "dead_share": 0.7115,
+       "dead_tail_share": 0.7281,
+       "longest_frozen_run_sessions": 730,
+       "longest_choch_free_sessions": 747,
+       "last_choch_date": "2022-11-25",
+       "last_setup_time": "2022-11-25 09:25:00",
+       "setups_per_session": 0.2671,
+       "setup_rate_ratio_to_real": 0.3293,
+       "prot_last": 24701.6,
+       "close_last": 52555.45,
+       "prot_gap_pts": 27853.85,
+       "reasons": [
+        "dead share 0.712 >= 0.2",
+        "setup rate 0.329 x real < 0.333"
+       ]
+      },
+      {
+       "k": 13,
+       "tape": "tapes/5minute/session_13",
+       "dead_sessions": 305,
+       "dead_share": 0.2973,
+       "dead_tail_share": 0.308,
+       "longest_frozen_run_sessions": 305,
+       "longest_choch_free_sessions": 316,
+       "last_choch_date": "2024-08-23",
+       "last_setup_time": "2024-08-26 09:15:00",
+       "setups_per_session": 0.5926,
+       "setup_rate_ratio_to_real": 0.7308,
+       "prot_last": 23956.5,
+       "close_last": 35582.4,
+       "prot_gap_pts": 11625.9,
+       "reasons": [
+        "dead share 0.297 >= 0.2"
+       ]
+      },
+      {
+       "k": 16,
+       "tape": "tapes/5minute/session_16",
+       "dead_sessions": 674,
+       "dead_share": 0.6569,
+       "dead_tail_share": 0.5224,
+       "longest_frozen_run_sessions": 535,
+       "longest_choch_free_sessions": 536,
+       "last_choch_date": "2023-10-03",
+       "last_setup_time": "2023-10-03 09:35:00",
+       "setups_per_session": 0.2788,
+       "setup_rate_ratio_to_real": 0.3438,
+       "prot_last": 18630.05,
+       "close_last": 32423.05,
+       "prot_gap_pts": 13793.0,
+       "reasons": [
+        "dead share 0.657 >= 0.2"
+       ]
+      },
+      {
+       "k": 17,
+       "tape": "tapes/5minute/session_17",
+       "dead_sessions": 343,
+       "dead_share": 0.3343,
+       "dead_tail_share": 0.0468,
+       "longest_frozen_run_sessions": 343,
+       "longest_choch_free_sessions": 346,
+       "last_choch_date": "2025-10-21",
+       "last_setup_time": "2025-10-21 15:10:00",
+       "setups_per_session": 0.6053,
+       "setup_rate_ratio_to_real": 0.7464,
+       "prot_last": 21720.5,
+       "close_last": 22657.25,
+       "prot_gap_pts": 936.75,
+       "reasons": [
+        "dead share 0.334 >= 0.2"
+       ]
+      },
+      {
+       "k": 18,
+       "tape": "tapes/5minute/session_18",
+       "dead_sessions": 932,
+       "dead_share": 0.9084,
+       "dead_tail_share": 0.9094,
+       "longest_frozen_run_sessions": 932,
+       "longest_choch_free_sessions": 933,
+       "last_choch_date": "2022-02-15",
+       "last_setup_time": "2022-02-15 11:20:00",
+       "setups_per_session": 0.077,
+       "setup_rate_ratio_to_real": 0.095,
+       "prot_last": 16205.3,
+       "close_last": 35770.3,
+       "prot_gap_pts": 19565.0,
+       "reasons": [
+        "dead share 0.908 >= 0.2",
+        "setup rate 0.095 x real < 0.333"
+       ]
+      }
+     ],
      "gates": {
       "choch2_skip": {
+       "n": 10,
+       "tapes": [
+        1,
+        4,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        19
+       ],
+       "diff_p5": -230.11,
+       "diff_p50": 190.42,
+       "diff_p95": 748.14,
+       "diff_mean": 221.16,
+       "diff_min": -313.89,
+       "diff_max": 810.86,
+       "diff_share_positive": 0.7,
+       "control_pct_p50": 13.5,
+       "control_pct_p95": 49.69,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.68,
+       "units_p50": 954.0,
+       "units_min": 770.0,
+       "units_max": 1042.0,
+       "real_diff": 257.83,
+       "real_control_pct": 46.6,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 60.0,
+       "tapes_same_sign_as_real": 0.7
+      },
+      "frozen_st7_st8": {
+       "n": 10,
+       "tapes": [
+        1,
+        4,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        19
+       ],
+       "diff_p5": -168.71,
+       "diff_p50": 45.8,
+       "diff_p95": 244.03,
+       "diff_mean": 33.4,
+       "diff_min": -171.07,
+       "diff_max": 289.77,
+       "diff_share_positive": 0.6,
+       "control_pct_p50": 87.25,
+       "control_pct_p95": 98.2,
+       "control_pct_share_ge95": 0.3,
+       "kept_share_p50": 0.39,
+       "units_p50": 954.0,
+       "units_min": 770.0,
+       "units_max": 1042.0,
+       "real_diff": -365.62,
+       "real_control_pct": 12.4,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 0.0,
+       "tapes_same_sign_as_real": 0.4
+      },
+      "sl_above_median_skip": {
+       "n": 10,
+       "tapes": [
+        1,
+        4,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        19
+       ],
+       "diff_p5": -708.12,
+       "diff_p50": -263.59,
+       "diff_p95": 134.73,
+       "diff_mean": -258.93,
+       "diff_min": -884.52,
+       "diff_max": 137.76,
+       "diff_share_positive": 0.2,
+       "control_pct_p50": 89.35,
+       "control_pct_p95": 99.11,
+       "control_pct_share_ge95": 0.4,
+       "kept_share_p50": 0.5,
+       "units_p50": 954.0,
+       "units_min": 770.0,
+       "units_max": 1042.0,
+       "real_diff": 33.65,
+       "real_control_pct": 99.8,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 80.0,
+       "tapes_same_sign_as_real": 0.2
+      }
+     },
+     "gates_all_original": {
+      "choch2_skip": {
        "n": 20,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+       ],
        "diff_p5": -831.33,
        "diff_p50": 127.18,
        "diff_p95": 700.52,
@@ -433,6 +1915,8 @@
        "control_pct_share_ge95": 0.0,
        "kept_share_p50": 0.68,
        "units_p50": 748.5,
+       "units_min": 78.0,
+       "units_max": 1042.0,
        "real_diff": 257.83,
        "real_control_pct": 46.6,
        "real_above_tape_p95": false,
@@ -441,6 +1925,28 @@
       },
       "frozen_st7_st8": {
        "n": 20,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+       ],
        "diff_p5": -401.58,
        "diff_p50": 85.92,
        "diff_p95": 420.4,
@@ -453,6 +1959,8 @@
        "control_pct_share_ge95": 0.25,
        "kept_share_p50": 0.38,
        "units_p50": 748.5,
+       "units_min": 78.0,
+       "units_max": 1042.0,
        "real_diff": -365.62,
        "real_control_pct": 12.4,
        "real_above_tape_p95": false,
@@ -461,6 +1969,28 @@
       },
       "sl_above_median_skip": {
        "n": 20,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+       ],
        "diff_p5": -957.84,
        "diff_p50": -331.03,
        "diff_p95": 131.37,
@@ -473,6 +2003,8 @@
        "control_pct_share_ge95": 0.25,
        "kept_share_p50": 0.5,
        "units_p50": 748.5,
+       "units_min": 78.0,
+       "units_max": 1042.0,
        "real_diff": 33.65,
        "real_control_pct": 99.8,
        "real_above_tape_p95": false,
@@ -480,7 +2012,141 @@
        "tapes_same_sign_as_real": 0.1
       }
      },
+     "gates_healthy_original": {
+      "choch2_skip": {
+       "n": 10,
+       "tapes": [
+        1,
+        4,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        19
+       ],
+       "diff_p5": -230.11,
+       "diff_p50": 190.42,
+       "diff_p95": 748.14,
+       "diff_mean": 221.16,
+       "diff_min": -313.89,
+       "diff_max": 810.86,
+       "diff_share_positive": 0.7,
+       "control_pct_p50": 13.5,
+       "control_pct_p95": 49.69,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.68,
+       "units_p50": 954.0,
+       "units_min": 770.0,
+       "units_max": 1042.0,
+       "real_diff": 257.83,
+       "real_control_pct": 46.6,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 60.0,
+       "tapes_same_sign_as_real": 0.7
+      },
+      "frozen_st7_st8": {
+       "n": 10,
+       "tapes": [
+        1,
+        4,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        19
+       ],
+       "diff_p5": -168.71,
+       "diff_p50": 45.8,
+       "diff_p95": 244.03,
+       "diff_mean": 33.4,
+       "diff_min": -171.07,
+       "diff_max": 289.77,
+       "diff_share_positive": 0.6,
+       "control_pct_p50": 87.25,
+       "control_pct_p95": 98.2,
+       "control_pct_share_ge95": 0.3,
+       "kept_share_p50": 0.39,
+       "units_p50": 954.0,
+       "units_min": 770.0,
+       "units_max": 1042.0,
+       "real_diff": -365.62,
+       "real_control_pct": 12.4,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 0.0,
+       "tapes_same_sign_as_real": 0.4
+      },
+      "sl_above_median_skip": {
+       "n": 10,
+       "tapes": [
+        1,
+        4,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        19
+       ],
+       "diff_p5": -708.12,
+       "diff_p50": -263.59,
+       "diff_p95": 134.73,
+       "diff_mean": -258.93,
+       "diff_min": -884.52,
+       "diff_max": 137.76,
+       "diff_share_positive": 0.2,
+       "control_pct_p50": 89.35,
+       "control_pct_p95": 99.11,
+       "control_pct_share_ge95": 0.4,
+       "kept_share_p50": 0.5,
+       "units_p50": 954.0,
+       "units_min": 770.0,
+       "units_max": 1042.0,
+       "real_diff": 33.65,
+       "real_control_pct": 99.8,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 80.0,
+       "tapes_same_sign_as_real": 0.2
+      }
+     },
+     "units_per_tape": {
+      "all_built_min": 78,
+      "all_built_max": 1042,
+      "certificate_min": 770,
+      "certificate_max": 1042,
+      "locked": [
+       328,
+       633,
+       727,
+       643,
+       478,
+       269,
+       601,
+       280,
+       614,
+       78
+      ]
+     },
      "poor_null_flag": false,
+     "poor_null_tapes": [
+      0,
+      2,
+      3,
+      5,
+      6,
+      7,
+      13,
+      16,
+      17,
+      18
+     ],
      "reality": {
       "ret_std_bps": {
        "tape_p50": 7.35,
@@ -593,6 +2259,120 @@
        "tape_max": 30.91,
        "real": 20.337,
        "ratio_p50_to_real": 1.065
+      }
+     },
+     "reality_certificate": {
+      "ret_std_bps": {
+       "tape_p50": 7.36,
+       "tape_min": 7.18,
+       "tape_max": 7.55,
+       "real": 7.369,
+       "ratio_p50_to_real": 0.998
+      },
+      "ret_kurt_excess": {
+       "tape_p50": 14.93,
+       "tape_min": 6.04,
+       "tape_max": 21.73,
+       "real": 14.585,
+       "ratio_p50_to_real": 1.024
+      },
+      "absret_ac1": {
+       "tape_p50": 0.24,
+       "tape_min": 0.22,
+       "tape_max": 0.25,
+       "real": 0.2339,
+       "ratio_p50_to_real": 1.009
+      },
+      "absret_ac2": {
+       "tape_p50": 0.23,
+       "tape_min": 0.19,
+       "tape_max": 0.26,
+       "real": 0.2337,
+       "ratio_p50_to_real": 1.0
+      },
+      "absret_ac3": {
+       "tape_p50": 0.22,
+       "tape_min": 0.19,
+       "tape_max": 0.25,
+       "real": 0.2184,
+       "ratio_p50_to_real": 1.015
+      },
+      "absret_ac4": {
+       "tape_p50": 0.21,
+       "tape_min": 0.19,
+       "tape_max": 0.24,
+       "real": 0.2104,
+       "ratio_p50_to_real": 0.983
+      },
+      "absret_ac5": {
+       "tape_p50": 0.21,
+       "tape_min": 0.17,
+       "tape_max": 0.23,
+       "real": 0.2109,
+       "ratio_p50_to_real": 0.991
+      },
+      "choch_per_session": {
+       "tape_p50": 1.44,
+       "tape_min": 1.14,
+       "tape_max": 1.53,
+       "real": 1.2037,
+       "ratio_p50_to_real": 1.194
+      },
+      "bos_per_session": {
+       "tape_p50": 5.41,
+       "tape_min": 5.3,
+       "tape_max": 5.46,
+       "real": 5.4279,
+       "ratio_p50_to_real": 0.996
+      },
+      "setups_per_session": {
+       "tape_p50": 0.94,
+       "tape_min": 0.76,
+       "tape_max": 1.02,
+       "real": 0.8109,
+       "ratio_p50_to_real": 1.159
+      },
+      "l1_units_per_session": {
+       "tape_p50": 0.93,
+       "tape_min": 0.75,
+       "tape_max": 1.02,
+       "real": 0.8051,
+       "ratio_p50_to_real": 1.155
+      },
+      "l1_mean_net": {
+       "tape_p50": -945.29,
+       "tape_min": -1077.9,
+       "tape_max": -728.87,
+       "real": -757.05,
+       "ratio_p50_to_real": 1.249
+      },
+      "l1_win_rate": {
+       "tape_p50": 0.25,
+       "tape_min": 0.24,
+       "tape_max": 0.27,
+       "real": 0.2772,
+       "ratio_p50_to_real": 0.917
+      },
+      "frozen_kept_share": {
+       "tape_p50": 0.39,
+       "tape_min": 0.33,
+       "tape_max": 0.42,
+       "real": 0.3935,
+       "ratio_p50_to_real": 0.985
+      },
+      "close_last": {
+       "tape_p50": 25411.35,
+       "tape_min": 21160.65,
+       "tape_max": 34773.75,
+       "real": 26300.0,
+       "ratio_p50_to_real": 0.966
+      },
+      "atr14_median": {
+       "tape_p50": 20.96,
+       "tape_min": 17.4,
+       "tape_max": 24.3,
+       "real": 20.337,
+       "ratio_p50_to_real": 1.031
       }
      }
     }
@@ -733,7 +2513,9 @@
     "block_bars": 30,
     "one_year": false,
     "tapes_per_generator": 20,
-    "sessions_per_tape": 1026
+    "sessions_per_tape": 1026,
+    "target_healthy": 20,
+    "refit_reproduces_first_build": true
    },
    "drift": {
     "tf": "5minute",
@@ -1169,12 +2951,51 @@
      "kept_mean_slip8": -1393.54
     }
    },
+   "real_health": {
+    "tf": "minute",
+    "sessions": 1026,
+    "longest_frozen_run_sessions": 69,
+    "frozen_sessions_total": 410,
+    "longest_choch_free_sessions": 69,
+    "setups": 4502,
+    "setups_per_session": 4.3879,
+    "dead_tail_share": 0.0,
+    "definition": "a session is frozen when prot does not change inside it, equals the previous session's last prot and no CHoCH occurs; IS sessions only"
+   },
    "generators": {
     "gmm": {
      "tapes": 8,
+     "tapes_built": 8,
+     "tapes_original": 8,
+     "tapes_healthy": 8,
+     "tapes_certificate": 8,
+     "tapes_locked_original": 0,
+     "lockout_rate_original": 0.0,
+     "lockout_rate_all_built": 0.0,
+     "certificate_tapes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+     ],
+     "locked_tapes": [],
      "gates": {
       "choch2_skip": {
        "n": 8,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
        "diff_p5": -1.13,
        "diff_p50": 105.34,
        "diff_p95": 246.98,
@@ -1187,6 +3008,8 @@
        "control_pct_share_ge95": 0.0,
        "kept_share_p50": 0.67,
        "units_p50": 1436.5,
+       "units_min": 1244.0,
+       "units_max": 1650.0,
        "real_diff": -72.5,
        "real_control_pct": 1.6,
        "real_above_tape_p95": false,
@@ -1195,6 +3018,16 @@
       },
       "frozen_st7_st8": {
        "n": 8,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
        "diff_p5": -251.78,
        "diff_p50": -93.89,
        "diff_p95": 23.0,
@@ -1207,6 +3040,8 @@
        "control_pct_share_ge95": 0.0,
        "kept_share_p50": 0.15,
        "units_p50": 1436.5,
+       "units_min": 1244.0,
+       "units_max": 1650.0,
        "real_diff": -19.71,
        "real_control_pct": 64.0,
        "real_above_tape_p95": false,
@@ -1215,6 +3050,16 @@
       },
       "sl_above_median_skip": {
        "n": 8,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
        "diff_p5": -112.96,
        "diff_p50": 32.02,
        "diff_p95": 96.58,
@@ -1227,6 +3072,8 @@
        "control_pct_share_ge95": 0.125,
        "kept_share_p50": 0.5,
        "units_p50": 1436.5,
+       "units_min": 1244.0,
+       "units_max": 1650.0,
        "real_diff": 12.07,
        "real_control_pct": 99.0,
        "real_above_tape_p95": false,
@@ -1234,8 +3081,326 @@
        "tapes_same_sign_as_real": 0.625
       }
      },
+     "gates_all_original": {
+      "choch2_skip": {
+       "n": 8,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -1.13,
+       "diff_p50": 105.34,
+       "diff_p95": 246.98,
+       "diff_mean": 106.78,
+       "diff_min": -4.22,
+       "diff_max": 286.72,
+       "diff_share_positive": 0.875,
+       "control_pct_p50": 61.5,
+       "control_pct_p95": 89.22,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.67,
+       "units_p50": 1436.5,
+       "units_min": 1244.0,
+       "units_max": 1650.0,
+       "real_diff": -72.5,
+       "real_control_pct": 1.6,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 0.0,
+       "tapes_same_sign_as_real": 0.125
+      },
+      "frozen_st7_st8": {
+       "n": 8,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -251.78,
+       "diff_p50": -93.89,
+       "diff_p95": 23.0,
+       "diff_mean": -101.08,
+       "diff_min": -299.94,
+       "diff_max": 37.28,
+       "diff_share_positive": 0.125,
+       "control_pct_p50": 42.75,
+       "control_pct_p95": 83.75,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.15,
+       "units_p50": 1436.5,
+       "units_min": 1244.0,
+       "units_max": 1650.0,
+       "real_diff": -19.71,
+       "real_control_pct": 64.0,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 75.0,
+       "tapes_same_sign_as_real": 0.875
+      },
+      "sl_above_median_skip": {
+       "n": 8,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -112.96,
+       "diff_p50": 32.02,
+       "diff_p95": 96.58,
+       "diff_mean": 5.98,
+       "diff_min": -139.38,
+       "diff_max": 110.02,
+       "diff_share_positive": 0.625,
+       "control_pct_p50": 71.0,
+       "control_pct_p95": 93.68,
+       "control_pct_share_ge95": 0.125,
+       "kept_share_p50": 0.5,
+       "units_p50": 1436.5,
+       "units_min": 1244.0,
+       "units_max": 1650.0,
+       "real_diff": 12.07,
+       "real_control_pct": 99.0,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 37.5,
+       "tapes_same_sign_as_real": 0.625
+      }
+     },
+     "gates_healthy_original": {
+      "choch2_skip": {
+       "n": 8,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -1.13,
+       "diff_p50": 105.34,
+       "diff_p95": 246.98,
+       "diff_mean": 106.78,
+       "diff_min": -4.22,
+       "diff_max": 286.72,
+       "diff_share_positive": 0.875,
+       "control_pct_p50": 61.5,
+       "control_pct_p95": 89.22,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.67,
+       "units_p50": 1436.5,
+       "units_min": 1244.0,
+       "units_max": 1650.0,
+       "real_diff": -72.5,
+       "real_control_pct": 1.6,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 0.0,
+       "tapes_same_sign_as_real": 0.125
+      },
+      "frozen_st7_st8": {
+       "n": 8,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -251.78,
+       "diff_p50": -93.89,
+       "diff_p95": 23.0,
+       "diff_mean": -101.08,
+       "diff_min": -299.94,
+       "diff_max": 37.28,
+       "diff_share_positive": 0.125,
+       "control_pct_p50": 42.75,
+       "control_pct_p95": 83.75,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.15,
+       "units_p50": 1436.5,
+       "units_min": 1244.0,
+       "units_max": 1650.0,
+       "real_diff": -19.71,
+       "real_control_pct": 64.0,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 75.0,
+       "tapes_same_sign_as_real": 0.875
+      },
+      "sl_above_median_skip": {
+       "n": 8,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -112.96,
+       "diff_p50": 32.02,
+       "diff_p95": 96.58,
+       "diff_mean": 5.98,
+       "diff_min": -139.38,
+       "diff_max": 110.02,
+       "diff_share_positive": 0.625,
+       "control_pct_p50": 71.0,
+       "control_pct_p95": 93.68,
+       "control_pct_share_ge95": 0.125,
+       "kept_share_p50": 0.5,
+       "units_p50": 1436.5,
+       "units_min": 1244.0,
+       "units_max": 1650.0,
+       "real_diff": 12.07,
+       "real_control_pct": 99.0,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 37.5,
+       "tapes_same_sign_as_real": 0.625
+      }
+     },
+     "units_per_tape": {
+      "all_built_min": 1244,
+      "all_built_max": 1650,
+      "certificate_min": 1244,
+      "certificate_max": 1650,
+      "locked": []
+     },
      "poor_null_flag": false,
+     "poor_null_tapes": [],
      "reality": {
+      "ret_std_bps": {
+       "tape_p50": 3.3,
+       "tape_min": 3.26,
+       "tape_max": 3.31,
+       "real": 3.408,
+       "ratio_p50_to_real": 0.968
+      },
+      "ret_kurt_excess": {
+       "tape_p50": 5.09,
+       "tape_min": 5.0,
+       "tape_max": 5.46,
+       "real": 21.722,
+       "ratio_p50_to_real": 0.234
+      },
+      "absret_ac1": {
+       "tape_p50": 0.07,
+       "tape_min": 0.06,
+       "tape_max": 0.08,
+       "real": 0.2767,
+       "ratio_p50_to_real": 0.262
+      },
+      "absret_ac2": {
+       "tape_p50": 0.02,
+       "tape_min": 0.01,
+       "tape_max": 0.02,
+       "real": 0.2465,
+       "ratio_p50_to_real": 0.075
+      },
+      "absret_ac3": {
+       "tape_p50": 0.0,
+       "tape_min": 0.0,
+       "tape_max": 0.01,
+       "real": 0.2299,
+       "ratio_p50_to_real": 0.015
+      },
+      "absret_ac4": {
+       "tape_p50": -0.0,
+       "tape_min": -0.01,
+       "tape_max": 0.0,
+       "real": 0.2253,
+       "ratio_p50_to_real": -0.002
+      },
+      "absret_ac5": {
+       "tape_p50": -0.0,
+       "tape_min": -0.01,
+       "tape_max": 0.0,
+       "real": 0.2216,
+       "ratio_p50_to_real": -0.01
+      },
+      "choch_per_session": {
+       "tape_p50": 10.08,
+       "tape_min": 8.84,
+       "tape_max": 12.18,
+       "real": 6.617,
+       "ratio_p50_to_real": 1.523
+      },
+      "bos_per_session": {
+       "tape_p50": 30.41,
+       "tape_min": 29.96,
+       "tape_max": 30.99,
+       "real": 26.6657,
+       "ratio_p50_to_real": 1.141
+      },
+      "setups_per_session": {
+       "tape_p50": 5.91,
+       "tape_min": 5.11,
+       "tape_max": 6.79,
+       "real": 4.3879,
+       "ratio_p50_to_real": 1.347
+      },
+      "l1_units_per_session": {
+       "tape_p50": 5.82,
+       "tape_min": 5.04,
+       "tape_max": 6.68,
+       "real": 4.3392,
+       "ratio_p50_to_real": 1.34
+      },
+      "l1_mean_net": {
+       "tape_p50": -1003.54,
+       "tape_min": -1084.62,
+       "tape_max": -900.09,
+       "real": -1009.61,
+       "ratio_p50_to_real": 0.994
+      },
+      "l1_win_rate": {
+       "tape_p50": 0.16,
+       "tape_min": 0.15,
+       "tape_max": 0.18,
+       "real": 0.1559,
+       "ratio_p50_to_real": 1.035
+      },
+      "frozen_kept_share": {
+       "tape_p50": 0.15,
+       "tape_min": 0.15,
+       "tape_max": 0.17,
+       "real": 0.1673,
+       "ratio_p50_to_real": 0.919
+      },
+      "close_last": {
+       "tape_p50": 18431.62,
+       "tape_min": 16727.35,
+       "tape_max": 20986.6,
+       "real": 26300.0,
+       "ratio_p50_to_real": 0.701
+      },
+      "atr14_median": {
+       "tape_p50": 9.72,
+       "tape_min": 9.2,
+       "tape_max": 11.12,
+       "real": 8.568,
+       "ratio_p50_to_real": 1.134
+      }
+     },
+     "reality_certificate": {
       "ret_std_bps": {
        "tape_p50": 3.3,
        "tape_min": 3.26,
@@ -1352,9 +3517,151 @@
     },
     "segment": {
      "tapes": 8,
+     "tapes_built": 8,
+     "tapes_original": 8,
+     "tapes_healthy": 7,
+     "tapes_certificate": 7,
+     "tapes_locked_original": 1,
+     "lockout_rate_original": 0.125,
+     "lockout_rate_all_built": 0.125,
+     "certificate_tapes": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      6,
+      7
+     ],
+     "locked_tapes": [
+      {
+       "k": 3,
+       "tape": "tapes/minute/segment_3",
+       "dead_sessions": 168,
+       "dead_share": 0.6802,
+       "dead_tail_share": 0.004,
+       "longest_frozen_run_sessions": 168,
+       "longest_choch_free_sessions": 168,
+       "last_choch_date": "2025-12-30",
+       "last_setup_time": "2025-12-30 15:05:00",
+       "setups_per_session": 1.7611,
+       "setup_rate_ratio_to_real": 0.4014,
+       "prot_last": 19540.05,
+       "close_last": 19767.15,
+       "prot_gap_pts": 227.1,
+       "reasons": [
+        "dead share 0.680 >= 0.2"
+       ]
+      }
+     ],
      "gates": {
       "choch2_skip": {
+       "n": 7,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -396.47,
+       "diff_p50": -11.64,
+       "diff_p95": 149.35,
+       "diff_mean": -83.0,
+       "diff_min": -483.88,
+       "diff_max": 176.7,
+       "diff_share_positive": 0.429,
+       "control_pct_p50": 7.5,
+       "control_pct_p95": 36.65,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.65,
+       "units_p50": 1243.0,
+       "units_min": 613.0,
+       "units_max": 1316.0,
+       "real_diff": -72.5,
+       "real_control_pct": 1.6,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 42.9,
+       "tapes_same_sign_as_real": 0.571
+      },
+      "frozen_st7_st8": {
+       "n": 7,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -124.12,
+       "diff_p50": 50.07,
+       "diff_p95": 275.84,
+       "diff_mean": 66.7,
+       "diff_min": -158.04,
+       "diff_max": 295.83,
+       "diff_share_positive": 0.571,
+       "control_pct_p50": 61.6,
+       "control_pct_p95": 95.47,
+       "control_pct_share_ge95": 0.143,
+       "kept_share_p50": 0.16,
+       "units_p50": 1243.0,
+       "units_min": 613.0,
+       "units_max": 1316.0,
+       "real_diff": -19.71,
+       "real_control_pct": 64.0,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 28.6,
+       "tapes_same_sign_as_real": 0.429
+      },
+      "sl_above_median_skip": {
+       "n": 7,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -136.2,
+       "diff_p50": -25.61,
+       "diff_p95": 130.6,
+       "diff_mean": -4.75,
+       "diff_min": -139.96,
+       "diff_max": 136.91,
+       "diff_share_positive": 0.429,
+       "control_pct_p50": 64.2,
+       "control_pct_p95": 93.24,
+       "control_pct_share_ge95": 0.143,
+       "kept_share_p50": 0.5,
+       "units_p50": 1243.0,
+       "units_min": 613.0,
+       "units_max": 1316.0,
+       "real_diff": 12.07,
+       "real_control_pct": 99.0,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 57.1,
+       "tapes_same_sign_as_real": 0.429
+      }
+     },
+     "gates_all_original": {
+      "choch2_skip": {
        "n": 8,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
        "diff_p5": -381.9,
        "diff_p50": -61.29,
        "diff_p95": 144.79,
@@ -1367,6 +3674,8 @@
        "control_pct_share_ge95": 0.0,
        "kept_share_p50": 0.65,
        "units_p50": 1125.5,
+       "units_min": 430.0,
+       "units_max": 1316.0,
        "real_diff": -72.5,
        "real_control_pct": 1.6,
        "real_above_tape_p95": false,
@@ -1375,6 +3684,16 @@
       },
       "frozen_st7_st8": {
        "n": 8,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
        "diff_p5": -229.97,
        "diff_p50": 16.51,
        "diff_p95": 272.51,
@@ -1387,6 +3706,8 @@
        "control_pct_share_ge95": 0.125,
        "kept_share_p50": 0.16,
        "units_p50": 1125.5,
+       "units_min": 430.0,
+       "units_max": 1316.0,
        "real_diff": -19.71,
        "real_control_pct": 64.0,
        "real_above_tape_p95": false,
@@ -1395,6 +3716,16 @@
       },
       "sl_above_median_skip": {
        "n": 8,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
        "diff_p5": -135.58,
        "diff_p50": 37.22,
        "diff_p95": 129.55,
@@ -1407,6 +3738,8 @@
        "control_pct_share_ge95": 0.125,
        "kept_share_p50": 0.5,
        "units_p50": 1125.5,
+       "units_min": 430.0,
+       "units_max": 1316.0,
        "real_diff": 12.07,
        "real_control_pct": 99.0,
        "real_above_tape_p95": false,
@@ -1414,7 +3747,114 @@
        "tapes_same_sign_as_real": 0.5
       }
      },
+     "gates_healthy_original": {
+      "choch2_skip": {
+       "n": 7,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -396.47,
+       "diff_p50": -11.64,
+       "diff_p95": 149.35,
+       "diff_mean": -83.0,
+       "diff_min": -483.88,
+       "diff_max": 176.7,
+       "diff_share_positive": 0.429,
+       "control_pct_p50": 7.5,
+       "control_pct_p95": 36.65,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.65,
+       "units_p50": 1243.0,
+       "units_min": 613.0,
+       "units_max": 1316.0,
+       "real_diff": -72.5,
+       "real_control_pct": 1.6,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 42.9,
+       "tapes_same_sign_as_real": 0.571
+      },
+      "frozen_st7_st8": {
+       "n": 7,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -124.12,
+       "diff_p50": 50.07,
+       "diff_p95": 275.84,
+       "diff_mean": 66.7,
+       "diff_min": -158.04,
+       "diff_max": 295.83,
+       "diff_share_positive": 0.571,
+       "control_pct_p50": 61.6,
+       "control_pct_p95": 95.47,
+       "control_pct_share_ge95": 0.143,
+       "kept_share_p50": 0.16,
+       "units_p50": 1243.0,
+       "units_min": 613.0,
+       "units_max": 1316.0,
+       "real_diff": -19.71,
+       "real_control_pct": 64.0,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 28.6,
+       "tapes_same_sign_as_real": 0.429
+      },
+      "sl_above_median_skip": {
+       "n": 7,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -136.2,
+       "diff_p50": -25.61,
+       "diff_p95": 130.6,
+       "diff_mean": -4.75,
+       "diff_min": -139.96,
+       "diff_max": 136.91,
+       "diff_share_positive": 0.429,
+       "control_pct_p50": 64.2,
+       "control_pct_p95": 93.24,
+       "control_pct_share_ge95": 0.143,
+       "kept_share_p50": 0.5,
+       "units_p50": 1243.0,
+       "units_min": 613.0,
+       "units_max": 1316.0,
+       "real_diff": 12.07,
+       "real_control_pct": 99.0,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 57.1,
+       "tapes_same_sign_as_real": 0.429
+      }
+     },
+     "units_per_tape": {
+      "all_built_min": 430,
+      "all_built_max": 1316,
+      "certificate_min": 613,
+      "certificate_max": 1316,
+      "locked": [
+       430
+      ]
+     },
      "poor_null_flag": false,
+     "poor_null_tapes": [
+      3
+     ],
      "reality": {
       "ret_std_bps": {
        "tape_p50": 3.46,
@@ -1528,13 +3968,269 @@
        "real": 8.568,
        "ratio_p50_to_real": 0.891
       }
+     },
+     "reality_certificate": {
+      "ret_std_bps": {
+       "tape_p50": 3.44,
+       "tape_min": 3.35,
+       "tape_max": 3.52,
+       "real": 3.408,
+       "ratio_p50_to_real": 1.009
+      },
+      "ret_kurt_excess": {
+       "tape_p50": 30.21,
+       "tape_min": 9.59,
+       "tape_max": 37.94,
+       "real": 21.722,
+       "ratio_p50_to_real": 1.391
+      },
+      "absret_ac1": {
+       "tape_p50": 0.27,
+       "tape_min": 0.26,
+       "tape_max": 0.29,
+       "real": 0.2767,
+       "ratio_p50_to_real": 0.993
+      },
+      "absret_ac2": {
+       "tape_p50": 0.24,
+       "tape_min": 0.22,
+       "tape_max": 0.25,
+       "real": 0.2465,
+       "ratio_p50_to_real": 0.955
+      },
+      "absret_ac3": {
+       "tape_p50": 0.21,
+       "tape_min": 0.2,
+       "tape_max": 0.23,
+       "real": 0.2299,
+       "ratio_p50_to_real": 0.923
+      },
+      "absret_ac4": {
+       "tape_p50": 0.2,
+       "tape_min": 0.19,
+       "tape_max": 0.22,
+       "real": 0.2253,
+       "ratio_p50_to_real": 0.878
+      },
+      "absret_ac5": {
+       "tape_p50": 0.2,
+       "tape_min": 0.18,
+       "tape_max": 0.22,
+       "real": 0.2216,
+       "ratio_p50_to_real": 0.884
+      },
+      "choch_per_session": {
+       "tape_p50": 7.53,
+       "tape_min": 3.79,
+       "tape_max": 8.21,
+       "real": 6.617,
+       "ratio_p50_to_real": 1.139
+      },
+      "bos_per_session": {
+       "tape_p50": 26.27,
+       "tape_min": 25.91,
+       "tape_max": 26.78,
+       "real": 26.6657,
+       "ratio_p50_to_real": 0.985
+      },
+      "setups_per_session": {
+       "tape_p50": 5.07,
+       "tape_min": 2.52,
+       "tape_max": 5.39,
+       "real": 4.3879,
+       "ratio_p50_to_real": 1.156
+      },
+      "l1_units_per_session": {
+       "tape_p50": 5.03,
+       "tape_min": 2.48,
+       "tape_max": 5.33,
+       "real": 4.3392,
+       "ratio_p50_to_real": 1.16
+      },
+      "l1_mean_net": {
+       "tape_p50": -1037.6,
+       "tape_min": -1081.22,
+       "tape_max": -885.39,
+       "real": -1009.61,
+       "ratio_p50_to_real": 1.028
+      },
+      "l1_win_rate": {
+       "tape_p50": 0.15,
+       "tape_min": 0.13,
+       "tape_max": 0.17,
+       "real": 0.1559,
+       "ratio_p50_to_real": 0.939
+      },
+      "frozen_kept_share": {
+       "tape_p50": 0.16,
+       "tape_min": 0.15,
+       "tape_max": 0.18,
+       "real": 0.1673,
+       "ratio_p50_to_real": 0.94
+      },
+      "close_last": {
+       "tape_p50": 18544.95,
+       "tape_min": 15184.8,
+       "tape_max": 20575.3,
+       "real": 26300.0,
+       "ratio_p50_to_real": 0.705
+      },
+      "atr14_median": {
+       "tape_p50": 7.52,
+       "tape_min": 6.93,
+       "tape_max": 7.85,
+       "real": 8.568,
+       "ratio_p50_to_real": 0.878
+      }
      }
     },
     "session": {
      "tapes": 8,
+     "tapes_built": 8,
+     "tapes_original": 8,
+     "tapes_healthy": 7,
+     "tapes_certificate": 7,
+     "tapes_locked_original": 1,
+     "lockout_rate_original": 0.125,
+     "lockout_rate_all_built": 0.125,
+     "certificate_tapes": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      6,
+      7
+     ],
+     "locked_tapes": [
+      {
+       "k": 3,
+       "tape": "tapes/minute/session_3",
+       "dead_sessions": 99,
+       "dead_share": 0.4008,
+       "dead_tail_share": 0.583,
+       "longest_frozen_run_sessions": 99,
+       "longest_choch_free_sessions": 144,
+       "last_choch_date": "2025-06-04",
+       "last_setup_time": "2025-06-06 15:12:00",
+       "setups_per_session": 2.0,
+       "setup_rate_ratio_to_real": 0.4558,
+       "prot_last": 16809.65,
+       "close_last": 19938.45,
+       "prot_gap_pts": 3128.8,
+       "reasons": [
+        "dead share 0.401 >= 0.2"
+       ]
+      }
+     ],
      "gates": {
       "choch2_skip": {
+       "n": 7,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -260.03,
+       "diff_p50": -76.19,
+       "diff_p95": 148.75,
+       "diff_mean": -74.25,
+       "diff_min": -263.67,
+       "diff_max": 222.48,
+       "diff_share_positive": 0.143,
+       "control_pct_p50": 8.8,
+       "control_pct_p95": 36.08,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.66,
+       "units_p50": 1101.0,
+       "units_min": 840.0,
+       "units_max": 1445.0,
+       "real_diff": -72.5,
+       "real_control_pct": 1.6,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 57.1,
+       "tapes_same_sign_as_real": 0.857
+      },
+      "frozen_st7_st8": {
+       "n": 7,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -144.71,
+       "diff_p50": 52.46,
+       "diff_p95": 226.14,
+       "diff_mean": 45.46,
+       "diff_min": -147.04,
+       "diff_max": 232.81,
+       "diff_share_positive": 0.714,
+       "control_pct_p50": 66.2,
+       "control_pct_p95": 83.56,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.16,
+       "units_p50": 1101.0,
+       "units_min": 840.0,
+       "units_max": 1445.0,
+       "real_diff": -19.71,
+       "real_control_pct": 64.0,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 28.6,
+       "tapes_same_sign_as_real": 0.286
+      },
+      "sl_above_median_skip": {
+       "n": 7,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -197.95,
+       "diff_p50": -20.36,
+       "diff_p95": 97.31,
+       "diff_mean": -20.95,
+       "diff_min": -256.58,
+       "diff_max": 116.35,
+       "diff_share_positive": 0.429,
+       "control_pct_p50": 89.2,
+       "control_pct_p95": 95.09,
+       "control_pct_share_ge95": 0.143,
+       "kept_share_p50": 0.5,
+       "units_p50": 1101.0,
+       "units_min": 840.0,
+       "units_max": 1445.0,
+       "real_diff": 12.07,
+       "real_control_pct": 99.0,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 57.1,
+       "tapes_same_sign_as_real": 0.429
+      }
+     },
+     "gates_all_original": {
+      "choch2_skip": {
        "n": 8,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
        "diff_p5": -297.26,
        "diff_p50": -78.84,
        "diff_p95": 136.47,
@@ -1547,6 +4243,8 @@
        "control_pct_share_ge95": 0.0,
        "kept_share_p50": 0.66,
        "units_p50": 1031.5,
+       "units_min": 485.0,
+       "units_max": 1445.0,
        "real_diff": -72.5,
        "real_control_pct": 1.6,
        "real_above_tape_p95": false,
@@ -1555,6 +4253,16 @@
       },
       "frozen_st7_st8": {
        "n": 8,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
        "diff_p5": -144.32,
        "diff_p50": 76.99,
        "diff_p95": 468.29,
@@ -1567,6 +4275,8 @@
        "control_pct_share_ge95": 0.0,
        "kept_share_p50": 0.16,
        "units_p50": 1031.5,
+       "units_min": 485.0,
+       "units_max": 1445.0,
        "real_diff": -19.71,
        "real_control_pct": 64.0,
        "real_above_tape_p95": false,
@@ -1575,6 +4285,16 @@
       },
       "sl_above_median_skip": {
        "n": 8,
+       "tapes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
        "diff_p5": -188.18,
        "diff_p50": -22.91,
        "diff_p95": 94.14,
@@ -1587,6 +4307,8 @@
        "control_pct_share_ge95": 0.125,
        "kept_share_p50": 0.5,
        "units_p50": 1031.5,
+       "units_min": 485.0,
+       "units_max": 1445.0,
        "real_diff": 12.07,
        "real_control_pct": 99.0,
        "real_above_tape_p95": false,
@@ -1594,7 +4316,114 @@
        "tapes_same_sign_as_real": 0.375
       }
      },
+     "gates_healthy_original": {
+      "choch2_skip": {
+       "n": 7,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -260.03,
+       "diff_p50": -76.19,
+       "diff_p95": 148.75,
+       "diff_mean": -74.25,
+       "diff_min": -263.67,
+       "diff_max": 222.48,
+       "diff_share_positive": 0.143,
+       "control_pct_p50": 8.8,
+       "control_pct_p95": 36.08,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.66,
+       "units_p50": 1101.0,
+       "units_min": 840.0,
+       "units_max": 1445.0,
+       "real_diff": -72.5,
+       "real_control_pct": 1.6,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 57.1,
+       "tapes_same_sign_as_real": 0.857
+      },
+      "frozen_st7_st8": {
+       "n": 7,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -144.71,
+       "diff_p50": 52.46,
+       "diff_p95": 226.14,
+       "diff_mean": 45.46,
+       "diff_min": -147.04,
+       "diff_max": 232.81,
+       "diff_share_positive": 0.714,
+       "control_pct_p50": 66.2,
+       "control_pct_p95": 83.56,
+       "control_pct_share_ge95": 0.0,
+       "kept_share_p50": 0.16,
+       "units_p50": 1101.0,
+       "units_min": 840.0,
+       "units_max": 1445.0,
+       "real_diff": -19.71,
+       "real_control_pct": 64.0,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 28.6,
+       "tapes_same_sign_as_real": 0.286
+      },
+      "sl_above_median_skip": {
+       "n": 7,
+       "tapes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "diff_p5": -197.95,
+       "diff_p50": -20.36,
+       "diff_p95": 97.31,
+       "diff_mean": -20.95,
+       "diff_min": -256.58,
+       "diff_max": 116.35,
+       "diff_share_positive": 0.429,
+       "control_pct_p50": 89.2,
+       "control_pct_p95": 95.09,
+       "control_pct_share_ge95": 0.143,
+       "kept_share_p50": 0.5,
+       "units_p50": 1101.0,
+       "units_min": 840.0,
+       "units_max": 1445.0,
+       "real_diff": 12.07,
+       "real_control_pct": 99.0,
+       "real_above_tape_p95": false,
+       "real_diff_percentile_in_tapes": 57.1,
+       "tapes_same_sign_as_real": 0.429
+      }
+     },
+     "units_per_tape": {
+      "all_built_min": 485,
+      "all_built_max": 1445,
+      "certificate_min": 840,
+      "certificate_max": 1445,
+      "locked": [
+       485
+      ]
+     },
      "poor_null_flag": false,
+     "poor_null_tapes": [
+      3
+     ],
      "reality": {
       "ret_std_bps": {
        "tape_p50": 3.31,
@@ -1707,6 +4536,120 @@
        "tape_max": 8.35,
        "real": 8.568,
        "ratio_p50_to_real": 0.853
+      }
+     },
+     "reality_certificate": {
+      "ret_std_bps": {
+       "tape_p50": 3.35,
+       "tape_min": 3.12,
+       "tape_max": 3.73,
+       "real": 3.408,
+       "ratio_p50_to_real": 0.982
+      },
+      "ret_kurt_excess": {
+       "tape_p50": 7.26,
+       "tape_min": 4.93,
+       "tape_max": 48.65,
+       "real": 21.722,
+       "ratio_p50_to_real": 0.334
+      },
+      "absret_ac1": {
+       "tape_p50": 0.25,
+       "tape_min": 0.22,
+       "tape_max": 0.32,
+       "real": 0.2767,
+       "ratio_p50_to_real": 0.909
+      },
+      "absret_ac2": {
+       "tape_p50": 0.22,
+       "tape_min": 0.2,
+       "tape_max": 0.29,
+       "real": 0.2465,
+       "ratio_p50_to_real": 0.912
+      },
+      "absret_ac3": {
+       "tape_p50": 0.21,
+       "tape_min": 0.18,
+       "tape_max": 0.27,
+       "real": 0.2299,
+       "ratio_p50_to_real": 0.922
+      },
+      "absret_ac4": {
+       "tape_p50": 0.21,
+       "tape_min": 0.19,
+       "tape_max": 0.26,
+       "real": 0.2253,
+       "ratio_p50_to_real": 0.927
+      },
+      "absret_ac5": {
+       "tape_p50": 0.2,
+       "tape_min": 0.19,
+       "tape_max": 0.26,
+       "real": 0.2216,
+       "ratio_p50_to_real": 0.91
+      },
+      "choch_per_session": {
+       "tape_p50": 6.74,
+       "tape_min": 5.28,
+       "tape_max": 8.86,
+       "real": 6.617,
+       "ratio_p50_to_real": 1.019
+      },
+      "bos_per_session": {
+       "tape_p50": 26.75,
+       "tape_min": 26.42,
+       "tape_max": 27.36,
+       "real": 26.6657,
+       "ratio_p50_to_real": 1.003
+      },
+      "setups_per_session": {
+       "tape_p50": 4.53,
+       "tape_min": 3.43,
+       "tape_max": 5.9,
+       "real": 4.3879,
+       "ratio_p50_to_real": 1.032
+      },
+      "l1_units_per_session": {
+       "tape_p50": 4.46,
+       "tape_min": 3.4,
+       "tape_max": 5.85,
+       "real": 4.3392,
+       "ratio_p50_to_real": 1.027
+      },
+      "l1_mean_net": {
+       "tape_p50": -963.58,
+       "tape_min": -1075.38,
+       "tape_max": -719.9,
+       "real": -1009.61,
+       "ratio_p50_to_real": 0.954
+      },
+      "l1_win_rate": {
+       "tape_p50": 0.15,
+       "tape_min": 0.13,
+       "tape_max": 0.18,
+       "real": 0.1559,
+       "ratio_p50_to_real": 0.941
+      },
+      "frozen_kept_share": {
+       "tape_p50": 0.16,
+       "tape_min": 0.15,
+       "tape_max": 0.18,
+       "real": 0.1673,
+       "ratio_p50_to_real": 0.95
+      },
+      "close_last": {
+       "tape_p50": 19176.6,
+       "tape_min": 14767.45,
+       "tape_max": 23861.85,
+       "real": 26300.0,
+       "ratio_p50_to_real": 0.729
+      },
+      "atr14_median": {
+       "tape_p50": 7.54,
+       "tape_min": 6.49,
+       "tape_max": 8.35,
+       "real": 8.568,
+       "ratio_p50_to_real": 0.879
       }
      }
     }
@@ -1851,7 +4794,9 @@
     "block_bars": 30,
     "one_year": true,
     "tapes_per_generator": 8,
-    "sessions_per_tape": 247
+    "sessions_per_tape": 247,
+    "target_healthy": 8,
+    "refit_reproduces_first_build": true
    },
    "drift": {
     "tf": "minute",
@@ -2247,13 +5192,24 @@
   "minute/choch2_skip": "ace645aec2224464",
   "minute/sl_above_median_skip": "21f5c361c64d6fe8"
  },
+ "certificate_set": "gates = the first DESIGN_N healthy tapes per generator by seed index k (tapes.tape_folders(tf, gen) default; tapes.tape_health: dead share < 0.2 of sessions inside frozen-prot CHoCH-free runs longer than the real tape's longest, and SETUP rate >= 1/3 x real). gates_all_original = the first build (k < DESIGN_N) with the locked tapes; gates_healthy_original = the first build's healthy tapes only. The pass rule reads `gates`.",
+ "health_rule": {
+  "dead_share_max": 0.2,
+  "setup_rate_ratio_min": 0.3333333333333333,
+  "dead_run_longer_than_real_longest_frozen_run": true,
+  "design_n": {
+   "5minute": 20,
+   "minute": 8
+  }
+ },
  "caveats": [
-  "The tapes' price level follows a random walk of drawn sessions and gaps: over 1,026 sessions some tapes end far from the real level (see `close_last` in section 5); the engine is scale-free (checked: x2 prices give identical event counts), but INR differences scale with the level, so a high-level tape widens the null in INR. This makes the p95 conservative (harder to beat); an ATR-normalised statistic would be tighter and is not the pre-registered one.",
+  "The tapes' price level follows a random walk of drawn sessions and gaps: over 1,026 sessions some tapes end far from the real level (see `close_last` in section 5); the engine is scale-free (checked: x2 prices give identical event counts), but INR differences scale with the level, so a high-level tape widens the null in INR. This makes the p95 conservative (harder to beat); an ATR-normalised statistic would be tighter and is not the registered one.",
   "The GMM-Markov tape's return kurtosis is below the real tape's (a 6-component mixture cannot carry a kurtosis of ~25) and its |r| autocorrelation dies within a few bars; Judge 1's warning (a narrower-than-reality null over-rejects) is why the segment bootstrap is read alongside it and the pass rule needs both.",
   "The session bootstrap keeps every within-session dependence, so it is a stability read, not a null: a gate that works within the day should keep its sign there.",
-  "Engine event rates vary strongly from tape to tape (section 5 min / max): the engine's CHoCH count depends on the multi-day path, so per-tape unit counts differ by up to 3x.",
-  "`sl` (the stop price level) is in `Table.asof_columns()` although it is a raw price (|rho| 0.93 with time on 5 minutes); `n_events_asof` is a cumulative count since the data start (rho 1.0). Both are time proxies, excluded in variant B, and a rule using either is refused; the harness allow-list should carry them in NOT_FEATURES (reported, not changed here).",
+  "Engine lock-out (section 5c, measured): on the first build the engine's protected level froze and the CHoCH stream stopped for 22-91% of the sessions on 5minute: GMM-Markov 6/20, segment bootstrap (30-bar blocks) 4/20, session bootstrap 10/20; minute: GMM-Markov 0/8, segment bootstrap (30-bar blocks) 1/8, session bootstrap 1/8 tapes (frozen-run rule; the refuters' tail rule finds 12 of 84), while BOS continued at the normal rate; the locked tapes carry as few as 78 L1 units (5minute) against 770-1211 on the certificate tapes; 430 L1 units (minute) against 613-1650 on the certificate tapes. The certificate (section 4) excludes them and was topped up to the design count with the next seeds; the first-build numbers with and without them are in section 4a (verdicts unchanged). The lock-out is itself a property of a memory-free tape (the real market returns to its anchored levels; a random walk need not), so the healthy set is conditioned on 'the engine ran', not on any gate statistic.",
+  "`sl` (the stop price level) is in `Table.asof_columns()` although it is a raw price (|rho| 0.93 with time on 5 minutes); `n_events_asof` is a cumulative count since the data start (rho 1.0). Both are time proxies, excluded in variant B; `tapes.rule_mask` refuses them (PermissionError) and the gate studies refuse them on the real tape by rule; the harness allow-list should carry them in NOT_FEATURES (reported, not changed here).",
   "The 1-minute tapes are one trading year (247 IS sessions) with 8 tapes per generator: their null percentiles rest on 8 values and are wider than the 5-minute ones; the 5-minute nulls are the primary certificate, as both judges asked.",
+  "The two mechanical reference gates are fixed reference points, not registered candidates (section 1); nothing in the ledger or the registrations depends on them.",
   "Falsification: if a real gate's diff sat above the GMM/segment p95 while the gate is known to be pure engine mechanics (e.g. the stop-distance gate on the real tape), the null would be too narrow; section 4 shows what the mechanical gates read on the real tape against their own nulls.",
   "Drift inside IS is large (section 6) and its top of the ranking is the volatility / price-level regime (5minute: `atr_bps` (lower, -0.51 sd), `atr14` (higher, +0.30 sd), `range_3h_pts` (higher, +0.27 sd), `n_rooms_alive` (higher, +0.02 sd), `hv3_ratio` (higher, +0.12 sd); minute: `atr_bps` (lower, -0.47 sd), `atr14` (higher, +0.18 sd), `days_to_expiry` (higher, +0.20 sd), `gap_pts` (higher, +0.10 sd), `sess_cumvol_ratio20s` (higher, +0.12 sd)): the tape went from ~17,500 to ~26,300 while volatility in bps fell, so every point-denominated column (`*_pts`, `atr14`, `sl_dist_pts`, `fz_band_width`, `fz_dist_band_edge_*`, `gap_pts`) drifts with the level. A rule on such a column is a level rule; the gate studies should express thresholds in the `_atr` / `_bps` forms and the CPCV path distribution, not the pooled IS number, is what a drifting IS supports."
  ],
@@ -2284,6 +5240,8 @@
   "fit_minute.json",
   "gen_tapes.py",
   "null_distributions.json",
+  "real_health_5minute.json",
+  "real_health_minute.json",
   "real_reference_5minute.json",
   "real_reference_minute.json",
   "reality.jsonl",
@@ -2291,19 +5249,93 @@
   "run_5minute.log",
   "run_minute.log",
   "run_tapes.py",
+  "tape_health.csv",
   "tape_results.csv",
   "tape_results.jsonl",
   "tapes.py",
+  "topup_5minute.log",
+  "topup_minute.log",
   "write_findings.py",
   "write_findings_resume.log",
   "tapes/<tf>/<gen>_<k>/"
  ],
- "how_to_evaluate_candidate": "a candidate's real-tape diff (its ledger row) is compared with p95 of the tape diffs of the SAME gate family shape; the certificate field null_tape_diff_inr = {p50, p95} per generator; pass = real diff > gmm p95 and > segment p95 (the two memory-free nulls), and the session-bootstrap diffs share the real diff's sign in >= 75% of tapes (stability); evaluate a rule list on the tapes with tapes.evaluate_rule_list(folder, rules) over tapes.tape_folders(tf)",
+ "how_to_evaluate_candidate": "a candidate's real-tape diff (its ledger row) is compared with p95 of the tape diffs of the SAME gate family shape on the certificate set; the certificate field null_tape_diff_inr = {p50, p95} per generator; pass = real diff > gmm p95 and > segment p95 (the two memory-free nulls), and the session-bootstrap diffs share the real diff's sign in >= 75% of tapes (stability); evaluate a rule list on the tapes with tapes.null_tape_check(real_diff, tf, rules) (= tapes.evaluate_rule_list(folder, rules) over tapes.tape_folders(tf, gen))",
+ "pass_rule": {
+  "items": [
+   "null_tape:real_diff>gmm_p95",
+   "null_tape:real_diff>segment_p95",
+   "null_tape:session_same_sign>=0.75"
+  ],
+  "tape_set": "certificate (tapes.tape_folders default)",
+  "function": "tapes.null_tape_check(real_diff, tf, rules) -> (passed, checks, summary)"
+ },
+ "program_level_gaps": [
+  "harness.go_no_go has no null-tape item (Judge 1's binding fix): add `null_tape` = tapes.null_tape_check(res['diff'], tf, rules)[1] to its checks, or make the phase-3 workflow call the check before freezing a candidate",
+  "harness.NOT_FEATURES does not carry the time proxies `n_events_asof`, `sl` (refused by tapes.rule_mask on the tapes; by study rule on the real tape)"
+ ],
+ "repair": [
+  {
+   "issue": "1. Engine lock-out on part of the tapes undisclosed; the 'up to 3x' caveat mis-stated a 15.5x unit spread; the generator-level poor-null flag cannot see a dead tape; the certificate p95 moved when the locked tapes were excluded.",
+   "changed": [
+    "`tapes.tape_health(folder)` (per-tape flag: dead share of sessions inside frozen-prot CHoCH-free runs longer than the real tape's longest (5minute 68, minute 69 sessions) < 0.2 and SETUP rate >= 1/3 x real; written to `tapes/<tf>/<gen>_<k>/tape_health.json`; `tape_health.csv` at the study level; `real_health_<tf>.json`). It flags 22 of 84 tapes built (22 of the first build's 84); the refuters' tail rule is a special case (12 tapes) that misses the recovered mid-tape lock-outs.",
+    "`tapes.tape_folders(tf, gen, healthy=True, n=DESIGN_N)` (default = the certificate set; `healthy=False` = every tape built; `original_only=True` = the first build); numeric ordering by k.",
+    "`run_tapes.aggregate` publishes three sets per gate: `gates` (certificate), `gates_all_original`, `gates_healthy_original`, plus `locked_tapes`, `lockout_rate_*`, `units_per_tape`, `poor_null_tapes`, `reality_certificate`; `tape_results.csv` / `reality_check.csv` carry the health columns.",
+    "`run_tapes.py --target-healthy N` topped the certificate up to the design count with the next seeds (k >= DESIGN_N, generated in seed order; the generator refit reproduces the first build's GMM: 5minute True, minute True); logs `topup_5minute.log`, `topup_minute.log`. Nothing of the first build was rebuilt or removed.",
+    "FINDINGS: section 1 (definitions of health and the tape sets), 2b (counts), 4 (certificate) + 4a (first build with / without the locked tapes, delta p95, verdict flips), 5 (lock-out rates, certificate rates), 5c (the mechanism and the per-tape list), 7 (which tape set the pass rule uses), 8 (the caveat replaced by the measured lock-out)."
+   ],
+   "numbers": {
+    "refuters_recheck_reproduced": {
+     "5minute/gmm/frozen_st7_st8": {
+      "all_p50": 191.66,
+      "all_p95": 708.82,
+      "tail_rule_healthy_p50": 191.66,
+      "tail_rule_healthy_p95": 560.81,
+      "tail_rule_n": 16
+     },
+     "5minute/session/choch2_skip": {
+      "all_p50": 127.18,
+      "all_p95": 700.52,
+      "tail_rule_healthy_p50": 52.24,
+      "tail_rule_healthy_p95": 713.3,
+      "tail_rule_n": 15
+     },
+     "minute/session/frozen_st7_st8": {
+      "all_p50": 76.99,
+      "all_p95": 468.29,
+      "tail_rule_healthy_p50": 52.46,
+      "tail_rule_healthy_p95": 226.14,
+      "tail_rule_n": 7
+     }
+    },
+    "verdict_flips_first_build_vs_certificate": 0
+   }
+  },
+  {
+   "issue": "2. The time-proxy refusal was a written policy, not a property of `tapes.rule_mask` (a rule on `sl` or `n_events_asof` was accepted).",
+   "changed": [
+    "`tapes.time_proxies(tf)` reads `drift.json` (`timeframes[tf].time_proxies`; fallback `n_events_asof`, `sl`); `tapes.rule_mask` raises `PermissionError` for such a column. Tested: `[['sl', '>', 20000]]` and `[['n_events_asof', '>', 100]]` are refused on tape gmm_0; label columns and `fz_traded` were already refused.",
+    "FINDINGS sections 6 and 8 now say where the refusal is enforced (in code on the tapes; by study rule on the real tape, since `harness.NOT_FEATURES` does not carry the two columns: reported, not changed)."
+   ]
+  },
+  {
+   "issue": "3. The two mechanical gates were called 'pre-registered' although no registration exists outside the study folder.",
+   "changed": [
+    "Reworded everywhere in the study (`tapes.MECHANICAL_GATES`, `run_tapes.py`, FINDINGS sections 1, 8): 'fixed in tapes.py before any tape was scored; reference points, not candidates'. The three `real_ref` ledger rows keep the earlier wording in their config text (the ledger is append-only); no ledger consequence: they are comparators, not candidates."
+   ]
+  },
+  {
+   "issue": "4. Judge 1's binding fix (the null-tape pass rule as a `go_no_go` item) is not in `harness.go_no_go`; a gate study can pass `go_no_go` without running the tape check.",
+   "changed": [
+    "Program-level (outside this study's write scope): `tapes.null_tape_check(real_diff, tf, rules)` implements the section-7 rule on the certificate set and returns the three items in `go_no_go`'s `(ok, value)` shape; section 7 gives the drop-in patch for `harness.go_no_go(..., null_tape=...)` and tells the phase-3 workflow to call the check explicitly until it lands. Flagged for the orchestrator in findings.json (`program_level_gaps`)."
+   ]
+  }
+ ],
+ "verdict_flips_first_build_vs_certificate": [],
  "drift": {
   "study": "null_tapes_drift",
   "part": "d: adversarial validation IS-early vs IS-late",
   "not_run_here": "IS-vs-OOS adversarial validation (runs after the single OOS evaluation, in oos_once.py's post-mortem, label-free, explanatory only)",
-  "rule_for_gate_studies": "a selected rule that uses one of top5_sources (variant B) is refit without that feature and both versions are reported in the study's FINDINGS; a rule that uses a time proxy (time_proxies) is refused as a calendar rule, not a market rule; a rule that uses any feature of top20_drifted carries the feature's std_shift as a caveat",
+  "rule_for_gate_studies": "a selected rule that uses one of top5_sources (variant B) is refit without that feature and both versions are reported in the study's FINDINGS; a rule that uses a time proxy (time_proxies) is a calendar rule, not a market rule: tapes.rule_mask refuses it (PermissionError) and the gate studies refuse it on the real tape by the same rule (harness.NOT_FEATURES does not carry these columns: reported, not changed here); a rule that uses any feature of top20_drifted carries the feature's std_shift as a caveat",
   "timeframes": {
    "5minute": {
     "tf": "5minute",

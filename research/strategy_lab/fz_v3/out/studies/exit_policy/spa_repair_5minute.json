@@ -1,0 +1,591 @@
+{
+ "tf": "5minute",
+ "l1_choch_facts": {
+  "next_choch_exits": 191,
+  "exit_px_equals_close_of_exit_bar_share": 1.0,
+  "exit_bar_equals_first_choch_against_share": 0.9948,
+  "l1_net_inr_decimals_gt_2": 0,
+  "grid_nets_decimals_gt_2": 1295168,
+  "grid_cells": 1295168
+ },
+ "family_C": {
+  "as_coded": {
+   "family": "learner C grid, 1568 variants (the pre-registered family of 02_c_select.py)",
+   "vector_precision": "as stored in vectors/*.npz (variant net unrounded, label 2 dp)",
+   "harness_sha": "0fe3d75a0bd6e78d",
+   "tag": "exit|5minute",
+   "candidates": 1568,
+   "sessions": 408,
+   "draws": 2000,
+   "min_active_sessions": 20,
+   "excluded_from_studentised": 0,
+   "best_unstudentised": 1025,
+   "best_mean_gain_unstudentised": 281.96,
+   "rc_p_unstudentised": 0.2465,
+   "spa_p_unstudentised": 0.1505,
+   "best": 1025,
+   "best_mean_gain": 281.96,
+   "best_t": 2.761,
+   "best_active_sessions": 408,
+   "rc_p": 0.5175,
+   "spa_p": 0.4965,
+   "best_keys": {
+    "index": 1025,
+    "id": "84134ea8c464d4ad",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 75,
+     "scale": "t4",
+     "trail": "2_2",
+     "time_stop": null,
+     "choch": true
+    },
+    "active_sessions": 408,
+    "active_sessions_gt_0_01": 244,
+    "active_sessions_gt_0_5": 244,
+    "mean_gain": 281.96,
+    "t_studentised": 2.761,
+    "diff_vs_foundation": 96.83
+   },
+   "best_keys_unstudentised": {
+    "index": 1025,
+    "id": "84134ea8c464d4ad",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 75,
+     "scale": "t4",
+     "trail": "2_2",
+     "time_stop": null,
+     "choch": true
+    },
+    "active_sessions": 408,
+    "active_sessions_gt_0_01": 244,
+    "active_sessions_gt_0_5": 244,
+    "mean_gain": 281.96,
+    "t_studentised": 2.761,
+    "diff_vs_foundation": 96.83
+   },
+   "excluded_candidates": []
+  },
+  "repaired": {
+   "family": "learner C grid, 1568 variants (the pre-registered family of 02_c_select.py)",
+   "vector_precision": "per-trade nets rounded to 2 dp before the session sums (the label's precision)",
+   "harness_sha": "0fe3d75a0bd6e78d",
+   "tag": "exit|5minute",
+   "candidates": 1568,
+   "sessions": 408,
+   "draws": 2000,
+   "min_active_sessions": 20,
+   "excluded_from_studentised": 2,
+   "best_unstudentised": 1025,
+   "best_mean_gain_unstudentised": 281.96,
+   "rc_p_unstudentised": 0.2465,
+   "spa_p_unstudentised": 0.1505,
+   "best": 1025,
+   "best_mean_gain": 281.96,
+   "best_t": 2.761,
+   "best_active_sessions": 244,
+   "rc_p": 0.21,
+   "spa_p": 0.185,
+   "best_keys": {
+    "index": 1025,
+    "id": "84134ea8c464d4ad",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 75,
+     "scale": "t4",
+     "trail": "2_2",
+     "time_stop": null,
+     "choch": true
+    },
+    "active_sessions": 244,
+    "active_sessions_gt_0_01": 244,
+    "active_sessions_gt_0_5": 244,
+    "mean_gain": 281.96,
+    "t_studentised": 2.761,
+    "diff_vs_foundation": 96.83
+   },
+   "best_keys_unstudentised": {
+    "index": 1025,
+    "id": "84134ea8c464d4ad",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 75,
+     "scale": "t4",
+     "trail": "2_2",
+     "time_stop": null,
+     "choch": true
+    },
+    "active_sessions": 244,
+    "active_sessions_gt_0_01": 244,
+    "active_sessions_gt_0_5": 244,
+    "mean_gain": 281.96,
+    "t_studentised": 2.761,
+    "diff_vs_foundation": 96.83
+   },
+   "excluded_candidates": [
+    {
+     "index": 1177,
+     "id": "ea2c65c77b1f3eda",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": "foundation",
+      "scale": "none",
+      "trail": "none",
+      "time_stop": null,
+      "choch": true
+     },
+     "active_sessions": 1,
+     "active_sessions_gt_0_01": 1,
+     "active_sessions_gt_0_5": 1,
+     "mean_gain": -1.99,
+     "t_studentised": -1.0,
+     "diff_vs_foundation": -2.95
+    },
+    {
+     "index": 1183,
+     "id": "807549ccd89a4d42",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": "foundation",
+      "scale": "none",
+      "trail": "none",
+      "time_stop": 120,
+      "choch": true
+     },
+     "active_sessions": 1,
+     "active_sessions_gt_0_01": 1,
+     "active_sessions_gt_0_5": 1,
+     "mean_gain": -1.99,
+     "t_studentised": -1.0,
+     "diff_vs_foundation": -2.95
+    }
+   ]
+  },
+  "tolerance_check": {
+   "rule": "candidates with fewer than min_active sessions of |gain| > 0.01 INR removed from the list (both statistics)",
+   "tolerance_inr": 0.01,
+   "min_active_sessions": 20,
+   "excluded": 2,
+   "excluded_indices": [
+    1177,
+    1183
+   ],
+   "candidates": 1566,
+   "spa_p": 0.185,
+   "rc_p": 0.21,
+   "best_index": 1025,
+   "best_mean_gain": 281.96,
+   "best_t": 2.761,
+   "spa_p_unstudentised": 0.1505,
+   "rc_p_unstudentised": 0.2465,
+   "best_index_unstudentised": 1025
+  },
+  "near_duplicates": [
+   {
+    "index": 1177,
+    "id": "ea2c65c77b1f3eda",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": true
+    },
+    "trades_differing_from_L1_gt_0_005": 1,
+    "trades": 826,
+    "max_abs_diff_on_agreeing_trades": 0.005,
+    "mean_diff_on_differing_trades": -2437.6,
+    "exit_bar_equals_L1_share": 0.9988,
+    "sessions_active_gt_1e_9": 408,
+    "sessions_active_gt_0_01": 1,
+    "sessions_active_gt_0_5": 1,
+    "sessions_active_after_2dp": 1,
+    "max_abs_gain_as_coded": 812.5344,
+    "mean_gain_as_coded": -1.9915,
+    "t_studentised_as_coded": -1.0,
+    "null_argmax_draws_as_coded": 758,
+    "null_draws": 2000,
+    "excluded_by_repaired_rule": true,
+    "excluded_by_tolerance_check": true
+   },
+   {
+    "index": 1183,
+    "id": "807549ccd89a4d42",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "none",
+     "time_stop": 120,
+     "choch": true
+    },
+    "trades_differing_from_L1_gt_0_005": 1,
+    "trades": 826,
+    "max_abs_diff_on_agreeing_trades": 0.005,
+    "mean_diff_on_differing_trades": -2437.6,
+    "exit_bar_equals_L1_share": 0.9988,
+    "sessions_active_gt_1e_9": 408,
+    "sessions_active_gt_0_01": 1,
+    "sessions_active_gt_0_5": 1,
+    "sessions_active_after_2dp": 1,
+    "max_abs_gain_as_coded": 812.5344,
+    "mean_gain_as_coded": -1.9915,
+    "t_studentised_as_coded": -1.0,
+    "null_argmax_draws_as_coded": 0,
+    "null_draws": 2000,
+    "excluded_by_repaired_rule": true,
+    "excluded_by_tolerance_check": true
+   }
+  ],
+  "vector_mapping_verified": true,
+  "null_argmax_top5_as_coded": [
+   {
+    "index": 1177,
+    "draws": 758,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": true
+    }
+   },
+   {
+    "index": 1225,
+    "draws": 148,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "4_2",
+     "time_stop": null,
+     "choch": true
+    }
+   },
+   {
+    "index": 1217,
+    "draws": 51,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "4_1",
+     "time_stop": null,
+     "choch": true
+    }
+   },
+   {
+    "index": 1180,
+    "draws": 48,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "none",
+     "time_stop": 60,
+     "choch": false
+    }
+   },
+   {
+    "index": 1197,
+    "draws": 46,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "2_2",
+     "time_stop": 60,
+     "choch": true
+    }
+   }
+  ]
+ },
+ "all_trials": {
+  "as_coded": {
+   "family": "every exit trial of the timeframe: 1572 rows (C variants + C nested pick + C in-sample best + learners B and A); comparators and CPCV paths excluded",
+   "vector_precision": "as stored in vectors/*.npz (variant net unrounded, label 2 dp)",
+   "harness_sha": "0fe3d75a0bd6e78d",
+   "tag": "exit|all|5minute",
+   "candidates": 1572,
+   "sessions": 408,
+   "draws": 2000,
+   "min_active_sessions": 20,
+   "excluded_from_studentised": 0,
+   "best_unstudentised": 1025,
+   "best_mean_gain_unstudentised": 281.96,
+   "rc_p_unstudentised": 0.2565,
+   "spa_p_unstudentised": 0.1505,
+   "best": 1025,
+   "best_mean_gain": 281.96,
+   "best_t": 2.761,
+   "best_active_sessions": 408,
+   "rc_p": 0.5045,
+   "spa_p": 0.4825,
+   "best_keys": {
+    "index": 1025,
+    "id": "84134ea8c464d4ad",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 75,
+     "scale": "t4",
+     "trail": "2_2",
+     "time_stop": null,
+     "choch": true
+    },
+    "active_sessions": 408,
+    "active_sessions_gt_0_01": 244,
+    "active_sessions_gt_0_5": 244,
+    "mean_gain": 281.96,
+    "t_studentised": 2.761,
+    "diff_vs_foundation": 96.83
+   },
+   "best_keys_unstudentised": {
+    "index": 1025,
+    "id": "84134ea8c464d4ad",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 75,
+     "scale": "t4",
+     "trail": "2_2",
+     "time_stop": null,
+     "choch": true
+    },
+    "active_sessions": 408,
+    "active_sessions_gt_0_01": 244,
+    "active_sessions_gt_0_5": 244,
+    "mean_gain": 281.96,
+    "t_studentised": 2.761,
+    "diff_vs_foundation": 96.83
+   },
+   "excluded_candidates": []
+  },
+  "repaired": {
+   "family": "every exit trial of the timeframe: 1572 rows (C variants + C nested pick + C in-sample best + learners B and A); comparators and CPCV paths excluded",
+   "vector_precision": "per-trade nets rounded to 2 dp before the session sums (the label's precision)",
+   "harness_sha": "0fe3d75a0bd6e78d",
+   "tag": "exit|all|5minute",
+   "candidates": 1572,
+   "sessions": 408,
+   "draws": 2000,
+   "min_active_sessions": 20,
+   "excluded_from_studentised": 2,
+   "best_unstudentised": 1025,
+   "best_mean_gain_unstudentised": 281.96,
+   "rc_p_unstudentised": 0.2565,
+   "spa_p_unstudentised": 0.1505,
+   "best": 1025,
+   "best_mean_gain": 281.96,
+   "best_t": 2.761,
+   "best_active_sessions": 244,
+   "rc_p": 0.198,
+   "spa_p": 0.1685,
+   "best_keys": {
+    "index": 1025,
+    "id": "84134ea8c464d4ad",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 75,
+     "scale": "t4",
+     "trail": "2_2",
+     "time_stop": null,
+     "choch": true
+    },
+    "active_sessions": 244,
+    "active_sessions_gt_0_01": 244,
+    "active_sessions_gt_0_5": 244,
+    "mean_gain": 281.96,
+    "t_studentised": 2.761,
+    "diff_vs_foundation": 96.83
+   },
+   "best_keys_unstudentised": {
+    "index": 1025,
+    "id": "84134ea8c464d4ad",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 75,
+     "scale": "t4",
+     "trail": "2_2",
+     "time_stop": null,
+     "choch": true
+    },
+    "active_sessions": 244,
+    "active_sessions_gt_0_01": 244,
+    "active_sessions_gt_0_5": 244,
+    "mean_gain": 281.96,
+    "t_studentised": 2.761,
+    "diff_vs_foundation": 96.83
+   },
+   "excluded_candidates": [
+    {
+     "index": 1177,
+     "id": "ea2c65c77b1f3eda",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": "foundation",
+      "scale": "none",
+      "trail": "none",
+      "time_stop": null,
+      "choch": true
+     },
+     "active_sessions": 1,
+     "active_sessions_gt_0_01": 1,
+     "active_sessions_gt_0_5": 1,
+     "mean_gain": -1.99,
+     "t_studentised": -1.0,
+     "diff_vs_foundation": -2.95
+    },
+    {
+     "index": 1183,
+     "id": "807549ccd89a4d42",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": "foundation",
+      "scale": "none",
+      "trail": "none",
+      "time_stop": 120,
+      "choch": true
+     },
+     "active_sessions": 1,
+     "active_sessions_gt_0_01": 1,
+     "active_sessions_gt_0_5": 1,
+     "mean_gain": -1.99,
+     "t_studentised": -1.0,
+     "diff_vs_foundation": -2.95
+    }
+   ]
+  },
+  "tolerance_check": {
+   "rule": "candidates with fewer than min_active sessions of |gain| > 0.01 INR removed from the list (both statistics)",
+   "tolerance_inr": 0.01,
+   "min_active_sessions": 20,
+   "excluded": 2,
+   "excluded_indices": [
+    1177,
+    1183
+   ],
+   "candidates": 1570,
+   "spa_p": 0.1685,
+   "rc_p": 0.198,
+   "best_index": 1025,
+   "best_mean_gain": 281.96,
+   "best_t": 2.761,
+   "spa_p_unstudentised": 0.1505,
+   "rc_p_unstudentised": 0.2565,
+   "best_index_unstudentised": 1025
+  },
+  "near_duplicates": [
+   {
+    "index": 1177,
+    "id": "ea2c65c77b1f3eda",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": true
+    },
+    "trades_differing_from_L1_gt_0_005": 1,
+    "trades": 826,
+    "max_abs_diff_on_agreeing_trades": 0.005,
+    "mean_diff_on_differing_trades": -2437.6,
+    "exit_bar_equals_L1_share": 0.9988,
+    "sessions_active_gt_1e_9": 408,
+    "sessions_active_gt_0_01": 1,
+    "sessions_active_gt_0_5": 1,
+    "sessions_active_after_2dp": 1,
+    "max_abs_gain_as_coded": 812.5344,
+    "mean_gain_as_coded": -1.9915,
+    "t_studentised_as_coded": -1.0,
+    "null_argmax_draws_as_coded": 754,
+    "null_draws": 2000,
+    "excluded_by_repaired_rule": true,
+    "excluded_by_tolerance_check": true
+   },
+   {
+    "index": 1183,
+    "id": "807549ccd89a4d42",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "none",
+     "time_stop": 120,
+     "choch": true
+    },
+    "trades_differing_from_L1_gt_0_005": 1,
+    "trades": 826,
+    "max_abs_diff_on_agreeing_trades": 0.005,
+    "mean_diff_on_differing_trades": -2437.6,
+    "exit_bar_equals_L1_share": 0.9988,
+    "sessions_active_gt_1e_9": 408,
+    "sessions_active_gt_0_01": 1,
+    "sessions_active_gt_0_5": 1,
+    "sessions_active_after_2dp": 1,
+    "max_abs_gain_as_coded": 812.5344,
+    "mean_gain_as_coded": -1.9915,
+    "t_studentised_as_coded": -1.0,
+    "null_argmax_draws_as_coded": 0,
+    "null_draws": 2000,
+    "excluded_by_repaired_rule": true,
+    "excluded_by_tolerance_check": true
+   }
+  ],
+  "vector_mapping_verified": true,
+  "null_argmax_top5_as_coded": [
+   {
+    "index": 1177,
+    "draws": 754,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": true
+    }
+   },
+   {
+    "index": 1225,
+    "draws": 138,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "4_2",
+     "time_stop": null,
+     "choch": true
+    }
+   },
+   {
+    "index": 1217,
+    "draws": 66,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "4_1",
+     "time_stop": null,
+     "choch": true
+    }
+   },
+   {
+    "index": 1180,
+    "draws": 52,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "none",
+     "time_stop": 60,
+     "choch": false
+    }
+   },
+   {
+    "index": 1176,
+    "draws": 50,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": false
+    }
+   }
+  ]
+ }
+}

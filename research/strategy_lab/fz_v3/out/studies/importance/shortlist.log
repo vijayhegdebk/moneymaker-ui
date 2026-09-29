@@ -15,3 +15,11 @@ FINDINGS.md and findings.json written; {'minute': 0, '5minute': 0} FFD not adopt
 minute: already registered; not rewriting /home/user/money-maker/research/strategy_lab/fz_v3/out/features_shortlist/minute/shortlist.json
 5minute: already registered; not rewriting /home/user/money-maker/research/strategy_lab/fz_v3/out/features_shortlist/5minute/shortlist.json
 FINDINGS.md and findings.json written; {'minute': 0, '5minute': 0} FFD not adopted (clustered MDA <= 1 std on minute, 5minute)
+=== repair round 2026-09-29T12:11:17+00:00 ===
+  File "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/shortlist.py", line 226
+    (', '.join(f'{f['n_te']} test rows, tau {f['tau']}, kept {f['kept_share']}' for f in fdef))
+                     ^^^^
+SyntaxError: f-string: f-string: unmatched '['
+minute: already registered; not rewriting /home/user/money-maker/research/strategy_lab/fz_v3/out/features_shortlist/minute/shortlist.json
+5minute: already registered; not rewriting /home/user/money-maker/research/strategy_lab/fz_v3/out/features_shortlist/5minute/shortlist.json
+FINDINGS.md and findings.json written; {'minute': 0, '5minute': 0} FFD not adopted (clustered MDA <= 1 std on minute, 5minute)

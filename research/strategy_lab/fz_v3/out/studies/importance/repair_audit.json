@@ -1,0 +1,544 @@
+{
+ "kind": "repair_audit",
+ "study": "importance",
+ "at": "2026-09-29T12:07:12",
+ "registration_at": "2026-09-29T11:31:33",
+ "issue1_ordering": {
+  "registration_at": "2026-09-29T11:31:33",
+  "ledger_rows_total_now": 1762,
+  "ledger_rows_before_registration": 1759,
+  "ledger_rows_after_registration": 3,
+  "gate_search_rows_before": 1600,
+  "gate_search_families_before": {
+   "exit_policy": {
+    "n": 3,
+    "first": "2026-09-29T04:29:19",
+    "last": "2026-09-29T11:30:47"
+   },
+   "h2": {
+    "n": 900,
+    "first": "2026-09-29T03:59:29",
+    "last": "2026-09-29T05:59:42"
+   },
+   "h3": {
+    "n": 312,
+    "first": "2026-09-29T04:01:59",
+    "last": "2026-09-29T05:53:23"
+   },
+   "h4": {
+    "n": 132,
+    "first": "2026-09-29T04:05:00",
+    "last": "2026-09-29T05:56:17"
+   },
+   "llm_hypotheses": {
+    "n": 36,
+    "first": "2026-09-29T05:09:27",
+    "last": "2026-09-29T05:13:15"
+   },
+   "rocket": {
+    "n": 144,
+    "first": "2026-09-29T07:00:02",
+    "last": "2026-09-29T07:12:37"
+   },
+   "session_stop": {
+    "n": 73,
+    "first": "2026-09-29T04:07:17",
+    "last": "2026-09-29T06:36:37"
+   }
+  },
+  "gate_search_subfamilies_before": {
+   "exit_policy/gate_x_exit": {
+    "n": 3,
+    "first": "2026-09-29T04:29:19",
+    "last": "2026-09-29T11:30:47"
+   },
+   "h2/both": {
+    "n": 720,
+    "first": "2026-09-29T04:00:03",
+    "last": "2026-09-29T05:44:02"
+   },
+   "h2/choch": {
+    "n": 24,
+    "first": "2026-09-29T03:59:29",
+    "last": "2026-09-29T05:05:22"
+   },
+   "h2/nested_cv": {
+    "n": 4,
+    "first": "2026-09-29T04:04:56",
+    "last": "2026-09-29T05:44:35"
+   },
+   "h2/nested_cv/cpcv": {
+    "n": 44,
+    "first": "2026-09-29T04:05:17",
+    "last": "2026-09-29T05:49:05"
+   },
+   "h2/nested_cv_minskip": {
+    "n": 4,
+    "first": "2026-09-29T05:29:27",
+    "last": "2026-09-29T05:55:47"
+   },
+   "h2/nested_cv_minskip/cpcv": {
+    "n": 44,
+    "first": "2026-09-29T05:33:11",
+    "last": "2026-09-29T05:59:42"
+   },
+   "h2/range": {
+    "n": 60,
+    "first": "2026-09-29T03:59:40",
+    "last": "2026-09-29T05:07:37"
+   },
+   "h3/gate": {
+    "n": 216,
+    "first": "2026-09-29T04:01:59",
+    "last": "2026-09-29T04:46:31"
+   },
+   "h3/nested_cv": {
+    "n": 4,
+    "first": "2026-09-29T04:03:07",
+    "last": "2026-09-29T04:46:49"
+   },
+   "h3/nested_cv/cpcv": {
+    "n": 44,
+    "first": "2026-09-29T04:03:13",
+    "last": "2026-09-29T04:50:20"
+   },
+   "h3/nested_cv_minskip": {
+    "n": 4,
+    "first": "2026-09-29T05:29:46",
+    "last": "2026-09-29T05:48:50"
+   },
+   "h3/nested_cv_minskip/cpcv": {
+    "n": 44,
+    "first": "2026-09-29T05:31:55",
+    "last": "2026-09-29T05:53:23"
+   },
+   "h4/nested_cv": {
+    "n": 4,
+    "first": "2026-09-29T04:05:15",
+    "last": "2026-09-29T04:24:47"
+   },
+   "h4/nested_cv/cpcv": {
+    "n": 44,
+    "first": "2026-09-29T04:05:18",
+    "last": "2026-09-29T04:30:33"
+   },
+   "h4/nested_cv_minskip": {
+    "n": 4,
+    "first": "2026-09-29T05:39:26",
+    "last": "2026-09-29T05:53:44"
+   },
+   "h4/nested_cv_minskip/cpcv": {
+    "n": 44,
+    "first": "2026-09-29T05:39:48",
+    "last": "2026-09-29T05:56:17"
+   },
+   "h4/touch_gate": {
+    "n": 36,
+    "first": "2026-09-29T04:05:00",
+    "last": "2026-09-29T04:24:15"
+   },
+   "llm_hypotheses/round0": {
+    "n": 36,
+    "first": "2026-09-29T05:09:27",
+    "last": "2026-09-29T05:13:15"
+   },
+   "rocket/pca16": {
+    "n": 3,
+    "first": "2026-09-29T07:03:12",
+    "last": "2026-09-29T07:05:27"
+   },
+   "rocket/pca16/cpcv": {
+    "n": 33,
+    "first": "2026-09-29T07:03:18",
+    "last": "2026-09-29T07:06:20"
+   },
+   "rocket/rocket": {
+    "n": 3,
+    "first": "2026-09-29T07:00:02",
+    "last": "2026-09-29T07:02:15"
+   },
+   "rocket/rocket/cpcv": {
+    "n": 33,
+    "first": "2026-09-29T07:00:08",
+    "last": "2026-09-29T07:03:06"
+   },
+   "rocket/stacked": {
+    "n": 3,
+    "first": "2026-09-29T07:09:35",
+    "last": "2026-09-29T07:11:47"
+   },
+   "rocket/stacked/cpcv": {
+    "n": 33,
+    "first": "2026-09-29T07:09:40",
+    "last": "2026-09-29T07:12:37"
+   },
+   "rocket/tabular": {
+    "n": 3,
+    "first": "2026-09-29T07:06:26",
+    "last": "2026-09-29T07:08:40"
+   },
+   "rocket/tabular/cpcv": {
+    "n": 33,
+    "first": "2026-09-29T07:06:32",
+    "last": "2026-09-29T07:09:29"
+   },
+   "session_stop/combined": {
+    "n": 1,
+    "first": "2026-09-29T04:13:41",
+    "last": "2026-09-29T04:13:41"
+   },
+   "session_stop/grid": {
+    "n": 48,
+    "first": "2026-09-29T04:07:17",
+    "last": "2026-09-29T06:35:08"
+   },
+   "session_stop/nested": {
+    "n": 2,
+    "first": "2026-09-29T04:11:47",
+    "last": "2026-09-29T06:35:16"
+   },
+   "session_stop/nested/cpcv": {
+    "n": 22,
+    "first": "2026-09-29T04:12:04",
+    "last": "2026-09-29T06:36:37"
+   }
+  },
+  "other_rows_before": {
+   "comparator": {
+    "OTHER": "the frozen ST7/ST8 comparator",
+    "n": 4,
+    "first": "2026-09-29T03:02:06",
+    "last": "2026-09-29T03:02:14"
+   },
+   "h1": {
+    "OTHER": "the H1 audit of the frozen gate's own components (not a new rule)",
+    "n": 44,
+    "first": "2026-09-29T03:37:01",
+    "last": "2026-09-29T03:42:09"
+   },
+   "importance": {
+    "OTHER": "this study's own OOF gates (ceilings)",
+    "n": 105,
+    "first": "2026-09-29T05:30:20",
+    "last": "2026-09-29T07:15:42"
+   },
+   "null_tapes_drift": {
+    "OTHER": "the real-tape reference rows of the null-tape study",
+    "n": 6,
+    "first": "2026-09-29T04:05:50",
+    "last": "2026-09-29T04:23:34"
+   }
+  },
+  "rows_after_registration": {
+   "exit_policy/gate_x_exit 5minute": {
+    "n": 3,
+    "first": "2026-09-29T11:32:02",
+    "last": "2026-09-29T11:32:05"
+   }
+  },
+  "first_gate_search_row": "2026-09-29T03:59:29 h2/choch",
+  "last_gate_search_row_before_registration": "2026-09-29T11:30:47 exit_policy/gate_x_exit",
+  "phase3_families": [
+   "gate_family",
+   "operating_point_sizing",
+   "llm_round1",
+   "regime_gate",
+   "online_learner"
+  ],
+  "phase3_rows_at_registration": 0,
+  "phase3_rows_now": 0,
+  "importance_rows": {
+   "importance/full_model": {
+    "n": 6,
+    "first": "2026-09-29T05:30:20",
+    "last": "2026-09-29T07:08:56"
+   },
+   "importance/full_model/cpcv": {
+    "n": 22,
+    "first": "2026-09-29T06:15:12",
+    "last": "2026-09-29T07:15:42"
+   },
+   "importance/sfi": {
+    "n": 77,
+    "first": "2026-09-29T05:37:48",
+    "last": "2026-09-29T07:06:30"
+   }
+  },
+  "shortlist_files": {
+   "minute": {
+    "file": "features_shortlist/minute/shortlist.json",
+    "sha256_registered": "66f6e004bd93e47c55ca219785a9a30f36d618cbbbd215cfcbad5a44412b5bdb",
+    "sha256_now": "66f6e004bd93e47c55ca219785a9a30f36d618cbbbd215cfcbad5a44412b5bdb",
+    "unchanged": true,
+    "n_clusters": 0,
+    "n_allowed_columns": 0
+   },
+   "5minute": {
+    "file": "features_shortlist/5minute/shortlist.json",
+    "sha256_registered": "4747257f41ecb40f1b3c27ea35cc50868d7c6b91f84f61ab7666911aef019dc9",
+    "sha256_now": "4747257f41ecb40f1b3c27ea35cc50868d7c6b91f84f61ab7666911aef019dc9",
+    "unchanged": true,
+    "n_clusters": 0,
+    "n_allowed_columns": 0
+   }
+  },
+  "precedent": "registrations.jsonl line 2: the 'correction' record of 2026-09-29T05:09:16 for the llm round 0 claim 'hashed before any labelled table ... existed'"
+ },
+ "issue2_mda_diff_defined": {
+  "minute": {
+   "n_folds": 12,
+   "folds_with_defined_oof_diff": 0,
+   "folds_defined": [],
+   "folds_kept_everything": 12,
+   "taus": [
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.31,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05
+   ],
+   "n_clusters": 38,
+   "clusters_with_mda_diff_mean": 0,
+   "clusters_with_mda_diff_std": 0,
+   "clusters_mda_diff_pass": 0,
+   "clusters_mda_ll_pass": 0,
+   "largest_single_fold_diff_mean": null
+  },
+  "5minute": {
+   "n_folds": 12,
+   "folds_with_defined_oof_diff": 1,
+   "folds_defined": [
+    {
+     "fold": 1,
+     "n_te": 83,
+     "tau": 0.37,
+     "oof_diff": 1366.55,
+     "kept_share": 0.9157
+    }
+   ],
+   "folds_kept_everything": 11,
+   "taus": [
+    0.05,
+    0.37,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.36,
+    0.05
+   ],
+   "n_clusters": 39,
+   "clusters_with_mda_diff_mean": 39,
+   "clusters_with_mda_diff_std": 0,
+   "clusters_mda_diff_pass": 0,
+   "clusters_mda_ll_pass": 0,
+   "largest_single_fold_diff_mean": {
+    "cluster": 17,
+    "value": 1713.1219999999998
+   }
+  }
+ },
+ "issue3_dry_runs": {
+  "logs": {
+   "dry_5minute_attempt1.nohup": {
+    "first": "04:52:33",
+    "last": "05:08:10",
+    "header": {
+     "tf": "5minute",
+     "stage": "all",
+     "trees": 20
+    },
+    "config_numbers": 42,
+    "config_numbers_defined": 24,
+    "fold_numbers": 36,
+    "fold_numbers_defined": 20,
+    "ended_normally": false
+   },
+   "dry_5minute.nohup": {
+    "first": "05:09:46",
+    "last": "05:12:47",
+    "header": {
+     "tf": "5minute",
+     "stage": "all",
+     "trees": 20
+    },
+    "config_numbers": 42,
+    "config_numbers_defined": 24,
+    "fold_numbers": 36,
+    "fold_numbers_defined": 20,
+    "ended_normally": true
+   },
+   "dry_stage_main.nohup": {
+    "first": "05:33:21",
+    "last": "05:37:34",
+    "header": {
+     "tf": "5minute",
+     "stage": "main",
+     "trees": 20
+    },
+    "config_numbers": 3,
+    "config_numbers_defined": 3,
+    "fold_numbers": 36,
+    "fold_numbers_defined": 20,
+    "ended_normally": true
+   },
+   "dry_stage_sfi.nohup": {
+    "first": "05:33:22",
+    "last": "05:38:02",
+    "header": {
+     "tf": "5minute",
+     "stage": "sfi",
+     "trees": 20
+    },
+    "config_numbers": 39,
+    "config_numbers_defined": 21,
+    "fold_numbers": 0,
+    "fold_numbers_defined": 0,
+    "ended_normally": true
+   }
+  },
+  "timeframe": "5minute",
+  "label": "L1 (real)",
+  "trees": 20,
+  "scorer": "harness.metrics(T, keep, IS rows, 'dry', controls=False) monkey-patched over harness.score: no ledger row",
+  "distinct_configurations": 42,
+  "distinct_by_kind": {
+   "full_model": 3,
+   "sfi": 39
+  },
+  "configuration_numbers_total": 126,
+  "configuration_numbers_defined": 72,
+  "distinct_configurations_with_a_defined_number": 24,
+  "fold_numbers_total": 108,
+  "fold_numbers_defined": 60,
+  "identical_across_logs": true,
+  "n_configs_not_identical": 0,
+  "ledger_rows_importance_5minute": 53,
+  "fix": "run_importance.py --dry now shuffles net / pts / net_slip within the IS rows (seed 0) before any fit; verification run: dry_repair_check_*.nohup, outputs dry_repair_check/"
+ },
+ "issue4_exact_zero": {
+  "minute": {
+   "n_clusters": 38,
+   "n_clusters_ll_zero": 18,
+   "n_clusters_ll_zero_by_identity": 18,
+   "n_clusters_ll_negative": 15,
+   "n_clusters_ll_positive": 5,
+   "text_claim_exactly_zero_from_table": 18,
+   "zero_counts_agree": true,
+   "period_rank_check": {
+    "periods": {
+     "2022": {
+      "n_rows": 1428,
+      "noise_constant_never_split": 8.95232e-10,
+      "noise_is_one_constant": true,
+      "min_abs_mda_of_split_clusters": 9.49231745495105e-07,
+      "n_clusters_rank_differs": 0,
+      "rank_as_run_matches_table": true
+     },
+     "2023": {
+      "n_rows": 1096,
+      "noise_constant_never_split": -1.449193e-09,
+      "noise_is_one_constant": true,
+      "min_abs_mda_of_split_clusters": 9.082424076645167e-06,
+      "n_clusters_rank_differs": 0,
+      "rank_as_run_matches_table": true
+     },
+     "2024": {
+      "n_rows": 840,
+      "noise_constant_never_split": 2.04981e-10,
+      "noise_is_one_constant": true,
+      "min_abs_mda_of_split_clusters": 8.829127073295418e-06,
+      "n_clusters_rank_differs": 0,
+      "rank_as_run_matches_table": true
+     },
+     "2025": {
+      "n_rows": 1088,
+      "noise_constant_never_split": 2.74364e-10,
+      "noise_is_one_constant": true,
+      "min_abs_mda_of_split_clusters": 4.128541137315977e-06,
+      "n_clusters_rank_differs": 0,
+      "rank_as_run_matches_table": true
+     }
+    },
+    "rank_as_run_matches_table": true,
+    "clusters_rank_changed": [],
+    "clusters_rank_changed_never_split": true,
+    "clusters_stab_changed": [],
+    "eligible_as_run": 0,
+    "eligible_consistent": 0,
+    "mda_ll_pass_any": false,
+    "stab_as_run_matches_table": true
+   },
+   "float32_precision_note": "p_perm is float32; the base p_oof is rounded to float32 before every comparison here (like-for-like); the main stage computed its table in float64 before storage"
+  },
+  "5minute": {
+   "n_clusters": 39,
+   "n_clusters_ll_zero": 14,
+   "n_clusters_ll_zero_by_identity": 14,
+   "n_clusters_ll_negative": 19,
+   "n_clusters_ll_positive": 6,
+   "text_claim_exactly_zero_from_table": 14,
+   "zero_counts_agree": true,
+   "period_rank_check": {
+    "periods": {
+     "H1_2021-10..2023-09": {
+      "n_rows": 412,
+      "noise_constant_never_split": 8.0355e-10,
+      "noise_is_one_constant": true,
+      "min_abs_mda_of_split_clusters": 2.5625138512896937e-06,
+      "n_clusters_rank_differs": 0,
+      "rank_as_run_matches_table": true
+     },
+     "H2_2023-10..2025-12": {
+      "n_rows": 414,
+      "noise_constant_never_split": 2.455224e-09,
+      "noise_is_one_constant": true,
+      "min_abs_mda_of_split_clusters": 1.2691795601771361e-05,
+      "n_clusters_rank_differs": 0,
+      "rank_as_run_matches_table": true
+     }
+    },
+    "rank_as_run_matches_table": true,
+    "clusters_rank_changed": [],
+    "clusters_rank_changed_never_split": true,
+    "clusters_stab_changed": [],
+    "eligible_as_run": 0,
+    "eligible_consistent": 0,
+    "mda_ll_pass_any": false,
+    "stab_as_run_matches_table": true
+   },
+   "float32_precision_note": "p_perm is float32; the base p_oof is rounded to float32 before every comparison here (like-for-like); the main stage computed its table in float64 before storage"
+  }
+ },
+ "corrections_appended": [
+  {
+   "tf": "minute",
+   "registered_at": "2026-09-29T12:07:12"
+  },
+  {
+   "tf": "5minute",
+   "registered_at": "2026-09-29T12:07:12"
+  }
+ ],
+ "corrections_present": [
+  {
+   "corrects": "pre_registration 'feature shortlist minute' registered 2026-09-29T11:31:33",
+   "registered_at": "2026-09-29T12:07:12"
+  },
+  {
+   "corrects": "pre_registration 'feature shortlist 5minute' registered 2026-09-29T11:31:33",
+   "registered_at": "2026-09-29T12:07:12"
+  }
+ ]
+}

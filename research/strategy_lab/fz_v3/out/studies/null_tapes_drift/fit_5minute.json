@@ -134,5 +134,7 @@
  "block_bars": 30,
  "one_year": false,
  "tapes_per_generator": 20,
- "sessions_per_tape": 1026
+ "sessions_per_tape": 1026,
+ "target_healthy": 20,
+ "refit_reproduces_first_build": true
 }

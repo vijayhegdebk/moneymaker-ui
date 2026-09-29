@@ -12,12 +12,16 @@ already in the harness ledger is reused by id, a new one is appended with note="
 REPAIR (2026-09-29, refuters' material issues): (1) the family holds near-duplicates of the benchmark (stop foundation / no target /
 no trail / CHoCH-against on, with and without a 120-bar time stop): the CHoCH-against cut is the engine's own next-CHoCH exit, so
 they reproduce the Foundation L1 exit on all but a few trades, and their selection gain was non-zero in every session only because the
-variant net is lab.price_trade's unrounded value while the label l1_net_inr is 2 dp (|gain| <= 0.0049) — harness.spa's 1e-9 activity
-rule excluded nothing. Fix (harness.py untouched): the family's vectors are rebuilt from the per-trade nets rounded to 2 dp, the
-label's own precision, so a duplicate has an exactly-zero gain wherever it agrees with the label and the min-active rule applies as
-designed; `spa_family` / `spa_all_trials` are the repaired blocks (the pass-rule items), `*_as_coded` the stored-vector ones, a
-material-tolerance check (|gain| > 0.01 INR) and the near-duplicate diagnostics (differing trades, active sessions per tolerance,
-argmax share of the null draws) are written beside them. (2) the top-1% item: both definitions are computed — the harness's
+variant net is lab.price_trade's unrounded value while the label l1_net_inr is 2 dp (|gain| <= 0.005 INR of rounding noise per
+session) — harness.spa's 1e-9 activity rule excluded nothing. Fix (harness.py untouched): the family's vectors are rebuilt from the
+per-trade nets rounded to 2 dp, the label's own precision, so a duplicate has an exactly-zero gain wherever it agrees with the label and
+the min-active rule applies as designed; `spa_family` / `spa_all_trials` are the repaired blocks (the pass-rule items), `*_as_coded` the
+stored-vector ones, a material-tolerance check (|gain| > 0.01 INR) and the near-duplicate diagnostics (differing trades, active sessions
+per tolerance, argmax share of the null draws) are written beside them. (2) each statistic appears once: the table's block-bootstrap CI
+and session sign-flip reuse the seed tag under which the statistic was first reported (02_c_select.py: bootstrap `exit|nested|<tf>` /
+`exit|best|<tf>`, sign-flip `<tf>|C_nested` / `<tf>|C_best_is` / `<tf>|ST9`; 03_b / 04_a: sign-flip `<tf>|B` / `<tf>|A`), so the section 6
+table and sections 3-5 / 9 carry the same Monte-Carlo estimate; a statistic no earlier stage reported (the oracles, the bootstrap CI of
+ST9 / A / B) keeps the eval tag (`boot_tag` / `flip_tag` columns). (3) the top-1% item: both definitions are computed — the harness's
 pre-registered `diff_top1_removed` analogue (top 1% winners by the policy's net removed: `diff_top1_winners_removed`, the pass-rule
 item) and the study's post-hoc `diff_top1_gains_removed` (top 1% of per-trade gains removed; negative-biased by construction) with its
 zero-mean reference (the same trim on the centred difference) and the trades' contribution to the mean gain.
@@ -50,6 +54,12 @@ for name, key in (("B hindsight imitation (OOF)", "b"), ("A FQI pessimistic ense
         z = np.load(p); policies[name] = (z["net"], z["exit_bar"], None); learners[key.upper()] = z["net"]; extra[key.upper()] = z
 policies["hindsight oracle, best close exit, no stop (upper bound)"] = (of_net, ctrl["oracle_free_bar"], None)
 policies["hindsight oracle on the Foundation-stop trajectory"] = (fl_net, ctrl["oracle_floor_bar"], None)
+# REPAIR (issue 2): the seed tags under which each policy's bootstrap CI / session sign-flip was first reported (02_c_select.py, 03_b_imitation.py,
+# 04_a_fqi.py) are reused here, so the statistic appears once in FINDINGS instead of as two Monte-Carlo estimates under two tags.
+OWN_TAGS = {"C nested-CV pick (OOF)": dict(boot=f"exit|nested|{tf}", flip=f"{tf}|C_nested"),
+            "C in-sample best (a trial)": dict(boot=f"exit|best|{tf}", flip=f"{tf}|C_best_is"),
+            "ST9 R-ladder (3 lots, stop 50, 1R/2R, trail 3R lag 1) per lot": dict(flip=f"{tf}|ST9"),
+            "B hindsight imitation (OOF)": dict(flip=f"{tf}|B"), "A FQI pessimistic ensemble (OOF)": dict(flip=f"{tf}|A")}
 
 rows = []
 for name, (net, xb, note) in policies.items():
@@ -58,8 +68,10 @@ for name, (net, xb, note) in policies.items():
              regret_vs_oracle_floor=round(float(fl_net.mean() - net.mean()), 2), win_rate=s["win_rate"], pf=s["pf"], mean_per_session=s["mean_per_session"], sign_blocks=s["sign_blocks"],
              bars_held_mean=round(float((xb - D.entry).mean()), 1), note=note)
     if np.abs(d).sum() > 0:
-        sb = X.sign_flip_blocks(d, D.block); ss = X.sign_flip_sessions(d, D.session, tag=f"{tf}|eval|{name}")
-        b = H.bootstrap_ci(X.session_vectors(D, net), tag=f"eval|{tf}|{name}")
+        own = OWN_TAGS.get(name, {}); flip_tag = own.get("flip", f"{tf}|eval|{name}"); boot_tag = own.get("boot", f"eval|{tf}|{name}")
+        sb = X.sign_flip_blocks(d, D.block); ss = X.sign_flip_sessions(d, D.session, tag=flip_tag)
+        b = H.bootstrap_ci(X.session_vectors(D, net), tag=boot_tag)
+        r.update(boot_tag=boot_tag, flip_tag=flip_tag)
         # two top-1% definitions (repair): the harness's pre-registered GO item removes the top 1% WINNERS by net (here: the trades whose
         # policy net is in its own top 1%) — `diff_top1_winners_removed`, the pass-rule item; the study's earlier `diff_top1_gains_removed`
         # removes the top 1% of the per-trade GAIN d itself, which is negative-biased by construction (removing the largest values of a

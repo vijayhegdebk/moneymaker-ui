@@ -1,0 +1,31 @@
+ program owner (not done here: `harness.py` is outside this study's scope): define activity in `harness.spa` on a material tolerance (e.g. |gain| > 0.01 INR, or count units with |kept - benchmark| > 0.005) or round the candidate nets to the label's precision before the vectors are built; as coded the 1e-9 rule is a no-op against a duplicate that differs from the benchmark only in rounding.
+
+### 11.2 The 'top 1% removed' pass item was a post-hoc, negative-biased variant of the harness's item
+
+**What was wrong.** The pass rule read 'diff with the top 1% of per-trade gains removed > 0' (`diff_top1_gains_removed`: the 1% of trades where the policy gained most over the Foundation exit are dropped, the paired difference averaged over the rest). This script's own docstring records that the pass rule was written after learner C's results had been read; and the metric is mechanically negative-biased: removing the largest 1% of a dispersed difference lowers its mean even when its true mean is zero (the zero-mean reference column below = the same trim applied to the centred difference). The harness's pre-registered item (`harness.GO` `diff_top1_removed`) removes the top 1% **winners by net**; its analogue here is `diff_top1_winners_removed` (trades whose policy net is in its own top 1% dropped).
+
+**Fix.** `05_evaluate.py` now writes both definitions, the zero-mean reference, the both-tails-trimmed mean and the top-1% trades' contribution; the pass-rule item is the harness definition (section 1, disclosure included) and `diff_top1_gains_removed` is reported beside it as disclosed, not decisive (sections 4, 5, 9).
+
+| tf | policy | diff vs Foundation | top 1% WINNERS removed (harness item) | top 1% GAINS removed (post-hoc) | zero-mean reference of that trim | both 1% tails trimmed | top-1% trades: n / mean gain / contribution per trade | mean gain of the other trades |
+|---|---|---|---|---|---|---|---|---|
+| minute | C_nested | 86.57 | **4.01** | -67.49 | -154.06 | 7.46 | 45 / 15174.4 / 153.38 | -67.49 |
+| minute | C_best_is | 104.84 | **22.83** | -51.21 | -156.05 | 19.22 | 45 / 15387.0 / 155.53 | -51.21 |
+| minute | B | 100.8 | **18.57** | -54.75 | -155.55 | 18.89 | 45 / 15334.49 / 155.0 | -54.75 |
+| minute | A | 37.56 | **-3.78** | -51.5 | -89.06 | 73.73 | 45 / 8759.51 / 88.54 | -51.5 |
+| minute | ST9 | -1.1 | **6.91** | -90.32 | -89.22 | 16.52 | 45 / 8736.28 / 88.3 | -90.32 |
+| 5minute | C_nested | -61.31 | **-76.62** | -204.16 | -142.85 | -115.4 | 9 / 12906.13 / 140.62 | -204.16 |
+| 5minute | C_best_is | 108.24 | **95.24** | -73.42 | -181.66 | 4.02 | 9 / 16598.67 / 180.86 | -73.42 |
+| 5minute | B | -20.26 | **-20.49** | -127.5 | -107.24 | -70.87 | 9 / 9714.39 / 105.85 | -127.5 |
+| 5minute | A | -145.34 | **-149.14** | -246.11 | -100.77 | -48.97 | 9 / 9002.3 / 98.09 | -246.11 |
+| 5minute | ST9 | -158.88 | **-121.55** | -279.47 | -120.59 | -117.21 | 9 / 10788.23 / 117.55 | -279.47 |
+
+**Consequence.** On 1 min the harness item passes for C_nested (4.01), B (18.57), C_best_is (22.83) and fails for A (-3.78), so the C nested pick now fails the pass rule on the SPA item alone (section 9: nested_diff>0: pass (86.57), cpcv_p5_diff>0: pass (54.17), random_pct>=95: pass (100.0), signflip_blocks_p1<=0.05: pass (0.0149), blocks_positive>=8/12: pass (10), boot_ci90_excludes_0: pass ([25.24, 151.11]), diff_top1_winners_removed>0 (harness GO definition): pass (4.01), pbo<=0.2: pass (0.0866), spa_p<=0.10 (repaired family): FAIL (0.322) [disclosed, not a pass item: diff_top1_gains_removed (post-hoc) -67.49; its zero-mean reference -154.06; both 1% tails trimmed 7.46]); learner B fails on SPA and on the CPCV item it cannot have; learner A on more. The qualitative statement stands and is now quantified: the C nested pick's +86.57 per trade is carried by its top 1% of gains — 45 trades with a mean gain of 15174.4 contribute 153.38 per trade, the other 4407 trades net -67.49 — which is what the post-hoc metric shows, against a zero-mean reference of -154.06 (what '> 0' demanded of it). On 5 min every learner fails both definitions. The verdict is unchanged on both timeframes.
+
+### 11.3 The FINDINGS.md / summary at review time were stale relative to the folder
+
+**What was wrong.** At review time the summary described learner A as 'RUNNING' (1 min) / 'fold 2 running' (5 min) and section 5 said the 1-min FQI was 'not run: the condition ... was not met', while `a_result_minute.json` (written 2026-09-29T07:08:38Z; OOF -972.05, diff 37.56, sign-flip blocks p1 0.2034, 7/12 blocks positive) and `a_result_5minute.json` (2026-09-29T06:24:40Z; OOF -902.39, diff -145.34) both existed: the condition was met and the run had finished. A concurrent follow-up agent corrected this during the review (section 10: FINDINGS.md / findings.json rewritten, `05_evaluate.py` / `06_findings.py` modified, 4 harness-ledger rows appended with note `followup`).
+
+**What the repair did.** Nothing about learner A was rerun; this document and `findings.json` are regenerated by `06_findings.py` from the files on disk (every number read from `a_result_*.json`, `b_result_*.json`, `c_select_*.json`, `eval_*.json`, the ledgers; none typed), so sections 5, 6, 8, 9 carry the measured learner A numbers on both timeframes, and the pass rule is applied to A and B like to C. The follow-up's 4 harness-ledger rows (`d8498e6c63bb83d2`, `c848ec6556660c33`, `9761a89581b47c91`, `244ab07b9f1c0f15`) are reused by id in the repair rerun (no duplicate written); the exit ledger holds 3174 rows, unchanged.
+
+**Verdict after the repair**: unchanged — minute: learner C nested pick no candidate, learner B no candidate, learner A no candidate; 5minute: learner C nested pick no candidate, learner B no candidate, learner A no candidate. No exit policy rescues the book on either timeframe; the null result stands. The one number a reader would have carried away wrongly — the 5-min family SPA p 0.4965 — is 0.185 with the benchmark duplicates excluded; the 1-min p is 0.322 (was 0.396).
+

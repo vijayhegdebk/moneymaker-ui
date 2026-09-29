@@ -279,6 +279,85 @@
    },
    "spa": {
     "family": "learner C grid, 1568 variants (the pre-registered family of 02_c_select.py)",
+    "vector_precision": "per-trade nets rounded to 2 dp before the session sums (the label's precision)",
+    "harness_sha": "0fe3d75a0bd6e78d",
+    "tag": "exit|minute",
+    "candidates": 1568,
+    "sessions": 578,
+    "draws": 2000,
+    "min_active_sessions": 28,
+    "excluded_from_studentised": 1,
+    "best_unstudentised": 392,
+    "best_mean_gain_unstudentised": 87.83,
+    "rc_p_unstudentised": 0.6845,
+    "spa_p_unstudentised": 0.5405,
+    "best": 785,
+    "best_mean_gain": 82.84,
+    "best_t": 1.683,
+    "best_active_sessions": 438,
+    "rc_p": 0.448,
+    "spa_p": 0.322,
+    "best_keys": {
+     "index": 785,
+     "id": "d8a15b106b41458f",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": 75,
+      "scale": "none",
+      "trail": "none",
+      "time_stop": null,
+      "choch": true
+     },
+     "active_sessions": 438,
+     "active_sessions_gt_0_01": 438,
+     "active_sessions_gt_0_5": 435,
+     "mean_gain": 82.84,
+     "t_studentised": 1.683,
+     "diff_vs_foundation": -13.27
+    },
+    "best_keys_unstudentised": {
+     "index": 392,
+     "id": "c6ed4681f81828d7",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": 50,
+      "scale": "none",
+      "trail": "none",
+      "time_stop": null,
+      "choch": false
+     },
+     "active_sessions": 517,
+     "active_sessions_gt_0_01": 517,
+     "active_sessions_gt_0_5": 516,
+     "mean_gain": 87.83,
+     "t_studentised": 1.019,
+     "diff_vs_foundation": 50.06
+    },
+    "excluded_candidates": [
+     {
+      "index": 1177,
+      "id": "0c142743f6d7b0bd",
+      "family": "exit_policy/C",
+      "keys": {
+       "stop": "foundation",
+       "scale": "none",
+       "trail": "none",
+       "time_stop": null,
+       "choch": true
+      },
+      "active_sessions": 7,
+      "active_sessions_gt_0_01": 7,
+      "active_sessions_gt_0_5": 7,
+      "mean_gain": -0.52,
+      "t_studentised": -1.917,
+      "diff_vs_foundation": -0.84
+     }
+    ]
+   },
+   "spa_source": "eval_minute.json spa_family: 05_evaluate.py with the current harness.spa on vectors at the label's 2-dp precision (REPAIR 2026-09-29; the follow-up's as-coded block is spa_as_coded)",
+   "spa_as_coded": {
+    "family": "learner C grid, 1568 variants (the pre-registered family of 02_c_select.py)",
+    "vector_precision": "as stored in vectors/*.npz (variant net unrounded, label 2 dp)",
     "harness_sha": "0fe3d75a0bd6e78d",
     "tag": "exit|minute",
     "candidates": 1568,
@@ -308,6 +387,8 @@
       "choch": true
      },
      "active_sessions": 578,
+     "active_sessions_gt_0_01": 438,
+     "active_sessions_gt_0_5": 435,
      "mean_gain": 82.84,
      "t_studentised": 1.683,
      "diff_vs_foundation": -13.27
@@ -324,15 +405,142 @@
       "choch": false
      },
      "active_sessions": 578,
+     "active_sessions_gt_0_01": 517,
+     "active_sessions_gt_0_5": 516,
      "mean_gain": 87.83,
      "t_studentised": 1.019,
      "diff_vs_foundation": 50.06
     },
     "excluded_candidates": []
    },
-   "spa_source": "eval_minute.json spa_family: 05_evaluate.py with the current harness.spa (follow-up 2026-09-29 16:45 IST)",
+   "spa_tolerance_check": {
+    "rule": "candidates with fewer than min_active sessions of |gain| > 0.01 INR removed from the list (both statistics)",
+    "tolerance_inr": 0.01,
+    "min_active_sessions": 28,
+    "excluded": 1,
+    "excluded_indices": [
+     1177
+    ],
+    "candidates": 1567,
+    "spa_p": 0.322,
+    "rc_p": 0.448,
+    "best_index": 785,
+    "best_mean_gain": 82.84,
+    "best_t": 1.683,
+    "spa_p_unstudentised": 0.5405,
+    "rc_p_unstudentised": 0.6845,
+    "best_index_unstudentised": 392
+   },
+   "near_duplicates": [
+    {
+     "index": 1177,
+     "id": "0c142743f6d7b0bd",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": "foundation",
+      "scale": "none",
+      "trail": "none",
+      "time_stop": null,
+      "choch": true
+     },
+     "trades_differing_from_L1_gt_0_005": 8,
+     "trades": 4452,
+     "max_abs_diff_on_agreeing_trades": 0.005,
+     "mean_diff_on_differing_trades": -465.13,
+     "exit_bar_equals_L1_share": 0.9982,
+     "sessions_active_gt_1e_9": 578,
+     "sessions_active_gt_0_01": 7,
+     "sessions_active_gt_0_5": 7,
+     "sessions_active_after_2dp": 7,
+     "max_abs_gain_as_coded": 85.5839,
+     "mean_gain_as_coded": -0.5169,
+     "t_studentised_as_coded": -1.916,
+     "null_argmax_draws_as_coded": 396,
+     "null_draws": 2000,
+     "excluded_by_repaired_rule": true,
+     "excluded_by_tolerance_check": true
+    }
+   ],
    "spa_all_trials": {
     "family": "every exit trial of the timeframe: 1572 rows (C variants + C nested pick + C in-sample best + learners B and A); comparators and CPCV paths excluded",
+    "vector_precision": "per-trade nets rounded to 2 dp before the session sums (the label's precision)",
+    "harness_sha": "0fe3d75a0bd6e78d",
+    "tag": "exit|all|minute",
+    "candidates": 1572,
+    "sessions": 578,
+    "draws": 2000,
+    "min_active_sessions": 28,
+    "excluded_from_studentised": 1,
+    "best_unstudentised": 392,
+    "best_mean_gain_unstudentised": 87.83,
+    "rc_p_unstudentised": 0.695,
+    "spa_p_unstudentised": 0.538,
+    "best": 785,
+    "best_mean_gain": 82.84,
+    "best_t": 1.683,
+    "best_active_sessions": 438,
+    "rc_p": 0.447,
+    "spa_p": 0.314,
+    "best_keys": {
+     "index": 785,
+     "id": "d8a15b106b41458f",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": 75,
+      "scale": "none",
+      "trail": "none",
+      "time_stop": null,
+      "choch": true
+     },
+     "active_sessions": 438,
+     "active_sessions_gt_0_01": 438,
+     "active_sessions_gt_0_5": 435,
+     "mean_gain": 82.84,
+     "t_studentised": 1.683,
+     "diff_vs_foundation": -13.27
+    },
+    "best_keys_unstudentised": {
+     "index": 392,
+     "id": "c6ed4681f81828d7",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": 50,
+      "scale": "none",
+      "trail": "none",
+      "time_stop": null,
+      "choch": false
+     },
+     "active_sessions": 517,
+     "active_sessions_gt_0_01": 517,
+     "active_sessions_gt_0_5": 516,
+     "mean_gain": 87.83,
+     "t_studentised": 1.019,
+     "diff_vs_foundation": 50.06
+    },
+    "excluded_candidates": [
+     {
+      "index": 1177,
+      "id": "0c142743f6d7b0bd",
+      "family": "exit_policy/C",
+      "keys": {
+       "stop": "foundation",
+       "scale": "none",
+       "trail": "none",
+       "time_stop": null,
+       "choch": true
+      },
+      "active_sessions": 7,
+      "active_sessions_gt_0_01": 7,
+      "active_sessions_gt_0_5": 7,
+      "mean_gain": -0.52,
+      "t_studentised": -1.917,
+      "diff_vs_foundation": -0.84
+     }
+    ]
+   },
+   "spa_all_trials_as_coded": {
+    "family": "every exit trial of the timeframe: 1572 rows (C variants + C nested pick + C in-sample best + learners B and A); comparators and CPCV paths excluded",
+    "vector_precision": "as stored in vectors/*.npz (variant net unrounded, label 2 dp)",
     "harness_sha": "0fe3d75a0bd6e78d",
     "tag": "exit|all|minute",
     "candidates": 1572,
@@ -362,6 +570,8 @@
       "choch": true
      },
      "active_sessions": 578,
+     "active_sessions_gt_0_01": 438,
+     "active_sessions_gt_0_5": 435,
      "mean_gain": 82.84,
      "t_studentised": 1.683,
      "diff_vs_foundation": -13.27
@@ -378,6 +588,8 @@
       "choch": false
      },
      "active_sessions": 578,
+     "active_sessions_gt_0_01": 517,
+     "active_sessions_gt_0_5": 516,
      "mean_gain": 87.83,
      "t_studentised": 1.019,
      "diff_vs_foundation": 50.06
@@ -634,25 +846,30 @@
        true,
        10
       ],
-      "boot_ci90_excludes_0": [
+      "boot_ci90_lower>0": [
        true,
        [
         32.95,
         167.98
        ]
       ],
-      "diff_top1_gains_removed>0": [
-       false,
-       -54.75
+      "diff_top1_winners_removed>0 (harness GO definition)": [
+       true,
+       18.57
       ],
       "pbo<=0.2": [
        true,
        0.0866
       ],
-      "spa_p<=0.10": [
+      "spa_p<=0.10 (repaired family, all exit trials)": [
        false,
-       0.3965
+       0.314
       ]
+     },
+     "disclosed_not_pass_items": {
+      "diff_top1_gains_removed (post-hoc)": -54.75,
+      "its zero-mean reference": -155.55,
+      "both 1% tails trimmed": 18.89
      }
     }
    },
@@ -759,25 +976,30 @@
        false,
        7
       ],
-      "boot_ci90_excludes_0": [
+      "boot_ci90_lower>0": [
        false,
        [
         -26.69,
         99.52
        ]
       ],
-      "diff_top1_gains_removed>0": [
+      "diff_top1_winners_removed>0 (harness GO definition)": [
        false,
-       -51.5
+       -3.78
       ],
       "pbo<=0.2": [
        true,
        0.0866
       ],
-      "spa_p<=0.10": [
+      "spa_p<=0.10 (repaired family, all exit trials)": [
        false,
-       0.3965
+       0.314
       ]
+     },
+     "disclosed_not_pass_items": {
+      "diff_top1_gains_removed (post-hoc)": -51.5,
+      "its zero-mean reference": -89.06,
+      "both 1% tails trimmed": 73.73
      }
     }
    },
@@ -811,18 +1033,26 @@
      "sign_blocks": 8,
      "bars_held_mean": 114.6,
      "note": "tuned on 2026 = OOS; per position x3",
+     "boot_tag": "eval|minute|ST9 R-ladder (3 lots, stop 50, 1R/2R, trail 3R lag 1) per lot",
+     "flip_tag": "minute|ST9",
      "signflip_blocks_p1": 0.3286,
      "signflip_blocks_p2": 0.6572,
      "blocks_positive": 8,
-     "signflip_sessions_p1": 0.5015,
-     "signflip_sessions_p2": 0.978,
+     "signflip_sessions_p1": 0.489,
+     "signflip_sessions_p2": 0.979,
      "boot_diff_ci90": [
       -66.95,
       63.6
      ],
      "boot_diff_p_le0": 0.517,
-     "diff_top1_gains_removed": -90.32,
      "diff_top1_winners_removed": 6.91,
+     "diff_top1_gains_removed": -90.32,
+     "diff_top1_gains_removed_zero_mean_ref": -89.22,
+     "top1_gains_n": 45,
+     "top1_gains_mean": 8736.28,
+     "top1_gains_contribution_per_trade": 88.3,
+     "rest_mean_gain": -90.32,
+     "diff_both_1pct_tails_trimmed": 16.52,
      "mean_slip8": -1400.71
     },
     {
@@ -839,18 +1069,26 @@
      "sign_blocks": 10,
      "bars_held_mean": 71.4,
      "note": "picks: {\"stop\": \"foundation\", \"scale\": \"none\", \"trail\": \"2_2\", \"time_stop\": null, \"choch\": false}; {\"stop\": \"foundation\", \"scale\": \"none\", \"trail\": \"none\", \"time_stop\": null, \"choch\": false}",
+     "boot_tag": "exit|nested|minute",
+     "flip_tag": "minute|C_nested",
      "signflip_blocks_p1": 0.0149,
      "signflip_blocks_p2": 0.0298,
      "blocks_positive": 10,
-     "signflip_sessions_p1": 0.039,
-     "signflip_sessions_p2": 0.0815,
+     "signflip_sessions_p1": 0.0415,
+     "signflip_sessions_p2": 0.082,
      "boot_diff_ci90": [
-      22.1,
-      151.74
+      25.24,
+      151.11
      ],
-     "boot_diff_p_le0": 0.009,
-     "diff_top1_gains_removed": -67.49,
+     "boot_diff_p_le0": 0.0105,
      "diff_top1_winners_removed": 4.01,
+     "diff_top1_gains_removed": -67.49,
+     "diff_top1_gains_removed_zero_mean_ref": -154.06,
+     "top1_gains_n": 45,
+     "top1_gains_mean": 15174.4,
+     "top1_gains_contribution_per_trade": 153.38,
+     "rest_mean_gain": -67.49,
+     "diff_both_1pct_tails_trimmed": 7.46,
      "mean_slip8": -1313.04
     },
     {
@@ -867,18 +1105,26 @@
      "sign_blocks": 10,
      "bars_held_mean": 74.6,
      "note": "{\"stop\": \"foundation\", \"scale\": \"none\", \"trail\": \"none\", \"time_stop\": null, \"choch\": false}",
+     "boot_tag": "exit|best|minute",
+     "flip_tag": "minute|C_best_is",
      "signflip_blocks_p1": 0.0125,
      "signflip_blocks_p2": 0.0249,
      "blocks_positive": 10,
-     "signflip_sessions_p1": 0.0195,
-     "signflip_sessions_p2": 0.038,
+     "signflip_sessions_p1": 0.018,
+     "signflip_sessions_p2": 0.041,
      "boot_diff_ci90": [
-      36.72,
-      172.77
+      39.26,
+      173.51
      ],
      "boot_diff_p_le0": 0.0055,
-     "diff_top1_gains_removed": -51.21,
      "diff_top1_winners_removed": 22.83,
+     "diff_top1_gains_removed": -51.21,
+     "diff_top1_gains_removed_zero_mean_ref": -156.05,
+     "top1_gains_n": 45,
+     "top1_gains_mean": 15387.0,
+     "top1_gains_contribution_per_trade": 155.53,
+     "rest_mean_gain": -51.21,
+     "diff_both_1pct_tails_trimmed": 19.22,
      "mean_slip8": -1294.77
     },
     {
@@ -895,18 +1141,26 @@
      "sign_blocks": 10,
      "bars_held_mean": 72.4,
      "note": null,
+     "boot_tag": "eval|minute|B hindsight imitation (OOF)",
+     "flip_tag": "minute|B",
      "signflip_blocks_p1": 0.0129,
      "signflip_blocks_p2": 0.0259,
      "blocks_positive": 10,
-     "signflip_sessions_p1": 0.018,
-     "signflip_sessions_p2": 0.0395,
+     "signflip_sessions_p1": 0.027,
+     "signflip_sessions_p2": 0.0455,
      "boot_diff_ci90": [
       32.95,
       167.98
      ],
      "boot_diff_p_le0": 0.0065,
-     "diff_top1_gains_removed": -54.75,
      "diff_top1_winners_removed": 18.57,
+     "diff_top1_gains_removed": -54.75,
+     "diff_top1_gains_removed_zero_mean_ref": -155.55,
+     "top1_gains_n": 45,
+     "top1_gains_mean": 15334.49,
+     "top1_gains_contribution_per_trade": 155.0,
+     "rest_mean_gain": -54.75,
+     "diff_both_1pct_tails_trimmed": 18.89,
      "mean_slip8": -1298.8
     },
     {
@@ -923,18 +1177,26 @@
      "sign_blocks": 7,
      "bars_held_mean": 49.2,
      "note": null,
+     "boot_tag": "eval|minute|A FQI pessimistic ensemble (OOF)",
+     "flip_tag": "minute|A",
      "signflip_blocks_p1": 0.2034,
      "signflip_blocks_p2": 0.4067,
      "blocks_positive": 7,
-     "signflip_sessions_p1": 0.1715,
-     "signflip_sessions_p2": 0.356,
+     "signflip_sessions_p1": 0.169,
+     "signflip_sessions_p2": 0.3365,
      "boot_diff_ci90": [
       -26.69,
       99.52
      ],
      "boot_diff_p_le0": 0.15,
-     "diff_top1_gains_removed": -51.5,
      "diff_top1_winners_removed": -3.78,
+     "diff_top1_gains_removed": -51.5,
+     "diff_top1_gains_removed_zero_mean_ref": -89.06,
+     "top1_gains_n": 45,
+     "top1_gains_mean": 8759.51,
+     "top1_gains_contribution_per_trade": 88.54,
+     "rest_mean_gain": -51.5,
+     "diff_both_1pct_tails_trimmed": 73.73,
      "mean_slip8": -1362.05
     },
     {
@@ -951,6 +1213,8 @@
      "sign_blocks": 12,
      "bars_held_mean": 87.6,
      "note": null,
+     "boot_tag": "eval|minute|hindsight oracle, best close exit, no stop (upper bound)",
+     "flip_tag": "minute|eval|hindsight oracle, best close exit, no stop (upper bound)",
      "signflip_blocks_p1": 0.0002,
      "signflip_blocks_p2": 0.0005,
      "blocks_positive": 12,
@@ -961,8 +1225,14 @@
       3881.03
      ],
      "boot_diff_p_le0": 0.0,
-     "diff_top1_gains_removed": 3351.64,
      "diff_top1_winners_removed": 3407.89,
+     "diff_top1_gains_removed": 3351.64,
+     "diff_top1_gains_removed_zero_mean_ref": -217.97,
+     "top1_gains_n": 45,
+     "top1_gains_mean": 24916.05,
+     "top1_gains_contribution_per_trade": 251.85,
+     "rest_mean_gain": 3351.64,
+     "diff_both_1pct_tails_trimmed": 3386.41,
      "mean_slip8": 2170.0
     },
     {
@@ -979,6 +1249,8 @@
      "sign_blocks": 12,
      "bars_held_mean": 44.2,
      "note": null,
+     "boot_tag": "eval|minute|hindsight oracle on the Foundation-stop trajectory",
+     "flip_tag": "minute|eval|hindsight oracle on the Foundation-stop trajectory",
      "signflip_blocks_p1": 0.0002,
      "signflip_blocks_p2": 0.0005,
      "blocks_positive": 12,
@@ -989,8 +1261,14 @@
       2544.05
      ],
      "boot_diff_p_le0": 0.0,
-     "diff_top1_gains_removed": 2191.29,
      "diff_top1_winners_removed": 2253.44,
+     "diff_top1_gains_removed": 2191.29,
+     "diff_top1_gains_removed_zero_mean_ref": -176.27,
+     "top1_gains_n": 45,
+     "top1_gains_mean": 19630.18,
+     "top1_gains_contribution_per_trade": 198.42,
+     "rest_mean_gain": 2191.29,
+     "diff_both_1pct_tails_trimmed": 2213.89,
      "mean_slip8": 967.95
     },
     {
@@ -1181,7 +1459,7 @@
     },
     "A": {
      "harness_id": "d8498e6c63bb83d2",
-     "ledger_row": "new row, note=followup",
+     "ledger_row": "existing row reused (scored 2026-09-29T11:30:47)",
      "kept_n": 745,
      "kept_mean": -1077.61,
      "skipped_mean": -950.83,
@@ -1258,25 +1536,30 @@
       true,
       10
      ],
-     "boot_ci90_excludes_0": [
+     "boot_ci90_lower>0": [
       true,
       [
        25.24,
        151.11
       ]
      ],
-     "diff_top1_gains_removed>0": [
-      false,
-      -67.49
+     "diff_top1_winners_removed>0 (harness GO definition)": [
+      true,
+      4.01
      ],
      "pbo<=0.2": [
       true,
       0.0866
      ],
-     "spa_p<=0.10": [
+     "spa_p<=0.10 (repaired family)": [
       false,
-      0.396
+      0.322
      ]
+    },
+    "disclosed_not_pass_items": {
+     "diff_top1_gains_removed (post-hoc)": -67.49,
+     "its zero-mean reference": -154.06,
+     "both 1% tails trimmed": 7.46
     }
    },
    "ledger_rows": {
@@ -1617,6 +1900,103 @@
    },
    "spa": {
     "family": "learner C grid, 1568 variants (the pre-registered family of 02_c_select.py)",
+    "vector_precision": "per-trade nets rounded to 2 dp before the session sums (the label's precision)",
+    "harness_sha": "0fe3d75a0bd6e78d",
+    "tag": "exit|5minute",
+    "candidates": 1568,
+    "sessions": 408,
+    "draws": 2000,
+    "min_active_sessions": 20,
+    "excluded_from_studentised": 2,
+    "best_unstudentised": 1025,
+    "best_mean_gain_unstudentised": 281.96,
+    "rc_p_unstudentised": 0.2465,
+    "spa_p_unstudentised": 0.1505,
+    "best": 1025,
+    "best_mean_gain": 281.96,
+    "best_t": 2.761,
+    "best_active_sessions": 244,
+    "rc_p": 0.21,
+    "spa_p": 0.185,
+    "best_keys": {
+     "index": 1025,
+     "id": "84134ea8c464d4ad",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": 75,
+      "scale": "t4",
+      "trail": "2_2",
+      "time_stop": null,
+      "choch": true
+     },
+     "active_sessions": 244,
+     "active_sessions_gt_0_01": 244,
+     "active_sessions_gt_0_5": 244,
+     "mean_gain": 281.96,
+     "t_studentised": 2.761,
+     "diff_vs_foundation": 96.83
+    },
+    "best_keys_unstudentised": {
+     "index": 1025,
+     "id": "84134ea8c464d4ad",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": 75,
+      "scale": "t4",
+      "trail": "2_2",
+      "time_stop": null,
+      "choch": true
+     },
+     "active_sessions": 244,
+     "active_sessions_gt_0_01": 244,
+     "active_sessions_gt_0_5": 244,
+     "mean_gain": 281.96,
+     "t_studentised": 2.761,
+     "diff_vs_foundation": 96.83
+    },
+    "excluded_candidates": [
+     {
+      "index": 1177,
+      "id": "ea2c65c77b1f3eda",
+      "family": "exit_policy/C",
+      "keys": {
+       "stop": "foundation",
+       "scale": "none",
+       "trail": "none",
+       "time_stop": null,
+       "choch": true
+      },
+      "active_sessions": 1,
+      "active_sessions_gt_0_01": 1,
+      "active_sessions_gt_0_5": 1,
+      "mean_gain": -1.99,
+      "t_studentised": -1.0,
+      "diff_vs_foundation": -2.95
+     },
+     {
+      "index": 1183,
+      "id": "807549ccd89a4d42",
+      "family": "exit_policy/C",
+      "keys": {
+       "stop": "foundation",
+       "scale": "none",
+       "trail": "none",
+       "time_stop": 120,
+       "choch": true
+      },
+      "active_sessions": 1,
+      "active_sessions_gt_0_01": 1,
+      "active_sessions_gt_0_5": 1,
+      "mean_gain": -1.99,
+      "t_studentised": -1.0,
+      "diff_vs_foundation": -2.95
+     }
+    ]
+   },
+   "spa_source": "eval_5minute.json spa_family: 05_evaluate.py with the current harness.spa on vectors at the label's 2-dp precision (REPAIR 2026-09-29; the follow-up's as-coded block is spa_as_coded)",
+   "spa_as_coded": {
+    "family": "learner C grid, 1568 variants (the pre-registered family of 02_c_select.py)",
+    "vector_precision": "as stored in vectors/*.npz (variant net unrounded, label 2 dp)",
     "harness_sha": "0fe3d75a0bd6e78d",
     "tag": "exit|5minute",
     "candidates": 1568,
@@ -1646,6 +2026,8 @@
       "choch": true
      },
      "active_sessions": 408,
+     "active_sessions_gt_0_01": 244,
+     "active_sessions_gt_0_5": 244,
      "mean_gain": 281.96,
      "t_studentised": 2.761,
      "diff_vs_foundation": 96.83
@@ -1662,15 +2044,189 @@
       "choch": true
      },
      "active_sessions": 408,
+     "active_sessions_gt_0_01": 244,
+     "active_sessions_gt_0_5": 244,
      "mean_gain": 281.96,
      "t_studentised": 2.761,
      "diff_vs_foundation": 96.83
     },
     "excluded_candidates": []
    },
-   "spa_source": "eval_5minute.json spa_family: 05_evaluate.py with the current harness.spa (follow-up 2026-09-29 16:45 IST)",
+   "spa_tolerance_check": {
+    "rule": "candidates with fewer than min_active sessions of |gain| > 0.01 INR removed from the list (both statistics)",
+    "tolerance_inr": 0.01,
+    "min_active_sessions": 20,
+    "excluded": 2,
+    "excluded_indices": [
+     1177,
+     1183
+    ],
+    "candidates": 1566,
+    "spa_p": 0.185,
+    "rc_p": 0.21,
+    "best_index": 1025,
+    "best_mean_gain": 281.96,
+    "best_t": 2.761,
+    "spa_p_unstudentised": 0.1505,
+    "rc_p_unstudentised": 0.2465,
+    "best_index_unstudentised": 1025
+   },
+   "near_duplicates": [
+    {
+     "index": 1177,
+     "id": "ea2c65c77b1f3eda",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": "foundation",
+      "scale": "none",
+      "trail": "none",
+      "time_stop": null,
+      "choch": true
+     },
+     "trades_differing_from_L1_gt_0_005": 1,
+     "trades": 826,
+     "max_abs_diff_on_agreeing_trades": 0.005,
+     "mean_diff_on_differing_trades": -2437.6,
+     "exit_bar_equals_L1_share": 0.9988,
+     "sessions_active_gt_1e_9": 408,
+     "sessions_active_gt_0_01": 1,
+     "sessions_active_gt_0_5": 1,
+     "sessions_active_after_2dp": 1,
+     "max_abs_gain_as_coded": 812.5344,
+     "mean_gain_as_coded": -1.9915,
+     "t_studentised_as_coded": -1.0,
+     "null_argmax_draws_as_coded": 758,
+     "null_draws": 2000,
+     "excluded_by_repaired_rule": true,
+     "excluded_by_tolerance_check": true
+    },
+    {
+     "index": 1183,
+     "id": "807549ccd89a4d42",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": "foundation",
+      "scale": "none",
+      "trail": "none",
+      "time_stop": 120,
+      "choch": true
+     },
+     "trades_differing_from_L1_gt_0_005": 1,
+     "trades": 826,
+     "max_abs_diff_on_agreeing_trades": 0.005,
+     "mean_diff_on_differing_trades": -2437.6,
+     "exit_bar_equals_L1_share": 0.9988,
+     "sessions_active_gt_1e_9": 408,
+     "sessions_active_gt_0_01": 1,
+     "sessions_active_gt_0_5": 1,
+     "sessions_active_after_2dp": 1,
+     "max_abs_gain_as_coded": 812.5344,
+     "mean_gain_as_coded": -1.9915,
+     "t_studentised_as_coded": -1.0,
+     "null_argmax_draws_as_coded": 0,
+     "null_draws": 2000,
+     "excluded_by_repaired_rule": true,
+     "excluded_by_tolerance_check": true
+    }
+   ],
    "spa_all_trials": {
     "family": "every exit trial of the timeframe: 1572 rows (C variants + C nested pick + C in-sample best + learners B and A); comparators and CPCV paths excluded",
+    "vector_precision": "per-trade nets rounded to 2 dp before the session sums (the label's precision)",
+    "harness_sha": "0fe3d75a0bd6e78d",
+    "tag": "exit|all|5minute",
+    "candidates": 1572,
+    "sessions": 408,
+    "draws": 2000,
+    "min_active_sessions": 20,
+    "excluded_from_studentised": 2,
+    "best_unstudentised": 1025,
+    "best_mean_gain_unstudentised": 281.96,
+    "rc_p_unstudentised": 0.2565,
+    "spa_p_unstudentised": 0.1505,
+    "best": 1025,
+    "best_mean_gain": 281.96,
+    "best_t": 2.761,
+    "best_active_sessions": 244,
+    "rc_p": 0.198,
+    "spa_p": 0.1685,
+    "best_keys": {
+     "index": 1025,
+     "id": "84134ea8c464d4ad",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": 75,
+      "scale": "t4",
+      "trail": "2_2",
+      "time_stop": null,
+      "choch": true
+     },
+     "active_sessions": 244,
+     "active_sessions_gt_0_01": 244,
+     "active_sessions_gt_0_5": 244,
+     "mean_gain": 281.96,
+     "t_studentised": 2.761,
+     "diff_vs_foundation": 96.83
+    },
+    "best_keys_unstudentised": {
+     "index": 1025,
+     "id": "84134ea8c464d4ad",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": 75,
+      "scale": "t4",
+      "trail": "2_2",
+      "time_stop": null,
+      "choch": true
+     },
+     "active_sessions": 244,
+     "active_sessions_gt_0_01": 244,
+     "active_sessions_gt_0_5": 244,
+     "mean_gain": 281.96,
+     "t_studentised": 2.761,
+     "diff_vs_foundation": 96.83
+    },
+    "excluded_candidates": [
+     {
+      "index": 1177,
+      "id": "ea2c65c77b1f3eda",
+      "family": "exit_policy/C",
+      "keys": {
+       "stop": "foundation",
+       "scale": "none",
+       "trail": "none",
+       "time_stop": null,
+       "choch": true
+      },
+      "active_sessions": 1,
+      "active_sessions_gt_0_01": 1,
+      "active_sessions_gt_0_5": 1,
+      "mean_gain": -1.99,
+      "t_studentised": -1.0,
+      "diff_vs_foundation": -2.95
+     },
+     {
+      "index": 1183,
+      "id": "807549ccd89a4d42",
+      "family": "exit_policy/C",
+      "keys": {
+       "stop": "foundation",
+       "scale": "none",
+       "trail": "none",
+       "time_stop": 120,
+       "choch": true
+      },
+      "active_sessions": 1,
+      "active_sessions_gt_0_01": 1,
+      "active_sessions_gt_0_5": 1,
+      "mean_gain": -1.99,
+      "t_studentised": -1.0,
+      "diff_vs_foundation": -2.95
+     }
+    ]
+   },
+   "spa_all_trials_as_coded": {
+    "family": "every exit trial of the timeframe: 1572 rows (C variants + C nested pick + C in-sample best + learners B and A); comparators and CPCV paths excluded",
+    "vector_precision": "as stored in vectors/*.npz (variant net unrounded, label 2 dp)",
     "harness_sha": "0fe3d75a0bd6e78d",
     "tag": "exit|all|5minute",
     "candidates": 1572,
@@ -1700,6 +2256,8 @@
       "choch": true
      },
      "active_sessions": 408,
+     "active_sessions_gt_0_01": 244,
+     "active_sessions_gt_0_5": 244,
      "mean_gain": 281.96,
      "t_studentised": 2.761,
      "diff_vs_foundation": 96.83
@@ -1716,6 +2274,8 @@
       "choch": true
      },
      "active_sessions": 408,
+     "active_sessions_gt_0_01": 244,
+     "active_sessions_gt_0_5": 244,
      "mean_gain": 281.96,
      "t_studentised": 2.761,
      "diff_vs_foundation": 96.83
@@ -1974,25 +2534,30 @@
        false,
        4
       ],
-      "boot_ci90_excludes_0": [
+      "boot_ci90_lower>0": [
        false,
        [
         -100.38,
         59.33
        ]
       ],
-      "diff_top1_gains_removed>0": [
+      "diff_top1_winners_removed>0 (harness GO definition)": [
        false,
-       -127.5
+       -20.49
       ],
       "pbo<=0.2": [
        true,
        0.1426
       ],
-      "spa_p<=0.10": [
+      "spa_p<=0.10 (repaired family, all exit trials)": [
        false,
-       0.4825
+       0.1685
       ]
+     },
+     "disclosed_not_pass_items": {
+      "diff_top1_gains_removed (post-hoc)": -127.5,
+      "its zero-mean reference": -107.24,
+      "both 1% tails trimmed": -70.87
      }
     }
    },
@@ -2100,25 +2665,30 @@
        false,
        4
       ],
-      "boot_ci90_excludes_0": [
+      "boot_ci90_lower>0": [
        false,
        [
         -301.88,
         -1.01
        ]
       ],
-      "diff_top1_gains_removed>0": [
+      "diff_top1_winners_removed>0 (harness GO definition)": [
        false,
-       -246.11
+       -149.14
       ],
       "pbo<=0.2": [
        true,
        0.1426
       ],
-      "spa_p<=0.10": [
+      "spa_p<=0.10 (repaired family, all exit trials)": [
        false,
-       0.4825
+       0.1685
       ]
+     },
+     "disclosed_not_pass_items": {
+      "diff_top1_gains_removed (post-hoc)": -246.11,
+      "its zero-mean reference": -100.77,
+      "both 1% tails trimmed": -48.97
      }
     }
    },
@@ -2152,18 +2722,26 @@
      "sign_blocks": 1,
      "bars_held_mean": 23.6,
      "note": "tuned on 2026 = OOS; per position x3",
+     "boot_tag": "eval|5minute|ST9 R-ladder (3 lots, stop 50, 1R/2R, trail 3R lag 1) per lot",
+     "flip_tag": "5minute|ST9",
      "signflip_blocks_p1": 0.9951,
      "signflip_blocks_p2": 0.0103,
      "blocks_positive": 1,
-     "signflip_sessions_p1": 0.9355,
-     "signflip_sessions_p2": 0.1265,
+     "signflip_sessions_p1": 0.915,
+     "signflip_sessions_p2": 0.1585,
      "boot_diff_ci90": [
       -348.04,
       26.56
      ],
      "boot_diff_p_le0": 0.9135,
-     "diff_top1_gains_removed": -279.47,
      "diff_top1_winners_removed": -121.55,
+     "diff_top1_gains_removed": -279.47,
+     "diff_top1_gains_removed_zero_mean_ref": -120.59,
+     "top1_gains_n": 9,
+     "top1_gains_mean": 10788.23,
+     "top1_gains_contribution_per_trade": 117.55,
+     "rest_mean_gain": -279.47,
+     "diff_both_1pct_tails_trimmed": -117.21,
      "mean_slip8": -1305.93
     },
     {
@@ -2180,18 +2758,26 @@
      "sign_blocks": 5,
      "bars_held_mean": 26.3,
      "note": "picks: {\"stop\": 75, \"scale\": \"t4\", \"trail\": \"2_1\", \"time_stop\": null, \"choch\": true}; {\"stop\": 75, \"scale\": \"t4\", \"trail\": \"2_2\", \"time_stop\": null, \"choch\": false}; {\"stop\": 75, \"scale\": \"t4\", \"trail\": \"2_2\", \"time_stop\": null, \"choch\": true}",
+     "boot_tag": "exit|nested|5minute",
+     "flip_tag": "5minute|C_nested",
      "signflip_blocks_p1": 0.7454,
      "signflip_blocks_p2": 0.5098,
      "blocks_positive": 5,
-     "signflip_sessions_p1": 0.742,
-     "signflip_sessions_p2": 0.4875,
+     "signflip_sessions_p1": 0.7725,
+     "signflip_sessions_p2": 0.473,
      "boot_diff_ci90": [
-      -182.33,
-      65.72
+      -182.92,
+      53.4
      ],
-     "boot_diff_p_le0": 0.7855,
-     "diff_top1_gains_removed": -204.16,
+     "boot_diff_p_le0": 0.798,
      "diff_top1_winners_removed": -76.62,
+     "diff_top1_gains_removed": -204.16,
+     "diff_top1_gains_removed_zero_mean_ref": -142.85,
+     "top1_gains_n": 9,
+     "top1_gains_mean": 12906.13,
+     "top1_gains_contribution_per_trade": 140.62,
+     "rest_mean_gain": -204.16,
+     "diff_both_1pct_tails_trimmed": -115.4,
      "mean_slip8": -1208.36
     },
     {
@@ -2208,18 +2794,26 @@
      "sign_blocks": 7,
      "bars_held_mean": 29.3,
      "note": "{\"stop\": 75, \"scale\": \"t4\", \"trail\": \"2_2\", \"time_stop\": null, \"choch\": false}",
+     "boot_tag": "exit|best|5minute",
+     "flip_tag": "5minute|C_best_is",
      "signflip_blocks_p1": 0.219,
      "signflip_blocks_p2": 0.438,
      "blocks_positive": 7,
-     "signflip_sessions_p1": 0.1575,
-     "signflip_sessions_p2": 0.333,
+     "signflip_sessions_p1": 0.153,
+     "signflip_sessions_p2": 0.2975,
      "boot_diff_ci90": [
-      -58.21,
-      287.68
+      -65.25,
+      293.9
      ],
-     "boot_diff_p_le0": 0.1485,
-     "diff_top1_gains_removed": -73.42,
+     "boot_diff_p_le0": 0.1565,
      "diff_top1_winners_removed": 95.24,
+     "diff_top1_gains_removed": -73.42,
+     "diff_top1_gains_removed_zero_mean_ref": -181.66,
+     "top1_gains_n": 9,
+     "top1_gains_mean": 16598.67,
+     "top1_gains_contribution_per_trade": 180.86,
+     "rest_mean_gain": -73.42,
+     "diff_both_1pct_tails_trimmed": 4.02,
      "mean_slip8": -1038.81
     },
     {
@@ -2236,18 +2830,26 @@
      "sign_blocks": 4,
      "bars_held_mean": 21.9,
      "note": null,
+     "boot_tag": "eval|5minute|B hindsight imitation (OOF)",
+     "flip_tag": "5minute|B",
      "signflip_blocks_p1": 0.5745,
      "signflip_blocks_p2": 0.8516,
      "blocks_positive": 4,
-     "signflip_sessions_p1": 0.6545,
-     "signflip_sessions_p2": 0.704,
+     "signflip_sessions_p1": 0.6685,
+     "signflip_sessions_p2": 0.701,
      "boot_diff_ci90": [
       -100.38,
       59.33
      ],
      "boot_diff_p_le0": 0.6845,
-     "diff_top1_gains_removed": -127.5,
      "diff_top1_winners_removed": -20.49,
+     "diff_top1_gains_removed": -127.5,
+     "diff_top1_gains_removed_zero_mean_ref": -107.24,
+     "top1_gains_n": 9,
+     "top1_gains_mean": 9714.39,
+     "top1_gains_contribution_per_trade": 105.85,
+     "rest_mean_gain": -127.5,
+     "diff_both_1pct_tails_trimmed": -70.87,
      "mean_slip8": -1167.31
     },
     {
@@ -2264,18 +2866,26 @@
      "sign_blocks": 4,
      "bars_held_mean": 11.0,
      "note": null,
+     "boot_tag": "eval|5minute|A FQI pessimistic ensemble (OOF)",
+     "flip_tag": "5minute|A",
      "signflip_blocks_p1": 0.9597,
      "signflip_blocks_p2": 0.0811,
      "blocks_positive": 4,
-     "signflip_sessions_p1": 0.908,
-     "signflip_sessions_p2": 0.183,
+     "signflip_sessions_p1": 0.9175,
+     "signflip_sessions_p2": 0.1745,
      "boot_diff_ci90": [
       -301.88,
       -1.01
      ],
      "boot_diff_p_le0": 0.9515,
-     "diff_top1_gains_removed": -246.11,
      "diff_top1_winners_removed": -149.14,
+     "diff_top1_gains_removed": -246.11,
+     "diff_top1_gains_removed_zero_mean_ref": -100.77,
+     "top1_gains_n": 9,
+     "top1_gains_mean": 9002.3,
+     "top1_gains_contribution_per_trade": 98.09,
+     "rest_mean_gain": -246.11,
+     "diff_both_1pct_tails_trimmed": -48.97,
      "mean_slip8": -1292.39
     },
     {
@@ -2292,6 +2902,8 @@
      "sign_blocks": 12,
      "bars_held_mean": 20.2,
      "note": null,
+     "boot_tag": "eval|5minute|hindsight oracle, best close exit, no stop (upper bound)",
+     "flip_tag": "5minute|eval|hindsight oracle, best close exit, no stop (upper bound)",
      "signflip_blocks_p1": 0.0002,
      "signflip_blocks_p2": 0.0005,
      "blocks_positive": 12,
@@ -2302,8 +2914,14 @@
       4023.84
      ],
      "boot_diff_p_le0": 0.0,
-     "diff_top1_gains_removed": 3251.26,
      "diff_top1_winners_removed": 3360.43,
+     "diff_top1_gains_removed": 3251.26,
+     "diff_top1_gains_removed_zero_mean_ref": -307.26,
+     "top1_gains_n": 9,
+     "top1_gains_mean": 31451.1,
+     "top1_gains_contribution_per_trade": 342.69,
+     "rest_mean_gain": 3251.26,
+     "diff_both_1pct_tails_trimmed": 3287.75,
      "mean_slip8": 2411.47
     },
     {
@@ -2320,6 +2938,8 @@
      "sign_blocks": 12,
      "bars_held_mean": 13.3,
      "note": null,
+     "boot_tag": "eval|5minute|hindsight oracle on the Foundation-stop trajectory",
+     "flip_tag": "5minute|eval|hindsight oracle on the Foundation-stop trajectory",
      "signflip_blocks_p1": 0.0002,
      "signflip_blocks_p2": 0.0005,
      "blocks_positive": 12,
@@ -2330,8 +2950,14 @@
       2839.8
      ],
      "boot_diff_p_le0": 0.0,
-     "diff_top1_gains_removed": 2487.41,
      "diff_top1_winners_removed": 2624.42,
+     "diff_top1_gains_removed": 2487.41,
+     "diff_top1_gains_removed_zero_mean_ref": -130.56,
+     "top1_gains_n": 9,
+     "top1_gains_mean": 14470.28,
+     "top1_gains_contribution_per_trade": 157.67,
+     "rest_mean_gain": 2487.41,
+     "diff_both_1pct_tails_trimmed": 2515.11,
      "mean_slip8": 1470.92
     },
     {
@@ -2355,7 +2981,7 @@
    "gate_multiplication": {
     "C_nested": {
      "harness_id": "c848ec6556660c33",
-     "ledger_row": "new row, note=followup",
+     "ledger_row": "existing row reused (scored 2026-09-29T11:32:02)",
      "kept_n": 325,
      "kept_mean": -1060.71,
      "skipped_mean": -661.15,
@@ -2410,7 +3036,7 @@
     },
     "B": {
      "harness_id": "9761a89581b47c91",
-     "ledger_row": "new row, note=followup",
+     "ledger_row": "existing row reused (scored 2026-09-29T11:32:04)",
      "kept_n": 325,
      "kept_mean": -1016.89,
      "skipped_mean": -621.9,
@@ -2465,7 +3091,7 @@
     },
     "A": {
      "harness_id": "244ab07b9f1c0f15",
-     "ledger_row": "new row, note=followup",
+     "ledger_row": "existing row reused (scored 2026-09-29T11:32:05)",
      "kept_n": 325,
      "kept_mean": -862.61,
      "skipped_mean": -928.19,
@@ -2542,25 +3168,30 @@
       false,
       5
      ],
-     "boot_ci90_excludes_0": [
+     "boot_ci90_lower>0": [
       false,
       [
        -182.92,
        53.4
       ]
      ],
-     "diff_top1_gains_removed>0": [
+     "diff_top1_winners_removed>0 (harness GO definition)": [
       false,
-      -204.16
+      -76.62
      ],
      "pbo<=0.2": [
       true,
       0.1426
      ],
-     "spa_p<=0.10": [
+     "spa_p<=0.10 (repaired family)": [
       false,
-      0.4965
+      0.185
      ]
+    },
+    "disclosed_not_pass_items": {
+     "diff_top1_gains_removed (post-hoc)": -204.16,
+     "its zero-mean reference": -142.85,
+     "both 1% tails trimmed": -115.4
     }
    },
    "ledger_rows": {
@@ -2621,8 +3252,10 @@
  "caveats": [
   "the OOS window (2026) was used by the ST9-12 exit grid (r_combinations), so no exit table here can treat 2026 as untouched; every exit comparison carries this (judge 1)",
   "learners A / B are evaluated on 3 contiguous session-block folds (judge 2), so they have no CPCV path distribution and cannot pass the pass rule in full",
-  "the SPA statistic is a per-session mean selection gain: a variant with a negative per-trade diff vs the Foundation exit can lead the studentised family (1 min: stop 75 / choch True, diff -13.27)",
-  "c_select_<tf>.json's `spa` block is the finished selection stage's output (earlier harness.spa) and is superseded by eval_<tf>.json `spa_family`; it was not edited"
+  "the SPA statistic is a per-session mean selection gain: a variant with a negative per-trade diff vs the Foundation exit can lead the studentised family (minute: stop 75 / scale none / trail none / time_stop None / choch True, per-trade diff -13.27)",
+  "the family contains near-duplicates of the benchmark (variants 1177 / 1183: the CHoCH-against cut is the engine's next-CHoCH exit); harness.spa's 1e-9 activity rule does not catch a duplicate that differs from the label only in rounding, so the study builds the family's vectors at the label's 2-dp precision (repair 11.1); a material tolerance in harness.spa is recommended to the program owner",
+  "the pass-rule item 'top 1% removed' is the harness's winners-by-net definition; the study's earlier gains-removed variant was chosen after the C results were read and is negative-biased by construction; it is disclosed, not decisive (repair 11.2)",
+  "c_select_<tf>.json's `spa` block is the finished selection stage's output (earlier harness.spa) and is superseded by eval_<tf>.json `spa_family` (repaired) / `spa_family_as_coded`; it was not edited"
  ],
  "files": [
   "00_parity.log",
@@ -2640,12 +3273,18 @@
   "04_a_fqi.py",
   "04_a_minute.log",
   "05_eval_5minute.log",
+  "05_eval_5minute_repair.log",
+  "05_eval_5minute_repair2.log",
   "05_eval_minute.log",
   "05_eval_minute_followup.log",
+  "05_eval_minute_repair.log",
+  "05_eval_minute_repair2.log",
   "05_evaluate.py",
   "06_findings.log",
   "06_findings.py",
   "06_findings_followup.log",
+  "06_findings_repair.log",
+  "06_findings_repair2.log",
   "FINDINGS.md",
   "a_result_5minute.json",
   "a_result_minute.json",
@@ -2661,14 +3300,18 @@
   "eval_5minute.json",
   "eval_minute.json",
   "eval_table_5minute.csv",
+  "eval_table_5minute_review_time.csv",
   "eval_table_minute.csv",
+  "eval_table_minute_review_time.csv",
   "exit_ledger.jsonl",
   "exit_rules_5minute.json",
   "exit_rules_minute.json",
   "exlib.py",
   "findings.json",
   "parity.json",
-  "probe_timing.py"
+  "probe_timing.py",
+  "spa_repair_5minute.json",
+  "spa_repair_minute.json"
  ],
  "followup": {
   "at": "2026-09-29 16:45 IST",
@@ -2708,9 +3351,14 @@
   "harness_ledger_rows_reused": {
    "minute": [
     "C_nested `ac28bea0c7c26c6f`",
-    "B `aee3ef4df479e783`"
+    "B `aee3ef4df479e783`",
+    "A `d8498e6c63bb83d2`"
    ],
-   "5minute": []
+   "5minute": [
+    "C_nested `c848ec6556660c33`",
+    "B `9761a89581b47c91`",
+    "A `244ab07b9f1c0f15`"
+   ]
   },
   "spa_old_to_new": {
    "minute": {
@@ -2719,14 +3367,14 @@
      "rc_p": 0.501,
      "best": 785
     },
-    "new_studentised": {
+    "new_studentised_as_coded": {
      "spa_p": 0.396,
      "rc_p": 0.501,
      "best": 785,
      "excluded": 0,
      "min_active_sessions": 28
     },
-    "new_unstudentised": {
+    "new_unstudentised_as_coded": {
      "spa_p": 0.5405,
      "rc_p": 0.6845,
      "best": 392
@@ -2738,14 +3386,14 @@
      "rc_p": 0.5175,
      "best": 1025
     },
-    "new_studentised": {
+    "new_studentised_as_coded": {
      "spa_p": 0.4965,
      "rc_p": 0.5175,
      "best": 1025,
      "excluded": 0,
      "min_active_sessions": 20
     },
-    "new_unstudentised": {
+    "new_unstudentised_as_coded": {
      "spa_p": 0.1505,
      "rc_p": 0.2465,
      "best": 1025
@@ -2754,9 +3402,746 @@
   },
   "what_changed": [
    "learner A (1-minute FQI) folded into sections 5, 6, 8, 9 from a_result_minute.json / a_oof_minute.npz; the sentence saying it was not run replaced",
-   "family SPA recomputed with the current harness.spa (min-active exclusion, unstudentised statistic) for both timeframes; the excluded candidates listed (none)",
+   "family SPA recomputed with the current harness.spa (min-active exclusion, unstudentised statistic) for both timeframes on the stored vectors; 0 excluded \u2014 the follow-up's explanation of that was FALSE, see repair.issue_1",
    "05_evaluate.py 5minute run for the first time (eval_table_5minute.csv, eval_5minute.json, exit_rules_5minute.json, gate x exit rows); the PRELIMINARY status closed",
    "not rerun: the C grid (01), the C selection (02), learner B (03), any FQI fold (04)"
-  ]
+  ],
+  "corrected_in_repair": "the statement 'no variant applies the Foundation's next-CHoCH exit, so every variant differs from the benchmark' was false (variants 1177 / 1183 are near-duplicates of the benchmark); the as-coded SPA numbers stand as what the harness computed on the stored vectors, the repaired ones are in timeframes.<tf>.spa"
+ },
+ "repair": {
+  "at": "2026-09-29 17:20-17:55 IST (two passes, see the section text)",
+  "harness_sha": "0fe3d75a0bd6e78d",
+  "harness_modified": false,
+  "rerun": [
+   "05_evaluate.py minute",
+   "05_evaluate.py 5minute",
+   "06_findings.py"
+  ],
+  "not_rerun": [
+   "01_c_grid.py",
+   "02_c_select.py",
+   "03_b_imitation.py",
+   "04_a_fqi.py"
+  ],
+  "logs": [
+   "05_eval_minute_repair.log",
+   "05_eval_5minute_repair.log",
+   "05_eval_minute_repair2.log",
+   "05_eval_5minute_repair2.log",
+   "06_findings_repair.log",
+   "06_findings_repair2.log"
+  ],
+  "harness_ledger_rows_appended_by_repair": 0,
+  "exit_ledger_rows": 3174,
+  "exit_ledger_appended_by_repair": 0,
+  "gate_rows_reused_by_id": {
+   "minute": {
+    "C_nested": "existing row reused (scored 2026-09-29T04:29:19)",
+    "B": "existing row reused (scored 2026-09-29T04:29:26)",
+    "A": "existing row reused (scored 2026-09-29T11:30:47)"
+   },
+   "5minute": {
+    "C_nested": "existing row reused (scored 2026-09-29T11:32:02)",
+    "B": "existing row reused (scored 2026-09-29T11:32:04)",
+    "A": "existing row reused (scored 2026-09-29T11:32:05)"
+   }
+  },
+  "issues": {
+   "issue_1_spa_near_duplicate": {
+    "minute": {
+     "near_duplicates": [
+      {
+       "index": 1177,
+       "id": "0c142743f6d7b0bd",
+       "family": "exit_policy/C",
+       "keys": {
+        "stop": "foundation",
+        "scale": "none",
+        "trail": "none",
+        "time_stop": null,
+        "choch": true
+       },
+       "trades_differing_from_L1_gt_0_005": 8,
+       "trades": 4452,
+       "max_abs_diff_on_agreeing_trades": 0.005,
+       "mean_diff_on_differing_trades": -465.13,
+       "exit_bar_equals_L1_share": 0.9982,
+       "sessions_active_gt_1e_9": 578,
+       "sessions_active_gt_0_01": 7,
+       "sessions_active_gt_0_5": 7,
+       "sessions_active_after_2dp": 7,
+       "max_abs_gain_as_coded": 85.5839,
+       "mean_gain_as_coded": -0.5169,
+       "t_studentised_as_coded": -1.916,
+       "null_argmax_draws_as_coded": 396,
+       "null_draws": 2000,
+       "excluded_by_repaired_rule": true,
+       "excluded_by_tolerance_check": true
+      }
+     ],
+     "l1_choch_facts": {
+      "next_choch_exits": 2728,
+      "exit_px_equals_close_of_exit_bar_share": 1.0,
+      "exit_bar_equals_first_choch_against_share": 0.9971,
+      "l1_net_inr_decimals_gt_2": 0,
+      "grid_nets_decimals_gt_2": 6980526,
+      "grid_cells": 6980736
+     },
+     "vector_mapping_verified": true,
+     "as_coded": {
+      "spa_p": 0.396,
+      "rc_p": 0.501,
+      "best": 785,
+      "best_t": 1.683,
+      "excluded": 0,
+      "spa_p_unstudentised": 0.5405
+     },
+     "repaired": {
+      "spa_p": 0.322,
+      "rc_p": 0.448,
+      "best": 785,
+      "best_t": 1.683,
+      "excluded": 1,
+      "excluded_indices": [
+       1177
+      ],
+      "spa_p_unstudentised": 0.5405
+     },
+     "tolerance_check": {
+      "rule": "candidates with fewer than min_active sessions of |gain| > 0.01 INR removed from the list (both statistics)",
+      "tolerance_inr": 0.01,
+      "min_active_sessions": 28,
+      "excluded": 1,
+      "excluded_indices": [
+       1177
+      ],
+      "candidates": 1567,
+      "spa_p": 0.322,
+      "rc_p": 0.448,
+      "best_index": 785,
+      "best_mean_gain": 82.84,
+      "best_t": 1.683,
+      "spa_p_unstudentised": 0.5405,
+      "rc_p_unstudentised": 0.6845,
+      "best_index_unstudentised": 392
+     },
+     "all_trials": {
+      "as_coded_spa_p": 0.3965,
+      "repaired_spa_p": 0.314,
+      "repaired_excluded": 1,
+      "tolerance_spa_p": 0.314
+     },
+     "null_argmax_top5_as_coded": [
+      {
+       "index": 1177,
+       "draws": 396,
+       "keys": {
+        "stop": "foundation",
+        "scale": "none",
+        "trail": "none",
+        "time_stop": null,
+        "choch": true
+       }
+      },
+      {
+       "index": 1208,
+       "draws": 138,
+       "keys": {
+        "stop": "foundation",
+        "scale": "none",
+        "trail": "3_2",
+        "time_stop": null,
+        "choch": false
+       }
+      },
+      {
+       "index": 1216,
+       "draws": 108,
+       "keys": {
+        "stop": "foundation",
+        "scale": "none",
+        "trail": "4_1",
+        "time_stop": null,
+        "choch": false
+       }
+      },
+      {
+       "index": 1176,
+       "draws": 108,
+       "keys": {
+        "stop": "foundation",
+        "scale": "none",
+        "trail": "none",
+        "time_stop": null,
+        "choch": false
+       }
+      },
+      {
+       "index": 1192,
+       "draws": 84,
+       "keys": {
+        "stop": "foundation",
+        "scale": "none",
+        "trail": "2_2",
+        "time_stop": null,
+        "choch": false
+       }
+      }
+     ],
+     "pass_item_spa_p_le_0_10": false
+    },
+    "5minute": {
+     "near_duplicates": [
+      {
+       "index": 1177,
+       "id": "ea2c65c77b1f3eda",
+       "family": "exit_policy/C",
+       "keys": {
+        "stop": "foundation",
+        "scale": "none",
+        "trail": "none",
+        "time_stop": null,
+        "choch": true
+       },
+       "trades_differing_from_L1_gt_0_005": 1,
+       "trades": 826,
+       "max_abs_diff_on_agreeing_trades": 0.005,
+       "mean_diff_on_differing_trades": -2437.6,
+       "exit_bar_equals_L1_share": 0.9988,
+       "sessions_active_gt_1e_9": 408,
+       "sessions_active_gt_0_01": 1,
+       "sessions_active_gt_0_5": 1,
+       "sessions_active_after_2dp": 1,
+       "max_abs_gain_as_coded": 812.5344,
+       "mean_gain_as_coded": -1.9915,
+       "t_studentised_as_coded": -1.0,
+       "null_argmax_draws_as_coded": 758,
+       "null_draws": 2000,
+       "excluded_by_repaired_rule": true,
+       "excluded_by_tolerance_check": true
+      },
+      {
+       "index": 1183,
+       "id": "807549ccd89a4d42",
+       "family": "exit_policy/C",
+       "keys": {
+        "stop": "foundation",
+        "scale": "none",
+        "trail": "none",
+        "time_stop": 120,
+        "choch": true
+       },
+       "trades_differing_from_L1_gt_0_005": 1,
+       "trades": 826,
+       "max_abs_diff_on_agreeing_trades": 0.005,
+       "mean_diff_on_differing_trades": -2437.6,
+       "exit_bar_equals_L1_share": 0.9988,
+       "sessions_active_gt_1e_9": 408,
+       "sessions_active_gt_0_01": 1,
+       "sessions_active_gt_0_5": 1,
+       "sessions_active_after_2dp": 1,
+       "max_abs_gain_as_coded": 812.5344,
+       "mean_gain_as_coded": -1.9915,
+       "t_studentised_as_coded": -1.0,
+       "null_argmax_draws_as_coded": 0,
+       "null_draws": 2000,
+       "excluded_by_repaired_rule": true,
+       "excluded_by_tolerance_check": true
+      }
+     ],
+     "l1_choch_facts": {
+      "next_choch_exits": 191,
+      "exit_px_equals_close_of_exit_bar_share": 1.0,
+      "exit_bar_equals_first_choch_against_share": 0.9948,
+      "l1_net_inr_decimals_gt_2": 0,
+      "grid_nets_decimals_gt_2": 1295168,
+      "grid_cells": 1295168
+     },
+     "vector_mapping_verified": true,
+     "as_coded": {
+      "spa_p": 0.4965,
+      "rc_p": 0.5175,
+      "best": 1025,
+      "best_t": 2.761,
+      "excluded": 0,
+      "spa_p_unstudentised": 0.1505
+     },
+     "repaired": {
+      "spa_p": 0.185,
+      "rc_p": 0.21,
+      "best": 1025,
+      "best_t": 2.761,
+      "excluded": 2,
+      "excluded_indices": [
+       1177,
+       1183
+      ],
+      "spa_p_unstudentised": 0.1505
+     },
+     "tolerance_check": {
+      "rule": "candidates with fewer than min_active sessions of |gain| > 0.01 INR removed from the list (both statistics)",
+      "tolerance_inr": 0.01,
+      "min_active_sessions": 20,
+      "excluded": 2,
+      "excluded_indices": [
+       1177,
+       1183
+      ],
+      "candidates": 1566,
+      "spa_p": 0.185,
+      "rc_p": 0.21,
+      "best_index": 1025,
+      "best_mean_gain": 281.96,
+      "best_t": 2.761,
+      "spa_p_unstudentised": 0.1505,
+      "rc_p_unstudentised": 0.2465,
+      "best_index_unstudentised": 1025
+     },
+     "all_trials": {
+      "as_coded_spa_p": 0.4825,
+      "repaired_spa_p": 0.1685,
+      "repaired_excluded": 2,
+      "tolerance_spa_p": 0.1685
+     },
+     "null_argmax_top5_as_coded": [
+      {
+       "index": 1177,
+       "draws": 758,
+       "keys": {
+        "stop": "foundation",
+        "scale": "none",
+        "trail": "none",
+        "time_stop": null,
+        "choch": true
+       }
+      },
+      {
+       "index": 1225,
+       "draws": 148,
+       "keys": {
+        "stop": "foundation",
+        "scale": "none",
+        "trail": "4_2",
+        "time_stop": null,
+        "choch": true
+       }
+      },
+      {
+       "index": 1217,
+       "draws": 51,
+       "keys": {
+        "stop": "foundation",
+        "scale": "none",
+        "trail": "4_1",
+        "time_stop": null,
+        "choch": true
+       }
+      },
+      {
+       "index": 1180,
+       "draws": 48,
+       "keys": {
+        "stop": "foundation",
+        "scale": "none",
+        "trail": "none",
+        "time_stop": 60,
+        "choch": false
+       }
+      },
+      {
+       "index": 1197,
+       "draws": 46,
+       "keys": {
+        "stop": "foundation",
+        "scale": "none",
+        "trail": "2_2",
+        "time_stop": 60,
+        "choch": true
+       }
+      }
+     ],
+     "pass_item_spa_p_le_0_10": false
+    }
+   },
+   "issue_2_top1_metric": {
+    "minute": {
+     "C_nested": {
+      "diff_vs_foundation": 86.57,
+      "diff_top1_winners_removed": 4.01,
+      "diff_top1_gains_removed": -67.49,
+      "diff_top1_gains_removed_zero_mean_ref": -154.06,
+      "diff_both_1pct_tails_trimmed": 7.46,
+      "top1_gains_n": 45,
+      "top1_gains_mean": 15174.4,
+      "top1_gains_contribution_per_trade": 153.38,
+      "rest_mean_gain": -67.49
+     },
+     "C_best_is": {
+      "diff_vs_foundation": 104.84,
+      "diff_top1_winners_removed": 22.83,
+      "diff_top1_gains_removed": -51.21,
+      "diff_top1_gains_removed_zero_mean_ref": -156.05,
+      "diff_both_1pct_tails_trimmed": 19.22,
+      "top1_gains_n": 45,
+      "top1_gains_mean": 15387.0,
+      "top1_gains_contribution_per_trade": 155.53,
+      "rest_mean_gain": -51.21
+     },
+     "B": {
+      "diff_vs_foundation": 100.8,
+      "diff_top1_winners_removed": 18.57,
+      "diff_top1_gains_removed": -54.75,
+      "diff_top1_gains_removed_zero_mean_ref": -155.55,
+      "diff_both_1pct_tails_trimmed": 18.89,
+      "top1_gains_n": 45,
+      "top1_gains_mean": 15334.49,
+      "top1_gains_contribution_per_trade": 155.0,
+      "rest_mean_gain": -54.75
+     },
+     "A": {
+      "diff_vs_foundation": 37.56,
+      "diff_top1_winners_removed": -3.78,
+      "diff_top1_gains_removed": -51.5,
+      "diff_top1_gains_removed_zero_mean_ref": -89.06,
+      "diff_both_1pct_tails_trimmed": 73.73,
+      "top1_gains_n": 45,
+      "top1_gains_mean": 8759.51,
+      "top1_gains_contribution_per_trade": 88.54,
+      "rest_mean_gain": -51.5
+     },
+     "ST9": {
+      "diff_vs_foundation": -1.1,
+      "diff_top1_winners_removed": 6.91,
+      "diff_top1_gains_removed": -90.32,
+      "diff_top1_gains_removed_zero_mean_ref": -89.22,
+      "diff_both_1pct_tails_trimmed": 16.52,
+      "top1_gains_n": 45,
+      "top1_gains_mean": 8736.28,
+      "top1_gains_contribution_per_trade": 88.3,
+      "rest_mean_gain": -90.32
+     }
+    },
+    "5minute": {
+     "C_nested": {
+      "diff_vs_foundation": -61.31,
+      "diff_top1_winners_removed": -76.62,
+      "diff_top1_gains_removed": -204.16,
+      "diff_top1_gains_removed_zero_mean_ref": -142.85,
+      "diff_both_1pct_tails_trimmed": -115.4,
+      "top1_gains_n": 9,
+      "top1_gains_mean": 12906.13,
+      "top1_gains_contribution_per_trade": 140.62,
+      "rest_mean_gain": -204.16
+     },
+     "C_best_is": {
+      "diff_vs_foundation": 108.24,
+      "diff_top1_winners_removed": 95.24,
+      "diff_top1_gains_removed": -73.42,
+      "diff_top1_gains_removed_zero_mean_ref": -181.66,
+      "diff_both_1pct_tails_trimmed": 4.02,
+      "top1_gains_n": 9,
+      "top1_gains_mean": 16598.67,
+      "top1_gains_contribution_per_trade": 180.86,
+      "rest_mean_gain": -73.42
+     },
+     "B": {
+      "diff_vs_foundation": -20.26,
+      "diff_top1_winners_removed": -20.49,
+      "diff_top1_gains_removed": -127.5,
+      "diff_top1_gains_removed_zero_mean_ref": -107.24,
+      "diff_both_1pct_tails_trimmed": -70.87,
+      "top1_gains_n": 9,
+      "top1_gains_mean": 9714.39,
+      "top1_gains_contribution_per_trade": 105.85,
+      "rest_mean_gain": -127.5
+     },
+     "A": {
+      "diff_vs_foundation": -145.34,
+      "diff_top1_winners_removed": -149.14,
+      "diff_top1_gains_removed": -246.11,
+      "diff_top1_gains_removed_zero_mean_ref": -100.77,
+      "diff_both_1pct_tails_trimmed": -48.97,
+      "top1_gains_n": 9,
+      "top1_gains_mean": 9002.3,
+      "top1_gains_contribution_per_trade": 98.09,
+      "rest_mean_gain": -246.11
+     },
+     "ST9": {
+      "diff_vs_foundation": -158.88,
+      "diff_top1_winners_removed": -121.55,
+      "diff_top1_gains_removed": -279.47,
+      "diff_top1_gains_removed_zero_mean_ref": -120.59,
+      "diff_both_1pct_tails_trimmed": -117.21,
+      "top1_gains_n": 9,
+      "top1_gains_mean": 10788.23,
+      "top1_gains_contribution_per_trade": 117.55,
+      "rest_mean_gain": -279.47
+     }
+    }
+   },
+   "issue_4_two_values_per_statistic": {
+    "pairs": [
+     {
+      "tf": "minute",
+      "statistic": "boot_diff_ci90",
+      "policy": "C_nested",
+      "review_time_table_value": [
+       22.1,
+       151.74
+      ],
+      "table_value_now": [
+       25.24,
+       151.11
+      ],
+      "first_reported_value": [
+       25.24,
+       151.11
+      ],
+      "first_reported_by": "02_c_select.py bootstrap_nested (tag exit|nested|<tf>)",
+      "tag_now": "exit|nested|minute",
+      "equal_now": true
+     },
+     {
+      "tf": "minute",
+      "statistic": "signflip_sessions_p1",
+      "policy": "C_nested",
+      "review_time_table_value": 0.039,
+      "table_value_now": 0.0415,
+      "first_reported_value": 0.0415,
+      "first_reported_by": "02_c_select.py sign_flip (tag <tf>|C_nested)",
+      "tag_now": "minute|C_nested",
+      "equal_now": true
+     },
+     {
+      "tf": "minute",
+      "statistic": "boot_diff_ci90",
+      "policy": "C_best_is",
+      "review_time_table_value": [
+       36.72,
+       172.77
+      ],
+      "table_value_now": [
+       39.26,
+       173.51
+      ],
+      "first_reported_value": [
+       39.26,
+       173.51
+      ],
+      "first_reported_by": "02_c_select.py bootstrap_best (tag exit|best|<tf>)",
+      "tag_now": "exit|best|minute",
+      "equal_now": true
+     },
+     {
+      "tf": "minute",
+      "statistic": "signflip_sessions_p1",
+      "policy": "C_best_is",
+      "review_time_table_value": 0.0195,
+      "table_value_now": 0.018,
+      "first_reported_value": 0.018,
+      "first_reported_by": "02_c_select.py sign_flip (tag <tf>|C_best_is)",
+      "tag_now": "minute|C_best_is",
+      "equal_now": true
+     },
+     {
+      "tf": "minute",
+      "statistic": "signflip_sessions_p1",
+      "policy": "ST9",
+      "review_time_table_value": 0.5015,
+      "table_value_now": 0.489,
+      "first_reported_value": 0.489,
+      "first_reported_by": "02_c_select.py sign_flip (tag <tf>|ST9)",
+      "tag_now": "minute|ST9",
+      "equal_now": true
+     },
+     {
+      "tf": "minute",
+      "statistic": "signflip_sessions_p1",
+      "policy": "B",
+      "review_time_table_value": 0.018,
+      "table_value_now": 0.027,
+      "first_reported_value": 0.027,
+      "first_reported_by": "03_b_imitation.py sign_flip (tag <tf>|B)",
+      "tag_now": "minute|B",
+      "equal_now": true
+     },
+     {
+      "tf": "minute",
+      "statistic": "signflip_sessions_p1",
+      "policy": "A",
+      "review_time_table_value": 0.1715,
+      "table_value_now": 0.169,
+      "first_reported_value": 0.169,
+      "first_reported_by": "04_a_fqi.py sign_flip (tag <tf>|A)",
+      "tag_now": "minute|A",
+      "equal_now": true
+     },
+     {
+      "tf": "5minute",
+      "statistic": "boot_diff_ci90",
+      "policy": "C_nested",
+      "review_time_table_value": [
+       -182.33,
+       65.72
+      ],
+      "table_value_now": [
+       -182.92,
+       53.4
+      ],
+      "first_reported_value": [
+       -182.92,
+       53.4
+      ],
+      "first_reported_by": "02_c_select.py bootstrap_nested (tag exit|nested|<tf>)",
+      "tag_now": "exit|nested|5minute",
+      "equal_now": true
+     },
+     {
+      "tf": "5minute",
+      "statistic": "signflip_sessions_p1",
+      "policy": "C_nested",
+      "review_time_table_value": 0.742,
+      "table_value_now": 0.7725,
+      "first_reported_value": 0.7725,
+      "first_reported_by": "02_c_select.py sign_flip (tag <tf>|C_nested)",
+      "tag_now": "5minute|C_nested",
+      "equal_now": true
+     },
+     {
+      "tf": "5minute",
+      "statistic": "boot_diff_ci90",
+      "policy": "C_best_is",
+      "review_time_table_value": [
+       -58.21,
+       287.68
+      ],
+      "table_value_now": [
+       -65.25,
+       293.9
+      ],
+      "first_reported_value": [
+       -65.25,
+       293.9
+      ],
+      "first_reported_by": "02_c_select.py bootstrap_best (tag exit|best|<tf>)",
+      "tag_now": "exit|best|5minute",
+      "equal_now": true
+     },
+     {
+      "tf": "5minute",
+      "statistic": "signflip_sessions_p1",
+      "policy": "C_best_is",
+      "review_time_table_value": 0.1575,
+      "table_value_now": 0.153,
+      "first_reported_value": 0.153,
+      "first_reported_by": "02_c_select.py sign_flip (tag <tf>|C_best_is)",
+      "tag_now": "5minute|C_best_is",
+      "equal_now": true
+     },
+     {
+      "tf": "5minute",
+      "statistic": "signflip_sessions_p1",
+      "policy": "ST9",
+      "review_time_table_value": 0.9355,
+      "table_value_now": 0.915,
+      "first_reported_value": 0.915,
+      "first_reported_by": "02_c_select.py sign_flip (tag <tf>|ST9)",
+      "tag_now": "5minute|ST9",
+      "equal_now": true
+     },
+     {
+      "tf": "5minute",
+      "statistic": "signflip_sessions_p1",
+      "policy": "B",
+      "review_time_table_value": 0.6545,
+      "table_value_now": 0.6685,
+      "first_reported_value": 0.6685,
+      "first_reported_by": "03_b_imitation.py sign_flip (tag <tf>|B)",
+      "tag_now": "5minute|B",
+      "equal_now": true
+     },
+     {
+      "tf": "5minute",
+      "statistic": "signflip_sessions_p1",
+      "policy": "A",
+      "review_time_table_value": 0.908,
+      "table_value_now": 0.9175,
+      "first_reported_value": 0.9175,
+      "first_reported_by": "04_a_fqi.py sign_flip (tag <tf>|A)",
+      "tag_now": "5minute|A",
+      "equal_now": true
+     }
+    ],
+    "all_equal_now": true,
+    "review_time_tables": [
+     "eval_table_minute_review_time.csv",
+     "eval_table_5minute_review_time.csv"
+    ]
+   },
+   "issue_5_ci_item_wording": {
+    "old_wording": "90% block-bootstrap CI of the diff excludes 0",
+    "new_wording": "lower bound of the 90% block-bootstrap CI of the diff > 0",
+    "key": "boot_ci90_lower>0",
+    "implementation": "harness.go_no_go: boot['diff_ci'][0] > 0",
+    "example_5minute_A_ci": [
+     -301.88,
+     -1.01
+    ]
+   },
+   "issue_6_a_minute_log_account": {
+    "log_lines": 4,
+    "log_5minute_lines": 5,
+    "a_result_minute_mtime_utc": "07:08:38",
+    "log_mtime_utc": "07:08:38",
+    "seconds": 9693.2,
+    "start_utc": "04:27:05",
+    "fold_line_times_utc": [
+     "05:18:23",
+     "06:31:52",
+     "07:08:31"
+    ],
+    "checkout_utc": "06:24:40",
+    "mechanism": "fold lines printed with flush=True and mirrored back from /proc/<pid>/fd; the final line, printed without flush after the JSON dump, reached the unlinked inode at interpreter exit, after the mirror loop's last copy",
+    "old_statement": "lost when the 06:24 checkout replaced the file's inode, the JSON was written before it"
+   },
+   "issue_3_stale_summary": {
+    "a_result_minute_written": "2026-09-29T07:08:38Z",
+    "a_result_5minute_written": "2026-09-29T06:24:40Z",
+    "learner_A_minute": {
+     "mean": -972.05,
+     "diff": 37.56,
+     "sign_flip_blocks": {
+      "stat": 52.91,
+      "blocks": 12,
+      "p_one_sided": 0.2034,
+      "p_two_sided": 0.4067,
+      "blocks_positive": 7
+     }
+    },
+    "learner_A_5minute": {
+     "mean": -902.39,
+     "diff": -145.34
+    },
+    "followup_harness_rows": [
+     "d8498e6c63bb83d2",
+     "c848ec6556660c33",
+     "9761a89581b47c91",
+     "244ab07b9f1c0f15"
+    ],
+    "regenerated_from_files": true
+   }
+  },
+  "verdict": {
+   "minute": {
+    "C_nested": "no candidate",
+    "B": "no candidate",
+    "A": "no candidate"
+   },
+   "5minute": {
+    "C_nested": "no candidate",
+    "B": "no candidate",
+    "A": "no candidate"
+   }
+  }
  }
 }

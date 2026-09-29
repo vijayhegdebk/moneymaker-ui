@@ -66,6 +66,35 @@ def repaired_null_block(tf):
     return md_table(t, cols, dg)
 
 
+def repaired_summary(tf):
+    """The hindsight-free result of one timeframe, every number read from results_repair.json (nothing typed by hand)."""
+    X = REP["timeframes"][tf]["L1"]; tests = X["null_tests"]
+    n3_holm = [t for t in tests if t["N3_p_holm"] < 0.05]; n4_holm = [t for t in tests if t["N4_p_holm"] < 0.05]
+    n3_raw = [t for t in tests if t["N3_p"] < 0.05]; n4_raw = [t for t in tests if t["N4_p"] < 0.05]
+    n4_ci_excl = [t for t in tests if t["N4_ci90_lo"] > 0 or t["N4_ci90_hi"] < 0]
+    return dict(decision=X["decision"], decision_short=X["decision"].split(" -> ")[0], n3_holm=n3_holm, n4_holm=n4_holm, n3_raw=n3_raw, n4_raw=n4_raw, n4_ci_excl=n4_ci_excl,
+                min_p_holm_N3=X["min_p_holm_N3"], min_p_holm_N4=X["min_p_holm_N4"], rejected_N3=X["rejected_N3"], rejected_N4=X["rejected_N4"], signs_agree=X["signs_agree"])
+
+
+def repaired_reading_5min():
+    """The 5 min reading of the repaired nulls: N3 alone may reject (the pre-registered rule needs N3 AND N4)."""
+    S = repaired_summary("5minute"); g = REP["timeframes"]["5minute"]["generator"]
+    med = R["timeframes"]["5minute"]["L1"]["setups_per_session_median"]
+    s = f"Reading (5 min; {g['units_real']:,} IS units in {g['active_sessions']} active sessions, median {med:.0f} SETUPs per active session). "
+    if S["n3_holm"]:
+        s += ("N3 rejects after Holm on " + ", ".join(f"`{t['test']}` (n_condition {t['n_condition']}, observed {t['observed']:+,.0f} vs memoryless mean {t['N3_sim_mean']:+,.0f}, sd {t['N3_sim_sd']:,.0f}, Holm p {t['N3_p_holm']:.4f})" for t in S["n3_holm"])
+              + (f"; unadjusted N3 p < 0.05 also on {', '.join('`' + t['test'] + '`' for t in S['n3_raw'] if t not in S['n3_holm'])}" if len(S["n3_raw"]) > len(S["n3_holm"]) else "") + ". ")
+    else:
+        s += f"N3 rejects nothing after Holm (min Holm p {S['min_p_holm_N3']:.4f}). "
+    s += (f"N4 (primary) rejects nothing after Holm (min Holm p {S['min_p_holm_N4']:.4f}"
+          + (f"; its 90 % session-block bootstrap CI excludes zero on {', '.join('`' + t['test'] + '`' for t in S['n4_ci_excl'])}" if S["n4_ci_excl"] else "; every 90 % CI covers zero")
+          + (f", unadjusted N4 p < 0.05 on {', '.join('`' + t['test'] + '`' for t in S['n4_raw'])}" if S["n4_raw"] else "") + "). ")
+    s += (f"By the pre-registered rule (N3 AND N4 must reject at Holm 5 % with agreeing signs) the decision is **{S['decision']}**. "
+          "The rejected N3 contrasts are positive (the next SETUP does *better* after stops in the observed book), i.e. the direction a stop rule cannot use; on 18 units in the `stops>=3` state and a median of "
+          f"{med:.0f} SETUPs per active session nothing is claimed either way: 5 min stays *underpowered, not shown*.")
+    return s
+
+
 def L0_block(tf):
     X = REP["timeframes"][tf]["L0_robustness"]; t = pd.DataFrame(X["tests"])
     cols = ["test", "n_condition", "N4_stat", "N4_ci90_lo", "N4_ci90_hi", "N4_p", "N4_p_holm"]
@@ -140,7 +169,8 @@ def sec_tf(tf):
     else:
         P.append("**Reading (repaired).** " + (f"{L1['nulls']['session_x_hour']['cells_size1']:,} of {L1['nulls']['session_x_hour']['n_cells']:,} session x hour cells are singletons, so only "
                  f"{L1['nulls']['session_x_hour']['rows_movable']} of {L1['units']} rows can move under N1: the as-run test had almost no power on this timeframe (median 2 SETUPs per active session). "
-                 "Under the repaired nulls (section R.2) nothing is rejected either; 5 min stays *underpowered, nothing shown*. N1 / N2 on this timeframe are kept as the record only.\n"))
+                 f"Under the repaired nulls (section R.2) the decision is *{repaired_summary('5minute')['decision']}* (N3 alone rejects on `stops>=3`, 18 units; N4, the primary, does not); "
+                 "5 min stays *underpowered, not shown*. N1 / N2 on this timeframe are kept as the record only.\n"))
     P.append(f"### Hour-of-day profile of the L1 book ({tf}, IS; `hour_profile_{tf}.csv`)\n")
     hp = pd.DataFrame(L1["hour_profile"])
     P.append(md_table(hp, list(hp.columns), dict(n=0, win_rate=4, stop_rate=4, mean_today_n_stops_asof=3, share_stops_ge1=4, share_net_le_m4000=4)))
@@ -253,8 +283,8 @@ def sec_repair():
              + ("; none has an unadjusted p < 0.05" if not n3_out else f"; unadjusted p < 0.05 on {', '.join(n3_out)} (none survives Holm)" if REP["timeframes"]["minute"]["L1"]["min_p_holm_N3"] >= 0.05 else f"; p < 0.05 on {', '.join(n3_out)}")
              + ". N4: " + ("every within-hour contrast's 90 % bootstrap CI covers zero" if not n4_ci_excl else f"the 90 % bootstrap CI excludes zero on {', '.join(n4_ci_excl)} (unadjusted p < 0.05 on {', '.join(n4_raw) or 'none'})")
              + (f"; after Holm the minimum p is {REP['timeframes']['minute']['L1']['min_p_holm_N4']:.4f}" ) + ("; the memoryless centring check holds (|N4_sim_mean| below half the bootstrap sd on every test)" if centring_ok else "; NOTE the memoryless centring check fails on at least one test (|N4_sim_mean| above half the bootstrap sd)")
-             + ". The within-hour differences of the as-run `hour_x_stops` table (positive in the morning, negative in the afternoon) are read against these CIs, with sessions as the resampling unit. "
-             "5 min: see its table; the book is underpowered by construction (median 2 SETUPs per active session).\n")
+             + ". The within-hour differences of the as-run `hour_x_stops` table (positive in the morning, negative in the afternoon) are read against these CIs, with sessions as the resampling unit.\n")
+    P.append(repaired_reading_5min() + "\n")
     xcs = [pd.read_csv(os.path.join(HERE, f"repair_n4_ols_crosscheck_{tf}.csv")) for tf in ("minute", "5minute") if os.path.exists(os.path.join(HERE, f"repair_n4_ols_crosscheck_{tf}.csv"))]
     if xcs:
         x = pd.concat(xcs, ignore_index=True)
@@ -325,7 +355,10 @@ def sec_repair():
              "the as-run N1 result moved to `n1_as_run` with `valid = false`; `direction` = \"not shown\"; `repair` block naming each issue and what changed; `flags_for_orchestrator` added; the 16 hour-conditioned cells, "
              "the 48-cell nested / CPCV rows and the calibration added under `timeframes.minute.repair`.\n"
              "- `session_stop.py`: a dated repair note at the top of its docstring (no code change; the as-run ledger rows carry the pre-note `script_sha`).\n"
-             "- The no-key conclusion is unchanged; the reasons for it are now the hindsight-free statistics alone.\n")
+             "- The no-key conclusion is unchanged; the reasons for it are now the hindsight-free statistics alone.\n"
+             f"- Regeneration pass (2026-09-29, after the usage-limit pause): `write_findings.py` was first run in this pass (the folder had carried the superseded as-run FINDINGS.md / findings.json until then), "
+             f"and corrected to state the 5 min repaired decision per timeframe (*{repaired_summary('5minute')['decision_short']}*: N3 alone rejects on `stops>=3`, 18 units; N4 does not) instead of repeating the 1 min "
+             "decision for both; no statistic changed, no stage was re-run, no ledger row was written.\n")
     return P
 
 
@@ -349,7 +382,8 @@ lines.append(f"**No session memory beyond the hour effect is shown, and no `sess
              f"clock and the durations reproduces the rejection on {dt['n1_rejected_share']:.0%} of its streams (excess {min(dt['excess_threshold_tests_mean'].values()):+,.0f} to {max(dt['excess_threshold_tests_mean'].values()):+,.0f}; "
              f"{di['n1_rejected_share']:.0%} when the duration is made independent of the outcome). Two hindsight-free nulls replace it (section R.2): the within-hour contrast across sessions with a session-block bootstrap (N4) "
              f"and the observed statistics against 2,000 memoryless streams (N3); on 1 min the min Holm p is N4 {RM['L1']['min_p_holm_N4']:.4f} / N3 {RM['L1']['min_p_holm_N3']:.4f}, on 5 min N4 {R5['L1']['min_p_holm_N4']:.4f} / N3 "
-             f"{R5['L1']['min_p_holm_N3']:.4f}: **{RM['L1']['decision'].split(' -> ')[0]}** on both timeframes (5 min underpowered as well). Branch B's grid (run under the as-run rejection) is re-judged on hindsight-free statistics only, "
+             f"{R5['L1']['min_p_holm_N3']:.4f}: 1 min **{repaired_summary('minute')['decision_short']}**; 5 min **{repaired_summary('5minute')['decision_short']}** (N3 alone rejects on `stops>=3`, 18 units, N4 does not; "
+             "underpowered, not shown; the rejected contrast is positive, not the direction a stop rule needs). Branch B's grid (run under the as-run rejection) is re-judged on hindsight-free statistics only, "
              "with the session-matched control percentile set aside as a hindsight-biased comparator for sequential rules (section R.3: the same rule sits at its 0.0th percentile on memoryless streams). "
              + (f"The family now holds 48 cells (16 hour-conditioned cells added for Judge 2's hour interaction, section R.4); the nested-CV OOF rule has diff {BR['nested_oof']['diff']:+,.2f} (top-1%-removed {BR['nested_oof']['diff_top1_removed']:+,.2f}), "
                 f"the CPCV 5th percentile is {BR['cpcv']['diff_p5']:+,.2f}, PBO {BR['family']['pbo_diff']['pbo']}, SPA p {BR['family']['spa']['spa_p']}, and `harness.go_no_go` fails for the cell chosen on all IS both as computed and "
@@ -365,6 +399,7 @@ rows = []
 for tf, X, RX in (("minute", M, RM), ("5minute", M5, R5)):
     L1 = X["L1"]; e, ap, rex = excess_signs(L1); bb = X.get("branch_b"); br = RX.get("branch_b_repair")
     rows.append(dict(tf=tf, units=L1["units"], N1_as_run_rejected=str(L1["rejected_N1"]), N1_as_run_valid="False", N3_min_holm_p=RX["L1"]["min_p_holm_N3"], N4_min_holm_p=RX["L1"]["min_p_holm_N4"],
+                     N3_rejected=str(RX["L1"]["rejected_N3"]), N4_rejected=str(RX["L1"]["rejected_N4"]), decision_repaired=RX["L1"]["decision"].split(" -> ")[0],
                      memory_shown="False", grid_cells=(48 if br else (len(bb["grid"]) if bb else 0)),
                      go_no_go=(str(br["go_no_go"]["passed"]) if br and br.get("go_no_go") else "not run"), go_no_go_without_control=(str(br["go_no_go"]["passed_without_control_check"]) if br and br.get("go_no_go") else "not run"),
                      candidate="none"))
@@ -385,8 +420,13 @@ lines.append("- **Falsifiers of \"no session memory shown\".** A rejection of bo
              "(asserted in code); before the first trigger the strategy's own ledger equals Foundation's, so the absorbing replay is exact; the rearm variant's \"winner\" is the paper trade of a skipped SETUP.\n"
              "- **`active_from_hour_bin = 13`** is the one data-informed choice of the repair (the sign change in the as-run within-hour table); it is counted in the 48-cell family and its 16 cells never win the in-fold "
              "selection.\n"
-             "- **5 min** is underpowered by construction (median 2 SETUPs per active session); no result on it is evidence for or against session memory.\n"
-             "- **Flag for the orchestrator.** `harness.go_no_go`'s `control_pct>=95` check is uninformative for any sequential (position-order) rule (section R.3).\n")
+             f"- **5 min** is underpowered by construction (median 2 SETUPs per active session); its repaired decision is *{repaired_summary('5minute')['decision_short']}*: N3 alone rejects on "
+             + ", ".join(f"`{t['test']}` ({t['n_condition']} units, Holm p {t['N3_p_holm']:.4f})" for t in repaired_summary("5minute")["n3_holm"])
+             + f" while N4 does not (min Holm p {repaired_summary('5minute')['min_p_holm_N4']:.4f}); the pre-registered rule needs both, so nothing is claimed; the contrast's sign is positive (the next SETUP better "
+             "after stops), the direction a stop rule cannot use. If it were ever re-tested, it needs more 5 min sessions, not another statistic on these 18 units.\n"
+             "- **Flag for the orchestrator.** `harness.go_no_go`'s `control_pct>=95` check is uninformative for any sequential (position-order) rule (section R.3).\n"
+             "- **Flag for the orchestrator.** This study writes only its own folder: wherever `REPORT.md` or the S49 entry describes session_stop, the statement to carry is the repaired one "
+             "(\"no session memory shown beyond the hour effect; the as-run N1 rejection is an artifact of outcome-dependent trade duration; no key\"), never the as-run \"mean-reverting memory\" reading or its N1 excess numbers.\n")
 lines.append("## 7. Candidate config\n\nNone. The `session_stop` block is omitted from `strategy_13.json` / `strategy_14.json`; the measured results (as run and repaired) are recorded here and in `findings.json` for S49.\n")
 open(os.path.join(HERE, "FINDINGS.md"), "w", encoding="utf-8").write("\n".join(lines))
 print("FINDINGS.md written")
@@ -404,7 +444,10 @@ def tf_summary(tf):
     X = R["timeframes"][tf]; L1 = X["L1"]; e, ap, rex = excess_signs(L1); RX = REP["timeframes"][tf]
     s = dict(power=X["power_note"], units_is=L1["units"], active_sessions=L1["active_sessions"], setups_per_session_median=L1["setups_per_session_median"], ledger_identity=L1["ledger_identity"],
              session_memory_shown=False,
-             direction="not shown: the as-run N1 rejection is reproduced by a memoryless process with outcome-dependent trade duration (repair R.1); the hindsight-free nulls N3 / N4 do not reject (R.2)",
+             direction=("not shown: the as-run N1 rejection is reproduced by a memoryless process with outcome-dependent trade duration (repair R.1); "
+                        + ("the hindsight-free nulls N3 / N4 do not reject (R.2)" if not (RX["L1"]["rejected_N3"] or RX["L1"]["rejected_N4"]) else
+                           f"of the hindsight-free nulls only {'N3' if RX['L1']['rejected_N3'] else 'N4'} rejects (on {', '.join(t['test'] for t in repaired_summary(tf)['n3_holm' if RX['L1']['rejected_N3'] else 'n4_holm'])}); "
+                           "the pre-registered rule needs both -> inconclusive, not shown (R.2)")),
              decision_as_run=X["decision"], decision_repaired=RX["L1"]["decision"],
              n1_as_run=dict(valid=False, reason="positions fixed while generated by the outcomes; see repair.issues.I1",
                             null_tests={t["test"]: dict(n_condition=t["n_condition"], observed=t["observed"], N1_perm_mean=t["N1_perm_mean"], N1_perm_sd=t["N1_perm_sd"], N1_excess=t["N1_excess"], N1_p=t["N1_p"],
@@ -447,7 +490,8 @@ fams = ["session_stop/grid", "session_stop/nested", "session_stop/nested/cpcv", 
 FJ = dict(study="session_stop", design="DESIGN_PANEL decision-making-6-session-stop-rule-finite-horizon with both judges' fixes; repair round after the adversarial refuters", label="L1 (L0 robustness only)", split="IS only",
           preregistration=PRE, preregistration_sha256_16=PRE_SHA, preregistration_repair=PRE_R, preregistration_repair_sha256_16=PRE_R_SHA,
           timeframes={tf: tf_summary(tf) for tf in ("minute", "5minute")},
-          headline=(f"No session memory beyond the hour effect is shown on either timeframe (1 min: min Holm p N4 {RM['L1']['min_p_holm_N4']:.4f}, N3 {RM['L1']['min_p_holm_N3']:.4f}; 5 min underpowered). "
+          headline=(f"No session memory beyond the hour effect is shown on either timeframe (1 min: {repaired_summary('minute')['decision_short']}, min Holm p N4 {RM['L1']['min_p_holm_N4']:.4f}, N3 {RM['L1']['min_p_holm_N3']:.4f}; "
+                    f"5 min: {repaired_summary('5minute')['decision_short']}, N3 min Holm p {R5['L1']['min_p_holm_N3']:.4f} on stops>=3 with 18 units, N4 min Holm p {R5['L1']['min_p_holm_N4']:.4f}, underpowered). "
                     f"The as-run N1 rejection is an artifact of outcome-dependent trade duration (a memoryless generator reproduces it on {dt['n1_rejected_share']:.0%} of streams). "
                     + (f"The 48-cell stop-rule family fails go/no-go with and without the control check (nested OOF diff {BR['nested_oof']['diff']:+,.2f}, CPCV p5 {BR['cpcv']['diff_p5']:+,.2f}, PBO {BR['family']['pbo_diff']['pbo']}); " if BR else "")
                     + "no key."),
@@ -468,7 +512,8 @@ FJ = dict(study="session_stop", design="DESIGN_PANEL decision-making-6-session-s
                                   I3=dict(issue="Judge 2's hour interaction not run", changed="16 hour-conditioned cells (active_from_hour_bin=13) scored (family session_stop/grid, note repair); nested / CPCV re-run over the 48-cell family (session_stop/nested, session_stop/nested/cpcv, note repair)",
                                           result=dict(hour_cells_chosen_in_folds=(sum(1 for x in BR["chosen_per_fold"] if x and x.get("active_from_hour_bin")) if BR else None), candidate_cell=(BR["go_no_go"]["candidate"] if BR and BR.get("go_no_go") else None))))),
           flags_for_orchestrator=["harness.go_no_go's control_pct>=95 check is uninformative for any sequential (position-order) rule: the session-matched control conditions on the realized N_s; a causal comparator (random stopping rule with matched per-session stop counts, or a memoryless generator) is needed for such rules",
-                                  "S49: record 'no session memory shown' (repaired) and the withdrawal of the as-run 'mean-reverting memory' statement",
+                                  "S49 / REPORT.md (outside this study's write scope): record 'no session memory shown beyond the hour effect (N3/N4 min Holm p 1.0 on 1 min); the as-run N1 rejection is an artifact of outcome-dependent trade duration; no key' and the withdrawal of the as-run 'mean-reverting memory' statement, its direction, the N1 excess numbers and the 'reverse rule' follow-up",
+                                  f"5 min repaired decision is '{repaired_summary('5minute')['decision_short']}': N3 alone rejects on stops>=3 (18 units, Holm p {R5['L1']['min_p_holm_N3']:.4f}), N4 does not (min Holm p {R5['L1']['min_p_holm_N4']:.4f}); nothing claimed, the sign is positive (not a stop rule's direction); more 5 min sessions, not another statistic, would resolve it",
                                   "S49 observation (not a test): real sessions with a winner end sooner than the memoryless generator predicts (P(another unit follows | win) real vs memoryless in timeframes.minute.mechanism); session structure lives in the count of later SETUPs, not in the outcome given the ledger"],
           ledger_families=fams, ledger_rows={fam: None for fam in fams}, ledger_rows_repair={fam: None for fam in fams},
           ledger_sha_before=LEDGER_BEFORE, ledger_sha_after_as_run=R["ledger_sha_after"], ledger_sha_before_repair=REP["ledger_sha_before"], ledger_sha_after_repair=REP["ledger_sha_after"],
@@ -478,7 +523,7 @@ FJ = dict(study="session_stop", design="DESIGN_PANEL decision-making-6-session-s
                    "the memoryless generator is a null model, not a fit: ~6% more units per stream than the data and a higher P(another unit follows | win); session structure in the SETUP count is an observation for S49, not tested here",
                    "the pooled kept-vs-skipped diff of every grid cell is inside the memoryless distribution (hour composition plus cost avoidance); the session-matched control percentile is not used for this family",
                    "active_from_hour_bin=13 is the one data-informed choice of the repair and is counted in the 48-cell family",
-                   "5 min has median 2 SETUPs per active session: no test has power there",
+                   f"5 min has median 2 SETUPs per active session: no test has power there; its repaired decision is '{repaired_summary('5minute')['decision_short']}' (N3 alone rejects on stops>=3, 18 units; N4 does not; the pre-registered rule needs both)",
                    "the rearm variant's winner is the paper trade of a skipped SETUP"],
           files=sorted(x for x in os.listdir(HERE) if not x.startswith("__")))
 try:

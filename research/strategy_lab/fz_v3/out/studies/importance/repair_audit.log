@@ -1,0 +1,47 @@
+{
+ "registration_at": "2026-09-29T11:31:33",
+ "rows_before": 1759,
+ "gate_search_rows_before": 1600,
+ "families": {
+  "exit_policy": 3,
+  "h2": 900,
+  "h3": 312,
+  "h4": 132,
+  "llm_hypotheses": 36,
+  "rocket": 144,
+  "session_stop": 73
+ },
+ "rows_after": 3,
+ "phase3_rows": 0,
+ "mda_diff_folds_defined": {
+  "minute": 0,
+  "5minute": 1
+ },
+ "dry": {
+  "distinct": 42,
+  "numbers": 126,
+  "defined": 72,
+  "fold_numbers": 108,
+  "identical": true
+ },
+ "exact_zero": {
+  "minute": [
+   18,
+   true
+  ],
+  "5minute": [
+   14,
+   true
+  ]
+ },
+ "corrections_appended": [
+  {
+   "tf": "minute",
+   "registered_at": "2026-09-29T12:07:12"
+  },
+  {
+   "tf": "5minute",
+   "registered_at": "2026-09-29T12:07:12"
+  }
+ ]
+}

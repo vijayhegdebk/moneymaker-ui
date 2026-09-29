@@ -1,0 +1,1 @@
+{"agentType":"workflow-subagent","description":"followup:exit_policy","workflowPhase":"Follow-up","spawnDepth":1,"requestShape":"foreground","requestNonInteractive":true}

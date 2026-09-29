@@ -1,0 +1,9 @@
+{
+ "agentId": "a5ad42c6954f97d05",
+ "label": "recheck:exit_policy",
+ "phase": "Repair",
+ "result": null,
+ "key": "v2:dd40169327474cabfd1c00910029018555214a76f8c1c1b95a7c4eca1da4d524",
+ "transcript": "audit/workflows/phase1b/agent-a5ad42c6954f97d05.jsonl",
+ "meta": "audit/workflows/phase1b/agent-a5ad42c6954f97d05.meta.json"
+}

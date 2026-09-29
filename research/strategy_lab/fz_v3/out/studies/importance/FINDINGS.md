@@ -1,6 +1,6 @@
 # importance: FINDINGS (DESIGN_PANEL quant-ml-canon-feature-importance, both judges' fixes)
 
-**What this study is.** The feature-vocabulary pass: which clusters of as-of columns (base design + the 61 extended columns handed here by the regime-breaks, regime-states, motif-shapelet and rocket-probe judges) carry information about the L1 outcome under the harness splitter; the shortlist of at most 8 clusters per timeframe that the gate studies may draw features from, frozen in the ledger before any gate search; the FFD verdict; the five interaction pairs that are the only depth-2/3 conjunctions allowed downstream. This study proposes **no gate**: the only kept-vs-skipped numbers are the ledger rows of the OOF gates it had to evaluate (the full bagged model at its training-fold tau, each SFI cluster at its tau, the CPCV paths of the full model), reported as ceilings, never as candidates. IS only.
+**What this study is.** The feature-vocabulary pass: which clusters of as-of columns (base design + the 61 extended columns handed here by the regime-breaks, regime-states, motif-shapelet and rocket-probe judges) carry information about the L1 outcome under the harness splitter; the shortlist of at most 8 clusters per timeframe that the gate studies may draw features from, frozen in the ledger before the phase-3 gate studies (gate_family, llm_round1, regime_gate; the H1-H5, session_stop, llm round 0, rocket and exit_policy searches preceded it and were not restricted to it: 'Repair', issue 1, and the `correction` records in `ledger/registrations.jsonl`); the FFD verdict; the five interaction pairs that are the only depth-2/3 conjunctions allowed downstream. This study proposes **no gate**: the only kept-vs-skipped numbers are the ledger rows of the OOF gates it had to evaluate (the full bagged model at its training-fold tau, each SFI cluster at its tau, the CPCV paths of the full model), reported as ceilings, never as candidates. IS only.
 
 ## Definitions (fixed before the numbers)
 
@@ -103,6 +103,8 @@ Family `importance/*` on minute (52 ledger rows: full model x3 depths, 38 SFI cl
 
 Full table with members, per-period MDA values and SFI ledger ids: `importance_clusters_minute.csv`; per-feature MDI, tier, coverage and README definition: `importance_features_minute.csv`.
 
+Note on the 'MDA diff' columns (the design's 'metric that matters': the permutation drop in the OOF kept-vs-skipped difference at the fold's tau). It exists only where the fold's OOF gate skipped something. On minute the training-fold tau rule kept every test row in 12 of 12 folds, so the statistic is undefined there ('-'); it is undefined for every cluster on this timeframe. The log-loss MDA was therefore the only evaluable statistic and is the pass rule: a deviation from the design's emphasis forced by an undefined statistic, not a noise finding ('Repair', issue 2).
+
 | rank | cluster | representative | n | MDA ll mean | std | ratio | pass | MDA diff mean | std | pass | MDI | SFI ll | SFI AUC | SFI diff | SFI kept | SFI ctrl pct | rank 2022 | rank 2023 | rank 2024 | rank 2025 | top-8 periods | stable | eligible |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | 7 | `card_read=PENDING` | 13 | 0.00030 | 0.00059 | 0.50 | no | - | - | no | 0.0188 | 0.8080 | 0.543 | 105.8 | 0.859 | 37.0 | 6 | 1 | 32 | 1 | 3 | yes | no |
@@ -152,12 +154,14 @@ Stability: periods 2022 (1428 rows, 243 winners), 2023 (1096 rows, 146 winners),
 
 | item | value |
 |---|---|
-| log-loss MDA recomputed from `oof_minute.npz` vs the table | max abs diff 7.64e-10 (agree) |
+| log-loss MDA recomputed from `oof_minute.npz` vs the table | max abs diff 1.04e-09 (agree) |
 | full model OOF AUC, pooled / per-fold mean +- std | 0.5935 / 0.5841 +- 0.0567 |
 | mean OOF probability vs winner share (unweighted / |net|-weighted) | 0.5261 vs 0.1559 / 0.2185 |
 | OOF weighted log-loss: model vs the constant predictor at the weighted winner share | 0.74474 vs 0.52502 (the constant is better: the forest is mis-calibrated under balanced class weights) |
 | clusters passing an AUC-drop version of the same rule (mean drop > std across folds) | 2 of 38 |
-| clusters with negative / exactly-zero log-loss MDA | 15 / 0 |
+| clusters with negative / exactly-zero log-loss MDA (recomputed at float32 precision, like the stored `p_perm`) | 15 / 18 |
+| exactly-zero clusters by prediction identity (`p_perm == float32(p_oof)` on every IS row and permutation) | 18 of 38; the text above says 18 (agree); float64-base rounding noise that hid them before the repair: max 2.7e-10 |
+| stability ranks recomputed as run vs float32-consistent | table reproduced yes; clusters whose top-8 count differs: 0; stability flags that would change: 0; eligible clusters as run / consistent: 0 / 0 |
 
 | AUC rank | cluster | representative | AUC drop mean | std | ratio | folds positive | pooled-OOF AUC drop | log-loss MDA mean |
 |---|---|---|---|---|---|---|---|---|
@@ -285,7 +289,7 @@ All ranked pairs: `interaction_pairs_minute.csv`; the full mean |interaction| ma
 
 ### The shortlist (0 clusters; 0 of 38 pass MDA, 5 pass stability, 0 pass both; cap 8)
 
-Frozen at `features_shortlist/minute/shortlist.json`, sha256 `66f6e004bd93e47c55ca219785a9a30f36d618cbbbd215cfcbad5a44412b5bdb`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
+Frozen at `features_shortlist/minute/shortlist.json`, sha256 `66f6e004bd93e47c55ca219785a9a30f36d618cbbbd215cfcbad5a44412b5bdb`, registered in `ledger/registrations.jsonl` at 2026-09-29T11:31:33 UTC: frozen before the phase-3 gate studies (registered 2026-09-29T11:31:33 UTC, after 1600 gate-search ledger rows (exit_policy 3, h2 900, h3 312, h4 132, llm_hypotheses 36, rocket 144, session_stop 73; 1759 rows in all) and before the phase-3 gate studies (gate_family, llm_round1, regime_gate: 0 ledger rows at registration, 0 now)); the registration's own note 'frozen before any gate search' was false and is corrected by the `correction` record of 2026-09-29T12:07:12 (never edited; 'Repair', issue 1). Allowed columns for the gate studies: 0.
 
 **Empty**: no cluster passes both the MDA rule and the stability filter on this timeframe (none passes the MDA rule alone). The gate studies have no shortlisted column here; a null vocabulary is a result, not a failure of the pipeline. Consequence under the frozen rule: the downstream gate studies (gate_family, llm_round1, regime_gate) may not draw features on this timeframe from this study's vocabulary; any re-opening of the vocabulary (a weaker rule, a different statistic, a different model) is a user decision that would be a new registration with its own sha and the multiplicity carried forward, never an edit of this one. For that decision only, the clusters with a positive mean MDA (none exceeds its std): cluster 7 `card_read=PENDING` (13 members) +0.00030 +- 0.00059, ratio 0.50, top-8 in 3 periods; cluster 11 `card_read=ACCEPTED` (7 members) +0.00016 +- 0.00048, ratio 0.33, top-8 in 3 periods; cluster 13 `card_read=FIRST_PRINT` (4 members) +0.00008 +- 0.00011, ratio 0.67, top-8 in 3 periods; cluster 15 `n_events_asof` (3 members) +0.00002 +- 0.00005, ratio 0.36, top-8 in 2 periods; cluster 9 `card_last_reject_dir=nan` (9 members) +0.00001 +- 0.00025, ratio 0.06, top-8 in 1 periods. These are NOT allowed columns.
 
@@ -343,6 +347,8 @@ Family `importance/*` on 5minute (53 ledger rows: full model x3 depths, 39 SFI c
 
 Full table with members, per-period MDA values and SFI ledger ids: `importance_clusters_5minute.csv`; per-feature MDI, tier, coverage and README definition: `importance_features_5minute.csv`.
 
+Note on the 'MDA diff' columns (the design's 'metric that matters': the permutation drop in the OOF kept-vs-skipped difference at the fold's tau). It exists only where the fold's OOF gate skipped something. On 5minute the training-fold tau rule kept every test row in 11 of 12 folds, so the statistic is undefined there ('-'); the values shown come from fold 1 alone (83 test rows, tau 0.37, kept 0.9157) and have no std, so 'pass' is 'no' by construction. The log-loss MDA was therefore the only evaluable statistic and is the pass rule: a deviation from the design's emphasis forced by an undefined statistic, not a noise finding ('Repair', issue 2).
+
 | rank | cluster | representative | n | MDA ll mean | std | ratio | pass | MDA diff mean | std | pass | MDI | SFI ll | SFI AUC | SFI diff | SFI kept | SFI ctrl pct | rank H1_2021-10..2023-09 | rank H2_2023-10..2025-12 | top-8 periods | stable | eligible |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | 17 | `touch_room_last=broke` | 4 | 0.00177 | 0.00710 | 0.25 | no | 1713.1 | - | no | 0.0421 | 0.7613 | 0.532 | 897.1 | 0.903 | 97.5 | 1 | 5 | 2 | yes | no |
@@ -393,12 +399,14 @@ Stability: periods H1_2021-10..2023-09 (412 rows, 124 winners), H2_2023-10..2025
 
 | item | value |
 |---|---|
-| log-loss MDA recomputed from `oof_5minute.npz` vs the table | max abs diff 1.91e-09 (agree) |
+| log-loss MDA recomputed from `oof_5minute.npz` vs the table | max abs diff 2.11e-09 (agree) |
 | full model OOF AUC, pooled / per-fold mean +- std | 0.4974 / 0.4915 +- 0.0833 |
 | mean OOF probability vs winner share (unweighted / |net|-weighted) | 0.5222 vs 0.2772 / 0.3766 |
 | OOF weighted log-loss: model vs the constant predictor at the weighted winner share | 0.72748 vs 0.66239 (the constant is better: the forest is mis-calibrated under balanced class weights) |
 | clusters passing an AUC-drop version of the same rule (mean drop > std across folds) | 0 of 39 |
-| clusters with negative / exactly-zero log-loss MDA | 19 / 0 |
+| clusters with negative / exactly-zero log-loss MDA (recomputed at float32 precision, like the stored `p_perm`) | 19 / 14 |
+| exactly-zero clusters by prediction identity (`p_perm == float32(p_oof)` on every IS row and permutation) | 14 of 39; the text above says 14 (agree); float64-base rounding noise that hid them before the repair: max 1.3e-09 |
+| stability ranks recomputed as run vs float32-consistent | table reproduced yes; clusters whose top-8 count differs: 0; stability flags that would change: 0; eligible clusters as run / consistent: 0 / 0 |
 
 | AUC rank | cluster | representative | AUC drop mean | std | ratio | folds positive | pooled-OOF AUC drop | log-loss MDA mean |
 |---|---|---|---|---|---|---|---|---|
@@ -525,7 +533,7 @@ All ranked pairs: `interaction_pairs_5minute.csv`; the full mean |interaction| m
 
 ### The shortlist (0 clusters; 0 of 39 pass MDA, 2 pass stability, 0 pass both; cap 8)
 
-Frozen at `features_shortlist/5minute/shortlist.json`, sha256 `4747257f41ecb40f1b3c27ea35cc50868d7c6b91f84f61ab7666911aef019dc9`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
+Frozen at `features_shortlist/5minute/shortlist.json`, sha256 `4747257f41ecb40f1b3c27ea35cc50868d7c6b91f84f61ab7666911aef019dc9`, registered in `ledger/registrations.jsonl` at 2026-09-29T11:31:33 UTC: frozen before the phase-3 gate studies (registered 2026-09-29T11:31:33 UTC, after 1600 gate-search ledger rows (exit_policy 3, h2 900, h3 312, h4 132, llm_hypotheses 36, rocket 144, session_stop 73; 1759 rows in all) and before the phase-3 gate studies (gate_family, llm_round1, regime_gate: 0 ledger rows at registration, 0 now)); the registration's own note 'frozen before any gate search' was false and is corrected by the `correction` record of 2026-09-29T12:07:12 (never edited; 'Repair', issue 1). Allowed columns for the gate studies: 0.
 
 **Empty**: no cluster passes both the MDA rule and the stability filter on this timeframe (none passes the MDA rule alone). The gate studies have no shortlisted column here; a null vocabulary is a result, not a failure of the pipeline. Consequence under the frozen rule: the downstream gate studies (gate_family, llm_round1, regime_gate) may not draw features on this timeframe from this study's vocabulary; any re-opening of the vocabulary (a weaker rule, a different statistic, a different model) is a user decision that would be a new registration with its own sha and the multiplicity carried forward, never an edit of this one. For that decision only, the clusters with a positive mean MDA (none exceeds its std): cluster 17 `touch_room_last=broke` (4 members) +0.00177 +- 0.00710, ratio 0.25, top-8 in 2 periods; cluster 7 `fz_gate=TAKE` (6 members) +0.00050 +- 0.00499, ratio 0.10, top-8 in 0 periods; cluster 12 `card_read=LEAVE` (5 members) +0.00021 +- 0.00160, ratio 0.13, top-8 in 1 periods; cluster 22 `days_to_expiry` (2 members) +0.00009 +- 0.00098, ratio 0.10, top-8 in 1 periods; cluster 16 `touch_prot_last=held` (4 members) +0.00000 +- 0.00355, ratio 0.00, top-8 in 1 periods. These are NOT allowed columns.
 
@@ -550,7 +558,8 @@ None. This study fixes the vocabulary (the shortlist JSON + the five interaction
 
 ## Caveats
 
-- The primary MDA statistic is the permutation drop in OOF weighted log-loss; the kept-vs-skipped MDA at the fold's tau is reported with its own mean / std but is not the pass rule (on 70-370 test rows per fold its std exceeds its mean for nearly every cluster, as Judge 1 foresaw).
+- The primary MDA statistic is the permutation drop in OOF weighted log-loss. The design also names the drop in the OOF kept-vs-skipped expectancy at the fold's tau 'the metric that matters' (DESIGN_PANEL.md, method step 4); in this run that statistic is UNDEFINED in nearly every fold, not noisy: the training-fold tau rule (max kept mean s.t. |net|-weighted winner recall >= 0.90 on the OOB probabilities) chose the grid floor or a tau every test probability cleared, so the OOF gate skipped nothing and `harness.metrics` returns no difference (12/12 folds undefined on minute; 11/12 folds undefined on 5minute (the one defined: fold 1, 83 test rows, kept 0.9157, diff 1366.55)). The 5minute 'MDA diff mean' column is therefore a single-fold number with no std, and the minute column is empty. The log-loss MDA was the only evaluable statistic and is the pass rule: a deviation from the design's emphasis forced by the data, not a noise finding. An earlier wording of this caveat ('its std exceeds its mean for nearly every cluster') described a statistic that does not exist in this run and is corrected ('Repair', issue 2).
+- Off-ledger debug evaluations (repair, issue 3): before the real run, `run_importance.py --dry` (20 trees; `harness.score` monkey-patched to `harness.metrics` with controls off, no ledger row) ran on the real 5minute IS table with the real L1 label in 4 logs (`dry_5minute_attempt1.nohup` 04:52:33..05:08:10 UTC, `dry_5minute.nohup` 05:09:46..05:12:47 UTC, `dry_stage_main.nohup` 05:33:21..05:37:34 UTC, `dry_stage_sfi.nohup` 05:33:22..05:38:02 UTC). They printed the OOF gate difference of 42 distinct configurations (3 full-model depths, 39 SFI clusters; 24 with a defined difference, the rest kept every row), 126 configuration-level numbers in all (72 defined; the seeds are fixed, so every pass printed the same numbers: identical across logs yes) plus 108 fold-level differences (60 defined). None is in the ledger, none is counted by the family's PBO / SPA / effective trials (the ledger holds the 300-tree runs: 53 rows on 5minute), and no reported number rests on them; they are listed so the count is honest. The BRIEF forbids private kept-vs-skipped arithmetic: this is recorded as a deviation. `--dry` now shuffles net / pts / net_slip within the IS rows (seed 0) before any fit, so a dry run can no longer produce a real kept-vs-skipped number off-ledger (verification: `dry_repair_check_main.nohup`, `dry_repair_check_sfi.nohup`, outputs `dry_repair_check/`).
 - Per-period stability re-scores the same 12 fold models on the rows of each period (no refit inside a year: a 12-block CV does not exist inside ~1,100 rows / 170 winners, and refitting there would be the noise Judge 2 warns of); it measures whether the relation learned on the other blocks holds in that period.
 - tau is chosen on the training fold's out-of-bag probabilities (the bagging's own inner out-of-fold estimate), not on an inner CV; OOB probabilities of a 300-tree bagging are out-of-fold for every training row.
 - Two-level one-hots keep one level; exact duplicates are dropped; missing indicators are de-duplicated by NaN pattern: these are stated preprocessing steps, not searches.
@@ -561,6 +570,55 @@ None. This study fixes the vocabulary (the shortlist JSON + the five interaction
 - The stability ranks are ranks of a mostly non-positive vector: a cluster with an MDA of exactly 0 in every fold (never split on) ranks in the top 8 above the negative clusters. The filter is the conjunction 'MDA > 1 std AND top-8 in the periods' as designed, so this quirk cannot admit a cluster; it does make the stability column alone unreadable as evidence.
 - The pre-registered MDA statistic is the OOF weighted log-loss. `mda_diag.py` shows (from the saved OOF arrays, no refit, no ledger row) that the balanced-weight forest is mis-calibrated under that loss, which is why the clusters the forest splits on have a negative log-loss MDA; the AUC-drop diagnostic is reported next to it for the reader and is not a pass rule.
 - Resume: the run was interrupted by the model's usage limit (12:00-16:30 IST) after every stage process had finished on its own; only the minute finalize (11:27 UTC), the shortlist writer and this document were produced after the pause. Nothing was rerun; the minute cpcv log lacks its two closing lines (orphaned inode, see PROGRESS.md), cpcv_minute.json and the 11 ledger rows are complete.
+
+## Repair (2026-09-29, after the adversarial refuters)
+
+Four issues were confirmed by the refuters and are repaired here. No model was refitted and no ledger trial row was added or changed; the ledger is append-only and received two `correction` records; the two shortlist files and their shas are unchanged (verified by `repair_audit.py`). Every table above holds the same numbers as before the repair except the supplementary-diagnostic rows named under issue 4. Facts: `repair_audit.json` (from the ledger, the registrations, the dry logs and the fold tables), `mda_diag.json` (re-run), `repair_audit.log`, `mda_diag.log` (the first version's log is kept as `mda_diag_v1.log`).
+
+### 1. The registration note 'frozen before any gate search' was false as a data-ordering fact
+
+| item | value |
+|---|---|
+| registration of both shortlists | 2026-09-29T11:31:33 UTC (`ledger/registrations.jsonl` lines 3-4; note 'frozen before any gate search') |
+| ledger rows before / after the registration | 1759 / 3 (of 1762 now) |
+| of which searches for a new skip rule (the BRIEF: a gate is any rule that turns a SETUP into skip) | 1600: exit_policy 3 (04:29:19..11:30:47 UTC), h2 900 (03:59:29..05:59:42 UTC), h3 312 (04:01:59..05:53:23 UTC), h4 132 (04:05:00..05:56:17 UTC), llm_hypotheses 36 (05:09:27..05:13:15 UTC), rocket 144 (07:00:02..07:12:37 UTC), session_stop 73 (04:07:17..06:36:37 UTC) |
+| other rows before | comparator 4 (the frozen ST7/ST8 comparator), h1 44 (the H1 audit of the frozen gate's own components (not a new rule)), importance 105 (this study's own OOF gates (ceilings)), null_tapes_drift 6 (the real-tape reference rows of the null-tape study) |
+| rows after | exit_policy/gate_x_exit 5minute 3 (11:32:02 UTC) |
+| phase-3 gate studies (gate_family, operating_point_sizing, llm_round1, regime_gate, online_learner) | 0 ledger rows at registration, 0 now |
+| shortlist files | minute: sha `66f6e004bd93e47c...` unchanged yes, 0 clusters, 0 allowed columns; 5minute: sha `4747257f41ecb40f...` unchanged yes, 0 clusters, 0 allowed columns |
+| `correction` records appended (the file is never edited) | 2: pre_registration 'feature shortlist minute' registered 2026-09-29T11:31:33 -> 2026-09-29T12:07:12; pre_registration 'feature shortlist 5minute' registered 2026-09-29T11:31:33 -> 2026-09-29T12:07:12 |
+
+The true claim is **frozen before the phase-3 gate studies**. The H2/H3/H4, session_stop, llm round 0, rocket and exit_policy searches ran first (1600 ledger rows) and were not restricted to this vocabulary (no shortlist file existed before the registration; their multiplicity is carried by their own ledger families). The ordering that matters for PBO is the one against the phase-3 studies (gate_family, llm_round1, regime_gate), whose feature vocabulary this shortlist restricts, and that ordering holds (0 rows at registration). The shortlist is empty on both timeframes, so no column choice could have been informed by the earlier searches. Same class of false provenance claim as the llm round 0 note the program corrected at 2026-09-29T05:09:16 (line 2 of the registrations file). Changed: the `correction` records (one per registration, mirroring that precedent); the sentence in 'What this study is'; the 'Frozen at' paragraphs of both shortlist sections; `shortlist.py` now writes a data-driven note (the ledger's families and row count at registration) instead of the false phrase; `findings.json` carries the ordering under `repair` and `registrations`.
+
+### 2. The kept-vs-skipped MDA at the fold's tau was undefined, not noisy
+
+| timeframe | folds with a defined OOF gate difference | folds where the gate kept every test row | taus chosen | clusters with a defined MDA-diff mean / std | MDA-diff pass | log-loss MDA pass |
+|---|---|---|---|---|---|---|
+| minute | 0 of 12 | 12 | [0.05, 0.31] | 0 / 0 of 38 | 0 | 0 |
+| 5minute | 1 of 12 (fold 1: 83 test rows, tau 0.37, kept 0.9157, diff 1366.55) | 11 | [0.05, 0.36, 0.37] | 39 / 0 of 39 | 0 | 0 |
+
+The design (DESIGN_PANEL.md, method step 4) names the drop in OOF kept-vs-skipped expectancy at the fold's tau 'the metric that matters'. The earlier caveat 1 said it was 'not the pass rule (on 70-370 test rows per fold its std exceeds its mean for nearly every cluster)': that described a statistic that does not exist in this run. Where the fold's OOF gate keeps every test row, `harness.metrics` returns no difference and the permutation drop of an undefined number is undefined; the minute column is empty for all clusters and the 5minute 'MDA diff mean' is a single-fold number with no std (the largest, cluster 17: 1713.1 INR, is one fold). The log-loss MDA was therefore the only evaluable statistic and is the pass rule. This is a deviation from the design's emphasis forced by the data (the tau rule's 'keep everything' outcome), not a noise finding. Changed: caveat 1, the note above each clustered table, this section; the table columns themselves are unchanged (they were '-' where undefined). What would have made the statistic evaluable: a tau rule that skips something in every fold (a kept-share ceiling), which is a different design and would be a new registration.
+
+### 3. Off-ledger kept-vs-skipped numbers in the dry runs
+
+| dry log | UTC | stage | trees | configuration-level gate differences (defined) | fold-level gate differences (defined) | ended normally |
+|---|---|---|---|---|---|---|
+| `dry_5minute_attempt1.nohup` | 04:52:33..05:08:10 | all | 20 | 42 (24) | 36 (20) | no |
+| `dry_5minute.nohup` | 05:09:46..05:12:47 | all | 20 | 42 (24) | 36 (20) | yes |
+| `dry_stage_main.nohup` | 05:33:21..05:37:34 | main | 20 | 3 (3) | 36 (20) | yes |
+| `dry_stage_sfi.nohup` | 05:33:22..05:38:02 | sfi | 20 | 39 (21) | 0 (0) | yes |
+
+Under `--dry`, `harness.score` was monkey-patched to `harness.metrics` (controls off, no ledger row; `run_importance.py` lines 29-35 of the original) and the runs used the real 5minute IS table with the real L1 label at 20 trees. Distinct configurations with a printed OOF gate difference: **42** (3 full-model depths, 39 SFI clusters), 24 of them with a defined difference (the others kept every row); 126 configuration-level numbers printed in all (72 defined) plus 108 fold-level differences (60 defined). The seeds are fixed, so every pass printed the same numbers (identical across logs: yes). These evaluations are not in the ledger and are not counted by the family's PBO / SPA / effective trials (the ledger holds the 300-tree runs: 53 rows on 5minute); no reported number rests on them; they are listed so the count is honest, and the deviation from the BRIEF's rule ('no private kept-vs-skipped arithmetic anywhere') is recorded, not excused. They were not scored retroactively into an `importance/dry` family: 20-tree variants would enter the family's PBO / SPA / effective-trial count as if they had been candidates, which they were not (a debug of the code paths), and the disclosure here is the honest record. Changed: `run_importance.py --dry` now shuffles net / pts / net_slip within the IS rows (seed 0; OOS rows are never touched) before any fit, so a dry run can no longer produce a real kept-vs-skipped number off-ledger; the dry output folder is overridable (`IMP_DRY_DIR`) so a check does not overwrite the `dry/` evidence; verification: `dry_repair_check_main.nohup` / `dry_repair_check_sfi.nohup` (outputs under `dry_repair_check/`), whose printed differences are those of the destroyed pairing.
+
+### 4. The exactly-zero contradiction (text 18 / 14 vs diagnostic 0 / 0)
+
+| timeframe | text: clusters with MDA exactly 0 in every fold | diagnostic before the repair | after: float32-consistent log-loss / by prediction identity | agree | never-split clusters | float64-base rounding noise (max abs) |
+|---|---|---|---|---|---|---|
+| minute | 18 | 0 | 18 / 18 | yes | [8, 14, 16, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 29, 30, 33, 35, 37] | 2.7e-10 |
+| 5minute | 14 | 0 | 14 / 14 | yes | [8, 15, 19, 24, 26, 27, 28, 29, 30, 31, 32, 35, 37, 38] | 1.3e-09 |
+
+Cause: `p_perm` is stored as float32 (`imp_lib.full_model_pass`, memory) while `p_oof` is float64. The main stage computed its table from the float64 predictions before storage, so the table's zeros are exact and the text's 18 / 14 was right; `mda_diag.py` recomputed the drop against the float64 base and got ~1e-9 instead of 0 for a never-split cluster, so its exact-zero test never fired and its json said 0 / 0. Changed: `mda_diag.py` rounds the base to float32 before every comparison (like-for-like), takes the per-permutation differences before averaging (as the main stage does) and also tests 'exactly zero' by prediction identity; re-run; the diagnostic rows now agree with the text. The stability ranks were checked the same way (`period_rank_check` in `mda_diag.json`): `imp_lib.period_mda` compares float64 base with float32 permuted predictions too, so every never-split cluster carries one identical rounding constant per period (a tie among them, not a re-order); minute: table ranks reproduced yes, top-8 count differs for 0 cluster(s), stability flag would change for 0, eligible clusters 0 -> 0; 5minute: table ranks reproduced yes, top-8 count differs for 0 cluster(s), stability flag would change for 0, eligible clusters 0 -> 0. `imp_lib.py` is unchanged in behaviour (a comment at the `p_perm` allocation documents the precision); the main stage was not re-run, since its numbers are unaffected.
+
 
 ## Files
 
@@ -610,4 +668,11 @@ None. This study fixes the vocabulary (the shortlist JSON + the five interaction
 - `studies/importance/bag_probe.log`
 - `studies/importance/xgb_probe.py`
 - `studies/importance/xgb_probe.log`
+- `studies/importance/repair_audit.py`
+- `studies/importance/repair_audit.json`
+- `studies/importance/repair_audit.log`
+- `studies/importance/mda_diag_v1.log`
+- `studies/importance/dry_repair_check_main.nohup`
+- `studies/importance/dry_repair_check_sfi.nohup`
+- `studies/importance/dry_repair_check/run_5minute.log`
 - `ledger/registrations.jsonl`

@@ -1,0 +1,619 @@
+{
+ "k_best": 39,
+ "silhouette": {
+  "20": 0.0915,
+  "21": 0.0909,
+  "22": 0.0904,
+  "23": 0.0898,
+  "24": 0.0925,
+  "25": 0.0958,
+  "26": 0.1035,
+  "27": 0.112,
+  "28": 0.1124,
+  "29": 0.1132,
+  "30": 0.1236,
+  "31": 0.124,
+  "32": 0.1238,
+  "33": 0.1243,
+  "34": 0.1397,
+  "35": 0.1396,
+  "36": 0.1395,
+  "37": 0.1465,
+  "38": 0.1478,
+  "39": 0.1502,
+  "40": 0.1497
+ },
+ "clusters": {
+  "0": [
+   "sl_dist_pts",
+   "sl_dist_atr",
+   "atr14",
+   "atr_bps",
+   "range_1h_pts",
+   "range_1h_atr",
+   "range_since_choch_atr",
+   "bar_range_pts",
+   "bar_range_atr",
+   "er_1h",
+   "bars_since_prev_choch",
+   "vol_ratio20",
+   "vol_ratio60",
+   "vol_max_ratio20_5",
+   "vol_max_ratio20_15",
+   "hv2_dir_agree",
+   "hv2_ratio",
+   "vol_ratio20_at_choch",
+   "vol_max_ratio20_choch_to_k",
+   "dist_prot_dir_atr",
+   "dist_choch_lvl_atr",
+   "choch_bar_range_atr",
+   "move_since_choch_pts",
+   "ffd_vol_dstar",
+   "ffd_vol_dstar_z60",
+   "bsadf_close",
+   "csw_max_abs",
+   "csw_max_exceed",
+   "bocpd_ret_h60_p10",
+   "bocpd_ret_h240_p10",
+   "rv_absret",
+   "rv_body_frac",
+   "rv_logvol_rel20",
+   "gmm3_p2",
+   "gmm3_map",
+   "gmm4_p3",
+   "gmm4_map",
+   "hmm3_p2",
+   "hmm3_map",
+   "hmm4_map",
+   "jump4_run",
+   "win_sign_agree10",
+   "win_range_slope"
+  ],
+  "1": [
+   "session_bar",
+   "hour",
+   "hour_bin=13",
+   "hour_bin=14",
+   "hour_bin=15",
+   "choch_same_session",
+   "sess_range_atr",
+   "last_bos_same_session",
+   "n_events_today",
+   "n_choch_today",
+   "n_bos_today",
+   "hv2_dir=down",
+   "hv3_dir=down",
+   "today_n_closed_asof",
+   "today_n_stops_asof",
+   "last_closed_reason_asof=next_choch",
+   "last_closed_reason_asof=stop_loss",
+   "bocpd_ret_h60_map",
+   "bocpd_ret_h60_since_reset",
+   "bocpd_ret_h240_map",
+   "bocpd_ret_h240_since_reset",
+   "bocpd_rng_h60_map",
+   "bocpd_rng_h60_since_reset",
+   "bocpd_rng_h240_map",
+   "bocpd_rng_h240_since_reset",
+   "rv_ev36"
+  ],
+  "2": [
+   "hour_bin=09",
+   "hour_bin=<09:25",
+   "hv2_dir=none",
+   "hv3_dir=none",
+   "today_net_asof",
+   "today_pts_asof",
+   "last_closed_reason_asof=nan",
+   "card_leave_kind=gap",
+   "fz_block_reason=open_pierce",
+   "fz_take_why=leave_gap_quiet",
+   "bocpd_rng_h60_p10",
+   "bocpd_rng_h240_p10",
+   "ret_1h_pts__na",
+   "er_1h__na",
+   "hv2_bars_since__na",
+   "vol_ratio20_at_choch__na",
+   "vol_max_ratio20_choch_to_k__na",
+   "csw_max_abs__na"
+  ],
+  "3": [
+   "n_choch_since_bos",
+   "bars_since_bos",
+   "n_choch_since_bos_today",
+   "alt_dir6",
+   "n_choch_1h",
+   "n_choch_3h",
+   "touch_swing_n",
+   "touch_swing_last=broke",
+   "gmm3_p0",
+   "gmm4_p1",
+   "hmm3_p0",
+   "hmm3_map_run",
+   "hmm4_p2",
+   "hmm4_map_run",
+   "jump4_state",
+   "nn_dist_prefix_long",
+   "p1_dist_prefix_long"
+  ],
+  "4": [
+   "bar_body_pts",
+   "close_pos_in_bar",
+   "close_vs_sess_open_pts",
+   "pos_in_session_range",
+   "ret_1h_pts",
+   "hv2_dir=up",
+   "hv3_dir=up",
+   "dist_sl_atr",
+   "swing_near_kind=H",
+   "room_edge_kind=hi",
+   "card_read=PENDING",
+   "card_out_side=up",
+   "card_last_reject_dir=down",
+   "fz_watch_kind=WATCH_EDGE",
+   "ffd_close_dstar_z60",
+   "rv_ret36_atr"
+  ],
+  "5": [
+   "bars_since_choch",
+   "n_bos_since_choch",
+   "alt_kind6",
+   "n_bos_1h",
+   "n_bos_3h",
+   "touch_swing_last=held",
+   "touch_swing_bars_ago",
+   "gmm3_p1",
+   "gmm4_p0",
+   "gmm4_p2",
+   "hmm3_p1",
+   "hmm4_p0",
+   "hmm4_p1",
+   "hmm4_p3"
+  ],
+  "6": [
+   "room_edge_dist_dir_atr",
+   "touch_room_last=none",
+   "card_read=THIN",
+   "card_last_reject_dir=up",
+   "fz_zone_kind=B",
+   "fz_gate=WATCH",
+   "fz_block_reason=leave_into_recycle",
+   "fz_branch=nan",
+   "fz_entered_read=RECYCLE",
+   "fz_entered_read=THIN",
+   "fz_watch_kind=WATCH",
+   "card_in_room"
+  ],
+  "7": [
+   "card_last_hunt_dir=nan",
+   "fz_gate=TAKE",
+   "fz_block_reason=nan",
+   "fz_branch=leave",
+   "fz_take_why=nan",
+   "fz_entered_read=nan"
+  ],
+  "8": [
+   "gap_pts__na",
+   "bars_since_prev_choch__na",
+   "sess_cumvol_ratio20s__na",
+   "bocpd_ret_h60_since_reset__na",
+   "bocpd_rng_h60_since_reset__na",
+   "nn_dist_prefix_long__na"
+  ],
+  "9": [
+   "hour_bin=12",
+   "range_3h_pts",
+   "range_3h_atr",
+   "sess_cumvol_ratio20s",
+   "sess_vol_vs_prev_sess",
+   "cusum_events_60"
+  ],
+  "10": [
+   "hv2_bars_since",
+   "swing_ahead_dist_atr",
+   "touch_room_last=pending",
+   "touch_swing_last=pending",
+   "card_cluster_sit",
+   "cusum_bars_since"
+  ],
+  "11": [
+   "room_behind_dist_atr",
+   "card_read=NEW",
+   "card_out_side=nan",
+   "card_last_reject_dir=nan",
+   "fz_gate=BLOCK",
+   "fz_block_reason=new"
+  ],
+  "12": [
+   "card_read=LEAVE",
+   "card_leave_side=up",
+   "card_leave_kind=normal",
+   "fz_take_why=leave_vol_fail",
+   "fz_entered_read=REJECT"
+  ],
+  "13": [
+   "dir=down",
+   "last_choch_dir=down",
+   "dist_sh_atr",
+   "card_out_side=down",
+   "card_leave_side=down"
+  ],
+  "14": [
+   "touch_room_last=held",
+   "bsadf_close_win",
+   "nn_dist_prefix_short",
+   "p1_dist_prefix_short",
+   "win_dd_extreme_atr"
+  ],
+  "15": [
+   "card_read=HUNT",
+   "card_last_hunt_dir=down",
+   "card_last_hunt_dir=up",
+   "fz_block_reason=hunt_fade"
+  ],
+  "16": [
+   "last_sh_bars_ago",
+   "last_sl_bars_ago",
+   "touch_prot_last=held",
+   "touch_prot_bars_ago"
+  ],
+  "17": [
+   "room_ahead_dist_atr",
+   "touch_room_n",
+   "touch_room_last=broke",
+   "room_ahead_dist_atr__na"
+  ],
+  "18": [
+   "touch_prot_last=na",
+   "touch_prot_last=none",
+   "dist_prot_dir_atr__na",
+   "touch_prot_bars_ago__na"
+  ],
+  "19": [
+   "card_read=ACCEPTED",
+   "fz_take_why=accepted_no_defend",
+   "fz_take_why=defend_wrong_half"
+  ],
+  "20": [
+   "n_swings_1h",
+   "touch_prot_n",
+   "touch_prot_last=pending"
+  ],
+  "21": [
+   "sl",
+   "n_events_asof",
+   "ffd_close_dstar"
+  ],
+  "22": [
+   "days_to_expiry",
+   "n_rooms_alive"
+  ],
+  "23": [
+   "dow",
+   "gap_pts"
+  ],
+  "24": [
+   "hour_bin=>=15:20",
+   "card_read=RECYCLE"
+  ],
+  "25": [
+   "jump3_state",
+   "jump3_run"
+  ],
+  "26": [
+   "touch_swing_last=none",
+   "touch_swing_bars_ago__na"
+  ],
+  "27": [
+   "card_read=FIRST_PRINT"
+  ],
+  "28": [
+   "card_read=REJECT"
+  ],
+  "29": [
+   "csw_sign_dir"
+  ],
+  "30": [
+   "fz_entered_read=ACCEPTED"
+  ],
+  "31": [
+   "fz_entered_read=FIRST_PRINT"
+  ],
+  "32": [
+   "fz_gate=REENTER"
+  ],
+  "33": [
+   "hour_bin=10"
+  ],
+  "34": [
+   "hour_bin=11"
+  ],
+  "35": [
+   "hv2_dir=flat"
+  ],
+  "36": [
+   "last_bos_dir=down"
+  ],
+  "37": [
+   "room_behind_dist_atr__na"
+  ],
+  "38": [
+   "touch_prot_last=broke"
+  ]
+ },
+ "representatives": {
+  "0": {
+   "representative": "gmm4_map",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.3475,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.348"
+  },
+  "1": {
+   "representative": "n_events_today",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.4423,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.442"
+  },
+  "2": {
+   "representative": "hv2_dir=none",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.4235,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.423"
+  },
+  "3": {
+   "representative": "n_choch_since_bos",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.4956,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.496"
+  },
+  "4": {
+   "representative": "swing_near_kind=H",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.4954,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.495"
+  },
+  "5": {
+   "representative": "n_bos_since_choch",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.73,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.730"
+  },
+  "6": {
+   "representative": "fz_watch_kind=WATCH",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.4314,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.431"
+  },
+  "7": {
+   "representative": "fz_gate=TAKE",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.4532,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.453"
+  },
+  "8": {
+   "representative": "gap_pts__na",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.7259,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.726 (missing indicator, the cluster's only member)"
+  },
+  "9": {
+   "representative": "cusum_events_60",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.1857,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.186"
+  },
+  "10": {
+   "representative": "touch_swing_last=pending",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.3262,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.326"
+  },
+  "11": {
+   "representative": "fz_block_reason=new",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.4335,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.434"
+  },
+  "12": {
+   "representative": "card_read=LEAVE",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.4835,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.483"
+  },
+  "13": {
+   "representative": "last_choch_dir=down",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.7361,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.736"
+  },
+  "14": {
+   "representative": "touch_room_last=held",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.128,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.128"
+  },
+  "15": {
+   "representative": "fz_block_reason=hunt_fade",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.3587,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.359"
+  },
+  "16": {
+   "representative": "touch_prot_last=held",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.3896,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.390"
+  },
+  "17": {
+   "representative": "touch_room_last=broke",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.3906,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.391"
+  },
+  "18": {
+   "representative": "touch_prot_last=na",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.4834,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.483"
+  },
+  "19": {
+   "representative": "card_read=ACCEPTED",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.6027,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.603"
+  },
+  "20": {
+   "representative": "touch_prot_last=pending",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.292,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.292"
+  },
+  "21": {
+   "representative": "n_events_asof",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.9299,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.930"
+  },
+  "22": {
+   "representative": "days_to_expiry",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.1507,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.151"
+  },
+  "23": {
+   "representative": "dow",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.1077,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.108"
+  },
+  "24": {
+   "representative": "card_read=RECYCLE",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.1271,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.127"
+  },
+  "25": {
+   "representative": "jump3_run",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 0.4359,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.436"
+  },
+  "26": {
+   "representative": "touch_swing_last=none",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 1.0,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000"
+  },
+  "27": {
+   "representative": "card_read=FIRST_PRINT",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 1.0,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000"
+  },
+  "28": {
+   "representative": "card_read=REJECT",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 1.0,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000"
+  },
+  "29": {
+   "representative": "csw_sign_dir",
+   "tier": 0,
+   "coverage": 0.9395,
+   "centrality": 1.0,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 0.939, mean |rho| to members 1.000"
+  },
+  "30": {
+   "representative": "fz_entered_read=ACCEPTED",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 1.0,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000"
+  },
+  "31": {
+   "representative": "fz_entered_read=FIRST_PRINT",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 1.0,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000"
+  },
+  "32": {
+   "representative": "fz_gate=REENTER",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 1.0,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000"
+  },
+  "33": {
+   "representative": "hour_bin=10",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 1.0,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000"
+  },
+  "34": {
+   "representative": "hour_bin=11",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 1.0,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000"
+  },
+  "35": {
+   "representative": "hv2_dir=flat",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 1.0,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000"
+  },
+  "36": {
+   "representative": "last_bos_dir=down",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 1.0,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000"
+  },
+  "37": {
+   "representative": "room_behind_dist_atr__na",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 1.0,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000 (missing indicator, the cluster's only member)"
+  },
+  "38": {
+   "representative": "touch_prot_last=broke",
+   "tier": 0,
+   "coverage": 1.0,
+   "centrality": 1.0,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000"
+  }
+ }
+}

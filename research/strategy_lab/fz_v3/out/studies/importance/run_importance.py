@@ -6,7 +6,11 @@ Stages are independent processes that share nothing but the deterministic featur
   sfi       each cluster alone under the same CV, one ledger row each -> sfi_<tf>.csv
   cpcv      the full model's OOF gate over the 66 CPCV splits -> cpcv_<tf>.json (+ 11 ledger rows)
   finalize  merges the three, computes the family statistics from the ledger -> results_<tf>.json, importance_clusters_<tf>.csv
---dry: 20 trees, no ledger rows (harness.metrics only), no CPCV; outputs under dry/. Debugging of the code paths only."""
+--dry: 20 trees, no ledger rows (harness.metrics only), no CPCV; outputs under dry/ (or $IMP_DRY_DIR). Debugging of the code paths
+only. Repair (2026-09-29): in dry mode the net is SHUFFLED within the IS rows (seed 0; OOS rows are not touched) before any fit, so
+the |net| weights, the L1 label, the taus and every printed kept-vs-skipped number are meaningless by construction: a dry run can no
+longer produce a real off-ledger kept-vs-skipped number (the refuters' issue 3: the dry runs of 04:52-05:38 UTC printed real
+5minute OOF gate differences on 42 configurations without a ledger row; see FINDINGS.md 'Repair')."""
 import os, sys, json, time, argparse
 import numpy as np, pandas as pd
 sys.dont_write_bytecode = True
@@ -17,7 +21,7 @@ import harness as H
 
 ap = argparse.ArgumentParser(); ap.add_argument("--tf", required=True); ap.add_argument("--stage", default="all"); ap.add_argument("--dry", action="store_true"); a = ap.parse_args()
 tf, dry, stage = a.tf, a.dry, a.stage
-ODIR = os.path.join(HERE, "dry") if dry else HERE
+ODIR = (os.environ.get("IMP_DRY_DIR") or os.path.join(HERE, "dry")) if dry else HERE
 os.makedirs(ODIR, exist_ok=True)
 if dry: L.N_TREES = 20
 logf = open(os.path.join(ODIR, f"run_{tf}.log"), "a", encoding="utf-8")
@@ -27,7 +31,7 @@ J = lambda z: z.item() if hasattr(z, "item") else str(z)
 
 
 def scorer(T, keep, family, cfg):
-    if dry:
+    if dry:   # no ledger row; with the shuffled net (below) the returned numbers are meaningless by construction
         m = H.metrics(T, keep, np.flatnonzero(T.is_mask), "dry", controls=False); m["id"] = "DRY"; return m
     return H.score(T, keep, family, cfg, script=__file__)
 
@@ -36,6 +40,15 @@ if dry: L.H.score = lambda T, keep, family, cfg, script=None: scorer(T, keep, fa
 
 # (1) features and (3) clustering: deterministic, recomputed by every stage
 T, Xa, meta = L.assemble(tf, logf)
+if dry:
+    # Shuffle the outcome within the IS rows (the features stay in place): every label, weight, tau and kept-vs-skipped number
+    # of a dry run is then a number about a destroyed pairing, never a real one. OOS rows are left untouched (never read).
+    is_rows = np.flatnonzero(T.is_mask); perm = np.random.default_rng(0).permutation(is_rows)
+    def shuf(a):   # the harness arrays are read-only views of the parquet frame: rebind a shuffled copy
+        b = np.array(a, dtype=float, copy=True); b[is_rows] = a[perm]; return b
+    T.net, T.pts, T.net_slip = shuf(T.net), shuf(T.pts), {s: shuf(v) for s, v in T.net_slip.items()}
+    T.win = T.net > 0
+    L.log("DRY: net / pts / net_slip shuffled within the IS rows (seed 0); every kept-vs-skipped number below is meaningless by construction", logf)
 defs, card_def, fz_def = L.readme_defs()
 is_idx = np.flatnonzero(T.is_mask)
 y = T.win.astype(int)

@@ -1,0 +1,39 @@
+tes under two seed tags)
+
+**What was wrong.** The section 6 table re-drew the block bootstrap and the session sign-flip under its own tags (`eval|<tf>|<policy>` / `<tf>|eval|<policy>`), while sections 3, 5 and 9 quote the values the learners' own stages drew (`02_c_select.py`: `exit|nested|<tf>`, `<tf>|C_nested`; `04_a_fqi.py`: `<tf>|A`; `03_b_imitation.py`: `<tf>|B`), and nothing said so: the C nested pick's 90% CI, learner A's and learner B's session sign-flip p each appeared with two values that differ by Monte-Carlo error (2,000 draws / flips each). None is the deciding pass-rule item and none flips a verdict.
+
+**Fix.** `05_evaluate.py` reuses the seed tag of the stage that first reported the statistic (`OWN_TAGS`; `boot_tag` / `flip_tag` columns in `eval_table_<tf>.csv`), so each statistic carries one value throughout; a statistic no earlier stage reported (the oracles; the bootstrap CI of ST9 / A / B) keeps the eval tag and appears only in section 6. `eval_table_<tf>_review_time.csv` is the table as the refuters read it (exported from the checkpoint commit) and gives the 'before' column.
+
+| tf | statistic | policy | value at review time (eval tag) | value now (own tag) | first reported by | equal now |
+|---|---|---|---|---|---|---|
+| minute | boot_diff_ci90 | C_nested | [22.1, 151.74] | [25.24, 151.11] | 02_c_select.py bootstrap_nested (tag exit|nested|<tf>) | True |
+| minute | signflip_sessions_p1 | C_nested | 0.039 | 0.0415 | 02_c_select.py sign_flip (tag <tf>|C_nested) | True |
+| minute | boot_diff_ci90 | C_best_is | [36.72, 172.77] | [39.26, 173.51] | 02_c_select.py bootstrap_best (tag exit|best|<tf>) | True |
+| minute | signflip_sessions_p1 | C_best_is | 0.0195 | 0.018 | 02_c_select.py sign_flip (tag <tf>|C_best_is) | True |
+| minute | signflip_sessions_p1 | ST9 | 0.5015 | 0.489 | 02_c_select.py sign_flip (tag <tf>|ST9) | True |
+| minute | signflip_sessions_p1 | B | 0.018 | 0.027 | 03_b_imitation.py sign_flip (tag <tf>|B) | True |
+| minute | signflip_sessions_p1 | A | 0.1715 | 0.169 | 04_a_fqi.py sign_flip (tag <tf>|A) | True |
+| 5minute | boot_diff_ci90 | C_nested | [-182.33, 65.72] | [-182.92, 53.4] | 02_c_select.py bootstrap_nested (tag exit|nested|<tf>) | True |
+| 5minute | signflip_sessions_p1 | C_nested | 0.742 | 0.7725 | 02_c_select.py sign_flip (tag <tf>|C_nested) | True |
+| 5minute | boot_diff_ci90 | C_best_is | [-58.21, 287.68] | [-65.25, 293.9] | 02_c_select.py bootstrap_best (tag exit|best|<tf>) | True |
+| 5minute | signflip_sessions_p1 | C_best_is | 0.1575 | 0.153 | 02_c_select.py sign_flip (tag <tf>|C_best_is) | True |
+| 5minute | signflip_sessions_p1 | ST9 | 0.9355 | 0.915 | 02_c_select.py sign_flip (tag <tf>|ST9) | True |
+| 5minute | signflip_sessions_p1 | B | 0.6545 | 0.6685 | 03_b_imitation.py sign_flip (tag <tf>|B) | True |
+| 5minute | signflip_sessions_p1 | A | 0.908 | 0.9175 | 04_a_fqi.py sign_flip (tag <tf>|A) | True |
+
+Every pair is now equal: **True**. The SPA blocks, the distillation and the gate x exit rows are unaffected (deterministic under their own tags; the second rerun reproduced 11.1's numbers).
+
+### 11.5 The bootstrap-CI pass item was worded 'CI excludes 0' but implemented as 'lower bound > 0'
+
+**What was wrong.** Section 1 read '90% block-bootstrap CI of the diff excludes 0'; the implementation (this script, and `harness.go_no_go`: `boot['diff_ci'][0] > 0`) marks a CI entirely below 0 as FAIL — 5-min learner A's [-301.88, -1.01] is a FAIL in sections 5 and 9. The implementation is the intended one (a positive effect); only the wording was loose.
+
+**Fix.** The item is worded and keyed as implemented: **lower bound of the 90% block-bootstrap CI of the diff > 0** (`boot_ci90_lower>0`; section 1 and every pass-rule line, `findings.json`). No value changed.
+
+### 11.6 Section 10.1's account of the missing final line of `04_a_minute.log` was wrong
+
+**What was wrong, and what the files say.** The follow-up wrote that the line 'was lost when the 06:24 checkout replaced the file's inode, the JSON was written before it'. `04_a_minute.log` holds 4 lines — the header and the three per-fold JSON lines, all printed with `flush=True` — and lacks the final summary line that `04_a_fqi.py` prints after `a_result_minute.json` (the 5-min log, 5 lines, has it). Timeline from the files: start 04:27:05 UTC (the mtime of `a_result_minute.json`, 07:08:38, minus its `seconds` 9693.2); fold lines at about 05:18:23, 06:31:52, 07:08:31. The 06:24 checkout replaced the log's inode between the fold 0 and fold 1 lines, so the fold 1 and fold 2 lines went to the unlinked inode and were copied back by the mirror loop (`/proc/<pid>/fd`, every 5 s while the process lived; its last copy is the log's mtime, 07:08:38). The final line is printed without `flush=True` after the JSON dump (07:08:38): it sat in the block buffer until the interpreter exited and reached the unlinked inode after the mirror loop's last copy — lost at process exit, not at the checkout; and 'the JSON was written before it' was wrong: two of the three fold lines and every output file postdate the checkout. Every number the missing line would have carried is in `a_result_minute.json` (OOF mean -972.05, Foundation -1009.61, diff 37.56, random pct 99.8, regret free 3532.05, sign-flip blocks p1 0.2034; 9693.2 s, rss 1000 MB).
+
+**Fix.** Section 10.1 carries the corrected account (marked); nothing about learner A was rerun. For future scripts: print the final line with `flush=True` (or run under `python -u`) so a mirrored log is complete at exit.
+
+**Verdict after the repair**: unchanged — minute: learner C nested pick no candidate, learner B no candidate, learner A no candidate; 5minute: learner C nested pick no candidate, learner B no candidate, learner A no candidate. No exit policy rescues the book on either timeframe; the null result stands. The one number a reader would have carried away wrongly — the 5-min family SPA p 0.4965 — is 0.185 with the benchmark duplicates excluded; the 1-min p is 0.322 (was 0.396).
+

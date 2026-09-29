@@ -3,8 +3,10 @@
 The pre-registered selection (largest training-fold kept-vs-skipped diff subject to the harness KEPT floors) has no floor on the
 skipped set. On 5 min H2 it is degenerate: the same cell {kc=2, scope=today, W=3h, q=0.1, AND} won all 12 folds and 64-65 of the
 66 CPCV training sets, skipping 2 of 826 (L1) / 2 of 832 (L0) rows, so the "nested-CV answer" for H2 on 5 min is the raw book
-minus two trades. On the other tables the chosen cells skip real shares (1 min H2 3-9 %, H3 3-25 %, H4 7-38 %; two 1 min H4 L1
-folds chose {prot, broke}, 3 rows). This variant adds `skipped share >= 0.10` to the eligibility inside each training fold
+minus two trades. On the other tables the chosen cells skip real shares of the training rows (1 min H2 1-9 %, H3 2-25 %, H4 7-39 %),
+apart from three folds that chose {prot, broke} (3 rows): two of 12 on 1 min H4 L1, one of 12 on 5 min H4 L1 (FINDINGS.md section 3
+has the per-table numbers; this paragraph's ranges were tightened after the run, so the ledger rows' script_sha predates this
+docstring edit; no code path changed). This variant adds `skipped share >= 0.10` to the eligibility inside each training fold
 (nothing else changes: same cells, same folds, same criterion) and is counted in the family as one more nested-CV trial
 (family '<study>/nested_cv_minskip' + its 11 CPCV paths, ledger note "repair": these rows were produced in the repair round after
 the adversarial refuters found the script had never been run). The pre-registered nested row's family statistics (PBO / SPA /

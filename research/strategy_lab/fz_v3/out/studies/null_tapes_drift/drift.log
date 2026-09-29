@@ -2,3 +2,4 @@
 [05:23:43] 5minute: time proxies (|rho| >= 0.9 with session_idx): [('n_events_asof', 1.0), ('sl', 0.928)]
 [05:23:46] minute: IS units 4452 (early 2268, late 2184), design (5266, 244)
 [05:23:47] minute: time proxies (|rho| >= 0.9 with session_idx): [('n_events_asof', 1.0), ('sl', 0.936)]
+[05:50:46] 5minute A_all_asof: OOF AUC 0.9031 (permuted p50 0.4909, p95 0.5418) in 1623s

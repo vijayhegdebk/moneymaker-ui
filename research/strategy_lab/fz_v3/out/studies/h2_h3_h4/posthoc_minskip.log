@@ -18,3 +18,51 @@
 05:39:14 == h4 5minute_L1: 9 cells
 05:39:26   nested-CV_minskip OOF: kept 466 (0.5642) diff -414.67 pct 21.9 p 0.1934 blocks 4 id 2d6bb302b6a0f498
 05:40:34   CPCV 11 paths: diff median -82.14 p5 -266.27 min -320.77 share>0 0.455 control pct median 26.9 p5 6.0
+05:40:46   family (incl. this row): 56 candidates, eff 1.97, PBO diff 0.1069 kept 0.7353, SPA p 0.056 best {'v': 2, 'N': 60, 'M': 30, 'gate': 'skip_if_none'}, boot [-231.75, 254.08], DSR p 1.0, go False
+05:40:57   pre-registered row 4aa13f8ee89c96a3 over the completed family: 56 candidates, PBO diff 0.1069, SPA p 0.068, DSR p 1.0, go False
+05:40:57 == h4 minute_L0: 9 cells
+05:41:37   CPCV 11 paths: diff median -414.67 p5 -598.34 min -601.66 share>0 0.0 control pct median 23.2 p5 4.8
+05:41:45   family (incl. this row): 11 candidates, eff 1.71, PBO diff 0.6033 kept 0.4748, SPA p 0.1945 best {'level': 'room', 'skip_when_last': 'broke'}, boot [-826.4, -4.94], DSR p 0.9985, go False
+05:41:46   nested-CV_minskip OOF: kept 3588 (0.797) diff 29.1 pct 9.9 p 0.8806 blocks 6 id 714dbc6de3114519
+05:41:51   pre-registered row 9e32a86bcfc8f5ce over the completed family: 11 candidates, PBO diff 0.6033, SPA p 0.18, DSR p 0.9052, go False
+05:41:52 == h2 5minute_L0: 201 cells
+05:42:37   nested-CV_minskip OOF: kept 701 (0.8425) diff 1899.37 pct 75.2 p 0.045 blocks 11 id eb4bb3599cbc7eb8
+05:45:31   CPCV 11 paths: diff median 131.06 p5 76.56 min 72.37 share>0 1.0 control pct median 59.1 p5 29.8
+05:46:05   family (incl. this row): 203 candidates, eff 1.35, PBO diff 0.3556 kept 0.5371, SPA p 0.103 best {'rule': 'range', 'W': '3h', 'q': 0.2}, boot [83.03, 345.59], DSR p 1.0, go False
+05:46:33   pre-registered row 96a71fa0c77cbd57 over the completed family: 203 candidates, PBO diff 0.3556, SPA p 0.1005, DSR p 1.0, go False
+05:46:34 == h3 minute_L1: 54 cells
+05:47:30   nested-CV_minskip OOF: kept 3421 (0.7684) diff -30.19 pct 0.4 p 0.7451 blocks 5 id c25fd4a1f427e4b8
+05:47:47   CPCV 11 paths: diff median 1796.97 p5 1047.07 min 1033.11 share>0 1.0 control pct median 70.1 p5 16.1
+05:48:10   family (incl. this row): 203 candidates, eff 1.43, PBO diff 0.3043 kept 0.5855, SPA p 0.1185 best {'rule': 'range', 'W': '3h', 'q': 0.2}, boot [1241.99, 2603.36], DSR p 0.6506, go False
+05:48:31   pre-registered row c04a0d2a19d216fd over the completed family: 203 candidates, PBO diff 0.3043, SPA p 0.1175, DSR p 0.7785, go False
+05:48:31 == h3 5minute_L0: 54 cells
+05:48:50   nested-CV_minskip OOF: kept 730 (0.8774) diff 1562.03 pct 84.8 p 0.1384 blocks 11 id 5ae936fe9f54e8d0
+05:50:06   CPCV 11 paths: diff median 73.4 p5 -57.42 min -94.44 share>0 0.727 control pct median 24.4 p5 9.2
+05:50:13   family (incl. this row): 11 candidates, eff 1.64, PBO diff 0.6442 kept 0.5913, SPA p 0.9395 best {'level': 'room', 'skip_when_last': 'held'}, boot [-201.53, 247.53], DSR p 0.8419, go False
+05:50:20   pre-registered row f761a518d322b977 over the completed family: 11 candidates, PBO diff 0.6442, SPA p 0.9485, DSR p 0.8419, go False
+05:50:20 posthoc done in 1312.1s; ledger sha f58a5fb526cd1348
+05:51:00   CPCV 11 paths: diff median 560.97 p5 -851.32 min -881.34 share>0 0.545 control pct median 78.2 p5 63.2
+05:51:07   family (incl. this row): 56 candidates, eff 2.23, PBO diff 0.5312 kept 0.4472, SPA p 0.2455 best {'v': 3, 'N': 20, 'M': 30, 'gate': 'skip_if_none'}, boot [890.97, 2277.53], DSR p 0.6848, go False
+05:51:12   pre-registered row 0b364a8b48bd9207 over the completed family: 56 candidates, PBO diff 0.5312, SPA p 0.2535, DSR p 0.7838, go False
+05:51:12 == h4 5minute_L0: 9 cells
+05:51:20   nested-CV_minskip OOF: kept 631 (0.7584) diff 974.61 pct 28.1 p 0.2324 blocks 8 id ad152e5988a98e60
+05:52:41   CPCV 11 paths: diff median 974.61 p5 -922.4 min -1035.58 share>0 0.818 control pct median 28.9 p5 0.1
+05:52:45   family (incl. this row): 11 candidates, eff 1.6, PBO diff 0.1556 kept 0.5897, SPA p 0.277 best {'level': 'room', 'skip_when_last': 'held'}, boot [220.72, 1751.01], DSR p 0.545, go False
+05:52:49   pre-registered row a329912797859321 over the completed family: 11 candidates, PBO diff 0.1556, SPA p 0.2645, DSR p 0.3585, go False
+05:52:49 posthoc done in 1461.8s; ledger sha 1cfa1ba9a7b6e668
+05:53:23   CPCV 11 paths: diff median -56.3 p5 -165.65 min -199.74 share>0 0.182 control pct median 0.3 p5 0.0
+05:53:27   family (incl. this row): 56 candidates, eff 1.65, PBO diff 0.77 kept 0.8063, SPA p 0.0 best {'v': 2, 'N': 60, 'M': 30, 'gate': 'skip_if_none'}, boot [-146.66, 94.01], DSR p 1.0, go False
+05:53:31   pre-registered row 21b31cbb10277775 over the completed family: 56 candidates, PBO diff 0.77, SPA p 0.001, DSR p 1.0, go False
+05:53:31 == h4 minute_L1: 9 cells
+05:53:44   nested-CV_minskip OOF: kept 3608 (0.8104) diff 3.17 pct 1.3 p 0.9745 blocks 6 id 0d1b57e82377415d
+05:55:10 posthoc_minskip start Tue Sep 29 05:55:10 2026 ledger sha 56165b239dafbb98 min_skip_share 0.1 tf minute labels L0 studies h2 note 'repair'
+05:55:13 == h2 minute_L0: 201 cells
+05:55:47   nested-CV_minskip OOF: kept 3879 (0.8616) diff -240.04 pct 20.9 p 0.3003 blocks 6 id 7310b7454e4b7d42
+05:56:17   CPCV 11 paths: diff median 3.17 p5 -131.43 min -139.42 share>0 0.727 control pct median 0.9 p5 0.1
+05:56:20   family (incl. this row): 11 candidates, eff 1.55, PBO diff 0.4115 kept 0.0796, SPA p 0.9165 best {'level': 'swing', 'skip_when_last': 'broke'}, boot [-179.66, 178.57], DSR p 0.999, go False
+05:56:23   pre-registered row 7e2a1c31f2dc16c3 over the completed family: 11 candidates, PBO diff 0.4115, SPA p 0.9085, DSR p 0.9985, go False
+05:56:23 posthoc done in 1674.2s; ledger sha 07df0cb548f8a99b
+05:59:42   CPCV 11 paths: diff median -81.42 p5 -357.9 min -480.66 share>0 0.091 control pct median 40.2 p5 15.3
+05:59:52   family (incl. this row): 203 candidates, eff 1.55, PBO diff 0.4618 kept 0.8667, SPA p 0.198 best {'rule': 'range', 'W': '3h', 'q': 0.3}, boot [-746.01, 200.17], DSR p 1.0, go False
+06:00:01   pre-registered row 7b38016c4d64bed5 over the completed family: 203 candidates, PBO diff 0.4618, SPA p 0.196, DSR p 0.9997, go False
+06:00:01 posthoc done in 291.1s; ledger sha 15e23816134d950e

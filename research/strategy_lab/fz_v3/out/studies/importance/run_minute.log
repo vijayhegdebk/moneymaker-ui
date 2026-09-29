@@ -7,3 +7,8 @@
 [05:33:47 rss 284.4 MB] clustering: 276 features, silhouette best k=38 (0.1136), clusters formed 38, 8.7s
 [05:33:48 rss 283.4 MB] clustering: 276 features, silhouette best k=38 (0.1136), clusters formed 38, 9.2s
 [05:33:50 rss 284.1 MB] clustering: 276 features, silhouette best k=38 (0.1136), clusters formed 38, 8.8s
+[05:42:22 rss 322.0 MB] depth 4 fold 0: n_tr 4034 n_te 396 tau 0.05 ll 0.7739 diff nan kept 1.0 (510.9s)
+[05:50:04 rss 331.3 MB] depth 4 fold 1: n_tr 4058 n_te 388 tau 0.05 ll 0.7850 diff nan kept 1.0 (461.9s)
+[05:50:51 rss 307.8 MB] SFI cluster 0 (61 f): ll 0.7634 auc 0.596 diff -2935.8 kept 0.998 ctrl 9.1 (1021.5s)
+[05:57:05 rss 331.3 MB] depth 4 fold 2: n_tr 4048 n_te 384 tau 0.05 ll 0.7860 diff nan kept 1.0 (421.3s)
+[05:58:12 rss 310.6 MB] SFI cluster 1 (25 f): ll 0.7741 auc 0.567 diff 104.99 kept 0.9027 ctrl 35.7 (441.3s)

@@ -7,6 +7,7 @@
 | unit | a harness row: a Foundation SETUP taken under the label's book, `harness.load(tf, label)`, IS rows only (1 min L1 4,452 / L0 4,502; 5 min L1 826 / L0 832) |
 | cell | one gate configuration = one ledger row scored on IS by `harness.score` (2,000 control draws, 2,000 permutations). A cell with a learned threshold (the H2 range quantiles) is scored on its 12-block out-of-fold mask: the threshold is the quantile of the *training fold's* rows (`harness.purged_splits`), applied to the test block; the fold thresholds are in the ledger row's `note` and in `h2_<tf>_<label>_grid.csv` |
 | nested CV | inside each of the 12 purged training folds every cell is fitted and evaluated on the training rows with `harness.metrics` (controls off); the cell with the largest kept-vs-skipped diff subject to the harness kept floors (kept share >= 20 %, kept n >= 300 (1 min) / 80 (5 min) scaled by train / IS) is applied to the test block; the 12 test blocks form the OOF mask, one ledger row `<study>/nested_cv`; the same selection inside the 66 CPCV training sets gives the 11 paths (`<study>/nested_cv/cpcv`, `harness.score_paths`, controls on) |
+| post-hoc variant | `<study>/nested_cv_minskip` (+ `/cpcv`): the same selection with skipped share >= 10 % added to the fold eligibility, declared after the primary rows were read, run in the repair round (ledger note `repair`), one more counted trial per family. The pre-registered row's family statistics are also recomputed over the completed family (`family_prereg_recomputed` in `posthoc_<study>_<tf>_<label>_summary.json`) |
 | family | every non-cpcv ledger row of the study on that timeframe and label; PBO (`harness.pbo`, CSCV 16 blocks, 12,870 partitions, statistic diff and kept_mean), SPA / Reality Check (`harness.spa`, 2,000 stationary-bootstrap draws; studentised p, and the unstudentised p where the harness version at run time reported it), effective trials (participation ratio of the kept-net correlation matrix), block bootstrap 90 % CI and DSR of the nested-CV row, `harness.go_no_go` on it |
 | bucket table | descriptive decomposition of the label by an as-of categorical: n, share, sum, mean, se (iid), median, win rate, mean pts, stop share, blocks below (of the 12 IS blocks, how many have the bucket mean below the block's all-rows mean). No rule is chosen on a bucket table; tercile edges are pooled IS quantiles, recorded |
 | H2 columns | `n_choch_since_bos` (CHoCHs after the last BOS, own CHoCH included; >= 2 = the user's 'CHoCH, CHoCH, no BOS'), `n_choch_since_bos_today`, `alt_dir6` / `alt_kind6` (direction / kind changes among the last 6 events), `range_{1h,3h,since_choch}_atr` (same-session range / atr14), `er_1h` (Kaufman efficiency ratio, last hour), `hour_bin` |
@@ -221,11 +222,203 @@ CPCV paths (`h2/nested_cv/cpcv`, 11 rows): diff median -198.78, 5th pct -417.49,
 
 Cells chosen across the 66 CPCV training sets: {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} x16; {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} x16; {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "all"} x9; {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.2, "rule": "both", "scope": "all"} x6; {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "all"} x6; {"W": "1h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} x3; {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.2, "rule": "both", "scope": "today"} x3; {"W": "3h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} x2; {"W": "since_choch", "q": 0.1, "rule": "range"} x2; {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.3, "rule": "both", "scope": "today"} x2; {"W": "1h", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} x1
 
-Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+**Nested-CV candidate** (family `h2/nested_cv_minskip`, the 12-block OOF mask; ledger note `repair`):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5229b4f39a9bce95 | 3,797 | 0.8529 | -978.55 | -1,189.63 | 211.08 | 95.48 | 73.70 | 0.0505 | 0.1541 | 0.884 | 0.9243 | 0.0571 | -1,368.52 | 10 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"W": "since_choch", "q": 0.1, "rule": "range"} | 1.30 | 198.45 | 0.8999 | 124 | 396 | 359 |
+| 1 | {"W": "since_choch", "q": 0.2, "rule": "range"} | 1.51 | 73.73 | 0.7999 | 121 | 388 | 309 |
+| 2 | {"W": "since_choch", "q": 0.2, "rule": "range"} | 1.50 | 134.27 | 0.7999 | 123 | 384 | 319 |
+| 3 | {"W": "since_choch", "q": 0.1, "rule": "range"} | 1.29 | 189.95 | 0.8996 | 125 | 509 | 470 |
+| 4 | {"W": "since_choch", "q": 0.1, "rule": "range"} | 1.29 | 219.76 | 0.8996 | 125 | 390 | 366 |
+| 5 | {"W": "since_choch", "q": 0.1, "rule": "range"} | 1.30 | 251.00 | 0.8998 | 124 | 341 | 300 |
+| 6 | {"W": "since_choch", "q": 0.1, "rule": "range"} | 1.30 | 234.35 | 0.8998 | 124 | 424 | 382 |
+| 7 | {"W": "since_choch", "q": 0.1, "rule": "range"} | 1.30 | 230.37 | 0.8999 | 125 | 266 | 236 |
+| 8 | {"W": "since_choch", "q": 0.1, "rule": "range"} | 1.30 | 258.08 | 0.8998 | 125 | 170 | 149 |
+| 9 | {"W": "since_choch", "q": 0.2, "rule": "range"} | 1.52 | 131.99 | 0.7999 | 124 | 499 | 374 |
+| 10 | {"W": "since_choch", "q": 0.2, "rule": "range"} | 1.51 | 137.87 | 0.8 | 122 | 173 | 139 |
+| 11 | {"W": "since_choch", "q": 0.2, "rule": "range"} | 1.52 | 112.63 | 0.8 | 122 | 512 | 394 |
+
+CPCV paths (`h2/nested_cv_minskip/cpcv`, 11 rows): diff median 131.06, 5th pct 76.56, min 72.37, share > 0 1.00, control pct median 59.10 / 5th pct 29.80
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| e3ed38231177b2bc | 3,946 | 0.8863 | -986.69 | -1,188.31 | 201.61 | 78.00 | 0.1039 | 0.9384 | 10 | 0 |
+| 22333164cfab2107 | 3,862 | 0.8675 | -998.91 | -1,079.65 | 80.75 | 31.80 | 0.4958 | 0.9067 | 9 | 1 |
+| 992d6cb4c745b540 | 3,866 | 0.8684 | -1,000.08 | -1,072.45 | 72.37 | 28.10 | 0.5442 | 0.9067 | 9 | 2 |
+| adc7b4d322657e29 | 4,020 | 0.903 | -988.86 | -1,202.66 | 213.80 | 84.00 | 0.1124 | 0.9513 | 10 | 3 |
+| d8ac3d6473323fc0 | 3,955 | 0.8884 | -984.43 | -1,209.96 | 225.54 | 82.30 | 0.0765 | 0.9461 | 10 | 4 |
+| 81fe8fd51610846e | 3,776 | 0.8482 | -993.87 | -1,097.52 | 103.66 | 41.30 | 0.3553 | 0.8987 | 9 | 5 |
+| bacb08705d7d12d0 | 3,909 | 0.878 | -993.74 | -1,123.85 | 130.11 | 59.10 | 0.2669 | 0.9247 | 9 | 6 |
+| 5992202aaa3933ca | 3,999 | 0.8982 | -987.11 | -1,208.21 | 221.10 | 86.80 | 0.089 | 0.9498 | 10 | 7 |
+| 39635caf63fa0e83 | 3,710 | 0.8333 | -994.70 | -1,084.12 | 89.42 | 31.40 | 0.3963 | 0.8852 | 8 | 8 |
+| 6d6febe700cdede6 | 3,767 | 0.8461 | -982.13 | -1,160.73 | 178.60 | 63.90 | 0.1109 | 0.9141 | 10 | 9 |
+| bc9059bac38336a4 | 3,829 | 0.8601 | -991.27 | -1,122.33 | 131.06 | 52.50 | 0.2369 | 0.9105 | 9 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"W": "since_choch", "q": 0.1, "rule": "range"} x48; {"W": "since_choch", "q": 0.2, "rule": "range"} x14; {"W": "since_choch", "combine": "OR", "kc": 4, "q": 0.1, "rule": "both", "scope": "all"} x3; {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.3, "rule": "both", "scope": "all"} x1
+
+Family on this table (every non-cpcv ledger row of the study, tf and label). The pre-registered row's statistics as computed at its run (before the post-hoc rows existed) and recomputed over the completed family; the post-hoc row's over the completed family:
 
 | tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 min | L1 | pre-registered (family as at the primary run) | 202 | 202 | 1.35 | 0.3564 | 0.5611 | 0.1255 | 0.18 |  | {"rule": "range", "W": "3h", "q": 0.2} | 322.59 | [-582.49, 91.16] | 0.8655 | 1.00 | -198.78 | -417.49 | 0.182 | 1.90 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L1 | post-hoc min skip 10 % (family complete) | 203 | 203 | 1.35 | 0.3556 | 0.5371 | 0.103 | 0.1725 | 0.012 | {"rule": "range", "W": "3h", "q": 0.2} | 322.59 | [83.03, 345.59] | 0.006 | 1.00 | 131.06 | 76.56 | 1.00 | 59.10 | False | kept_mean_slip8>0, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
+| 1 min | L1 | pre-registered (family recomputed after the post-hoc rows) | 203 | 203 | 1.35 | 0.3556 | 0.5371 | 0.1005 | 0.1665 | 0.015 | {"rule": "range", "W": "3h", "q": 0.2} | 322.59 | [-559.44, 87.31] | 0.8745 | 1.00 | -198.78 | -417.49 | 0.182 | 1.90 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+
+
+### 1 min / L0 (4,502 IS units)
+
+L0 robustness, by `n_choch_since_bos` and `n_choch_since_bos_today`:
+
+| variable | bucket | n | net_mean | net_se | win_rate | blocks_below_block_mean |
+|---|---|---|---|---|---|---|
+| n_choch_since_bos | 0 | 1,191 | -983.73 | 153.06 | 0.1444 | 8 |
+| n_choch_since_bos | 1 | 1,752 | -914.66 | 122.82 | 0.1553 | 8 |
+| n_choch_since_bos | 2 | 830 | -927.02 | 209.79 | 0.1554 | 7 |
+| n_choch_since_bos | 3 | 377 | -633.07 | 307.34 | 0.1485 | 7 |
+| n_choch_since_bos | 4+ | 352 | -1,045.13 | 150.19 | 0.1562 | 7 |
+| n_choch_since_bos_today | 0 | 1,205 | -1,004.90 | 151.50 | 0.1444 | 8 |
+| n_choch_since_bos_today | 1 | 1,781 | -898.33 | 122.82 | 0.1578 | 7 |
+| n_choch_since_bos_today | 2 | 818 | -878.25 | 211.88 | 0.1577 | 7 |
+| n_choch_since_bos_today | 3 | 365 | -760.85 | 302.05 | 0.137 | 6 |
+| n_choch_since_bos_today | 4+ | 333 | -1,030.43 | 156.77 | 0.1502 | 7 |
+
+The grid: 201 cells; diff > 0 in 55; control pct >= 95 in 24; passing every raw go/no-go check (kept floors, diff, top-1 % removed, slip-8 kept mean, sign blocks, control) in 0. Median cell diff -66.55, median control pct 35.60. Full table `h2_minute_L0_grid.csv`. The six choch-only cells and the 15 range-only cells:
+
+| kc | scope | W | q | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2.00 | all |  |  | dc55ad726924d49f | 2,943 | 0.6537 | -942.61 | -882.61 | -60.00 | -146.00 | 16.50 | 0.7166 | 0.3455 | 0.8461 | 0.6737 | 0.2899 | -1,332.58 | 7 | False |
+| 2.00 | today |  |  | 54bc595c1836e3ed | 2,986 | 0.6633 | -941.34 | -883.41 | -57.92 | -158.24 | 7.70 | 0.7201 | 0.3371 | 0.8489 | 0.6933 | 0.2464 | -1,331.30 | 6 | False |
+| 3.00 | all |  |  | c3e28cd7d4e00595 | 3,773 | 0.8381 | -939.18 | -832.04 | -107.14 | -219.90 | 2.20 | 0.6297 | 0.1619 | 0.8477 | 0.8521 | 0.1449 | -1,329.15 | 5 | False |
+| 3.00 | today |  |  | 4ffea65389d1e4dc | 3,804 | 0.845 | -927.77 | -889.46 | -38.31 | -184.73 | 0.7 | 0.8616 | 0.1566 | 0.8567 | 0.8717 | 0.1014 | -1,317.74 | 7 | False |
+| 4.00 | all |  |  | 1181d5d854de558d | 4,150 | 0.9218 | -911.37 | -1,045.13 | 133.76 | -184.27 | 8.40 | 0.6457 | 0.0778 | 0.8438 | 0.95 | 0.0435 | -1,301.34 | 7 | False |
+| 4.00 | today |  |  | 5d69ed3a94b6c7ce | 4,169 | 0.926 | -913.16 | -1,030.43 | 117.27 | -193.93 | 4.50 | 0.7036 | 0.0741 | 0.8498 | 0.9516 | 0.0435 | -1,303.12 | 7 | False |
+|  |  | 1h | 0.1 | e4146c2fb15009f9 | 4,045 | 0.8985 | -942.93 | -735.04 | -207.89 | 142.33 | 100.00 | 0.3918 | 0.0985 | 0.8228 | 0.8446 | 0.1739 | -1,332.90 | 5 | False |
+|  |  | 1h | 0.2 | 6c17141a931e2878 | 3,592 | 0.7979 | -957.15 | -782.43 | -174.72 | -17.70 | 95.80 | 0.3763 | 0.1983 | 0.8319 | 0.7527 | 0.2464 | -1,347.11 | 5 | False |
+|  |  | 1h | 0.3 | e4714486b617f798 | 3,138 | 0.697 | -962.75 | -827.68 | -135.07 | -23.81 | 86.30 | 0.4338 | 0.3002 | 0.8402 | 0.6542 | 0.3768 | -1,352.72 | 5 | False |
+|  |  | 1h | 0.4 | 13522ddfadc40b76 | 2,697 | 0.5991 | -981.01 | -833.40 | -147.61 | -43.40 | 62.00 | 0.3623 | 0.3989 | 0.8438 | 0.5509 | 0.4928 | -1,370.98 | 4 | False |
+|  |  | 1h | 0.5 | 2c1fc7d1e06fc8eb | 2,254 | 0.5007 | -929.20 | -914.45 | -14.75 | 21.91 | 86.20 | 0.9275 | 0.499 | 0.8474 | 0.4846 | 0.5797 | -1,319.16 | 7 | False |
+|  |  | 3h | 0.1 | 98ca4a3f41738a78 | 4,045 | 0.8985 | -949.00 | -681.39 | -267.60 | 98.09 | 100.00 | 0.3133 | 0.0951 | 0.7943 | 0.8255 | 0.2174 | -1,338.96 | 5 | False |
+|  |  | 3h | 0.2 | 39260996e6e1f59b | 3,600 | 0.7996 | -926.01 | -905.14 | -20.87 | 83.11 | 100.00 | 0.91 | 0.192 | 0.8126 | 0.7438 | 0.2899 | -1,315.98 | 7 | False |
+|  |  | 3h | 0.3 | b339761be1603816 | 3,158 | 0.7015 | -1,034.48 | -657.14 | -377.34 | -43.01 | 100.00 | 0.027 | 0.2873 | 0.8162 | 0.5639 | 0.4638 | -1,424.45 | 4 | False |
+|  |  | 3h | 0.4 | e60f330736c5449d | 2,702 | 0.6002 | -1,003.62 | -799.05 | -204.57 | 34.91 | 99.80 | 0.2194 | 0.3905 | 0.8283 | 0.4839 | 0.5362 | -1,393.59 | 4 | False |
+|  |  | 3h | 0.5 | 619a9b24ca46a26d | 2,257 | 0.5013 | -1,011.16 | -832.03 | -179.14 | 34.47 | 98.40 | 0.2659 | 0.4885 | 0.8307 | 0.3876 | 0.6377 | -1,401.13 | 5 | False |
+|  |  | since_choch | 0.1 | f54e0d42c689a1fe | 4,046 | 0.8987 | -910.01 | -1,026.74 | 116.74 | 16.64 | 81.20 | 0.6612 | 0.1037 | 0.8684 | 0.9211 | 0.029 | -1,299.97 | 8 | False |
+|  |  | since_choch | 0.2 | f64564a23f8b8230 | 3,600 | 0.7996 | -923.69 | -914.41 | -9.28 | -59.12 | 32.10 | 0.9645 | 0.2038 | 0.8625 | 0.8284 | 0.1014 | -1,313.66 | 8 | False |
+|  |  | since_choch | 0.3 | 6cb1ea7f600e549f | 3,154 | 0.7006 | -932.32 | -897.29 | -35.03 | -160.29 | 21.50 | 0.8466 | 0.3017 | 0.8546 | 0.7418 | 0.2029 | -1,322.28 | 6 | False |
+|  |  | since_choch | 0.4 | dbe56f5ed988676a | 2,701 | 0.6 | -941.84 | -891.83 | -50.00 | -79.06 | 6.60 | 0.7501 | 0.4054 | 0.8595 | 0.6291 | 0.3043 | -1,331.80 | 5 | False |
+|  |  | since_choch | 0.5 | fc985e290b39cffe | 2,251 | 0.5 | -946.76 | -896.90 | -49.87 | -74.96 | 7.20 | 0.7456 | 0.5092 | 0.8636 | 0.5371 | 0.4058 | -1,336.73 | 6 | False |
+
+Top 10 cells by IS diff (selection is by nested CV, never by this table):
+
+| cell | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | 70f52047519748b3 | 4,434 | 0.9849 | -915.79 | -1,315.76 | 399.97 | 13.36 | 35.60 | 0.4513 | 0.0152 | 0.8529 | 0.9978 | 0 | -1,305.76 | 9 | False |
+| {"W": "1h", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} | df27158bea2b8d3e | 4,470 | 0.9929 | -919.29 | -1,276.80 | 357.51 | -25.99 | 22.70 | 0.6242 | 0.0071 | 0.8438 | 0.9982 | 0 | -1,309.26 | 5 | False |
+| {"W": "1h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 423148170610947f | 4,379 | 0.9727 | -912.11 | -1,267.82 | 355.71 | -35.77 | 28.90 | 0.4208 | 0.0272 | 0.8455 | 0.9882 | 0.0145 | -1,302.08 | 9 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.2, "rule": "both", "scope": "all"} | 8dcd9d6d82467a46 | 4,107 | 0.9123 | -893.57 | -1,215.72 | 322.15 | -28.35 | 72.70 | 0.2124 | 0.0901 | 0.8709 | 0.9648 | 0.0145 | -1,283.53 | 11 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.2, "rule": "both", "scope": "today"} | f702f83f0cba1516 | 4,108 | 0.9125 | -893.97 | -1,212.31 | 318.34 | -31.92 | 69.70 | 0.2564 | 0.0898 | 0.8706 | 0.9648 | 0.0145 | -1,283.94 | 11 | False |
+| {"W": "1h", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "all"} | 6d118317c11dee60 | 4,457 | 0.99 | -918.85 | -1,217.02 | 298.17 | -86.45 | 54.90 | 0.6537 | 0.0094 | 0.8 | 0.9971 | 0 | -1,308.82 | 6 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "all"} | 1c2558912d39656a | 4,279 | 0.9505 | -907.35 | -1,199.64 | 292.28 | 5.57 | 64.50 | 0.4178 | 0.0503 | 0.861 | 0.9767 | 0.0145 | -1,297.32 | 9 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 5d5692e3815545a9 | 4,280 | 0.9507 | -907.74 | -1,193.51 | 285.77 | -0.39 | 61.50 | 0.4253 | 0.05 | 0.8604 | 0.9767 | 0.0145 | -1,297.70 | 9 | False |
+| {"W": "3h", "combine": "AND", "kc": 3, "q": 0.2, "rule": "both", "scope": "today"} | 65d1366af9573be2 | 4,404 | 0.9782 | -915.91 | -1,187.83 | 271.92 | -117.35 | 21.80 | 0.5667 | 0.0202 | 0.7857 | 0.9875 | 0 | -1,305.88 | 7 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} | 6aeeb8805d09b5cc | 4,448 | 0.988 | -918.61 | -1,187.14 | 268.53 | -116.88 | 39.10 | 0.6622 | 0.0126 | 0.8889 | 0.9955 | 0 | -1,308.58 | 8 | False |
+
+**Nested-CV candidate** (family `h2/nested_cv`, the 12-block OOF mask):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 7b38016c4d64bed5 | 4,416 | 0.9809 | -921.73 | -927.05 | 5.32 | -382.94 | 8.10 | 0.9905 | 0.0181 | 0.8023 | 0.9866 | 0.0145 | -1,311.69 | 6 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | 4.78 | 367.00 | 0.9855 | 201 | 400 | 397 |
+| 1 | {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | 4.78 | 400.46 | 0.9854 | 201 | 392 | 392 |
+| 2 | {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | 4.78 | 363.02 | 0.9853 | 201 | 386 | 385 |
+| 3 | {"W": "1h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 4.80 | 386.91 | 0.9737 | 201 | 512 | 499 |
+| 4 | {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | 4.82 | 351.62 | 0.9854 | 201 | 395 | 390 |
+| 5 | {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} | 1.30 | 457.34 | 0.9881 | 201 | 345 | 340 |
+| 6 | {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | 4.80 | 406.93 | 0.9852 | 201 | 430 | 426 |
+| 7 | {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | 4.81 | 410.31 | 0.9856 | 201 | 269 | 265 |
+| 8 | {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | 4.83 | 391.73 | 0.9861 | 201 | 172 | 167 |
+| 9 | {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | 4.86 | 370.95 | 0.9857 | 201 | 506 | 495 |
+| 10 | {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | 4.83 | 348.08 | 0.9854 | 201 | 174 | 172 |
+| 11 | {"W": "1h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 4.91 | 549.22 | 0.9749 | 201 | 521 | 488 |
+
+CPCV paths (`h2/nested_cv/cpcv`, 11 rows): diff median -64.34, 5th pct -258.39, min -374.27, share > 0 0.364, control pct median 8.00 / 5th pct 1.40
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 62951ef11811fc25 | 4,372 | 0.9711 | -923.69 | -859.35 | -64.34 | 39.60 | 0.8896 | 0.9766 | 7 | 0 |
+| 399eeb402a9b95e2 | 4,424 | 0.9827 | -923.54 | -824.66 | -98.89 | 6.30 | 0.8581 | 0.9856 | 6 | 1 |
+| 5406c5bde13a85fb | 4,323 | 0.9602 | -936.71 | -562.44 | -374.27 | 0.7 | 0.3223 | 0.9553 | 4 | 2 |
+| 451548d9fe2abbc4 | 4,363 | 0.9691 | -917.36 | -1,062.15 | 144.79 | 35.20 | 0.7341 | 0.981 | 6 | 3 |
+| eda287c1a9d37cfc | 4,354 | 0.9671 | -918.66 | -1,015.08 | 96.42 | 40.50 | 0.8116 | 0.9782 | 7 | 4 |
+| 67278445e8061d81 | 4,423 | 0.9825 | -923.85 | -808.91 | -114.94 | 65.50 | 0.8296 | 0.9837 | 5 | 5 |
+| d1e17ee38b9c3c8e | 4,436 | 0.9853 | -923.02 | -842.23 | -80.79 | 6.50 | 0.8876 | 0.9927 | 4 | 6 |
+| fee5ddcea10da95b | 4,423 | 0.9825 | -921.90 | -917.95 | -3.95 | 8.00 | 0.9945 | 0.9879 | 5 | 7 |
+| b7ac829af86fa384 | 4,386 | 0.9742 | -918.89 | -1,033.19 | 114.30 | 32.90 | 0.7876 | 0.9891 | 7 | 8 |
+| 09517a1d086faece | 4,406 | 0.9787 | -924.87 | -782.35 | -142.52 | 2.10 | 0.7746 | 0.9824 | 5 | 9 |
+| 17c54f049c9ec5f1 | 4,389 | 0.9749 | -919.96 | -994.62 | 74.67 | 7.10 | 0.8826 | 0.9859 | 6 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} x33; {"W": "1h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} x10; {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} x7; {"W": "3h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} x4; {"W": "1h", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} x3; {"W": "1h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "all"} x2; {"W": "since_choch", "q": 0.1, "rule": "range"} x2; {"W": "3h", "combine": "AND", "kc": 3, "q": 0.2, "rule": "both", "scope": "today"} x2; {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.2, "rule": "both", "scope": "all"} x1; {"kc": 4, "rule": "choch", "scope": "all"} x1; {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "all"} x1
+
+**Nested-CV candidate** (family `h2/nested_cv_minskip`, the 12-block OOF mask; ledger note `repair`):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 7310b7454e4b7d42 | 3,879 | 0.8616 | -955.05 | -715.01 | -240.04 | -171.73 | 20.90 | 0.3003 | 0.1396 | 0.8555 | 0.8567 | 0.087 | -1,345.01 | 6 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.3, "rule": "both", "scope": "all"} | 1.68 | 220.40 | 0.8701 | 122 | 400 | 345 |
+| 1 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.3, "rule": "both", "scope": "all"} | 1.67 | 185.56 | 0.8708 | 124 | 392 | 341 |
+| 2 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.3, "rule": "both", "scope": "all"} | 1.67 | 185.51 | 0.8691 | 126 | 386 | 343 |
+| 3 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.3, "rule": "both", "scope": "all"} | 1.67 | 218.44 | 0.8702 | 122 | 512 | 453 |
+| 4 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.3, "rule": "both", "scope": "today"} | 1.67 | 188.33 | 0.8687 | 125 | 395 | 360 |
+| 5 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.3, "rule": "both", "scope": "all"} | 1.68 | 178.97 | 0.8701 | 124 | 345 | 297 |
+| 6 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.3, "rule": "both", "scope": "all"} | 1.68 | 238.17 | 0.871 | 124 | 430 | 367 |
+| 7 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.3, "rule": "both", "scope": "all"} | 1.67 | 240.30 | 0.8689 | 125 | 269 | 238 |
+| 8 | {"W": "since_choch", "combine": "OR", "kc": 4, "q": 0.1, "rule": "both", "scope": "all"} | 1.30 | 256.56 | 0.8339 | 122 | 172 | 141 |
+| 9 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.4, "rule": "both", "scope": "all"} | 1.84 | 140.55 | 0.8335 | 124 | 506 | 405 |
+| 10 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.4, "rule": "both", "scope": "all"} | 1.84 | 222.16 | 0.8319 | 125 | 174 | 145 |
+| 11 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.3, "rule": "both", "scope": "all"} | 1.69 | 246.59 | 0.8698 | 122 | 521 | 444 |
+
+CPCV paths (`h2/nested_cv_minskip/cpcv`, 11 rows): diff median -81.42, 5th pct -357.90, min -480.66, share > 0 0.091, control pct median 40.20 / 5th pct 15.30
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| ce6ff007648a2095 | 3,891 | 0.8643 | -931.12 | -862.69 | -68.43 | 80.50 | 0.7756 | 0.8804 | 7 | 0 |
+| 085a6f1efba52cd1 | 3,574 | 0.7939 | -970.30 | -735.16 | -235.14 | 9.40 | 0.2464 | 0.783 | 6 | 1 |
+| b0f8b3a46ca85eac | 3,885 | 0.8629 | -936.90 | -826.95 | -109.95 | 35.70 | 0.6512 | 0.8759 | 5 | 2 |
+| 6d45292bd52ae251 | 3,917 | 0.8701 | -937.61 | -816.22 | -121.39 | 40.20 | 0.6112 | 0.8879 | 5 | 3 |
+| 2f00e2a0cb0a41ad | 3,857 | 0.8567 | -925.55 | -899.61 | -25.94 | 52.50 | 0.921 | 0.8878 | 6 | 4 |
+| 356f7f243131edb1 | 3,886 | 0.8632 | -953.48 | -722.17 | -231.31 | 26.60 | 0.3218 | 0.8596 | 6 | 5 |
+| b40c9c49b27290d2 | 3,905 | 0.8674 | -919.25 | -938.74 | 19.49 | 74.20 | 0.926 | 0.9029 | 8 | 6 |
+| 9aa91392a32347df | 3,951 | 0.8776 | -925.52 | -895.37 | -30.15 | 36.20 | 0.8876 | 0.8893 | 6 | 7 |
+| 94e5b692add4a992 | 3,926 | 0.8721 | -983.33 | -502.66 | -480.66 | 21.20 | 0.0335 | 0.8189 | 6 | 8 |
+| 5667f575d63c4373 | 3,777 | 0.839 | -934.94 | -853.53 | -81.42 | 40.90 | 0.7091 | 0.8539 | 6 | 9 |
+| b0bcc77a99a9bf48 | 3,729 | 0.8283 | -929.78 | -883.48 | -46.30 | 67.20 | 0.8361 | 0.8305 | 6 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.3, "rule": "both", "scope": "all"} x29; {"W": "since_choch", "q": 0.1, "rule": "range"} x11; {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.3, "rule": "both", "scope": "today"} x7; {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.4, "rule": "both", "scope": "all"} x7; {"W": "since_choch", "combine": "OR", "kc": 4, "q": 0.1, "rule": "both", "scope": "all"} x6; {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} x2; {"W": "3h", "q": 0.2, "rule": "range"} x1; {"W": "3h", "combine": "AND", "kc": 2, "q": 0.4, "rule": "both", "scope": "today"} x1; {"W": "1h", "combine": "OR", "kc": 3, "q": 0.5, "rule": "both", "scope": "all"} x1; {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.4, "rule": "both", "scope": "today"} x1
+
+Family on this table (every non-cpcv ledger row of the study, tf and label). The pre-registered row's statistics as computed at its run (before the post-hoc rows existed) and recomputed over the completed family; the post-hoc row's over the completed family:
+
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 min | L0 | pre-registered (family as at the primary run) | 202 | 202 | 1.55 | 0.466 | 0.8678 | 0.207 | 0.2545 |  | {"rule": "range", "W": "3h", "q": 0.3} | 269.82 | [-532.13, 591.07] | 0.4965 | 0.9997 | -64.34 | -258.39 | 0.364 | 8.00 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L0 | post-hoc min skip 10 % (family complete) | 203 | 203 | 1.55 | 0.4618 | 0.8667 | 0.198 | 0.252 | 0.0195 | {"rule": "range", "W": "3h", "q": 0.3} | 269.82 | [-746.01, 200.17] | 0.786 | 1.00 | -81.42 | -357.90 | 0.091 | 40.20 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L0 | pre-registered (family recomputed after the post-hoc rows) | 203 | 203 | 1.55 | 0.4618 | 0.8667 | 0.196 | 0.248 | 0.0255 | {"rule": "range", "W": "3h", "q": 0.3} | 269.82 | [-579.44, 592.08] | 0.502 | 0.9997 | -64.34 | -258.39 | 0.364 | 8.00 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
 
 
 ### 5 min / L1 (826 IS units)
@@ -426,11 +619,54 @@ CPCV paths (`h2/nested_cv/cpcv`, 11 rows): diff median 3,991.66, 5th pct 3,444.7
 
 Cells chosen across the 66 CPCV training sets: {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} x65; {"W": "1h", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} x1
 
-Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+**Nested-CV candidate** (family `h2/nested_cv_minskip`, the 12-block OOF mask; ledger note `repair`):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 12e06107b9d902d0 | 733 | 0.8874 | -640.99 | -1,671.83 | 1,030.84 | 787.77 | 83.90 | 0.0405 | 0.1273 | 0.8172 | 0.962 | 0.0435 | -1,030.95 | 11 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 5.08 | 915.05 | 0.8853 | 123 | 82 | 75 |
+| 1 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 5.09 | 1,224.52 | 0.8934 | 122 | 83 | 69 |
+| 2 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 5.08 | 958.98 | 0.8839 | 123 | 42 | 40 |
+| 3 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 5.09 | 1,022.27 | 0.8868 | 122 | 76 | 67 |
+| 4 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 5.09 | 1,216.22 | 0.8886 | 122 | 72 | 63 |
+| 5 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 5.13 | 1,120.29 | 0.8849 | 123 | 73 | 66 |
+| 6 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 5.09 | 872.37 | 0.8926 | 123 | 77 | 64 |
+| 7 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 5.08 | 1,055.52 | 0.8852 | 123 | 51 | 47 |
+| 8 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 5.02 | 1,078.54 | 0.8876 | 122 | 76 | 68 |
+| 9 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 5.06 | 857.83 | 0.8861 | 123 | 80 | 72 |
+| 10 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 5.09 | 1,008.54 | 0.8904 | 122 | 31 | 25 |
+| 11 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 5.10 | 1,050.74 | 0.8829 | 122 | 83 | 77 |
+
+CPCV paths (`h2/nested_cv_minskip/cpcv`, 11 rows): diff median 657.62, 5th pct 534.55, min 460.56, share > 0 1.00, control pct median 76.40 / 5th pct 37.00
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 371030bbec10a801 | 733 | 0.8874 | -640.99 | -1,671.83 | 1,030.84 | 83.80 | 0.0365 | 0.962 | 11 | 0 |
+| 6fa31b8719c1bcca | 716 | 0.8668 | -673.34 | -1,301.94 | 628.60 | 75.00 | 0.1699 | 0.9254 | 10 | 1 |
+| 94facd3d9557a5b2 | 717 | 0.868 | -676.75 | -1,285.29 | 608.54 | 74.80 | 0.1919 | 0.9254 | 10 | 2 |
+| a5790aeb1d99c032 | 737 | 0.8923 | -677.72 | -1,414.03 | 736.32 | 57.50 | 0.1454 | 0.9492 | 10 | 3 |
+| 2d473a633c6a648b | 731 | 0.885 | -633.39 | -1,708.61 | 1,075.22 | 82.50 | 0.0275 | 0.962 | 11 | 4 |
+| add699807477066a | 706 | 0.8547 | -690.14 | -1,150.70 | 460.56 | 34.40 | 0.2854 | 0.9147 | 8 | 5 |
+| 24f0f11926eb7c94 | 709 | 0.8584 | -663.90 | -1,321.52 | 657.62 | 39.60 | 0.1479 | 0.9203 | 9 | 6 |
+| 58b1db7f4de9bde7 | 718 | 0.8692 | -675.40 | -1,299.86 | 624.46 | 77.90 | 0.1719 | 0.9256 | 10 | 7 |
+| 19aac3e716c6f2e8 | 734 | 0.8886 | -641.47 | -1,679.17 | 1,037.70 | 83.50 | 0.039 | 0.962 | 11 | 8 |
+| 042b47ad93208422 | 717 | 0.868 | -676.75 | -1,285.29 | 608.54 | 76.40 | 0.1709 | 0.9254 | 10 | 9 |
+| bba5c9e3592f8ebd | 732 | 0.8862 | -637.61 | -1,687.20 | 1,049.60 | 82.30 | 0.0325 | 0.962 | 11 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} x61; {"W": "since_choch", "combine": "OR", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} x4; {"W": "1h", "combine": "AND", "kc": 2, "q": 0.4, "rule": "both", "scope": "today"} x1
+
+Family on this table (every non-cpcv ledger row of the study, tf and label). The pre-registered row's statistics as computed at its run (before the post-hoc rows existed) and recomputed over the completed family; the post-hoc row's over the completed family:
 
 | tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 5 min | L1 | pre-registered (family as at the primary run) | 202 | 202 | 1.44 | 0.3293 | 0.5333 | 0.076 | 0.0835 |  | {"rule": "range", "W": "3h", "q": 0.1} | 127.60 | [2816.25, 5189.35] | 0 | 0.9957 | 3,991.66 | 3,444.78 | 1.00 | 87.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1 |
+| 5 min | L1 | post-hoc min skip 10 % (family complete) | 203 | 203 | 1.44 | 0.3293 | 0.5333 | 0.0065 | 0.0155 | 0.024 | {"rule": "range", "W": "3h", "q": 0.1} | 127.60 | [507.19, 1545.12] | 0 | 0.9893 | 657.62 | 534.55 | 1.00 | 76.40 | False | kept_mean_slip8>0, control_pct>=95, pbo<=0.2, dsr_p<0.1 |
+| 5 min | L1 | pre-registered (family recomputed after the post-hoc rows) | 203 | 203 | 1.44 | 0.3293 | 0.5333 | 0.0065 | 0.016 | 0.0165 | {"rule": "range", "W": "3h", "q": 0.1} | 127.60 | [2786.47, 5161.27] | 0 | 0.9958 | 3,991.66 | 3,444.78 | 1.00 | 87.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1 |
 
 
 ### 5 min / L0 (832 IS units)
@@ -532,11 +768,54 @@ CPCV paths (`h2/nested_cv/cpcv`, 11 rows): diff median 4,473.04, 5th pct 732.98,
 
 Cells chosen across the 66 CPCV training sets: {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} x64; {"W": "3h", "combine": "AND", "kc": 4, "q": 0.3, "rule": "both", "scope": "today"} x1; {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} x1
 
-Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+**Nested-CV candidate** (family `h2/nested_cv_minskip`, the 12-block OOF mask; ledger note `repair`):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| eb4bb3599cbc7eb8 | 701 | 0.8425 | 22.30 | -1,877.06 | 1,899.37 | 979.24 | 75.20 | 0.045 | 0.1682 | 0.8321 | 0.958 | 0 | -367.66 | 11 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"W": "since_choch", "q": 0.1, "rule": "range"} | 1.38 | 2,216.23 | 0.8995 | 123 | 83 | 74 |
+| 1 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 2.11 | 2,153.45 | 0.8365 | 122 | 84 | 66 |
+| 2 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 2.08 | 2,114.72 | 0.8327 | 123 | 42 | 39 |
+| 3 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 2.08 | 2,403.10 | 0.8445 | 122 | 77 | 60 |
+| 4 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 2.08 | 2,258.42 | 0.834 | 122 | 72 | 63 |
+| 5 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 2.06 | 2,404.21 | 0.8378 | 122 | 73 | 63 |
+| 6 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 2.10 | 2,621.59 | 0.836 | 120 | 78 | 63 |
+| 7 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 2.06 | 2,234.65 | 0.8423 | 119 | 51 | 42 |
+| 8 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 2.08 | 2,227.50 | 0.8404 | 122 | 76 | 61 |
+| 9 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 2.08 | 2,028.22 | 0.8398 | 123 | 82 | 67 |
+| 10 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 2.09 | 2,173.94 | 0.8385 | 122 | 31 | 25 |
+| 11 | {"W": "since_choch", "q": 0.1, "rule": "range"} | 1.37 | 2,263.70 | 0.8999 | 122 | 83 | 78 |
+
+CPCV paths (`h2/nested_cv_minskip/cpcv`, 11 rows): diff median 1,796.97, 5th pct 1,047.07, min 1,033.11, share > 0 1.00, control pct median 70.10 / 5th pct 16.10
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 447bf7fb0cef98ef | 735 | 0.8834 | -153.06 | -1,214.07 | 1,061.02 | 11.30 | 0.3358 | 0.9366 | 10 | 0 |
+| 0917d30db16c2677 | 700 | 0.8413 | -56.63 | -1,444.10 | 1,387.47 | 51.80 | 0.1664 | 0.9244 | 10 | 1 |
+| 3a9f09c47aeb26df | 698 | 0.8389 | 58.40 | -2,022.59 | 2,080.99 | 80.60 | 0.028 | 0.9598 | 11 | 2 |
+| 4a8c8fc0ba2606b7 | 707 | 0.8498 | -25.36 | -1,698.64 | 1,673.27 | 74.50 | 0.088 | 0.948 | 11 | 3 |
+| 26b460ece39943f0 | 709 | 0.8522 | -13.15 | -1,796.24 | 1,783.09 | 77.70 | 0.076 | 0.954 | 10 | 4 |
+| 9e322f2e32984b69 | 709 | 0.8522 | 22.55 | -2,002.01 | 2,024.55 | 70.10 | 0.043 | 0.9652 | 11 | 5 |
+| 1695d7ab822db4a7 | 705 | 0.8474 | 30.61 | -1,982.98 | 2,013.59 | 77.00 | 0.0405 | 0.9603 | 11 | 6 |
+| 40457627944733bb | 716 | 0.8606 | -132.72 | -1,165.82 | 1,033.11 | 20.90 | 0.3138 | 0.9282 | 10 | 7 |
+| 5cf848e8e7483289 | 734 | 0.8822 | -65.09 | -1,862.07 | 1,796.97 | 50.90 | 0.0825 | 0.9691 | 11 | 8 |
+| 09b949c4bc0dae83 | 703 | 0.845 | 48.99 | -2,051.95 | 2,100.93 | 80.00 | 0.03 | 0.9621 | 11 | 9 |
+| 8a928e929c01a5f0 | 739 | 0.8882 | -69.57 | -1,923.14 | 1,853.57 | 62.10 | 0.085 | 0.972 | 10 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} x41; {"W": "since_choch", "q": 0.1, "rule": "range"} x17; {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.4, "rule": "both", "scope": "today"} x5; {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} x3
+
+Family on this table (every non-cpcv ledger row of the study, tf and label). The pre-registered row's statistics as computed at its run (before the post-hoc rows existed) and recomputed over the completed family; the post-hoc row's over the completed family:
 
 | tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 5 min | L0 | pre-registered (family as at the primary run) | 202 | 202 | 1.44 | 0.3043 | 0.5855 | 0.124 | 0.136 |  | {"rule": "range", "W": "3h", "q": 0.2} | 248.49 | [3078.04, 5879.24] | 0 | 0.7772 | 4,473.04 | 732.98 | 0.909 | 75.40 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
+| 5 min | L0 | post-hoc min skip 10 % (family complete) | 203 | 203 | 1.43 | 0.3043 | 0.5855 | 0.1185 | 0.128 | 0.173 | {"rule": "range", "W": "3h", "q": 0.2} | 248.49 | [1241.99, 2603.36] | 0 | 0.6506 | 1,796.97 | 1,047.07 | 1.00 | 70.10 | False | kept_mean_slip8>0, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
+| 5 min | L0 | pre-registered (family recomputed after the post-hoc rows) | 203 | 203 | 1.43 | 0.3043 | 0.5855 | 0.1175 | 0.129 | 0.156 | {"rule": "range", "W": "3h", "q": 0.2} | 248.49 | [3075.12, 5866.64] | 0 | 0.7785 | 4,473.04 | 732.98 | 0.909 | 75.40 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
 
 
 ### H2 family summary (all tables)
@@ -544,8 +823,17 @@ Family on this table (every non-cpcv ledger row of the study, tf and label, as a
 | tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 min | L1 | pre-registered (family as at the primary run) | 202 | 202 | 1.35 | 0.3564 | 0.5611 | 0.1255 | 0.18 |  | {"rule": "range", "W": "3h", "q": 0.2} | 322.59 | [-582.49, 91.16] | 0.8655 | 1.00 | -198.78 | -417.49 | 0.182 | 1.90 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L1 | post-hoc min skip 10 % (family complete) | 203 | 203 | 1.35 | 0.3556 | 0.5371 | 0.103 | 0.1725 | 0.012 | {"rule": "range", "W": "3h", "q": 0.2} | 322.59 | [83.03, 345.59] | 0.006 | 1.00 | 131.06 | 76.56 | 1.00 | 59.10 | False | kept_mean_slip8>0, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
+| 1 min | L1 | pre-registered (family recomputed after the post-hoc rows) | 203 | 203 | 1.35 | 0.3556 | 0.5371 | 0.1005 | 0.1665 | 0.015 | {"rule": "range", "W": "3h", "q": 0.2} | 322.59 | [-559.44, 87.31] | 0.8745 | 1.00 | -198.78 | -417.49 | 0.182 | 1.90 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L0 | pre-registered (family as at the primary run) | 202 | 202 | 1.55 | 0.466 | 0.8678 | 0.207 | 0.2545 |  | {"rule": "range", "W": "3h", "q": 0.3} | 269.82 | [-532.13, 591.07] | 0.4965 | 0.9997 | -64.34 | -258.39 | 0.364 | 8.00 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L0 | post-hoc min skip 10 % (family complete) | 203 | 203 | 1.55 | 0.4618 | 0.8667 | 0.198 | 0.252 | 0.0195 | {"rule": "range", "W": "3h", "q": 0.3} | 269.82 | [-746.01, 200.17] | 0.786 | 1.00 | -81.42 | -357.90 | 0.091 | 40.20 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L0 | pre-registered (family recomputed after the post-hoc rows) | 203 | 203 | 1.55 | 0.4618 | 0.8667 | 0.196 | 0.248 | 0.0255 | {"rule": "range", "W": "3h", "q": 0.3} | 269.82 | [-579.44, 592.08] | 0.502 | 0.9997 | -64.34 | -258.39 | 0.364 | 8.00 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
 | 5 min | L1 | pre-registered (family as at the primary run) | 202 | 202 | 1.44 | 0.3293 | 0.5333 | 0.076 | 0.0835 |  | {"rule": "range", "W": "3h", "q": 0.1} | 127.60 | [2816.25, 5189.35] | 0 | 0.9957 | 3,991.66 | 3,444.78 | 1.00 | 87.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1 |
+| 5 min | L1 | post-hoc min skip 10 % (family complete) | 203 | 203 | 1.44 | 0.3293 | 0.5333 | 0.0065 | 0.0155 | 0.024 | {"rule": "range", "W": "3h", "q": 0.1} | 127.60 | [507.19, 1545.12] | 0 | 0.9893 | 657.62 | 534.55 | 1.00 | 76.40 | False | kept_mean_slip8>0, control_pct>=95, pbo<=0.2, dsr_p<0.1 |
+| 5 min | L1 | pre-registered (family recomputed after the post-hoc rows) | 203 | 203 | 1.44 | 0.3293 | 0.5333 | 0.0065 | 0.016 | 0.0165 | {"rule": "range", "W": "3h", "q": 0.1} | 127.60 | [2786.47, 5161.27] | 0 | 0.9958 | 3,991.66 | 3,444.78 | 1.00 | 87.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1 |
 | 5 min | L0 | pre-registered (family as at the primary run) | 202 | 202 | 1.44 | 0.3043 | 0.5855 | 0.124 | 0.136 |  | {"rule": "range", "W": "3h", "q": 0.2} | 248.49 | [3078.04, 5879.24] | 0 | 0.7772 | 4,473.04 | 732.98 | 0.909 | 75.40 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
+| 5 min | L0 | post-hoc min skip 10 % (family complete) | 203 | 203 | 1.43 | 0.3043 | 0.5855 | 0.1185 | 0.128 | 0.173 | {"rule": "range", "W": "3h", "q": 0.2} | 248.49 | [1241.99, 2603.36] | 0 | 0.6506 | 1,796.97 | 1,047.07 | 1.00 | 70.10 | False | kept_mean_slip8>0, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
+| 5 min | L0 | pre-registered (family recomputed after the post-hoc rows) | 203 | 203 | 1.43 | 0.3043 | 0.5855 | 0.1175 | 0.129 | 0.156 | {"rule": "range", "W": "3h", "q": 0.2} | 248.49 | [3075.12, 5866.64] | 0 | 0.7785 | 4,473.04 | 732.98 | 0.909 | 75.40 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
 
 
 
@@ -809,11 +1097,54 @@ CPCV paths (`h3/nested_cv/cpcv`, 11 rows): diff median -156.04, 5th pct -298.24,
 
 Cells chosen across the 66 CPCV training sets: {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} x17; {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} x17; {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 4} x8; {"M": 5, "N": 60, "gate": "skip_if_disagree", "v": 2} x6; {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 3} x5; {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 4} x4; {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 3} x3; {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 3} x3; {"M": 5, "N": 20, "gate": "take_only_agree", "v": 2} x1; {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} x1; {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 3} x1
 
-Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+**Nested-CV candidate** (family `h3/nested_cv_minskip`, the 12-block OOF mask; ledger note `repair`):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| c25fd4a1f427e4b8 | 3,421 | 0.7684 | -1,016.60 | -986.41 | -30.19 | -76.96 | 0.4 | 0.7451 | 0.2326 | 0.8477 | 0.7969 | 0.1571 | -1,406.56 | 5 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} |  | 56.55 | 0.7511 | 42 | 396 | 300 |
+| 1 | {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} |  | 100.24 | 0.7499 | 42 | 388 | 300 |
+| 2 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 3} |  | 105.69 | 0.7789 | 42 | 384 | 292 |
+| 3 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 3} |  | 101.75 | 0.8715 | 42 | 509 | 437 |
+| 4 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 4} |  | 79.80 | 0.8225 | 42 | 390 | 322 |
+| 5 | {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} |  | 119.75 | 0.7521 | 42 | 341 | 255 |
+| 6 | {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} |  | 80.22 | 0.7532 | 42 | 424 | 314 |
+| 7 | {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} |  | 100.28 | 0.7506 | 42 | 266 | 206 |
+| 8 | {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} |  | 106.12 | 0.7532 | 42 | 170 | 123 |
+| 9 | {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} |  | 111.66 | 0.7534 | 42 | 499 | 370 |
+| 10 | {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} |  | 88.63 | 0.7544 | 42 | 173 | 119 |
+| 11 | {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} |  | 151.09 | 0.7525 | 42 | 512 | 383 |
+
+CPCV paths (`h3/nested_cv_minskip/cpcv`, 11 rows): diff median -56.30, 5th pct -165.65, min -199.74, share > 0 0.182, control pct median 0.3 / 5th pct 0
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| bb2f443efc5b918c | 3,330 | 0.748 | -1,059.95 | -860.21 | -199.74 | 0 | 0.0225 | 0.7082 | 3 | 0 |
+| 94d8cda41c60da3d | 3,514 | 0.7893 | -1,017.50 | -980.04 | -37.46 | 0.3 | 0.7136 | 0.821 | 4 | 1 |
+| c4961f7c2b426665 | 3,590 | 0.8064 | -1,035.08 | -903.53 | -131.55 | 0 | 0.1789 | 0.8135 | 4 | 2 |
+| 627a286aec639098 | 3,693 | 0.8295 | -1,023.07 | -944.11 | -78.95 | 0.3 | 0.4423 | 0.8457 | 4 | 3 |
+| 88e9038a01018926 | 3,525 | 0.7918 | -1,027.93 | -939.92 | -88.02 | 0.1 | 0.3758 | 0.8028 | 4 | 4 |
+| 03e7b2a7fe607089 | 3,278 | 0.7363 | -1,036.24 | -935.25 | -100.99 | 2.40 | 0.2804 | 0.734 | 5 | 5 |
+| d2d29d8082e32a0b | 3,348 | 0.752 | -985.67 | -1,082.19 | 96.52 | 10.20 | 0.2689 | 0.8184 | 8 | 6 |
+| bdbce6986cc20adf | 3,397 | 0.763 | -1,018.75 | -980.15 | -38.60 | 0.3 | 0.6812 | 0.7932 | 6 | 7 |
+| b49ddce183b06337 | 3,424 | 0.7691 | -1,020.15 | -974.48 | -45.67 | 0.1 | 0.6312 | 0.7987 | 5 | 8 |
+| 8d217a3d8d6c140c | 3,446 | 0.774 | -1,022.33 | -966.03 | -56.30 | 0.4 | 0.5507 | 0.7967 | 5 | 9 |
+| 54afb420bb387044 | 3,401 | 0.7639 | -996.51 | -1,052.00 | 55.49 | 3.80 | 0.5497 | 0.8127 | 7 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} x39; {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 4} x8; {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 3} x8; {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 3} x6; {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 3} x2; {"M": 15, "N": 20, "gate": "skip_if_disagree", "v": 3} x1; {"M": 5, "N": 20, "gate": "take_only_agree", "v": 2} x1; {"M": 15, "N": 20, "gate": "skip_if_disagree", "v": 2} x1
+
+Family on this table (every non-cpcv ledger row of the study, tf and label). The pre-registered row's statistics as computed at its run (before the post-hoc rows existed) and recomputed over the completed family; the post-hoc row's over the completed family:
 
 | tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 min | L1 | pre-registered (family as at the primary run) | 55 | 55 | 1.66 | 0.7635 | 0.8015 | 0 | 0 |  | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 244.91 | [-324.62, -39.75] | 0.9825 | 1.00 | -156.04 | -298.24 | 0.091 | 0.1 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, boot_ci_excludes_0 |
+| 1 min | L1 | post-hoc min skip 10 % (family complete) | 56 | 56 | 1.65 | 0.77 | 0.8063 | 0 | 0.002 | 0.003 | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 244.91 | [-146.66, 94.01] | 0.672 | 1.00 | -56.30 | -165.65 | 0.182 | 0.3 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, boot_ci_excludes_0 |
+| 1 min | L1 | pre-registered (family recomputed after the post-hoc rows) | 56 | 56 | 1.65 | 0.77 | 0.8063 | 0.001 | 0.0015 | 0.003 | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 244.91 | [-319.1, -31.61] | 0.981 | 1.00 | -156.04 | -298.24 | 0.091 | 0.1 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, boot_ci_excludes_0 |
 
 
 ### 1 min / L0 (4,502 IS units)
@@ -929,11 +1260,54 @@ CPCV paths (`h3/nested_cv/cpcv`, 11 rows): diff median 290.83, 5th pct 203.44, m
 
 Cells chosen across the 66 CPCV training sets: {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} x40; {"M": 5, "N": 60, "gate": "skip_if_disagree", "v": 2} x18; {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 3} x8
 
-Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+**Nested-CV candidate** (family `h3/nested_cv_minskip`, the 12-block OOF mask; ledger note `repair`):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 3ffcfd594800fc39 | 3,742 | 0.8312 | -919.57 | -932.98 | 13.41 | -114.17 | 22.60 | 0.948 | 0.1684 | 0.8461 | 0.8545 | 0.1884 | -1,309.53 | 7 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 255.31 | 0.838 | 42 | 400 | 341 |
+| 1 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 265.49 | 0.8387 | 42 | 392 | 335 |
+| 2 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 3} |  | 292.28 | 0.7783 | 42 | 386 | 294 |
+| 3 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 3} |  | 311.14 | 0.871 | 42 | 512 | 440 |
+| 4 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 280.43 | 0.8373 | 42 | 395 | 342 |
+| 5 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 292.94 | 0.8388 | 42 | 345 | 294 |
+| 6 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 274.54 | 0.8392 | 42 | 430 | 362 |
+| 7 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 232.30 | 0.8391 | 42 | 269 | 229 |
+| 8 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 226.92 | 0.7685 | 42 | 172 | 125 |
+| 9 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 237.87 | 0.8436 | 42 | 506 | 410 |
+| 10 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 222.59 | 0.843 | 42 | 174 | 133 |
+| 11 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 371.42 | 0.8399 | 42 | 521 | 437 |
+
+CPCV paths (`h3/nested_cv_minskip/cpcv`, 11 rows): diff median -82.14, 5th pct -266.27, min -320.77, share > 0 0.455, control pct median 26.90 / 5th pct 6.00
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 83bcf186bb4b19be | 3,727 | 0.8279 | -943.33 | -818.44 | -124.90 | 26.90 | 0.5577 | 0.8151 | 6 | 0 |
+| 4d018e883b4b37ae | 3,652 | 0.8112 | -937.34 | -855.20 | -82.14 | 7.90 | 0.6632 | 0.8189 | 7 | 1 |
+| cfd85a04d154bbe9 | 3,567 | 0.7923 | -939.65 | -853.87 | -85.77 | 27.50 | 0.6732 | 0.8089 | 5 | 2 |
+| 6ee250d91fb32bb7 | 3,819 | 0.8483 | -921.71 | -922.49 | 0.78 | 22.60 | 0.997 | 0.8676 | 7 | 3 |
+| e8726e0c1f83b5a9 | 3,708 | 0.8236 | -902.00 | -1,014.43 | 112.43 | 37.10 | 0.6032 | 0.8687 | 8 | 4 |
+| 78cb595e4139ec3d | 3,754 | 0.8339 | -903.36 | -1,014.56 | 111.20 | 41.40 | 0.5957 | 0.8747 | 8 | 5 |
+| 40664fc9d61b94b8 | 3,742 | 0.8312 | -919.57 | -932.98 | 13.41 | 24.40 | 0.9455 | 0.8545 | 7 | 6 |
+| a58f4dd369fbb917 | 3,293 | 0.7315 | -1,007.97 | -687.21 | -320.77 | 36.70 | 0.072 | 0.6594 | 4 | 7 |
+| ce85ae085e3646b4 | 3,792 | 0.8423 | -938.73 | -831.56 | -107.17 | 12.90 | 0.6117 | 0.854 | 6 | 8 |
+| f9540c29b877a6cd | 3,718 | 0.8259 | -958.71 | -746.93 | -211.78 | 4.10 | 0.2959 | 0.8121 | 4 | 9 |
+| 9529c8c861302033 | 3,792 | 0.8423 | -889.37 | -1,095.19 | 205.81 | 50.80 | 0.3283 | 0.8975 | 9 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} x38; {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 3} x9; {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 3} x7; {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 4} x3; {"M": 30, "N": 20, "gate": "take_only_agree", "v": 3} x2; {"M": 15, "N": 20, "gate": "skip_if_disagree", "v": 4} x2; {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} x2; {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 2} x2; {"M": 30, "N": 60, "gate": "take_only_agree", "v": 2} x1
+
+Family on this table (every non-cpcv ledger row of the study, tf and label). The pre-registered row's statistics as computed at its run (before the post-hoc rows existed) and recomputed over the completed family; the post-hoc row's over the completed family:
 
 | tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 min | L0 | pre-registered (family as at the primary run) | 55 | 55 | 1.98 | 0.1033 | 0.7235 | 0.055 | 0.055 |  | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 352.15 | [-146.01, 516.43] | 0.166 | 1.00 | 290.83 | 203.44 | 1.00 | 67.00 | False | diff_top1_removed>0, kept_mean_slip8>0, control_pct>=95, dsr_p<0.1, boot_ci_excludes_0 |
+| 1 min | L0 | post-hoc min skip 10 % (family complete) | 56 | 56 | 1.97 | 0.1069 | 0.7353 | 0.056 | 0.056 | 0.069 | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 352.15 | [-231.75, 254.08] | 0.47 | 1.00 | -82.14 | -266.27 | 0.455 | 26.90 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, dsr_p<0.1, boot_ci_excludes_0 |
+| 1 min | L0 | pre-registered (family recomputed after the post-hoc rows) | 56 | 56 | 1.97 | 0.1069 | 0.7353 | 0.068 | 0.068 | 0.08 | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 352.15 | [-151.51, 517.77] | 0.1665 | 1.00 | 290.83 | 203.44 | 1.00 | 67.00 | False | diff_top1_removed>0, kept_mean_slip8>0, control_pct>=95, dsr_p<0.1, boot_ci_excludes_0 |
 
 
 ### 5 min / L1 (826 IS units)
@@ -1138,11 +1512,54 @@ CPCV paths (`h3/nested_cv/cpcv`, 11 rows): diff median -200.09, 5th pct -598.43,
 
 Cells chosen across the 66 CPCV training sets: {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} x39; {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} x17; {"M": 5, "N": 60, "gate": "skip_if_disagree", "v": 2} x9; {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 3} x1
 
-Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+**Nested-CV candidate** (family `h3/nested_cv_minskip`, the 12-block OOF mask; ledger note `repair`):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 66fc292ca65c4459 | 217 | 0.2627 | -882.10 | -712.49 | -169.61 | 15.91 | 100.00 | 0.6322 | 0.7286 | 0.7143 | 0.1952 | 0.8696 | -1,272.07 | 6 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"M": 30, "N": 60, "gate": "skip_if_none", "v": 3} |  | 295.31 | 0.2672 | 24 | 82 | 23 |
+| 1 | {"M": 30, "N": 20, "gate": "skip_if_none", "v": 4} |  | 294.76 | 0.2348 | 23 | 83 | 12 |
+| 2 | {"M": 30, "N": 60, "gate": "skip_if_none", "v": 3} |  | 285.86 | 0.2717 | 24 | 42 | 8 |
+| 3 | {"M": 30, "N": 60, "gate": "skip_if_none", "v": 3} |  | 189.18 | 0.2736 | 23 | 76 | 16 |
+| 4 | {"M": 30, "N": 60, "gate": "skip_if_none", "v": 3} |  | 256.28 | 0.2573 | 21 | 72 | 27 |
+| 5 | {"M": 30, "N": 60, "gate": "skip_if_none", "v": 3} |  | 169.00 | 0.2691 | 24 | 73 | 17 |
+| 6 | {"M": 30, "N": 60, "gate": "skip_if_none", "v": 3} |  | 243.20 | 0.2644 | 24 | 77 | 24 |
+| 7 | {"M": 30, "N": 60, "gate": "skip_if_none", "v": 3} |  | 278.54 | 0.2684 | 24 | 51 | 13 |
+| 8 | {"M": 5, "N": 60, "gate": "take_only_agree", "v": 2} |  | 79.85 | 0.3079 | 23 | 76 | 25 |
+| 9 | {"M": 30, "N": 60, "gate": "skip_if_none", "v": 3} |  | 285.40 | 0.2614 | 22 | 80 | 26 |
+| 10 | {"M": 30, "N": 60, "gate": "skip_if_none", "v": 3} |  | 176.44 | 0.2708 | 24 | 31 | 5 |
+| 11 | {"M": 30, "N": 20, "gate": "skip_if_none", "v": 4} |  | 373.85 | 0.2248 | 23 | 83 | 21 |
+
+CPCV paths (`h3/nested_cv_minskip/cpcv`, 11 rows): diff median -256.78, 5th pct -607.75, min -667.59, share > 0 0.091, control pct median 99.80 / 5th pct 92.50
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 9aeb6bb8d9695ec2 | 207 | 0.2506 | -721.62 | -768.90 | 47.28 | 100.00 | 0.8876 | 0.2061 | 7 | 0 |
+| 85dfbbaf69a12835 | 187 | 0.2264 | -943.64 | -702.45 | -241.19 | 99.80 | 0.5162 | 0.1653 | 5 | 1 |
+| 0c1d6971cc3dc69c | 231 | 0.2797 | -1,031.67 | -650.43 | -381.24 | 98.30 | 0.2814 | 0.2034 | 3 | 2 |
+| 1c7f3f5e5531bb3f | 215 | 0.2603 | -1,098.13 | -637.03 | -461.10 | 99.60 | 0.1859 | 0.1702 | 6 | 3 |
+| c5faa824a25e716f | 222 | 0.2688 | -1,157.69 | -609.80 | -547.90 | 95.60 | 0.1319 | 0.1745 | 4 | 4 |
+| 34e79427a0c875de | 217 | 0.2627 | -946.38 | -689.59 | -256.78 | 100.00 | 0.4808 | 0.1894 | 6 | 5 |
+| 27a0bdf3d06135e6 | 222 | 0.2688 | -790.21 | -744.87 | -45.34 | 100.00 | 0.8956 | 0.2113 | 6 | 6 |
+| 536600676c94fb28 | 216 | 0.2615 | -1,019.86 | -663.99 | -355.87 | 93.90 | 0.3228 | 0.1876 | 4 | 7 |
+| 91f88b68b7b2984e | 215 | 0.2603 | -1,250.88 | -583.28 | -667.59 | 91.00 | 0.06 | 0.1667 | 3 | 8 |
+| f5f3d062cd9c53c2 | 343 | 0.4153 | -867.79 | -678.41 | -189.38 | 99.80 | 0.5557 | 0.363 | 5 | 9 |
+| f2d6f476283ae1f4 | 246 | 0.2978 | -934.34 | -681.86 | -252.48 | 99.90 | 0.4723 | 0.2598 | 5 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"M": 30, "N": 60, "gate": "skip_if_none", "v": 3} x33; {"M": 30, "N": 20, "gate": "skip_if_none", "v": 4} x13; {"M": 5, "N": 60, "gate": "take_only_agree", "v": 2} x11; {"M": 5, "N": 20, "gate": "skip_if_none", "v": 3} x5; {"M": 5, "N": 60, "gate": "skip_if_none", "v": 2} x2; {"M": 15, "N": 20, "gate": "skip_if_disagree", "v": 2} x2
+
+Family on this table (every non-cpcv ledger row of the study, tf and label). The pre-registered row's statistics as computed at its run (before the post-hoc rows existed) and recomputed over the completed family; the post-hoc row's over the completed family:
 
 | tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 5 min | L1 | pre-registered (family as at the primary run) | 55 | 55 | 2.49 | 0.6568 | 0.3895 | 0.155 | 0.172 |  | {"v": 2, "N": 20, "M": 30, "gate": "skip_if_none"} | 428.85 | [-1159.18, 581.14] | 0.6535 | 0.9965 | -200.09 | -598.43 | 0.273 | 0.7 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 5 min | L1 | post-hoc min skip 10 % (family complete) | 56 | 56 | 2.49 | 0.6604 | 0.3937 | 0 | 0.007 | 0 | {"v": 2, "N": 20, "M": 30, "gate": "skip_if_none"} | 428.85 | [-581.27, 220.65] | 0.763 | 0.9991 | -256.78 | -607.75 | 0.091 | 99.80 | False | diff>0, kept_mean_slip8>0, sign_blocks>=8/12, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, boot_ci_excludes_0 |
+| 5 min | L1 | pre-registered (family recomputed after the post-hoc rows) | 56 | 56 | 2.49 | 0.6604 | 0.3937 | 0 | 0.0045 | 0 | {"v": 2, "N": 20, "M": 30, "gate": "skip_if_none"} | 428.85 | [-1137.07, 596.02] | 0.643 | 0.9967 | -200.09 | -598.43 | 0.273 | 0.7 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, boot_ci_excludes_0 |
 
 
 ### 5 min / L0 (832 IS units)
@@ -1258,11 +1675,54 @@ CPCV paths (`h3/nested_cv/cpcv`, 11 rows): diff median 451.83, 5th pct 261.32, m
 
 Cells chosen across the 66 CPCV training sets: {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 4} x46; {"M": 15, "N": 20, "gate": "skip_if_disagree", "v": 4} x11; {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} x9
 
-Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+**Nested-CV candidate** (family `h3/nested_cv_minskip`, the 12-block OOF mask; ledger note `repair`):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5ae936fe9f54e8d0 | 730 | 0.8774 | -85.26 | -1,647.29 | 1,562.03 | 677.57 | 84.80 | 0.1384 | 0.125 | 0.7941 | 0.9587 | 0 | -475.22 | 11 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 1,595.31 | 0.874 | 24 | 83 | 75 |
+| 1 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 1,407.02 | 0.878 | 24 | 84 | 74 |
+| 2 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 1,486.62 | 0.8783 | 24 | 42 | 36 |
+| 3 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 1,557.81 | 0.8807 | 23 | 77 | 67 |
+| 4 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 1,563.59 | 0.8814 | 22 | 72 | 60 |
+| 5 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 1,607.97 | 0.8763 | 23 | 73 | 65 |
+| 6 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 1,658.71 | 0.88 | 24 | 78 | 66 |
+| 7 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 1,467.38 | 0.8744 | 23 | 51 | 47 |
+| 8 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 1,352.36 | 0.8803 | 23 | 76 | 64 |
+| 9 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 1,388.40 | 0.8825 | 23 | 82 | 68 |
+| 10 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 1,532.18 | 0.8748 | 24 | 31 | 29 |
+| 11 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 1,498.09 | 0.8692 | 24 | 83 | 79 |
+
+CPCV paths (`h3/nested_cv_minskip/cpcv`, 11 rows): diff median 560.97, 5th pct -851.32, min -881.34, share > 0 0.545, control pct median 78.20 / 5th pct 63.20
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| af791cad17891536 | 486 | 0.5841 | -618.31 | 202.99 | -821.30 | 68.50 | 0.2439 | 0.4956 | 6 | 0 |
+| 544f2636072daa69 | 487 | 0.5853 | -642.22 | 239.12 | -881.34 | 60.90 | 0.2239 | 0.4932 | 6 | 1 |
+| 9c5e5283cee51821 | 634 | 0.762 | -322.06 | -131.71 | -190.35 | 67.20 | 0.8071 | 0.7667 | 9 | 2 |
+| 4f97b4061eef49f2 | 730 | 0.8774 | -85.26 | -1,647.29 | 1,562.03 | 84.10 | 0.1274 | 0.9587 | 11 | 3 |
+| e9e319f508f64f39 | 730 | 0.8774 | -85.26 | -1,647.29 | 1,562.03 | 83.50 | 0.1434 | 0.9587 | 11 | 4 |
+| b6b5c3d5d28a3856 | 730 | 0.8774 | -85.26 | -1,647.29 | 1,562.03 | 85.70 | 0.1314 | 0.9587 | 11 | 5 |
+| e6ef33109268b319 | 591 | 0.7103 | -333.36 | -137.96 | -195.39 | 78.20 | 0.8146 | 0.6772 | 8 | 6 |
+| c0b5fb46501e5f0d | 672 | 0.8077 | -168.88 | -729.85 | 560.97 | 75.20 | 0.5537 | 0.869 | 10 | 7 |
+| b6686eca167ed2e2 | 730 | 0.8774 | -85.26 | -1,647.29 | 1,562.03 | 85.70 | 0.1439 | 0.9587 | 11 | 8 |
+| 0111f1672dd9f03b | 730 | 0.8774 | -85.26 | -1,647.29 | 1,562.03 | 84.20 | 0.1414 | 0.9587 | 11 | 9 |
+| 2a314d7fc4fc7c5d | 550 | 0.6611 | -530.07 | 217.28 | -747.35 | 65.50 | 0.3388 | 0.5735 | 7 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 2} x56; {"M": 15, "N": 60, "gate": "skip_if_none", "v": 3} x7; {"M": 5, "N": 20, "gate": "skip_if_none", "v": 3} x3
+
+Family on this table (every non-cpcv ledger row of the study, tf and label). The pre-registered row's statistics as computed at its run (before the post-hoc rows existed) and recomputed over the completed family; the post-hoc row's over the completed family:
 
 | tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 5 min | L0 | pre-registered (family as at the primary run) | 55 | 55 | 2.24 | 0.5181 | 0.4411 | 0.5765 | 0.5765 |  | {"v": 3, "N": 20, "M": 30, "gate": "skip_if_none"} | 525.73 | [-2269.14, 2575.06] | 0.356 | 0.7825 | 451.83 | 261.32 | 1.00 | 33.50 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 5 min | L0 | post-hoc min skip 10 % (family complete) | 56 | 56 | 2.23 | 0.5312 | 0.4472 | 0.2455 | 0.2455 | 0.0835 | {"v": 3, "N": 20, "M": 30, "gate": "skip_if_none"} | 525.73 | [890.97, 2277.53] | 0 | 0.6848 | 560.97 | -851.32 | 0.545 | 78.20 | False | kept_mean_slip8>0, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
+| 5 min | L0 | pre-registered (family recomputed after the post-hoc rows) | 56 | 56 | 2.23 | 0.5312 | 0.4472 | 0.2535 | 0.2535 | 0.085 | {"v": 3, "N": 20, "M": 30, "gate": "skip_if_none"} | 525.73 | [-2036.2, 2500.55] | 0.337 | 0.7838 | 451.83 | 261.32 | 1.00 | 33.50 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
 
 
 ### H3 family summary (all tables)
@@ -1270,9 +1730,17 @@ Family on this table (every non-cpcv ledger row of the study, tf and label, as a
 | tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 min | L1 | pre-registered (family as at the primary run) | 55 | 55 | 1.66 | 0.7635 | 0.8015 | 0 | 0 |  | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 244.91 | [-324.62, -39.75] | 0.9825 | 1.00 | -156.04 | -298.24 | 0.091 | 0.1 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, boot_ci_excludes_0 |
+| 1 min | L1 | post-hoc min skip 10 % (family complete) | 56 | 56 | 1.65 | 0.77 | 0.8063 | 0 | 0.002 | 0.003 | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 244.91 | [-146.66, 94.01] | 0.672 | 1.00 | -56.30 | -165.65 | 0.182 | 0.3 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, boot_ci_excludes_0 |
+| 1 min | L1 | pre-registered (family recomputed after the post-hoc rows) | 56 | 56 | 1.65 | 0.77 | 0.8063 | 0.001 | 0.0015 | 0.003 | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 244.91 | [-319.1, -31.61] | 0.981 | 1.00 | -156.04 | -298.24 | 0.091 | 0.1 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, boot_ci_excludes_0 |
 | 1 min | L0 | pre-registered (family as at the primary run) | 55 | 55 | 1.98 | 0.1033 | 0.7235 | 0.055 | 0.055 |  | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 352.15 | [-146.01, 516.43] | 0.166 | 1.00 | 290.83 | 203.44 | 1.00 | 67.00 | False | diff_top1_removed>0, kept_mean_slip8>0, control_pct>=95, dsr_p<0.1, boot_ci_excludes_0 |
+| 1 min | L0 | post-hoc min skip 10 % (family complete) | 56 | 56 | 1.97 | 0.1069 | 0.7353 | 0.056 | 0.056 | 0.069 | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 352.15 | [-231.75, 254.08] | 0.47 | 1.00 | -82.14 | -266.27 | 0.455 | 26.90 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, dsr_p<0.1, boot_ci_excludes_0 |
+| 1 min | L0 | pre-registered (family recomputed after the post-hoc rows) | 56 | 56 | 1.97 | 0.1069 | 0.7353 | 0.068 | 0.068 | 0.08 | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 352.15 | [-151.51, 517.77] | 0.1665 | 1.00 | 290.83 | 203.44 | 1.00 | 67.00 | False | diff_top1_removed>0, kept_mean_slip8>0, control_pct>=95, dsr_p<0.1, boot_ci_excludes_0 |
 | 5 min | L1 | pre-registered (family as at the primary run) | 55 | 55 | 2.49 | 0.6568 | 0.3895 | 0.155 | 0.172 |  | {"v": 2, "N": 20, "M": 30, "gate": "skip_if_none"} | 428.85 | [-1159.18, 581.14] | 0.6535 | 0.9965 | -200.09 | -598.43 | 0.273 | 0.7 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 5 min | L1 | post-hoc min skip 10 % (family complete) | 56 | 56 | 2.49 | 0.6604 | 0.3937 | 0 | 0.007 | 0 | {"v": 2, "N": 20, "M": 30, "gate": "skip_if_none"} | 428.85 | [-581.27, 220.65] | 0.763 | 0.9991 | -256.78 | -607.75 | 0.091 | 99.80 | False | diff>0, kept_mean_slip8>0, sign_blocks>=8/12, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, boot_ci_excludes_0 |
+| 5 min | L1 | pre-registered (family recomputed after the post-hoc rows) | 56 | 56 | 2.49 | 0.6604 | 0.3937 | 0 | 0.0045 | 0 | {"v": 2, "N": 20, "M": 30, "gate": "skip_if_none"} | 428.85 | [-1137.07, 596.02] | 0.643 | 0.9967 | -200.09 | -598.43 | 0.273 | 0.7 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, boot_ci_excludes_0 |
 | 5 min | L0 | pre-registered (family as at the primary run) | 55 | 55 | 2.24 | 0.5181 | 0.4411 | 0.5765 | 0.5765 |  | {"v": 3, "N": 20, "M": 30, "gate": "skip_if_none"} | 525.73 | [-2269.14, 2575.06] | 0.356 | 0.7825 | 451.83 | 261.32 | 1.00 | 33.50 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 5 min | L0 | post-hoc min skip 10 % (family complete) | 56 | 56 | 2.23 | 0.5312 | 0.4472 | 0.2455 | 0.2455 | 0.0835 | {"v": 3, "N": 20, "M": 30, "gate": "skip_if_none"} | 525.73 | [890.97, 2277.53] | 0 | 0.6848 | 560.97 | -851.32 | 0.545 | 78.20 | False | kept_mean_slip8>0, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
+| 5 min | L0 | pre-registered (family recomputed after the post-hoc rows) | 56 | 56 | 2.23 | 0.5312 | 0.4472 | 0.2535 | 0.2535 | 0.085 | {"v": 3, "N": 20, "M": 30, "gate": "skip_if_none"} | 525.73 | [-2036.2, 2500.55] | 0.337 | 0.7838 | 451.83 | 261.32 | 1.00 | 33.50 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
 
 
 
@@ -1530,11 +1998,54 @@ CPCV paths (`h4/nested_cv/cpcv`, 11 rows): diff median -6.92, 5th pct -171.27, m
 
 Cells chosen across the 66 CPCV training sets: {"level": "room", "skip_when_last": "held"} x35; {"level": "prot", "skip_when_last": "broke"} x20; {"level": "swing", "skip_when_last": "pending"} x8; {"level": "room", "skip_when_last": "broke"} x2; {"level": "swing", "skip_when_last": "held"} x1
 
-Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+**Nested-CV candidate** (family `h4/nested_cv_minskip`, the 12-block OOF mask; ledger note `repair`):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0d1b57e82377415d | 3,608 | 0.8104 | -1,009.01 | -1,012.18 | 3.17 | 42.47 | 1.30 | 0.9745 | 0.1895 | 0.8436 | 0.8238 | 0.1286 | -1,398.97 | 6 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"level": "room", "skip_when_last": "held"} |  | 62.28 | 0.82 | 5 | 396 | 326 |
+| 1 | {"level": "room", "skip_when_last": "held"} |  | 64.77 | 0.8218 | 5 | 388 | 315 |
+| 2 | {"level": "room", "skip_when_last": "held"} |  | 111.65 | 0.8194 | 5 | 384 | 321 |
+| 3 | {"level": "room", "skip_when_last": "held"} |  | 126.57 | 0.8252 | 5 | 509 | 408 |
+| 4 | {"level": "room", "skip_when_last": "held"} |  | 110.74 | 0.8232 | 5 | 390 | 310 |
+| 5 | {"level": "room", "skip_when_last": "held"} |  | 107.86 | 0.8202 | 5 | 341 | 285 |
+| 6 | {"level": "room", "skip_when_last": "held"} |  | 101.63 | 0.8223 | 5 | 424 | 342 |
+| 7 | {"level": "swing", "skip_when_last": "pending"} |  | 95.00 | 0.6142 | 5 | 266 | 170 |
+| 8 | {"level": "room", "skip_when_last": "held"} |  | 115.14 | 0.8218 | 5 | 170 | 135 |
+| 9 | {"level": "room", "skip_when_last": "held"} |  | 145.97 | 0.8184 | 5 | 499 | 419 |
+| 10 | {"level": "room", "skip_when_last": "held"} |  | 112.96 | 0.8211 | 5 | 173 | 142 |
+| 11 | {"level": "room", "skip_when_last": "held"} |  | 132.79 | 0.817 | 5 | 512 | 435 |
+
+CPCV paths (`h4/nested_cv_minskip/cpcv`, 11 rows): diff median 3.17, 5th pct -131.43, min -139.42, share > 0 0.727, control pct median 0.9 / 5th pct 0.1
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 608a93e8d02d059b | 3,402 | 0.7642 | -1,042.49 | -903.07 | -139.42 | 0.1 | 0.1449 | 0.733 | 5 | 0 |
+| fa926cc40b06994f | 3,432 | 0.7709 | -1,037.89 | -914.46 | -123.43 | 0.1 | 0.1804 | 0.7665 | 4 | 1 |
+| 3930ef6ea05d4624 | 3,608 | 0.8104 | -1,009.01 | -1,012.18 | 3.17 | 1.10 | 0.9765 | 0.8238 | 6 | 2 |
+| d316d1142816a8ab | 3,608 | 0.8104 | -1,009.01 | -1,012.18 | 3.17 | 0.8 | 0.977 | 0.8238 | 6 | 3 |
+| dae4bab1a44bcdf9 | 3,608 | 0.8104 | -1,009.01 | -1,012.18 | 3.17 | 0.9 | 0.9785 | 0.8238 | 6 | 4 |
+| 8a31e26f09f3ae94 | 3,608 | 0.8104 | -1,009.01 | -1,012.18 | 3.17 | 1.10 | 0.977 | 0.8238 | 6 | 5 |
+| 5b7861c7620a2e12 | 3,087 | 0.6934 | -1,020.20 | -985.66 | -34.54 | 0.5 | 0.6927 | 0.7405 | 4 | 6 |
+| 6e634daed837fc74 | 3,396 | 0.7628 | -1,000.97 | -1,037.40 | 36.43 | 6.00 | 0.6957 | 0.7884 | 7 | 7 |
+| be90ccd2a05870ef | 3,654 | 0.8208 | -990.64 | -1,096.47 | 105.83 | 4.00 | 0.3093 | 0.8625 | 7 | 8 |
+| d46c76261684af8f | 3,608 | 0.8104 | -1,009.01 | -1,012.18 | 3.17 | 1.40 | 0.9745 | 0.8238 | 6 | 9 |
+| 9cc01177065e5f25 | 3,608 | 0.8104 | -1,009.01 | -1,012.18 | 3.17 | 0.9 | 0.9765 | 0.8238 | 6 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"level": "room", "skip_when_last": "held"} x54; {"level": "swing", "skip_when_last": "pending"} x10; {"level": "room", "skip_when_last": "broke"} x2
+
+Family on this table (every non-cpcv ledger row of the study, tf and label). The pre-registered row's statistics as computed at its run (before the post-hoc rows existed) and recomputed over the completed family; the post-hoc row's over the completed family:
 
 | tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 min | L1 | pre-registered (family as at the primary run) | 10 | 10 | 1.59 | 0.4249 | 0.081 | 0.936 | 0.936 |  | {"level": "swing", "skip_when_last": "broke"} | 54.10 | [-220.04, 187.58] | 0.505 | 0.9987 | -6.92 | -171.27 | 0.273 | 2.10 | False | diff>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L1 | post-hoc min skip 10 % (family complete) | 11 | 11 | 1.55 | 0.4115 | 0.0796 | 0.9165 | 0.9165 | 0.6775 | {"level": "swing", "skip_when_last": "broke"} | 54.10 | [-179.66, 178.57] | 0.4715 | 0.999 | 3.17 | -131.43 | 0.727 | 0.9 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L1 | pre-registered (family recomputed after the post-hoc rows) | 11 | 11 | 1.55 | 0.4115 | 0.0796 | 0.9085 | 0.9085 | 0.666 | {"level": "swing", "skip_when_last": "broke"} | 54.10 | [-219.26, 187.68] | 0.508 | 0.9985 | -6.92 | -171.27 | 0.273 | 2.10 | False | diff>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
 
 
 ### 1 min / L0 (4,502 IS units)
@@ -1625,11 +2136,54 @@ CPCV paths (`h4/nested_cv/cpcv`, 11 rows): diff median 72.72, 5th pct -60.02, mi
 
 Cells chosen across the 66 CPCV training sets: {"level": "room", "skip_when_last": "held"} x30; {"level": "room", "skip_when_last": "pending"} x29; {"level": "swing", "skip_when_last": "broke"} x4; {"level": "prot", "skip_when_last": "broke"} x2; {"level": "swing", "skip_when_last": "held"} x1
 
-Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+**Nested-CV candidate** (family `h4/nested_cv_minskip`, the 12-block OOF mask; ledger note `repair`):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 714dbc6de3114519 | 3,588 | 0.797 | -915.92 | -945.02 | 29.10 | -82.94 | 9.90 | 0.8806 | 0.2048 | 0.8556 | 0.8341 | 0.2319 | -1,305.89 | 6 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"level": "room", "skip_when_last": "held"} |  | 251.46 | 0.8188 | 5 | 400 | 328 |
+| 1 | {"level": "room", "skip_when_last": "pending"} |  | 178.87 | 0.7694 | 5 | 392 | 290 |
+| 2 | {"level": "room", "skip_when_last": "held"} |  | 243.51 | 0.8183 | 5 | 386 | 321 |
+| 3 | {"level": "room", "skip_when_last": "pending"} |  | 262.70 | 0.7636 | 5 | 512 | 405 |
+| 4 | {"level": "room", "skip_when_last": "held"} |  | 253.37 | 0.8215 | 5 | 395 | 315 |
+| 5 | {"level": "room", "skip_when_last": "pending"} |  | 248.62 | 0.7649 | 5 | 345 | 269 |
+| 6 | {"level": "room", "skip_when_last": "pending"} |  | 266.28 | 0.7679 | 5 | 430 | 327 |
+| 7 | {"level": "room", "skip_when_last": "pending"} |  | 266.03 | 0.767 | 5 | 269 | 207 |
+| 8 | {"level": "room", "skip_when_last": "pending"} |  | 165.16 | 0.7681 | 5 | 172 | 127 |
+| 9 | {"level": "room", "skip_when_last": "held"} |  | 235.55 | 0.8165 | 5 | 506 | 426 |
+| 10 | {"level": "room", "skip_when_last": "pending"} |  | 188.29 | 0.7669 | 5 | 174 | 133 |
+| 11 | {"level": "room", "skip_when_last": "held"} |  | 301.34 | 0.8163 | 5 | 521 | 440 |
+
+CPCV paths (`h4/nested_cv_minskip/cpcv`, 11 rows): diff median 73.40, 5th pct -57.42, min -94.44, share > 0 0.727, control pct median 24.40 / 5th pct 9.20
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| ba9b6f6836b16c58 | 3,239 | 0.7195 | -925.19 | -913.22 | -11.97 | 18.00 | 0.9345 | 0.7053 | 6 | 0 |
+| da82c448ea9231e3 | 3,286 | 0.7299 | -927.34 | -906.94 | -20.40 | 12.80 | 0.9135 | 0.7434 | 7 | 1 |
+| 6028a2f3c44c6946 | 3,632 | 0.8068 | -903.37 | -998.92 | 95.56 | 30.20 | 0.6332 | 0.8442 | 8 | 2 |
+| dd95ea6bae91a34a | 3,621 | 0.8043 | -907.60 | -980.32 | 72.72 | 16.90 | 0.7241 | 0.8453 | 7 | 3 |
+| 8539f9fbbc2421b2 | 3,608 | 0.8014 | -909.06 | -973.38 | 64.32 | 26.40 | 0.7406 | 0.8397 | 6 | 4 |
+| 44135c36b5c00516 | 3,545 | 0.7874 | -900.69 | -1,000.14 | 99.45 | 24.40 | 0.5927 | 0.8325 | 7 | 5 |
+| f5520eef8305ef04 | 3,545 | 0.7874 | -900.69 | -1,000.14 | 99.45 | 25.80 | 0.6082 | 0.8325 | 7 | 6 |
+| 2193da51cc29fa97 | 3,546 | 0.7876 | -905.97 | -980.66 | 74.69 | 23.60 | 0.6852 | 0.8287 | 7 | 7 |
+| 334300e3673972b4 | 3,512 | 0.7801 | -905.69 | -979.09 | 73.40 | 25.90 | 0.7046 | 0.7933 | 8 | 8 |
+| 2737febe94430c88 | 3,271 | 0.7266 | -947.66 | -853.21 | -94.44 | 5.60 | 0.5952 | 0.6974 | 4 | 9 |
+| 5e2225823f74083d | 3,679 | 0.8172 | -893.81 | -1,047.09 | 153.27 | 44.50 | 0.4533 | 0.8597 | 8 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"level": "room", "skip_when_last": "held"} x33; {"level": "room", "skip_when_last": "pending"} x29; {"level": "swing", "skip_when_last": "broke"} x4
+
+Family on this table (every non-cpcv ledger row of the study, tf and label). The pre-registered row's statistics as computed at its run (before the post-hoc rows existed) and recomputed over the completed family; the post-hoc row's over the completed family:
 
 | tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 min | L0 | pre-registered (family as at the primary run) | 10 | 10 | 1.71 | 0.6843 | 0.5936 | 0.9785 | 0.9785 |  | {"level": "room", "skip_when_last": "held"} | 38.77 | [-208.78, 256.9] | 0.4145 | 0.8465 | 72.72 | -60.02 | 0.727 | 24.10 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L0 | post-hoc min skip 10 % (family complete) | 11 | 11 | 1.64 | 0.6442 | 0.5913 | 0.9395 | 0.9395 | 0.873 | {"level": "room", "skip_when_last": "held"} | 38.77 | [-201.53, 247.53] | 0.4165 | 0.8419 | 73.40 | -57.42 | 0.727 | 24.40 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L0 | pre-registered (family recomputed after the post-hoc rows) | 11 | 11 | 1.64 | 0.6442 | 0.5913 | 0.9485 | 0.9485 | 0.8915 | {"level": "room", "skip_when_last": "held"} | 38.77 | [-201.04, 257.73] | 0.4245 | 0.8419 | 72.72 | -60.02 | 0.727 | 24.10 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
 
 
 ### 5 min / L1 (826 IS units)
@@ -1720,11 +2274,54 @@ CPCV paths (`h4/nested_cv/cpcv`, 11 rows): diff median -2.08, 5th pct -1,774.85,
 
 Cells chosen across the 66 CPCV training sets: {"level": "room", "skip_when_last": "held"} x50; {"level": "prot", "skip_when_last": "broke"} x11; {"level": "swing", "skip_when_last": "broke"} x3; {"level": "swing", "skip_when_last": "held"} x1; {"level": "room", "skip_when_last": "broke"} x1
 
-Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+**Nested-CV candidate** (family `h4/nested_cv_minskip`, the 12-block OOF mask; ledger note `repair`):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2d6bb302b6a0f498 | 466 | 0.5642 | -937.78 | -523.11 | -414.67 | -331.37 | 21.90 | 0.1934 | 0.4104 | 0.6806 | 0.5008 | 0.5217 | -1,327.74 | 4 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"level": "swing", "skip_when_last": "held"} |  | 389.45 | 0.7962 | 7 | 82 | 64 |
+| 1 | {"level": "swing", "skip_when_last": "broke"} |  | 293.71 | 0.4548 | 7 | 83 | 40 |
+| 2 | {"level": "swing", "skip_when_last": "broke"} |  | 324.00 | 0.4643 | 7 | 42 | 14 |
+| 3 | {"level": "swing", "skip_when_last": "broke"} |  | 211.44 | 0.469 | 7 | 76 | 28 |
+| 4 | {"level": "swing", "skip_when_last": "held"} |  | 305.27 | 0.7918 | 7 | 72 | 60 |
+| 5 | {"level": "swing", "skip_when_last": "broke"} |  | 294.50 | 0.4632 | 7 | 73 | 29 |
+| 6 | {"level": "swing", "skip_when_last": "broke"} |  | 327.28 | 0.4362 | 7 | 77 | 49 |
+| 7 | {"level": "swing", "skip_when_last": "broke"} |  | 242.19 | 0.4542 | 7 | 51 | 26 |
+| 8 | {"level": "swing", "skip_when_last": "broke"} |  | 334.65 | 0.4578 | 7 | 76 | 36 |
+| 9 | {"level": "swing", "skip_when_last": "held"} |  | 321.82 | 0.7936 | 7 | 80 | 65 |
+| 10 | {"level": "swing", "skip_when_last": "broke"} |  | 202.80 | 0.4584 | 7 | 31 | 14 |
+| 11 | {"level": "swing", "skip_when_last": "broke"} |  | 189.52 | 0.4536 | 7 | 83 | 41 |
+
+CPCV paths (`h4/nested_cv_minskip/cpcv`, 11 rows): diff median -414.67, 5th pct -598.34, min -601.66, share > 0 0, control pct median 23.20 / 5th pct 4.80
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 4a9b42b88952d6d1 | 654 | 0.7918 | -845.04 | -422.50 | -422.54 | 67.80 | 0.2739 | 0.7279 | 7 | 0 |
+| 5700f2abfc9978c2 | 474 | 0.5738 | -926.89 | -528.35 | -398.54 | 13.00 | 0.2039 | 0.5206 | 4 | 1 |
+| ba999f76d7d3a9e9 | 554 | 0.6707 | -952.99 | -357.97 | -595.02 | 3.00 | 0.0765 | 0.5981 | 3 | 2 |
+| 01d4df5004026643 | 572 | 0.6925 | -871.08 | -500.27 | -370.80 | 8.20 | 0.2734 | 0.662 | 5 | 3 |
+| 6ebd9ce96c71edb3 | 578 | 0.6998 | -876.79 | -477.99 | -398.80 | 43.80 | 0.2509 | 0.632 | 6 | 4 |
+| e7ea0b1d1f84e056 | 466 | 0.5642 | -937.78 | -523.11 | -414.67 | 23.00 | 0.1864 | 0.5008 | 4 | 5 |
+| a0d13ed3b423f978 | 466 | 0.5642 | -937.78 | -523.11 | -414.67 | 23.90 | 0.1784 | 0.5008 | 4 | 6 |
+| 18c188b466b7b981 | 526 | 0.6368 | -975.57 | -373.91 | -601.66 | 6.50 | 0.0675 | 0.5464 | 3 | 7 |
+| 0d24e9f886bca02c | 628 | 0.7603 | -819.93 | -557.63 | -262.29 | 47.50 | 0.4723 | 0.7264 | 7 | 8 |
+| 6b01e2cd176b9c62 | 500 | 0.6053 | -932.23 | -488.37 | -443.86 | 26.80 | 0.1654 | 0.5298 | 4 | 9 |
+| ec21c2701a43f48f | 466 | 0.5642 | -937.78 | -523.11 | -414.67 | 23.20 | 0.1824 | 0.5008 | 4 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"level": "swing", "skip_when_last": "broke"} x33; {"level": "swing", "skip_when_last": "held"} x24; {"level": "prot", "skip_when_last": "pending"} x8; {"level": "room", "skip_when_last": "broke"} x1
+
+Family on this table (every non-cpcv ledger row of the study, tf and label). The pre-registered row's statistics as computed at its run (before the post-hoc rows existed) and recomputed over the completed family; the post-hoc row's over the completed family:
 
 | tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 5 min | L1 | pre-registered (family as at the primary run) | 10 | 10 | 1.64 | 0.6501 | 0.5715 | 0.1705 | 0.1805 |  | {"level": "room", "skip_when_last": "broke"} | 100.53 | [-289.64, 1371.11] | 0.1165 | 0.8863 | -2.08 | -1,774.85 | 0.455 | 71.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 5 min | L1 | post-hoc min skip 10 % (family complete) | 11 | 11 | 1.71 | 0.6033 | 0.4748 | 0.1945 | 0.2105 | 0.27 | {"level": "room", "skip_when_last": "broke"} | 100.53 | [-826.4, -4.94] | 0.951 | 0.9985 | -414.67 | -598.34 | 0 | 23.20 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 5 min | L1 | pre-registered (family recomputed after the post-hoc rows) | 11 | 11 | 1.71 | 0.6033 | 0.4748 | 0.18 | 0.1945 | 0.27 | {"level": "room", "skip_when_last": "broke"} | 100.53 | [-258.22, 1385.0] | 0.117 | 0.9052 | -2.08 | -1,774.85 | 0.455 | 71.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
 
 
 ### 5 min / L0 (832 IS units)
@@ -1816,11 +2413,54 @@ CPCV paths (`h4/nested_cv/cpcv`, 11 rows): diff median 2,221.97, 5th pct 2,221.9
 
 Cells chosen across the 66 CPCV training sets: {"level": "room", "skip_when_last": "held"} x66
 
-Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+**Nested-CV candidate** (family `h4/nested_cv_minskip`, the 12-block OOF mask; ledger note `repair`):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| ad152e5988a98e60 | 631 | 0.7584 | -41.30 | -1,015.92 | 974.61 | 207.11 | 28.10 | 0.2324 | 0.2454 | 0.791 | 0.8678 | 0.0526 | -431.27 | 8 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"level": "swing", "skip_when_last": "pending"} |  | 817.78 | 0.7587 | 7 | 83 | 62 |
+| 1 | {"level": "swing", "skip_when_last": "pending"} |  | 1,192.34 | 0.7601 | 7 | 84 | 63 |
+| 2 | {"level": "swing", "skip_when_last": "pending"} |  | 1,052.26 | 0.7541 | 7 | 42 | 36 |
+| 3 | {"level": "swing", "skip_when_last": "pending"} |  | 1,017.43 | 0.7534 | 7 | 77 | 61 |
+| 4 | {"level": "swing", "skip_when_last": "pending"} |  | 974.58 | 0.7549 | 7 | 72 | 57 |
+| 5 | {"level": "swing", "skip_when_last": "pending"} |  | 971.16 | 0.754 | 7 | 73 | 60 |
+| 6 | {"level": "swing", "skip_when_last": "pending"} |  | 1,009.44 | 0.7733 | 7 | 78 | 50 |
+| 7 | {"level": "swing", "skip_when_last": "pending"} |  | 815.67 | 0.7603 | 7 | 51 | 37 |
+| 8 | {"level": "swing", "skip_when_last": "pending"} |  | 730.96 | 0.7606 | 7 | 76 | 55 |
+| 9 | {"level": "swing", "skip_when_last": "pending"} |  | 751.25 | 0.7557 | 7 | 82 | 64 |
+| 10 | {"level": "swing", "skip_when_last": "pending"} |  | 815.79 | 0.7597 | 7 | 31 | 22 |
+| 11 | {"level": "swing", "skip_when_last": "pending"} |  | 1,117.41 | 0.757 | 7 | 83 | 64 |
+
+CPCV paths (`h4/nested_cv_minskip/cpcv`, 11 rows): diff median 974.61, 5th pct -922.40, min -1,035.58, share > 0 0.818, control pct median 28.90 / 5th pct 0.1
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 72ac5750f9e28b56 | 640 | 0.7692 | -248.60 | -370.63 | 122.04 | 0.1 | 0.8991 | 0.8181 | 6 | 0 |
+| d61c4b3f0cc0c579 | 631 | 0.7584 | -41.30 | -1,015.92 | 974.61 | 29.10 | 0.2344 | 0.8678 | 8 | 1 |
+| 7ab02ccbffe6b1d3 | 631 | 0.7584 | -41.30 | -1,015.92 | 974.61 | 28.90 | 0.2499 | 0.8678 | 8 | 2 |
+| 2d8f66e635f19a21 | 642 | 0.7716 | -160.98 | -667.98 | 507.00 | 20.40 | 0.5552 | 0.8472 | 7 | 3 |
+| ed04b06ec01ec08b | 639 | 0.768 | -155.29 | -678.93 | 523.64 | 15.30 | 0.5332 | 0.8464 | 7 | 4 |
+| a0ba1e60c38b33dc | 631 | 0.7584 | -41.30 | -1,015.92 | 974.61 | 29.40 | 0.2489 | 0.8678 | 8 | 5 |
+| d17e15660e8fce3b | 631 | 0.7584 | -41.30 | -1,015.92 | 974.61 | 28.80 | 0.2614 | 0.8678 | 8 | 6 |
+| d78406edd31b5fa3 | 645 | 0.7752 | -509.51 | 526.07 | -1,035.58 | 0.1 | 0.2234 | 0.7368 | 5 | 7 |
+| ba235a488e83009f | 643 | 0.7728 | -460.59 | 348.65 | -809.23 | 30.20 | 0.3113 | 0.7264 | 6 | 8 |
+| 479637cc9651dd1a | 631 | 0.7584 | -41.30 | -1,015.92 | 974.61 | 31.10 | 0.2559 | 0.8678 | 8 | 9 |
+| 4cfafda6ff8d208d | 631 | 0.7584 | -41.30 | -1,015.92 | 974.61 | 30.40 | 0.2449 | 0.8678 | 8 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"level": "swing", "skip_when_last": "pending"} x61; {"level": "prot", "skip_when_last": "pending"} x3; {"level": "swing", "skip_when_last": "held"} x2
+
+Family on this table (every non-cpcv ledger row of the study, tf and label). The pre-registered row's statistics as computed at its run (before the post-hoc rows existed) and recomputed over the completed family; the post-hoc row's over the completed family:
 
 | tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 5 min | L0 | pre-registered (family as at the primary run) | 10 | 10 | 1.66 | 0.1556 | 0.5897 | 0.3625 | 0.3625 |  | {"level": "room", "skip_when_last": "held"} | 154.73 | [1238.07, 3148.44] | 0.001 | 0.3623 | 2,221.97 | 2,221.97 | 1.00 | 99.30 | False | kept_mean_slip8>0, dsr_p<0.1, spa_p<=0.10 |
+| 5 min | L0 | post-hoc min skip 10 % (family complete) | 11 | 11 | 1.60 | 0.1556 | 0.5897 | 0.277 | 0.277 | 0.593 | {"level": "room", "skip_when_last": "held"} | 154.73 | [220.72, 1751.01] | 0.0195 | 0.545 | 974.61 | -922.40 | 0.818 | 28.90 | False | kept_mean_slip8>0, control_pct>=95, cpcv_p5_diff>0, dsr_p<0.1, spa_p<=0.10 |
+| 5 min | L0 | pre-registered (family recomputed after the post-hoc rows) | 11 | 11 | 1.60 | 0.1556 | 0.5897 | 0.2645 | 0.2645 | 0.5825 | {"level": "room", "skip_when_last": "held"} | 154.73 | [1232.02, 3121.05] | 0.0005 | 0.3585 | 2,221.97 | 2,221.97 | 1.00 | 99.30 | False | kept_mean_slip8>0, dsr_p<0.1, spa_p<=0.10 |
 
 
 ### H4 family summary (all tables)
@@ -1828,7 +2468,15 @@ Family on this table (every non-cpcv ledger row of the study, tf and label, as a
 | tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 min | L1 | pre-registered (family as at the primary run) | 10 | 10 | 1.59 | 0.4249 | 0.081 | 0.936 | 0.936 |  | {"level": "swing", "skip_when_last": "broke"} | 54.10 | [-220.04, 187.58] | 0.505 | 0.9987 | -6.92 | -171.27 | 0.273 | 2.10 | False | diff>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L1 | post-hoc min skip 10 % (family complete) | 11 | 11 | 1.55 | 0.4115 | 0.0796 | 0.9165 | 0.9165 | 0.6775 | {"level": "swing", "skip_when_last": "broke"} | 54.10 | [-179.66, 178.57] | 0.4715 | 0.999 | 3.17 | -131.43 | 0.727 | 0.9 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L1 | pre-registered (family recomputed after the post-hoc rows) | 11 | 11 | 1.55 | 0.4115 | 0.0796 | 0.9085 | 0.9085 | 0.666 | {"level": "swing", "skip_when_last": "broke"} | 54.10 | [-219.26, 187.68] | 0.508 | 0.9985 | -6.92 | -171.27 | 0.273 | 2.10 | False | diff>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
 | 1 min | L0 | pre-registered (family as at the primary run) | 10 | 10 | 1.71 | 0.6843 | 0.5936 | 0.9785 | 0.9785 |  | {"level": "room", "skip_when_last": "held"} | 38.77 | [-208.78, 256.9] | 0.4145 | 0.8465 | 72.72 | -60.02 | 0.727 | 24.10 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L0 | post-hoc min skip 10 % (family complete) | 11 | 11 | 1.64 | 0.6442 | 0.5913 | 0.9395 | 0.9395 | 0.873 | {"level": "room", "skip_when_last": "held"} | 38.77 | [-201.53, 247.53] | 0.4165 | 0.8419 | 73.40 | -57.42 | 0.727 | 24.40 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L0 | pre-registered (family recomputed after the post-hoc rows) | 11 | 11 | 1.64 | 0.6442 | 0.5913 | 0.9485 | 0.9485 | 0.8915 | {"level": "room", "skip_when_last": "held"} | 38.77 | [-201.04, 257.73] | 0.4245 | 0.8419 | 72.72 | -60.02 | 0.727 | 24.10 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
 | 5 min | L1 | pre-registered (family as at the primary run) | 10 | 10 | 1.64 | 0.6501 | 0.5715 | 0.1705 | 0.1805 |  | {"level": "room", "skip_when_last": "broke"} | 100.53 | [-289.64, 1371.11] | 0.1165 | 0.8863 | -2.08 | -1,774.85 | 0.455 | 71.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 5 min | L1 | post-hoc min skip 10 % (family complete) | 11 | 11 | 1.71 | 0.6033 | 0.4748 | 0.1945 | 0.2105 | 0.27 | {"level": "room", "skip_when_last": "broke"} | 100.53 | [-826.4, -4.94] | 0.951 | 0.9985 | -414.67 | -598.34 | 0 | 23.20 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 5 min | L1 | pre-registered (family recomputed after the post-hoc rows) | 11 | 11 | 1.71 | 0.6033 | 0.4748 | 0.18 | 0.1945 | 0.27 | {"level": "room", "skip_when_last": "broke"} | 100.53 | [-258.22, 1385.0] | 0.117 | 0.9052 | -2.08 | -1,774.85 | 0.455 | 71.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
 | 5 min | L0 | pre-registered (family as at the primary run) | 10 | 10 | 1.66 | 0.1556 | 0.5897 | 0.3625 | 0.3625 |  | {"level": "room", "skip_when_last": "held"} | 154.73 | [1238.07, 3148.44] | 0.001 | 0.3623 | 2,221.97 | 2,221.97 | 1.00 | 99.30 | False | kept_mean_slip8>0, dsr_p<0.1, spa_p<=0.10 |
+| 5 min | L0 | post-hoc min skip 10 % (family complete) | 11 | 11 | 1.60 | 0.1556 | 0.5897 | 0.277 | 0.277 | 0.593 | {"level": "room", "skip_when_last": "held"} | 154.73 | [220.72, 1751.01] | 0.0195 | 0.545 | 974.61 | -922.40 | 0.818 | 28.90 | False | kept_mean_slip8>0, control_pct>=95, cpcv_p5_diff>0, dsr_p<0.1, spa_p<=0.10 |
+| 5 min | L0 | pre-registered (family recomputed after the post-hoc rows) | 11 | 11 | 1.60 | 0.1556 | 0.5897 | 0.2645 | 0.2645 | 0.5825 | {"level": "room", "skip_when_last": "held"} | 154.73 | [1232.02, 3121.05] | 0.0005 | 0.3585 | 2,221.97 | 2,221.97 | 1.00 | 99.30 | False | kept_mean_slip8>0, dsr_p<0.1, spa_p<=0.10 |
 

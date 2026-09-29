@@ -81,3 +81,4 @@
 [04:59:56 rss 259.3 MB] SFI cluster 37 (1 f): ll 0.7852 auc 0.530 diff None kept 1.0 ctrl None (7.5s)
 [05:00:00 rss 259.3 MB] SFI cluster 38 (1 f): ll 0.7852 auc 0.530 diff None kept 1.0 ctrl None (3.5s)
 [05:00:17 rss 265.5 MB] PCA check: 238 components, 95% variance in 111; weighted tau(MDI, eigenvalue) 0.0813, Kendall tau 0.1206 (p 0.0123)
+[05:02:52 rss 381.4 MB] xgb fold 0: ll 0.8917, shap tensor (82, 40, 40) (153.5s)

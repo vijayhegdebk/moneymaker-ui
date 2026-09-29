@@ -52,7 +52,7 @@ L.append(table(["item", "value"], [
     ["kernel bank", f"K = {R['K']}, length 9, seed {kk['seed']}, dilation counts (d = 1..15) {kk['dilation_counts']}, pair share {kk['pair_share']}, channel use {kk['channel_use']}; frozen in `kernels.npz`"],
     ["truncation check (`windows_trunc_check.json`)", f"cut {tc['cut']}, bars {tc['bars_truncated']:,}, SETUPs before the cut {tc['setups_before_cut']}, same keys {tc['same_setup_keys']}, max |diff| {tc.get('max_abs_diff')}, **PASS {tc['PASS']}**"],
     ["base design", f"{R['design']['base_columns']} as-of columns (`harness.design`); flattened window {R['design']['flattened_window']}"],
-    ["PPV feature matrix per fold", f"n_train x {R['K']} float32 (~{4452 * R['K'] * 4 / 2 ** 20:.0f} MB for all IS rows; the design's 5,266 x 2,000 = 42 MB figure counts the OOS rows, which were not built)"],
+    ["PPV feature matrix per fold", f"n_train x {R['K']} float32 ({u['is_'] * R['K'] * 4 / 2 ** 20:.0f} MB for all IS rows, one transform {tm['one_transform_s']} s single-threaded; the design's 5,266 x 2,000 = 42 MB figure counts the OOS rows, which were not built)"],
 ]))
 L.append("\n## 3. Per-fold AUC (12 purged blocks; `fold_auc.csv`)\n")
 rows = []

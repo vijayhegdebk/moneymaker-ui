@@ -175,6 +175,14 @@ def main():
                      f"{A['auc_oof']:.4f} | **{B['auc_oof']:.4f}** | {B['perm_auc_p50']:.4f} / {B['perm_auc_p95']:.4f} |")
         L.append("")
         for tf, d in drift["timeframes"].items():
+            A, B = d["variants"]["A_all_asof"], d["variants"]["B_without_time_proxies"]
+            L.append(f"- **{tf} reading**: with the time proxies the periods separate at AUC {A['auc_oof']:.3f}; without them AUC {B['auc_oof']:.3f} against a permutation p95 of "
+                     f"{B['perm_auc_p95']:.3f}: " + ("the IS-early and IS-late feature distributions are distinguishable well above chance (covariate drift inside IS is real, and a rule "
+                     "learned on all of IS is learned on a mixture); the ranked features below say where." if B['auc_oof'] > B['perm_auc_p95'] + 0.05 else
+                     "the periods are barely distinguishable once the calendar proxies are removed; the drift ranking below is weak evidence.") +
+                     f" The gap A - B = {A['auc_oof'] - B['auc_oof']:+.3f} is the part of the separation carried by `{'`, `'.join(d['time_proxies'])}` alone.")
+        L.append("")
+        for tf, d in drift["timeframes"].items():
             L.append(f"### {tf}: top 20 drifted features (variant B, mean |SHAP|; direction = mean in IS-late vs IS-early; shift in pooled sd; KS between the periods)\n")
             L.append("| rank | feature | source column | mean abs SHAP | mean early | mean late | shift (sd) | KS | direction |")
             L.append("|---|---|---|---|---|---|---|---|---|")

@@ -111,3 +111,7 @@
 [04:39:29] evaluated 5minute gmm_13: units 445, setups/sess 0.4454, frozen_st7_st8 diff -231.75 pct 98.2 choch2_skip diff 272.27 pct 50.6 sl_above_median_skip diff 475.05 pct 81.0
 [04:40:06] built 5minute gmm_14: 83.1s, peak rss 396.7 MB
 [04:40:31] evaluated 5minute gmm_14: units 917, setups/sess 0.9064, frozen_st7_st8 diff 111.31 pct 88.0 choch2_skip diff 72.83 pct 36.6 sl_above_median_skip diff 312.54 pct 98.8
+[04:41:03] built 5minute gmm_16: 93.1s, peak rss 376.8 MB
+[04:41:11] built 5minute gmm_15: 105.7s, peak rss 444.8 MB
+[04:41:38] evaluated 5minute gmm_15: units 1161, setups/sess 1.1462, frozen_st7_st8 diff 397.75 pct 92.2 choch2_skip diff -383.0 pct 0.1 sl_above_median_skip diff -211.22 pct 82.3
+[04:41:38] evaluated 5minute gmm_16: units 589, setups/sess 0.5819, frozen_st7_st8 diff 344.9 pct 99.0 choch2_skip diff -60.74 pct 43.9 sl_above_median_skip diff 241.91 pct 82.5

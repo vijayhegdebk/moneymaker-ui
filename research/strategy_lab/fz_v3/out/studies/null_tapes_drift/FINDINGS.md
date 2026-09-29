@@ -65,6 +65,13 @@ Diff = kept-vs-skipped mean L1 net on the tape (INR per unit). `real pct` = the 
 - **minute / choch2_skip**: real diff -72.50 (control pct 1.6); gmm: p50 105.34, p95 246.98, real pct 0.0, same sign 0.12; segment: p50 -61.29, p95 144.79, real pct 50.0, same sign 0.62; session: p50 -78.84, p95 136.47, real pct 62.5, same sign 0.88 -> does NOT pass the null-tape check.
 - **minute / sl_above_median_skip**: real diff 12.07 (control pct 99.0); gmm: p50 32.02, p95 96.58, real pct 37.5, same sign 0.62; segment: p50 37.22, p95 129.55, real pct 50.0, same sign 0.50; session: p50 -22.91, p95 94.14, real pct 62.5, same sign 0.38 -> does NOT pass the null-tape check.
 
+### 4b. Key readings (numbers from `null_distributions.json`)
+
+1. **The frozen ST7/ST8 gate reads positive on memory-free 5-minute tapes**: GMM-Markov median diff 191.66 (p95 708.82, share of tapes > 0 0.75, control pct p50 96.8, 55% of tapes at or above the 95th control percentile); segment median 164.72 (p95 566.42, control pct p50 93.8); session median 85.92. On tapes with no swing memory the rooms gate still separates kept from skipped by ~+150-200 INR and clears the random control on half the tapes: that part of any ST7/ST8-shaped statistic is engine / FZ mechanics, not market memory. The real 5-minute frozen gate (-365.62, control pct 12.4) sits at the 0th percentile of the GMM null and the 0th of the segment null: on the real tape it does worse than on its own memory-free tapes.
+2. **The stop-distance gate's control percentile is mechanical**: on the real tape it reads 99.8 (5 min, diff 33.65) and 99.0 (1 min, diff 12.07); on the memory-free tapes its control percentile has p50 94.4 / 97.9 (5 min GMM / segment) and 71.0 / 68.5 (1 min), and the real diff sits at the 40th / 65th (5 min) and 38th / 50th (1 min) percentile of its null. A high control percentile for a gate on stop distance is what the engine produces on a random tape (Judge 2's warning, measured); the null p95 of the diff, not the control percentile, is the bar.
+3. **The CHoCH-count gate**: 5 min real diff 257.83 (control pct 46.6) is at the 80th / 80th percentile of the GMM / segment nulls (p95 516.38 / 441.96): not above p95 on any generator. 1 min real diff -72.50 (control pct 1.6) against a GMM null median of 105.34 (0.88 of tapes positive): the real 1-minute CHoCH-count gate is worse than its memory-free null (the 0th percentile); the 'CHoCH, CHoCH, no BOS = sideways' skip does not read as market memory on this tape.
+4. **Consequence for the gate studies**: a candidate's real-tape diff must clear the p95 of the null tapes of its own family shape, and its control percentile must be read against the null's control-percentile distribution (`control_pct_p95` per gate); a control percentile alone, even 99+, is not evidence for a gate that touches the stop or the event stream.
+
 ## 5. Reality check of the generators (IS part of the real tape vs the tapes; tape p50 [min, max])
 
 ### 5minute
@@ -73,11 +80,11 @@ Diff = kept-vs-skipped mean L1 net on the tape (INR per unit). `real pct` = the 
 |---|---|---|---|---|
 | ret std (bps) | 7.369 | 7.060 [6.940, 7.150] | 7.320 [7.040, 7.500] | 7.350 [7.150, 7.550] |
 | ret excess kurtosis | 14.6 | 6.2 [5.8, 6.8] | 8.9 [5.3, 22.4] | 14.9 [6.0, 27.9] |
-| |r| ac lag1 | 0.234 | 0.110 [0.100, 0.120] | 0.220 [0.200, 0.250] | 0.230 [0.210, 0.250] |
-| lag2 | 0.234 | 0.030 [0.020, 0.040] | 0.210 [0.170, 0.260] | 0.230 [0.190, 0.280] |
-| lag3 | 0.218 | 0.010 [-0.000, 0.020] | 0.190 [0.160, 0.230] | 0.220 [0.180, 0.260] |
-| lag4 | 0.210 | 0.000 [-0.010, 0.010] | 0.180 [0.150, 0.220] | 0.210 [0.180, 0.250] |
-| lag5 | 0.211 | 0.000 [-0.000, 0.010] | 0.170 [0.140, 0.220] | 0.210 [0.170, 0.260] |
+| abs-return autocorr lag 1 | 0.234 | 0.110 [0.100, 0.120] | 0.220 [0.200, 0.250] | 0.230 [0.210, 0.250] |
+| lag 2 | 0.234 | 0.030 [0.020, 0.040] | 0.210 [0.170, 0.260] | 0.230 [0.190, 0.280] |
+| lag 3 | 0.218 | 0.010 [-0.000, 0.020] | 0.190 [0.160, 0.230] | 0.220 [0.180, 0.260] |
+| lag 4 | 0.210 | 0.000 [-0.010, 0.010] | 0.180 [0.150, 0.220] | 0.210 [0.180, 0.250] |
+| lag 5 | 0.211 | 0.000 [-0.000, 0.010] | 0.170 [0.140, 0.220] | 0.210 [0.170, 0.260] |
 | CHoCH / session | 1.204 | 1.610 [0.250, 1.990] (x1.34) | 1.330 [0.290, 1.650] (x1.10) | 1.110 [0.120, 1.530] (x0.92) |
 | BOS / session | 5.428 | 5.650 [5.510, 5.910] (x1.04) | 5.350 [5.180, 5.610] (x0.99) | 5.450 [5.300, 5.640] (x1.00) |
 | SETUPs / session | 0.811 | 0.980 [0.170, 1.190] (x1.21) | 0.880 [0.190, 1.080] (x1.09) | 0.740 [0.080, 1.020] (x0.91) |
@@ -96,11 +103,11 @@ Poor-null flag (median SETUP rate outside [1/3, 3] x real): none.
 |---|---|---|---|---|
 | ret std (bps) | 3.408 | 3.300 [3.260, 3.310] | 3.460 [3.350, 3.580] | 3.310 [3.120, 3.730] |
 | ret excess kurtosis | 21.7 | 5.1 [5.0, 5.5] | 30.4 [9.6, 37.9] | 7.1 [4.6, 48.6] |
-| |r| ac lag1 | 0.277 | 0.070 [0.060, 0.080] | 0.280 [0.260, 0.300] | 0.250 [0.220, 0.320] |
-| lag2 | 0.246 | 0.020 [0.010, 0.020] | 0.240 [0.220, 0.250] | 0.220 [0.200, 0.290] |
-| lag3 | 0.230 | 0.000 [0.000, 0.010] | 0.220 [0.200, 0.230] | 0.200 [0.180, 0.270] |
-| lag4 | 0.225 | -0.000 [-0.010, 0.000] | 0.200 [0.190, 0.220] | 0.200 [0.180, 0.260] |
-| lag5 | 0.222 | -0.000 [-0.010, 0.000] | 0.200 [0.180, 0.220] | 0.200 [0.180, 0.260] |
+| abs-return autocorr lag 1 | 0.277 | 0.070 [0.060, 0.080] | 0.280 [0.260, 0.300] | 0.250 [0.220, 0.320] |
+| lag 2 | 0.246 | 0.020 [0.010, 0.020] | 0.240 [0.220, 0.250] | 0.220 [0.200, 0.290] |
+| lag 3 | 0.230 | 0.000 [0.000, 0.010] | 0.220 [0.200, 0.230] | 0.200 [0.180, 0.270] |
+| lag 4 | 0.225 | -0.000 [-0.010, 0.000] | 0.200 [0.190, 0.220] | 0.200 [0.180, 0.260] |
+| lag 5 | 0.222 | -0.000 [-0.010, 0.000] | 0.200 [0.180, 0.220] | 0.200 [0.180, 0.260] |
 | CHoCH / session | 6.617 | 10.080 [8.840, 12.180] (x1.52) | 6.910 [2.650, 8.210] (x1.04) | 6.330 [2.920, 8.860] (x0.96) |
 | BOS / session | 26.7 | 30.4 [30.0, 31.0] (x1.14) | 26.4 [25.9, 26.8] (x0.99) | 26.8 [26.4, 27.4] (x1.00) |
 | SETUPs / session | 4.388 | 5.910 [5.110, 6.790] (x1.35) | 4.590 [1.760, 5.390] (x1.05) | 4.220 [2.000, 5.900] (x0.96) |
@@ -112,6 +119,7 @@ Poor-null flag (median SETUP rate outside [1/3, 3] x real): none.
 | ATR14 median | 8.568 | 9.720 [9.200, 11.120] | 7.640 [6.930, 7.900] | 7.310 [6.490, 8.350] |
 
 Poor-null flag (median SETUP rate outside [1/3, 3] x real): none.
+The 1-minute tapes are one trading year (247 sessions) starting at the real IS first open (17,523.70), so `last close` and `ATR14 median` are not comparable with the real 5-year IS values in this table; the per-session rates and return moments are.
 
 ## 7. How a candidate is evaluated on the tapes later
 
@@ -140,9 +148,12 @@ This study searches no gate and proposes no candidate (`candidates: []`, `null_r
 
 ## 10. Files
 
+- `FINDINGS.md`
 - `drift.log`
 - `drift.py`
 - `drift_run.log`
+- `drift_run2.log`
+- `findings.json`
 - `fit_5minute.json`
 - `fit_minute.json`
 - `gen_tapes.py`

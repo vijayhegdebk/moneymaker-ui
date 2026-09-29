@@ -37,3 +37,8 @@
 04:34:27     cell 1/54 {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} kept 4190 diff -104.92 pct 27.4 p 0.7431
 04:39:21     cell 21/54 {"M": 5, "N": 20, "gate": "take_only_agree", "v": 3} kept 1066 diff 17.47 pct 97.0 p 0.9235
 04:44:01     cell 41/54 {"M": 15, "N": 20, "gate": "skip_if_none", "v": 4} kept 1475 diff -108.52 pct 91.2 p 0.5222
+04:46:31     cell 54/54 {"M": 30, "N": 60, "gate": "take_only_agree", "v": 4} kept 1173 diff -268.87 pct 88.4 p 0.1169
+04:46:49   nested-CV OOF: kept 4355 (0.9673) diff 199.29 pct 59.1 p 0.6362 blocks 8 id 4aa13f8ee89c96a3
+04:50:20   CPCV 11 paths: diff median 290.83 p5 203.44 min 197.42 share>0 1.0 control pct median 67.0 p5 56.5
+04:50:25   family: 55 candidates, eff 1.98, PBO diff 0.1033 kept 0.7235, SPA p 0.055 best {'v': 2, 'N': 60, 'M': 30, 'gate': 'skip_if_none'}, boot [-146.01, 516.43], DSR p 1.0, go False
+04:50:25 h3 done in 2625.6s; ledger sha 30f80e77f22cbc03

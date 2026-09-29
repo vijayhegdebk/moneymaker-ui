@@ -1501,9 +1501,12 @@
   "Falsification: if a real gate's diff sat above the GMM/segment p95 while the gate is known to be pure engine mechanics (e.g. the stop-distance gate on the real tape), the null would be too narrow; section 4 shows what the mechanical gates read on the real tape against their own nulls."
  ],
  "files": [
+  "FINDINGS.md",
   "drift.log",
   "drift.py",
   "drift_run.log",
+  "drift_run2.log",
+  "findings.json",
   "fit_5minute.json",
   "fit_minute.json",
   "gen_tapes.py",

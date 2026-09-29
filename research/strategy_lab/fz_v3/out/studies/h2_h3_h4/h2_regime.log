@@ -44,3 +44,5 @@
 04:33:08     cell 61/201 {"W": "1h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} kept 3708 diff -120.37 pct 0.1 p 0.2539
 04:38:11     cell 81/201 {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} kept 3540 diff 3.16 pct 7.4 p 0.978
 04:43:39     cell 101/201 {"W": "3h", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "all"} kept 4097 diff -161.78 pct 2.4 p 0.2669
+04:48:22     cell 121/201 {"W": "1h", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "today"} kept 4084 diff -180.98 pct 0.0 p 0.1959
+04:52:08     cell 141/201 {"W": "since_choch", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "today"} kept 4018 diff -47.74 pct 0.1 p 0.7421

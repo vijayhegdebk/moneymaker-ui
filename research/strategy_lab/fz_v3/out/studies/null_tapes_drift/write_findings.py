@@ -104,6 +104,34 @@ def main():
             verdict = "passes the null-tape check" if (passes.get((tf, "gmm", gate)) and passes.get((tf, "segment", gate))) else "does NOT pass the null-tape check"
             L.append(f"- **{tf} / {gate}**: real diff {f(real.get('diff'))} (control pct {f(real.get('control_pct'), 1)}); {'; '.join(reads)} -> {verdict}.")
     L.append("")
+    L.append("### 4b. Key readings (numbers from `null_distributions.json`)\n")
+    def gv(tf, gen, gate): return null["timeframes"][tf]["generators"][gen]["gates"][gate]
+    def rv(tf, gate): return null["timeframes"][tf]["real_reference"][gate]
+    if "5minute" in null["timeframes"] and "minute" in null["timeframes"]:
+        a, b, s = gv("5minute", "gmm", "frozen_st7_st8"), gv("5minute", "segment", "frozen_st7_st8"), gv("5minute", "session", "frozen_st7_st8")
+        L.append(f"1. **The frozen ST7/ST8 gate reads positive on memory-free 5-minute tapes**: GMM-Markov median diff {f(a['diff_p50'])} (p95 {f(a['diff_p95'])}, share of tapes > 0 "
+                 f"{f(a['diff_share_positive'], 2)}, control pct p50 {f(a['control_pct_p50'], 1)}, {f(100 * a['control_pct_share_ge95'], 0)}% of tapes at or above the 95th control "
+                 f"percentile); segment median {f(b['diff_p50'])} (p95 {f(b['diff_p95'])}, control pct p50 {f(b['control_pct_p50'], 1)}); session median {f(s['diff_p50'])}. "
+                 f"On tapes with no swing memory the rooms gate still separates kept from skipped by ~+150-200 INR and clears the random control on half the tapes: that "
+                 f"part of any ST7/ST8-shaped statistic is engine / FZ mechanics, not market memory. The real 5-minute frozen gate ({f(rv('5minute', 'frozen_st7_st8')['diff'])}, "
+                 f"control pct {f(rv('5minute', 'frozen_st7_st8')['control_pct'], 1)}) sits at the {f(a['real_diff_percentile_in_tapes'], 0)}th percentile of the GMM null and the "
+                 f"{f(b['real_diff_percentile_in_tapes'], 0)}th of the segment null: on the real tape it does worse than on its own memory-free tapes.")
+        a, b = gv("5minute", "gmm", "sl_above_median_skip"), gv("5minute", "segment", "sl_above_median_skip"); a1, b1 = gv("minute", "gmm", "sl_above_median_skip"), gv("minute", "segment", "sl_above_median_skip")
+        L.append(f"2. **The stop-distance gate's control percentile is mechanical**: on the real tape it reads {f(rv('5minute', 'sl_above_median_skip')['control_pct'], 1)} (5 min, diff "
+                 f"{f(rv('5minute', 'sl_above_median_skip')['diff'])}) and {f(rv('minute', 'sl_above_median_skip')['control_pct'], 1)} (1 min, diff {f(rv('minute', 'sl_above_median_skip')['diff'])}); "
+                 f"on the memory-free tapes its control percentile has p50 {f(a['control_pct_p50'], 1)} / {f(b['control_pct_p50'], 1)} (5 min GMM / segment) and {f(a1['control_pct_p50'], 1)} / "
+                 f"{f(b1['control_pct_p50'], 1)} (1 min), and the real diff sits at the {f(a['real_diff_percentile_in_tapes'], 0)}th / {f(b['real_diff_percentile_in_tapes'], 0)}th (5 min) and "
+                 f"{f(a1['real_diff_percentile_in_tapes'], 0)}th / {f(b1['real_diff_percentile_in_tapes'], 0)}th (1 min) percentile of its null. A high control percentile for a gate on stop "
+                 f"distance is what the engine produces on a random tape (Judge 2's warning, measured); the null p95 of the diff, not the control percentile, is the bar.")
+        a, b = gv("5minute", "gmm", "choch2_skip"), gv("5minute", "segment", "choch2_skip"); a1, b1 = gv("minute", "gmm", "choch2_skip"), gv("minute", "segment", "choch2_skip")
+        L.append(f"3. **The CHoCH-count gate**: 5 min real diff {f(rv('5minute', 'choch2_skip')['diff'])} (control pct {f(rv('5minute', 'choch2_skip')['control_pct'], 1)}) is at the "
+                 f"{f(a['real_diff_percentile_in_tapes'], 0)}th / {f(b['real_diff_percentile_in_tapes'], 0)}th percentile of the GMM / segment nulls (p95 {f(a['diff_p95'])} / {f(b['diff_p95'])}): "
+                 f"not above p95 on any generator. 1 min real diff {f(rv('minute', 'choch2_skip')['diff'])} (control pct {f(rv('minute', 'choch2_skip')['control_pct'], 1)}) against a GMM null median of "
+                 f"{f(a1['diff_p50'])} ({f(a1['diff_share_positive'], 2)} of tapes positive): the real 1-minute CHoCH-count gate is worse than its memory-free null (the "
+                 f"{f(a1['real_diff_percentile_in_tapes'], 0)}th percentile); the 'CHoCH, CHoCH, no BOS = sideways' skip does not read as market memory on this tape.")
+        L.append("4. **Consequence for the gate studies**: a candidate's real-tape diff must clear the p95 of the null tapes of its own family shape, and its control percentile must be read against "
+                 "the null's control-percentile distribution (`control_pct_p95` per gate); a control percentile alone, even 99+, is not evidence for a gate that touches the stop or the event stream.")
+        L.append("")
     # ---- reality
     L.append("## 5. Reality check of the generators (IS part of the real tape vs the tapes; tape p50 [min, max])\n")
     keys = [("ret_std_bps", "ret std (bps)"), ("ret_kurt_excess", "ret excess kurtosis"), ("absret_ac1", "abs-return autocorr lag 1"), ("absret_ac2", "lag 2"), ("absret_ac3", "lag 3"), ("absret_ac4", "lag 4"), ("absret_ac5", "lag 5"),

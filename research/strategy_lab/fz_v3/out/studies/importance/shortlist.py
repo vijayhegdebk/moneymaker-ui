@@ -23,6 +23,15 @@ defs, card_def, fz_def = L.readme_defs()
 for tf in TFS: assert R[tf]["dry"] == DRY, tf
 
 
+TIME_PROXIES = {"sl": "the Foundation stop price (a price level)", "ffd_close_dstar": "FFD of log close at d* = 0.2 (keeps most of the level)", "n_events_asof": "cumulative engine events since the tape start",
+                "atr14": "ATR in points (a volatility level that trends with the index)"}
+
+
+def proxy_note(cols):
+    hits = [c for c in cols if c.split("=")[0].replace("__na", "") in TIME_PROXIES]
+    return ("" if not hits else " **calendar-time proxy**: " + "; ".join(f"`{c}` = {TIME_PROXIES[c.split('=')[0].replace('__na', '')]}" for c in hits))
+
+
 def fmt(v, nd=2):
     if v is None or (isinstance(v, float) and np.isnan(v)): return "-"
     if isinstance(v, (bool, np.bool_)): return "yes" if v else "no"
@@ -178,6 +187,11 @@ for tf in TFS:
     M.append("| rank | feature a | feature b | mean abs SHAP interaction (OOF rows) | paths with both | split a (gain-weighted median) | split b | common splits a | common splits b |\n|---|---|---|---|---|---|---|---|---|")
     for i, p in enumerate(it["top5"], 1):
         M.append(f"| {i} | `{p['feature_a']}` | `{p['feature_b']}` | {p['mean_abs_interaction']:.6f} | {p['n_paths_with_both']} | {fmt(p.get('split_a_gain_weighted_median'), 4)} | {fmt(p.get('split_b_gain_weighted_median'), 4)} | {p.get('split_a_common')} | {p.get('split_b_common')} |")
+    px = [p for p in it["top5"] if proxy_note([p["feature_a"], p["feature_b"]])]
+    if px:
+        M.append("\nPairs that involve a calendar-time proxy (a price level or a cumulative count that trends over the four years; a split on it separates periods, not trade contexts): "
+                 + "; ".join(f"`{p['feature_a']}` x `{p['feature_b']}`" + proxy_note([p['feature_a'], p['feature_b']]) for p in px)
+                 + ". Such a pair is listed because the design ranks by mean |SHAP interaction|, but a gate study that uses it must show the rule holds inside every period.")
     M.append(f"\nAll ranked pairs: `interaction_pairs_{tf}.csv`; the full mean |interaction| matrix: `shap_interactions_{tf}.csv`. The gate studies may use only these five pairs as depth-2/3 conjunctions (and only where both features are shortlisted columns: "
              + (", ".join(f"`{p['feature_a']}` x `{p['feature_b']}`" for p in shortlists[tf]['interaction_pairs_within_allowed']) or "none of the five lies inside the shortlist") + ").\n")
 
@@ -204,6 +218,10 @@ for tf in TFS:
         for e in sl["clusters"]:
             M.append(f"| {e['rank']} | {e['cluster']} | `{e['representative']}` ({e['representative_why']}) | {e['definition']['definition']} ({e['definition']['readme']}) | " + ", ".join(f"`{c}`" for c in e['members'])
                      + f" | {e['mda_ll_mean']:.5f} / {e['mda_ll_std']:.5f} | {e['mda_diff_mean']:.1f} / {e['mda_diff_std']:.1f} | " + " / ".join(str(e['per_period_rank'][pn]) for pn in pnames) + " |")
+        px = [e for e in sl["clusters"] if proxy_note(e["members"])]
+        if px:
+            M.append("\nShortlisted clusters that contain a calendar-time proxy: " + "; ".join(f"cluster {e['cluster']}" + proxy_note(e["members"]) for e in px)
+                     + ". The block-wise permutation (one 4-month block per fold) neutralises a slow proxy inside a fold, so the MDA of such a cluster rests on its other members; a gate study should not use the proxy column itself.")
     else:
         M.append("**Empty**: no cluster passes both the MDA rule and the stability filter on this timeframe. The gate studies have no shortlisted column here; a null vocabulary is a result, not a failure of the pipeline.")
     M.append("")

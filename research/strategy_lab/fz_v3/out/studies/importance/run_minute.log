@@ -12,3 +12,6 @@
 [05:50:51 rss 307.8 MB] SFI cluster 0 (61 f): ll 0.7634 auc 0.596 diff -2935.8 kept 0.998 ctrl 9.1 (1021.5s)
 [05:57:05 rss 331.3 MB] depth 4 fold 2: n_tr 4048 n_te 384 tau 0.05 ll 0.7860 diff nan kept 1.0 (421.3s)
 [05:58:12 rss 310.6 MB] SFI cluster 1 (25 f): ll 0.7741 auc 0.567 diff 104.99 kept 0.9027 ctrl 35.7 (441.3s)
+[06:04:35 rss 331.3 MB] depth 4 fold 3: n_tr 3914 n_te 509 tau 0.05 ll 0.7187 diff nan kept 1.0 (450.0s)
+[06:04:41 rss 310.8 MB] SFI cluster 2 (23 f): ll 0.7851 auc 0.541 diff -29.7 kept 0.9589 ctrl 28.1 (388.9s)
+[06:08:07 rss 328.4 MB] cpcv split 11/66 (2059s)

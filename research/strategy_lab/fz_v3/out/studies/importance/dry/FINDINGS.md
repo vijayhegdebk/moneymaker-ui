@@ -256,7 +256,7 @@ All ranked pairs: `interaction_pairs_minute.csv`; the full mean |interaction| ma
 
 ### The shortlist (0 clusters; 0 of 39 pass MDA, 2 pass stability, 0 pass both; cap 8)
 
-Frozen at `features_shortlist/minute/shortlist.json`, sha256 `163bbd6e1dddb1c19524227b5195b6e372ecfa55997a4dc3a4d4dc8f5bfd456a`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
+Frozen at `features_shortlist/minute/shortlist.json`, sha256 `6986800c4cbf966e5cda4f3d3ba52d6928e304d305233fdb41d2d6b7c69ddad8`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
 
 **Empty**: no cluster passes both the MDA rule and the stability filter on this timeframe. The gate studies have no shortlisted column here; a null vocabulary is a result, not a failure of the pipeline.
 
@@ -467,7 +467,7 @@ All ranked pairs: `interaction_pairs_5minute.csv`; the full mean |interaction| m
 
 ### The shortlist (0 clusters; 0 of 39 pass MDA, 2 pass stability, 0 pass both; cap 8)
 
-Frozen at `features_shortlist/5minute/shortlist.json`, sha256 `f6a6a9b5ae2850727f01f41b3110c0a0654db5728329ae6cbbd62ee97c1cf3e9`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
+Frozen at `features_shortlist/5minute/shortlist.json`, sha256 `9460a56385793959f29e3f1124b0b55c524d0a7b7594526d391ec0aa98b3d3f4`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
 
 **Empty**: no cluster passes both the MDA rule and the stability filter on this timeframe. The gate studies have no shortlisted column here; a null vocabulary is a result, not a failure of the pipeline.
 

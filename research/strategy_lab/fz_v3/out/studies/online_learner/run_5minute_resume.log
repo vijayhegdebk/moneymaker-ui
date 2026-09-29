@@ -4,3 +4,4 @@
 [5minute] job context__hgb_cls__k1__300__x                        152.4s heads 2 features_sha None  (343s elapsed)
 [5minute] job context__hgb_cls__k1__1000__x                       184.3s heads 2 features_sha None  (528s elapsed)
 [5minute] job context__hgb_cls__k10__anchored__x                   20.0s heads 2 features_sha None  (548s elapsed)
+[5minute] job context__hgb_cls__k10__300__x                        18.6s heads 2 features_sha None  (566s elapsed)

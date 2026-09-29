@@ -78,6 +78,20 @@ def main():
         L.append(f"| {tf} | {fs['is_sessions']} ({fs['pool_sessions']} / {len(fs['short_sessions_excluded'])}) | {fs['is_bars']:,} | {fs['gaps_n']} | {fs['gap_log_std']:.5f} | "
                  f"{fs['gmm_k']} ({', '.join(f'{int(float(v)):,}' for v in fs['gmm_bic'].values())}) | {fs['gmm_fit_rows']:,} | {fs['tapes_per_generator']} x {fs['sessions_per_tape']} |")
     L.append("")
+    # ---- build cost per tape (RSS check)
+    rows = []
+    for p in glob.glob(os.path.join(HERE, "tapes", "*", "*_*", "meta.json")):
+        m = json.load(open(p)); tf_, gen_ = p.split(os.sep)[-3], p.split(os.sep)[-2].rsplit("_", 1)[0]
+        rows.append(dict(tf=tf_, gen=gen_, rss=m.get("peak_rss_mb"), secs=m.get("run_times_s", {}).get("total"), bars=m.get("bars"), setups=m["counts"]["ALL"]["setups"]))
+    if rows:
+        M = pd.DataFrame(rows)
+        L.append("### 2a. build.py cost per tape (from each tape's `meta.json`; the box was shared with other studies, load 12-20)\n")
+        L.append("| tf | generator | tapes | bars per tape | SETUPs p50 [min, max] | build seconds p50 [min, max] | peak RSS MB p50 [max] |")
+        L.append("|---|---|---|---|---|---|---|")
+        for (tf_, gen_), g in M.groupby(["tf", "gen"]):
+            L.append(f"| {tf_} | {GEN_LABEL.get(gen_, gen_)} | {len(g)} | {int(g.bars.iloc[0]):,} | {int(g.setups.median())} [{int(g.setups.min())}, {int(g.setups.max())}] | "
+                     f"{g.secs.median():.0f} [{g.secs.min():.0f}, {g.secs.max():.0f}] | {g.rss.median():.0f} [{g.rss.max():.0f}] |")
+        L.append("")
     # ---- real reference
     L.append("## 3. The three reference gates on the real tape (IS, L1; ledger family `null_tapes_drift/real_ref`)\n")
     L.append("| tf | gate | ledger id | n | kept n (share) | kept mean | skipped mean | diff | diff top1% removed | perm p | control pct | loser recall | winner recall (net-wtd) | sign blocks |")

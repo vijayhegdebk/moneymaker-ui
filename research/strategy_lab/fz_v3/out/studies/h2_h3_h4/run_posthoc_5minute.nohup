@@ -1,0 +1,13 @@
+posthoc_minskip start Tue Sep 29 05:28:27 2026 ledger sha 50a1325d523ee69e min_skip_share 0.1 tf 5minute labels L1,L0 studies h2,h3,h4 note 'repair'
+== h2 5minute_L1: 201 cells
+  nested-CV_minskip OOF: kept 733 (0.8874) diff 1030.84 pct 83.9 p 0.0405 blocks 11 id 12e06107b9d902d0
+  CPCV 11 paths: diff median 657.62 p5 534.55 min 460.56 share>0 1.0 control pct median 76.4 p5 37.0
+  family (incl. this row): 203 candidates, eff 1.44, PBO diff 0.3293 kept 0.5333, SPA p 0.0065 best {'rule': 'range', 'W': '3h', 'q': 0.1}, boot [507.19, 1545.12], DSR p 0.9893, go False
+  pre-registered row 74e1239d4204941d over the completed family: 203 candidates, PBO diff 0.3293, SPA p 0.0065, DSR p 0.9958, go False
+== h3 5minute_L1: 54 cells
+  nested-CV_minskip OOF: kept 217 (0.2627) diff -169.61 pct 100.0 p 0.6322 blocks 6 id 66fc292ca65c4459
+  CPCV 11 paths: diff median -256.78 p5 -607.75 min -667.59 share>0 0.091 control pct median 99.8 p5 92.5
+  family (incl. this row): 56 candidates, eff 2.49, PBO diff 0.6604 kept 0.3937, SPA p 0.0 best {'v': 2, 'N': 20, 'M': 30, 'gate': 'skip_if_none'}, boot [-581.27, 220.65], DSR p 0.9991, go False
+  pre-registered row 8eaee251afffdbb3 over the completed family: 56 candidates, PBO diff 0.6604, SPA p 0.0, DSR p 0.9967, go False
+== h4 5minute_L1: 9 cells
+  nested-CV_minskip OOF: kept 466 (0.5642) diff -414.67 pct 21.9 p 0.1934 blocks 4 id 2d6bb302b6a0f498

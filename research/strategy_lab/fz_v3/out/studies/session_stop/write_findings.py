@@ -247,10 +247,19 @@ def sec_repair():
                  f"**Repaired decision ({tf}): {X['decision']}.**\n")
         P.append(f"**{tf} / L0 robustness (N4 only; L0 trades cross sessions, so the intraday generator does not apply)**\n\n" + L0_block(tf) + "\n")
     Mn = REP["timeframes"]["minute"]["L1"]["null_tests"]
-    P.append("Reading (1 min): every observed statistic sits inside the memoryless distribution (N3 percentiles "
-             + ", ".join(f"{t['test']} {t['N3_pct']:.0f}%" for t in Mn) + "); every within-hour contrast's 90 % bootstrap CI covers zero and the memoryless centring check holds (|N4_sim_mean| small "
-             "against the bootstrap sd). The within-hour differences of the as-run `hour_x_stops` table (positive in the morning, negative in the afternoon) are within sampling noise once "
-             "sessions are the resampling unit. 5 min: the same, on a book that is underpowered by construction (median 2 SETUPs per active session).\n")
+    n3_out = [t["test"] for t in Mn if t["N3_p"] < 0.05]; n4_ci_excl = [t["test"] for t in Mn if t["N4_ci90_lo"] > 0 or t["N4_ci90_hi"] < 0]
+    n4_raw = [t["test"] for t in Mn if t["N4_p"] < 0.05]; centring_ok = all(abs(t["N4_sim_mean"]) < 0.5 * t["N4_boot_sd"] for t in Mn if t["N4_boot_sd"] > 0)
+    P.append("Reading (1 min): N3 percentiles of the observed statistics " + ", ".join(f"{t['test']} {t['N3_pct']:.0f}%" for t in Mn)
+             + ("; none has an unadjusted p < 0.05" if not n3_out else f"; unadjusted p < 0.05 on {', '.join(n3_out)} (none survives Holm)" if REP["timeframes"]["minute"]["L1"]["min_p_holm_N3"] >= 0.05 else f"; p < 0.05 on {', '.join(n3_out)}")
+             + ". N4: " + ("every within-hour contrast's 90 % bootstrap CI covers zero" if not n4_ci_excl else f"the 90 % bootstrap CI excludes zero on {', '.join(n4_ci_excl)} (unadjusted p < 0.05 on {', '.join(n4_raw) or 'none'})")
+             + (f"; after Holm the minimum p is {REP['timeframes']['minute']['L1']['min_p_holm_N4']:.4f}" ) + ("; the memoryless centring check holds (|N4_sim_mean| below half the bootstrap sd on every test)" if centring_ok else "; NOTE the memoryless centring check fails on at least one test (|N4_sim_mean| above half the bootstrap sd)")
+             + ". The within-hour differences of the as-run `hour_x_stops` table (positive in the morning, negative in the afternoon) are read against these CIs, with sessions as the resampling unit. "
+             "5 min: see its table; the book is underpowered by construction (median 2 SETUPs per active session).\n")
+    xcs = [pd.read_csv(os.path.join(HERE, f"repair_n4_ols_crosscheck_{tf}.csv")) for tf in ("minute", "5minute") if os.path.exists(os.path.join(HERE, f"repair_n4_ols_crosscheck_{tf}.csv"))]
+    if xcs:
+        x = pd.concat(xcs, ignore_index=True)
+        P.append("**N4 cross-check (`n4_ols_crosscheck.py` -> `repair_n4_ols_crosscheck_<tf>.csv`).** The stratified statistic against the OLS coefficient of net on the state indicator with hour_bin "
+                 "fixed effects (statsmodels; identical by construction, asserted), and the block-bootstrap sd / p against the session-cluster-robust SE / p:\n\n" + md_table(x, list(x.columns), dict(cluster_p=4, boot_p=4)) + "\n")
     # R.3
     P.append("### R.3 Issue I2: the session-matched random control is not evidence for a within-session sequential rule\n")
     P.append(f"On the memoryless streams (no edge and no anti-edge possible by construction) the k = 2 / L = none absorbing rule sits at a session-matched control percentile with median "
@@ -299,10 +308,14 @@ def sec_repair():
                  "pre-registered pooled diff). `control_pct_not_used`: reported only.\n")
         P.append(calibration_table(B["calibration"]))
         cal = pd.DataFrame(B["calibration"])
-        P.append(f"\nReading: the pooled differences of all 48 cells lie inside the memoryless distribution (percentiles {cal.pooled_sim_pct.min():.0f}-{cal.pooled_sim_pct.max():.0f}, min doubled-tail p "
-                 f"{cal.pooled_sim_p.min():.3f}): a memoryless process with the same clock and durations produces the same positive pooled diffs (hour composition plus cost avoidance). The within-hour "
-                 f"contrast is {cal.strat_diff.min():+,.0f} to {cal.strat_diff.max():+,.0f} INR/trade with every 90 % CI covering zero (min bootstrap p {cal.strat_boot_p.min():.3f}); its memoryless centring is "
-                 f"{cal.sim_strat_mean.min():+,.0f} to {cal.sim_strat_mean.max():+,.0f}. No cell skips worse SETUPs than it keeps once the clock is held fixed.\n")
+        n_pool_out = int((cal.pooled_sim_p < 0.05).sum()); n_strat_out = int(((cal.strat_ci90_lo > 0) | (cal.strat_ci90_hi < 0)).sum()); n_strat_pos = int((cal.strat_ci90_lo > 0).sum())
+        P.append(f"\nReading: the pooled differences of the 48 cells sit at memoryless percentiles {cal.pooled_sim_pct.min():.0f}-{cal.pooled_sim_pct.max():.0f} (min doubled-tail p {cal.pooled_sim_p.min():.3f}; "
+                 f"{n_pool_out} of 48 below 0.05, before any multiplicity adjustment over 48 cells): a memoryless process with the same clock and durations produces "
+                 f"{'the same' if n_pool_out == 0 else 'comparable'} positive pooled diffs (hour composition plus cost avoidance). The within-hour kept-vs-skipped contrast is {cal.strat_diff.min():+,.0f} to "
+                 f"{cal.strat_diff.max():+,.0f} INR/trade; its 90 % session-block bootstrap CI excludes zero on {n_strat_out} of 48 cells ({n_strat_pos} on the positive side; min bootstrap p {cal.strat_boot_p.min():.3f}, "
+                 f"unadjusted over 48 cells); its memoryless centring is {cal.sim_strat_mean.min():+,.0f} to {cal.sim_strat_mean.max():+,.0f}. "
+                 + ("No cell skips worse SETUPs than it keeps once the clock is held fixed.\n" if n_strat_pos == 0 else
+                    f"{n_strat_pos} cell(s) show a positive within-hour contrast at the unadjusted 90 % level; with 48 correlated cells (effective trials {B['family']['effective_trials']}) that is within the expected false-positive count and none of them passes the family checks of R.4.\n"))
     else:
         P.append("### R.4 / R.5\n\nBranch B did not run on any timeframe under the repaired decision.\n")
     # R.6
@@ -340,8 +353,9 @@ lines.append(f"**No session memory beyond the hour effect is shown, and no `sess
              "with the session-matched control percentile set aside as a hindsight-biased comparator for sequential rules (section R.3: the same rule sits at its 0.0th percentile on memoryless streams). "
              + (f"The family now holds 48 cells (16 hour-conditioned cells added for Judge 2's hour interaction, section R.4); the nested-CV OOF rule has diff {BR['nested_oof']['diff']:+,.2f} (top-1%-removed {BR['nested_oof']['diff_top1_removed']:+,.2f}), "
                 f"the CPCV 5th percentile is {BR['cpcv']['diff_p5']:+,.2f}, PBO {BR['family']['pbo_diff']['pbo']}, SPA p {BR['family']['spa']['spa_p']}, and `harness.go_no_go` fails for the cell chosen on all IS both as computed and "
-                f"without its control check (failing: {', '.join(BR['go_no_go']['failing_without_control_check'])}). Every cell's pooled diff lies inside the memoryless distribution and every within-hour kept-vs-skipped contrast's "
-                "90 % CI covers zero (section R.5). " if BR else "")
+                f"without its control check (failing: {', '.join(BR['go_no_go']['failing_without_control_check'])}). The cells' pooled diffs sit at memoryless percentiles "
+                f"{min(c['pooled_sim_pct'] for c in BR['calibration']):.0f}-{max(c['pooled_sim_pct'] for c in BR['calibration']):.0f} and the within-hour kept-vs-skipped contrast's 90 % CI excludes zero on "
+                f"{sum(1 for c in BR['calibration'] if c['strat_ci90_lo'] is not None and (c['strat_ci90_lo'] > 0 or c['strat_ci90_hi'] < 0))} of 48 cells (section R.5). " if BR else "")
              + "The no-key conclusion of the as-run study stands; the memory claim, its direction and the \"reverse rule\" follow-up are withdrawn.\n")
 lines += sec_repair()
 lines.append("## 1. Definitions as run (fixed before any number was looked at; the script's docstring, verbatim, now headed by the dated repair note)\n\n```\n" + DOC + "\n```\n")

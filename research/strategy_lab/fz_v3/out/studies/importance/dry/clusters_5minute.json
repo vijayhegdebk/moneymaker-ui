@@ -357,11 +357,11 @@
    "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.442"
   },
   "2": {
-   "representative": "er_1h__na",
+   "representative": "hv2_dir=none",
    "tier": 0,
    "coverage": 1.0,
-   "centrality": 0.5104,
-   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.510"
+   "centrality": 0.4235,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.423"
   },
   "3": {
    "representative": "n_choch_since_bos",
@@ -403,7 +403,7 @@
    "tier": 0,
    "coverage": 1.0,
    "centrality": 0.7259,
-   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.726"
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.726 (missing indicator, the cluster's only member)"
   },
   "9": {
    "representative": "cusum_events_60",
@@ -469,11 +469,11 @@
    "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.391"
   },
   "18": {
-   "representative": "touch_prot_bars_ago__na",
+   "representative": "touch_prot_last=na",
    "tier": 0,
    "coverage": 1.0,
-   "centrality": 0.5714,
-   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.571"
+   "centrality": 0.4834,
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.483"
   },
   "19": {
    "representative": "card_read=ACCEPTED",
@@ -525,7 +525,7 @@
    "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.436"
   },
   "26": {
-   "representative": "touch_swing_bars_ago__na",
+   "representative": "touch_swing_last=none",
    "tier": 0,
    "coverage": 1.0,
    "centrality": 1.0,
@@ -606,7 +606,7 @@
    "tier": 0,
    "coverage": 1.0,
    "centrality": 1.0,
-   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000"
+   "why": "tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000 (missing indicator, the cluster's only member)"
   },
   "38": {
    "representative": "touch_prot_last=broke",

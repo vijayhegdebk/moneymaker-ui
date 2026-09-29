@@ -1,0 +1,19 @@
+05:28:27 posthoc_minskip start Tue Sep 29 05:28:27 2026 ledger sha 50a1325d523ee69e min_skip_share 0.1 tf 5minute labels L1,L0 studies h2,h3,h4 note 'repair'
+05:28:28 posthoc_minskip start Tue Sep 29 05:28:28 2026 ledger sha 50a1325d523ee69e min_skip_share 0.1 tf minute labels L0 studies h3,h4 note 'repair'
+05:28:29 posthoc_minskip start Tue Sep 29 05:28:29 2026 ledger sha 50a1325d523ee69e min_skip_share 0.1 tf minute labels L1 studies h2,h3,h4 note 'repair'
+05:28:30 == h2 5minute_L1: 201 cells
+05:28:35 == h3 minute_L0: 54 cells
+05:28:37 == h2 minute_L1: 201 cells
+05:29:27   nested-CV_minskip OOF: kept 733 (0.8874) diff 1030.84 pct 83.9 p 0.0405 blocks 11 id 12e06107b9d902d0
+05:29:46   nested-CV_minskip OOF: kept 3742 (0.8312) diff 13.41 pct 22.6 p 0.948 blocks 7 id 3ffcfd594800fc39
+05:30:41   nested-CV_minskip OOF: kept 3797 (0.8529) diff 211.08 pct 73.7 p 0.0505 blocks 10 id 5229b4f39a9bce95
+05:35:46   CPCV 11 paths: diff median 657.62 p5 534.55 min 460.56 share>0 1.0 control pct median 76.4 p5 37.0
+05:36:15   family (incl. this row): 203 candidates, eff 1.44, PBO diff 0.3293 kept 0.5333, SPA p 0.0065 best {'rule': 'range', 'W': '3h', 'q': 0.1}, boot [507.19, 1545.12], DSR p 0.9893, go False
+05:36:40   pre-registered row 74e1239d4204941d over the completed family: 203 candidates, PBO diff 0.3293, SPA p 0.0065, DSR p 0.9958, go False
+05:36:40 == h3 5minute_L1: 54 cells
+05:36:55   nested-CV_minskip OOF: kept 217 (0.2627) diff -169.61 pct 100.0 p 0.6322 blocks 6 id 66fc292ca65c4459
+05:38:55   CPCV 11 paths: diff median -256.78 p5 -607.75 min -667.59 share>0 0.091 control pct median 99.8 p5 92.5
+05:39:04   family (incl. this row): 56 candidates, eff 2.49, PBO diff 0.6604 kept 0.3937, SPA p 0.0 best {'v': 2, 'N': 20, 'M': 30, 'gate': 'skip_if_none'}, boot [-581.27, 220.65], DSR p 0.9991, go False
+05:39:14   pre-registered row 8eaee251afffdbb3 over the completed family: 56 candidates, PBO diff 0.6604, SPA p 0.0, DSR p 0.9967, go False
+05:39:14 == h4 5minute_L1: 9 cells
+05:39:26   nested-CV_minskip OOF: kept 466 (0.5642) diff -414.67 pct 21.9 p 0.1934 blocks 4 id 2d6bb302b6a0f498

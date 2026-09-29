@@ -19,3 +19,4 @@
 [05:23:39 + 1325.2s rss   454MB] purged block 11: n 3940/512 AUC rocket 0.6185 pca16 0.5395 tabular 0.5885 stacked 0.5800 | alpha rocket 10.0 pca16 1.0 | 392.4s {'transform': 97.77, 'rocket': 141.55, 'pca16': 6.44, 'tabular': 57.84, 'stacked': 88.64}
 [05:23:39 + 1325.4s rss   455MB] 12-block pooled OOF AUC rocket 0.5884 pca16 0.5474 tabular 0.5887 stacked 0.5892; mean per-block AUC rocket 0.5770 pca16 0.5496 tabular 0.5824 stacked 0.5857
 [05:23:39 + 1325.4s rss   455MB] per-block gains stacked-tabular +0.0132 -0.0204 -0.0183 +0.0076 +0.0063 +0.0072 -0.0026 +0.0040 -0.0051 +0.0037 +0.0516 -0.0084 | Judge-1 footnote: every block < 0.02 = False
+[05:32:09 + 1835.1s rss   464MB] cpcv split 1/66 (0,1): AUC rocket 0.5757 pca16 0.5503 tabular 0.6035 stacked 0.5972 | alpha rocket 10.0 | 509.5s

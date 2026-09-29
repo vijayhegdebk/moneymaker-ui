@@ -3,7 +3,7 @@
  "tf": "minute",
  "label": "L1",
  "is_window": "2021-10-01..2025-12-31",
- "frozen_at": "2026-09-29T05:18:30",
+ "frozen_at": "2026-09-29T05:38:17",
  "study": "importance",
  "script": "studies/importance/run_importance.py + shortlist.py",
  "rule": {
@@ -175,8 +175,8 @@
       "win_sign_agree10",
       "win_range_slope"
      ],
-     "mda_ll_mean": -0.014998161949049358,
-     "mda_ll_std": 0.02121987570835518,
+     "mda_ll_mean": -0.0149981619490493,
+     "mda_ll_std": 0.0212198757083551,
      "mda_ll_pass": false,
      "stab_pass": false,
      "mixed_with_non_ffd": true
@@ -200,8 +200,8 @@
       "ffd_close_dstar_z60",
       "rv_ret36_atr"
      ],
-     "mda_ll_mean": -0.0007409127271712465,
-     "mda_ll_std": 0.01014351338901796,
+     "mda_ll_mean": -0.0007409127271712,
+     "mda_ll_std": 0.0101435133890179,
      "mda_ll_pass": false,
      "stab_pass": false,
      "mixed_with_non_ffd": true
@@ -212,8 +212,8 @@
       "n_events_asof",
       "ffd_close_dstar"
      ],
-     "mda_ll_mean": -0.00043047370421091155,
-     "mda_ll_std": 0.0015402112922925824,
+     "mda_ll_mean": -0.0004304737042109,
+     "mda_ll_std": 0.0015402112922925,
      "mda_ll_pass": false,
      "stab_pass": false,
      "mixed_with_non_ffd": true
@@ -266,8 +266,8 @@
       "win_sign_agree10",
       "win_range_slope"
      ],
-     "mda_ll_mean": -0.014998161949049358,
-     "mda_ll_std": 0.02121987570835518,
+     "mda_ll_mean": -0.0149981619490493,
+     "mda_ll_std": 0.0212198757083551,
      "mda_ll_pass": false,
      "stab_pass": false,
      "mixed_with_non_ffd": true
@@ -291,8 +291,8 @@
       "ffd_close_dstar_z60",
       "rv_ret36_atr"
      ],
-     "mda_ll_mean": -0.0007409127271712465,
-     "mda_ll_std": 0.01014351338901796,
+     "mda_ll_mean": -0.0007409127271712,
+     "mda_ll_std": 0.0101435133890179,
      "mda_ll_pass": false,
      "stab_pass": false,
      "mixed_with_non_ffd": true
@@ -303,8 +303,8 @@
       "n_events_asof",
       "ffd_close_dstar"
      ],
-     "mda_ll_mean": -0.00043047370421091155,
-     "mda_ll_std": 0.0015402112922925824,
+     "mda_ll_mean": -0.0004304737042109,
+     "mda_ll_std": 0.0015402112922925,
      "mda_ll_pass": false,
      "stab_pass": false,
      "mixed_with_non_ffd": true

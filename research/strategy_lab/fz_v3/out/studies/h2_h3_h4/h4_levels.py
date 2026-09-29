@@ -34,7 +34,9 @@ import numpy as np, pandas as pd
 import h234_common as C
 import harness as H
 
-ap = argparse.ArgumentParser(); ap.add_argument("--tf", default="minute,5minute"); ap.add_argument("--labels", default="L1,L0"); A = ap.parse_args()
+ap = argparse.ArgumentParser(); ap.add_argument("--tf", default="minute,5minute"); ap.add_argument("--labels", default="L1,L0")
+ap.add_argument("--part", default="all", choices=["all", "episodes"], help="episodes = Part B only (no ledger rows), rewrites <tf>/episodes in h4_summary_<tf>.json")
+A = ap.parse_args()
 log = C.Log(os.path.join(HERE, "h4_levels.log"))
 T0 = time.time()
 LEVELS, VERDICTS, NS = ("prot", "room", "swing"), ("broke", "held", "pending"), (15, 30, 60)
@@ -214,7 +216,17 @@ def run(tf, label):
                 nested={k: nested.get(k) for k in C.GRID_COLS if k != "cell"} | dict(chosen_per_block=chosen), cpcv=dist, cpcv_chosen=cp_chosen, family=fam)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" and A.part == "episodes":
+    log(f"h4_levels --part episodes (repair round: cut windows are session_end, cut_break recorded) start {time.ctime()}; no ledger row is written")
+    for tf in A.tf.split(","):
+        p = os.path.join(HERE, f"h4_summary_{tf}.json")
+        S = json.load(open(p, encoding="utf-8")) if os.path.exists(p) else {}
+        S[f"{tf}/episodes"] = episode_study(tf)
+        S[f"{tf}/episodes"]["repair"] = dict(at=time.strftime("%Y-%m-%dT%H:%M:%S"), what="verdict of a window cut by the session end = session_end (was broke when a break close fell inside the truncated window); cut_break added",
+                                             script_sha=H.file_sha(__file__))
+        C.jdump(S, p)
+    log(f"h4 episodes done in {time.time() - T0:.1f}s")
+elif __name__ == "__main__":
     log(f"h4_levels start {time.ctime()} ledger sha {H.ledger_sha()}")
     S = {}
     for tf in A.tf.split(","):

@@ -42,3 +42,9 @@
 04:30:33   CPCV 11 paths: diff median 72.72 p5 -60.02 min -99.65 share>0 0.727 control pct median 24.1 p5 11.0
 04:30:37   family: 10 candidates, eff 1.71, PBO diff 0.6843 kept 0.5936, SPA p 0.9785 best {'level': 'room', 'skip_when_last': 'held'}, boot [-208.78, 256.9], DSR p 0.8465, go False
 04:30:37 h4 done in 1437.6s; ledger sha d348e70b02d1a7fa
+05:28:27 h4_levels --part episodes (repair round: cut windows are session_end, cut_break recorded) start Tue Sep 29 05:28:27 2026; no ledger row is written
+05:28:55   minute: level instances {'swing': 113936, 'prot': 15645, 'room': 11640}
+05:32:56   minute: 248128 episodes in 258s; verdicts {('prot', 'broke'): 4554, ('prot', 'held'): 1867, ('prot', 'session_end'): 203, ('room', 'broke'): 48102, ('room', 'held'): 21895, ('room', 'session_end'): 2156, ('room', 'na'): 276, ('swing', 'broke'): 112912, ('swing', 'held'): 49985, ('swing', 'session_end'): 6178}; cut windows with a break close (session_end, cut_break) 3825
+05:33:14   5minute: level instances {'swing': 22992, 'room': 8090, 'prot': 2897}
+05:34:09   5minute: 63009 episodes in 59s; verdicts {('prot', 'held'): 645, ('prot', 'broke'): 509, ('prot', 'session_end'): 20, ('room', 'held'): 19025, ('room', 'broke'): 15730, ('room', 'session_end'): 1404, ('room', 'na'): 561, ('swing', 'held'): 12721, ('swing', 'broke'): 11155, ('swing', 'session_end'): 1239}; cut windows with a break close (session_end, cut_break) 520
+05:34:13 h4 episodes done in 346.5s

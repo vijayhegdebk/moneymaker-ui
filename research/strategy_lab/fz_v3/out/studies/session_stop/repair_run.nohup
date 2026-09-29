@@ -2,3 +2,42 @@
 [minute/L1] units 4452 active sessions 578 pools {'<09:25': 189, '09': 369, '10': 592, '11': 677, '12': 740, '13': 764, '14': 808, '15': 258, '>=15:20': 55} gap median 4.0
 [minute/L1] mechanism (real): {"units": 4452, "sessions": 578, "win_rate": 0.1559, "mean_net": -1009.6075, "bars_held_win_mean": 110.621, "bars_held_win_median": 75.5, "bars_held_loss_mean": 18.7408, "bars_held_loss_median": 12.0, "bars_held_stop_mean": 8.2214, "p_follow_given_win": 0.5706, "p_follow_given_loss": 0.9255, "cell_multi_units": 3222, "cell_multi_last_win_rate": 0.2311, "cell_multi_nonlast_win_rate": 0.015, "cell_multi_first_win_rate": 0.018, "cell_multi_last_mean_net": -594.6968, "cell_multi_nonlast_mean_net": -1828.344, "sess_multi_last_win_rate": 0.4763, "sess_multi_nonlast_win_rate": 0.1022}
 [minute/L1] 2000 memoryless streams in 334s: units mean 4733 (real 4452); mechanism (memoryless mean): {"units": 4733.397, "sessions": 578.0, "win_rate": 0.1551, "mean_net": -1008.913, "bars_held_win_mean": 109.0075, "bars_held_win_median": 73.5282, "bars_held_loss_mean": 18.408, "bars_held_loss_median": 11.9507, "bars_held_stop_mean": 8.2109, "p_follow_given_win": 0.6806, "p_follow_given_loss": 0.9141, "cell_multi_units": 3488.279, "cell_multi_last_win_rate": 0.2373, "cell_multi_nonlast_win_rate": 0.0267, "cell_multi_first_win_rate": 0.0333, "cell_multi_last_mean_net": -511.8299, "cell_multi_nonlast_mean_net": -1777.7423, "sess_multi_last_win_rate": 0.3668, "sess_multi_nonlast_win_rate": 0.1203}
+                     metric         real  memoryless_mean  memoryless_indep_duration_mean
+                      units  4452.000000      4733.397000                     4736.255000
+                   sessions   578.000000       578.000000                      578.000000
+                   win_rate     0.155885         0.155135                        0.155111
+                   mean_net -1009.607545     -1008.912962                    -1007.309105
+         bars_held_win_mean   110.621037       109.007504                       36.010655
+       bars_held_win_median    75.500000        73.528250                       15.570000
+        bars_held_loss_mean    18.740820        18.408027                       31.781247
+      bars_held_loss_median    12.000000        11.950750                       14.232500
+        bars_held_stop_mean     8.221423         8.210918                       32.983165
+         p_follow_given_win     0.570605         0.680581                        0.888201
+        p_follow_given_loss     0.925492         0.914053                        0.876016
+           cell_multi_units  3222.000000      3488.279000                     3492.130000
+   cell_multi_last_win_rate     0.231148         0.237335                        0.153242
+cell_multi_nonlast_win_rate     0.014985         0.026660                        0.151784
+  cell_multi_first_win_rate     0.018033         0.033297                        0.153605
+   cell_multi_last_mean_net  -594.696836      -511.829867                    -1014.930369
+cell_multi_nonlast_mean_net -1828.344011     -1777.742252                    -1016.962869
+   sess_multi_last_win_rate     0.476285         0.366813                        0.135588
+sess_multi_nonlast_win_rate     0.102220         0.120280                        0.156933
+[minute/L1] N3 / N4 in 25s
+              test  n_condition  observed  N3_sim_mean  N3_sim_sd  N3_pct   N3_p  N3_p_holm  N4_stat  N4_ci90_lo  N4_ci90_hi   N4_p  N4_p_holm  N4_sim_mean  N4fine_stat  N4fine_p_holm
+spearman_today_net         4452   -0.0398      -0.0419     0.0147   54.90 0.9025        1.0   0.0084     -0.0166      0.0314 0.6057        1.0      -0.0010       0.0072            1.0
+          stops>=1         2968 -111.2731     -75.2769    88.8710   34.25 0.6857        1.0 -39.6398   -195.6310    114.3965 0.7136        1.0      -0.1988     -20.5402            1.0
+          stops>=2         1791 -120.3091     -60.1877    73.5021   20.45 0.4098        1.0 -71.4015   -168.5153     28.2512 0.2319        1.0       1.3032     -65.5161            1.0
+          stops>=3         1009  -23.6872     -50.5515    75.2808   64.55 0.7096        1.0  33.8554    -86.1382    158.8430 0.6277        1.0      -0.0359      34.1233            1.0
+        net<=-2000         3370 -116.3049     -83.7532   101.4747   38.30 0.7666        1.0 -33.1835   -221.3535    161.3696 0.8016        1.0      -0.1773       0.7496            1.0
+        net<=-4000         2777  -82.2728     -80.1819    83.3275   49.25 0.9855        1.0   5.0038   -133.7572    140.9827 0.9135        1.0       0.5489      31.4879            1.0
+        net<=-6000         2198  -83.3514     -73.4492    74.9012   44.25 0.8856        1.0  -8.4976   -132.0166    126.6059 0.9265        1.0       0.5488       6.3986            1.0
+[minute] repaired decision: NOT REJECTED under N3 or N4 -> no session memory shown beyond the hour effect, no key ({"min_p_holm_N3": 1.0, "min_p_holm_N4": 1.0, "rejected_N3": false, "rejected_N4": false, "min_p_holm_N4fine": 1.0, "signs_agree": true})
+[minute/L0] N4 robustness: min Holm p 1.0000
+    tf label               test  n_condition   N4_stat  N4_ci90_lo  N4_ci90_hi   N4_p  N4_p_holm
+minute    L0 spearman_today_net         4502   -0.0025     -0.0269      0.0202 0.7896        1.0
+minute    L0           stops>=1         3015  123.8541    -99.0795    359.7851 0.3498        1.0
+minute    L0           stops>=2         1828    6.9189   -202.9884    215.8117 0.9255        1.0
+minute    L0           stops>=3         1031   24.0790   -327.7352    387.0541 0.8906        1.0
+minute    L0         net<=-2000         3416   94.6171   -267.9106    461.0323 0.6097        1.0
+minute    L0         net<=-4000         2823 -136.9134   -537.9287    281.5699 0.6217        1.0
+minute    L0         net<=-6000         2243  -87.4384   -470.1493    316.8313 0.7336        1.0

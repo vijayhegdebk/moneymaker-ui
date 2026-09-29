@@ -18,6 +18,17 @@ DESIGN_PANEL decision-making-3, parts (c) and (d), with both judges' fixes: (a) 
 | 5minute | 1026 (1016 / 10) | 76,621 | 1025 | 0.00488 | 6 (681,123, 675,927, 668,815) | 76,200 | 20 x 1026 |
 | minute | 1026 (1012 / 14) | 383,076 | 1025 | 0.00488 | 6 (3,520,657, 2,912,397, 2,895,928) | 379,500 | 8 x 247 |
 
+### 2a. build.py cost per tape (from each tape's `meta.json`; the box was shared with other studies, load 12-20)
+
+| tf | generator | tapes | bars per tape | SETUPs p50 [min, max] | build seconds p50 [min, max] | peak RSS MB p50 [max] |
+|---|---|---|---|---|---|---|
+| 5minute | GMM-Markov | 20 | 76,950 | 1005 [171, 1220] | 70 [54, 99] | 429 [453] |
+| 5minute | segment bootstrap (30-bar blocks) | 20 | 76,950 | 904 [193, 1107] | 76 [62, 88] | 437 [451] |
+| 5minute | session bootstrap | 20 | 76,950 | 756 [79, 1049] | 78 [53, 94] | 431 [445] |
+| minute | GMM-Markov | 8 | 92,625 | 1460 [1261, 1676] | 88 [68, 98] | 483 [516] |
+| minute | segment bootstrap (30-bar blocks) | 8 | 92,625 | 1134 [435, 1332] | 58 [42, 68] | 473 [519] |
+| minute | session bootstrap | 8 | 92,625 | 1042 [494, 1457] | 76 [61, 91] | 475 [499] |
+
 ## 3. The three reference gates on the real tape (IS, L1; ledger family `null_tapes_drift/real_ref`)
 
 | tf | gate | ledger id | n | kept n (share) | kept mean | skipped mean | diff | diff top1% removed | perm p | control pct | loser recall | winner recall (net-wtd) | sign blocks |
@@ -121,6 +132,20 @@ Poor-null flag (median SETUP rate outside [1/3, 3] x real): none.
 Poor-null flag (median SETUP rate outside [1/3, 3] x real): none.
 The 1-minute tapes are one trading year (247 sessions) starting at the real IS first open (17,523.70), so `last close` and `ATR14 median` are not comparable with the real 5-year IS values in this table; the per-session rates and return moments are.
 
+### 5b. Engine scale and ordering check (`engine_scale_check.json`; 5-minute IS full sessions, Strategy 2 rules)
+
+| bars | CHoCH / session | BOS / session | SETUPs / session | swings |
+|---|---|---|---|---|
+| real order | 1.168 | 5.460 | 0.788 | 22,868 |
+| real order x2 price | 1.168 | 5.460 | 0.788 | 22,868 |
+| real order rebased real gaps | 1.168 | 5.460 | 0.788 | 22,868 |
+| real order random gaps | 1.377 | 5.412 | 0.912 | 22,798 |
+| shuffled sessions real gap sequence | 1.368 | 5.343 | 0.909 | 22,786 |
+| shuffled sessions zero gaps | 1.374 | 5.448 | 0.922 | 22,639 |
+| real order zero gaps | 1.739 | 5.359 | 1.132 | 22,566 |
+
+Scale-free (x2 price level gives identical counts): **True**. Re-basing the real sessions with the real gaps reproduces the real counts exactly; redrawing the gaps or shuffling the sessions moves the CHoCH rate by ~+17% and removing the gaps altogether by ~+50%: the engine's event rate is a property of the multi-day path, which is exactly what a null tape randomises, so per-tape SETUP counts vary (section 5 min / max) and the null distributions carry that variance.
+
 ## 7. How a candidate is evaluated on the tapes later
 
 ```python
@@ -153,6 +178,13 @@ This study searches no gate and proposes no candidate (`candidates: []`, `null_r
 - `drift.py`
 - `drift_run.log`
 - `drift_run2.log`
+- `drift_run3_5minute.log`
+- `drift_run3_minute.log`
+- `drift_run_minute.log`
+- `drift_smoke.log`
+- `engine_scale_check.json`
+- `engine_scale_check.log`
+- `engine_scale_check.py`
 - `findings.json`
 - `fit_5minute.json`
 - `fit_minute.json`

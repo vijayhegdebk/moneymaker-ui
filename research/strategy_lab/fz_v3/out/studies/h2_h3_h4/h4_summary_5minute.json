@@ -10,118 +10,130 @@
    {
     "kind": "prot",
     "verdict": "broke",
-    "n": 515,
-    "share": 0.4387
+    "n": 509,
+    "cut_break_n": 0,
+    "share": 0.4336
    },
    {
     "kind": "prot",
     "verdict": "held",
     "n": 645,
+    "cut_break_n": 0,
     "share": 0.5494
    },
    {
     "kind": "prot",
     "verdict": "session_end",
-    "n": 14,
-    "share": 0.0119
+    "n": 20,
+    "cut_break_n": 6,
+    "share": 0.017
    },
    {
     "kind": "room",
     "verdict": "broke",
-    "n": 16011,
-    "share": 0.436
+    "n": 15730,
+    "cut_break_n": 0,
+    "share": 0.4284
    },
    {
     "kind": "room",
     "verdict": "held",
     "n": 19025,
+    "cut_break_n": 0,
     "share": 0.5181
    },
    {
     "kind": "room",
     "verdict": "na",
     "n": 561,
+    "cut_break_n": 0,
     "share": 0.0153
    },
    {
     "kind": "room",
     "verdict": "session_end",
-    "n": 1123,
-    "share": 0.0306
+    "n": 1404,
+    "cut_break_n": 281,
+    "share": 0.0382
    },
    {
     "kind": "swing",
     "verdict": "broke",
-    "n": 11388,
-    "share": 0.4534
+    "n": 11155,
+    "cut_break_n": 0,
+    "share": 0.4442
    },
    {
     "kind": "swing",
     "verdict": "held",
     "n": 12721,
+    "cut_break_n": 0,
     "share": 0.5065
    },
    {
     "kind": "swing",
     "verdict": "session_end",
-    "n": 1006,
-    "share": 0.0401
+    "n": 1239,
+    "cut_break_n": 233,
+    "share": 0.0493
    }
   ],
+  "cut_windows": 2663,
+  "cut_windows_with_break_close": 520,
   "p_break_by_prior_held": [
    {
     "kind": "prot",
     "prior_held_bin": "0",
-    "n": 1160,
-    "p_broke": 0.444
+    "n": 1154,
+    "p_broke": 0.4411
    },
    {
     "kind": "room",
     "prior_held_bin": "0",
-    "n": 7481,
-    "p_broke": 0.4342
+    "n": 7462,
+    "p_broke": 0.431
    },
    {
     "kind": "room",
     "prior_held_bin": "1",
-    "n": 3282,
-    "p_broke": 0.447
+    "n": 3283,
+    "p_broke": 0.4429
    },
    {
     "kind": "room",
     "prior_held_bin": "2",
-    "n": 1366,
-    "p_broke": 0.4444
+    "n": 1373,
+    "p_broke": 0.4406
    },
    {
     "kind": "room",
     "prior_held_bin": "3+",
-    "n": 1011,
-    "p_broke": 0.4797
+    "n": 1021,
+    "p_broke": 0.476
    },
    {
     "kind": "swing",
     "prior_held_bin": "0",
-    "n": 15448,
-    "p_broke": 0.4691
+    "n": 15316,
+    "p_broke": 0.4645
    },
    {
     "kind": "swing",
     "prior_held_bin": "1",
-    "n": 4895,
-    "p_broke": 0.4547
+    "n": 4848,
+    "p_broke": 0.4495
    },
    {
     "kind": "swing",
     "prior_held_bin": "2",
-    "n": 1579,
-    "p_broke": 0.4326
+    "n": 1561,
+    "p_broke": 0.426
    },
    {
     "kind": "swing",
     "prior_held_bin": "3+",
-    "n": 673,
-    "p_broke": 0.4591
+    "n": 659,
+    "p_broke": 0.4476
    }
   ],
   "aftermath": [
@@ -655,65 +667,65 @@
    {
     "kind": "prot",
     "retests_bin": "0",
-    "instances": 515,
+    "instances": 509,
     "instances_touched": 1174,
-    "share_of_touched_instances": 0.4387
+    "share_of_touched_instances": 0.4336
    },
    {
     "kind": "room",
     "retests_bin": "0",
-    "instances": 3192,
+    "instances": 3160,
     "instances_touched": 7459,
-    "share_of_touched_instances": 0.4279
+    "share_of_touched_instances": 0.4236
    },
    {
     "kind": "room",
     "retests_bin": "1",
-    "instances": 1427,
+    "instances": 1414,
     "instances_touched": 7459,
-    "share_of_touched_instances": 0.1913
+    "share_of_touched_instances": 0.1896
    },
    {
     "kind": "room",
     "retests_bin": "2",
-    "instances": 582,
+    "instances": 580,
     "instances_touched": 7459,
-    "share_of_touched_instances": 0.078
+    "share_of_touched_instances": 0.0778
    },
    {
     "kind": "room",
     "retests_bin": "3+",
-    "instances": 467,
+    "instances": 468,
     "instances_touched": 7459,
-    "share_of_touched_instances": 0.0626
+    "share_of_touched_instances": 0.0627
    },
    {
     "kind": "swing",
     "retests_bin": "0",
-    "instances": 7246,
+    "instances": 7114,
     "instances_touched": 15933,
-    "share_of_touched_instances": 0.4548
+    "share_of_touched_instances": 0.4465
    },
    {
     "kind": "swing",
     "retests_bin": "1",
-    "instances": 2226,
+    "instances": 2179,
     "instances_touched": 15933,
-    "share_of_touched_instances": 0.1397
+    "share_of_touched_instances": 0.1368
    },
    {
     "kind": "swing",
     "retests_bin": "2",
-    "instances": 683,
+    "instances": 665,
     "instances_touched": 15933,
-    "share_of_touched_instances": 0.0429
+    "share_of_touched_instances": 0.0417
    },
    {
     "kind": "swing",
     "retests_bin": "3+",
-    "instances": 309,
+    "instances": 295,
     "instances_touched": 15933,
-    "share_of_touched_instances": 0.0194
+    "share_of_touched_instances": 0.0185
    }
   ],
   "held_then_retested": [
@@ -733,7 +745,12 @@
     "share_retested": 0.6069
    }
   ],
-  "run_s": 5.3
+  "run_s": 62.7,
+  "repair": {
+   "at": "2026-09-29T05:34:13",
+   "what": "verdict of a window cut by the session end = session_end (was broke when a break close fell inside the truncated window); cut_break added",
+   "script_sha": "73473288402a106f"
+  }
  },
  "5minute/L1": {
   "tf": "5minute",

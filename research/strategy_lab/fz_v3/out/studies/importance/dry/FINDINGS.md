@@ -47,7 +47,7 @@ Interactions       xgboost max_depth 3, 200 rounds, eta 0.05, the same folds, on
                    the tree paths where both features occur (all 12 fold boosters pooled).
 ```
 
-Constants: trees 300, min_weight_fraction_leaf 0.05, main depth 4 (sensitivity (3, 5)), permutations per fold 5, tau grid 0.05..0.95 step 0.01, weighted winner recall floor 0.9, silhouette range 20..40 clusters,stability top-8, interactions on the top-40 features, 5 pairs; xgboost depth 3, 200 rounds, eta 0.05. Every model fit uses `harness.purged_splits` (12 blocks, purge by the L1 exit bar, 3-session embargo); nothing is fitted on OOS rows; OOS labels and features are never read.
+Constants: trees 300, min_weight_fraction_leaf 0.05, main depth 4 (sensitivity (3, 5)), permutations per fold 5, tau grid 0.05..0.95 step 0.01, weighted winner recall floor 0.9, silhouette range 20..40 clusters, stability top-8, interactions on the top-40 features, 5 pairs; xgboost depth 3, 200 rounds, eta 0.05. Every model fit uses `harness.purged_splits` (12 blocks, purge by the L1 exit bar, 3-session embargo); nothing is fitted on OOS rows; OOS labels and features are never read.
 
 
 ## minute
@@ -66,7 +66,7 @@ Constants: trees 300, min_weight_fraction_leaf 0.05, main depth 4 (sensitivity (
 | missing indicators (one per NaN pattern) | 17: `gap_pts__na` (2 cols), `ret_1h_pts__na` (1 cols), `er_1h__na` (5 cols), `bars_since_prev_choch__na` (6 cols), `sess_cumvol_ratio20s__na` (5 cols), `hv2_bars_since__na` (3 cols), `vol_ratio20_at_choch__na` (1 cols), `vol_max_ratio20_choch_to_k__na` (1 cols), `dist_prot_dir_atr__na` (2 cols), `room_ahead_dist_atr__na` (1 cols), `room_behind_dist_atr__na` (1 cols), `touch_prot_bars_ago__na` (1 cols), `touch_swing_bars_ago__na` (1 cols), `csw_max_abs__na` (4 cols), `bocpd_ret_h60_since_reset__na` (2 cols), `bocpd_rng_h60_since_reset__na` (2 cols), `nn_dist_prefix_long__na` (2 cols) |
 | **features in the model** | **238** |
 | clustering | silhouette best k = 39 (0.1502), clusters formed 39 |
-| runtime / max RSS | 181.1 s / 373.3 MB |
+| runtime / max RSS | 252.4 s / 371.7 MB |
 
 ### The full bagged model (ceiling; not a candidate)
 
@@ -115,13 +115,13 @@ Full table with members, per-period MDA values and SFI ledger ids: `importance_c
 | 12 | 37 | `room_behind_dist_atr__na` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 19 | 27 | 0 | no | no |
 | 13 | 36 | `last_bos_dir=down` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0001 | 0.7840 | 0.492 | - | 1.000 | - | 20 | 28 | 0 | no | no |
 | 14 | 38 | `touch_prot_last=broke` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 18 | 26 | 0 | no | no |
-| 15 | 18 | `touch_prot_bars_ago__na` | 4 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7847 | 0.504 | 369.7 | 0.908 | - | 13 | 11 | 0 | no | no |
+| 15 | 18 | `touch_prot_last=na` | 4 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7847 | 0.504 | 369.7 | 0.908 | - | 13 | 11 | 0 | no | no |
 | 16 | 31 | `fz_entered_read=FIRST_PRINT` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 14 | 21 | 0 | no | no |
 | 17 | 30 | `fz_entered_read=ACCEPTED` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 5 | 17 | 1 | no | no |
 | 18 | 28 | `card_read=REJECT` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 12 | 20 | 0 | no | no |
 | 19 | 29 | `csw_sign_dir` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 7 | 22 | 1 | no | no |
 | 20 | 27 | `card_read=FIRST_PRINT` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 11 | 19 | 0 | no | no |
-| 21 | 26 | `touch_swing_bars_ago__na` | 2 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 10 | 18 | 0 | no | no |
+| 21 | 26 | `touch_swing_last=none` | 2 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 10 | 18 | 0 | no | no |
 | 22 | 24 | `card_read=RECYCLE` | 2 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 9 | 13 | 0 | no | no |
 | 23 | 19 | `card_read=ACCEPTED` | 3 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 6 | 12 | 1 | no | no |
 | 24 | 16 | `touch_prot_last=held` | 4 | -0.00022 | 0.00741 | -0.03 | no | -135.1 | 139.6 | no | 0.0251 | 0.7827 | 0.496 | 1834.6 | 0.999 | - | 36 | 2 | 1 | no | no |
@@ -136,7 +136,7 @@ Full table with members, per-period MDA values and SFI ledger ids: `importance_c
 | 33 | 6 | `fz_watch_kind=WATCH` | 12 | -0.00103 | 0.00368 | -0.28 | no | -164.3 | 283.6 | no | 0.0347 | 0.7555 | 0.514 | 316.5 | 0.898 | - | 31 | 30 | 0 | no | no |
 | 34 | 5 | `n_bos_since_choch` | 14 | -0.00129 | 0.00265 | -0.49 | no | -215.3 | 481.4 | no | 0.0213 | 0.7660 | 0.499 | -51.1 | 0.948 | - | 3 | 37 | 1 | no | no |
 | 35 | 1 | `n_events_today` | 26 | -0.00190 | 0.01659 | -0.11 | no | -296.9 | 1248.4 | no | 0.1413 | 0.7477 | 0.516 | 164.6 | 0.904 | - | 34 | 31 | 0 | no | no |
-| 36 | 2 | `er_1h__na` | 18 | -0.00209 | 0.00842 | -0.25 | no | -76.3 | 279.1 | no | 0.0473 | 0.7698 | 0.511 | -48.3 | 0.936 | - | 38 | 3 | 1 | no | no |
+| 36 | 2 | `hv2_dir=none` | 18 | -0.00209 | 0.00842 | -0.25 | no | -76.3 | 279.1 | no | 0.0473 | 0.7698 | 0.511 | -48.3 | 0.936 | - | 38 | 3 | 1 | no | no |
 | 37 | 3 | `n_choch_since_bos` | 17 | -0.00324 | 0.00586 | -0.55 | no | 36.6 | 602.1 | no | 0.0697 | 0.7582 | 0.487 | 405.7 | 0.941 | - | 37 | 34 | 0 | no | no |
 | 38 | 9 | `cusum_events_60` | 6 | -0.00328 | 0.01142 | -0.29 | no | -395.1 | 765.5 | no | 0.0636 | 0.7657 | 0.488 | -582.7 | 0.959 | - | 29 | 38 | 0 | no | no |
 | 39 | 0 | `gmm4_map` | 43 | -0.01500 | 0.02122 | -0.71 | no | -232.7 | 955.6 | no | 0.3037 | 0.7484 | 0.472 | 933.0 | 0.989 | - | 39 | 39 | 0 | no | no |
@@ -151,13 +151,13 @@ Orthogonal check: 238 components (111 carry 95% of the variance); weighted Kenda
 |---|---|---|
 | 0 | `gmm4_map` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.348) | `sl_dist_pts`, `sl_dist_atr`, `atr14`, `atr_bps`, `range_1h_pts`, `range_1h_atr`, `range_since_choch_atr`, `bar_range_pts`, `bar_range_atr`, `er_1h`, `bars_since_prev_choch`, `vol_ratio20`, `vol_ratio60`, `vol_max_ratio20_5`, `vol_max_ratio20_15`, `hv2_dir_agree`, `hv2_ratio`, `vol_ratio20_at_choch`, `vol_max_ratio20_choch_to_k`, `dist_prot_dir_atr`, `dist_choch_lvl_atr`, `choch_bar_range_atr`, `move_since_choch_pts`, `ffd_vol_dstar`, `ffd_vol_dstar_z60`, `bsadf_close`, `csw_max_abs`, `csw_max_exceed`, `bocpd_ret_h60_p10`, `bocpd_ret_h240_p10`, `rv_absret`, `rv_body_frac`, `rv_logvol_rel20`, `gmm3_p2`, `gmm3_map`, `gmm4_p3`, `gmm4_map`, `hmm3_p2`, `hmm3_map`, `hmm4_map`, `jump4_run`, `win_sign_agree10`, `win_range_slope` |
 | 1 | `n_events_today` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.442) | `session_bar`, `hour`, `hour_bin=13`, `hour_bin=14`, `hour_bin=15`, `choch_same_session`, `sess_range_atr`, `last_bos_same_session`, `n_events_today`, `n_choch_today`, `n_bos_today`, `hv2_dir=down`, `hv3_dir=down`, `today_n_closed_asof`, `today_n_stops_asof`, `last_closed_reason_asof=next_choch`, `last_closed_reason_asof=stop_loss`, `bocpd_ret_h60_map`, `bocpd_ret_h60_since_reset`, `bocpd_ret_h240_map`, `bocpd_ret_h240_since_reset`, `bocpd_rng_h60_map`, `bocpd_rng_h60_since_reset`, `bocpd_rng_h240_map`, `bocpd_rng_h240_since_reset`, `rv_ev36` |
-| 2 | `er_1h__na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.510) | `hour_bin=09`, `hour_bin=<09:25`, `hv2_dir=none`, `hv3_dir=none`, `today_net_asof`, `today_pts_asof`, `last_closed_reason_asof=nan`, `card_leave_kind=gap`, `fz_block_reason=open_pierce`, `fz_take_why=leave_gap_quiet`, `bocpd_rng_h60_p10`, `bocpd_rng_h240_p10`, `ret_1h_pts__na`, `er_1h__na`, `hv2_bars_since__na`, `vol_ratio20_at_choch__na`, `vol_max_ratio20_choch_to_k__na`, `csw_max_abs__na` |
+| 2 | `hv2_dir=none` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.423) | `hour_bin=09`, `hour_bin=<09:25`, `hv2_dir=none`, `hv3_dir=none`, `today_net_asof`, `today_pts_asof`, `last_closed_reason_asof=nan`, `card_leave_kind=gap`, `fz_block_reason=open_pierce`, `fz_take_why=leave_gap_quiet`, `bocpd_rng_h60_p10`, `bocpd_rng_h240_p10`, `ret_1h_pts__na`, `er_1h__na`, `hv2_bars_since__na`, `vol_ratio20_at_choch__na`, `vol_max_ratio20_choch_to_k__na`, `csw_max_abs__na` |
 | 3 | `n_choch_since_bos` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.496) | `n_choch_since_bos`, `bars_since_bos`, `n_choch_since_bos_today`, `alt_dir6`, `n_choch_1h`, `n_choch_3h`, `touch_swing_n`, `touch_swing_last=broke`, `gmm3_p0`, `gmm4_p1`, `hmm3_p0`, `hmm3_map_run`, `hmm4_p2`, `hmm4_map_run`, `jump4_state`, `nn_dist_prefix_long`, `p1_dist_prefix_long` |
 | 4 | `swing_near_kind=H` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.495) | `bar_body_pts`, `close_pos_in_bar`, `close_vs_sess_open_pts`, `pos_in_session_range`, `ret_1h_pts`, `hv2_dir=up`, `hv3_dir=up`, `dist_sl_atr`, `swing_near_kind=H`, `room_edge_kind=hi`, `card_read=PENDING`, `card_out_side=up`, `card_last_reject_dir=down`, `fz_watch_kind=WATCH_EDGE`, `ffd_close_dstar_z60`, `rv_ret36_atr` |
 | 5 | `n_bos_since_choch` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.730) | `bars_since_choch`, `n_bos_since_choch`, `alt_kind6`, `n_bos_1h`, `n_bos_3h`, `touch_swing_last=held`, `touch_swing_bars_ago`, `gmm3_p1`, `gmm4_p0`, `gmm4_p2`, `hmm3_p1`, `hmm4_p0`, `hmm4_p1`, `hmm4_p3` |
 | 6 | `fz_watch_kind=WATCH` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.431) | `room_edge_dist_dir_atr`, `touch_room_last=none`, `card_read=THIN`, `card_last_reject_dir=up`, `fz_zone_kind=B`, `fz_gate=WATCH`, `fz_block_reason=leave_into_recycle`, `fz_branch=nan`, `fz_entered_read=RECYCLE`, `fz_entered_read=THIN`, `fz_watch_kind=WATCH`, `card_in_room` |
 | 7 | `fz_gate=TAKE` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.453) | `card_last_hunt_dir=nan`, `fz_gate=TAKE`, `fz_block_reason=nan`, `fz_branch=leave`, `fz_take_why=nan`, `fz_entered_read=nan` |
-| 8 | `gap_pts__na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.726) | `gap_pts__na`, `bars_since_prev_choch__na`, `sess_cumvol_ratio20s__na`, `bocpd_ret_h60_since_reset__na`, `bocpd_rng_h60_since_reset__na`, `nn_dist_prefix_long__na` |
+| 8 | `gap_pts__na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.726 (missing indicator, the cluster's only member)) | `gap_pts__na`, `bars_since_prev_choch__na`, `sess_cumvol_ratio20s__na`, `bocpd_ret_h60_since_reset__na`, `bocpd_rng_h60_since_reset__na`, `nn_dist_prefix_long__na` |
 | 9 | `cusum_events_60` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.186) | `hour_bin=12`, `range_3h_pts`, `range_3h_atr`, `sess_cumvol_ratio20s`, `sess_vol_vs_prev_sess`, `cusum_events_60` |
 | 10 | `touch_swing_last=pending` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.326) | `hv2_bars_since`, `swing_ahead_dist_atr`, `touch_room_last=pending`, `touch_swing_last=pending`, `card_cluster_sit`, `cusum_bars_since` |
 | 11 | `fz_block_reason=new` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.434) | `room_behind_dist_atr`, `card_read=NEW`, `card_out_side=nan`, `card_last_reject_dir=nan`, `fz_gate=BLOCK`, `fz_block_reason=new` |
@@ -167,7 +167,7 @@ Orthogonal check: 238 components (111 carry 95% of the variance); weighted Kenda
 | 15 | `fz_block_reason=hunt_fade` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.359) | `card_read=HUNT`, `card_last_hunt_dir=down`, `card_last_hunt_dir=up`, `fz_block_reason=hunt_fade` |
 | 16 | `touch_prot_last=held` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.390) | `last_sh_bars_ago`, `last_sl_bars_ago`, `touch_prot_last=held`, `touch_prot_bars_ago` |
 | 17 | `touch_room_last=broke` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.391) | `room_ahead_dist_atr`, `touch_room_n`, `touch_room_last=broke`, `room_ahead_dist_atr__na` |
-| 18 | `touch_prot_bars_ago__na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.571) | `touch_prot_last=na`, `touch_prot_last=none`, `dist_prot_dir_atr__na`, `touch_prot_bars_ago__na` |
+| 18 | `touch_prot_last=na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.483) | `touch_prot_last=na`, `touch_prot_last=none`, `dist_prot_dir_atr__na`, `touch_prot_bars_ago__na` |
 | 19 | `card_read=ACCEPTED` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.603) | `card_read=ACCEPTED`, `fz_take_why=accepted_no_defend`, `fz_take_why=defend_wrong_half` |
 | 20 | `touch_prot_last=pending` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.292) | `n_swings_1h`, `touch_prot_n`, `touch_prot_last=pending` |
 | 21 | `n_events_asof` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.930) | `sl`, `n_events_asof`, `ffd_close_dstar` |
@@ -175,7 +175,7 @@ Orthogonal check: 238 components (111 carry 95% of the variance); weighted Kenda
 | 23 | `dow` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.108) | `dow`, `gap_pts` |
 | 24 | `card_read=RECYCLE` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.127) | `hour_bin=>=15:20`, `card_read=RECYCLE` |
 | 25 | `jump3_run` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.436) | `jump3_state`, `jump3_run` |
-| 26 | `touch_swing_bars_ago__na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `touch_swing_last=none`, `touch_swing_bars_ago__na` |
+| 26 | `touch_swing_last=none` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `touch_swing_last=none`, `touch_swing_bars_ago__na` |
 | 27 | `card_read=FIRST_PRINT` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `card_read=FIRST_PRINT` |
 | 28 | `card_read=REJECT` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `card_read=REJECT` |
 | 29 | `csw_sign_dir` (tier 0 (integer/boolean/one-hot/card field), coverage 0.939, mean |rho| to members 1.000) | `csw_sign_dir` |
@@ -186,7 +186,7 @@ Orthogonal check: 238 components (111 carry 95% of the variance); weighted Kenda
 | 34 | `hour_bin=11` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `hour_bin=11` |
 | 35 | `hv2_dir=flat` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `hv2_dir=flat` |
 | 36 | `last_bos_dir=down` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `last_bos_dir=down` |
-| 37 | `room_behind_dist_atr__na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `room_behind_dist_atr__na` |
+| 37 | `room_behind_dist_atr__na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000 (missing indicator, the cluster's only member)) | `room_behind_dist_atr__na` |
 | 38 | `touch_prot_last=broke` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `touch_prot_last=broke` |
 
 ### Interactions (xgboost on the top-40 features by clustered MDA; OOF weighted log-loss 0.73033, OOF AUC 0.5355)
@@ -256,7 +256,7 @@ All ranked pairs: `interaction_pairs_minute.csv`; the full mean |interaction| ma
 
 ### The shortlist (0 clusters; 0 of 39 pass MDA, 2 pass stability, 0 pass both; cap 8)
 
-Frozen at `features_shortlist/minute/shortlist.json`, sha256 `e17654115b3b63c5a401905e950df4e4b6f66cc1f55a3b3a87da6ff52415d163`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
+Frozen at `features_shortlist/minute/shortlist.json`, sha256 `163bbd6e1dddb1c19524227b5195b6e372ecfa55997a4dc3a4d4dc8f5bfd456a`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
 
 **Empty**: no cluster passes both the MDA rule and the stability filter on this timeframe. The gate studies have no shortlisted column here; a null vocabulary is a result, not a failure of the pipeline.
 
@@ -277,7 +277,7 @@ Frozen at `features_shortlist/minute/shortlist.json`, sha256 `e17654115b3b63c5a4
 | missing indicators (one per NaN pattern) | 17: `gap_pts__na` (2 cols), `ret_1h_pts__na` (1 cols), `er_1h__na` (5 cols), `bars_since_prev_choch__na` (6 cols), `sess_cumvol_ratio20s__na` (5 cols), `hv2_bars_since__na` (3 cols), `vol_ratio20_at_choch__na` (1 cols), `vol_max_ratio20_choch_to_k__na` (1 cols), `dist_prot_dir_atr__na` (2 cols), `room_ahead_dist_atr__na` (1 cols), `room_behind_dist_atr__na` (1 cols), `touch_prot_bars_ago__na` (1 cols), `touch_swing_bars_ago__na` (1 cols), `csw_max_abs__na` (4 cols), `bocpd_ret_h60_since_reset__na` (2 cols), `bocpd_rng_h60_since_reset__na` (2 cols), `nn_dist_prefix_long__na` (2 cols) |
 | **features in the model** | **238** |
 | clustering | silhouette best k = 39 (0.1502), clusters formed 39 |
-| runtime / max RSS | 181.1 s / 373.3 MB |
+| runtime / max RSS | 252.4 s / 371.7 MB |
 
 ### The full bagged model (ceiling; not a candidate)
 
@@ -326,13 +326,13 @@ Full table with members, per-period MDA values and SFI ledger ids: `importance_c
 | 12 | 37 | `room_behind_dist_atr__na` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 19 | 27 | 0 | no | no |
 | 13 | 36 | `last_bos_dir=down` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0001 | 0.7840 | 0.492 | - | 1.000 | - | 20 | 28 | 0 | no | no |
 | 14 | 38 | `touch_prot_last=broke` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 18 | 26 | 0 | no | no |
-| 15 | 18 | `touch_prot_bars_ago__na` | 4 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7847 | 0.504 | 369.7 | 0.908 | - | 13 | 11 | 0 | no | no |
+| 15 | 18 | `touch_prot_last=na` | 4 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7847 | 0.504 | 369.7 | 0.908 | - | 13 | 11 | 0 | no | no |
 | 16 | 31 | `fz_entered_read=FIRST_PRINT` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 14 | 21 | 0 | no | no |
 | 17 | 30 | `fz_entered_read=ACCEPTED` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 5 | 17 | 1 | no | no |
 | 18 | 28 | `card_read=REJECT` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 12 | 20 | 0 | no | no |
 | 19 | 29 | `csw_sign_dir` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 7 | 22 | 1 | no | no |
 | 20 | 27 | `card_read=FIRST_PRINT` | 1 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 11 | 19 | 0 | no | no |
-| 21 | 26 | `touch_swing_bars_ago__na` | 2 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 10 | 18 | 0 | no | no |
+| 21 | 26 | `touch_swing_last=none` | 2 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 10 | 18 | 0 | no | no |
 | 22 | 24 | `card_read=RECYCLE` | 2 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 9 | 13 | 0 | no | no |
 | 23 | 19 | `card_read=ACCEPTED` | 3 | 0.00000 | 0.00000 | - | no | 0.0 | 0.0 | no | 0.0000 | 0.7852 | 0.530 | - | 1.000 | - | 6 | 12 | 1 | no | no |
 | 24 | 16 | `touch_prot_last=held` | 4 | -0.00022 | 0.00741 | -0.03 | no | -135.1 | 139.6 | no | 0.0251 | 0.7827 | 0.496 | 1834.6 | 0.999 | - | 36 | 2 | 1 | no | no |
@@ -347,7 +347,7 @@ Full table with members, per-period MDA values and SFI ledger ids: `importance_c
 | 33 | 6 | `fz_watch_kind=WATCH` | 12 | -0.00103 | 0.00368 | -0.28 | no | -164.3 | 283.6 | no | 0.0347 | 0.7555 | 0.514 | 316.5 | 0.898 | - | 31 | 30 | 0 | no | no |
 | 34 | 5 | `n_bos_since_choch` | 14 | -0.00129 | 0.00265 | -0.49 | no | -215.3 | 481.4 | no | 0.0213 | 0.7660 | 0.499 | -51.1 | 0.948 | - | 3 | 37 | 1 | no | no |
 | 35 | 1 | `n_events_today` | 26 | -0.00190 | 0.01659 | -0.11 | no | -296.9 | 1248.4 | no | 0.1413 | 0.7477 | 0.516 | 164.6 | 0.904 | - | 34 | 31 | 0 | no | no |
-| 36 | 2 | `er_1h__na` | 18 | -0.00209 | 0.00842 | -0.25 | no | -76.3 | 279.1 | no | 0.0473 | 0.7698 | 0.511 | -48.3 | 0.936 | - | 38 | 3 | 1 | no | no |
+| 36 | 2 | `hv2_dir=none` | 18 | -0.00209 | 0.00842 | -0.25 | no | -76.3 | 279.1 | no | 0.0473 | 0.7698 | 0.511 | -48.3 | 0.936 | - | 38 | 3 | 1 | no | no |
 | 37 | 3 | `n_choch_since_bos` | 17 | -0.00324 | 0.00586 | -0.55 | no | 36.6 | 602.1 | no | 0.0697 | 0.7582 | 0.487 | 405.7 | 0.941 | - | 37 | 34 | 0 | no | no |
 | 38 | 9 | `cusum_events_60` | 6 | -0.00328 | 0.01142 | -0.29 | no | -395.1 | 765.5 | no | 0.0636 | 0.7657 | 0.488 | -582.7 | 0.959 | - | 29 | 38 | 0 | no | no |
 | 39 | 0 | `gmm4_map` | 43 | -0.01500 | 0.02122 | -0.71 | no | -232.7 | 955.6 | no | 0.3037 | 0.7484 | 0.472 | 933.0 | 0.989 | - | 39 | 39 | 0 | no | no |
@@ -362,13 +362,13 @@ Orthogonal check: 238 components (111 carry 95% of the variance); weighted Kenda
 |---|---|---|
 | 0 | `gmm4_map` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.348) | `sl_dist_pts`, `sl_dist_atr`, `atr14`, `atr_bps`, `range_1h_pts`, `range_1h_atr`, `range_since_choch_atr`, `bar_range_pts`, `bar_range_atr`, `er_1h`, `bars_since_prev_choch`, `vol_ratio20`, `vol_ratio60`, `vol_max_ratio20_5`, `vol_max_ratio20_15`, `hv2_dir_agree`, `hv2_ratio`, `vol_ratio20_at_choch`, `vol_max_ratio20_choch_to_k`, `dist_prot_dir_atr`, `dist_choch_lvl_atr`, `choch_bar_range_atr`, `move_since_choch_pts`, `ffd_vol_dstar`, `ffd_vol_dstar_z60`, `bsadf_close`, `csw_max_abs`, `csw_max_exceed`, `bocpd_ret_h60_p10`, `bocpd_ret_h240_p10`, `rv_absret`, `rv_body_frac`, `rv_logvol_rel20`, `gmm3_p2`, `gmm3_map`, `gmm4_p3`, `gmm4_map`, `hmm3_p2`, `hmm3_map`, `hmm4_map`, `jump4_run`, `win_sign_agree10`, `win_range_slope` |
 | 1 | `n_events_today` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.442) | `session_bar`, `hour`, `hour_bin=13`, `hour_bin=14`, `hour_bin=15`, `choch_same_session`, `sess_range_atr`, `last_bos_same_session`, `n_events_today`, `n_choch_today`, `n_bos_today`, `hv2_dir=down`, `hv3_dir=down`, `today_n_closed_asof`, `today_n_stops_asof`, `last_closed_reason_asof=next_choch`, `last_closed_reason_asof=stop_loss`, `bocpd_ret_h60_map`, `bocpd_ret_h60_since_reset`, `bocpd_ret_h240_map`, `bocpd_ret_h240_since_reset`, `bocpd_rng_h60_map`, `bocpd_rng_h60_since_reset`, `bocpd_rng_h240_map`, `bocpd_rng_h240_since_reset`, `rv_ev36` |
-| 2 | `er_1h__na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.510) | `hour_bin=09`, `hour_bin=<09:25`, `hv2_dir=none`, `hv3_dir=none`, `today_net_asof`, `today_pts_asof`, `last_closed_reason_asof=nan`, `card_leave_kind=gap`, `fz_block_reason=open_pierce`, `fz_take_why=leave_gap_quiet`, `bocpd_rng_h60_p10`, `bocpd_rng_h240_p10`, `ret_1h_pts__na`, `er_1h__na`, `hv2_bars_since__na`, `vol_ratio20_at_choch__na`, `vol_max_ratio20_choch_to_k__na`, `csw_max_abs__na` |
+| 2 | `hv2_dir=none` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.423) | `hour_bin=09`, `hour_bin=<09:25`, `hv2_dir=none`, `hv3_dir=none`, `today_net_asof`, `today_pts_asof`, `last_closed_reason_asof=nan`, `card_leave_kind=gap`, `fz_block_reason=open_pierce`, `fz_take_why=leave_gap_quiet`, `bocpd_rng_h60_p10`, `bocpd_rng_h240_p10`, `ret_1h_pts__na`, `er_1h__na`, `hv2_bars_since__na`, `vol_ratio20_at_choch__na`, `vol_max_ratio20_choch_to_k__na`, `csw_max_abs__na` |
 | 3 | `n_choch_since_bos` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.496) | `n_choch_since_bos`, `bars_since_bos`, `n_choch_since_bos_today`, `alt_dir6`, `n_choch_1h`, `n_choch_3h`, `touch_swing_n`, `touch_swing_last=broke`, `gmm3_p0`, `gmm4_p1`, `hmm3_p0`, `hmm3_map_run`, `hmm4_p2`, `hmm4_map_run`, `jump4_state`, `nn_dist_prefix_long`, `p1_dist_prefix_long` |
 | 4 | `swing_near_kind=H` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.495) | `bar_body_pts`, `close_pos_in_bar`, `close_vs_sess_open_pts`, `pos_in_session_range`, `ret_1h_pts`, `hv2_dir=up`, `hv3_dir=up`, `dist_sl_atr`, `swing_near_kind=H`, `room_edge_kind=hi`, `card_read=PENDING`, `card_out_side=up`, `card_last_reject_dir=down`, `fz_watch_kind=WATCH_EDGE`, `ffd_close_dstar_z60`, `rv_ret36_atr` |
 | 5 | `n_bos_since_choch` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.730) | `bars_since_choch`, `n_bos_since_choch`, `alt_kind6`, `n_bos_1h`, `n_bos_3h`, `touch_swing_last=held`, `touch_swing_bars_ago`, `gmm3_p1`, `gmm4_p0`, `gmm4_p2`, `hmm3_p1`, `hmm4_p0`, `hmm4_p1`, `hmm4_p3` |
 | 6 | `fz_watch_kind=WATCH` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.431) | `room_edge_dist_dir_atr`, `touch_room_last=none`, `card_read=THIN`, `card_last_reject_dir=up`, `fz_zone_kind=B`, `fz_gate=WATCH`, `fz_block_reason=leave_into_recycle`, `fz_branch=nan`, `fz_entered_read=RECYCLE`, `fz_entered_read=THIN`, `fz_watch_kind=WATCH`, `card_in_room` |
 | 7 | `fz_gate=TAKE` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.453) | `card_last_hunt_dir=nan`, `fz_gate=TAKE`, `fz_block_reason=nan`, `fz_branch=leave`, `fz_take_why=nan`, `fz_entered_read=nan` |
-| 8 | `gap_pts__na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.726) | `gap_pts__na`, `bars_since_prev_choch__na`, `sess_cumvol_ratio20s__na`, `bocpd_ret_h60_since_reset__na`, `bocpd_rng_h60_since_reset__na`, `nn_dist_prefix_long__na` |
+| 8 | `gap_pts__na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.726 (missing indicator, the cluster's only member)) | `gap_pts__na`, `bars_since_prev_choch__na`, `sess_cumvol_ratio20s__na`, `bocpd_ret_h60_since_reset__na`, `bocpd_rng_h60_since_reset__na`, `nn_dist_prefix_long__na` |
 | 9 | `cusum_events_60` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.186) | `hour_bin=12`, `range_3h_pts`, `range_3h_atr`, `sess_cumvol_ratio20s`, `sess_vol_vs_prev_sess`, `cusum_events_60` |
 | 10 | `touch_swing_last=pending` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.326) | `hv2_bars_since`, `swing_ahead_dist_atr`, `touch_room_last=pending`, `touch_swing_last=pending`, `card_cluster_sit`, `cusum_bars_since` |
 | 11 | `fz_block_reason=new` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.434) | `room_behind_dist_atr`, `card_read=NEW`, `card_out_side=nan`, `card_last_reject_dir=nan`, `fz_gate=BLOCK`, `fz_block_reason=new` |
@@ -378,7 +378,7 @@ Orthogonal check: 238 components (111 carry 95% of the variance); weighted Kenda
 | 15 | `fz_block_reason=hunt_fade` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.359) | `card_read=HUNT`, `card_last_hunt_dir=down`, `card_last_hunt_dir=up`, `fz_block_reason=hunt_fade` |
 | 16 | `touch_prot_last=held` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.390) | `last_sh_bars_ago`, `last_sl_bars_ago`, `touch_prot_last=held`, `touch_prot_bars_ago` |
 | 17 | `touch_room_last=broke` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.391) | `room_ahead_dist_atr`, `touch_room_n`, `touch_room_last=broke`, `room_ahead_dist_atr__na` |
-| 18 | `touch_prot_bars_ago__na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.571) | `touch_prot_last=na`, `touch_prot_last=none`, `dist_prot_dir_atr__na`, `touch_prot_bars_ago__na` |
+| 18 | `touch_prot_last=na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.483) | `touch_prot_last=na`, `touch_prot_last=none`, `dist_prot_dir_atr__na`, `touch_prot_bars_ago__na` |
 | 19 | `card_read=ACCEPTED` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.603) | `card_read=ACCEPTED`, `fz_take_why=accepted_no_defend`, `fz_take_why=defend_wrong_half` |
 | 20 | `touch_prot_last=pending` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.292) | `n_swings_1h`, `touch_prot_n`, `touch_prot_last=pending` |
 | 21 | `n_events_asof` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.930) | `sl`, `n_events_asof`, `ffd_close_dstar` |
@@ -386,7 +386,7 @@ Orthogonal check: 238 components (111 carry 95% of the variance); weighted Kenda
 | 23 | `dow` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.108) | `dow`, `gap_pts` |
 | 24 | `card_read=RECYCLE` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.127) | `hour_bin=>=15:20`, `card_read=RECYCLE` |
 | 25 | `jump3_run` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 0.436) | `jump3_state`, `jump3_run` |
-| 26 | `touch_swing_bars_ago__na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `touch_swing_last=none`, `touch_swing_bars_ago__na` |
+| 26 | `touch_swing_last=none` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `touch_swing_last=none`, `touch_swing_bars_ago__na` |
 | 27 | `card_read=FIRST_PRINT` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `card_read=FIRST_PRINT` |
 | 28 | `card_read=REJECT` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `card_read=REJECT` |
 | 29 | `csw_sign_dir` (tier 0 (integer/boolean/one-hot/card field), coverage 0.939, mean |rho| to members 1.000) | `csw_sign_dir` |
@@ -397,7 +397,7 @@ Orthogonal check: 238 components (111 carry 95% of the variance); weighted Kenda
 | 34 | `hour_bin=11` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `hour_bin=11` |
 | 35 | `hv2_dir=flat` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `hv2_dir=flat` |
 | 36 | `last_bos_dir=down` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `last_bos_dir=down` |
-| 37 | `room_behind_dist_atr__na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `room_behind_dist_atr__na` |
+| 37 | `room_behind_dist_atr__na` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000 (missing indicator, the cluster's only member)) | `room_behind_dist_atr__na` |
 | 38 | `touch_prot_last=broke` (tier 0 (integer/boolean/one-hot/card field), coverage 1.000, mean |rho| to members 1.000) | `touch_prot_last=broke` |
 
 ### Interactions (xgboost on the top-40 features by clustered MDA; OOF weighted log-loss 0.73033, OOF AUC 0.5355)
@@ -467,7 +467,7 @@ All ranked pairs: `interaction_pairs_5minute.csv`; the full mean |interaction| m
 
 ### The shortlist (0 clusters; 0 of 39 pass MDA, 2 pass stability, 0 pass both; cap 8)
 
-Frozen at `features_shortlist/5minute/shortlist.json`, sha256 `6a0b0cd40b7235b6a2fb0ff64d68dbdca9797aba326961c39ee0474c5c46567d`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
+Frozen at `features_shortlist/5minute/shortlist.json`, sha256 `f6a6a9b5ae2850727f01f41b3110c0a0654db5728329ae6cbbd62ee97c1cf3e9`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
 
 **Empty**: no cluster passes both the MDA rule and the stability filter on this timeframe. The gate studies have no shortlisted column here; a null vocabulary is a result, not a failure of the pipeline.
 
@@ -497,7 +497,7 @@ None. This study fixes the vocabulary (the shortlist JSON + the five interaction
 - The design's distance sqrt(0.5 (1 - rho)) puts anti-correlated features at maximum distance; substitution between a feature and its negative is therefore not removed by the clustering (mitigated by the duplicate / complement drops above).
 - On 5minute the FZ card's numeric fields sit at 40.3% NaN (no ref room on 40% of SETUPs): a hair over the 40% rule, so they are dropped while their categorical reads (`fz_read=...`, `card_read=...`, `fz_gate=...`) stay.
 - `sl` (the Foundation stop price) and `atr14` are price-level / volatility-level columns that also proxy calendar time; if they appear in a shortlist the stability filter is what stands between them and a year effect.
-- The other studies' processes shared the 4 cores during this run (load average ~15); runtimes above are wall-clock under that load.
+- The other studies' processes shared the 4 cores during this run (load average 15-19); runtimes above are wall-clock under that load. Every fit ran single-threaded (IMP_BAG_JOBS=1, IMP_XGB_JOBS=1 in run_all.sh): on this loaded box a 300-tree bagging fit took 35 s at 1 thread vs 50 s at 4 (bag_probe.log) and a 200-round xgboost fit 0.7 s at 1 thread vs 14 s at 2 (xgb_probe.log, OpenMP spin-wait); the fitted trees do not depend on the thread count (random_state fixes them), so no model was shrunk. The run logs' header line prints the module constant n_jobs=4; the environment variable is what the fits used.
 
 ## Files
 

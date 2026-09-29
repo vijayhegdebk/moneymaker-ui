@@ -7,8 +7,7 @@
 | unit | a harness row: a Foundation SETUP taken under the label's book, `harness.load(tf, label)`, IS rows only (1 min L1 4,452 / L0 4,502; 5 min L1 826 / L0 832) |
 | cell | one gate configuration = one ledger row scored on IS by `harness.score` (2,000 control draws, 2,000 permutations). A cell with a learned threshold (the H2 range quantiles) is scored on its 12-block out-of-fold mask: the threshold is the quantile of the *training fold's* rows (`harness.purged_splits`), applied to the test block; the fold thresholds are in the ledger row's `note` and in `h2_<tf>_<label>_grid.csv` |
 | nested CV | inside each of the 12 purged training folds every cell is fitted and evaluated on the training rows with `harness.metrics` (controls off); the cell with the largest kept-vs-skipped diff subject to the harness kept floors (kept share >= 20 %, kept n >= 300 (1 min) / 80 (5 min) scaled by train / IS) is applied to the test block; the 12 test blocks form the OOF mask, one ledger row `<study>/nested_cv`; the same selection inside the 66 CPCV training sets gives the 11 paths (`<study>/nested_cv/cpcv`, `harness.score_paths`, controls on) |
-| post-hoc variant | `<study>/nested_cv_minskip`: the same selection with skipped share >= 10 % added to the eligibility (declared after the primary rows were read; one more counted trial per family) |
-| family | every non-cpcv ledger row of the study on that timeframe and label; PBO (`harness.pbo`, CSCV 16 blocks, 12,870 partitions, statistic diff and kept_mean), SPA / Reality Check (`harness.spa`, 2,000 stationary-bootstrap draws), effective trials (participation ratio of the kept-net correlation matrix), block bootstrap 90 % CI and DSR of the nested-CV row, `harness.go_no_go` on it |
+| family | every non-cpcv ledger row of the study on that timeframe and label; PBO (`harness.pbo`, CSCV 16 blocks, 12,870 partitions, statistic diff and kept_mean), SPA / Reality Check (`harness.spa`, 2,000 stationary-bootstrap draws; studentised p, and the unstudentised p where the harness version at run time reported it), effective trials (participation ratio of the kept-net correlation matrix), block bootstrap 90 % CI and DSR of the nested-CV row, `harness.go_no_go` on it |
 | bucket table | descriptive decomposition of the label by an as-of categorical: n, share, sum, mean, se (iid), median, win rate, mean pts, stop share, blocks below (of the 12 IS blocks, how many have the bucket mean below the block's all-rows mean). No rule is chosen on a bucket table; tercile edges are pooled IS quantiles, recorded |
 | H2 columns | `n_choch_since_bos` (CHoCHs after the last BOS, own CHoCH included; >= 2 = the user's 'CHoCH, CHoCH, no BOS'), `n_choch_since_bos_today`, `alt_dir6` / `alt_kind6` (direction / kind changes among the last 6 events), `range_{1h,3h,since_choch}_atr` (same-session range / atr14), `er_1h` (Kaufman efficiency ratio, last hour), `hour_bin` |
 | H2 grid | choch rule: skip when `n_choch_since_bos[_today] >= kc`, kc in {2,3,4}, scope all / today; range rule: skip when `range_W_atr <= r`, W in {1h, 3h, since_choch}, r = training-fold quantile q in {0.1 .. 0.5}; both rules combined by OR / AND; or one rule alone. 6 + 15 + 180 = 201 cells (families `h2/choch`, `h2/range`, `h2/both`) |
@@ -18,10 +17,216 @@
 | H3 grid | per (v, N, M): skip_if_disagree, skip_if_none, take_only_agree (= skip disagree and none): 54 cells, family `h3/gate` |
 | H4 touch verdict (as-of, the build's columns) | `touch_{prot,room,swing}_last`: touch episodes of the protected level / nearest room edge / nearest confirmed swing in the hour before k (a bar touches when low <= L <= high, consecutive touching bars = one episode); the last episode's verdict inside 15 minutes after it, never past k: broke (a close beyond by > 0.5 x atr14 on the far side), held, pending (window open at k), none, na. `touch_*_n` = episodes in the hour |
 | H4 grid | skip when `touch_<level>_last == broke / held / pending`, level in {prot, room, swing}: 9 cells, family `h4/touch_gate` |
-| H4 episode study (IS bars, labels of the level) | level instances: protected level = a maximal run of bars with the same `bars.prot`; room edge = lo and hi of every ST7/ST8 room over birth_bar <= i < retired_bar; swing = `swings.price` from conf_bar to the first close beyond it by > 0.5 x atr14 or its session's end. Same touch / episode / side / verdict rule as the build (15-minute window inside the touch bar's session, `session_end` when cut). Aftermath from the verdict bar v (the breaking close, or the window end for held): move_n = sg x (close[v+n] - close[v]) / atr14[v], n in {15,30,60}, sg = break direction (broke) or bounce direction away from the level (held); mfe_n the best excursion that way; beyond_n = sg x (close[v+n] - L) / atr14[v] (broke only). Baseline = abs(close[i+n] - close[i]) / atr14[i] over every IS bar. prior_held = held episodes of the same instance before this one; P(broke given prior_held) over broke + held episodes not after a break |
+| H4 episode study (IS bars, labels of the level) | level instances: protected level = a maximal run of bars with the same `bars.prot`; room edge = lo and hi of every ST7/ST8 room over birth_bar <= i < retired_bar; swing = `swings.price` from conf_bar to the first close beyond it by > 0.5 x atr14 or its session's end. Same touch / episode / side rule as the build; verdict window = 15 minutes (15 bars on 1 min, 3 on 5 min) after the last touch bar, inside its session. **A window cut by the session end is `session_end` whatever happened inside it** (`broke` and `held` are verdicts of a full window only); a break close inside a cut window is counted separately as `cut_break` (never `broke`, no aftermath, not a break for the retest bookkeeping). Aftermath from the verdict bar v (the breaking close, or the window end for held): move_n = sg x (close[v+n] - close[v]) / atr14[v], n in {15,30,60}, sg = break direction (broke) or bounce direction away from the level (held); mfe_n the best excursion that way; beyond_n = sg x (close[v+n] - L) / atr14[v] (broke only). Baseline = abs(close[i+n] - close[i]) / atr14[i] over every IS bar. prior_held = held episodes of the same instance before this one; P(broke given prior_held) over broke + held episodes not after a break |
 
 
 ## T2. H2 - sideways = CHoCH without break
+
+### 1 min / L1 (4,452 IS units)
+
+by `n_choch_since_bos`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| 0 | 1,169 | 0.2626 | -1,089.61 | 69.65 | -1,618.15 | 0.1377 | -0.667 | 0.432 | 8 |
+| 1 | 1,739 | 0.3906 | -997.87 | 70.66 | -1,548.44 | 0.1576 | 0.774 | 0.2294 | 7 |
+| 2 | 823 | 0.1849 | -1,029.94 | 81.45 | -1,526.75 | 0.1738 | 0.293 | 0.2272 | 7 |
+| 3 | 372 | 0.0836 | -837.12 | 147.24 | -1,415.35 | 0.1559 | 3.23 | 0.2473 | 6 |
+| 4+ | 349 | 0.0784 | -936.01 | 115.11 | -1,422.50 | 0.1662 | 1.69 | 0.1948 | 5 |
+
+by `n_choch_since_bos_today`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| 0 | 1,183 | 0.2657 | -1,093.42 | 71.71 | -1,621.27 | 0.1378 | -0.723 | 0.4286 | 8 |
+| 1 | 1,768 | 0.3971 | -970.08 | 72.01 | -1,542.94 | 0.1618 | 1.20 | 0.2291 | 5 |
+| 2 | 811 | 0.1822 | -1,006.78 | 80.91 | -1,522.96 | 0.1739 | 0.649 | 0.2269 | 8 |
+| 3 | 360 | 0.0809 | -1,018.68 | 110.94 | -1,424.97 | 0.1417 | 0.453 | 0.25 | 6 |
+| 4+ | 330 | 0.0741 | -917.97 | 118.81 | -1,419.19 | 0.1606 | 1.96 | 0.197 | 4 |
+
+by `alt_dir6`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| 0 | 3 | 0.0007 | -2,846.87 | 507.34 | -2,783.64 | 0 | -28.00 | 0.3333 | 2 |
+| 1 | 767 | 0.1723 | -1,025.45 | 111.47 | -1,652.97 | 0.1604 | 0.313 | 0.296 | 7 |
+| 2 | 1,295 | 0.2909 | -1,028.71 | 69.50 | -1,551.25 | 0.1591 | 0.326 | 0.2958 | 7 |
+| 3 | 1,416 | 0.3181 | -974.53 | 74.19 | -1,534.51 | 0.1525 | 1.10 | 0.2867 | 4 |
+| 4 | 800 | 0.1797 | -1,004.04 | 75.56 | -1,451.89 | 0.1525 | 0.681 | 0.2462 | 6 |
+| 5 | 171 | 0.0384 | -1,078.19 | 159.17 | -1,562.55 | 0.1579 | -0.501 | 0.2164 | 7 |
+
+by `alt_kind6`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| 0 | 94 | 0.0211 | -1,161.60 | 180.61 | -1,510.57 | 0.1702 | -1.79 | 0.2128 | 7 |
+| 1 | 1,006 | 0.226 | -960.76 | 92.32 | -1,521.85 | 0.167 | 1.31 | 0.2356 | 5 |
+| 2 | 1,265 | 0.2841 | -997.71 | 70.33 | -1,534.74 | 0.1565 | 0.764 | 0.2909 | 5 |
+| 3 | 1,257 | 0.2823 | -1,012.42 | 73.64 | -1,542.14 | 0.1607 | 0.524 | 0.28 | 5 |
+| 4 | 669 | 0.1503 | -1,096.50 | 99.85 | -1,614.90 | 0.1315 | -0.699 | 0.3259 | 9 |
+| 5 | 161 | 0.0362 | -936.54 | 195.62 | -1,541.66 | 0.1366 | 1.79 | 0.3478 | 9 |
+
+by `range_1h_atr_tercile`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| T1<=6.134 | 1,484 | 0.3333 | -849.01 | 80.13 | -1,516.02 | 0.1725 | 3.18 | 0.2547 | 2 |
+| T2<=7.694 | 1,484 | 0.3333 | -1,160.90 | 49.15 | -1,534.44 | 0.1402 | -1.80 | 0.2891 | 9 |
+| T3>7.694 | 1,484 | 0.3333 | -1,018.91 | 71.68 | -1,578.76 | 0.155 | 0.37 | 0.2992 | 6 |
+
+by `range_3h_atr_tercile`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| T1<=10.031 | 1,484 | 0.3333 | -925.54 | 85.57 | -1,591.47 | 0.1853 | 1.96 | 0.2628 | 3 |
+| T2<=13.699 | 1,484 | 0.3333 | -1,086.62 | 53.71 | -1,551.73 | 0.1516 | -0.668 | 0.2837 | 8 |
+| T3>13.699 | 1,484 | 0.3333 | -1,016.66 | 61.57 | -1,510.72 | 0.1307 | 0.462 | 0.2965 | 8 |
+
+by `range_since_choch_atr_tercile`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| T1<=1.729 | 1,484 | 0.3333 | -1,034.12 | 60.63 | -1,491.47 | 0.1294 | 0.282 | 0.3194 | 5 |
+| T2<=2.361 | 1,484 | 0.3333 | -1,036.49 | 61.18 | -1,544.56 | 0.1496 | 0.147 | 0.2803 | 6 |
+| T3>2.361 | 1,484 | 0.3333 | -958.22 | 81.16 | -1,619.53 | 0.1887 | 1.32 | 0.2433 | 6 |
+
+by `er_1h_tercile`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| T1<=0.056 | 1,440 | 0.3235 | -1,019.21 | 66.45 | -1,519.53 | 0.1424 | 0.486 | 0.2799 | 7 |
+| T2<=0.128 | 1,437 | 0.3228 | -1,012.85 | 58.60 | -1,489.06 | 0.1496 | 0.558 | 0.2881 | 7 |
+| T3>0.128 | 1,439 | 0.3232 | -1,028.09 | 73.51 | -1,602.53 | 0.1647 | 0.226 | 0.2877 | 8 |
+|  | 136 | 0.0305 | -678.11 | 429.91 | -2,038.43 | 0.2721 | 5.67 | 0.1471 | 7 |
+
+by `hour_bin`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| <09:25 | 189 | 0.0425 | -843.02 | 348.64 | -2,023.62 | 0.2487 | 3.20 | 0.1958 | 7 |
+| 09 | 369 | 0.0829 | -778.00 | 206.37 | -1,821.14 | 0.2087 | 4.18 | 0.3415 | 6 |
+| 10 | 592 | 0.133 | -868.78 | 133.22 | -1,534.63 | 0.1807 | 2.79 | 0.2838 | 6 |
+| 11 | 677 | 0.1521 | -1,114.42 | 85.06 | -1,522.96 | 0.1196 | -1.01 | 0.2939 | 7 |
+| 12 | 740 | 0.1662 | -1,179.63 | 66.19 | -1,586.64 | 0.1216 | -2.06 | 0.2892 | 10 |
+| 13 | 764 | 0.1716 | -988.55 | 82.45 | -1,471.37 | 0.1414 | 0.884 | 0.2801 | 7 |
+| 14 | 808 | 0.1815 | -1,006.07 | 82.06 | -1,605.25 | 0.1745 | 0.627 | 0.3094 | 8 |
+| 15 | 258 | 0.058 | -1,083.25 | 75.72 | -1,205.59 | 0.1667 | -0.587 | 0.1667 | 7 |
+| >=15:20 | 55 | 0.0124 | -1,072.97 | 45.47 | -1,094.59 | 0 | -0.341 | 0 | 9 |
+
+two-way `n_choch_since_bos` x `hour_bin`, mean net (n in the second table):
+
+| hour_bin | 0 | 1 | 2 | 3 | 4+ |
+|---|---|---|---|---|---|
+| <09:25 | -1,150.74 | -886.24 | -1,940.55 | 3,135.61 | -1,288.89 |
+| 09 | -1,132.91 | -794.42 | 147.35 | -1,204.22 | -668.00 |
+| 10 | -826.10 | -907.91 | -931.18 | -509.74 | -1,228.66 |
+| 11 | -1,158.57 | -1,011.63 | -1,261.07 | -1,339.81 | -913.41 |
+| 12 | -1,260.12 | -1,170.26 | -1,147.57 | -1,331.90 | -963.85 |
+| 13 | -1,056.33 | -1,022.64 | -1,070.48 | -509.94 | -999.03 |
+| 14 | -1,056.69 | -992.62 | -1,064.81 | -1,162.51 | -588.47 |
+| 15 | -1,177.93 | -1,010.45 | -955.01 | -1,311.41 | -1,342.49 |
+| >=15:20 | -1,064.85 | -1,065.21 | -1,142.13 | -1,012.33 | -1,185.44 |
+
+| hour_bin | 0 | 1 | 2 | 3 | 4+ |
+|---|---|---|---|---|---|
+| <09:25 | 43 | 97 | 28 | 13 | 8 |
+| 09 | 127 | 137 | 59 | 23 | 23 |
+| 10 | 160 | 231 | 108 | 59 | 34 |
+| 11 | 187 | 258 | 118 | 56 | 58 |
+| 12 | 171 | 277 | 168 | 57 | 67 |
+| 13 | 198 | 287 | 134 | 73 | 72 |
+| 14 | 203 | 323 | 148 | 72 | 62 |
+| 15 | 64 | 108 | 52 | 11 | 23 |
+| >=15:20 | 16 | 21 | 8 | 8 | 2 |
+
+The grid: 201 cells; diff > 0 in 50; control pct >= 95 in 35; passing every raw go/no-go check (kept floors, diff, top-1 % removed, slip-8 kept mean, sign blocks, control) in 0. Median cell diff -84.88, median control pct 15.50. Full table `h2_minute_L1_grid.csv`. The six choch-only cells and the 15 range-only cells:
+
+| kc | scope | W | q | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2.00 | all |  |  | dc7448312b5f9102 | 2,908 | 0.6532 | -1,034.75 | -962.25 | -72.50 | -105.62 | 1.40 | 0.3723 | 0.3419 | 0.8323 | 0.67 | 0.3143 | -1,424.72 | 4 | False |
+| 2.00 | today |  |  | b1fa1d50708a9a96 | 2,951 | 0.6628 | -1,019.53 | -990.11 | -29.42 | -125.96 | 0.2 | 0.7246 | 0.3342 | 0.8368 | 0.7107 | 0.2571 | -1,409.49 | 6 | False |
+| 3.00 | all |  |  | d12a4c627af70fcc | 3,731 | 0.8381 | -1,033.69 | -884.99 | -148.70 | -117.23 | 0 | 0.1554 | 0.161 | 0.8391 | 0.8334 | 0.1571 | -1,423.65 | 5 | False |
+| 3.00 | today |  |  | 485e8f9a7784e40f | 3,762 | 0.845 | -1,016.78 | -970.51 | -46.27 | -125.49 | 0 | 0.6752 | 0.1559 | 0.8493 | 0.8714 | 0.1 | -1,406.74 | 6 | False |
+| 4.00 | all |  |  | d45da7c256a1bdac | 4,103 | 0.9216 | -1,015.87 | -936.01 | -79.86 | -178.25 | 0 | 0.5952 | 0.0774 | 0.8338 | 0.9298 | 0.0429 | -1,405.83 | 5 | False |
+| 4.00 | today |  |  | 3fb9395f9768fcfd | 4,122 | 0.9259 | -1,016.94 | -917.97 | -98.98 | -191.62 | 0 | 0.5227 | 0.0737 | 0.8394 | 0.9329 | 0.0429 | -1,406.91 | 4 | False |
+|  |  | 1h | 0.1 | 96ede7eae0e249bd | 4,002 | 0.8989 | -1,022.00 | -899.37 | -122.63 | 9.09 | 100.00 | 0.3468 | 0.0977 | 0.8156 | 0.8357 | 0.2286 | -1,411.97 | 5 | False |
+|  |  | 1h | 0.2 | 48b274bedb2ee2ea | 3,552 | 0.7978 | -1,034.69 | -910.61 | -124.08 | -19.46 | 99.80 | 0.2079 | 0.1988 | 0.83 | 0.7286 | 0.3429 | -1,424.66 | 3 | False |
+|  |  | 1h | 0.3 | 6ed5d9c4d6de5164 | 3,108 | 0.6981 | -1,062.77 | -886.67 | -176.10 | -40.03 | 76.00 | 0.0415 | 0.2972 | 0.8311 | 0.617 | 0.4714 | -1,452.73 | 1 | False |
+|  |  | 1h | 0.4 | 72bf239c6012b916 | 2,669 | 0.5995 | -1,074.26 | -912.82 | -161.44 | -41.06 | 31.00 | 0.0385 | 0.3965 | 0.8357 | 0.5285 | 0.5714 | -1,464.23 | 3 | False |
+|  |  | 1h | 0.5 | ed1049fc116e173f | 2,227 | 0.5002 | -1,048.74 | -970.44 | -78.30 | 5.46 | 62.30 | 0.3223 | 0.4971 | 0.8396 | 0.4637 | 0.6286 | -1,438.70 | 5 | False |
+|  |  | 3h | 0.1 | d0606c4a60d5b0da | 4,003 | 0.8991 | -1,032.82 | -802.67 | -230.15 | 196.99 | 100.00 | 0.0695 | 0.0937 | 0.784 | 0.7727 | 0.3143 | -1,422.78 | 6 | False |
+|  |  | 3h | 0.2 | e91e86e923e02987 | 3,564 | 0.8005 | -1,031.30 | -922.52 | -108.78 | 132.63 | 100.00 | 0.2689 | 0.1903 | 0.8052 | 0.6652 | 0.4571 | -1,421.27 | 5 | False |
+|  |  | 3h | 0.3 | 19e4aa324ff6248b | 3,120 | 0.7008 | -1,049.81 | -915.43 | -134.38 | 62.76 | 100.00 | 0.1089 | 0.2871 | 0.8101 | 0.5655 | 0.5571 | -1,439.78 | 5 | False |
+|  |  | 3h | 0.4 | bbfbc5c7d5ac9423 | 2,668 | 0.5993 | -1,043.62 | -958.74 | -84.88 | 46.13 | 100.00 | 0.3018 | 0.3901 | 0.8217 | 0.4819 | 0.5714 | -1,433.59 | 5 | False |
+|  |  | 3h | 0.5 | c4b274e0f37d41cb | 2,232 | 0.5013 | -1,050.60 | -968.39 | -82.21 | 7.66 | 99.70 | 0.3028 | 0.4864 | 0.8234 | 0.3933 | 0.6429 | -1,440.56 | 4 | False |
+|  |  | since_choch | 0.1 | 9d329df4bd303daf | 4,005 | 0.8996 | -987.15 | -1,210.83 | 223.69 | 103.63 | 86.00 | 0.083 | 0.1064 | 0.8949 | 0.9498 | 0.0429 | -1,377.11 | 10 | False |
+|  |  | since_choch | 0.2 | 67108d1d3c8babf9 | 3,558 | 0.7992 | -986.92 | -1,099.90 | 112.97 | 72.90 | 43.10 | 0.2549 | 0.2094 | 0.8803 | 0.8698 | 0.1429 | -1,376.89 | 8 | False |
+|  |  | since_choch | 0.3 | 07bdb9dc5793f420 | 3,120 | 0.7008 | -1,010.68 | -1,007.10 | -3.58 | -11.39 | 7.50 | 0.965 | 0.3076 | 0.8679 | 0.7651 | 0.2571 | -1,400.64 | 5 | False |
+|  |  | since_choch | 0.4 | 2e4e6fe23f82914e | 2,672 | 0.6002 | -993.01 | -1,034.53 | 41.52 | 28.92 | 5.60 | 0.6237 | 0.4117 | 0.8691 | 0.6865 | 0.3286 | -1,382.97 | 5 | False |
+|  |  | since_choch | 0.5 | 68b11472cf2459ed | 2,227 | 0.5002 | -974.12 | -1,045.12 | 71.00 | 14.66 | 7.30 | 0.3673 | 0.5144 | 0.8688 | 0.6106 | 0.4 | -1,364.09 | 6 | False |
+
+Top 10 cells by IS diff (selection is by nested CV, never by this table):
+
+| cell | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | 853c31d4e4ecfaa8 | 4,384 | 0.9847 | -1,005.41 | -1,280.41 | 275.00 | 95.14 | 26.60 | 0.3788 | 0.0157 | 0.8676 | 0.9973 | 0 | -1,395.37 | 9 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "all"} | 893b139c5f337602 | 4,232 | 0.9506 | -996.35 | -1,264.71 | 268.37 | 82.08 | 65.20 | 0.1499 | 0.0516 | 0.8818 | 0.983 | 0.0143 | -1,386.31 | 10 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | f5611b1cf99cd1e2 | 4,233 | 0.9508 | -996.72 | -1,258.80 | 262.08 | 75.83 | 67.20 | 0.1514 | 0.0514 | 0.8813 | 0.983 | 0.0143 | -1,386.68 | 10 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} | 114ef075f7c1ddba | 4,399 | 0.9881 | -1,006.58 | -1,260.83 | 254.25 | 75.00 | 26.40 | 0.4653 | 0.0128 | 0.9057 | 0.998 | 0 | -1,396.55 | 10 | False |
+| {"W": "1h", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} | 3a468b7d7b293913 | 4,420 | 0.9928 | -1,007.88 | -1,247.68 | 239.80 | 61.39 | 22.40 | 0.6067 | 0.0075 | 0.875 | 0.998 | 0 | -1,397.85 | 7 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.3, "rule": "both", "scope": "all"} | f3abf2577f49d191 | 4,320 | 0.9704 | -1,002.53 | -1,241.37 | 238.84 | 56.32 | 37.80 | 0.3123 | 0.0309 | 0.8788 | 0.993 | 0 | -1,392.49 | 9 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.3, "rule": "both", "scope": "today"} | 76cde4f3a78f5229 | 4,327 | 0.9719 | -1,002.92 | -1,240.95 | 238.03 | 55.80 | 23.90 | 0.2994 | 0.0293 | 0.88 | 0.9942 | 0 | -1,392.89 | 9 | False |
+| {"W": "since_choch", "q": 0.1, "rule": "range"} | 9d329df4bd303daf | 4,005 | 0.8996 | -987.15 | -1,210.83 | 223.69 | 103.63 | 86.00 | 0.083 | 0.1064 | 0.8949 | 0.9498 | 0.0429 | -1,377.11 | 10 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.2, "rule": "both", "scope": "today"} | a7f29dbce2e23a61 | 4,357 | 0.9787 | -1,005.05 | -1,218.80 | 213.76 | 32.78 | 15.50 | 0.4223 | 0.0221 | 0.8737 | 0.9955 | 0 | -1,395.01 | 9 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "all"} | 59e3d2a328300f21 | 4,397 | 0.9876 | -1,007.00 | -1,218.00 | 211.00 | 31.66 | 31.60 | 0.5327 | 0.013 | 0.8909 | 0.9969 | 0 | -1,396.97 | 10 | False |
+
+**Nested-CV candidate** (family `h2/nested_cv`, the 12-block OOF mask):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 96a71fa0c77cbd57 | 4,307 | 0.9674 | -1,016.99 | -790.18 | -226.81 | -304.80 | 1.10 | 0.3148 | 0.0314 | 0.8138 | 0.9698 | 0.0571 | -1,406.96 | 6 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.2, "rule": "both", "scope": "all"} | 1.51 | 288.87 | 0.9108 | 201 | 396 | 360 |
+| 1 | {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | 4.78 | 271.63 | 0.9852 | 201 | 388 | 388 |
+| 2 | {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} | 1.29 | 265.74 | 0.9879 | 201 | 384 | 381 |
+| 3 | {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} | 1.29 | 268.03 | 0.9888 | 201 | 509 | 502 |
+| 4 | {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} | 1.29 | 262.35 | 0.9887 | 201 | 390 | 385 |
+| 5 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "all"} | 1.30 | 264.09 | 0.9508 | 201 | 341 | 321 |
+| 6 | {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "all"} | 1.30 | 335.05 | 0.9516 | 201 | 424 | 402 |
+| 7 | {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | 4.81 | 292.64 | 0.9854 | 201 | 266 | 262 |
+| 8 | {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.3, "rule": "both", "scope": "today"} | 1.68 | 279.20 | 0.9715 | 201 | 170 | 166 |
+| 9 | {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | 4.86 | 290.17 | 0.9856 | 201 | 499 | 488 |
+| 10 | {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} | 1.30 | 262.71 | 0.9878 | 201 | 173 | 172 |
+| 11 | {"W": "1h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 4.90 | 371.98 | 0.9754 | 201 | 512 | 480 |
+
+CPCV paths (`h2/nested_cv/cpcv`, 11 rows): diff median -198.78, 5th pct -417.49, min -451.17, share > 0 0.182, control pct median 1.90 / 5th pct 0.7
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 68e1c459a40d7b6f | 4,241 | 0.9526 | -1,002.52 | -1,151.99 | 149.47 | 33.40 | 0.4418 | 0.983 | 6 | 0 |
+| 78492773940a9cc0 | 4,339 | 0.9746 | -1,017.79 | -695.56 | -322.22 | 1.20 | 0.1914 | 0.9718 | 7 | 1 |
+| 11c8d5f1dc54922b | 4,367 | 0.9809 | -1,018.22 | -567.05 | -451.17 | 1.10 | 0.1029 | 0.9776 | 6 | 2 |
+| 5e24d36310ab5b2c | 4,333 | 0.9733 | -1,018.64 | -680.88 | -337.75 | 1.40 | 0.1579 | 0.9703 | 6 | 3 |
+| ba41db8d6285a987 | 4,267 | 0.9584 | -1,017.87 | -819.09 | -198.78 | 0.7 | 0.3103 | 0.9643 | 6 | 4 |
+| a8a83f61b802ae7d | 4,301 | 0.9661 | -1,016.05 | -826.17 | -189.88 | 16.40 | 0.3753 | 0.9637 | 7 | 5 |
+| 5293a31029174c5c | 4,315 | 0.9692 | -1,004.78 | -1,161.62 | 156.84 | 18.90 | 0.4893 | 0.9881 | 7 | 6 |
+| e7d54b12eafca620 | 4,344 | 0.9757 | -1,016.67 | -725.62 | -291.04 | 1.90 | 0.2574 | 0.9758 | 5 | 7 |
+| 74d662c6716d1444 | 4,384 | 0.9847 | -1,011.52 | -886.09 | -125.43 | 5.70 | 0.6862 | 0.9901 | 6 | 8 |
+| 8d0e42636babf790 | 4,350 | 0.9771 | -1,018.40 | -634.59 | -383.81 | 0.7 | 0.1349 | 0.9745 | 6 | 9 |
+| 5a48af5fa6c6fbb8 | 4,359 | 0.9791 | -1,013.01 | -850.33 | -162.68 | 7.80 | 0.5557 | 0.9862 | 6 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"W": "1h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} x16; {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} x16; {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "all"} x9; {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.2, "rule": "both", "scope": "all"} x6; {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "all"} x6; {"W": "1h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} x3; {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.2, "rule": "both", "scope": "today"} x3; {"W": "3h", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} x2; {"W": "since_choch", "q": 0.1, "rule": "range"} x2; {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.3, "rule": "both", "scope": "today"} x2; {"W": "1h", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} x1
+
+Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 min | L1 | pre-registered (family as at the primary run) | 202 | 202 | 1.35 | 0.3564 | 0.5611 | 0.1255 | 0.18 |  | {"rule": "range", "W": "3h", "q": 0.2} | 322.59 | [-582.49, 91.16] | 0.8655 | 1.00 | -198.78 | -417.49 | 0.182 | 1.90 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+
 
 ### 5 min / L1 (826 IS units)
 
@@ -188,20 +393,20 @@ Top 10 cells by IS diff (selection is by nested CV, never by this table):
 
 Chosen cell per training fold:
 
-| block | chosen | thr | train_diff | eligible | test_n | test_kept |
-|---|---|---|---|---|---|---|
-| 0 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 3,951.78 | 199 | 82 | 82 |
-| 1 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.89 | 3,945.20 | 199 | 83 | 83 |
-| 2 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.97 | 3,963.29 | 199 | 42 | 42 |
-| 3 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.89 | 4,007.24 | 199 | 76 | 76 |
-| 4 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.86 | 5,090.75 | 199 | 72 | 72 |
-| 5 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.96 | 4,045.46 | 199 | 73 | 73 |
-| 6 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 5,063.28 | 199 | 77 | 76 |
-| 7 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.96 | 4,007.54 | 199 | 51 | 51 |
-| 8 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.89 | 3,964.33 | 198 | 76 | 76 |
-| 9 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 4,049.20 | 199 | 80 | 80 |
-| 10 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.94 | 2,918.75 | 199 | 31 | 30 |
-| 11 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.97 | 3,937.57 | 199 | 83 | 83 |
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.90 | 3,951.78 | 0.9973 | 199 | 82 | 82 |
+| 1 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.89 | 3,945.20 | 0.9973 | 199 | 83 | 83 |
+| 2 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.97 | 3,963.29 | 0.9974 | 199 | 42 | 42 |
+| 3 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.89 | 4,007.24 | 0.9973 | 199 | 76 | 76 |
+| 4 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.86 | 5,090.75 | 0.9987 | 199 | 72 | 72 |
+| 5 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.96 | 4,045.46 | 0.9973 | 199 | 73 | 73 |
+| 6 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.90 | 5,063.28 | 0.9987 | 199 | 77 | 76 |
+| 7 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.96 | 4,007.54 | 0.9974 | 199 | 51 | 51 |
+| 8 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.89 | 3,964.33 | 0.9973 | 198 | 76 | 76 |
+| 9 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.90 | 4,049.20 | 0.9973 | 199 | 80 | 80 |
+| 10 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.94 | 2,918.75 | 0.9987 | 199 | 31 | 30 |
+| 11 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.97 | 3,937.57 | 0.9973 | 199 | 83 | 83 |
 
 CPCV paths (`h2/nested_cv/cpcv`, 11 rows): diff median 3,991.66, 5th pct 3,444.78, min 2,897.90, share > 0 1.00, control pct median 87.80 / 5th pct 74.50
 
@@ -219,13 +424,13 @@ CPCV paths (`h2/nested_cv/cpcv`, 11 rows): diff median 3,991.66, 5th pct 3,444.7
 | 46f9348be3bfca4a | 825 | 0.9988 | -750.91 | -5,826.65 | 5,075.74 | 76.50 | 0.1459 | 1.00 | 1 | 9 |
 | 2fc3c5b11e1870d6 | 824 | 0.9976 | -747.39 | -4,739.05 | 3,991.66 | 93.30 | 0.1464 | 1.00 | 2 | 10 |
 
-Cells chosen across the 66 CPCV training sets: {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} x65; {"rule": "both", "kc": 4, "scope": "today", "W": "1h", "q": 0.1, "combine": "AND"} x1
+Cells chosen across the 66 CPCV training sets: {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} x65; {"W": "1h", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} x1
 
-Family (after every row of this study on this table, the post-hoc row included):
+Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
 
-| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 5 min | L1 | pre-registered | 202 | 202 | 1.44 | 0.3293 | 0.5333 | 0.076 | 0.0835 | {"rule": "range", "W": "3h", "q": 0.1} | 127.60 | [2816.25, 5189.35] | 0 | 0.9957 | 3,991.66 | 3,444.78 | 1.00 | 87.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1 |
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | L1 | pre-registered (family as at the primary run) | 202 | 202 | 1.44 | 0.3293 | 0.5333 | 0.076 | 0.0835 |  | {"rule": "range", "W": "3h", "q": 0.1} | 127.60 | [2816.25, 5189.35] | 0 | 0.9957 | 3,991.66 | 3,444.78 | 1.00 | 87.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1 |
 
 
 ### 5 min / L0 (832 IS units)
@@ -294,20 +499,20 @@ Top 10 cells by IS diff (selection is by nested CV, never by this table):
 
 Chosen cell per training fold:
 
-| block | chosen | thr | train_diff | eligible | test_n | test_kept |
-|---|---|---|---|---|---|---|
-| 0 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 4,489.00 | 199 | 83 | 83 |
-| 1 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 4,407.99 | 199 | 84 | 84 |
-| 2 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.98 | 4,360.60 | 199 | 42 | 42 |
-| 3 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 4,548.29 | 199 | 77 | 77 |
-| 4 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.86 | 5,455.09 | 199 | 72 | 72 |
-| 5 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.97 | 4,506.12 | 199 | 73 | 73 |
-| 6 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 5,681.24 | 199 | 78 | 77 |
-| 7 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.97 | 4,360.56 | 199 | 51 | 51 |
-| 8 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.89 | 4,381.80 | 198 | 76 | 76 |
-| 9 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 4,313.11 | 199 | 82 | 82 |
-| 10 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.95 | 3,300.83 | 199 | 31 | 30 |
-| 11 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.98 | 4,448.03 | 199 | 83 | 83 |
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.90 | 4,489.00 | 0.9973 | 199 | 83 | 83 |
+| 1 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.90 | 4,407.99 | 0.9973 | 199 | 84 | 84 |
+| 2 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.98 | 4,360.60 | 0.9975 | 199 | 42 | 42 |
+| 3 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.90 | 4,548.29 | 0.9973 | 199 | 77 | 77 |
+| 4 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.86 | 5,455.09 | 0.9987 | 199 | 72 | 72 |
+| 5 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.97 | 4,506.12 | 0.9973 | 199 | 73 | 73 |
+| 6 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.90 | 5,681.24 | 0.9987 | 199 | 78 | 77 |
+| 7 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.97 | 4,360.56 | 0.9974 | 199 | 51 | 51 |
+| 8 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.89 | 4,381.80 | 0.9973 | 198 | 76 | 76 |
+| 9 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.90 | 4,313.11 | 0.9973 | 199 | 82 | 82 |
+| 10 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.95 | 3,300.83 | 0.9987 | 199 | 31 | 30 |
+| 11 | {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 2.98 | 4,448.03 | 0.9973 | 199 | 83 | 83 |
 
 CPCV paths (`h2/nested_cv/cpcv`, 11 rows): diff median 4,473.04, 5th pct 732.98, min -27.99, share > 0 0.909, control pct median 75.40 / 5th pct 42.20
 
@@ -325,21 +530,22 @@ CPCV paths (`h2/nested_cv/cpcv`, 11 rows): diff median 4,473.04, 5th pct 732.98,
 | b4e66fb1c11044ef | 815 | 0.9796 | -277.33 | -249.34 | -27.99 | 21.60 | 0.99 | 0.9817 | 1 | 9 |
 | ad274d6f7a234b9d | 830 | 0.9976 | -266.00 | -4,739.05 | 4,473.04 | 94.10 | 0.2214 | 1.00 | 2 | 10 |
 
-Cells chosen across the 66 CPCV training sets: {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} x64; {"rule": "both", "kc": 4, "scope": "today", "W": "3h", "q": 0.3, "combine": "AND"} x1; {"rule": "both", "kc": 2, "scope": "today", "W": "since_choch", "q": 0.5, "combine": "AND"} x1
+Cells chosen across the 66 CPCV training sets: {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} x64; {"W": "3h", "combine": "AND", "kc": 4, "q": 0.3, "rule": "both", "scope": "today"} x1; {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} x1
 
-Family (after every row of this study on this table, the post-hoc row included):
+Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
 
-| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 5 min | L0 | pre-registered | 202 | 202 | 1.44 | 0.3043 | 0.5855 | 0.124 | 0.136 | {"rule": "range", "W": "3h", "q": 0.2} | 248.49 | [3078.04, 5879.24] | 0 | 0.7772 | 4,473.04 | 732.98 | 0.909 | 75.40 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | L0 | pre-registered (family as at the primary run) | 202 | 202 | 1.44 | 0.3043 | 0.5855 | 0.124 | 0.136 |  | {"rule": "range", "W": "3h", "q": 0.2} | 248.49 | [3078.04, 5879.24] | 0 | 0.7772 | 4,473.04 | 732.98 | 0.909 | 75.40 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
 
 
 ### H2 family summary (all tables)
 
-| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 5 min | L1 | pre-registered | 202 | 202 | 1.44 | 0.3293 | 0.5333 | 0.076 | 0.0835 | {"rule": "range", "W": "3h", "q": 0.1} | 127.60 | [2816.25, 5189.35] | 0 | 0.9957 | 3,991.66 | 3,444.78 | 1.00 | 87.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1 |
-| 5 min | L0 | pre-registered | 202 | 202 | 1.44 | 0.3043 | 0.5855 | 0.124 | 0.136 | {"rule": "range", "W": "3h", "q": 0.2} | 248.49 | [3078.04, 5879.24] | 0 | 0.7772 | 4,473.04 | 732.98 | 0.909 | 75.40 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 min | L1 | pre-registered (family as at the primary run) | 202 | 202 | 1.35 | 0.3564 | 0.5611 | 0.1255 | 0.18 |  | {"rule": "range", "W": "3h", "q": 0.2} | 322.59 | [-582.49, 91.16] | 0.8655 | 1.00 | -198.78 | -417.49 | 0.182 | 1.90 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 5 min | L1 | pre-registered (family as at the primary run) | 202 | 202 | 1.44 | 0.3293 | 0.5333 | 0.076 | 0.0835 |  | {"rule": "range", "W": "3h", "q": 0.1} | 127.60 | [2816.25, 5189.35] | 0 | 0.9957 | 3,991.66 | 3,444.78 | 1.00 | 87.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1 |
+| 5 min | L0 | pre-registered (family as at the primary run) | 202 | 202 | 1.44 | 0.3043 | 0.5855 | 0.124 | 0.136 |  | {"rule": "range", "W": "3h", "q": 0.2} | 248.49 | [3078.04, 5879.24] | 0 | 0.7772 | 4,473.04 | 732.98 | 0.909 | 75.40 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
 
 
 
@@ -400,6 +606,335 @@ Flat high-volume bars (excluded from the direction rows): v2 N20: 579, v2 N60: 6
 | high_volume | 4.00 | 60 | both | 1,923 | 0.19 | 0.431 | 0.136 | 0.291 | 0.5316 | 2.92 | 2.61 | -1.99 | 0.1321 | 0.0818 | 0.4849 | 0.3792 |
 
 Flat high-volume bars (excluded from the direction rows): v2 N20: 42, v2 N60: 38, v3 N20: 11, v3 N60: 7, v4 N20: 3, v4 N60: 3
+
+### 1 min / L1 (4,452 IS units)
+
+Foundation outcome by direction agreement with the latest high-volume bar within M bars (`h3_minute_L1_by_agreement.csv`; every (v, N, M)):
+
+| variable | bucket | n | share | net_mean | net_se | win_rate | pts_mean | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|
+| hv v2 N20 M5 | agree | 1,972 | 0.4429 | -1,023.94 | 56.05 | 0.1638 | 0.34 | 5 |
+| hv v2 N20 M5 | disagree | 300 | 0.0674 | -1,054.59 | 126.63 | 0.1467 | 0.049 | 8 |
+| hv v2 N20 M5 | none | 2,180 | 0.4897 | -990.45 | 60.13 | 0.15 | 0.878 | 7 |
+| hv v2 N20 M15 | agree | 2,496 | 0.5606 | -1,016.79 | 48.92 | 0.1575 | 0.458 | 6 |
+| hv v2 N20 M15 | disagree | 801 | 0.1799 | -1,061.41 | 75.57 | 0.1323 | -0.141 | 8 |
+| hv v2 N20 M15 | none | 1,155 | 0.2594 | -958.17 | 95.89 | 0.1688 | 1.36 | 5 |
+| hv v2 N20 M30 | agree | 2,766 | 0.6213 | -1,019.02 | 45.42 | 0.1562 | 0.423 | 6 |
+| hv v2 N20 M30 | disagree | 1,104 | 0.248 | -1,082.19 | 63.39 | 0.1313 | -0.497 | 8 |
+| hv v2 N20 M30 | none | 582 | 0.1307 | -827.19 | 173.06 | 0.201 | 3.40 | 5 |
+| hv v2 N60 M5 | agree | 1,731 | 0.3888 | -1,044.95 | 55.47 | 0.1641 | 0.007 | 6 |
+| hv v2 N60 M5 | disagree | 247 | 0.0555 | -1,061.74 | 131.00 | 0.1619 | -0.113 | 7 |
+| hv v2 N60 M5 | none | 2,474 | 0.5557 | -979.67 | 57.97 | 0.1496 | 1.06 | 5 |
+| hv v2 N60 M15 | agree | 2,188 | 0.4915 | -1,046.63 | 48.47 | 0.1572 | -0.002 | 7 |
+| hv v2 N60 M15 | disagree | 712 | 0.1599 | -1,017.75 | 80.08 | 0.1447 | 0.525 | 6 |
+| hv v2 N60 M15 | none | 1,552 | 0.3486 | -953.67 | 82.36 | 0.1591 | 1.44 | 6 |
+| hv v2 N60 M30 | agree | 2,475 | 0.5559 | -1,037.79 | 46.22 | 0.1564 | 0.14 | 6 |
+| hv v2 N60 M30 | disagree | 1,040 | 0.2336 | -1,053.69 | 65.83 | 0.1375 | -0.055 | 7 |
+| hv v2 N60 M30 | none | 937 | 0.2105 | -886.24 | 121.97 | 0.175 | 2.46 | 5 |
+| hv v3 N20 M5 | agree | 1,061 | 0.2383 | -1,071.32 | 74.02 | 0.1715 | -0.377 | 7 |
+| hv v3 N20 M5 | disagree | 176 | 0.0395 | -1,029.43 | 177.27 | 0.1477 | 0.439 | 7 |
+| hv v3 N20 M5 | none | 3,215 | 0.7221 | -988.16 | 47.88 | 0.1512 | 0.909 | 6 |
+| hv v3 N20 M15 | agree | 1,506 | 0.3383 | -1,060.78 | 59.60 | 0.1587 | -0.194 | 8 |
+| hv v3 N20 M15 | disagree | 634 | 0.1424 | -996.54 | 86.55 | 0.1593 | 0.872 | 7 |
+| hv v3 N20 M15 | none | 2,312 | 0.5193 | -979.86 | 60.82 | 0.1531 | 1.01 | 6 |
+| hv v3 N20 M30 | agree | 1,903 | 0.4274 | -1,038.82 | 53.40 | 0.1529 | 0.136 | 7 |
+| hv v3 N20 M30 | disagree | 1,119 | 0.2513 | -1,032.54 | 64.11 | 0.151 | 0.277 | 7 |
+| hv v3 N20 M30 | none | 1,430 | 0.3212 | -952.78 | 86.69 | 0.1636 | 1.42 | 6 |
+| hv v3 N60 M5 | agree | 980 | 0.2201 | -1,100.60 | 77.42 | 0.1582 | -0.824 | 7 |
+| hv v3 N60 M5 | disagree | 142 | 0.0319 | -839.18 | 208.92 | 0.1901 | 3.33 | 6 |
+| hv v3 N60 M5 | none | 3,330 | 0.748 | -990.10 | 46.71 | 0.1538 | 0.881 | 5 |
+| hv v3 N60 M15 | agree | 1,323 | 0.2972 | -1,087.18 | 64.90 | 0.1504 | -0.589 | 8 |
+| hv v3 N60 M15 | disagree | 578 | 0.1298 | -1,056.36 | 80.64 | 0.1592 | -0.097 | 6 |
+| hv v3 N60 M15 | none | 2,551 | 0.573 | -958.79 | 57.19 | 0.158 | 1.35 | 4 |
+| hv v3 N60 M30 | agree | 1,678 | 0.3769 | -1,093.46 | 56.04 | 0.1502 | -0.693 | 8 |
+| hv v3 N60 M30 | disagree | 992 | 0.2228 | -1,064.66 | 62.96 | 0.1431 | -0.245 | 7 |
+| hv v3 N60 M30 | none | 1,782 | 0.4003 | -900.00 | 75.42 | 0.1684 | 2.25 | 3 |
+| hv v4 N20 M5 | agree | 661 | 0.1485 | -1,043.10 | 99.15 | 0.1785 | 0.055 | 8 |
+| hv v4 N20 M5 | disagree | 118 | 0.0265 | -1,088.28 | 155.45 | 0.161 | -0.482 | 6 |
+| hv v4 N20 M5 | none | 3,673 | 0.825 | -1,001.05 | 44.08 | 0.1516 | 0.713 | 4 |
+| hv v4 N20 M15 | agree | 979 | 0.2199 | -1,052.93 | 80.35 | 0.1604 | -0.055 | 6 |
+| hv v4 N20 M15 | disagree | 483 | 0.1085 | -994.42 | 97.25 | 0.1656 | 0.921 | 5 |
+| hv v4 N20 M15 | none | 2,990 | 0.6716 | -997.88 | 50.11 | 0.1528 | 0.738 | 5 |
+| hv v4 N20 M30 | agree | 1,346 | 0.3023 | -1,070.06 | 64.53 | 0.1523 | -0.296 | 6 |
+| hv v4 N20 M30 | disagree | 926 | 0.208 | -1,020.66 | 70.81 | 0.149 | 0.458 | 3 |
+| hv v4 N20 M30 | none | 2,180 | 0.4897 | -967.59 | 63.22 | 0.161 | 1.18 | 6 |
+| hv v4 N60 M5 | agree | 593 | 0.1332 | -1,063.69 | 104.37 | 0.1788 | -0.308 | 5 |
+| hv v4 N60 M5 | disagree | 92 | 0.0207 | -639.16 | 306.39 | 0.1848 | 6.38 | 6 |
+| hv v4 N60 M5 | none | 3,767 | 0.8461 | -1,010.14 | 42.98 | 0.1516 | 0.582 | 7 |
+| hv v4 N60 M15 | agree | 857 | 0.1925 | -1,032.60 | 83.97 | 0.1692 | 0.212 | 7 |
+| hv v4 N60 M15 | disagree | 405 | 0.091 | -1,058.00 | 104.22 | 0.1506 | -0.082 | 7 |
+| hv v4 N60 M15 | none | 3,190 | 0.7165 | -997.29 | 48.44 | 0.153 | 0.768 | 6 |
+| hv v4 N60 M30 | agree | 1,150 | 0.2583 | -1,093.30 | 67.23 | 0.1583 | -0.7 | 8 |
+| hv v4 N60 M30 | disagree | 789 | 0.1772 | -1,055.55 | 73.37 | 0.1445 | -0.087 | 5 |
+| hv v4 N60 M30 | none | 2,513 | 0.5645 | -956.88 | 58.35 | 0.1584 | 1.38 | 5 |
+
+by bars since the latest high-volume bar (`h3_minute_L1_by_bars_since.csv`):
+
+| variable | bucket | n | share | net_mean | net_se | win_rate | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|
+| hv v2 N20 bars_since | 0 | 1,477 | 0.3318 | -1,012.93 | 71.52 | 0.1571 | 5 |
+| hv v2 N20 bars_since | 1-5 | 807 | 0.1813 | -1,062.10 | 62.13 | 0.1698 | 7 |
+| hv v2 N20 bars_since | 6-15 | 1,035 | 0.2325 | -1,023.47 | 68.04 | 0.1304 | 7 |
+| hv v2 N20 bars_since | 16-30 | 577 | 0.1296 | -1,088.15 | 79.84 | 0.1369 | 6 |
+| hv v2 N20 bars_since | >30 | 153 | 0.0344 | -1,182.23 | 157.07 | 0.1503 | 8 |
+| hv v2 N20 bars_since | none | 403 | 0.0905 | -678.72 | 241.68 | 0.2184 | 5 |
+| hv v2 N60 bars_since | 0 | 1,324 | 0.2974 | -1,045.84 | 69.45 | 0.1594 | 6 |
+| hv v2 N60 bars_since | 1-5 | 661 | 0.1485 | -1,043.99 | 64.63 | 0.174 | 4 |
+| hv v2 N60 bars_since | 6-15 | 930 | 0.2089 | -1,023.99 | 70.07 | 0.1344 | 7 |
+| hv v2 N60 bars_since | 16-30 | 619 | 0.139 | -1,052.92 | 92.64 | 0.1357 | 9 |
+| hv v2 N60 bars_since | >30 | 391 | 0.0878 | -1,123.86 | 94.03 | 0.1253 | 8 |
+| hv v2 N60 bars_since | none | 527 | 0.1184 | -714.43 | 204.79 | 0.2087 | 5 |
+| hv v3 N20 bars_since | 0 | 776 | 0.1743 | -1,074.90 | 95.78 | 0.1688 | 8 |
+| hv v3 N20 bars_since | 1-5 | 469 | 0.1053 | -1,037.62 | 86.14 | 0.1706 | 6 |
+| hv v3 N20 bars_since | 6-15 | 909 | 0.2042 | -1,008.87 | 69.07 | 0.1474 | 7 |
+| hv v3 N20 bars_since | 16-30 | 886 | 0.199 | -1,025.48 | 74.95 | 0.1354 | 6 |
+| hv v3 N20 bars_since | >30 | 723 | 0.1624 | -1,088.16 | 70.09 | 0.1272 | 9 |
+| hv v3 N20 bars_since | none | 689 | 0.1548 | -815.13 | 163.93 | 0.1988 | 6 |
+| hv v3 N60 bars_since | 0 | 722 | 0.1622 | -1,052.98 | 102.52 | 0.162 | 8 |
+| hv v3 N60 bars_since | 1-5 | 406 | 0.0912 | -1,091.74 | 84.15 | 0.1626 | 8 |
+| hv v3 N60 bars_since | 6-15 | 787 | 0.1768 | -1,084.55 | 68.95 | 0.1423 | 6 |
+| hv v3 N60 bars_since | 16-30 | 772 | 0.1734 | -1,096.64 | 73.31 | 0.1334 | 6 |
+| hv v3 N60 bars_since | >30 | 868 | 0.195 | -984.37 | 74.33 | 0.1429 | 7 |
+| hv v3 N60 bars_since | none | 897 | 0.2015 | -821.28 | 131.25 | 0.1918 | 5 |
+| hv v4 N20 bars_since | 0 | 494 | 0.111 | -1,074.77 | 121.06 | 0.1741 | 9 |
+| hv v4 N20 bars_since | 1-5 | 288 | 0.0647 | -1,001.62 | 113.04 | 0.1806 | 6 |
+| hv v4 N20 bars_since | 6-15 | 685 | 0.1539 | -1,013.02 | 89.61 | 0.1474 | 4 |
+| hv v4 N20 bars_since | 16-30 | 814 | 0.1828 | -1,080.98 | 72.21 | 0.1302 | 6 |
+| hv v4 N20 bars_since | >30 | 1,250 | 0.2808 | -1,072.00 | 55.15 | 0.1368 | 8 |
+| hv v4 N20 bars_since | none | 921 | 0.2069 | -826.86 | 129.44 | 0.1933 | 5 |
+| hv v4 N60 bars_since | 0 | 442 | 0.0993 | -1,014.79 | 138.23 | 0.1833 | 6 |
+| hv v4 N60 bars_since | 1-5 | 248 | 0.0557 | -988.98 | 121.45 | 0.1734 | 5 |
+| hv v4 N60 bars_since | 6-15 | 581 | 0.1305 | -1,081.13 | 83.11 | 0.1446 | 6 |
+| hv v4 N60 bars_since | 16-30 | 684 | 0.1536 | -1,155.79 | 71.26 | 0.1316 | 8 |
+| hv v4 N60 bars_since | >30 | 1,285 | 0.2886 | -1,061.84 | 59.27 | 0.1323 | 9 |
+| hv v4 N60 bars_since | none | 1,212 | 0.2722 | -839.77 | 103.25 | 0.1865 | 4 |
+
+The grid: 54 cells; diff > 0 in 15; control pct >= 95 in 33; passing every raw go/no-go check (kept floors, diff, top-1 % removed, slip-8 kept mean, sign blocks, control) in 0. Median cell diff -53.28, median control pct 97.25. Full table `h3_minute_L1_grid.csv`:
+
+| v | N | M | gate | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2 | 20 | 5 | skip_if_disagree | f8a927aafb918754 | 4,152 | 0.9326 | -1,006.36 | -1,054.59 | 48.24 | 35.49 | 20.80 | 0.7641 | 0.0681 | 0.8533 | 0.9518 | 0.0429 | -1,396.32 | 8 | False |
+| 2 | 20 | 5 | skip_if_none | 91d7a66425453322 | 2,272 | 0.5103 | -1,027.99 | -990.45 | -37.54 | 54.91 | 100.00 | 0.6482 | 0.4931 | 0.85 | 0.4613 | 0.6286 | -1,417.96 | 7 | False |
+| 2 | 20 | 5 | take_only_agree | 9d76dfff15097dba | 1,972 | 0.4429 | -1,023.94 | -998.21 | -25.74 | 64.60 | 100.00 | 0.7486 | 0.5612 | 0.8504 | 0.4131 | 0.6714 | -1,413.91 | 7 | False |
+| 2 | 20 | 15 | skip_if_disagree | 957a9431eef861e2 | 3,651 | 0.8201 | -998.24 | -1,061.41 | 63.17 | 21.35 | 11.40 | 0.5407 | 0.1849 | 0.8677 | 0.8657 | 0.1 | -1,388.21 | 8 | False |
+| 2 | 20 | 15 | skip_if_none | ab2621823149c785 | 3,297 | 0.7406 | -1,027.63 | -958.17 | -69.46 | 92.18 | 100.00 | 0.4718 | 0.2555 | 0.8312 | 0.6527 | 0.4 | -1,417.59 | 5 | False |
+| 2 | 20 | 15 | take_only_agree | 89a7008a8ca918e5 | 2,496 | 0.5606 | -1,016.79 | -1,000.45 | -16.34 | 84.46 | 100.00 | 0.8291 | 0.4404 | 0.8461 | 0.5184 | 0.5 | -1,406.75 | 6 | False |
+| 2 | 20 | 30 | skip_if_disagree | 6a32f6e0b59a8285 | 3,348 | 0.752 | -985.67 | -1,082.19 | 96.52 | 37.31 | 11.10 | 0.3093 | 0.2552 | 0.8687 | 0.8184 | 0.1571 | -1,375.64 | 8 | False |
+| 2 | 20 | 30 | skip_if_none | ce2d881a857d330f | 3,870 | 0.8693 | -1,037.04 | -827.19 | -209.85 | 204.29 | 100.00 | 0.069 | 0.1237 | 0.799 | 0.7413 | 0.3286 | -1,427.01 | 5 | False |
+| 2 | 20 | 30 | take_only_agree | 2248edb6e1bd5979 | 2,766 | 0.6213 | -1,019.02 | -994.17 | -24.85 | 126.92 | 100.00 | 0.7611 | 0.3789 | 0.8446 | 0.5597 | 0.4857 | -1,408.99 | 6 | False |
+| 2 | 60 | 5 | skip_if_disagree | d4c2b1e7008b3001 | 4,205 | 0.9445 | -1,006.55 | -1,061.74 | 55.19 | -32.28 | 11.90 | 0.7671 | 0.0551 | 0.8381 | 0.9634 | 0.0143 | -1,396.51 | 7 | False |
+| 2 | 60 | 5 | skip_if_none | 9cfe08d8187e244e | 1,978 | 0.4443 | -1,047.05 | -979.67 | -67.38 | 63.88 | 100.00 | 0.3913 | 0.5599 | 0.8504 | 0.3831 | 0.7 | -1,437.01 | 5 | False |
+| 2 | 60 | 5 | take_only_agree | bd3b40bb867e9535 | 1,731 | 0.3888 | -1,044.95 | -987.12 | -57.83 | 59.18 | 99.60 | 0.4798 | 0.615 | 0.8493 | 0.3465 | 0.7143 | -1,434.92 | 6 | False |
+| 2 | 60 | 15 | skip_if_disagree | a92327bdf13e9766 | 3,740 | 0.8401 | -1,008.06 | -1,017.75 | 9.69 | -80.69 | 0.9 | 0.9335 | 0.1621 | 0.8553 | 0.8723 | 0.0857 | -1,398.02 | 6 | False |
+| 2 | 60 | 15 | skip_if_none | 48e34918983f6c4f | 2,900 | 0.6514 | -1,039.54 | -953.67 | -85.87 | 104.99 | 100.00 | 0.2874 | 0.3473 | 0.8409 | 0.5551 | 0.5143 | -1,429.51 | 6 | False |
+| 2 | 60 | 15 | take_only_agree | 0c40d37694b83d7b | 2,188 | 0.4915 | -1,046.63 | -973.82 | -72.81 | 51.59 | 99.90 | 0.3483 | 0.5093 | 0.8454 | 0.4274 | 0.6 | -1,436.60 | 5 | False |
+| 2 | 60 | 30 | skip_if_disagree | 16e7a432e162a32f | 3,412 | 0.7664 | -996.17 | -1,053.69 | 57.51 | -24.79 | 2.60 | 0.5487 | 0.2387 | 0.8625 | 0.8183 | 0.1286 | -1,386.14 | 7 | False |
+| 2 | 60 | 30 | skip_if_none | dfa8d6af2294dbd3 | 3,515 | 0.7895 | -1,042.49 | -886.24 | -156.25 | 136.89 | 100.00 | 0.1114 | 0.2057 | 0.825 | 0.6731 | 0.4 | -1,432.46 | 5 | False |
+| 2 | 60 | 30 | take_only_agree | 7ff86606849fc597 | 2,475 | 0.5559 | -1,037.79 | -974.33 | -63.46 | 73.40 | 100.00 | 0.4103 | 0.4444 | 0.8447 | 0.4915 | 0.5286 | -1,427.75 | 6 | False |
+| 3 | 20 | 5 | skip_if_disagree | 64a2ed244460d129 | 4,276 | 0.9605 | -1,008.79 | -1,029.43 | 20.64 | -25.64 | 19.90 | 0.917 | 0.0399 | 0.8523 | 0.9683 | 0.0143 | -1,398.76 | 7 | False |
+| 3 | 20 | 5 | skip_if_none | 6efad9e031fa0d9c | 1,237 | 0.2779 | -1,065.36 | -988.16 | -77.20 | 1.79 | 96.20 | 0.3973 | 0.7262 | 0.8488 | 0.2514 | 0.8286 | -1,455.32 | 6 | False |
+| 3 | 20 | 5 | take_only_agree | bea234d20d835843 | 1,061 | 0.2383 | -1,071.32 | -990.30 | -81.02 | -3.40 | 95.70 | 0.3668 | 0.7661 | 0.849 | 0.2197 | 0.8429 | -1,461.28 | 5 | False |
+| 3 | 20 | 15 | skip_if_disagree | 4f2c226f505eacfb | 3,818 | 0.8576 | -1,011.78 | -996.54 | -15.24 | -72.27 | 0.9 | 0.8946 | 0.1418 | 0.8407 | 0.8805 | 0.0714 | -1,401.74 | 7 | False |
+| 3 | 20 | 15 | skip_if_none | 8db15364bf989de6 | 2,140 | 0.4807 | -1,041.75 | -979.86 | -61.89 | 58.25 | 100.00 | 0.4278 | 0.521 | 0.8469 | 0.4179 | 0.6571 | -1,431.71 | 6 | False |
+| 3 | 20 | 15 | take_only_agree | cb57505d0fc444a3 | 1,506 | 0.3383 | -1,060.78 | -983.45 | -77.33 | 25.43 | 98.50 | 0.3563 | 0.6629 | 0.8456 | 0.2985 | 0.7286 | -1,450.74 | 4 | False |
+| 3 | 20 | 30 | skip_if_disagree | 8f821662abc0e4fb | 3,333 | 0.7487 | -1,001.91 | -1,032.54 | 30.63 | -47.55 | 0.2 | 0.7451 | 0.2528 | 0.849 | 0.7993 | 0.1286 | -1,391.87 | 7 | False |
+| 3 | 20 | 30 | skip_if_none | 8385fe654388a621 | 3,022 | 0.6788 | -1,036.50 | -952.78 | -83.71 | 93.29 | 100.00 | 0.3213 | 0.3183 | 0.8364 | 0.5831 | 0.5143 | -1,426.46 | 6 | False |
+| 3 | 20 | 30 | take_only_agree | 4396fb19d4cf59f8 | 1,903 | 0.4274 | -1,038.82 | -987.80 | -51.02 | 46.18 | 99.90 | 0.5332 | 0.571 | 0.8419 | 0.3824 | 0.6429 | -1,428.79 | 5 | False |
+| 3 | 60 | 5 | skip_if_disagree | 76428e7090dc49a7 | 4,310 | 0.9681 | -1,015.22 | -839.18 | -176.04 | -190.32 | 7.80 | 0.4303 | 0.0306 | 0.8099 | 0.9702 | 0.0143 | -1,405.19 | 6 | False |
+| 3 | 60 | 5 | skip_if_none | 66c4cc7625d4398b | 1,122 | 0.252 | -1,067.52 | -990.10 | -77.42 | -0.68 | 96.20 | 0.3988 | 0.7499 | 0.8462 | 0.229 | 0.8286 | -1,457.48 | 5 | False |
+| 3 | 60 | 5 | take_only_agree | 45af65065b99cf0b | 980 | 0.2201 | -1,100.60 | -983.92 | -116.68 | -34.98 | 88.30 | 0.2054 | 0.7805 | 0.8448 | 0.1992 | 0.8429 | -1,490.57 | 5 | False |
+| 3 | 60 | 15 | skip_if_disagree | a9f76da9691e1569 | 3,874 | 0.8702 | -1,002.63 | -1,056.36 | 53.73 | -74.51 | 9.90 | 0.6372 | 0.1293 | 0.8408 | 0.9108 | 0.0286 | -1,392.60 | 6 | False |
+| 3 | 60 | 15 | skip_if_none | c99fe9b36e9f678d | 1,901 | 0.427 | -1,077.81 | -958.79 | -119.02 | 15.81 | 98.80 | 0.1344 | 0.5716 | 0.842 | 0.3527 | 0.7143 | -1,467.77 | 4 | False |
+| 3 | 60 | 15 | take_only_agree | 1ded09967bd2b951 | 1,323 | 0.2972 | -1,087.18 | -976.81 | -110.36 | -21.95 | 95.00 | 0.2109 | 0.7009 | 0.8418 | 0.2635 | 0.7429 | -1,477.14 | 4 | False |
+| 3 | 60 | 30 | skip_if_disagree | e676962ea25b0a09 | 3,460 | 0.7772 | -993.82 | -1,064.66 | 70.84 | -47.25 | 6.20 | 0.4623 | 0.2262 | 0.8569 | 0.8447 | 0.0857 | -1,383.79 | 7 | False |
+| 3 | 60 | 30 | skip_if_none | 482012f7a821e3c2 | 2,670 | 0.5997 | -1,082.76 | -900.00 | -182.76 | 18.10 | 100.00 | 0.0225 | 0.3944 | 0.8316 | 0.4761 | 0.6286 | -1,472.73 | 3 | False |
+| 3 | 60 | 30 | take_only_agree | 8b182eabbb84e24a | 1,678 | 0.3769 | -1,093.46 | -958.88 | -134.58 | -16.48 | 97.30 | 0.1009 | 0.6205 | 0.8407 | 0.3207 | 0.7143 | -1,483.43 | 4 | False |
+| 4 | 20 | 5 | skip_if_disagree | 04b555aed679c738 | 4,334 | 0.9735 | -1,007.47 | -1,088.28 | 80.81 | -101.16 | 11.60 | 0.7446 | 0.0263 | 0.839 | 0.9827 | 0 | -1,397.43 | 6 | False |
+| 4 | 20 | 5 | skip_if_none | 635b852fffbe6c03 | 779 | 0.175 | -1,049.95 | -1,001.05 | -48.90 | 30.27 | 98.60 | 0.6362 | 0.8292 | 0.8484 | 0.1709 | 0.8857 | -1,439.91 | 4 | False |
+| 4 | 20 | 5 | take_only_agree | 42cc6677f58c2e89 | 661 | 0.1485 | -1,043.10 | -1,003.77 | -39.34 | 13.79 | 97.20 | 0.7291 | 0.8555 | 0.8481 | 0.1535 | 0.8857 | -1,433.07 | 4 | False |
+| 4 | 20 | 15 | skip_if_disagree | 4b94afffa52088ea | 3,969 | 0.8915 | -1,011.46 | -994.42 | -17.04 | -150.18 | 0.8 | 0.8916 | 0.1072 | 0.8344 | 0.904 | 0.0571 | -1,401.42 | 5 | False |
+| 4 | 20 | 15 | skip_if_none | 55edfbf3ea4654db | 1,462 | 0.3284 | -1,033.60 | -997.88 | -35.72 | 44.10 | 99.90 | 0.6682 | 0.674 | 0.8472 | 0.3108 | 0.7429 | -1,423.57 | 5 | False |
+| 4 | 20 | 15 | take_only_agree | cf7b2ffefeb2f376 | 979 | 0.2199 | -1,052.93 | -997.39 | -55.54 | -28.33 | 86.90 | 0.5592 | 0.7813 | 0.8454 | 0.2148 | 0.8 | -1,442.90 | 6 | False |
+| 4 | 20 | 30 | skip_if_disagree | 47104907c7b86243 | 3,526 | 0.792 | -1,006.71 | -1,020.66 | 13.95 | -96.93 | 0.1 | 0.8746 | 0.2097 | 0.851 | 0.8274 | 0.1143 | -1,396.67 | 3 | False |
+| 4 | 20 | 30 | skip_if_none | 2f331371e5f70478 | 2,272 | 0.5103 | -1,049.93 | -967.59 | -82.34 | 45.86 | 100.00 | 0.3143 | 0.4867 | 0.839 | 0.4465 | 0.6143 | -1,439.89 | 6 | False |
+| 4 | 20 | 30 | take_only_agree | 6d8ec56e34bb4f09 | 1,346 | 0.3023 | -1,070.06 | -983.41 | -86.66 | -21.62 | 94.80 | 0.3238 | 0.6964 | 0.8426 | 0.2738 | 0.7286 | -1,460.03 | 6 | False |
+| 4 | 60 | 5 | skip_if_disagree | ff8dd49e663b3920 | 4,360 | 0.9793 | -1,017.42 | -639.16 | -378.27 | -302.97 | 3.50 | 0.1664 | 0.02 | 0.8152 | 0.9755 | 0.0143 | -1,407.39 | 6 | False |
+| 4 | 60 | 5 | skip_if_none | 847c2ed6dad1533a | 685 | 0.1539 | -1,006.67 | -1,010.14 | 3.47 | 72.07 | 99.30 | 0.969 | 0.8505 | 0.8484 | 0.1592 | 0.8714 | -1,396.64 | 7 | False |
+| 4 | 60 | 5 | take_only_agree | a656cfabf151e4c8 | 593 | 0.1332 | -1,063.69 | -1,001.30 | -62.39 | 28.37 | 97.20 | 0.5872 | 0.8704 | 0.8476 | 0.1347 | 0.8857 | -1,453.66 | 7 | False |
+| 4 | 60 | 15 | skip_if_disagree | 26f0bb0d225fd07b | 4,047 | 0.909 | -1,004.76 | -1,058.00 | 53.23 | -78.38 | 10.20 | 0.6982 | 0.0915 | 0.8494 | 0.9296 | 0.0286 | -1,394.73 | 7 | False |
+| 4 | 60 | 15 | skip_if_none | b9abe4ec719ea3cb | 1,262 | 0.2835 | -1,040.75 | -997.29 | -43.47 | 68.38 | 100.00 | 0.6517 | 0.719 | 0.847 | 0.2598 | 0.7857 | -1,430.72 | 6 | False |
+| 4 | 60 | 15 | take_only_agree | 597d7ff49d8875d5 | 857 | 0.1925 | -1,032.60 | -1,004.13 | -28.48 | 47.49 | 99.40 | 0.7956 | 0.8105 | 0.8473 | 0.1894 | 0.8143 | -1,422.57 | 5 | False |
+| 4 | 60 | 30 | skip_if_disagree | e49c05709e39fee7 | 3,663 | 0.8228 | -999.71 | -1,055.55 | 55.84 | -51.57 | 2.70 | 0.5792 | 0.1796 | 0.8555 | 0.8666 | 0.0714 | -1,389.68 | 5 | False |
+| 4 | 60 | 30 | skip_if_none | 3423ad70a89600da | 1,939 | 0.4355 | -1,077.94 | -956.88 | -121.06 | 24.51 | 100.00 | 0.1339 | 0.5628 | 0.8416 | 0.3532 | 0.7143 | -1,467.90 | 5 | False |
+| 4 | 60 | 30 | take_only_agree | 2afd68c4eba3ff62 | 1,150 | 0.2583 | -1,093.30 | -980.46 | -112.84 | -7.90 | 98.00 | 0.2134 | 0.7424 | 0.8449 | 0.2198 | 0.7857 | -1,483.26 | 4 | False |
+
+**Nested-CV candidate** (family `h3/nested_cv`, the 12-block OOF mask):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 21b31cbb10277775 | 3,863 | 0.8677 | -1,032.34 | -860.49 | -171.85 | -275.08 | 0 | 0.1414 | 0.1288 | 0.8217 | 0.8812 | 0.0429 | -1,422.31 | 1 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} |  | 123.23 | 0.9732 | 49 | 396 | 386 |
+| 1 | {"M": 5, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 131.55 | 0.9428 | 49 | 388 | 374 |
+| 2 | {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 3} |  | 105.69 | 0.7789 | 49 | 384 | 292 |
+| 3 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 4} |  | 124.76 | 0.9106 | 49 | 509 | 456 |
+| 4 | {"M": 5, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 83.73 | 0.9441 | 49 | 390 | 370 |
+| 5 | {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} |  | 119.75 | 0.7521 | 49 | 341 | 255 |
+| 6 | {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} |  | 80.22 | 0.7532 | 49 | 424 | 314 |
+| 7 | {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} |  | 105.54 | 0.9732 | 49 | 266 | 260 |
+| 8 | {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} |  | 106.12 | 0.7532 | 49 | 170 | 123 |
+| 9 | {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} |  | 112.60 | 0.9739 | 49 | 499 | 484 |
+| 10 | {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} |  | 135.74 | 0.9744 | 49 | 173 | 166 |
+| 11 | {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} |  | 151.09 | 0.7525 | 49 | 512 | 383 |
+
+CPCV paths (`h3/nested_cv/cpcv`, 11 rows): diff median -156.04, 5th pct -298.24, min -309.93, share > 0 0.091, control pct median 0.1 / 5th pct 0
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 45829ed3c763d7b2 | 4,060 | 0.9119 | -1,036.90 | -726.96 | -309.93 | 0.1 | 0.027 | 0.8751 | 3 | 0 |
+| fbe562737ae24773 | 4,191 | 0.9414 | -1,026.41 | -739.86 | -286.55 | 0.1 | 0.084 | 0.9372 | 2 | 1 |
+| fb8efd727693bfeb | 3,630 | 0.8154 | -1,029.51 | -921.73 | -107.78 | 0.1 | 0.3198 | 0.8288 | 5 | 2 |
+| 9207c4a953d90c3f | 3,876 | 0.8706 | -1,029.80 | -873.75 | -156.04 | 0.1 | 0.1739 | 0.8813 | 2 | 3 |
+| 9837b499de6cc0db | 3,841 | 0.8628 | -1,038.05 | -830.78 | -207.28 | 0 | 0.081 | 0.858 | 2 | 4 |
+| 1316a3a3b3af35c6 | 3,399 | 0.7635 | -1,045.54 | -893.62 | -151.92 | 0.7 | 0.1134 | 0.753 | 3 | 5 |
+| bffa27fc187f0f4d | 3,584 | 0.805 | -1,005.69 | -1,025.78 | 20.09 | 0.8 | 0.8431 | 0.8511 | 5 | 6 |
+| 39e6c7a7564b45b0 | 3,915 | 0.8794 | -1,030.75 | -855.44 | -175.31 | 0.1 | 0.1464 | 0.8833 | 2 | 7 |
+| 36908a3e86f9cb62 | 3,656 | 0.8212 | -1,032.74 | -903.36 | -129.38 | 0 | 0.1934 | 0.8429 | 1 | 8 |
+| a346c64477104e1e | 4,097 | 0.9203 | -1,027.61 | -801.81 | -225.80 | 0.1 | 0.1294 | 0.9221 | 3 | 9 |
+| 8b8fe1c9636019a8 | 3,959 | 0.8893 | -1,018.66 | -936.93 | -81.73 | 0.2 | 0.5192 | 0.9138 | 2 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} x17; {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 2} x17; {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 4} x8; {"M": 5, "N": 60, "gate": "skip_if_disagree", "v": 2} x6; {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 3} x5; {"M": 30, "N": 60, "gate": "skip_if_disagree", "v": 4} x4; {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 3} x3; {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 3} x3; {"M": 5, "N": 20, "gate": "take_only_agree", "v": 2} x1; {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} x1; {"M": 30, "N": 20, "gate": "skip_if_disagree", "v": 3} x1
+
+Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 min | L1 | pre-registered (family as at the primary run) | 55 | 55 | 1.66 | 0.7635 | 0.8015 | 0 | 0 |  | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 244.91 | [-324.62, -39.75] | 0.9825 | 1.00 | -156.04 | -298.24 | 0.091 | 0.1 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, boot_ci_excludes_0 |
+
+
+### 1 min / L0 (4,502 IS units)
+
+L0 robustness, (v=2, N=20) and (v=3, N=20), M = 15:
+
+| variable | bucket | n | net_mean | net_se | win_rate | blocks_below_block_mean |
+|---|---|---|---|---|---|---|
+| hv v2 N20 M15 | agree | 2,530 | -971.25 | 85.55 | 0.153 | 5 |
+| hv v2 N20 M15 | disagree | 813 | -916.31 | 202.52 | 0.1378 | 8 |
+| hv v2 N20 M15 | none | 1,159 | -817.82 | 196.94 | 0.1596 | 6 |
+| hv v3 N20 M15 | agree | 1,518 | -934.03 | 148.13 | 0.1542 | 6 |
+| hv v3 N20 M15 | disagree | 645 | -1,028.59 | 117.69 | 0.1628 | 8 |
+| hv v3 N20 M15 | none | 2,339 | -884.48 | 112.89 | 0.1475 | 6 |
+
+The grid: 54 cells; diff > 0 in 20; control pct >= 95 in 19; passing every raw go/no-go check (kept floors, diff, top-1 % removed, slip-8 kept mean, sign blocks, control) in 0. Median cell diff -53.34, median control pct 88.40. Full table `h3_minute_L0_grid.csv`:
+
+| v | N | M | gate | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2 | 20 | 5 | skip_if_disagree | b3f54184f878ff96 | 4,190 | 0.9307 | -929.10 | -824.18 | -104.92 | 117.01 | 27.40 | 0.7431 | 0.0697 | 0.8526 | 0.9236 | 0.0435 | -1,319.07 | 7 | False |
+| 2 | 20 | 5 | skip_if_none | 2a7d66948c5ad12e | 2,315 | 0.5142 | -946.55 | -895.67 | -50.88 | -83.04 | 99.80 | 0.7566 | 0.4877 | 0.8514 | 0.5154 | 0.5072 | -1,336.51 | 5 | False |
+| 2 | 20 | 5 | take_only_agree | 9b37e8c9613169a2 | 2,003 | 0.4449 | -965.61 | -886.75 | -78.86 | -53.42 | 99.20 | 0.6212 | 0.5574 | 0.8515 | 0.439 | 0.5507 | -1,355.57 | 4 | False |
+| 2 | 20 | 15 | skip_if_disagree | ac1b12f093055d78 | 3,689 | 0.8194 | -923.05 | -916.31 | -6.74 | -68.54 | 17.10 | 0.974 | 0.1836 | 0.8622 | 0.8404 | 0.1739 | -1,313.01 | 8 | False |
+| 2 | 20 | 15 | skip_if_none | 94f2a08df4003907 | 3,343 | 0.7426 | -957.89 | -817.82 | -140.07 | 88.45 | 100.00 | 0.4738 | 0.2551 | 0.8404 | 0.6845 | 0.2899 | -1,347.86 | 6 | False |
+| 2 | 20 | 15 | take_only_agree | 5bc19432df4520ef | 2,530 | 0.562 | -971.25 | -858.43 | -112.83 | 27.32 | 95.80 | 0.4858 | 0.4387 | 0.8494 | 0.5249 | 0.4638 | -1,361.22 | 7 | False |
+| 2 | 20 | 30 | skip_if_disagree | ce43861a46fb4da8 | 3,383 | 0.7514 | -922.50 | -919.81 | -2.69 | -41.39 | 7.90 | 0.991 | 0.253 | 0.8633 | 0.7797 | 0.2029 | -1,312.47 | 7 | False |
+| 2 | 20 | 30 | skip_if_none | 6a3361fb634bea21 | 3,919 | 0.8705 | -962.06 | -651.39 | -310.68 | 209.03 | 100.00 | 0.1914 | 0.1244 | 0.8148 | 0.7779 | 0.2464 | -1,352.03 | 4 | False |
+| 2 | 20 | 30 | take_only_agree | beb256c9edc50abc | 2,800 | 0.6219 | -978.95 | -827.86 | -151.09 | 66.45 | 96.00 | 0.3928 | 0.3774 | 0.8467 | 0.5576 | 0.4493 | -1,368.92 | 5 | False |
+| 2 | 60 | 5 | skip_if_disagree | ad50d7332171b3de | 4,248 | 0.9436 | -894.34 | -1,381.63 | 487.29 | 165.44 | 86.70 | 0.1309 | 0.0574 | 0.8622 | 0.9812 | 0.0145 | -1,284.30 | 10 | False |
+| 2 | 60 | 5 | skip_if_none | ebacd0cc9ba72965 | 2,024 | 0.4496 | -1,030.93 | -832.72 | -198.21 | -105.94 | 93.40 | 0.2109 | 0.5542 | 0.8539 | 0.4273 | 0.5507 | -1,420.89 | 5 | False |
+| 2 | 60 | 5 | take_only_agree | 1a55e327649b6807 | 1,770 | 0.3932 | -980.60 | -883.75 | -96.85 | -72.76 | 98.20 | 0.5602 | 0.6116 | 0.8547 | 0.4085 | 0.5652 | -1,370.57 | 6 | False |
+| 2 | 60 | 15 | skip_if_disagree | 3b0fd04ef5ffcdc8 | 3,781 | 0.8398 | -877.24 | -1,155.69 | 278.45 | -16.50 | 63.20 | 0.1914 | 0.1632 | 0.8641 | 0.9087 | 0.1014 | -1,267.20 | 10 | False |
+| 2 | 60 | 15 | skip_if_none | dc9d668e81f07fcb | 2,948 | 0.6548 | -974.09 | -822.70 | -151.39 | 8.74 | 99.80 | 0.3718 | 0.3452 | 0.8481 | 0.6121 | 0.3623 | -1,364.05 | 7 | False |
+| 2 | 60 | 15 | take_only_agree | 31bcacbb7d29b768 | 2,227 | 0.4947 | -915.30 | -928.23 | 12.93 | -1.02 | 100.00 | 0.937 | 0.5084 | 0.8532 | 0.5208 | 0.4638 | -1,305.26 | 7 | False |
+| 2 | 60 | 30 | skip_if_disagree | cd29461bd88b1bbd | 3,453 | 0.767 | -870.04 | -1,092.33 | 222.29 | -25.57 | 56.80 | 0.2289 | 0.2386 | 0.8684 | 0.8524 | 0.1594 | -1,260.00 | 9 | False |
+| 2 | 60 | 30 | skip_if_none | fe4544a4bbeb979f | 3,564 | 0.7916 | -959.53 | -778.60 | -180.93 | 45.66 | 100.00 | 0.3543 | 0.2051 | 0.8348 | 0.7369 | 0.2609 | -1,349.49 | 6 | False |
+| 2 | 60 | 30 | take_only_agree | 12b7c4a026075c3f | 2,515 | 0.5586 | -904.14 | -944.23 | 40.09 | 11.89 | 100.00 | 0.8081 | 0.4437 | 0.8525 | 0.5893 | 0.4203 | -1,294.10 | 6 | False |
+| 3 | 20 | 5 | skip_if_disagree | 497ca8ca875e4741 | 4,320 | 0.9596 | -903.56 | -1,355.48 | 451.92 | 167.19 | 75.20 | 0.2214 | 0.0409 | 0.8571 | 0.9764 | 0.029 | -1,293.53 | 9 | False |
+| 3 | 20 | 5 | skip_if_none | cbed24a8d137d54a | 1,248 | 0.2772 | -973.69 | -901.94 | -71.74 | -71.90 | 91.30 | 0.6627 | 0.7255 | 0.8513 | 0.2776 | 0.7391 | -1,363.65 | 4 | False |
+| 3 | 20 | 5 | take_only_agree | d16e6297c5c8c719 | 1,066 | 0.2368 | -908.50 | -925.97 | 17.47 | -43.69 | 97.00 | 0.9235 | 0.7664 | 0.8516 | 0.254 | 0.7681 | -1,298.47 | 4 | False |
+| 3 | 20 | 15 | skip_if_disagree | 53a06fc24f364ab2 | 3,857 | 0.8567 | -903.98 | -1,028.59 | 124.61 | -154.40 | 31.60 | 0.5737 | 0.1414 | 0.8372 | 0.8971 | 0.0725 | -1,293.94 | 8 | False |
+| 3 | 20 | 15 | skip_if_none | 7bc1e57de5d8ac93 | 2,163 | 0.4805 | -962.23 | -884.48 | -77.75 | -14.82 | 98.20 | 0.6047 | 0.5223 | 0.8525 | 0.4606 | 0.6087 | -1,352.19 | 6 | False |
+| 3 | 20 | 15 | take_only_agree | 17b2570cfc4ba012 | 1,518 | 0.3372 | -934.03 | -915.63 | -18.41 | -101.66 | 98.30 | 0.9175 | 0.6637 | 0.8492 | 0.3577 | 0.6812 | -1,324.00 | 6 | False |
+| 3 | 20 | 30 | skip_if_disagree | bc8dbec3c90824f9 | 3,363 | 0.747 | -872.77 | -1,066.69 | 193.92 | -74.97 | 40.50 | 0.2944 | 0.2541 | 0.8516 | 0.8263 | 0.1594 | -1,262.73 | 8 | False |
+| 3 | 20 | 30 | skip_if_none | 77839d2c842c864f | 3,066 | 0.681 | -939.63 | -883.82 | -55.81 | 96.61 | 100.00 | 0.7566 | 0.3182 | 0.8461 | 0.6415 | 0.4058 | -1,329.60 | 6 | False |
+| 3 | 20 | 30 | take_only_agree | e49411b09fd72e4c | 1,927 | 0.428 | -864.53 | -964.71 | 100.18 | 27.59 | 100.00 | 0.5617 | 0.5723 | 0.8485 | 0.4677 | 0.5652 | -1,254.50 | 7 | False |
+| 3 | 60 | 5 | skip_if_disagree | 8a89c1329f6ae1cf | 4,353 | 0.9669 | -912.01 | -1,208.88 | 296.88 | 38.04 | 77.50 | 0.4968 | 0.0327 | 0.8389 | 0.982 | 0.0145 | -1,301.97 | 8 | False |
+| 3 | 60 | 5 | skip_if_none | a5312b53f6788a51 | 1,156 | 0.2568 | -1,204.40 | -824.21 | -380.19 | -179.30 | 56.50 | 0.033 | 0.7457 | 0.8509 | 0.2226 | 0.8261 | -1,594.36 | 5 | False |
+| 3 | 60 | 5 | take_only_agree | d772c5c6bf3d71d4 | 1,007 | 0.2237 | -1,203.73 | -840.61 | -363.12 | -190.01 | 77.00 | 0.053 | 0.7784 | 0.8504 | 0.2046 | 0.8406 | -1,593.70 | 5 | False |
+| 3 | 60 | 15 | skip_if_disagree | ad2fe45df0d3e660 | 3,915 | 0.8696 | -896.25 | -1,092.46 | 196.22 | -49.89 | 58.10 | 0.3978 | 0.1302 | 0.8467 | 0.9163 | 0.087 | -1,286.21 | 8 | False |
+| 3 | 60 | 15 | skip_if_none | 72c8ef7339309476 | 1,941 | 0.4311 | -1,151.46 | -747.79 | -403.66 | -106.38 | 56.20 | 0.0095 | 0.5697 | 0.8493 | 0.3429 | 0.6957 | -1,541.42 | 4 | False |
+| 3 | 60 | 15 | take_only_agree | 8878ab654cbb04c0 | 1,354 | 0.3008 | -1,177.04 | -812.06 | -364.97 | -150.78 | 69.30 | 0.029 | 0.6998 | 0.8488 | 0.2592 | 0.7826 | -1,567.00 | 4 | False |
+| 3 | 60 | 30 | skip_if_disagree | 07b66c423d7297c2 | 3,497 | 0.7768 | -869.43 | -1,104.16 | 234.72 | -29.48 | 60.50 | 0.2159 | 0.2271 | 0.8627 | 0.8619 | 0.1449 | -1,259.40 | 7 | False |
+| 3 | 60 | 30 | skip_if_none | 90ee0b9bd01235cf | 2,718 | 0.6037 | -1,110.60 | -634.23 | -476.37 | -69.96 | 77.80 | 0.0035 | 0.3921 | 0.8391 | 0.4668 | 0.5362 | -1,500.57 | 4 | False |
+| 3 | 60 | 30 | take_only_agree | eba2762707c8038f | 1,713 | 0.3805 | -1,114.38 | -803.57 | -310.82 | -92.53 | 88.50 | 0.0705 | 0.6192 | 0.8476 | 0.3287 | 0.6812 | -1,504.35 | 4 | False |
+| 4 | 20 | 5 | skip_if_disagree | 066541e7aa7c5463 | 4,380 | 0.9729 | -907.72 | -1,428.54 | 520.82 | 129.49 | 70.40 | 0.2289 | 0.0272 | 0.8525 | 0.9893 | 0 | -1,297.68 | 10 | False |
+| 4 | 20 | 5 | skip_if_none | 6836e7cbb2ac67a5 | 785 | 0.1744 | -1,016.69 | -901.80 | -114.89 | -37.16 | 92.00 | 0.5707 | 0.8282 | 0.8507 | 0.1571 | 0.8841 | -1,406.66 | 5 | False |
+| 4 | 20 | 5 | take_only_agree | 763c05df0825459d | 663 | 0.1473 | -940.91 | -918.54 | -22.37 | -15.22 | 98.60 | 0.9275 | 0.8554 | 0.8507 | 0.1464 | 0.8841 | -1,330.87 | 6 | False |
+| 4 | 20 | 15 | skip_if_disagree | 2a9e185fe959752e | 4,012 | 0.8912 | -903.29 | -1,073.62 | 170.33 | -118.90 | 45.50 | 0.5227 | 0.1066 | 0.8306 | 0.9196 | 0.029 | -1,293.26 | 6 | False |
+| 4 | 20 | 15 | skip_if_none | c5a4f1d5e40cd154 | 1,475 | 0.3276 | -994.80 | -886.28 | -108.52 | -54.20 | 91.20 | 0.5222 | 0.6747 | 0.851 | 0.311 | 0.7826 | -1,384.76 | 6 | False |
+| 4 | 20 | 15 | take_only_agree | fcfa6411a32ff733 | 985 | 0.2188 | -955.58 | -912.38 | -43.21 | -137.76 | 94.90 | 0.8301 | 0.7813 | 0.8482 | 0.2306 | 0.8116 | -1,345.55 | 5 | False |
+| 4 | 20 | 30 | skip_if_disagree | 7819db1b7afa9f8d | 3,557 | 0.7901 | -892.38 | -1,032.70 | 140.32 | -87.45 | 44.40 | 0.4898 | 0.2098 | 0.8476 | 0.8383 | 0.1159 | -1,282.34 | 8 | False |
+| 4 | 20 | 30 | skip_if_none | ad06112f8f0a984a | 2,307 | 0.5124 | -942.95 | -899.63 | -43.32 | 57.93 | 99.90 | 0.7741 | 0.4872 | 0.8474 | 0.4888 | 0.5362 | -1,332.92 | 7 | False |
+| 4 | 20 | 30 | take_only_agree | bad999f0c33eb23a | 1,362 | 0.3025 | -880.68 | -939.68 | 59.00 | -0.35 | 99.50 | 0.7311 | 0.697 | 0.8475 | 0.3271 | 0.6522 | -1,270.65 | 6 | False |
+| 4 | 60 | 5 | skip_if_disagree | 8b9dbe237c47c05a | 4,401 | 0.9776 | -920.97 | -959.58 | 38.61 | -155.88 | 39.20 | 0.9315 | 0.0215 | 0.8119 | 0.9809 | 0.029 | -1,310.93 | 7 | False |
+| 4 | 60 | 5 | skip_if_none | 13707296d467117c | 705 | 0.1566 | -1,132.50 | -882.72 | -249.78 | -207.71 | 89.20 | 0.2454 | 0.8476 | 0.8523 | 0.1489 | 0.8841 | -1,522.46 | 4 | False |
+| 4 | 60 | 5 | take_only_agree | e82b664b26657fd5 | 604 | 0.1342 | -1,161.41 | -884.71 | -276.70 | -265.60 | 88.40 | 0.2264 | 0.869 | 0.8512 | 0.1299 | 0.913 | -1,551.38 | 4 | False |
+| 4 | 60 | 15 | skip_if_disagree | 7eb26a763965545c | 4,086 | 0.9076 | -902.09 | -1,115.69 | 213.59 | -40.85 | 37.90 | 0.4198 | 0.0927 | 0.851 | 0.9343 | 0.0435 | -1,292.06 | 6 | False |
+| 4 | 60 | 15 | skip_if_none | e1edf18847fbe400 | 1,291 | 0.2868 | -1,161.65 | -825.41 | -336.23 | -177.65 | 79.50 | 0.048 | 0.715 | 0.8502 | 0.2432 | 0.7971 | -1,551.61 | 4 | False |
+| 4 | 60 | 15 | take_only_agree | 304211658cec2e1a | 875 | 0.1944 | -1,183.50 | -858.71 | -324.79 | -254.29 | 75.70 | 0.1049 | 0.8078 | 0.8503 | 0.1775 | 0.8406 | -1,573.46 | 4 | False |
+| 4 | 60 | 30 | skip_if_disagree | 3b61d4d8336b9b10 | 3,696 | 0.821 | -885.45 | -1,088.65 | 203.19 | -31.20 | 37.80 | 0.3358 | 0.1805 | 0.8548 | 0.8749 | 0.1159 | -1,275.42 | 6 | False |
+| 4 | 60 | 30 | skip_if_none | 1cf929cd4b23a519 | 1,979 | 0.4396 | -1,107.61 | -776.11 | -331.51 | -116.13 | 87.50 | 0.0375 | 0.5597 | 0.847 | 0.3592 | 0.6377 | -1,497.58 | 5 | False |
+| 4 | 60 | 30 | take_only_agree | 156861f97f36188b | 1,173 | 0.2606 | -1,120.65 | -851.78 | -268.87 | -172.38 | 88.40 | 0.1169 | 0.7402 | 0.8489 | 0.234 | 0.7536 | -1,510.61 | 4 | False |
+
+**Nested-CV candidate** (family `h3/nested_cv`, the 12-block OOF mask):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 4aa13f8ee89c96a3 | 4,355 | 0.9673 | -915.32 | -1,114.61 | 199.29 | -58.26 | 59.10 | 0.6362 | 0.0322 | 0.8367 | 0.9805 | 0.0145 | -1,305.29 | 8 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} |  | 564.72 | 0.9728 | 49 | 400 | 389 |
+| 1 | {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 3} |  | 498.99 | 0.9588 | 49 | 392 | 379 |
+| 2 | {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} |  | 484.93 | 0.9717 | 49 | 386 | 381 |
+| 3 | {"M": 5, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 516.97 | 0.9427 | 49 | 512 | 487 |
+| 4 | {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} |  | 541.67 | 0.9725 | 49 | 395 | 386 |
+| 5 | {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} |  | 554.45 | 0.9719 | 49 | 345 | 339 |
+| 6 | {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} |  | 488.55 | 0.9736 | 49 | 430 | 415 |
+| 7 | {"M": 5, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 471.60 | 0.9421 | 49 | 269 | 260 |
+| 8 | {"M": 5, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 493.34 | 0.9443 | 49 | 172 | 159 |
+| 9 | {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} |  | 549.04 | 0.9732 | 49 | 506 | 491 |
+| 10 | {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} |  | 469.16 | 0.9738 | 49 | 174 | 167 |
+| 11 | {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} |  | 586.39 | 0.9741 | 49 | 521 | 502 |
+
+CPCV paths (`h3/nested_cv/cpcv`, 11 rows): diff median 290.83, 5th pct 203.44, min 197.42, share > 0 1.00, control pct median 67.00 / 5th pct 56.50
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1ad35aa2918bc630 | 4,370 | 0.9707 | -910.61 | -1,293.29 | 382.68 | 72.30 | 0.3803 | 0.9833 | 9 | 0 |
+| cb4b5850e81c8e49 | 4,307 | 0.9567 | -906.77 | -1,254.39 | 347.62 | 64.30 | 0.3433 | 0.981 | 10 | 1 |
+| 7077857e85a24d3b | 4,337 | 0.9633 | -911.09 | -1,204.30 | 293.22 | 64.50 | 0.4683 | 0.9808 | 9 | 2 |
+| 812576ac8887986e | 4,356 | 0.9676 | -914.76 | -1,132.85 | 218.09 | 58.00 | 0.5942 | 0.9809 | 8 | 3 |
+| a4d321df0d690912 | 4,368 | 0.9702 | -915.60 | -1,125.06 | 209.47 | 56.90 | 0.6217 | 0.981 | 8 | 4 |
+| 3de67ccda7f6c0e0 | 4,364 | 0.9693 | -912.92 | -1,203.74 | 290.83 | 67.00 | 0.5022 | 0.9828 | 9 | 5 |
+| 5664ab1a73267823 | 4,314 | 0.9582 | -910.22 | -1,188.23 | 278.01 | 73.30 | 0.4518 | 0.9799 | 9 | 6 |
+| 284901def2b1fa10 | 4,317 | 0.9589 | -912.80 | -1,132.52 | 219.72 | 69.60 | 0.5727 | 0.9795 | 8 | 7 |
+| 543f96893c1fce8d | 4,372 | 0.9711 | -912.60 | -1,232.22 | 319.61 | 67.20 | 0.4713 | 0.9832 | 9 | 8 |
+| 95e4144c74c43fe6 | 4,348 | 0.9658 | -915.08 | -1,112.49 | 197.42 | 56.00 | 0.6267 | 0.9805 | 8 | 9 |
+| 90f47546b9838054 | 4,377 | 0.9722 | -913.20 | -1,224.22 | 311.02 | 68.00 | 0.4798 | 0.9833 | 9 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 4} x40; {"M": 5, "N": 60, "gate": "skip_if_disagree", "v": 2} x18; {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 3} x8
+
+Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 min | L0 | pre-registered (family as at the primary run) | 55 | 55 | 1.98 | 0.1033 | 0.7235 | 0.055 | 0.055 |  | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 352.15 | [-146.01, 516.43] | 0.166 | 1.00 | 290.83 | 203.44 | 1.00 | 67.00 | False | diff_top1_removed>0, kept_mean_slip8>0, control_pct>=95, dsr_p<0.1, boot_ci_excludes_0 |
+
 
 ### 5 min / L1 (826 IS units)
 
@@ -570,20 +1105,20 @@ The grid: 54 cells; diff > 0 in 26; control pct >= 95 in 35; passing every raw g
 
 Chosen cell per training fold:
 
-| block | chosen | thr | train_diff | eligible | test_n | test_kept |
-|---|---|---|---|---|---|---|
-| 0 | {"v": 2, "N": 20, "M": 5, "gate": "skip_if_disagree"} |  | 608.48 | 38 | 82 | 79 |
-| 1 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 496.05 | 37 | 83 | 77 |
-| 2 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 469.66 | 38 | 42 | 37 |
-| 3 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 515.47 | 38 | 76 | 73 |
-| 4 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 650.80 | 36 | 72 | 63 |
-| 5 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 563.97 | 38 | 73 | 68 |
-| 6 | {"v": 2, "N": 60, "M": 5, "gate": "skip_if_disagree"} |  | 884.99 | 38 | 77 | 76 |
-| 7 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 576.37 | 38 | 51 | 50 |
-| 8 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 700.93 | 38 | 76 | 71 |
-| 9 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 909.14 | 37 | 80 | 70 |
-| 10 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 610.50 | 38 | 31 | 30 |
-| 11 | {"v": 2, "N": 20, "M": 5, "gate": "skip_if_disagree"} |  | 873.19 | 37 | 83 | 81 |
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} |  | 608.48 | 0.9663 | 38 | 82 | 79 |
+| 1 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 496.05 | 0.9339 | 37 | 83 | 77 |
+| 2 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 469.66 | 0.9349 | 38 | 42 | 37 |
+| 3 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 515.47 | 0.9313 | 38 | 76 | 73 |
+| 4 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 650.80 | 0.9377 | 36 | 72 | 63 |
+| 5 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 563.97 | 0.9317 | 38 | 73 | 68 |
+| 6 | {"M": 5, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 884.99 | 0.9758 | 38 | 77 | 76 |
+| 7 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 576.37 | 0.929 | 38 | 51 | 50 |
+| 8 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 700.93 | 0.9317 | 38 | 76 | 71 |
+| 9 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 909.14 | 0.9383 | 37 | 80 | 70 |
+| 10 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 610.50 | 0.9307 | 38 | 31 | 30 |
+| 11 | {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} |  | 873.19 | 0.965 | 37 | 83 | 81 |
 
 CPCV paths (`h3/nested_cv/cpcv`, 11 rows): diff median -200.09, 5th pct -598.43, min -612.43, share > 0 0.273, control pct median 0.7 / 5th pct 0.1
 
@@ -601,13 +1136,13 @@ CPCV paths (`h3/nested_cv/cpcv`, 11 rows): diff median -200.09, 5th pct -598.43,
 | 7ec0a850b3393d35 | 775 | 0.9383 | -769.41 | -569.31 | -200.09 | 0.7 | 0.7611 | 0.9465 | 6 | 9 |
 | 7a046b7ee67be535 | 795 | 0.9625 | -774.61 | -306.84 | -467.77 | 0.1 | 0.5647 | 0.9626 | 5 | 10 |
 
-Cells chosen across the 66 CPCV training sets: {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} x39; {"v": 2, "N": 20, "M": 5, "gate": "skip_if_disagree"} x17; {"v": 2, "N": 60, "M": 5, "gate": "skip_if_disagree"} x9; {"v": 3, "N": 20, "M": 5, "gate": "skip_if_disagree"} x1
+Cells chosen across the 66 CPCV training sets: {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} x39; {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} x17; {"M": 5, "N": 60, "gate": "skip_if_disagree", "v": 2} x9; {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 3} x1
 
-Family (after every row of this study on this table, the post-hoc row included):
+Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
 
-| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 5 min | L1 | pre-registered | 55 | 55 | 2.49 | 0.6568 | 0.3895 | 0.155 | 0.172 | {"v": 2, "N": 20, "M": 30, "gate": "skip_if_none"} | 428.85 | [-1159.18, 581.14] | 0.6535 | 0.9965 | -200.09 | -598.43 | 0.273 | 0.7 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | L1 | pre-registered (family as at the primary run) | 55 | 55 | 2.49 | 0.6568 | 0.3895 | 0.155 | 0.172 |  | {"v": 2, "N": 20, "M": 30, "gate": "skip_if_none"} | 428.85 | [-1159.18, 581.14] | 0.6535 | 0.9965 | -200.09 | -598.43 | 0.273 | 0.7 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
 
 
 ### 5 min / L0 (832 IS units)
@@ -690,20 +1225,20 @@ The grid: 54 cells; diff > 0 in 36; control pct >= 95 in 31; passing every raw g
 
 Chosen cell per training fold:
 
-| block | chosen | thr | train_diff | eligible | test_n | test_kept |
-|---|---|---|---|---|---|---|
-| 0 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,058.11 | 38 | 83 | 82 |
-| 1 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,422.24 | 38 | 84 | 84 |
-| 2 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,285.46 | 38 | 42 | 41 |
-| 3 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,427.14 | 38 | 77 | 77 |
-| 4 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,471.59 | 37 | 72 | 68 |
-| 5 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,619.76 | 38 | 73 | 71 |
-| 6 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,615.98 | 38 | 78 | 78 |
-| 7 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,372.16 | 38 | 51 | 51 |
-| 8 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 3,278.60 | 38 | 76 | 75 |
-| 9 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,003.94 | 38 | 82 | 72 |
-| 10 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,272.25 | 38 | 31 | 29 |
-| 11 | {"v": 4, "N": 20, "M": 15, "gate": "skip_if_disagree"} |  | 2,708.00 | 38 | 83 | 80 |
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 4} |  | 2,058.11 | 0.9799 | 38 | 83 | 82 |
+| 1 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 4} |  | 2,422.24 | 0.9786 | 38 | 84 | 84 |
+| 2 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 4} |  | 2,285.46 | 0.981 | 38 | 42 | 41 |
+| 3 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 4} |  | 2,427.14 | 0.9812 | 38 | 77 | 77 |
+| 4 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 4} |  | 2,471.59 | 0.9842 | 37 | 72 | 68 |
+| 5 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 4} |  | 2,619.76 | 0.9814 | 38 | 73 | 71 |
+| 6 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 4} |  | 2,615.98 | 0.9787 | 38 | 78 | 78 |
+| 7 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 4} |  | 2,372.16 | 0.9795 | 38 | 51 | 51 |
+| 8 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 4} |  | 3,278.60 | 0.9801 | 38 | 76 | 75 |
+| 9 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} |  | 2,003.94 | 0.9386 | 38 | 82 | 72 |
+| 10 | {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 4} |  | 2,272.25 | 0.9825 | 38 | 31 | 29 |
+| 11 | {"M": 15, "N": 20, "gate": "skip_if_disagree", "v": 4} |  | 2,708.00 | 0.9559 | 38 | 83 | 80 |
 
 CPCV paths (`h3/nested_cv/cpcv`, 11 rows): diff median 451.83, 5th pct 261.32, min 245.41, share > 0 1.00, control pct median 33.50 / 5th pct 30.90
 
@@ -721,56 +1256,142 @@ CPCV paths (`h3/nested_cv/cpcv`, 11 rows): diff median 451.83, 5th pct 261.32, m
 | 16b1e13f8d206b5c | 809 | 0.9724 | -269.09 | -546.33 | 277.24 | 33.30 | 0.8966 | 0.9753 | 5 | 9 |
 | ca632e129cbbec78 | 799 | 0.9603 | -213.40 | -1,810.88 | 1,597.48 | 53.50 | 0.3478 | 0.9803 | 8 | 10 |
 
-Cells chosen across the 66 CPCV training sets: {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} x46; {"v": 4, "N": 20, "M": 15, "gate": "skip_if_disagree"} x11; {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} x9
+Cells chosen across the 66 CPCV training sets: {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 4} x46; {"M": 15, "N": 20, "gate": "skip_if_disagree", "v": 4} x11; {"M": 15, "N": 60, "gate": "skip_if_disagree", "v": 2} x9
 
-Family (after every row of this study on this table, the post-hoc row included):
+Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
 
-| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 5 min | L0 | pre-registered | 55 | 55 | 2.24 | 0.5181 | 0.4411 | 0.5765 | 0.5765 | {"v": 3, "N": 20, "M": 30, "gate": "skip_if_none"} | 525.73 | [-2269.14, 2575.06] | 0.356 | 0.7825 | 451.83 | 261.32 | 1.00 | 33.50 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | L0 | pre-registered (family as at the primary run) | 55 | 55 | 2.24 | 0.5181 | 0.4411 | 0.5765 | 0.5765 |  | {"v": 3, "N": 20, "M": 30, "gate": "skip_if_none"} | 525.73 | [-2269.14, 2575.06] | 0.356 | 0.7825 | 451.83 | 261.32 | 1.00 | 33.50 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
 
 
 ### H3 family summary (all tables)
 
-| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 5 min | L1 | pre-registered | 55 | 55 | 2.49 | 0.6568 | 0.3895 | 0.155 | 0.172 | {"v": 2, "N": 20, "M": 30, "gate": "skip_if_none"} | 428.85 | [-1159.18, 581.14] | 0.6535 | 0.9965 | -200.09 | -598.43 | 0.273 | 0.7 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
-| 5 min | L0 | pre-registered | 55 | 55 | 2.24 | 0.5181 | 0.4411 | 0.5765 | 0.5765 | {"v": 3, "N": 20, "M": 30, "gate": "skip_if_none"} | 525.73 | [-2269.14, 2575.06] | 0.356 | 0.7825 | 451.83 | 261.32 | 1.00 | 33.50 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 min | L1 | pre-registered (family as at the primary run) | 55 | 55 | 1.66 | 0.7635 | 0.8015 | 0 | 0 |  | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 244.91 | [-324.62, -39.75] | 0.9825 | 1.00 | -156.04 | -298.24 | 0.091 | 0.1 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, boot_ci_excludes_0 |
+| 1 min | L0 | pre-registered (family as at the primary run) | 55 | 55 | 1.98 | 0.1033 | 0.7235 | 0.055 | 0.055 |  | {"v": 2, "N": 60, "M": 30, "gate": "skip_if_none"} | 352.15 | [-146.01, 516.43] | 0.166 | 1.00 | 290.83 | 203.44 | 1.00 | 67.00 | False | diff_top1_removed>0, kept_mean_slip8>0, control_pct>=95, dsr_p<0.1, boot_ci_excludes_0 |
+| 5 min | L1 | pre-registered (family as at the primary run) | 55 | 55 | 2.49 | 0.6568 | 0.3895 | 0.155 | 0.172 |  | {"v": 2, "N": 20, "M": 30, "gate": "skip_if_none"} | 428.85 | [-1159.18, 581.14] | 0.6535 | 0.9965 | -200.09 | -598.43 | 0.273 | 0.7 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 5 min | L0 | pre-registered (family as at the primary run) | 55 | 55 | 2.24 | 0.5181 | 0.4411 | 0.5765 | 0.5765 |  | {"v": 3, "N": 20, "M": 30, "gate": "skip_if_none"} | 525.73 | [-2269.14, 2575.06] | 0.356 | 0.7825 | 451.83 | 261.32 | 1.00 | 33.50 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
 
 
 
 ## T4. H4 - levels respected or broken
 
+### 1 min: the episode study (IS bars; `h4_minute_episodes.parquet`, 248,128 episodes of 141,221 level instances: {'swing': 113936, 'prot': 15645, 'room': 11640})
+
+Repair round (2026-09-29T05:33:09): verdict of a window cut by the session end = session_end (was broke when a break close fell inside the truncated window); cut_break added. Cut windows: 8,537 (`session_end`), of which 3,825 held a break close inside the truncated window (`cut_break_n` below).
+
+Verdicts (`h4_minute_episode_verdicts.csv`):
+
+| kind | verdict | n | cut_break_n | share |
+|---|---|---|---|---|
+| prot | broke | 4,554 | 0 | 0.6875 |
+| prot | held | 1,867 | 0 | 0.2819 |
+| prot | session_end | 203 | 92 | 0.0306 |
+| room | broke | 48,102 | 0 | 0.6641 |
+| room | held | 21,895 | 0 | 0.3023 |
+| room | na | 276 | 0 | 0.0038 |
+| room | session_end | 2,156 | 1,025 | 0.0298 |
+| swing | broke | 112,912 | 0 | 0.6678 |
+| swing | held | 49,985 | 0 | 0.2956 |
+| swing | session_end | 6,178 | 2,708 | 0.0365 |
+
+P(broke given prior held episodes of the same level), episodes not after a break (`h4_minute_p_break_by_prior_held.csv`):
+
+| kind | prior_held_bin | n | p_broke |
+|---|---|---|---|
+| prot | 0 | 6,421 | 0.7092 |
+| room | 0 | 9,958 | 0.669 |
+| room | 1 | 2,538 | 0.4941 |
+| room | 2 | 984 | 0.5122 |
+| room | 3+ | 659 | 0.4704 |
+| swing | 0 | 93,171 | 0.6914 |
+| swing | 1 | 19,495 | 0.4734 |
+| swing | 2 | 7,573 | 0.4651 |
+| swing | 3+ | 4,755 | 0.4566 |
+
+Move after a confirmed break vs after a respect, in ATR (`h4_minute_aftermath.csv`; `move` is signed in the break / bounce direction, `abs` is its magnitude, the baseline is every IS bar):
+
+| kind | verdict | n_bars | n | abs_mean | abs_median | abs_p75 | abs_p90 | abs_share_gt1 | abs_share_gt2 | move_mean | move_median | move_share_pos | move_share_gt1 | move_share_gt2 | mfe_median | beyond_median | beyond_share_pos |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| baseline_all_bars | any | 15 | 367,686 | 1.90 | 1.48 | 2.63 | 4.03 | 0.6432 | 0.3691 |  |  |  |  |  |  |  |  |
+| baseline_all_bars | any | 30 | 352,296 | 2.73 | 2.11 | 3.75 | 5.80 | 0.7437 | 0.5212 |  |  |  |  |  |  |  |  |
+| baseline_all_bars | any | 60 | 321,516 | 3.86 | 2.96 | 5.32 | 8.31 | 0.8163 | 0.6442 |  |  |  |  |  |  |  |  |
+| prot | broke | 15 | 4,519 | 1.99 | 1.58 | 2.73 | 4.19 | 0.6636 | 0.3901 | -0.055 | -0.136 | 0.4771 | 0.312 | 0.1846 | 1.50 | 0.88 | 0.649 |
+| prot | broke | 30 | 4,271 | 2.83 | 2.24 | 3.98 | 6.01 | 0.7602 | 0.5486 | -0.071 | -0.144 | 0.4819 | 0.3662 | 0.2669 | 2.16 | 0.845 | 0.6088 |
+| prot | broke | 60 | 3,852 | 4.08 | 3.20 | 5.70 | 8.70 | 0.8383 | 0.6685 | 0.018 | 0 | 0.4992 | 0.4164 | 0.3294 | 3.17 | 1.02 | 0.5836 |
+| prot | held | 15 | 1,764 | 2.00 | 1.57 | 2.79 | 4.18 | 0.6576 | 0.4002 | 0.018 | -0.032 | 0.4887 | 0.3226 | 0.2046 | 1.60 |  |  |
+| prot | held | 30 | 1,671 | 2.90 | 2.33 | 4.04 | 6.00 | 0.7732 | 0.5572 | 0.035 | 0.031 | 0.5021 | 0.3926 | 0.2843 | 2.38 |  |  |
+| prot | held | 60 | 1,490 | 4.15 | 3.19 | 5.67 | 8.95 | 0.8322 | 0.6698 | -0.01 | -0.046 | 0.494 | 0.4101 | 0.3349 | 3.25 |  |  |
+| room | broke | 15 | 47,748 | 1.94 | 1.51 | 2.69 | 4.08 | 0.6539 | 0.3821 | -0.03 | -0.115 | 0.4787 | 0.3108 | 0.1851 | 1.50 | 0.95 | 0.6637 |
+| room | broke | 30 | 45,403 | 2.75 | 2.16 | 3.84 | 5.83 | 0.7438 | 0.5292 | -0.022 | -0.096 | 0.4861 | 0.361 | 0.2576 | 2.15 | 0.975 | 0.6232 |
+| room | broke | 60 | 41,234 | 3.87 | 3.01 | 5.38 | 8.25 | 0.8185 | 0.6521 | 0.019 | -0.067 | 0.4949 | 0.4034 | 0.3227 | 3.04 | 1.02 | 0.5891 |
+| room | held | 15 | 20,744 | 1.92 | 1.49 | 2.65 | 4.06 | 0.6469 | 0.371 | 0.039 | -0.007 | 0.4965 | 0.3232 | 0.1886 | 1.56 |  |  |
+| room | held | 30 | 19,908 | 2.73 | 2.14 | 3.77 | 5.77 | 0.7417 | 0.5254 | 0.057 | 0.035 | 0.5041 | 0.3771 | 0.2656 | 2.24 |  |  |
+| room | held | 60 | 18,016 | 3.87 | 2.97 | 5.37 | 8.32 | 0.8184 | 0.6429 | 0.066 | 0.085 | 0.5078 | 0.4179 | 0.3271 | 3.13 |  |  |
+| swing | broke | 15 | 112,068 | 1.98 | 1.54 | 2.73 | 4.18 | 0.6584 | 0.3879 | -0.063 | -0.168 | 0.4686 | 0.306 | 0.1825 | 1.51 | 0.907 | 0.6574 |
+| swing | broke | 30 | 105,790 | 2.82 | 2.19 | 3.91 | 5.97 | 0.7555 | 0.5359 | -0.06 | -0.195 | 0.4741 | 0.3562 | 0.2534 | 2.15 | 0.894 | 0.609 |
+| swing | broke | 60 | 95,614 | 4.00 | 3.05 | 5.51 | 8.57 | 0.8213 | 0.6524 | -0.018 | -0.17 | 0.4845 | 0.3968 | 0.3156 | 3.04 | 0.924 | 0.5832 |
+| swing | held | 15 | 47,077 | 1.96 | 1.49 | 2.69 | 4.17 | 0.6486 | 0.3757 | 0.013 | 0 | 0.4964 | 0.3229 | 0.1888 | 1.57 |  |  |
+| swing | held | 30 | 44,850 | 2.84 | 2.19 | 3.89 | 6.02 | 0.753 | 0.5366 | 0.007 | 0 | 0.4991 | 0.3787 | 0.2682 | 2.29 |  |  |
+| swing | held | 60 | 40,223 | 4.04 | 3.04 | 5.53 | 8.79 | 0.8195 | 0.6504 | 0.011 | 0.01 | 0.5006 | 0.4105 | 0.3268 | 3.23 |  |  |
+
+Retests (held episodes) before the first break, per level instance that broke (`h4_minute_retests_before_break.csv`):
+
+| kind | retests_bin | instances | instances_touched | share_of_touched_instances |
+|---|---|---|---|---|
+| prot | 0 | 4,554 | 6,624 | 0.6875 |
+| room | 0 | 6,635 | 10,052 | 0.6601 |
+| room | 1 | 1,247 | 10,052 | 0.1241 |
+| room | 2 | 501 | 10,052 | 0.0498 |
+| room | 3+ | 308 | 10,052 | 0.0306 |
+| swing | 0 | 64,423 | 96,486 | 0.6677 |
+| swing | 1 | 9,228 | 96,486 | 0.0956 |
+| swing | 2 | 3,522 | 96,486 | 0.0365 |
+| swing | 3+ | 2,171 | 96,486 | 0.0225 |
+
+Held episodes followed by another touch of the same level instance (`h4_minute_held_then_retested.csv`):
+
+| kind | n | share_retested |
+|---|---|---|
+| prot | 1,867 | 0 |
+| room | 21,895 | 0.8136 |
+| swing | 49,985 | 0.6777 |
+
+
 ### 5 min: the episode study (IS bars; `h4_5minute_episodes.parquet`, 63,009 episodes of 33,979 level instances: {'swing': 22992, 'room': 8090, 'prot': 2897})
+
+Repair round (2026-09-29T05:34:13): verdict of a window cut by the session end = session_end (was broke when a break close fell inside the truncated window); cut_break added. Cut windows: 2,663 (`session_end`), of which 520 held a break close inside the truncated window (`cut_break_n` below).
 
 Verdicts (`h4_5minute_episode_verdicts.csv`):
 
-| kind | verdict | n | share |
-|---|---|---|---|
-| prot | broke | 515 | 0.4387 |
-| prot | held | 645 | 0.5494 |
-| prot | session_end | 14 | 0.0119 |
-| room | broke | 16,011 | 0.436 |
-| room | held | 19,025 | 0.5181 |
-| room | na | 561 | 0.0153 |
-| room | session_end | 1,123 | 0.0306 |
-| swing | broke | 11,388 | 0.4534 |
-| swing | held | 12,721 | 0.5065 |
-| swing | session_end | 1,006 | 0.0401 |
+| kind | verdict | n | cut_break_n | share |
+|---|---|---|---|---|
+| prot | broke | 509 | 0 | 0.4336 |
+| prot | held | 645 | 0 | 0.5494 |
+| prot | session_end | 20 | 6 | 0.017 |
+| room | broke | 15,730 | 0 | 0.4284 |
+| room | held | 19,025 | 0 | 0.5181 |
+| room | na | 561 | 0 | 0.0153 |
+| room | session_end | 1,404 | 281 | 0.0382 |
+| swing | broke | 11,155 | 0 | 0.4442 |
+| swing | held | 12,721 | 0 | 0.5065 |
+| swing | session_end | 1,239 | 233 | 0.0493 |
 
 P(broke given prior held episodes of the same level), episodes not after a break (`h4_5minute_p_break_by_prior_held.csv`):
 
 | kind | prior_held_bin | n | p_broke |
 |---|---|---|---|
-| prot | 0 | 1,160 | 0.444 |
-| room | 0 | 7,481 | 0.4342 |
-| room | 1 | 3,282 | 0.447 |
-| room | 2 | 1,366 | 0.4444 |
-| room | 3+ | 1,011 | 0.4797 |
-| swing | 0 | 15,448 | 0.4691 |
-| swing | 1 | 4,895 | 0.4547 |
-| swing | 2 | 1,579 | 0.4326 |
-| swing | 3+ | 673 | 0.4591 |
+| prot | 0 | 1,154 | 0.4411 |
+| room | 0 | 7,462 | 0.431 |
+| room | 1 | 3,283 | 0.4429 |
+| room | 2 | 1,373 | 0.4406 |
+| room | 3+ | 1,021 | 0.476 |
+| swing | 0 | 15,316 | 0.4645 |
+| swing | 1 | 4,848 | 0.4495 |
+| swing | 2 | 1,561 | 0.426 |
+| swing | 3+ | 659 | 0.4476 |
 
 Move after a confirmed break vs after a respect, in ATR (`h4_5minute_aftermath.csv`; `move` is signed in the break / bounce direction, `abs` is its magnitude, the baseline is every IS bar):
 
@@ -802,15 +1423,15 @@ Retests (held episodes) before the first break, per level instance that broke (`
 
 | kind | retests_bin | instances | instances_touched | share_of_touched_instances |
 |---|---|---|---|---|
-| prot | 0 | 515 | 1,174 | 0.4387 |
-| room | 0 | 3,192 | 7,459 | 0.4279 |
-| room | 1 | 1,427 | 7,459 | 0.1913 |
-| room | 2 | 582 | 7,459 | 0.078 |
-| room | 3+ | 467 | 7,459 | 0.0626 |
-| swing | 0 | 7,246 | 15,933 | 0.4548 |
-| swing | 1 | 2,226 | 15,933 | 0.1397 |
-| swing | 2 | 683 | 15,933 | 0.0429 |
-| swing | 3+ | 309 | 15,933 | 0.0194 |
+| prot | 0 | 509 | 1,174 | 0.4336 |
+| room | 0 | 3,160 | 7,459 | 0.4236 |
+| room | 1 | 1,414 | 7,459 | 0.1896 |
+| room | 2 | 580 | 7,459 | 0.0778 |
+| room | 3+ | 468 | 7,459 | 0.0627 |
+| swing | 0 | 7,114 | 15,933 | 0.4465 |
+| swing | 1 | 2,179 | 15,933 | 0.1368 |
+| swing | 2 | 665 | 15,933 | 0.0417 |
+| swing | 3+ | 295 | 15,933 | 0.0185 |
 
 Held episodes followed by another touch of the same level instance (`h4_5minute_held_then_retested.csv`):
 
@@ -819,6 +1440,196 @@ Held episodes followed by another touch of the same level instance (`h4_5minute_
 | prot | 645 | 0 |
 | room | 19,025 | 0.7992 |
 | swing | 12,721 | 0.6069 |
+
+
+### 1 min / L1 (4,452 IS units)
+
+Foundation outcome by the last touch verdict and by the number of touch episodes in the hour before the SETUP (`h4_minute_L1_by_touch.csv`):
+
+| variable | bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|---|
+| touch_prot_last | broke | 21 | 0.0047 | -1,094.83 | 246.72 | -1,464.40 | 0.0952 | -0.371 | 0.4762 | 8 |
+| touch_prot_last | held | 160 | 0.0359 | -733.14 | 328.08 | -1,754.58 | 0.2188 | 4.89 | 0.4062 | 6 |
+| touch_prot_last | pending | 4,144 | 0.9308 | -1,034.05 | 39.24 | -1,540.49 | 0.1523 | 0.203 | 0.2749 | 6 |
+| touch_prot_last | none | 2 | 0.0004 | -2,878.48 | 877.03 | -2,878.48 | 0 | -28.25 | 0.5 | 2 |
+| touch_prot_last | na | 125 | 0.0281 | -508.86 | 318.75 | -1,539.11 | 0.208 | 8.31 | 0.288 | 4 |
+| touch_prot_n | 0 | 2 | 0.0004 | -2,878.48 | 877.03 | -2,878.48 | 0 | -28.25 | 0.5 | 2 |
+| touch_prot_n | 1 | 530 | 0.119 | -774.92 | 146.44 | -1,609.97 | 0.2283 | 4.16 | 0.2566 | 5 |
+| touch_prot_n | 2 | 606 | 0.1361 | -987.11 | 114.41 | -1,558.82 | 0.1469 | 0.94 | 0.2442 | 7 |
+| touch_prot_n | 3+ | 3,189 | 0.7163 | -1,071.34 | 42.49 | -1,534.28 | 0.1436 | -0.363 | 0.2916 | 8 |
+| touch_prot_n | na | 125 | 0.0281 | -508.86 | 318.75 | -1,539.11 | 0.208 | 8.31 | 0.288 | 4 |
+| touch_room_last | broke | 1,882 | 0.4227 | -1,013.88 | 54.77 | -1,532.60 | 0.1546 | 0.531 | 0.2705 | 7 |
+| touch_room_last | held | 798 | 0.1792 | -1,096.47 | 77.07 | -1,505.81 | 0.1604 | -0.793 | 0.2794 | 7 |
+| touch_room_last | pending | 1,031 | 0.2316 | -1,009.83 | 74.30 | -1,572.95 | 0.1426 | 0.602 | 0.3443 | 7 |
+| touch_room_last | none | 739 | 0.166 | -903.06 | 139.07 | -1,570.49 | 0.1732 | 2.21 | 0.2219 | 3 |
+| touch_room_last | na | 2 | 0.0004 | -1,589.20 | 1,194.44 | -1,589.20 | 0 | -9.12 | 0 | 1 |
+| touch_room_n | 0 | 739 | 0.166 | -903.06 | 139.07 | -1,570.49 | 0.1732 | 2.21 | 0.2219 | 3 |
+| touch_room_n | 1 | 508 | 0.1141 | -1,053.46 | 111.75 | -1,581.65 | 0.1614 | -0.076 | 0.2618 | 8 |
+| touch_room_n | 2 | 516 | 0.1159 | -920.99 | 113.95 | -1,559.63 | 0.1802 | 1.92 | 0.2926 | 4 |
+| touch_room_n | 3+ | 2,687 | 0.6035 | -1,047.21 | 43.39 | -1,530.52 | 0.1455 | 0.012 | 0.2988 | 8 |
+| touch_room_n | na | 2 | 0.0004 | -1,589.20 | 1,194.44 | -1,589.20 | 0 | -9.12 | 0 | 1 |
+| touch_swing_last | broke | 2,736 | 0.6146 | -991.60 | 53.84 | -1,550.90 | 0.17 | 0.834 | 0.2167 | 6 |
+| touch_swing_last | held | 5 | 0.0011 | 401.82 | 2,001.21 | -1,734.90 | 0.4 | 22.53 | 0.2 | 1 |
+| touch_swing_last | pending | 1,711 | 0.3843 | -1,042.53 | 55.60 | -1,534.31 | 0.1327 | 0.119 | 0.384 | 6 |
+| touch_swing_n | 1 | 166 | 0.0373 | -1,093.51 | 215.95 | -1,701.72 | 0.1506 | -0.763 | 0.4036 | 9 |
+| touch_swing_n | 2 | 332 | 0.0746 | -911.66 | 158.22 | -1,594.88 | 0.1596 | 2.06 | 0.2982 | 4 |
+| touch_swing_n | 3+ | 3,954 | 0.8881 | -1,014.31 | 41.40 | -1,530.41 | 0.1558 | 0.517 | 0.2744 | 4 |
+
+The 9 gate cells (`h4_minute_L1_grid.csv`):
+
+| level | skip_when_last | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| prot | broke | 6678696901d6e630 | 4,431 | 0.9953 | -1,009.20 | -1,094.83 | 85.62 | -92.34 | 44.30 | 0.8861 | 0.0051 | 0.9048 | 0.9985 | 0 | -1,399.17 | 8 | False |
+| prot | held | 69be22dc4cffee7b | 4,292 | 0.9641 | -1,019.91 | -733.14 | -286.77 | 144.82 | 95.90 | 0.1799 | 0.0333 | 0.7812 | 0.9211 | 0.1429 | -1,409.88 | 6 | False |
+| prot | pending | 905054e45d3fb8f1 | 308 | 0.0692 | -680.71 | -1,034.05 | 353.34 | -0.07 | 12.70 | 0.0275 | 0.9348 | 0.8477 | 0.1363 | 0.8 | -1,070.67 | 6 | False |
+| room | broke | 91456038190bbdf5 | 2,570 | 0.5773 | -1,006.48 | -1,013.88 | 7.40 | -123.51 | 6.80 | 0.9155 | 0.4234 | 0.8454 | 0.6157 | 0.3571 | -1,396.44 | 7 | False |
+| room | held | babad33bed46a900 | 3,654 | 0.8208 | -990.64 | -1,096.47 | 105.83 | 42.88 | 3.90 | 0.3053 | 0.1783 | 0.8396 | 0.8625 | 0.0857 | -1,380.60 | 7 | False |
+| room | pending | 5c81240cc29a43f6 | 3,421 | 0.7684 | -1,009.54 | -1,009.83 | 0.29 | 19.33 | 32.40 | 0.9955 | 0.2352 | 0.8574 | 0.7884 | 0.2571 | -1,399.51 | 7 | False |
+| swing | broke | 51ea141a73ed013c | 1,716 | 0.3854 | -1,038.32 | -991.60 | -46.72 | -10.56 | 94.40 | 0.5682 | 0.6043 | 0.83 | 0.3019 | 0.7286 | -1,428.29 | 6 | False |
+| swing | held | 7a5fff2957003c41 | 4,447 | 0.9989 | -1,011.19 | 401.82 | -1,413.01 | -1,590.36 | 72.20 | 0.1149 | 0.0008 | 0.6 | 0.9954 | 0 | -1,401.16 | 1 | False |
+| swing | pending | e2f8dcb18f756381 | 2,741 | 0.6157 | -989.06 | -1,042.53 | 53.47 | 18.19 | 6.00 | 0.5157 | 0.3949 | 0.8673 | 0.7028 | 0.2714 | -1,379.02 | 6 | False |
+
+**Nested-CV candidate** (family `h4/nested_cv`, the 12-block OOF mask):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 7e2a1c31f2dc16c3 | 3,758 | 0.8441 | -1,010.69 | -1,003.77 | -6.92 | 11.05 | 3.10 | 0.9535 | 0.1559 | 0.8444 | 0.8546 | 0.0857 | -1,400.65 | 5 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"level": "room", "skip_when_last": "held"} |  | 62.28 | 0.82 | 8 | 396 | 326 |
+| 1 | {"level": "room", "skip_when_last": "held"} |  | 64.77 | 0.8218 | 8 | 388 | 315 |
+| 2 | {"level": "room", "skip_when_last": "held"} |  | 111.65 | 0.8194 | 8 | 384 | 321 |
+| 3 | {"level": "room", "skip_when_last": "held"} |  | 126.57 | 0.8252 | 8 | 509 | 408 |
+| 4 | {"level": "room", "skip_when_last": "held"} |  | 110.74 | 0.8232 | 8 | 390 | 310 |
+| 5 | {"level": "room", "skip_when_last": "held"} |  | 107.86 | 0.8202 | 8 | 341 | 285 |
+| 6 | {"level": "prot", "skip_when_last": "broke"} |  | 155.23 | 0.995 | 8 | 424 | 423 |
+| 7 | {"level": "swing", "skip_when_last": "pending"} |  | 95.00 | 0.6142 | 8 | 266 | 170 |
+| 8 | {"level": "room", "skip_when_last": "held"} |  | 115.14 | 0.8218 | 8 | 170 | 135 |
+| 9 | {"level": "room", "skip_when_last": "held"} |  | 145.97 | 0.8184 | 8 | 499 | 419 |
+| 10 | {"level": "room", "skip_when_last": "held"} |  | 112.96 | 0.8211 | 8 | 173 | 142 |
+| 11 | {"level": "prot", "skip_when_last": "broke"} |  | 416.16 | 0.9967 | 8 | 512 | 504 |
+
+CPCV paths (`h4/nested_cv/cpcv`, 11 rows): diff median -6.92, 5th pct -171.27, min -171.33, share > 0 0.273, control pct median 2.10 / 5th pct 0.4
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 2275f28d3ff687ac | 3,583 | 0.8048 | -1,043.05 | -871.72 | -171.33 | 0.5 | 0.0935 | 0.7675 | 4 | 0 |
+| 4438e5f735110c56 | 3,582 | 0.8046 | -1,038.44 | -890.90 | -147.54 | 0.3 | 0.1319 | 0.7972 | 3 | 1 |
+| ac551eabeb70d534 | 3,758 | 0.8441 | -1,010.69 | -1,003.77 | -6.92 | 3.30 | 0.951 | 0.8546 | 5 | 2 |
+| 683f686c4f780efa | 3,677 | 0.8259 | -1,010.15 | -1,007.05 | -3.09 | 1.90 | 0.9715 | 0.8361 | 6 | 3 |
+| 91ab3760d93ec46d | 3,758 | 0.8441 | -1,010.69 | -1,003.77 | -6.92 | 3.50 | 0.954 | 0.8546 | 5 | 4 |
+| 3dd70d2aa664f92d | 4,093 | 0.9194 | -1,023.41 | -852.21 | -171.21 | 1.20 | 0.2419 | 0.897 | 4 | 5 |
+| 93eafa472e6f4d38 | 3,554 | 0.7983 | -1,012.58 | -997.85 | -14.73 | 2.10 | 0.8836 | 0.8581 | 5 | 6 |
+| 1c037e90c061b44a | 3,676 | 0.8257 | -1,006.83 | -1,022.74 | 15.91 | 5.50 | 0.8941 | 0.8381 | 6 | 7 |
+| 3d3fd1a89c43c1f9 | 3,802 | 0.854 | -994.16 | -1,099.99 | 105.83 | 12.40 | 0.3393 | 0.8901 | 6 | 8 |
+| 1329ecf1b27d8009 | 3,825 | 0.8592 | -1,015.97 | -970.80 | -45.17 | 0.9 | 0.7031 | 0.8612 | 5 | 9 |
+| 5263e208d50bd83e | 4,431 | 0.9953 | -1,009.20 | -1,094.83 | 85.62 | 44.10 | 0.8851 | 0.9985 | 8 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"level": "room", "skip_when_last": "held"} x35; {"level": "prot", "skip_when_last": "broke"} x20; {"level": "swing", "skip_when_last": "pending"} x8; {"level": "room", "skip_when_last": "broke"} x2; {"level": "swing", "skip_when_last": "held"} x1
+
+Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 min | L1 | pre-registered (family as at the primary run) | 10 | 10 | 1.59 | 0.4249 | 0.081 | 0.936 | 0.936 |  | {"level": "swing", "skip_when_last": "broke"} | 54.10 | [-220.04, 187.58] | 0.505 | 0.9987 | -6.92 | -171.27 | 0.273 | 2.10 | False | diff>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+
+
+### 1 min / L0 (4,502 IS units)
+
+L0 robustness:
+
+| variable | bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|---|
+| touch_prot_last | broke | 21 | 0.0047 | -905.70 | 313.36 | -1,464.40 | 0.1429 | 2.54 | 0.4762 | 7 |
+| touch_prot_last | held | 166 | 0.0369 | -379.14 | 527.21 | -1,817.86 | 0.2169 | 10.36 | 0.4639 | 6 |
+| touch_prot_last | pending | 4,187 | 0.93 | -938.32 | 80.88 | -1,599.13 | 0.1486 | 1.68 | 0.3083 | 7 |
+| touch_prot_last | none | 2 | 0.0004 | -20,902.24 | 17,146.72 | -20,902.24 | 0 | -305.60 | 1.00 | 2 |
+| touch_prot_last | na | 126 | 0.028 | -774.28 | 376.94 | -1,630.69 | 0.1825 | 4.22 | 0.3254 | 8 |
+| touch_prot_n | 0 | 2 | 0.0004 | -20,902.24 | 17,146.72 | -20,902.24 | 0 | -305.60 | 1.00 | 2 |
+| touch_prot_n | 1 | 535 | 0.1188 | -828.41 | 216.03 | -1,700.37 | 0.2075 | 3.33 | 0.2897 | 5 |
+| touch_prot_n | 2 | 611 | 0.1357 | -923.03 | 226.47 | -1,645.29 | 0.1457 | 1.93 | 0.2831 | 6 |
+| touch_prot_n | 3+ | 3,228 | 0.717 | -930.47 | 92.90 | -1,587.95 | 0.1428 | 1.81 | 0.3253 | 6 |
+| touch_prot_n | na | 126 | 0.028 | -774.28 | 376.94 | -1,630.69 | 0.1825 | 4.22 | 0.3254 | 8 |
+| touch_room_last | broke | 1,897 | 0.4214 | -867.24 | 130.99 | -1,605.79 | 0.1529 | 2.79 | 0.3094 | 4 |
+| touch_room_last | held | 813 | 0.1806 | -1,111.25 | 107.14 | -1,565.69 | 0.1599 | -1.02 | 0.3149 | 9 |
+| touch_room_last | pending | 1,049 | 0.233 | -1,096.06 | 96.57 | -1,618.15 | 0.1354 | -0.721 | 0.3746 | 9 |
+| touch_room_last | none | 741 | 0.1646 | -605.32 | 290.57 | -1,624.92 | 0.1646 | 6.79 | 0.2497 | 6 |
+| touch_room_last | na | 2 | 0.0004 | -1,589.20 | 1,194.44 | -1,589.20 | 0 | -9.12 | 0 | 1 |
+| touch_room_n | 0 | 741 | 0.1646 | -605.32 | 290.57 | -1,624.92 | 0.1646 | 6.79 | 0.2497 | 6 |
+| touch_room_n | 1 | 516 | 0.1146 | -1,075.59 | 145.62 | -1,655.53 | 0.155 | -0.414 | 0.2907 | 8 |
+| touch_room_n | 2 | 519 | 0.1153 | -950.14 | 163.31 | -1,614.53 | 0.1715 | 1.48 | 0.316 | 6 |
+| touch_room_n | 3+ | 2,724 | 0.6051 | -972.92 | 94.89 | -1,595.39 | 0.1443 | 1.16 | 0.3385 | 7 |
+| touch_room_n | na | 2 | 0.0004 | -1,589.20 | 1,194.44 | -1,589.20 | 0 | -9.12 | 0 | 1 |
+| touch_swing_last | broke | 2,755 | 0.612 | -954.43 | 103.48 | -1,629.25 | 0.1575 | 1.41 | 0.2512 | 6 |
+| touch_swing_last | held | 5 | 0.0011 | 663.32 | 2,145.92 | -1,734.90 | 0.4 | 26.55 | 0.2 | 1 |
+| touch_swing_last | pending | 1,742 | 0.3869 | -874.83 | 121.31 | -1,583.92 | 0.1424 | 2.70 | 0.4179 | 6 |
+| touch_swing_n | 1 | 167 | 0.0371 | -400.40 | 507.77 | -1,704.71 | 0.1557 | 9.90 | 0.4192 | 7 |
+| touch_swing_n | 2 | 336 | 0.0746 | -917.37 | 367.57 | -1,687.53 | 0.1577 | 1.97 | 0.3452 | 8 |
+| touch_swing_n | 3+ | 3,999 | 0.8883 | -943.98 | 80.49 | -1,595.19 | 0.1513 | 1.60 | 0.3088 | 5 |
+
+The 9 gate cells (`h4_minute_L0_grid.csv`):
+
+| level | skip_when_last | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| prot | broke | 453a47368c8c952f | 4,481 | 0.9953 | -921.91 | -905.70 | -16.21 | -398.78 | 49.00 | 0.9815 | 0.0047 | 0.8571 | 0.9982 | 0 | -1,311.87 | 7 | False |
+| prot | held | 70d7611e97701d64 | 4,336 | 0.9631 | -942.61 | -379.14 | -563.47 | -65.92 | 84.90 | 0.1524 | 0.034 | 0.7831 | 0.9218 | 0.087 | -1,332.57 | 6 | False |
+| prot | pending | f16edfac5d982b9d | 315 | 0.07 | -702.60 | -938.32 | 235.72 | -12.46 | 16.90 | 0.4423 | 0.9337 | 0.8514 | 0.1156 | 0.8841 | -1,092.57 | 7 | False |
+| room | broke | 9d1b586504f95722 | 2,605 | 0.5786 | -961.58 | -867.24 | -94.34 | -12.16 | 2.20 | 0.5737 | 0.4209 | 0.8471 | 0.5536 | 0.3768 | -1,351.55 | 4 | False |
+| room | held | 314899f06c4c0890 | 3,689 | 0.8194 | -880.09 | -1,111.25 | 231.16 | -67.84 | 67.00 | 0.2519 | 0.1789 | 0.8401 | 0.8719 | 0.1884 | -1,270.05 | 9 | False |
+| room | pending | 795de756726d4d14 | 3,453 | 0.767 | -868.90 | -1,096.06 | 227.15 | -26.44 | 67.90 | 0.2444 | 0.2376 | 0.8646 | 0.8387 | 0.1884 | -1,258.87 | 9 | False |
+| swing | broke | b7bc9287448e5e23 | 1,747 | 0.388 | -870.43 | -954.43 | 83.99 | 179.44 | 80.50 | 0.6147 | 0.6079 | 0.8425 | 0.3474 | 0.6812 | -1,260.40 | 6 | False |
+| swing | held | 926234ed05418791 | 4,497 | 0.9989 | -923.59 | 663.32 | -1,586.92 | -1,968.13 | 51.20 | 0.1734 | 0.0008 | 0.6 | 0.9966 | 0 | -1,313.56 | 1 | False |
+| swing | pending | 14312c2d984dcbdc | 2,760 | 0.6131 | -951.49 | -874.83 | -76.66 | -170.34 | 19.00 | 0.6367 | 0.3913 | 0.8576 | 0.6559 | 0.3188 | -1,341.46 | 6 | False |
+
+**Nested-CV candidate** (family `h4/nested_cv`, the 12-block OOF mask):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| f761a518d322b977 | 3,588 | 0.797 | -915.92 | -945.02 | 29.10 | -82.94 | 10.50 | 0.8821 | 0.2048 | 0.8556 | 0.8341 | 0.2319 | -1,305.89 | 6 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"level": "room", "skip_when_last": "held"} |  | 251.46 | 0.8188 | 8 | 400 | 328 |
+| 1 | {"level": "room", "skip_when_last": "pending"} |  | 178.87 | 0.7694 | 8 | 392 | 290 |
+| 2 | {"level": "room", "skip_when_last": "held"} |  | 243.51 | 0.8183 | 8 | 386 | 321 |
+| 3 | {"level": "room", "skip_when_last": "pending"} |  | 262.70 | 0.7636 | 8 | 512 | 405 |
+| 4 | {"level": "room", "skip_when_last": "held"} |  | 253.37 | 0.8215 | 8 | 395 | 315 |
+| 5 | {"level": "room", "skip_when_last": "pending"} |  | 248.62 | 0.7649 | 8 | 345 | 269 |
+| 6 | {"level": "room", "skip_when_last": "pending"} |  | 266.28 | 0.7679 | 8 | 430 | 327 |
+| 7 | {"level": "room", "skip_when_last": "pending"} |  | 266.03 | 0.767 | 8 | 269 | 207 |
+| 8 | {"level": "room", "skip_when_last": "pending"} |  | 165.16 | 0.7681 | 8 | 172 | 127 |
+| 9 | {"level": "room", "skip_when_last": "held"} |  | 235.55 | 0.8165 | 8 | 506 | 426 |
+| 10 | {"level": "room", "skip_when_last": "pending"} |  | 188.29 | 0.7669 | 8 | 174 | 133 |
+| 11 | {"level": "room", "skip_when_last": "held"} |  | 301.34 | 0.8163 | 8 | 521 | 440 |
+
+CPCV paths (`h4/nested_cv/cpcv`, 11 rows): diff median 72.72, 5th pct -60.02, min -99.65, share > 0 0.727, control pct median 24.10 / 5th pct 11.00
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| b81047a786ce6a21 | 3,239 | 0.7195 | -925.19 | -913.22 | -11.97 | 18.40 | 0.948 | 0.7053 | 6 | 0 |
+| 04be73f3a04b502c | 3,286 | 0.7299 | -927.34 | -906.94 | -20.40 | 12.20 | 0.9045 | 0.7434 | 7 | 1 |
+| b3a76c3fab4093fb | 3,632 | 0.8068 | -903.37 | -998.92 | 95.56 | 28.60 | 0.6322 | 0.8442 | 8 | 2 |
+| 51e4a19de7ba27aa | 3,621 | 0.8043 | -907.60 | -980.32 | 72.72 | 18.20 | 0.7226 | 0.8453 | 7 | 3 |
+| e42eb20f1a87ce36 | 3,608 | 0.8014 | -909.06 | -973.38 | 64.32 | 25.40 | 0.7386 | 0.8397 | 6 | 4 |
+| 8a4bd4386ce6df31 | 3,545 | 0.7874 | -900.69 | -1,000.14 | 99.45 | 24.30 | 0.6257 | 0.8325 | 7 | 5 |
+| 16fcc024a03cde73 | 3,697 | 0.8212 | -899.70 | -1,023.47 | 123.77 | 39.10 | 0.5397 | 0.8669 | 7 | 6 |
+| f56a4afc9c406e90 | 3,546 | 0.7876 | -905.97 | -980.66 | 74.69 | 22.70 | 0.6902 | 0.8287 | 7 | 7 |
+| fdb66cc17df2a731 | 3,593 | 0.7981 | -912.50 | -958.71 | 46.21 | 24.10 | 0.8146 | 0.8031 | 7 | 8 |
+| 18e15efd087573af | 3,344 | 0.7428 | -947.46 | -847.81 | -99.65 | 9.80 | 0.5827 | 0.712 | 4 | 9 |
+| 88789f41380e6af3 | 3,841 | 0.8532 | -897.66 | -1,062.26 | 164.60 | 43.70 | 0.4663 | 0.8915 | 7 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"level": "room", "skip_when_last": "held"} x30; {"level": "room", "skip_when_last": "pending"} x29; {"level": "swing", "skip_when_last": "broke"} x4; {"level": "prot", "skip_when_last": "broke"} x2; {"level": "swing", "skip_when_last": "held"} x1
+
+Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
+
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 min | L0 | pre-registered (family as at the primary run) | 10 | 10 | 1.71 | 0.6843 | 0.5936 | 0.9785 | 0.9785 |  | {"level": "room", "skip_when_last": "held"} | 38.77 | [-208.78, 256.9] | 0.4145 | 0.8465 | 72.72 | -60.02 | 0.727 | 24.10 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
 
 
 ### 5 min / L1 (826 IS units)
@@ -876,20 +1687,20 @@ The 9 gate cells (`h4_5minute_L1_grid.csv`):
 
 Chosen cell per training fold:
 
-| block | chosen | thr | train_diff | eligible | test_n | test_kept |
-|---|---|---|---|---|---|---|
-| 0 | {"level": "room", "skip_when_last": "held"} |  | 534.06 | 9 | 82 | 76 |
-| 1 | {"level": "room", "skip_when_last": "held"} |  | 801.76 | 9 | 83 | 78 |
-| 2 | {"level": "room", "skip_when_last": "held"} |  | 660.19 | 9 | 42 | 37 |
-| 3 | {"level": "room", "skip_when_last": "held"} |  | 742.16 | 9 | 76 | 70 |
-| 4 | {"level": "room", "skip_when_last": "held"} |  | 777.82 | 9 | 72 | 69 |
-| 5 | {"level": "room", "skip_when_last": "held"} |  | 778.43 | 9 | 73 | 67 |
-| 6 | {"level": "room", "skip_when_last": "held"} |  | 467.67 | 9 | 77 | 68 |
-| 7 | {"level": "room", "skip_when_last": "held"} |  | 622.48 | 9 | 51 | 47 |
-| 8 | {"level": "room", "skip_when_last": "held"} |  | 509.35 | 9 | 76 | 71 |
-| 9 | {"level": "room", "skip_when_last": "held"} |  | 738.33 | 9 | 80 | 76 |
-| 10 | {"level": "room", "skip_when_last": "held"} |  | 761.99 | 9 | 31 | 29 |
-| 11 | {"level": "prot", "skip_when_last": "broke"} |  | 1,552.78 | 9 | 83 | 82 |
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"level": "room", "skip_when_last": "held"} |  | 534.06 | 0.9258 | 9 | 82 | 76 |
+| 1 | {"level": "room", "skip_when_last": "held"} |  | 801.76 | 0.9244 | 9 | 83 | 78 |
+| 2 | {"level": "room", "skip_when_last": "held"} |  | 660.19 | 0.9286 | 9 | 42 | 37 |
+| 3 | {"level": "room", "skip_when_last": "held"} |  | 742.16 | 0.9259 | 9 | 76 | 70 |
+| 4 | {"level": "room", "skip_when_last": "held"} |  | 777.82 | 0.9231 | 9 | 72 | 69 |
+| 5 | {"level": "room", "skip_when_last": "held"} |  | 778.43 | 0.9277 | 9 | 73 | 67 |
+| 6 | {"level": "room", "skip_when_last": "held"} |  | 467.67 | 0.9302 | 9 | 77 | 68 |
+| 7 | {"level": "room", "skip_when_last": "held"} |  | 622.48 | 0.9265 | 9 | 51 | 47 |
+| 8 | {"level": "room", "skip_when_last": "held"} |  | 509.35 | 0.925 | 9 | 76 | 71 |
+| 9 | {"level": "room", "skip_when_last": "held"} |  | 738.33 | 0.9236 | 9 | 80 | 76 |
+| 10 | {"level": "room", "skip_when_last": "held"} |  | 761.99 | 0.9257 | 9 | 31 | 29 |
+| 11 | {"level": "prot", "skip_when_last": "broke"} |  | 1,552.78 | 0.9973 | 9 | 83 | 82 |
 
 CPCV paths (`h4/nested_cv/cpcv`, 11 rows): diff median -2.08, 5th pct -1,774.85, min -2,815.53, share > 0 0.455, control pct median 71.80 / 5th pct 35.00
 
@@ -909,11 +1720,11 @@ CPCV paths (`h4/nested_cv/cpcv`, 11 rows): diff median -2.08, 5th pct -1,774.85,
 
 Cells chosen across the 66 CPCV training sets: {"level": "room", "skip_when_last": "held"} x50; {"level": "prot", "skip_when_last": "broke"} x11; {"level": "swing", "skip_when_last": "broke"} x3; {"level": "swing", "skip_when_last": "held"} x1; {"level": "room", "skip_when_last": "broke"} x1
 
-Family (after every row of this study on this table, the post-hoc row included):
+Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
 
-| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 5 min | L1 | pre-registered | 10 | 10 | 1.64 | 0.6501 | 0.5715 | 0.1705 | 0.1805 | {"level": "room", "skip_when_last": "broke"} | 100.53 | [-289.64, 1371.11] | 0.1165 | 0.8863 | -2.08 | -1,774.85 | 0.455 | 71.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | L1 | pre-registered (family as at the primary run) | 10 | 10 | 1.64 | 0.6501 | 0.5715 | 0.1705 | 0.1805 |  | {"level": "room", "skip_when_last": "broke"} | 100.53 | [-289.64, 1371.11] | 0.1165 | 0.8863 | -2.08 | -1,774.85 | 0.455 | 71.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
 
 
 ### 5 min / L0 (832 IS units)
@@ -972,20 +1783,20 @@ The 9 gate cells (`h4_5minute_L0_grid.csv`):
 
 Chosen cell per training fold:
 
-| block | chosen | thr | train_diff | eligible | test_n | test_kept |
-|---|---|---|---|---|---|---|
-| 0 | {"level": "room", "skip_when_last": "held"} |  | 2,149.54 | 9 | 83 | 77 |
-| 1 | {"level": "room", "skip_when_last": "held"} |  | 2,249.32 | 9 | 84 | 79 |
-| 2 | {"level": "room", "skip_when_last": "held"} |  | 1,809.63 | 9 | 42 | 37 |
-| 3 | {"level": "room", "skip_when_last": "held"} |  | 2,267.64 | 9 | 77 | 71 |
-| 4 | {"level": "room", "skip_when_last": "held"} |  | 2,357.45 | 9 | 72 | 69 |
-| 5 | {"level": "room", "skip_when_last": "held"} |  | 2,284.26 | 9 | 73 | 67 |
-| 6 | {"level": "room", "skip_when_last": "held"} |  | 2,141.69 | 9 | 78 | 69 |
-| 7 | {"level": "room", "skip_when_last": "held"} |  | 2,136.25 | 9 | 51 | 47 |
-| 8 | {"level": "room", "skip_when_last": "held"} |  | 1,943.50 | 9 | 76 | 71 |
-| 9 | {"level": "room", "skip_when_last": "held"} |  | 2,227.45 | 9 | 82 | 78 |
-| 10 | {"level": "room", "skip_when_last": "held"} |  | 2,148.57 | 9 | 31 | 29 |
-| 11 | {"level": "room", "skip_when_last": "held"} |  | 2,397.89 | 9 | 83 | 77 |
+| block | chosen | thr | train_diff | train_kept_share | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|---|
+| 0 | {"level": "room", "skip_when_last": "held"} |  | 2,149.54 | 0.9263 | 9 | 83 | 77 |
+| 1 | {"level": "room", "skip_when_last": "held"} |  | 2,249.32 | 0.9249 | 9 | 84 | 79 |
+| 2 | {"level": "room", "skip_when_last": "held"} |  | 1,809.63 | 0.929 | 9 | 42 | 37 |
+| 3 | {"level": "room", "skip_when_last": "held"} |  | 2,267.64 | 0.9263 | 9 | 77 | 71 |
+| 4 | {"level": "room", "skip_when_last": "held"} |  | 2,357.45 | 0.9236 | 9 | 72 | 69 |
+| 5 | {"level": "room", "skip_when_last": "held"} |  | 2,284.26 | 0.9282 | 9 | 73 | 67 |
+| 6 | {"level": "room", "skip_when_last": "held"} |  | 2,141.69 | 0.9307 | 9 | 78 | 69 |
+| 7 | {"level": "room", "skip_when_last": "held"} |  | 2,136.25 | 0.9269 | 9 | 51 | 47 |
+| 8 | {"level": "room", "skip_when_last": "held"} |  | 1,943.50 | 0.9255 | 9 | 76 | 71 |
+| 9 | {"level": "room", "skip_when_last": "held"} |  | 2,227.45 | 0.9239 | 9 | 82 | 78 |
+| 10 | {"level": "room", "skip_when_last": "held"} |  | 2,148.57 | 0.9262 | 9 | 31 | 29 |
+| 11 | {"level": "room", "skip_when_last": "held"} |  | 2,397.89 | 0.9266 | 9 | 83 | 77 |
 
 CPCV paths (`h4/nested_cv/cpcv`, 11 rows): diff median 2,221.97, 5th pct 2,221.97, min 2,221.97, share > 0 1.00, control pct median 99.30 / 5th pct 99.20
 
@@ -1005,17 +1816,19 @@ CPCV paths (`h4/nested_cv/cpcv`, 11 rows): diff median 2,221.97, 5th pct 2,221.9
 
 Cells chosen across the 66 CPCV training sets: {"level": "room", "skip_when_last": "held"} x66
 
-Family (after every row of this study on this table, the post-hoc row included):
+Family on this table (every non-cpcv ledger row of the study, tf and label, as at the primary run; no post-hoc row exists for this table):
 
-| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 5 min | L0 | pre-registered | 10 | 10 | 1.66 | 0.1556 | 0.5897 | 0.3625 | 0.3625 | {"level": "room", "skip_when_last": "held"} | 154.73 | [1238.07, 3148.44] | 0.001 | 0.3623 | 2,221.97 | 2,221.97 | 1.00 | 99.30 | False | kept_mean_slip8>0, dsr_p<0.1, spa_p<=0.10 |
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | L0 | pre-registered (family as at the primary run) | 10 | 10 | 1.66 | 0.1556 | 0.5897 | 0.3625 | 0.3625 |  | {"level": "room", "skip_when_last": "held"} | 154.73 | [1238.07, 3148.44] | 0.001 | 0.3623 | 2,221.97 | 2,221.97 | 1.00 | 99.30 | False | kept_mean_slip8>0, dsr_p<0.1, spa_p<=0.10 |
 
 
 ### H4 family summary (all tables)
 
-| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 5 min | L1 | pre-registered | 10 | 10 | 1.64 | 0.6501 | 0.5715 | 0.1705 | 0.1805 | {"level": "room", "skip_when_last": "broke"} | 100.53 | [-289.64, 1371.11] | 0.1165 | 0.8863 | -2.08 | -1,774.85 | 0.455 | 71.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
-| 5 min | L0 | pre-registered | 10 | 10 | 1.66 | 0.1556 | 0.5897 | 0.3625 | 0.3625 | {"level": "room", "skip_when_last": "held"} | 154.73 | [1238.07, 3148.44] | 0.001 | 0.3623 | 2,221.97 | 2,221.97 | 1.00 | 99.30 | False | kept_mean_slip8>0, dsr_p<0.1, spa_p<=0.10 |
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_p_unstud | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 min | L1 | pre-registered (family as at the primary run) | 10 | 10 | 1.59 | 0.4249 | 0.081 | 0.936 | 0.936 |  | {"level": "swing", "skip_when_last": "broke"} | 54.10 | [-220.04, 187.58] | 0.505 | 0.9987 | -6.92 | -171.27 | 0.273 | 2.10 | False | diff>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 1 min | L0 | pre-registered (family as at the primary run) | 10 | 10 | 1.71 | 0.6843 | 0.5936 | 0.9785 | 0.9785 |  | {"level": "room", "skip_when_last": "held"} | 38.77 | [-208.78, 256.9] | 0.4145 | 0.8465 | 72.72 | -60.02 | 0.727 | 24.10 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 5 min | L1 | pre-registered (family as at the primary run) | 10 | 10 | 1.64 | 0.6501 | 0.5715 | 0.1705 | 0.1805 |  | {"level": "room", "skip_when_last": "broke"} | 100.53 | [-289.64, 1371.11] | 0.1165 | 0.8863 | -2.08 | -1,774.85 | 0.455 | 71.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 5 min | L0 | pre-registered (family as at the primary run) | 10 | 10 | 1.66 | 0.1556 | 0.5897 | 0.3625 | 0.3625 |  | {"level": "room", "skip_when_last": "held"} | 154.73 | [1238.07, 3148.44] | 0.001 | 0.3623 | 2,221.97 | 2,221.97 | 1.00 | 99.30 | False | kept_mean_slip8>0, dsr_p<0.1, spa_p<=0.10 |
 

@@ -1,6 +1,9 @@
-[05:14:15 rss 193.1 MB] === importance minute dry=False trees=300 n_jobs=4 ===
-[05:14:22 rss 299.8 MB] minute: design 244 + ext 61 -> dropped nan>40% 11, const 6, binary 2nd level 4, duplicates 32; + 24 missing indicators = 276 features
-[05:14:26 rss 283.6 MB] clustering: 276 features, silhouette best k=38 (0.1136), clusters formed 38, 3.5s
-[05:18:00 rss 321.4 MB] depth 4 fold 0: n_tr 4034 n_te 396 tau 0.05 ll 0.7739 diff nan kept 1.0 (213.7s)
-[05:22:00 rss 330.7 MB] depth 4 fold 1: n_tr 4058 n_te 388 tau 0.05 ll 0.7850 diff nan kept 1.0 (240.2s)
-[05:26:39 rss 330.7 MB] depth 4 fold 2: n_tr 4048 n_te 384 tau 0.05 ll 0.7860 diff nan kept 1.0 (278.6s)
+[05:33:18 rss 193.2 MB] === importance minute stage=main dry=False trees=300 bag_jobs=1 xgb_jobs=1 ===
+[05:33:18 rss 193.3 MB] === importance minute stage=sfi dry=False trees=300 bag_jobs=1 xgb_jobs=1 ===
+[05:33:18 rss 193.1 MB] === importance minute stage=cpcv dry=False trees=300 bag_jobs=1 xgb_jobs=1 ===
+[05:33:39 rss 300.6 MB] minute: design 244 + ext 61 -> dropped nan>40% 11, const 6, binary 2nd level 4, duplicates 32; + 24 missing indicators = 276 features
+[05:33:39 rss 299.5 MB] minute: design 244 + ext 61 -> dropped nan>40% 11, const 6, binary 2nd level 4, duplicates 32; + 24 missing indicators = 276 features
+[05:33:41 rss 300.3 MB] minute: design 244 + ext 61 -> dropped nan>40% 11, const 6, binary 2nd level 4, duplicates 32; + 24 missing indicators = 276 features
+[05:33:47 rss 284.4 MB] clustering: 276 features, silhouette best k=38 (0.1136), clusters formed 38, 8.7s
+[05:33:48 rss 283.4 MB] clustering: 276 features, silhouette best k=38 (0.1136), clusters formed 38, 9.2s
+[05:33:50 rss 284.1 MB] clustering: 276 features, silhouette best k=38 (0.1136), clusters formed 38, 8.8s

@@ -1,6 +1,6 @@
 # FZ v3 audit index
 
-Regenerated 2026-09-29T17:52:30 by `audit_export.py`. Every agent of the program is listed with its full transcript (every prompt, tool call, tool result and final report) and its structured verdict. The harness ledger (`ledger/trials.jsonl`, one row per configuration ever scored; `ledger/vectors/<id>_<split>.npz`, the per-session vectors behind PBO / SPA / bootstrap) and the registrations (`ledger/registrations.jsonl`, hashed pre-registrations, corrections, candidates, the OOS opening) are committed as they are. The main session's own record is the commit history of branch `research/strategy-lab-pwxiug` plus `PROGRESS.md`.
+Regenerated 2026-09-29T18:08:23 by `audit_export.py`. Every agent of the program is listed with its full transcript (every prompt, tool call, tool result and final report) and its structured verdict. The harness ledger (`ledger/trials.jsonl`, one row per configuration ever scored; `ledger/vectors/<id>_<split>.npz`, the per-session vectors behind PBO / SPA / bootstrap) and the registrations (`ledger/registrations.jsonl`, hashed pre-registrations, corrections, candidates, the OOS opening) are committed as they are. The main session's own record is the commit history of branch `research/strategy-lab-pwxiug` plus `PROGRESS.md`.
 
 ## Workflows
 
@@ -114,6 +114,8 @@ Regenerated 2026-09-29T17:52:30 by `audit_export.py`. Every agent of the program
 | verify:operating_point_sizing:arithmetic | Verify | a3c836f8d66123c23 | `audit/workflows/phase3/agent-a3c836f8d66123c23.jsonl` | `audit/workflows/phase3/results/verify:operating_point_sizing:arithmetic.json` |
 | verify:llm_round1:leakage | Verify | a02c85e0ec8a111e2 | `audit/workflows/phase3/agent-a02c85e0ec8a111e2.jsonl` | `audit/workflows/phase3/results/verify:llm_round1:leakage.json` |
 | verify:llm_round1:arithmetic | Verify | a7482c8e6f57f6323 | `audit/workflows/phase3/agent-a7482c8e6f57f6323.jsonl` | `audit/workflows/phase3/results/verify:llm_round1:arithmetic.json` |
+| verify:online_learner:leakage | Verify | ab8db6f2e5530fe5d | `audit/workflows/phase3/agent-ab8db6f2e5530fe5d.jsonl` | `audit/workflows/phase3/results/verify:online_learner:leakage.json` |
+| verify:online_learner:arithmetic | Verify | a68f6d77fd54504ad | `audit/workflows/phase3/agent-a68f6d77fd54504ad.jsonl` | `audit/workflows/phase3/results/verify:online_learner:arithmetic.json` |
 
 ## Studies
 
@@ -197,8 +199,8 @@ Regenerated 2026-09-29T17:52:30 by `audit_export.py`. Every agent of the program
 - study:llm_round1:proposer_A (phase3, a54ccc74db3ab32f2):  -> `audit/workflows/phase3/results/study:llm_round1:proposer_A.json`
 - study:llm_round1:proposer_B (phase3, a75c2ab06e26e21f4):  -> `audit/workflows/phase3/results/study:llm_round1:proposer_B.json`
 - study:llm_round1:score (phase3, afba0937dac5549ac): completed=True null_result=True -> `audit/workflows/phase3/results/study:llm_round1:score.json`
-- verify:llm_round1:leakage (phase3, a02c85e0ec8a111e2):  -> `audit/workflows/phase3/results/verify:llm_round1:leakage.json`
-- verify:llm_round1:arithmetic (phase3, a7482c8e6f57f6323):  -> `audit/workflows/phase3/results/verify:llm_round1:arithmetic.json`
+- verify:llm_round1:leakage (phase3, a02c85e0ec8a111e2): refuted=False severity=minor issues=3 -> `audit/workflows/phase3/results/verify:llm_round1:leakage.json`
+- verify:llm_round1:arithmetic (phase3, a7482c8e6f57f6323): refuted=False severity=minor issues=3 -> `audit/workflows/phase3/results/verify:llm_round1:arithmetic.json`
 
 ### null_tapes_drift
 
@@ -215,6 +217,8 @@ Regenerated 2026-09-29T17:52:30 by `audit_export.py`. Every agent of the program
 - folder `studies/online_learner/` (363 files); FINDINGS: `studies/online_learner/FINDINGS.md`; findings.json: yes
 - study:online_learner (phase3, a798e739d44c01f7d):  -> `audit/workflows/phase3/results/study:online_learner.json`
 - study:online_learner (phase3, a836873a7ae09333b): completed=True null_result=True -> `audit/workflows/phase3/results/study:online_learner.json`
+- verify:online_learner:leakage (phase3, ab8db6f2e5530fe5d): refuted=False severity=minor issues=1 -> `audit/workflows/phase3/results/verify:online_learner:leakage.json`
+- verify:online_learner:arithmetic (phase3, a68f6d77fd54504ad): refuted=False severity=minor issues=3 -> `audit/workflows/phase3/results/verify:online_learner:arithmetic.json`
 
 ### operating_point_sizing
 

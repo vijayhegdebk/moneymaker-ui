@@ -471,17 +471,24 @@ def selection_gain(vec):
     return np.where(np.isnan(d), 0.0, d), vec["kept_n"] > 0
 
 
-def spa(vectors, draws=BOOT_DRAWS, tag="", min_active=None):
+SPA_ACTIVE_TOL_INR = 0.01   # a session counts as "active" for a candidate only if its selection gain exceeds this many INR
+                            # (the labels are priced to 2 dp; lab.manage replays carry ~1e-3 INR of float noise against them,
+                            # which a 1e-9 test counted as activity: the exit-policy follow-up refuter's finding, 2026-09-29)
+
+
+def spa(vectors, draws=BOOT_DRAWS, tag="", min_active=None, active_tol=SPA_ACTIVE_TOL_INR):
     """White's Reality Check and Hansen's SPA over a family of candidates: H0 = no candidate has positive expected selection
     gain (per-session kept mean minus the session mean). Stationary bootstrap of sessions, Hansen's consistent recentring;
     reported both studentised (Hansen) and unstudentised (White's original statistic, sqrt(T) x mean). A candidate whose
-    selection gain differs from zero in fewer than `min_active` sessions (default max(10, 5% of T)) is excluded from the
-    studentised family: its near-zero variance would give it an arbitrarily large t (the exit-policy refuter's finding); it
-    stays in the unstudentised family. Returns the best candidate under each statistic and the four p-values."""
+    selection gain differs from zero (by more than `active_tol` INR, default SPA_ACTIVE_TOL_INR = 0.01) in fewer than
+    `min_active` sessions (default max(10, 5% of T)) is excluded from the studentised family: its near-zero variance would give
+    it an arbitrarily large t (the exit-policy refuter's finding); it stays in the unstudentised family. Gate candidates (keep
+    masks) are unaffected by the tolerance: their per-session gains are exactly 0 or hundreds of INR. Returns the best
+    candidate under each statistic and the four p-values."""
     Dm = np.array([selection_gain(v)[0] for v in vectors], dtype=float)       # M x T
     M, T_ = Dm.shape
     if min_active is None: min_active = max(10, int(0.05 * T_))
-    active = (np.abs(Dm) > 1e-9).sum(axis=1)
+    active = (np.abs(Dm) > active_tol).sum(axis=1)
     ok = active >= min_active
     mu = Dm.mean(axis=1); sd = Dm.std(axis=1, ddof=1) + 1e-12
     idx = stationary_bootstrap_idx(T_, draws, tag=tag)

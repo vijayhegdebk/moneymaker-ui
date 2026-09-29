@@ -433,7 +433,8 @@ def main():
         dict(issue="2. The time-proxy refusal was a written policy, not a property of `tapes.rule_mask` (a rule on `sl` or `n_events_asof` was accepted).",
              changed=["`tapes.time_proxies(tf)` reads `drift.json` (`timeframes[tf].time_proxies`; fallback `n_events_asof`, `sl`); `tapes.rule_mask` raises `PermissionError` for such a column. "
                       "Tested: `[['sl', '>', 20000]]` and `[['n_events_asof', '>', 100]]` are refused on tape gmm_0; label columns and `fz_traded` were already refused.",
-                      "FINDINGS sections 6 and 8 now say where the refusal is enforced (in code on the tapes; by study rule on the real tape, since `harness.NOT_FEATURES` does not carry the two columns: reported, not changed)."]),
+                      "FINDINGS sections 6 and 8 now say where the refusal is enforced (in code on the tapes; by study rule on the real tape, since `harness.NOT_FEATURES` does not carry the two columns: reported, not changed); "
+                      "`drift.json` -> `rule_for_gate_studies` carries the same sentence (its numbers are untouched; `drift_<tf>.json` are the raw per-timeframe outputs)."]),
         dict(issue="3. The two mechanical gates were called 'pre-registered' although no registration exists outside the study folder.",
              changed=["Reworded everywhere in the study (`tapes.MECHANICAL_GATES`, `run_tapes.py`, FINDINGS sections 1, 8): 'fixed in tapes.py before any tape was scored; reference points, not candidates'. "
                       "The three `real_ref` ledger rows keep the earlier wording in their config text (the ledger is append-only); no ledger consequence: they are comparators, not candidates."]),

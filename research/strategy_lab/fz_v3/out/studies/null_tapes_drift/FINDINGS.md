@@ -23,23 +23,23 @@ DESIGN_PANEL decision-making-3, parts (c) and (d), with both judges' fixes: (a) 
 
 | tf | generator | tapes built (first build + top-up) | bars per tape | SETUPs p50 [min, max] | build seconds p50 [min, max] | peak RSS MB p50 [max] |
 |---|---|---|---|---|---|---|
-| 5minute | GMM-Markov | 20 (20 + 0) | 76,950 | 1005 [171, 1220] | 70 [54, 99] | 429 [453] |
-| 5minute | segment bootstrap (30-bar blocks) | 20 (20 + 0) | 76,950 | 904 [193, 1107] | 76 [62, 88] | 437 [451] |
-| 5minute | session bootstrap | 35 (20 + 15) | 76,950 | 776 [79, 1049] | 65 [19, 94] | 429 [463] |
+| 5minute | GMM-Markov | 29 (20 + 9) | 76,950 | 1024 [171, 1272] | 66 [14, 99] | 428 [468] |
+| 5minute | segment bootstrap (30-bar blocks) | 25 (20 + 5) | 76,950 | 911 [193, 1107] | 74 [16, 88] | 428 [461] |
+| 5minute | session bootstrap | 40 (20 + 20) | 76,950 | 775 [79, 1111] | 57 [16, 94] | 429 [463] |
 | minute | GMM-Markov | 8 (8 + 0) | 92,625 | 1460 [1261, 1676] | 88 [68, 98] | 483 [516] |
-| minute | segment bootstrap (30-bar blocks) | 8 (8 + 0) | 92,625 | 1134 [435, 1332] | 58 [42, 68] | 473 [519] |
-| minute | session bootstrap | 9 (8 + 1) | 92,625 | 966 [494, 1457] | 73 [25, 91] | 473 [499] |
+| minute | segment bootstrap (30-bar blocks) | 10 (8 + 2) | 92,625 | 988 [435, 1332] | 54 [26, 68] | 473 [519] |
+| minute | session bootstrap | 10 (8 + 2) | 92,625 | 1033 [494, 1457] | 72 [25, 91] | 473 [499] |
 
 ### 2b. Tape sets after the health check (`tape_health.csv`, `null_distributions.json`)
 
 | tf | generator | built | first build | healthy (first build) | lock-out rate (first build) | top-up tapes | healthy (all built) | certificate tapes | certificate k |
 |---|---|---|---|---|---|---|---|---|---|
-| 5minute | GMM-Markov | 20 | 20 | 14 | 0.30 | 0 | 14 | 14 | 0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 15, 17 |
-| 5minute | segment bootstrap (30-bar blocks) | 20 | 20 | 16 | 0.20 | 0 | 16 | 16 | 0, 1, 2, 4, 5, 6, 8, 10, 11, 12, 13, 14, 15, 17, 18, 19 |
-| 5minute | session bootstrap | 20 | 20 | 10 | 0.50 | 0 | 10 | 10 | 1, 4, 8, 9, 10, 11, 12, 14, 15, 19 |
+| 5minute | GMM-Markov | 29 | 20 | 14 | 0.30 | 9 | 21 | 20 | 0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 15, 17, 21, 22, 23, 24, 25, 26 |
+| 5minute | segment bootstrap (30-bar blocks) | 25 | 20 | 16 | 0.20 | 5 | 21 | 20 | 0, 1, 2, 4, 5, 6, 8, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23 |
+| 5minute | session bootstrap | 40 | 20 | 10 | 0.50 | 20 | 24 | 20 | 1, 4, 8, 9, 10, 11, 12, 14, 15, 19, 21, 23, 24, 25, 26, 29, 30, 32, 33, 34 |
 | minute | GMM-Markov | 8 | 8 | 8 | 0.00 | 0 | 8 | 8 | 0, 1, 2, 3, 4, 5, 6, 7 |
-| minute | segment bootstrap (30-bar blocks) | 8 | 8 | 7 | 0.12 | 0 | 7 | 7 | 0, 1, 2, 4, 5, 6, 7 |
-| minute | session bootstrap | 8 | 8 | 7 | 0.12 | 0 | 7 | 7 | 0, 1, 2, 4, 5, 6, 7 |
+| minute | segment bootstrap (30-bar blocks) | 10 | 8 | 7 | 0.12 | 2 | 8 | 8 | 0, 1, 2, 4, 5, 6, 7, 8 |
+| minute | session bootstrap | 10 | 8 | 7 | 0.12 | 2 | 8 | 8 | 0, 1, 2, 4, 5, 6, 7, 9 |
 
 ## 3. The three reference gates on the real tape (IS, L1; ledger family `null_tapes_drift/real_ref`)
 
@@ -60,24 +60,24 @@ Diff = kept-vs-skipped mean L1 net on the tape (INR per unit). `real pct` = the 
 
 | tf | generator | gate | tapes | units p50 [min, max] | kept share p50 | diff p5 | diff p50 | diff p95 | diff min / max | share diff>0 | control pct p50 / p95 | share ctrl>=95 | real diff | real pct | real > p95 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 5minute | GMM-Markov | choch2_skip | 14 | 1,074 [917, 1,211] | 0.690 | -399.45 | 91.75 | **528.47** | -430.00 / 554.66 | 0.571 | 3.8 / 62.7 | 0.000 | 257.83 | 78.6 | no |
-| 5minute | GMM-Markov | frozen_st7_st8 | 14 | 1,074 [917, 1,211] | 0.310 | -97.64 | 255.12 | **576.22** | -154.89 / 676.36 | 0.857 | 96.8 / 99.9 | 0.571 | -365.62 | 0.0 | no |
-| 5minute | GMM-Markov | sl_above_median_skip | 14 | 1,074 [917, 1,211] | 0.500 | -226.89 | 97.75 | **490.00** | -228.98 / 642.33 | 0.714 | 96.8 / 100.0 | 0.643 | 33.65 | 42.9 | no |
-| 5minute | segment bootstrap (30-bar blocks) | choch2_skip | 16 | 944 [803, 1,100] | 0.680 | -238.75 | 1.05 | **470.93** | -267.98 / 579.55 | 0.500 | 4.8 / 35.6 | 0.000 | 257.83 | 81.2 | no |
-| 5minute | segment bootstrap (30-bar blocks) | frozen_st7_st8 | 16 | 944 [803, 1,100] | 0.360 | -226.98 | 147.05 | **582.39** | -240.48 / 642.26 | 0.625 | 96.1 / 99.8 | 0.562 | -365.62 | 0.0 | no |
-| 5minute | segment bootstrap (30-bar blocks) | sl_above_median_skip | 16 | 944 [803, 1,100] | 0.500 | -669.11 | -100.11 | **671.15** | -715.66 / 860.19 | 0.500 | 98.5 / 99.8 | 0.812 | 33.65 | 56.2 | no |
-| 5minute | session bootstrap | choch2_skip | 10 | 954 [770, 1,042] | 0.680 | -230.11 | 190.42 | **748.14** | -313.89 / 810.86 | 0.700 | 13.5 / 49.7 | 0.000 | 257.83 | 60.0 | no |
-| 5minute | session bootstrap | frozen_st7_st8 | 10 | 954 [770, 1,042] | 0.390 | -168.71 | 45.80 | **244.03** | -171.07 / 289.77 | 0.600 | 87.2 / 98.2 | 0.300 | -365.62 | 0.0 | no |
-| 5minute | session bootstrap | sl_above_median_skip | 10 | 954 [770, 1,042] | 0.500 | -708.12 | -263.59 | **134.73** | -884.52 / 137.76 | 0.200 | 89.3 / 99.1 | 0.400 | 33.65 | 80.0 | no |
+| 5minute | GMM-Markov | choch2_skip | 20 | 1,058 [917, 1,211] | 0.690 | -385.35 | 37.88 | **516.38** | -430.00 / 554.66 | 0.550 | 5.4 / 60.6 | 0.000 | 257.83 | 80.0 | no |
+| 5minute | GMM-Markov | frozen_st7_st8 | 20 | 1,058 [917, 1,211] | 0.300 | -166.70 | 191.66 | **530.00** | -391.03 / 676.36 | 0.800 | 94.7 / 99.9 | 0.500 | -365.62 | 5.0 | no |
+| 5minute | GMM-Markov | sl_above_median_skip | 20 | 1,058 [917, 1,211] | 0.500 | -231.37 | 16.74 | **419.69** | -276.78 / 642.33 | 0.600 | 95.0 / 100.0 | 0.500 | 33.65 | 55.0 | no |
+| 5minute | segment bootstrap (30-bar blocks) | choch2_skip | 20 | 918 [778, 1,100] | 0.670 | -230.95 | 5.46 | **500.14** | -267.98 / 579.55 | 0.500 | 4.8 / 29.1 | 0.000 | 257.83 | 80.0 | no |
+| 5minute | segment bootstrap (30-bar blocks) | frozen_st7_st8 | 20 | 918 [778, 1,100] | 0.360 | -248.99 | 105.51 | **566.42** | -410.61 / 642.26 | 0.600 | 94.4 / 99.8 | 0.500 | -365.62 | 5.0 | no |
+| 5minute | segment bootstrap (30-bar blocks) | sl_above_median_skip | 20 | 918 [778, 1,100] | 0.500 | -656.69 | -191.32 | **620.74** | -715.66 / 860.19 | 0.450 | 97.9 / 99.8 | 0.750 | 33.65 | 65.0 | no |
+| 5minute | session bootstrap | choch2_skip | 20 | 925 [727, 1,042] | 0.680 | -319.39 | 173.26 | **827.38** | -423.87 / 1,141.33 | 0.650 | 10.6 / 59.1 | 0.000 | 257.83 | 60.0 | no |
+| 5minute | session bootstrap | frozen_st7_st8 | 20 | 925 [727, 1,042] | 0.390 | -240.81 | 45.80 | **554.71** | -405.87 / 588.05 | 0.650 | 92.8 / 98.5 | 0.400 | -365.62 | 5.0 | no |
+| 5minute | session bootstrap | sl_above_median_skip | 20 | 925 [727, 1,042] | 0.500 | -778.07 | -346.06 | **148.62** | -884.52 / 354.87 | 0.200 | 79.7 / 99.0 | 0.350 | 33.65 | 80.0 | no |
 | minute | GMM-Markov | choch2_skip | 8 | 1,436 [1,244, 1,650] | 0.670 | -1.13 | 105.34 | **246.98** | -4.22 / 286.72 | 0.875 | 61.5 / 89.2 | 0.000 | -72.50 | 0.0 | no |
 | minute | GMM-Markov | frozen_st7_st8 | 8 | 1,436 [1,244, 1,650] | 0.150 | -251.78 | -93.89 | **23.00** | -299.94 / 37.28 | 0.125 | 42.8 / 83.8 | 0.000 | -19.71 | 75.0 | no |
 | minute | GMM-Markov | sl_above_median_skip | 8 | 1,436 [1,244, 1,650] | 0.500 | -112.96 | 32.02 | **96.58** | -139.38 / 110.02 | 0.625 | 71.0 / 93.7 | 0.125 | 12.07 | 37.5 | no |
-| minute | segment bootstrap (30-bar blocks) | choch2_skip | 7 | 1,243 [613, 1,316] | 0.650 | -396.47 | -11.64 | **149.35** | -483.88 / 176.70 | 0.429 | 7.5 / 36.6 | 0.000 | -72.50 | 42.9 | no |
-| minute | segment bootstrap (30-bar blocks) | frozen_st7_st8 | 7 | 1,243 [613, 1,316] | 0.160 | -124.12 | 50.07 | **275.84** | -158.04 / 295.83 | 0.571 | 61.6 / 95.5 | 0.143 | -19.71 | 28.6 | no |
-| minute | segment bootstrap (30-bar blocks) | sl_above_median_skip | 7 | 1,243 [613, 1,316] | 0.500 | -136.20 | -25.61 | **130.60** | -139.96 / 136.91 | 0.429 | 64.2 / 93.2 | 0.143 | 12.07 | 57.1 | no |
-| minute | session bootstrap | choch2_skip | 7 | 1,101 [840, 1,445] | 0.660 | -260.03 | -76.19 | **148.75** | -263.67 / 222.48 | 0.143 | 8.8 / 36.1 | 0.000 | -72.50 | 57.1 | no |
-| minute | session bootstrap | frozen_st7_st8 | 7 | 1,101 [840, 1,445] | 0.160 | -144.71 | 52.46 | **226.14** | -147.04 / 232.81 | 0.714 | 66.2 / 83.6 | 0.000 | -19.71 | 28.6 | no |
-| minute | session bootstrap | sl_above_median_skip | 7 | 1,101 [840, 1,445] | 0.500 | -197.95 | -20.36 | **97.31** | -256.58 / 116.35 | 0.429 | 89.2 / 95.1 | 0.143 | 12.07 | 57.1 | no |
+| minute | segment bootstrap (30-bar blocks) | choch2_skip | 8 | 1,126 [613, 1,316] | 0.640 | -425.10 | -100.32 | **144.79** | -483.88 / 176.70 | 0.375 | 6.7 / 36.1 | 0.000 | -72.50 | 50.0 | no |
+| minute | segment bootstrap (30-bar blocks) | frozen_st7_st8 | 8 | 1,126 [613, 1,316] | 0.160 | -124.59 | 16.51 | **272.51** | -158.04 / 295.83 | 0.500 | 56.0 / 95.4 | 0.125 | -19.71 | 37.5 | no |
+| minute | segment bootstrap (30-bar blocks) | sl_above_median_skip | 8 | 1,126 [613, 1,316] | 0.500 | -226.02 | -61.20 | **129.55** | -272.36 / 136.91 | 0.375 | 61.4 / 92.6 | 0.125 | 12.07 | 62.5 | no |
+| minute | session bootstrap | choch2_skip | 8 | 1,096 [840, 1,445] | 0.660 | -259.42 | -78.84 | **136.47** | -263.67 / 222.48 | 0.125 | 8.3 / 35.8 | 0.000 | -72.50 | 62.5 | no |
+| minute | session bootstrap | frozen_st7_st8 | 8 | 1,096 [840, 1,445] | 0.160 | -206.16 | 29.83 | **225.03** | -237.99 / 232.81 | 0.625 | 53.5 / 83.0 | 0.000 | -19.71 | 37.5 | no |
+| minute | session bootstrap | sl_above_median_skip | 8 | 1,096 [840, 1,445] | 0.500 | -208.64 | -22.91 | **94.14** | -256.58 / 116.35 | 0.375 | 89.8 / 98.2 | 0.250 | 12.07 | 62.5 | no |
 
 ### 4a. The same cells on the first build, with and without its locked tapes (`gates_all_original`, `gates_healthy_original`)
 
@@ -85,41 +85,41 @@ Diff = kept-vs-skipped mean L1 net on the tape (INR per unit). `real pct` = the 
 
 | tf | generator | gate | tapes all / healthy / cert | units min all / cert | p50 all | p95 all | p50 healthy | p95 healthy | p50 cert | p95 cert | delta p95 | ctrl p95 all / cert | real diff | real pct all / cert | real > p95 all / cert |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 5minute | GMM-Markov | frozen_st7_st8 | 20 / 14 / 14 | 170 / 917 | 191.66 | 708.82 | 255.12 | 576.22 | 255.12 | **576.22** | -19% | 100.0 / 99.9 | -365.62 | 0.0 / 0.0 | no / no |
-| 5minute | GMM-Markov | choch2_skip | 20 / 14 / 14 | 170 / 917 | 91.75 | 516.38 | 91.75 | 528.47 | 91.75 | **528.47** | +2% | 56.1 / 62.7 | 257.83 | 80.0 / 78.6 | no / no |
-| 5minute | GMM-Markov | sl_above_median_skip | 20 / 14 / 14 | 170 / 917 | 97.75 | 483.41 | 97.75 | 490.00 | 97.75 | **490.00** | +1% | 100.0 / 100.0 | 33.65 | 40.0 / 42.9 | no / no |
-| 5minute | segment bootstrap (30-bar blocks) | frozen_st7_st8 | 20 / 16 / 16 | 191 / 803 | 164.72 | 566.42 | 147.05 | 582.39 | 147.05 | **582.39** | +3% | 99.8 / 99.8 | -365.62 | 0.0 / 0.0 | no / no |
-| 5minute | segment bootstrap (30-bar blocks) | choch2_skip | 20 / 16 / 16 | 191 / 803 | 35.06 | 441.96 | 1.05 | 470.93 | 1.05 | **470.93** | +7% | 36.6 / 35.6 | 257.83 | 80.0 / 81.2 | no / no |
-| 5minute | segment bootstrap (30-bar blocks) | sl_above_median_skip | 20 / 16 / 16 | 191 / 803 | -212.74 | 620.74 | -100.11 | 671.15 | -100.11 | **671.15** | +8% | 99.8 / 99.8 | 33.65 | 65.0 / 56.2 | no / no |
-| 5minute | session bootstrap | frozen_st7_st8 | 20 / 10 / 10 | 78 / 770 | 85.92 | 420.40 | 45.80 | 244.03 | 45.80 | **244.03** | -42% | 98.9 / 98.2 | -365.62 | 10.0 / 0.0 | no / no |
-| 5minute | session bootstrap | choch2_skip | 20 / 10 / 10 | 78 / 770 | 127.18 | 700.52 | 190.42 | 748.14 | 190.42 | **748.14** | +7% | 59.6 / 49.7 | 257.83 | 65.0 / 60.0 | no / no |
-| 5minute | session bootstrap | sl_above_median_skip | 20 / 10 / 10 | 78 / 770 | -331.03 | 131.37 | -263.59 | 134.73 | -263.59 | **134.73** | +3% | 99.0 / 99.1 | 33.65 | 90.0 / 80.0 | no / no |
+| 5minute | GMM-Markov | frozen_st7_st8 | 20 / 14 / 20 | 170 / 917 | 191.66 | 708.82 | 255.12 | 576.22 | 191.66 | **530.00** | -25% | 100.0 / 99.9 | -365.62 | 0.0 / 5.0 | no / no |
+| 5minute | GMM-Markov | choch2_skip | 20 / 14 / 20 | 170 / 917 | 91.75 | 516.38 | 91.75 | 528.47 | 37.88 | **516.38** | +0% | 56.1 / 60.6 | 257.83 | 80.0 / 80.0 | no / no |
+| 5minute | GMM-Markov | sl_above_median_skip | 20 / 14 / 20 | 170 / 917 | 97.75 | 483.41 | 97.75 | 490.00 | 16.74 | **419.69** | -13% | 100.0 / 100.0 | 33.65 | 40.0 / 55.0 | no / no |
+| 5minute | segment bootstrap (30-bar blocks) | frozen_st7_st8 | 20 / 16 / 20 | 191 / 778 | 164.72 | 566.42 | 147.05 | 582.39 | 105.51 | **566.42** | +0% | 99.8 / 99.8 | -365.62 | 0.0 / 5.0 | no / no |
+| 5minute | segment bootstrap (30-bar blocks) | choch2_skip | 20 / 16 / 20 | 191 / 778 | 35.06 | 441.96 | 1.05 | 470.93 | 5.46 | **500.14** | +13% | 36.6 / 29.1 | 257.83 | 80.0 / 80.0 | no / no |
+| 5minute | segment bootstrap (30-bar blocks) | sl_above_median_skip | 20 / 16 / 20 | 191 / 778 | -212.74 | 620.74 | -100.11 | 671.15 | -191.32 | **620.74** | +0% | 99.8 / 99.8 | 33.65 | 65.0 / 65.0 | no / no |
+| 5minute | session bootstrap | frozen_st7_st8 | 20 / 10 / 20 | 78 / 727 | 85.92 | 420.40 | 45.80 | 244.03 | 45.80 | **554.71** | +32% | 98.9 / 98.5 | -365.62 | 10.0 / 5.0 | no / no |
+| 5minute | session bootstrap | choch2_skip | 20 / 10 / 20 | 78 / 727 | 127.18 | 700.52 | 190.42 | 748.14 | 173.26 | **827.38** | +18% | 59.6 / 59.1 | 257.83 | 65.0 / 60.0 | no / no |
+| 5minute | session bootstrap | sl_above_median_skip | 20 / 10 / 20 | 78 / 727 | -331.03 | 131.37 | -263.59 | 134.73 | -346.06 | **148.62** | +13% | 99.0 / 99.0 | 33.65 | 90.0 / 80.0 | no / no |
 | minute | GMM-Markov | frozen_st7_st8 | 8 / 8 / 8 | 1,244 / 1,244 | -93.89 | 23.00 | -93.89 | 23.00 | -93.89 | **23.00** | +0% | 83.8 / 83.8 | -19.71 | 75.0 / 75.0 | no / no |
 | minute | GMM-Markov | choch2_skip | 8 / 8 / 8 | 1,244 / 1,244 | 105.34 | 246.98 | 105.34 | 246.98 | 105.34 | **246.98** | +0% | 89.2 / 89.2 | -72.50 | 0.0 / 0.0 | no / no |
 | minute | GMM-Markov | sl_above_median_skip | 8 / 8 / 8 | 1,244 / 1,244 | 32.02 | 96.58 | 32.02 | 96.58 | 32.02 | **96.58** | +0% | 93.7 / 93.7 | 12.07 | 37.5 / 37.5 | no / no |
-| minute | segment bootstrap (30-bar blocks) | frozen_st7_st8 | 8 / 7 / 7 | 430 / 613 | 16.51 | 272.51 | 50.07 | 275.84 | 50.07 | **275.84** | +1% | 95.4 / 95.5 | -19.71 | 37.5 / 28.6 | no / no |
-| minute | segment bootstrap (30-bar blocks) | choch2_skip | 8 / 7 / 7 | 430 / 613 | -61.29 | 144.79 | -11.64 | 149.35 | -11.64 | **149.35** | +3% | 36.1 / 36.6 | -72.50 | 50.0 / 42.9 | no / no |
-| minute | segment bootstrap (30-bar blocks) | sl_above_median_skip | 8 / 7 / 7 | 430 / 613 | 37.22 | 129.55 | -25.61 | 130.60 | -25.61 | **130.60** | +1% | 92.6 / 93.2 | 12.07 | 50.0 / 57.1 | no / no |
-| minute | session bootstrap | frozen_st7_st8 | 8 / 7 / 7 | 485 / 840 | 76.99 | 468.29 | 52.46 | 226.14 | 52.46 | **226.14** | -52% | 90.7 / 83.6 | -19.71 | 25.0 / 28.6 | no / no |
-| minute | session bootstrap | choch2_skip | 8 / 7 / 7 | 485 / 840 | -78.84 | 136.47 | -76.19 | 148.75 | -76.19 | **148.75** | +9% | 35.8 / 36.1 | -72.50 | 62.5 / 57.1 | no / no |
-| minute | session bootstrap | sl_above_median_skip | 8 / 7 / 7 | 485 / 840 | -22.91 | 94.14 | -20.36 | 97.31 | -20.36 | **97.31** | +3% | 94.8 / 95.1 | 12.07 | 62.5 / 57.1 | no / no |
+| minute | segment bootstrap (30-bar blocks) | frozen_st7_st8 | 8 / 7 / 8 | 430 / 613 | 16.51 | 272.51 | 50.07 | 275.84 | 16.51 | **272.51** | +0% | 95.4 / 95.4 | -19.71 | 37.5 / 37.5 | no / no |
+| minute | segment bootstrap (30-bar blocks) | choch2_skip | 8 / 7 / 8 | 430 / 613 | -61.29 | 144.79 | -11.64 | 149.35 | -100.32 | **144.79** | +0% | 36.1 / 36.1 | -72.50 | 50.0 / 50.0 | no / no |
+| minute | segment bootstrap (30-bar blocks) | sl_above_median_skip | 8 / 7 / 8 | 430 / 613 | 37.22 | 129.55 | -25.61 | 130.60 | -61.20 | **129.55** | +0% | 92.6 / 92.6 | 12.07 | 50.0 / 62.5 | no / no |
+| minute | session bootstrap | frozen_st7_st8 | 8 / 7 / 8 | 485 / 840 | 76.99 | 468.29 | 52.46 | 226.14 | 29.83 | **225.03** | -52% | 90.7 / 83.0 | -19.71 | 25.0 / 37.5 | no / no |
+| minute | session bootstrap | choch2_skip | 8 / 7 / 8 | 485 / 840 | -78.84 | 136.47 | -76.19 | 148.75 | -78.84 | **136.47** | +0% | 35.8 / 35.8 | -72.50 | 62.5 / 62.5 | no / no |
+| minute | session bootstrap | sl_above_median_skip | 8 / 7 / 8 | 485 / 840 | -22.91 | 94.14 | -20.36 | 97.31 | -22.91 | **94.14** | +0% | 94.8 / 98.2 | 12.07 | 62.5 / 62.5 | no / no |
 
 Verdict flips between the first-build-all set and the certificate set: **0 of 18**.
 
 ### 4b. Reading of the reference gates against their own nulls (certificate set)
 
-- **5minute / frozen_st7_st8**: real diff -365.62 (control pct 12.4); gmm: n 14, p50 255.12, p95 576.22, real pct 0.0, same sign 0.14; segment: n 16, p50 147.05, p95 582.39, real pct 0.0, same sign 0.38; session: n 10, p50 45.80, p95 244.03, real pct 0.0, same sign 0.40 -> does NOT pass the null-tape check.
-- **5minute / choch2_skip**: real diff 257.83 (control pct 46.6); gmm: n 14, p50 91.75, p95 528.47, real pct 78.6, same sign 0.57; segment: n 16, p50 1.05, p95 470.93, real pct 81.2, same sign 0.50; session: n 10, p50 190.42, p95 748.14, real pct 60.0, same sign 0.70 -> does NOT pass the null-tape check.
-- **5minute / sl_above_median_skip**: real diff 33.65 (control pct 99.8); gmm: n 14, p50 97.75, p95 490.00, real pct 42.9, same sign 0.71; segment: n 16, p50 -100.11, p95 671.15, real pct 56.2, same sign 0.50; session: n 10, p50 -263.59, p95 134.73, real pct 80.0, same sign 0.20 -> does NOT pass the null-tape check.
-- **minute / frozen_st7_st8**: real diff -19.71 (control pct 64.0); gmm: n 8, p50 -93.89, p95 23.00, real pct 75.0, same sign 0.88; segment: n 7, p50 50.07, p95 275.84, real pct 28.6, same sign 0.43; session: n 7, p50 52.46, p95 226.14, real pct 28.6, same sign 0.29 -> does NOT pass the null-tape check.
-- **minute / choch2_skip**: real diff -72.50 (control pct 1.6); gmm: n 8, p50 105.34, p95 246.98, real pct 0.0, same sign 0.12; segment: n 7, p50 -11.64, p95 149.35, real pct 42.9, same sign 0.57; session: n 7, p50 -76.19, p95 148.75, real pct 57.1, same sign 0.86 -> does NOT pass the null-tape check.
-- **minute / sl_above_median_skip**: real diff 12.07 (control pct 99.0); gmm: n 8, p50 32.02, p95 96.58, real pct 37.5, same sign 0.62; segment: n 7, p50 -25.61, p95 130.60, real pct 57.1, same sign 0.43; session: n 7, p50 -20.36, p95 97.31, real pct 57.1, same sign 0.43 -> does NOT pass the null-tape check.
+- **5minute / frozen_st7_st8**: real diff -365.62 (control pct 12.4); gmm: n 20, p50 191.66, p95 530.00, real pct 5.0, same sign 0.20; segment: n 20, p50 105.51, p95 566.42, real pct 5.0, same sign 0.40; session: n 20, p50 45.80, p95 554.71, real pct 5.0, same sign 0.35 -> does NOT pass the null-tape check.
+- **5minute / choch2_skip**: real diff 257.83 (control pct 46.6); gmm: n 20, p50 37.88, p95 516.38, real pct 80.0, same sign 0.55; segment: n 20, p50 5.46, p95 500.14, real pct 80.0, same sign 0.50; session: n 20, p50 173.26, p95 827.38, real pct 60.0, same sign 0.65 -> does NOT pass the null-tape check.
+- **5minute / sl_above_median_skip**: real diff 33.65 (control pct 99.8); gmm: n 20, p50 16.74, p95 419.69, real pct 55.0, same sign 0.60; segment: n 20, p50 -191.32, p95 620.74, real pct 65.0, same sign 0.45; session: n 20, p50 -346.06, p95 148.62, real pct 80.0, same sign 0.20 -> does NOT pass the null-tape check.
+- **minute / frozen_st7_st8**: real diff -19.71 (control pct 64.0); gmm: n 8, p50 -93.89, p95 23.00, real pct 75.0, same sign 0.88; segment: n 8, p50 16.51, p95 272.51, real pct 37.5, same sign 0.50; session: n 8, p50 29.83, p95 225.03, real pct 37.5, same sign 0.38 -> does NOT pass the null-tape check.
+- **minute / choch2_skip**: real diff -72.50 (control pct 1.6); gmm: n 8, p50 105.34, p95 246.98, real pct 0.0, same sign 0.12; segment: n 8, p50 -100.32, p95 144.79, real pct 50.0, same sign 0.62; session: n 8, p50 -78.84, p95 136.47, real pct 62.5, same sign 0.88 -> does NOT pass the null-tape check.
+- **minute / sl_above_median_skip**: real diff 12.07 (control pct 99.0); gmm: n 8, p50 32.02, p95 96.58, real pct 37.5, same sign 0.62; segment: n 8, p50 -61.20, p95 129.55, real pct 62.5, same sign 0.38; session: n 8, p50 -22.91, p95 94.14, real pct 62.5, same sign 0.38 -> does NOT pass the null-tape check.
 
 ### 4c. Key readings (numbers from `null_distributions.json`, certificate set)
 
-1. **The frozen ST7/ST8 gate on memory-free 5-minute tapes**: GMM-Markov median diff 255.12 (p95 576.22, share of tapes > 0 0.86, control pct p50 96.8, 57% of tapes at or above the 95th control percentile); segment median 147.05 (p95 582.39, control pct p50 96.1, 56% at or above 95); session median 45.80 (p95 244.03). On tapes with no swing memory the rooms gate still separates kept from skipped by a positive median and clears the random control on a large share of tapes: that part of any ST7/ST8-shaped statistic is engine / FZ mechanics, not market memory. The real 5-minute frozen gate (-365.62, control pct 12.4) sits at the 0th percentile of the GMM null and the 0th of the segment null: on the real tape it does worse than on its own memory-free tapes.
-2. **The stop-distance gate's control percentile is mechanical**: on the real tape it reads 99.8 (5 min, diff 33.65) and 99.0 (1 min, diff 12.07); on the memory-free tapes its control percentile has p50 96.8 / 98.5 (5 min GMM / segment) and 71.0 / 64.2 (1 min), and the real diff sits at the 43rd / 56th (5 min) and 38th / 57th (1 min) percentile of its null. A high control percentile for a gate on stop distance is what the engine produces on a random tape (Judge 2's warning, measured); the null p95 of the diff, not the control percentile, is the bar.
-3. **The CHoCH-count gate**: 5 min real diff 257.83 (control pct 46.6) is at the 79th / 81st percentile of the GMM / segment nulls (p95 528.47 / 470.93): not above p95 on both memory-free generators. 1 min real diff -72.50 (control pct 1.6) against a GMM null median of 105.34 (0.88 of tapes positive): the real 1-minute CHoCH-count gate sits at the 0th percentile of its memory-free null; the 'CHoCH, CHoCH, no BOS = sideways' skip does not read as market memory on this tape.
+1. **The frozen ST7/ST8 gate on memory-free 5-minute tapes**: GMM-Markov median diff 191.66 (p95 530.00, share of tapes > 0 0.80, control pct p50 94.7, 50% of tapes at or above the 95th control percentile); segment median 105.51 (p95 566.42, control pct p50 94.4, 50% at or above 95); session median 45.80 (p95 554.71). On tapes with no swing memory the rooms gate still separates kept from skipped by a positive median and clears the random control on a large share of tapes: that part of any ST7/ST8-shaped statistic is engine / FZ mechanics, not market memory. The real 5-minute frozen gate (-365.62, control pct 12.4) sits at the 5th percentile of the GMM null and the 5th of the segment null: on the real tape it does worse than on its own memory-free tapes.
+2. **The stop-distance gate's control percentile is mechanical**: on the real tape it reads 99.8 (5 min, diff 33.65) and 99.0 (1 min, diff 12.07); on the memory-free tapes its control percentile has p50 95.0 / 97.9 (5 min GMM / segment) and 71.0 / 61.4 (1 min), and the real diff sits at the 55th / 65th (5 min) and 38th / 62nd (1 min) percentile of its null. A high control percentile for a gate on stop distance is what the engine produces on a random tape (Judge 2's warning, measured); the null p95 of the diff, not the control percentile, is the bar.
+3. **The CHoCH-count gate**: 5 min real diff 257.83 (control pct 46.6) is at the 80th / 80th percentile of the GMM / segment nulls (p95 516.38 / 500.14): not above p95 on both memory-free generators. 1 min real diff -72.50 (control pct 1.6) against a GMM null median of 105.34 (0.88 of tapes positive): the real 1-minute CHoCH-count gate sits at the 0th percentile of its memory-free null; the 'CHoCH, CHoCH, no BOS = sideways' skip does not read as market memory on this tape.
 4. **Consequence for the gate studies**: a candidate's real-tape diff must clear the p95 of the certificate tapes of its own family shape (section 7), and its control percentile must be read against the null's control-percentile distribution (`control_pct_p95` per gate); a control percentile alone, even 99+, is not evidence for a gate that touches the stop or the event stream.
 
 ## 5. Reality check of the generators (IS part of the real tape vs every tape built; tape p50 [min, max]; the min / max carry the locked tapes)
@@ -128,72 +128,72 @@ Verdict flips between the first-build-all set and the certificate set: **0 of 18
 
 | statistic | real | GMM-Markov | segment bootstrap (30-bar blocks) | session bootstrap |
 |---|---|---|---|---|
-| ret std (bps) | 7.369 | 7.060 [6.940, 7.150] | 7.320 [7.040, 7.500] | 7.350 [7.150, 7.550] |
-| ret excess kurtosis | 14.6 | 6.2 [5.8, 6.8] | 8.9 [5.3, 22.4] | 14.9 [6.0, 27.9] |
-| abs-return autocorr lag 1 | 0.234 | 0.110 [0.100, 0.120] | 0.220 [0.200, 0.250] | 0.230 [0.210, 0.250] |
-| lag 2 | 0.234 | 0.030 [0.020, 0.040] | 0.210 [0.170, 0.260] | 0.230 [0.190, 0.280] |
-| lag 3 | 0.218 | 0.010 [-0.000, 0.020] | 0.190 [0.160, 0.230] | 0.220 [0.180, 0.260] |
-| lag 4 | 0.210 | 0.000 [-0.010, 0.010] | 0.180 [0.150, 0.220] | 0.210 [0.180, 0.250] |
-| lag 5 | 0.211 | 0.000 [-0.000, 0.010] | 0.170 [0.140, 0.220] | 0.210 [0.170, 0.260] |
-| CHoCH / session | 1.204 | 1.610 [0.250, 1.990] (x1.34) | 1.330 [0.290, 1.650] (x1.10) | 1.110 [0.120, 1.530] (x0.92) |
-| BOS / session | 5.428 | 5.650 [5.510, 5.910] (x1.04) | 5.350 [5.180, 5.610] (x0.99) | 5.450 [5.300, 5.640] (x1.00) |
-| SETUPs / session | 0.811 | 0.980 [0.170, 1.190] (x1.21) | 0.880 [0.190, 1.080] (x1.09) | 0.740 [0.080, 1.020] (x0.91) |
-| L1 units / session | 0.805 | 0.960 [0.170, 1.180] (x1.20) | 0.870 [0.190, 1.070] (x1.08) | 0.730 [0.080, 1.020] (x0.91) |
-| L1 mean net | -757.0 | -1,088.8 [-1,315.0, -846.1] | -1,047.5 [-1,350.1, -697.6] | -802.6 [-1,132.8, -451.9] |
-| L1 win rate | 0.277 | 0.250 [0.210, 0.270] | 0.250 [0.220, 0.290] | 0.270 [0.240, 0.300] |
-| frozen kept share | 0.394 | 0.310 [0.270, 0.350] | 0.360 [0.330, 0.400] | 0.380 [0.310, 0.440] |
-| last close | 26,300.0 | 27,374.7 [18,001.3, 43,826.4] | 27,368.6 [18,891.4, 36,606.2] | 27,200.4 [21,160.7, 52,555.4] |
-| ATR14 median | 20.3 | 23.7 [20.1, 35.6] | 21.5 [17.3, 28.5] | 21.7 [17.4, 30.9] |
+| ret std (bps) | 7.369 | 7.070 [6.940, 7.150] | 7.330 [7.040, 7.500] | 7.350 [7.090, 7.790] |
+| ret excess kurtosis | 14.6 | 6.2 [5.8, 6.8] | 13.8 [5.3, 22.4] | 14.9 [6.0, 28.0] |
+| abs-return autocorr lag 1 | 0.234 | 0.110 [0.100, 0.120] | 0.220 [0.200, 0.250] | 0.230 [0.200, 0.270] |
+| lag 2 | 0.234 | 0.030 [0.020, 0.040] | 0.210 [0.170, 0.260] | 0.230 [0.190, 0.300] |
+| lag 3 | 0.218 | 0.010 [-0.000, 0.020] | 0.190 [0.160, 0.230] | 0.220 [0.180, 0.270] |
+| lag 4 | 0.210 | 0.000 [-0.010, 0.010] | 0.180 [0.150, 0.220] | 0.210 [0.170, 0.260] |
+| lag 5 | 0.211 | 0.000 [-0.010, 0.010] | 0.180 [0.140, 0.220] | 0.210 [0.170, 0.270] |
+| CHoCH / session | 1.204 | 1.640 [0.250, 1.990] (x1.36) | 1.340 [0.290, 1.650] (x1.12) | 1.130 [0.120, 1.670] (x0.94) |
+| BOS / session | 5.428 | 5.650 [5.510, 5.910] (x1.04) | 5.350 [5.180, 5.610] (x0.98) | 5.440 [5.300, 5.640] (x1.00) |
+| SETUPs / session | 0.811 | 1.000 [0.170, 1.240] (x1.23) | 0.890 [0.190, 1.080] (x1.09) | 0.760 [0.080, 1.080] (x0.93) |
+| L1 units / session | 0.805 | 0.990 [0.170, 1.220] (x1.23) | 0.880 [0.190, 1.070] (x1.09) | 0.750 [0.080, 1.070] (x0.93) |
+| L1 mean net | -757.0 | -1,104.3 [-1,315.0, -846.1] | -1,041.8 [-1,350.1, -697.6] | -830.6 [-1,187.3, -180.3] |
+| L1 win rate | 0.277 | 0.250 [0.210, 0.270] | 0.250 [0.220, 0.290] | 0.260 [0.230, 0.310] |
+| frozen kept share | 0.394 | 0.300 [0.270, 0.350] | 0.360 [0.330, 0.400] | 0.370 [0.310, 0.440] |
+| last close | 26,300.0 | 27,600.1 [18,001.3, 43,826.4] | 25,684.8 [18,891.4, 36,606.2] | 27,070.8 [18,194.5, 52,555.4] |
+| ATR14 median | 20.3 | 24.3 [19.4, 35.6] | 21.4 [17.3, 28.5] | 22.2 [16.1, 30.9] |
 | lock-out rate, first build (tapes) | 0 | 0.30 (6 / 20) | 0.20 (4 / 20) | 0.50 (10 / 20) |
-| lock-out rate, all built (tapes) | 0 | 0.30 (6 / 20) | 0.20 (4 / 20) | 0.50 (10 / 20) |
+| lock-out rate, all built (tapes) | 0 | 0.28 (8 / 29) | 0.16 (4 / 25) | 0.40 (16 / 40) |
 
-Generator-level poor-null flag (median SETUP rate outside [1/3, 3] x real): none. Per-tape poor-null flags (locked tapes, section 5c): GMM-Markov k = [6, 13, 14, 16, 18, 19]; segment bootstrap (30-bar blocks) k = [3, 7, 9, 16]; session bootstrap k = [0, 2, 3, 5, 6, 7, 13, 16, 17, 18].
+Generator-level poor-null flag (median SETUP rate outside [1/3, 3] x real): none. Per-tape poor-null flags (locked tapes, section 5c): GMM-Markov k = [6, 13, 14, 16, 18, 19, 20, 27]; segment bootstrap (30-bar blocks) k = [3, 7, 9, 16]; session bootstrap k = [0, 2, 3, 5, 6, 7, 13, 16, 17, 18, 20, 22, 27, 28, 31, 36].
 
 Engine rates on the certificate tapes only (p50, x real):
 
 | statistic | real | GMM-Markov | segment bootstrap (30-bar blocks) | session bootstrap |
 |---|---|---|---|---|
-| CHoCH / session | 1.204 | 1.690 [1.440, 1.990] (x1.41) | 1.410 [1.220, 1.650] (x1.17) | 1.440 [1.140, 1.530] (x1.19) |
-| BOS / session | 5.428 | 5.590 [5.510, 5.750] (x1.03) | 5.330 [5.180, 5.410] (x0.98) | 5.410 [5.300, 5.460] (x1.00) |
-| SETUPs / session | 0.811 | 1.060 [0.900, 1.190] (x1.31) | 0.930 [0.790, 1.080] (x1.14) | 0.940 [0.760, 1.020] (x1.16) |
-| L1 units / session | 0.805 | 1.050 [0.890, 1.180] (x1.30) | 0.920 [0.780, 1.070] (x1.14) | 0.930 [0.750, 1.020] (x1.16) |
-| L1 mean net | -757.0 | -1,113.1 [-1,315.0, -936.6] | -1,039.0 [-1,136.8, -697.6] | -945.3 [-1,077.9, -728.9] |
-| frozen kept share | 0.394 | 0.310 [0.280, 0.350] | 0.360 [0.340, 0.380] | 0.390 [0.330, 0.420] |
+| CHoCH / session | 1.204 | 1.690 [1.440, 1.990] (x1.41) | 1.390 [1.160, 1.650] (x1.16) | 1.360 [1.070, 1.530] (x1.13) |
+| BOS / session | 5.428 | 5.610 [5.510, 5.750] (x1.03) | 5.330 [5.180, 5.410] (x0.98) | 5.420 [5.300, 5.550] (x1.00) |
+| SETUPs / session | 0.811 | 1.040 [0.900, 1.190] (x1.29) | 0.900 [0.770, 1.080] (x1.11) | 0.920 [0.710, 1.020] (x1.13) |
+| L1 units / session | 0.805 | 1.030 [0.890, 1.180] (x1.28) | 0.890 [0.760, 1.070] (x1.11) | 0.900 [0.710, 1.020] (x1.12) |
+| L1 mean net | -757.0 | -1,125.0 [-1,315.0, -936.6] | -1,039.0 [-1,214.3, -697.6] | -923.4 [-1,077.9, -507.3] |
+| frozen kept share | 0.394 | 0.300 [0.280, 0.350] | 0.360 [0.340, 0.380] | 0.390 [0.330, 0.420] |
 
 ### minute
 
 | statistic | real | GMM-Markov | segment bootstrap (30-bar blocks) | session bootstrap |
 |---|---|---|---|---|
-| ret std (bps) | 3.408 | 3.300 [3.260, 3.310] | 3.460 [3.350, 3.580] | 3.310 [3.120, 3.730] |
-| ret excess kurtosis | 21.7 | 5.1 [5.0, 5.5] | 30.4 [9.6, 37.9] | 7.1 [4.6, 48.6] |
-| abs-return autocorr lag 1 | 0.277 | 0.070 [0.060, 0.080] | 0.280 [0.260, 0.300] | 0.250 [0.220, 0.320] |
-| lag 2 | 0.246 | 0.020 [0.010, 0.020] | 0.240 [0.220, 0.250] | 0.220 [0.200, 0.290] |
-| lag 3 | 0.230 | 0.000 [0.000, 0.010] | 0.220 [0.200, 0.230] | 0.200 [0.180, 0.270] |
-| lag 4 | 0.225 | -0.000 [-0.010, 0.000] | 0.200 [0.190, 0.220] | 0.200 [0.180, 0.260] |
-| lag 5 | 0.222 | -0.000 [-0.010, 0.000] | 0.200 [0.180, 0.220] | 0.200 [0.180, 0.260] |
-| CHoCH / session | 6.617 | 10.080 [8.840, 12.180] (x1.52) | 6.910 [2.650, 8.210] (x1.04) | 6.330 [2.920, 8.860] (x0.96) |
-| BOS / session | 26.7 | 30.4 [30.0, 31.0] (x1.14) | 26.4 [25.9, 26.8] (x0.99) | 26.8 [26.4, 27.4] (x1.00) |
-| SETUPs / session | 4.388 | 5.910 [5.110, 6.790] (x1.35) | 4.590 [1.760, 5.390] (x1.05) | 4.220 [2.000, 5.900] (x0.96) |
-| L1 units / session | 4.339 | 5.820 [5.040, 6.680] (x1.34) | 4.560 [1.740, 5.330] (x1.05) | 4.180 [1.960, 5.850] (x0.96) |
-| L1 mean net | -1,009.6 | -1,003.5 [-1,084.6, -900.1] | -1,019.2 [-1,081.2, -885.4] | -945.3 [-1,075.4, -719.9] |
+| ret std (bps) | 3.408 | 3.300 [3.260, 3.310] | 3.450 [3.350, 3.580] | 3.310 [3.120, 3.730] |
+| ret excess kurtosis | 21.7 | 5.1 [5.0, 5.5] | 30.4 [9.6, 37.9] | 7.3 [4.6, 52.4] |
+| abs-return autocorr lag 1 | 0.277 | 0.070 [0.060, 0.080] | 0.280 [0.260, 0.300] | 0.250 [0.220, 0.340] |
+| lag 2 | 0.246 | 0.020 [0.010, 0.020] | 0.240 [0.220, 0.250] | 0.220 [0.200, 0.310] |
+| lag 3 | 0.230 | 0.000 [0.000, 0.010] | 0.210 [0.200, 0.230] | 0.210 [0.180, 0.290] |
+| lag 4 | 0.225 | -0.000 [-0.010, 0.000] | 0.200 [0.190, 0.220] | 0.210 [0.180, 0.270] |
+| lag 5 | 0.222 | -0.000 [-0.010, 0.000] | 0.200 [0.180, 0.220] | 0.200 [0.180, 0.270] |
+| CHoCH / session | 6.617 | 10.080 [8.840, 12.180] (x1.52) | 6.110 [2.650, 8.210] (x0.92) | 6.330 [2.920, 8.860] (x0.96) |
+| BOS / session | 26.7 | 30.4 [30.0, 31.0] (x1.14) | 26.4 [25.9, 27.3] (x0.99) | 26.8 [26.4, 27.4] (x1.00) |
+| SETUPs / session | 4.388 | 5.910 [5.110, 6.790] (x1.35) | 4.000 [1.760, 5.390] (x0.91) | 4.180 [2.000, 5.900] (x0.95) |
+| L1 units / session | 4.339 | 5.820 [5.040, 6.680] (x1.34) | 3.970 [1.740, 5.330] (x0.91) | 4.160 [1.960, 5.850] (x0.96) |
+| L1 mean net | -1,009.6 | -1,003.5 [-1,084.6, -900.1] | -1,000.3 [-1,081.2, -827.9] | -957.1 [-1,075.4, -719.9] |
 | L1 win rate | 0.156 | 0.160 [0.150, 0.180] | 0.150 [0.130, 0.170] | 0.150 [0.130, 0.180] |
-| frozen kept share | 0.167 | 0.150 [0.150, 0.170] | 0.160 [0.150, 0.180] | 0.160 [0.140, 0.180] |
-| last close | 26,300.0 | 18,431.6 [16,727.3, 20,986.6] | 18,554.0 [15,184.8, 20,575.3] | 19,557.5 [14,767.5, 23,861.8] |
-| ATR14 median | 8.568 | 9.720 [9.200, 11.120] | 7.640 [6.930, 7.900] | 7.310 [6.490, 8.350] |
+| frozen kept share | 0.167 | 0.150 [0.150, 0.170] | 0.160 [0.140, 0.180] | 0.160 [0.140, 0.180] |
+| last close | 26,300.0 | 18,431.6 [16,727.3, 20,986.6] | 19,165.1 [15,184.8, 25,411.9] | 19,847.8 [14,767.5, 23,861.8] |
+| ATR14 median | 8.568 | 9.720 [9.200, 11.120] | 7.760 [6.930, 8.500] | 7.470 [6.490, 8.350] |
 | lock-out rate, first build (tapes) | 0 | 0.00 (0 / 8) | 0.12 (1 / 8) | 0.12 (1 / 8) |
-| lock-out rate, all built (tapes) | 0 | 0.00 (0 / 8) | 0.12 (1 / 8) | 0.12 (1 / 8) |
+| lock-out rate, all built (tapes) | 0 | 0.00 (0 / 8) | 0.20 (2 / 10) | 0.20 (2 / 10) |
 
-Generator-level poor-null flag (median SETUP rate outside [1/3, 3] x real): none. Per-tape poor-null flags (locked tapes, section 5c): GMM-Markov k = []; segment bootstrap (30-bar blocks) k = [3]; session bootstrap k = [3].
+Generator-level poor-null flag (median SETUP rate outside [1/3, 3] x real): none. Per-tape poor-null flags (locked tapes, section 5c): GMM-Markov k = []; segment bootstrap (30-bar blocks) k = [3, 9]; session bootstrap k = [3, 8].
 
 Engine rates on the certificate tapes only (p50, x real):
 
 | statistic | real | GMM-Markov | segment bootstrap (30-bar blocks) | session bootstrap |
 |---|---|---|---|---|
-| CHoCH / session | 6.617 | 10.080 [8.840, 12.180] (x1.52) | 7.530 [3.790, 8.210] (x1.14) | 6.740 [5.280, 8.860] (x1.02) |
-| BOS / session | 26.7 | 30.4 [30.0, 31.0] (x1.14) | 26.3 [25.9, 26.8] (x0.98) | 26.8 [26.4, 27.4] (x1.00) |
-| SETUPs / session | 4.388 | 5.910 [5.110, 6.790] (x1.35) | 5.070 [2.520, 5.390] (x1.16) | 4.530 [3.430, 5.900] (x1.03) |
-| L1 units / session | 4.339 | 5.820 [5.040, 6.680] (x1.34) | 5.030 [2.480, 5.330] (x1.16) | 4.460 [3.400, 5.850] (x1.03) |
-| L1 mean net | -1,009.6 | -1,003.5 [-1,084.6, -900.1] | -1,037.6 [-1,081.2, -885.4] | -963.6 [-1,075.4, -719.9] |
+| CHoCH / session | 6.617 | 10.080 [8.840, 12.180] (x1.52) | 6.910 [3.790, 8.210] (x1.04) | 6.760 [5.280, 8.860] (x1.02) |
+| BOS / session | 26.7 | 30.4 [30.0, 31.0] (x1.14) | 26.3 [25.9, 26.8] (x0.99) | 26.8 [26.4, 27.4] (x1.00) |
+| SETUPs / session | 4.388 | 5.910 [5.110, 6.790] (x1.35) | 4.590 [2.520, 5.390] (x1.05) | 4.490 [3.430, 5.900] (x1.02) |
+| L1 units / session | 4.339 | 5.820 [5.040, 6.680] (x1.34) | 4.560 [2.480, 5.330] (x1.05) | 4.440 [3.400, 5.850] (x1.02) |
+| L1 mean net | -1,009.6 | -1,003.5 [-1,084.6, -900.1] | -1,018.8 [-1,081.2, -827.9] | -986.6 [-1,075.4, -719.9] |
 | frozen kept share | 0.167 | 0.150 [0.150, 0.170] | 0.160 [0.150, 0.180] | 0.160 [0.150, 0.180] |
 
 The 1-minute tapes are one trading year (247 sessions) starting at the real IS first open (17,523.70), so `last close` and `ATR14 median` are not comparable with the real 5-year IS values in this table; the per-session rates and return moments are.
@@ -214,7 +214,7 @@ Scale-free (x2 price level gives identical counts): **True**. Re-basing the real
 
 ### 5c. Engine lock-out on the null tapes (repair round; `tape_health.csv`, `tapes/<tf>/<gen>_<k>/tape_health.json`)
 
-**Mechanism** (engine.py, protected level): the protected level `prot` is the last unbroken *candidate* swing of the current trend; a swing becomes a candidate only when it lies on the far side of the AVWAP anchored at the last trend flip (`qualifies`: a low below that AVWAP in an up-trend, a high above it in a down-trend). On a driftless random-walk tape a long one-directional walk leaves the anchored AVWAP far behind, no new swing qualifies, `prot` freezes at the last candidate, and a CHoCH (a close beyond `prot` against the trend) becomes unreachable while BOS (a break of the last swing high / low with the trend) continues at its normal rate; no CHoCH means no SETUP. The real market returns to its anchored levels often enough that the real tape's longest frozen run is 68 / 69 sessions (5minute / minute); the locked tapes carry runs of 99-932 sessions. A run can end when the walk wanders back (a recovered mid-tape lock-out; the tail rule alone misses these) or last to the end of the tape.
+**Mechanism** (engine.py, protected level): the protected level `prot` is the last unbroken *candidate* swing of the current trend; a swing becomes a candidate only when it lies on the far side of the AVWAP anchored at the last trend flip (`qualifies`: a low below that AVWAP in an up-trend, a high above it in a down-trend). On a driftless random-walk tape a long one-directional walk leaves the anchored AVWAP far behind, no new swing qualifies, `prot` freezes at the last candidate, and a CHoCH (a close beyond `prot` against the trend) becomes unreachable while BOS (a break of the last swing high / low with the trend) continues at its normal rate; no CHoCH means no SETUP. The real market returns to its anchored levels often enough that the real tape's longest frozen run is 68 / 69 sessions (5minute / minute); the locked tapes carry runs of 76-932 sessions. A run can end when the walk wanders back (a recovered mid-tape lock-out; the tail rule alone misses these) or last to the end of the tape.
 
 | tf | tape | sessions | dead sessions (share) | dead tail share | longest frozen run (from) | last CHoCH | last SETUP | SETUPs / session (x real) | L1 units | prot at end | close at end | gap pts | reasons |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -224,6 +224,8 @@ Scale-free (x2 price level gives identical counts): **True**. Re-basing the real
 | 5minute | gmm_16 | 1026 | 498 (0.485) | 0.486 | 498 (2023-11-30) | 2023-11-28 | 2023-11-29 | 0.582 (x0.72) | 589 | 24,759.8 | 41,860.0 | 17,100 | ['dead share 0.485 >= 0.2'] |
 | 5minute | gmm_18 | 1026 | 891 (0.868) | 0.871 | 891 (2022-04-26) | 2022-04-20 | 2022-04-20 | 0.167 (x0.21) | 170 | 18,425.3 | 40,508.9 | 22,084 | ['dead share 0.868 >= 0.2', 'setup rate 0.206 x real < 0.333'] |
 | 5minute | gmm_19 | 1026 | 577 (0.562) | 0.565 | 577 (2023-08-03) | 2023-07-28 | 2023-07-28 | 0.460 (x0.57) | 467 | 25,011.4 | 41,861.2 | 16,850 | ['dead share 0.562 >= 0.2'] |
+| 5minute | gmm_20 | 1026 | 236 (0.230) | 0.001 | 236 (2023-10-17) | 2025-12-30 | 2025-12-31 | 0.864 (x1.06) | 870 | 34,860.5 | 34,543.0 | -318 | ['dead share 0.230 >= 0.2'] |
+| 5minute | gmm_27 | 1026 | 663 (0.646) | 0.526 | 539 (2023-09-28) | 2023-09-26 | 2023-09-26 | 0.451 (x0.56) | 457 | 19,241.7 | 30,578.8 | 11,337 | ['dead share 0.646 >= 0.2'] |
 | 5minute | segment_3 | 1026 | 436 (0.425) | 0.425 | 436 (2024-02-28) | 2024-02-27 | 2024-02-27 | 0.571 (x0.70) | 578 | 21,537.2 | 36,606.2 | 15,069 | ['dead share 0.425 >= 0.2'] |
 | 5minute | segment_7 | 1026 | 850 (0.829) | 0.831 | 850 (2022-06-27) | 2022-06-21 | 2022-06-21 | 0.188 (x0.23) | 191 | 16,273.4 | 29,884.5 | 13,611 | ['dead share 0.828 >= 0.2', 'setup rate 0.232 x real < 0.333'] |
 | 5minute | segment_9 | 1026 | 283 (0.276) | 0.005 | 283 (2023-05-08) | 2025-12-23 | 2025-12-23 | 0.838 (x1.03) | 843 | 28,437.1 | 29,052.5 | 615 | ['dead share 0.276 >= 0.2'] |
@@ -238,10 +240,18 @@ Scale-free (x2 price level gives identical counts): **True**. Re-basing the real
 | 5minute | session_16 | 1026 | 674 (0.657) | 0.522 | 535 (2023-10-05) | 2023-10-03 | 2023-10-03 | 0.279 (x0.34) | 280 | 18,630.0 | 32,423.0 | 13,793 | ['dead share 0.657 >= 0.2'] |
 | 5minute | session_17 | 1026 | 343 (0.334) | 0.047 | 343 (2022-04-27) | 2025-10-21 | 2025-10-21 | 0.605 (x0.75) | 614 | 21,720.5 | 22,657.2 | 937 | ['dead share 0.334 >= 0.2'] |
 | 5minute | session_18 | 1026 | 932 (0.908) | 0.909 | 932 (2022-02-17) | 2022-02-15 | 2022-02-15 | 0.077 (x0.10) | 78 | 16,205.3 | 35,770.3 | 19,565 | ['dead share 0.908 >= 0.2', 'setup rate 0.095 x real < 0.333'] |
+| 5minute | session_20 | 1026 | 213 (0.208) | 0.006 | 121 (2023-02-22) | 2025-12-22 | 2025-12-22 | 0.656 (x0.81) | 665 | 24,124.5 | 24,854.7 | 730 | ['dead share 0.208 >= 0.2'] |
+| 5minute | session_22 | 1026 | 631 (0.615) | 0.615 | 631 (2023-05-18) | 2023-05-17 | 2023-05-17 | 0.372 (x0.46) | 376 | 19,971.1 | 35,326.2 | 15,355 | ['dead share 0.615 >= 0.2'] |
+| 5minute | session_27 | 1026 | 348 (0.339) | 0.016 | 348 (2022-06-06) | 2025-12-08 | 2025-12-08 | 0.591 (x0.73) | 600 | 29,019.0 | 31,800.3 | 2,781 | ['dead share 0.339 >= 0.2'] |
+| 5minute | session_28 | 1026 | 222 (0.216) | 0.002 | 142 (2024-10-18) | 2025-12-29 | 2025-12-29 | 0.714 (x0.88) | 719 | 18,048.5 | 18,367.6 | 319 | ['dead share 0.216 >= 0.2'] |
+| 5minute | session_31 | 1026 | 544 (0.530) | 0.001 | 451 (2023-03-10) | 2025-12-30 | 2025-12-30 | 0.444 (x0.55) | 452 | 29,350.7 | 29,700.8 | 350 | ['dead share 0.530 >= 0.2'] |
+| 5minute | session_36 | 1026 | 889 (0.867) | 0.007 | 889 (2022-01-20) | 2025-12-19 | 2025-12-19 | 0.183 (x0.23) | 186 | 28,931.7 | 30,099.9 | 1,168 | ['dead share 0.866 >= 0.2', 'setup rate 0.226 x real < 0.333'] |
 | minute | segment_3 | 247 | 168 (0.680) | 0.004 | 168 (2025-03-11) | 2025-12-30 | 2025-12-30 | 1.761 (x0.40) | 430 | 19,540.0 | 19,767.2 | 227 | ['dead share 0.680 >= 0.2'] |
+| minute | segment_9 | 247 | 92 (0.372) | 0.372 | 92 (2025-08-19) | 2025-08-18 | 2025-08-18 | 3.271 (x0.75) | 800 | 19,072.7 | 25,411.9 | 6,339 | ['dead share 0.372 >= 0.2'] |
 | minute | session_3 | 247 | 99 (0.401) | 0.583 | 99 (2025-08-07) | 2025-06-04 | 2025-06-06 | 2.000 (x0.46) | 485 | 16,809.7 | 19,938.5 | 3,129 | ['dead share 0.401 >= 0.2'] |
+| minute | session_8 | 247 | 76 (0.308) | 0.312 | 76 (2025-09-11) | 2025-09-09 | 2025-09-09 | 3.130 (x0.71) | 762 | 18,967.8 | 21,806.9 | 2,839 | ['dead share 0.308 >= 0.2'] |
 
-22 of 84 tapes built are locked (22 of 84 in the first build); the refuters' tail rule (share of sessions after the last CHoCH >= 0.2, or SETUP rate < 1/3 x real) flags 12 of them, the frozen-run rule adds the recovered mid-tape lock-outs (dead tail share ~0 with a dead run of hundreds of sessions). The session bootstrap locks most often: a whole real session's open-to-close return with an independent gap draw makes the chained level walk farthest. The generator-level poor-null flag (median SETUP rate) cannot see a dead tape; the per-tape flag can, and the certificate excludes them.
+32 of 122 tapes built are locked (22 of 84 in the first build); the refuters' tail rule (share of sessions after the last CHoCH >= 0.2, or SETUP rate < 1/3 x real) flags 17 of them, the frozen-run rule adds the recovered mid-tape lock-outs (dead tail share ~0 with a dead run of hundreds of sessions). The session bootstrap locks most often: a whole real session's open-to-close return with an independent gap draw makes the chained level walk farthest. The generator-level poor-null flag (median SETUP rate) cannot see a dead tape; the per-tape flag can, and the certificate excludes them.
 
 ## 6. Adversarial validation IS-early vs IS-late (`drift.json`)
 
@@ -327,7 +337,7 @@ for folder in tapes.tape_folders('5minute', 'gmm'):           # the CERTIFICATE 
     r['diff'], r['control_pct'], r['kept_share']
 ```
 
-**Tape set of the pass rule**: the certificate set (`tapes.tape_folders(tf, gen)` default = healthy tapes, first DESIGN_N by k; section 2b lists the k of each generator). The locked tapes are never part of a pass / fail: the engine did not run on them for 22-91% of their sessions (section 5c), so their kept-vs-skipped statistic is noise on a few hundred units. Report the sensitivity read (`healthy=False`) beside it if a reader asks how the verdict moves.
+**Tape set of the pass rule**: the certificate set (`tapes.tape_folders(tf, gen)` default = healthy tapes, first DESIGN_N by k; section 2b lists the k of each generator). The locked tapes are never part of a pass / fail: the engine did not run on them for 21-91% of their sessions (section 5c), so their kept-vs-skipped statistic is noise on a few hundred units. Report the sensitivity read (`healthy=False`) beside it if a reader asks how the verdict moves.
 
 **Pass rule** (DESIGN_PANEL (c) + Judge 1): the candidate's real-tape diff (its ledger row) > p95 of its own tape diffs on the GMM-Markov certificate tapes AND on the segment certificate tapes; the session-bootstrap certificate diffs carry the real sign in >= 75% of tapes. The reference nulls in `null_distributions.json` (`gates` -> `diff_p50`, `diff_p95` per generator) are the certificate values a shipped key's provenance block carries (`null_tape_diff_inr`). A rule list is never scored on the tapes before its real-tape ledger row exists (the tapes are not a search space; `tapes.py` writes nothing to the ledger).
 
@@ -348,7 +358,7 @@ Until that lands, the phase-3 workflow must call `tapes.null_tape_check` explici
 - The tapes' price level follows a random walk of drawn sessions and gaps: over 1,026 sessions some tapes end far from the real level (see `close_last` in section 5); the engine is scale-free (checked: x2 prices give identical event counts), but INR differences scale with the level, so a high-level tape widens the null in INR. This makes the p95 conservative (harder to beat); an ATR-normalised statistic would be tighter and is not the registered one.
 - The GMM-Markov tape's return kurtosis is below the real tape's (a 6-component mixture cannot carry a kurtosis of ~25) and its |r| autocorrelation dies within a few bars; Judge 1's warning (a narrower-than-reality null over-rejects) is why the segment bootstrap is read alongside it and the pass rule needs both.
 - The session bootstrap keeps every within-session dependence, so it is a stability read, not a null: a gate that works within the day should keep its sign there.
-- Engine lock-out (section 5c, measured): on the first build the engine's protected level froze and the CHoCH stream stopped for 22-91% of the sessions on 5minute: GMM-Markov 6/20, segment bootstrap (30-bar blocks) 4/20, session bootstrap 10/20; minute: GMM-Markov 0/8, segment bootstrap (30-bar blocks) 1/8, session bootstrap 1/8 tapes (frozen-run rule; the refuters' tail rule finds 12 of 84), while BOS continued at the normal rate; the locked tapes carry as few as 78 L1 units (5minute) against 770-1211 on the certificate tapes; 430 L1 units (minute) against 613-1650 on the certificate tapes. The certificate (section 4) excludes them and was topped up to the design count with the next seeds; the first-build numbers with and without them are in section 4a (verdicts unchanged). The lock-out is itself a property of a memory-free tape (the real market returns to its anchored levels; a random walk need not), so the healthy set is conditioned on 'the engine ran', not on any gate statistic.
+- Engine lock-out (section 5c, measured): on the first build the engine's protected level froze and the CHoCH stream stopped for 21-91% of the sessions on 5minute: GMM-Markov 6/20, segment bootstrap (30-bar blocks) 4/20, session bootstrap 10/20; minute: GMM-Markov 0/8, segment bootstrap (30-bar blocks) 1/8, session bootstrap 1/8 tapes (frozen-run rule; the refuters' tail rule finds 12 of 84), while BOS continued at the normal rate; the locked tapes carry as few as 78 L1 units (5minute) against 727-1211 on the certificate tapes; 430 L1 units (minute) against 613-1650 on the certificate tapes. The certificate (section 4) excludes them and was topped up to the design count with the next seeds; the first-build numbers with and without them are in section 4a (verdicts unchanged). The lock-out is itself a property of a memory-free tape (the real market returns to its anchored levels; a random walk need not), so the healthy set is conditioned on 'the engine ran', not on any gate statistic.
 - `sl` (the stop price level) is in `Table.asof_columns()` although it is a raw price (|rho| 0.93 with time on 5 minutes); `n_events_asof` is a cumulative count since the data start (rho 1.0). Both are time proxies, excluded in variant B; `tapes.rule_mask` refuses them (PermissionError) and the gate studies refuse them on the real tape by rule; the harness allow-list should carry them in NOT_FEATURES (reported, not changed here).
 - The 1-minute tapes are one trading year (247 IS sessions) with 8 tapes per generator: their null percentiles rest on 8 values and are wider than the 5-minute ones; the 5-minute nulls are the primary certificate, as both judges asked.
 - The two mechanical reference gates are fixed reference points, not registered candidates (section 1); nothing in the ledger or the registrations depends on them.
@@ -410,7 +420,7 @@ This study searches no gate and proposes no candidate (`candidates: []`, `null_r
 
 **1. Engine lock-out on part of the tapes undisclosed; the 'up to 3x' caveat mis-stated a 15.5x unit spread; the generator-level poor-null flag cannot see a dead tape; the certificate p95 moved when the locked tapes were excluded.**
 
-- `tapes.tape_health(folder)` (per-tape flag: dead share of sessions inside frozen-prot CHoCH-free runs longer than the real tape's longest (5minute 68, minute 69 sessions) < 0.2 and SETUP rate >= 1/3 x real; written to `tapes/<tf>/<gen>_<k>/tape_health.json`; `tape_health.csv` at the study level; `real_health_<tf>.json`). It flags 22 of 84 tapes built (22 of the first build's 84); the refuters' tail rule is a special case (12 tapes) that misses the recovered mid-tape lock-outs.
+- `tapes.tape_health(folder)` (per-tape flag: dead share of sessions inside frozen-prot CHoCH-free runs longer than the real tape's longest (5minute 68, minute 69 sessions) < 0.2 and SETUP rate >= 1/3 x real; written to `tapes/<tf>/<gen>_<k>/tape_health.json`; `tape_health.csv` at the study level; `real_health_<tf>.json`). It flags 32 of 122 tapes built (22 of the first build's 84); the refuters' tail rule is a special case (12 tapes) that misses the recovered mid-tape lock-outs.
 - `tapes.tape_folders(tf, gen, healthy=True, n=DESIGN_N)` (default = the certificate set; `healthy=False` = every tape built; `original_only=True` = the first build); numeric ordering by k.
 - `run_tapes.aggregate` publishes three sets per gate: `gates` (certificate), `gates_all_original`, `gates_healthy_original`, plus `locked_tapes`, `lockout_rate_*`, `units_per_tape`, `poor_null_tapes`, `reality_certificate`; `tape_results.csv` / `reality_check.csv` carry the health columns.
 - `run_tapes.py --target-healthy N` topped the certificate up to the design count with the next seeds (k >= DESIGN_N, generated in seed order; the generator refit reproduces the first build's GMM: 5minute True, minute True); logs `topup_5minute.log`, `topup_minute.log`. Nothing of the first build was rebuilt or removed.
@@ -420,7 +430,7 @@ This study searches no gate and proposes no candidate (`candidates: []`, `null_r
 **2. The time-proxy refusal was a written policy, not a property of `tapes.rule_mask` (a rule on `sl` or `n_events_asof` was accepted).**
 
 - `tapes.time_proxies(tf)` reads `drift.json` (`timeframes[tf].time_proxies`; fallback `n_events_asof`, `sl`); `tapes.rule_mask` raises `PermissionError` for such a column. Tested: `[['sl', '>', 20000]]` and `[['n_events_asof', '>', 100]]` are refused on tape gmm_0; label columns and `fz_traded` were already refused.
-- FINDINGS sections 6 and 8 now say where the refusal is enforced (in code on the tapes; by study rule on the real tape, since `harness.NOT_FEATURES` does not carry the two columns: reported, not changed).
+- FINDINGS sections 6 and 8 now say where the refusal is enforced (in code on the tapes; by study rule on the real tape, since `harness.NOT_FEATURES` does not carry the two columns: reported, not changed); `drift.json` -> `rule_for_gate_studies` carries the same sentence (its numbers are untouched; `drift_<tf>.json` are the raw per-timeframe outputs).
 
 **3. The two mechanical gates were called 'pre-registered' although no registration exists outside the study folder.**
 

@@ -3,3 +3,4 @@
 [05:14:26 rss 283.6 MB] clustering: 276 features, silhouette best k=38 (0.1136), clusters formed 38, 3.5s
 [05:18:00 rss 321.4 MB] depth 4 fold 0: n_tr 4034 n_te 396 tau 0.05 ll 0.7739 diff nan kept 1.0 (213.7s)
 [05:22:00 rss 330.7 MB] depth 4 fold 1: n_tr 4058 n_te 388 tau 0.05 ll 0.7850 diff nan kept 1.0 (240.2s)
+[05:26:39 rss 330.7 MB] depth 4 fold 2: n_tr 4048 n_te 384 tau 0.05 ll 0.7860 diff nan kept 1.0 (278.6s)

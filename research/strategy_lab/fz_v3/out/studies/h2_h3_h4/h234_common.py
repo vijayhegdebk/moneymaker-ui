@@ -141,8 +141,24 @@ def select_in_fold(T, cells, tr, tag, min_skip_share=0.0):
     return best, n_elig
 
 
-def nested_cv(T, cells, study, script, log, cfg_extra=None, min_skip_share=0.0, suffix=""):
-    """The 12-block nested-CV candidate (one ledger row) and its 11 CPCV paths (11 ledger rows)."""
+def score_paths_noted(T, paths, family, config, script, controls, note):
+    """harness.score_paths with the ledger `note` forwarded to every path row (harness.score_paths has no note argument and the
+    harness is out of this study's write scope). Every path is a harness.score row of family '<family>/cpcv'; the distribution
+    below is the same aggregation of those rows' `diff` / `kept_share` / `control_pct` that harness.score_paths performs."""
+    out = [H.score(T, np.asarray(arr).astype(bool), f"{family}/cpcv", dict(config, path=p), script=script, controls=controls, note=note) for p, arr in enumerate(paths)]
+    d = np.array([x["diff"] if x["diff"] is not None else np.nan for x in out], dtype=float)
+    res = dict(paths=len(out), diff_median=round(float(np.nanmedian(d)), 2), diff_p5=round(float(np.nanquantile(d, 0.05)), 2),
+               diff_min=round(float(np.nanmin(d)), 2), diff_share_positive=round(float((d > 0).mean()), 3),
+               kept_share_median=round(float(np.median([x["kept_share"] for x in out])), 4))
+    if controls:
+        c = np.array([x["control_pct"] if x["control_pct"] is not None else np.nan for x in out], dtype=float)
+        res.update(control_pct_median=round(float(np.nanmedian(c)), 1), control_pct_p5=round(float(np.nanquantile(c, 0.05)), 1))
+    return res, out
+
+
+def nested_cv(T, cells, study, script, log, cfg_extra=None, min_skip_share=0.0, suffix="", note=None):
+    """The 12-block nested-CV candidate (one ledger row) and its 11 CPCV paths (11 ledger rows). `note` (e.g. "repair") replaces
+    the default ledger note (the per-block choice list, which is in the row's config as chosen_per_block anyway) on all 12 rows."""
     keep = np.ones(T.n, dtype=bool); chosen = []
     fam = f"{study}/nested_cv{suffix}"
     if min_skip_share: cfg_extra = dict(cfg_extra or {}, min_skip_share=min_skip_share)
@@ -155,7 +171,7 @@ def nested_cv(T, cells, study, script, log, cfg_extra=None, min_skip_share=0.0, 
                            train_kept_share=best["kept_share"], eligible=n_elig, train_n=int(len(tr)), test_n=int(len(te)), test_kept=int(keep[te].sum())))
     cfg = dict(selection="nested_cv_12_blocks", criterion="max train diff s.t. kept_share>=0.20 and kept_n>=floor*train/IS",
                chosen_per_block=[c["cell"] for c in chosen], **(cfg_extra or {}))
-    res = H.score(T, keep, fam, cfg, script=script, note=json.dumps(chosen, default=str))
+    res = H.score(T, keep, fam, cfg, script=script, note=json.dumps(chosen, default=str) if note is None else note)
     res["go_raw"] = H.go_no_go(res, T.tf)[0]
     log(f"  nested-CV{suffix} OOF: kept {res['kept_n']} ({res['kept_share']}) diff {res['diff']} pct {res['control_pct']} p {res['perm_p']} blocks {res['sign_blocks']} id {res['id']}")
     # CPCV: the same selection inside each of the 66 training sets
@@ -166,7 +182,9 @@ def nested_cv(T, cells, study, script, log, cfg_extra=None, min_skip_share=0.0, 
         oof[(a, b)] = dec.astype(float)
         cp_chosen.append(dict(split=[a, b], cell=None if best is None else best["cell"].config, train_diff=None if best is None else best["diff"], eligible=n_elig))
     paths = H.cpcv_paths(T, oof)
-    dist, prow = H.score_paths(T, paths, fam, dict(selection="nested_cv_cpcv", **(cfg_extra or {})), script=script, controls=True)
+    cp_cfg = dict(selection="nested_cv_cpcv", **(cfg_extra or {}))
+    if note is None: dist, prow = H.score_paths(T, paths, fam, cp_cfg, script=script, controls=True)
+    else: dist, prow = score_paths_noted(T, paths, fam, cp_cfg, script=script, controls=True, note=note)
     log(f"  CPCV 11 paths: diff median {dist['diff_median']} p5 {dist['diff_p5']} min {dist['diff_min']} share>0 {dist['diff_share_positive']} control pct median {dist.get('control_pct_median')} p5 {dist.get('control_pct_p5')}")
     return res, chosen, dist, prow, cp_chosen
 

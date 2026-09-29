@@ -13,8 +13,13 @@ Part B, the episode study (IS bars only; labels of the level, not features): eve
   - a room edge: lo and hi of every ST7/ST8 room over birth_bar <= i < retired_bar (fz_zones; retired_bar used only as the life end),
   - a confirmed swing: swings.price from conf_bar until the first close beyond it by > 0.5 x atr14 or the end of its session,
   with the same touch / episode / side / verdict rule as the build (verdict window 15 bars on 1 min, 3 bars on 5 min = 15 minutes,
-  inside the touch bar's session; a window cut by the session end is `session_end`). side = sign(close before the episode - L)
-  (open of the first touch bar when equal); break = a close on the far side by > 0.5 x atr14[last touch bar] inside the window.
+  inside the touch bar's session). A window cut by the session end (last touch bar + 15 minutes past the session's last bar) is
+  `session_end` whatever happened inside the truncated window: `broke` and `held` are verdicts of a full window only, so late
+  touches cannot bias P(broke). A break close inside a truncated window is recorded as `cut_break = True` (counted in the
+  verdicts table, never a `broke`, no aftermath, not a break for the retest bookkeeping). Repair round: the first run labelled
+  such episodes `broke` (520 on 5 min, 3,825 on 1 min) while `held` was impossible for a cut window.
+  side = sign(close before the episode - L) (open of the first touch bar when equal); break = a close on the far side by
+  > 0.5 x atr14[last touch bar] inside the window.
   Aftermath from the verdict bar v (the breaking close for broke, the window end for held): move_n = sg x (close[v+n] - close[v]) /
   atr14[v] for n in {15, 30, 60} bars, sg = the break direction (broke) or the bounce direction away from the level (held);
   mfe_n = the best excursion in that direction; beyond_n = sg x (close[v+n] - L) / atr14[v] (the distance past the level, broke only);
@@ -62,16 +67,17 @@ def episodes(tp, L, a, b, kind, inst):
         ref = tp.Cc[js - 1] if js >= 1 else tp.O[js]
         side = np.sign(ref - L) or np.sign(tp.O[js] - L)
         rec = dict(kind=kind, inst=inst, level=float(L), js=int(js), je=int(je), touch_bars=int(je - js + 1), side=int(side), ep_index=n_ep,
-                   prior_held=prior_held, after_break=after_break, session=int(tp.sess[js]), hhmm=tp.hhmm[js], verdict="na", v=None)
+                   prior_held=prior_held, after_break=after_break, session=int(tp.sess[js]), hhmm=tp.hhmm[js], verdict="na", v=None, cut_break=False)
         if side == 0:
             out.append(rec); continue
         a_ = tp.A[je]; w0, w1 = je + 1, min(je + tp.W, tp.last[je])
+        cut = je + tp.W > tp.last[je]                         # the 15-minute window runs past the session's last bar
         v = None
         if w1 >= w0:
             cc = tp.Cc[w0:w1 + 1]
             beyond = (L - cc) > BREAK_ATR * a_ if side > 0 else (cc - L) > BREAK_ATR * a_
-            if beyond.any(): rec["verdict"] = "broke"; v = w0 + int(np.argmax(beyond))
-            elif je + tp.W > tp.last[je]: rec["verdict"] = "session_end"
+            if cut: rec["verdict"] = "session_end"; rec["cut_break"] = bool(beyond.any())
+            elif beyond.any(): rec["verdict"] = "broke"; v = w0 + int(np.argmax(beyond))
             else: rec["verdict"] = "held"; v = je + tp.W
         else: rec["verdict"] = "session_end"
         if v is not None:
@@ -125,9 +131,11 @@ def episode_study(tf):
     for kind, iid, L, a, b in inst: recs.extend(episodes(tp, L, a, b, kind, iid))
     E = pd.DataFrame(recs)
     E.to_parquet(os.path.join(HERE, f"h4_{tf}_episodes.parquet"))
-    log(f"  {tf}: {len(E)} episodes in {time.time() - t0:.0f}s; verdicts " + str(E.groupby("kind").verdict.value_counts().to_dict()))
-    # 1. verdict counts
-    vc = E.groupby(["kind", "verdict"]).size().rename("n").reset_index()
+    log(f"  {tf}: {len(E)} episodes in {time.time() - t0:.0f}s; verdicts " + str(E.groupby("kind").verdict.value_counts().to_dict()) +
+        f"; cut windows with a break close (session_end, cut_break) {int(E.cut_break.sum())}")
+    # 1. verdict counts (cut_break_n = session_end episodes whose truncated window held a break close; never a `broke`)
+    vc = E.groupby(["kind", "verdict"]).agg(n=("verdict", "size"), cut_break_n=("cut_break", "sum")).reset_index()
+    vc["cut_break_n"] = vc.cut_break_n.astype(int)
     vc["share"] = vc.n / vc.groupby("kind").n.transform("sum"); vc["share"] = vc.share.round(4)
     vc.to_csv(os.path.join(HERE, f"h4_{tf}_episode_verdicts.csv"), index=False)
     # 2. P(broke | prior held), episodes not after a break, verdict in broke / held
@@ -169,6 +177,7 @@ def episode_study(tf):
     rt = E[E.verdict == "held"].groupby("kind").retested_later.agg(n="size", share_retested=lambda s: round(float(s.mean()), 4)).reset_index()
     rt.to_csv(os.path.join(HERE, f"h4_{tf}_held_then_retested.csv"), index=False)
     return dict(instances={k: int(v) for k, v in pd.Series([i[0] for i in inst]).value_counts().items()}, episodes=int(len(E)), verdicts=vc.to_dict("records"),
+                cut_windows=int((E.verdict == "session_end").sum()), cut_windows_with_break_close=int(E.cut_break.sum()),
                 p_break_by_prior_held=pb.to_dict("records"), aftermath=AM.to_dict("records"), retests_before_break=inst_broke.to_dict("records"), held_then_retested=rt.to_dict("records"),
                 run_s=round(time.time() - t0, 1))
 

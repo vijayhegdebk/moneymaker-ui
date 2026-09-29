@@ -1,0 +1,318 @@
+5minute: bars 88771, sessions 1188, first 2021-10-01 09:15:00, last 2026-09-25 15:25:00, front_month==0 bars 0, zero-volume bars 2, fm_na bars 2
+[     1.1s] load  [rss 230 MB]
+[    10.7s] engine.run  [rss 233 MB]
+swings 26578, events 7950 (CHoCH 1532, BOS 6418), setups 1012, trades 1012, engine-skipped 0
+[    10.8s] price trades  [rss 233 MB]
+[    12.6s] fz.run  [rss 318 MB]
+fz: rooms 4673, ledger 1012, watches 476, positions 393 (TAKE 269, REENTER 124)
+[    12.7s] fz build_trades  [rss 319 MB]
+[    14.3s] volume baselines  [rss 339 MB]
+[    15.4s] features  [rss 349 MB]
+  wrote bars: 88771 rows x 23 cols
+  wrote sessions: 1188 rows x 10 cols
+  wrote swings: 26578 rows x 8 cols
+  wrote events: 7950 rows x 16 cols
+  wrote setups: 1012 rows x 6 cols
+  wrote skipped: 0 rows x 0 cols
+  wrote trades: 1012 rows x 49 cols
+  wrote fz_trades: 393 rows x 56 cols
+  wrote fz_card: 88771 rows x 31 cols
+  wrote fz_ledger: 1012 rows x 44 cols
+  wrote fz_zones: 4673 rows x 15 cols
+  wrote fz_visits: 14177 rows x 13 cols
+  wrote fz_watches: 476 rows x 12 cols
+  wrote fz_decisions: 393 rows x 11 cols
+  wrote features: 1012 rows x 261 cols
+[    19.6s] write  [rss 539 MB]
+{
+ "IS": {
+  "sessions": 1026,
+  "bars": 76621,
+  "setups": 832,
+  "engine_skipped": 0,
+  "foundation_L0": {
+   "n": 832,
+   "net_inr": -230262.16,
+   "mean_net_inr": -276.76,
+   "wins": 184,
+   "pts": 9896.25,
+   "exit_reasons": {
+    "next_choch": 403,
+    "stop_loss": 429
+   },
+   "median_cost_inr": 1033.595
+  },
+  "foundation_L1": {
+   "n": 826,
+   "net_inr": -625325.16,
+   "mean_net_inr": -757.05,
+   "wins": 229,
+   "pts": 3720.9,
+   "exit_reasons": {
+    "eod": 280,
+    "expiry": 9,
+    "next_choch": 191,
+    "stop_loss": 346
+   },
+   "median_cost_inr": 1033.74
+  },
+  "l1_not_taken": 6,
+  "l1_cut": 289,
+  "gate_at_setup": {
+   "TAKE": 228,
+   "WATCH": 384,
+   "BLOCK": 219,
+   "REENTER": 1
+  },
+  "outcome_gate": {
+   "TAKE": 228,
+   "WATCH": 288,
+   "BLOCK": 219,
+   "REENTER": 97
+  },
+  "fz_positions": {
+   "TAKE": 228,
+   "REENTER": 97,
+   "book_L0": {
+    "n": 325,
+    "net_inr": -140291.26,
+    "mean_net_inr": -431.67,
+    "wins": 67,
+    "pts": 3091.15,
+    "exit_reasons": {
+     "band_reclaim": 29,
+     "next_choch": 143,
+     "stop_loss": 153
+    },
+    "median_cost_inr": 1032.66
+   },
+   "book_L1": {
+    "n": 325,
+    "net_inr": -359943.78,
+    "mean_net_inr": -1107.52,
+    "wins": 84,
+    "pts": -288.85,
+    "exit_reasons": {
+     "band_reclaim": 27,
+     "eod": 103,
+     "expiry": 3,
+     "next_choch": 69,
+     "stop_loss": 123
+    },
+    "median_cost_inr": 1032.66
+   }
+  },
+  "fz_traded": 325,
+  "block_reasons": {
+   "new": 159,
+   "open_pierce": 31,
+   "clock": 11,
+   "hunt_fade": 18
+  },
+  "reads": {
+   "LEAVE": 469,
+   "THIN": 49,
+   "NEW": 84,
+   "PENDING": 195,
+   "FIRST_PRINT": 7,
+   "REJECT": 7,
+   "RECYCLE": 11,
+   "ACCEPTED": 5,
+   "HUNT": 5
+  }
+ },
+ "OOS": {
+  "sessions": 162,
+  "bars": 12150,
+  "setups": 180,
+  "engine_skipped": 0,
+  "foundation_L0": {
+   "n": 180,
+   "net_inr": -190752.78,
+   "mean_net_inr": -1059.74,
+   "wins": 37,
+   "pts": 157.0,
+   "exit_reasons": {
+    "next_choch": 87,
+    "open": 1,
+    "stop_loss": 92
+   },
+   "median_cost_inr": 1112.2649999999999
+  },
+  "foundation_L1": {
+   "n": 176,
+   "net_inr": -144957.4,
+   "mean_net_inr": -823.62,
+   "wins": 49,
+   "pts": 793.3,
+   "exit_reasons": {
+    "eod": 54,
+    "expiry": 5,
+    "next_choch": 48,
+    "stop_loss": 69
+   },
+   "median_cost_inr": 1112.5
+  },
+  "l1_not_taken": 4,
+  "l1_cut": 59,
+  "gate_at_setup": {
+   "TAKE": 41,
+   "WATCH": 92,
+   "BLOCK": 47,
+   "REENTER": 0
+  },
+  "outcome_gate": {
+   "TAKE": 41,
+   "WATCH": 65,
+   "BLOCK": 47,
+   "REENTER": 27
+  },
+  "fz_positions": {
+   "TAKE": 41,
+   "REENTER": 27,
+   "book_L0": {
+    "n": 68,
+    "net_inr": -105763.6,
+    "mean_net_inr": -1555.35,
+    "wins": 12,
+    "pts": -459.7,
+    "exit_reasons": {
+     "band_reclaim": 11,
+     "next_choch": 30,
+     "stop_loss": 27
+    },
+    "median_cost_inr": 1112.835
+   },
+   "book_L1": {
+    "n": 68,
+    "net_inr": -87928.2,
+    "mean_net_inr": -1293.06,
+    "wins": 17,
+    "pts": -185.3,
+    "exit_reasons": {
+     "band_reclaim": 10,
+     "eod": 19,
+     "expiry": 1,
+     "next_choch": 18,
+     "stop_loss": 20
+    },
+    "median_cost_inr": 1112.835
+   }
+  },
+  "fz_traded": 68,
+  "block_reasons": {
+   "new": 39,
+   "open_pierce": 3,
+   "hunt_fade": 1,
+   "clock": 4
+  },
+  "reads": {
+   "PENDING": 52,
+   "LEAVE": 99,
+   "THIN": 9,
+   "NEW": 12,
+   "REJECT": 1,
+   "FIRST_PRINT": 3,
+   "RECYCLE": 4
+  }
+ },
+ "ALL": {
+  "sessions": 1188,
+  "bars": 88771,
+  "setups": 1012,
+  "engine_skipped": 0,
+  "foundation_L0": {
+   "n": 1012,
+   "net_inr": -421014.94,
+   "mean_net_inr": -416.02,
+   "wins": 221,
+   "pts": 10053.25,
+   "exit_reasons": {
+    "next_choch": 490,
+    "open": 1,
+    "stop_loss": 521
+   },
+   "median_cost_inr": 1075.455
+  },
+  "foundation_L1": {
+   "n": 1002,
+   "net_inr": -770282.56,
+   "mean_net_inr": -768.75,
+   "wins": 278,
+   "pts": 4514.2,
+   "exit_reasons": {
+    "eod": 334,
+    "expiry": 14,
+    "next_choch": 239,
+    "stop_loss": 415
+   },
+   "median_cost_inr": 1075.2849999999999
+  },
+  "l1_not_taken": 10,
+  "l1_cut": 348,
+  "gate_at_setup": {
+   "TAKE": 269,
+   "WATCH": 476,
+   "BLOCK": 266,
+   "REENTER": 1
+  },
+  "outcome_gate": {
+   "TAKE": 269,
+   "WATCH": 353,
+   "BLOCK": 266,
+   "REENTER": 124
+  },
+  "fz_positions": {
+   "TAKE": 269,
+   "REENTER": 124,
+   "book_L0": {
+    "n": 393,
+    "net_inr": -246054.86,
+    "mean_net_inr": -626.09,
+    "wins": 79,
+    "pts": 2631.45,
+    "exit_reasons": {
+     "band_reclaim": 40,
+     "next_choch": 173,
+     "stop_loss": 180
+    },
+    "median_cost_inr": 1076.51
+   },
+   "book_L1": {
+    "n": 393,
+    "net_inr": -447871.98,
+    "mean_net_inr": -1139.62,
+    "wins": 101,
+    "pts": -474.15,
+    "exit_reasons": {
+     "band_reclaim": 37,
+     "eod": 122,
+     "expiry": 4,
+     "next_choch": 87,
+     "stop_loss": 143
+    },
+    "median_cost_inr": 1076.51
+   }
+  },
+  "fz_traded": 393,
+  "block_reasons": {
+   "new": 198,
+   "open_pierce": 34,
+   "clock": 15,
+   "hunt_fade": 19
+  },
+  "reads": {
+   "LEAVE": 568,
+   "THIN": 58,
+   "NEW": 96,
+   "PENDING": 247,
+   "FIRST_PRINT": 10,
+   "REJECT": 8,
+   "RECYCLE": 15,
+   "ACCEPTED": 5,
+   "HUNT": 5
+  }
+ }
+}
+columns: 261
+done {'load': 1.13, 'engine.run': 10.7, 'price trades': 10.76, 'fz.run': 12.6, 'fz build_trades': 12.65, 'volume baselines': 14.29, 'features': 15.37, 'write': 19.56, 'total': 19.62}

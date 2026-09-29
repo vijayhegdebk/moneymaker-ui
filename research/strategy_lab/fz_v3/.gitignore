@@ -1,0 +1,14 @@
+# the cloud datasets are rebuilt by out/build/build.py from data/ (about 6 minutes); only the per-SETUP tables and provenance are kept in git
+out/data/*/bars.parquet
+out/data/*/fz_card.parquet
+out/data/*/swings.parquet
+out/data/*/fz_visits.parquet
+out/data/*/events.parquet
+out/data/*/trunc_*/
+out/ledger/vectors/
+out/features_ext/*/*.parquet
+out/studies/*/*.parquet
+out/studies/*/*.npz
+out/studies/*/*.pkl
+out/studies/*/*.png
+__pycache__/

@@ -4,3 +4,5 @@
 03:59:28   grid: 201 cells
 03:59:29     cell 1/201 {"kc": 2, "rule": "choch", "scope": "all"} kept 567 diff 257.83 pct 45.9 p 0.4613
 04:00:02     cell 21/201 {"W": "since_choch", "q": 0.5, "rule": "range"} kept 413 diff 43.71 pct 0.6 p 0.8946
+04:00:32     cell 41/201 {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "all"} kept 698 diff 183.21 pct 99.5 p 0.6777
+04:01:03     cell 61/201 {"W": "1h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} kept 717 diff 450.33 pct 4.5 p 0.3178

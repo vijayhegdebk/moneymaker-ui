@@ -51,6 +51,8 @@ block sign test, CPCV 5th percentile, PBO, DSR, SPA, bootstrap CI (`harness.go_n
   pushed with full history to **vijayhegdebk/moneymaker-ui** (remote `mirror`; `research/strategy-lab` at 0acda42 = the peers'
   latest, `research/strategy-lab-pwxiug` after merging that base in, merge commit f9f52d9) and the draft PR opened:
   https://github.com/vijayhegdebk/moneymaker-ui/pull/1 (base `research/strategy-lab`). Every later checkpoint is pushed there.
+  User (17:30 IST): "Stop pushing to kiran6154" - the remotes are now `origin` = vijayhegdebk/moneymaker-ui (push target) and
+  `upstream` = kiran6154/money-maker (fetch only, push URL disabled).
 
 ## Next (in order)
 1. When `features_shortlist/minute/shortlist.json`, `features_shortlist/5minute/shortlist.json` and `studies/importance/FINDINGS.md`

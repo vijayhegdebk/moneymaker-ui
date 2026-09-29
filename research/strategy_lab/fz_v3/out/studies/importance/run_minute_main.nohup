@@ -5,3 +5,4 @@
 [05:50:04 rss 331.3 MB] depth 4 fold 1: n_tr 4058 n_te 388 tau 0.05 ll 0.7850 diff nan kept 1.0 (461.9s)
 [05:57:05 rss 331.3 MB] depth 4 fold 2: n_tr 4048 n_te 384 tau 0.05 ll 0.7860 diff nan kept 1.0 (421.3s)
 [06:04:35 rss 331.3 MB] depth 4 fold 3: n_tr 3914 n_te 509 tau 0.05 ll 0.7187 diff nan kept 1.0 (450.0s)
+[06:10:57 rss 331.3 MB] depth 4 fold 4: n_tr 4062 n_te 390 tau 0.05 ll 0.6930 diff nan kept 1.0 (381.9s)

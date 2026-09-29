@@ -146,6 +146,45 @@ The 1-minute tapes are one trading year (247 sessions) starting at the real IS f
 
 Scale-free (x2 price level gives identical counts): **True**. Re-basing the real sessions with the real gaps reproduces the real counts exactly; redrawing the gaps or shuffling the sessions moves the CHoCH rate by ~+17% and removing the gaps altogether by ~+50%: the engine's event rate is a property of the multi-day path, which is exactly what a null tape randomises, so per-tape SETUP counts vary (section 5 min / max) and the null distributions carry that variance.
 
+## 6. Adversarial validation IS-early vs IS-late (`drift.json`)
+
+| tf | IS units (early / late) | design cols | time proxies removed in B | AUC A (all as-of) | AUC B (no time proxies) | permuted AUC p50 / p95 (B) |
+|---|---|---|---|---|---|---|
+| 5minute | 826 (412 / 414) | 236 | n_events_asof (rho +1.00), sl (rho +0.93) | 0.9031 | **0.9472** | 0.4930 / 0.5255 |
+
+- **5minute reading**: with the time proxies the periods separate at AUC 0.903; without them AUC 0.947 against a permutation p95 of 0.525: the IS-early and IS-late feature distributions are distinguishable well above chance (covariate drift inside IS is real, and a rule learned on all of IS is learned on a mixture); the ranked features below say where. The gap A - B = -0.044 is the part of the separation carried by `n_events_asof`, `sl` alone.
+
+### 5minute: top 20 drifted features (variant B, mean |SHAP|; direction = mean in IS-late vs IS-early; shift in pooled sd; KS between the periods)
+
+| rank | feature | source column | mean abs SHAP | mean early | mean late | shift (sd) | KS | direction |
+|---|---|---|---|---|---|---|---|---|
+| 1 | `atr_bps` | `atr_bps` | 2.8038 | 12.7425 | 10.5375 | -0.508 | 0.248 | lower in IS-late |
+| 2 | `atr14` | `atr14` | 2.6572 | 22.2569 | 24.7663 | 0.304 | 0.173 | higher in IS-late |
+| 3 | `range_3h_pts` | `range_3h_pts` | 0.2030 | 111.5757 | 127.9047 | 0.268 | 0.162 | higher in IS-late |
+| 4 | `n_rooms_alive` | `n_rooms_alive` | 0.1484 | 10.1675 | 10.2198 | 0.019 | 0.060 | higher in IS-late |
+| 5 | `hv3_ratio` | `hv3_ratio` | 0.1461 | 4.1320 | 4.3403 | 0.118 | 0.183 | higher in IS-late |
+| 6 | `sess_cumvol_ratio20s` | `sess_cumvol_ratio20s` | 0.1404 | 1.0485 | 1.1296 | 0.175 | 0.103 | higher in IS-late |
+| 7 | `days_to_expiry` | `days_to_expiry` | 0.1358 | 13.8083 | 15.4179 | 0.180 | 0.152 | higher in IS-late |
+| 8 | `sess_vol_vs_prev_sess` | `sess_vol_vs_prev_sess` | 0.1236 | 1.0516 | 1.1328 | 0.161 | 0.102 | higher in IS-late |
+| 9 | `choch_bar_range_atr` | `choch_bar_range_atr` | 0.1139 | 1.3922 | 1.3575 | -0.060 | 0.058 | lower in IS-late |
+| 10 | `hv2_ratio` | `hv2_ratio` | 0.1105 | 2.9497 | 3.2557 | 0.193 | 0.115 | higher in IS-late |
+| 11 | `close_vs_sess_open_pts` | `close_vs_sess_open_pts` | 0.1104 | -1.9495 | -5.7426 | -0.042 | 0.076 | lower in IS-late |
+| 12 | `n_bos_today` | `n_bos_today` | 0.1097 | 2.1553 | 1.8019 | -0.206 | 0.097 | lower in IS-late |
+| 13 | `sl_dist_atr` | `sl_dist_atr` | 0.1075 | 1.8906 | 1.8472 | -0.054 | 0.060 | lower in IS-late |
+| 14 | `room_behind_dist_atr` | `room_behind_dist_atr` | 0.1073 | 0.6776 | 0.7028 | 0.030 | 0.059 | higher in IS-late |
+| 15 | `er_1h` | `er_1h` | 0.1066 | 0.3868 | 0.3743 | -0.060 | 0.051 | lower in IS-late |
+| 16 | `dist_choch_lvl_atr` | `dist_choch_lvl_atr` | 0.0824 | 1.1990 | 1.1315 | -0.057 | 0.093 | lower in IS-late |
+| 17 | `gap_pts` | `gap_pts` | 0.0753 | 4.6369 | 5.8181 | 0.013 | 0.071 | higher in IS-late |
+| 18 | `range_1h_atr` | `range_1h_atr` | 0.0708 | 3.4444 | 3.4208 | -0.023 | 0.066 | lower in IS-late |
+| 19 | `card_first_bars` | `card_first_bars` | 0.0697 | 5.4000 | 6.4496 | 0.333 | 0.105 | higher in IS-late |
+| 20 | `vol_max_ratio20_5` | `vol_max_ratio20_5` | 0.0667 | 2.2561 | 2.5349 | 0.157 | 0.080 | higher in IS-late |
+
+Top-5 source columns (a selected rule using one of these is refit without it): `atr14`, `atr_bps`, `hv3_ratio`, `n_rooms_alive`, `range_3h_pts`.
+
+**Rule for the gate studies**: a selected rule that uses one of top5_sources (variant B) is refit without that feature and both versions are reported in the study's FINDINGS; a rule that uses a time proxy (time_proxies) is refused as a calendar rule, not a market rule; a rule that uses any feature of top20_drifted carries the feature's std_shift as a caveat
+
+**Not run here**: IS-vs-OOS adversarial validation (runs after the single OOS evaluation, in oos_once.py's post-mortem, label-free, explanatory only).
+
 ## 7. How a candidate is evaluated on the tapes later
 
 ```python
@@ -176,6 +215,11 @@ This study searches no gate and proposes no candidate (`candidates: []`, `null_r
 - `FINDINGS.md`
 - `drift.log`
 - `drift.py`
+- `drift_5minute.json`
+- `drift_5minute_features.csv`
+- `drift_cache_5minute_A_all_asof.json`
+- `drift_cache_5minute_B_without_time_proxies.json`
+- `drift_cache_minute_A_all_asof.json`
 - `drift_run.log`
 - `drift_run2.log`
 - `drift_run3_5minute.log`

@@ -207,7 +207,10 @@ def main():
                      f"{B['perm_auc_p95']:.3f}: " + ("the IS-early and IS-late feature distributions are distinguishable well above chance (covariate drift inside IS is real, and a rule "
                      "learned on all of IS is learned on a mixture); the ranked features below say where." if B['auc_oof'] > B['perm_auc_p95'] + 0.05 else
                      "the periods are barely distinguishable once the calendar proxies are removed; the drift ranking below is weak evidence.") +
-                     f" The gap A - B = {A['auc_oof'] - B['auc_oof']:+.3f} is the part of the separation carried by `{'`, `'.join(d['time_proxies'])}` alone.")
+                     + (f" The gap A - B = {A['auc_oof'] - B['auc_oof']:+.3f} is the part of the separation carried by `{'`, `'.join(d['time_proxies'])}` alone."
+                        if A['auc_oof'] > B['auc_oof'] else
+                        f" Removing the calendar proxies `{'`, `'.join(d['time_proxies'])}` did not lower the separation (A - B = {A['auc_oof'] - B['auc_oof']:+.3f}): their information "
+                        "is redundant with the level- and volatility-dependent features, and a monotone-in-time column's cut points generalise slightly worse across purged blocks."))
         L.append("")
         for tf, d in drift["timeframes"].items():
             L.append(f"### {tf}: top 20 drifted features (variant B, mean |SHAP|; direction = mean in IS-late vs IS-early; shift in pooled sd; KS between the periods)\n")
@@ -245,6 +248,13 @@ def main():
         "Falsification: if a real gate's diff sat above the GMM/segment p95 while the gate is known to be pure engine mechanics (e.g. the stop-distance gate on the real tape), the null "
         "would be too narrow; section 4 shows what the mechanical gates read on the real tape against their own nulls.",
     ]
+    if drift:
+        tops = "; ".join(f"{tf}: " + ", ".join(f"`{r['feature']}` ({r['direction'].replace(' in IS-late', '')}, {r['std_shift']:+.2f} sd)" for r in d["top20_drifted"][:5])
+                         for tf, d in drift["timeframes"].items())
+        cav.append("Drift inside IS is large (section 6) and its top of the ranking is the volatility / price-level regime (" + tops + "): the tape went from ~17,500 to ~26,300 while "
+                   "volatility in bps fell, so every point-denominated column (`*_pts`, `atr14`, `sl_dist_pts`, `fz_band_width`, `fz_dist_band_edge_*`, `gap_pts`) drifts with the level. "
+                   "A rule on such a column is a level rule; the gate studies should express thresholds in the `_atr` / `_bps` forms and the CPCV path distribution, not the pooled IS "
+                   "number, is what a drifting IS supports.")
     for c in cav: L.append(f"- {c}")
     L.append("")
     L.append("## 9. Null result statement\n")

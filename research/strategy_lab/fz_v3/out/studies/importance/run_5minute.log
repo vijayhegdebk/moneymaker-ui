@@ -96,3 +96,7 @@
 [06:05:01 rss 374.3 MB] interactions: xgb OOF ll 0.78825 auc 0.5359; top5 [('touch_prot_bars_ago', 'ffd_close_dstar', 0.051618), ('room_ahead_dist_atr', 'n_rooms_alive', 0.044289), ('room_ahead_dist_atr', 'fz_take_why=nan', 0.042425), ('ffd_close_dstar', 'sl', 0.039569), ('room_ahead_dist_atr', 'ffd_close_dstar', 0.037084)]
 [06:06:44 rss 381.3 MB] cpcv split 11/66 (104s)
 [06:08:28 rss 381.4 MB] cpcv split 22/66 (208s)
+[06:10:14 rss 382.4 MB] cpcv split 33/66 (313s)
+[06:11:58 rss 382.4 MB] cpcv split 44/66 (417s)
+[06:13:41 rss 383.0 MB] cpcv split 55/66 (520s)
+[06:15:12 rss 383.1 MB] cpcv split 66/66 (611s)

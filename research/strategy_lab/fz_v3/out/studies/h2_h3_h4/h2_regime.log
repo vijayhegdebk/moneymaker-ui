@@ -1,0 +1,6 @@
+03:59:28 h2_regime start Tue Sep 29 03:59:28 2026 ledger sha 1ee15dc04860b284
+03:59:28 == H2 5minute_L1: IS units 826 mean -757.05 win 0.2772
+03:59:28   by n_choch_since_bos: 0: n 235 mean -717.44 win 0.2766; 1: n 332 mean -647.02 win 0.3072; 2: n 143 mean -1439.43 win 0.2028; 3: n 54 mean -335.79 win 0.3333; 4+: n 62 mean -289.43 win 0.2419
+03:59:28   grid: 201 cells
+03:59:29     cell 1/201 {"kc": 2, "rule": "choch", "scope": "all"} kept 567 diff 257.83 pct 45.9 p 0.4613
+04:00:02     cell 21/201 {"W": "since_choch", "q": 0.5, "rule": "range"} kept 413 diff 43.71 pct 0.6 p 0.8946

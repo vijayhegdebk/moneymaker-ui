@@ -56,7 +56,7 @@ COLS = [
 
 
 def tbl(rows, header):
-    s = "| " + " | ".join(header) + " |\n|" + "---|" * len(header) + "\n"
+    s = "| " + " | ".join(str(x) for x in header) + " |\n|" + "---|" * len(header) + "\n"
     for r in rows: s += "| " + " | ".join(str(x) for x in r) + " |\n"
     return s
 

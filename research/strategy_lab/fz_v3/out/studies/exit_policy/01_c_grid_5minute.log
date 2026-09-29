@@ -1,0 +1,3 @@
+5minute: 826 IS units, 1568 variants, rss 414 MB
+5minute {"variant": 1176, "l1_stop_or_cap_exits": 635, "net_matches_l1_within_0_005": true, "exit_bar_matches_l1": true, "l1_next_choch_exits": 191, "variant_later_than_choch_on_those": true, "seconds": 5.2, "rss_mb": 453}
+5minute: Foundation L1 mean -757.1; ST9 ladder per position -2747.8 per lot -915.9; best per-lot variant in-sample -648.8

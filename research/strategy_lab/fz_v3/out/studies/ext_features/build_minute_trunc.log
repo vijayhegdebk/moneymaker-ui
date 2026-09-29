@@ -11,3 +11,5 @@
 [03:50:45] HMM K=4 fitted (59 it, converged True); filter check {'max_abs_diff_last_bar_posterior': 0.0, 'loglik_diff': 9.549694368615746e-12}
 [03:50:52] jump model K=3: lambda* = 16
 [03:50:58] jump model K=4: lambda* = 32
+[03:53:54] novelty done (176.2s)
+[03:53:54] wrote (3807, 62) to ../../features_ext/minute/trunc_20250630_120000 in 285.8s

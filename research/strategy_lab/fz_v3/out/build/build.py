@@ -30,15 +30,21 @@ import psutil
 ap = argparse.ArgumentParser()
 ap.add_argument("--tf", required=True, choices=("minute", "5minute"))
 ap.add_argument("--truncate", default=None, help="causality check: build on the bars up to this time only")
+ap.add_argument("--path", default=None, help="another candle CSV in the near-month file format (a synthetic null tape); needs --out")
+ap.add_argument("--out", default=None, help="output folder (with --path)")
 A = ap.parse_args()
 TF = A.tf; TF_MIN = lab.TF_MIN[TF]
 OUT = os.path.join(LAB, "fz_v3", "out", "data", TF)
 if A.truncate:
     OUT = os.path.join(OUT, "trunc_" + A.truncate.replace("-", "").replace(":", "").replace(" ", "_"))
+if A.path:
+    assert A.out, "--path needs --out"; OUT = A.out
 os.makedirs(OUT, exist_ok=True)
 DATA = os.path.join(LAB, "fz_v3", "data")
-PATH = os.path.join(DATA, f"niftyfut_nearmonth_{TF}_2021-10-01_to_2026-09-25.csv")
+PATH = A.path or os.path.join(DATA, f"niftyfut_nearmonth_{TF}_2021-10-01_to_2026-09-25.csv")
 FIRST, LAST, IS_END = "2021-10-01", "2026-09-25", "2025-12-31"
+if A.path:                                                              # a synthetic tape: its own first / last day
+    _rows = list(csv.DictReader(open(PATH))); FIRST, LAST = _rows[0]["datetime"][:10], _rows[-1]["datetime"][:10]; del _rows
 LOT, SLIP, SQUARE_OFF = 65, 5.0, "15:25"
 # Foundation rules and the FZ block per timeframe: ST1 + ST7 (1 min), ST2 + ST8 (5 min)
 FND = {"minute": "strategy_1.json", "5minute": "strategy_2.json"}[TF]

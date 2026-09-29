@@ -1,0 +1,55 @@
+h1_gate_audit start Tue Sep 29 03:36:57 2026 ledger sha before 073ca3c49a9c56d6
+== minute_L1: IS units 4452 kept 745 | as-of gate {'WATCH': np.int64(2251), 'BLOCK': np.int64(1467), 'TAKE': np.int64(605), 'REENTER': np.int64(129)} | outcome {'WATCH': np.int64(2251), 'BLOCK': np.int64(1456), 'TAKE': np.int64(605), 'REENTER': np.int64(140)}
+  frozen                                 id 127543888f5570fe kept   745 (0.167) diff    -19.71 pct  64.7 p 0.8551 L-rec 0.8353 L-prec 0.8468 lift 1.003 W-rec 0.1816 W-rec$ 0.1734 top10skip 0.8429 PF 0.327 blocks 6
+  take_only                              id 4325428b222de52f kept   605 (0.136) diff      21.0 pct  66.9 p 0.8536 L-rec 0.8667 L-prec 0.8466 lift 1.003 W-rec 0.1499 W-rec$ 0.1605 top10skip 0.8429 PF 0.364 blocks 5
+  take_or_reenter_at_setup               id b0b89957ada19605 kept   734 (0.165) diff    -15.35 pct  65.3 p 0.8906 L-rec 0.8379 L-prec 0.847 lift 1.003 W-rec 0.1801 W-rec$ 0.1733 top10skip 0.8429 PF 0.331 blocks 6
+  not_block                              id 0d1bbb98d600860c kept  2996 (0.673) diff     59.59 pct  99.3 p 0.4888 L-rec 0.33 L-prec 0.8516 lift 1.009 W-rec 0.6888 W-rec$ 0.6638 top10skip 0.3286 PF 0.324 blocks 6
+  skip_only:BLOCK:clock                  id f22c5d17af5e555b kept  4397 (0.988) diff     64.16 pct   2.6 p 0.8586 L-rec 0.0146 L-prec 1.0 lift 1.185 W-rec 1.0 W-rec$ 1.0 top10skip 0.0 PF 0.326 blocks 9
+  skip_only:BLOCK:hunt_fade              id 40451f8101be314c kept  4224 (0.949) diff    165.78 pct  47.8 p 0.3333 L-rec 0.0527 L-prec 0.8684 lift 1.029 W-rec 0.9568 W-rec$ 0.9636 top10skip 0.0286 PF 0.328 blocks 8
+  skip_only:BLOCK:new                    id 6ffb55302debfae1 kept  3332 (0.748) diff      52.5 pct  93.4 p 0.5577 L-rec 0.2523 L-prec 0.8464 lift 1.003 W-rec 0.7522 W-rec$ 0.7404 top10skip 0.2571 PF 0.323 blocks 8
+  skip_only:BLOCK:open_pierce            id bcdd12dd001a1cbd kept  4399 (0.988) diff    -476.8 pct 100.0 p 0.1689 L-rec 0.0104 L-prec 0.7358 lift 0.872 W-rec 0.9798 W-rec$ 0.9599 top10skip 0.0429 PF 0.315 blocks 6
+  skip_only:WATCH:leave_into_recycle     id ece4919a1486a7aa kept  4195 (0.942) diff    -86.01 pct   7.5 p 0.6042 L-rec 0.0561 L-prec 0.821 lift 0.973 W-rec 0.9337 W-rec$ 0.932 top10skip 0.0857 PF 0.319 blocks 8
+  bridge: Foundation -4,494,773 + price -151,340 + costs 3,881,726 + reenter -1,332 = FZ -765,718 (closes True); cost share of gain 1.0409; FZ book kept mean -1027.81 vs selection-only -1026.02
+  big winners 268 skipped 225 net skipped 1,478,374; huge 111 skipped 94
+  family: 9 candidates, eff trials 1.57, PBO(diff) 0.5202, PBO(kept) 0.7462, SPA p 0.031 (best = 0d1bbb98d600860c), boot diff CI [-183.18, 142.36], DSR p 1.0, frozen go/no-go False
+== minute_L0: IS units 4502 kept 745 | as-of gate {'WATCH': np.int64(2251), 'BLOCK': np.int64(1517), 'TAKE': np.int64(605), 'REENTER': np.int64(129)} | outcome {'WATCH': np.int64(2251), 'BLOCK': np.int64(1506), 'TAKE': np.int64(605), 'REENTER': np.int64(140)}
+  frozen                                 id d0f4d52bff2714d9 kept   745 (0.166) diff   -129.48 pct  50.0 p 0.5502 L-rec 0.8368 L-prec 0.8504 lift 1.003 W-rec 0.1784 W-rec$ 0.1609 top10skip 0.8261 PF 0.411 blocks 4
+  take_only                              id 2d2b8e1bf6447ad3 kept   605 (0.134) diff    -67.24 pct  56.8 p 0.7521 L-rec 0.8683 L-prec 0.8507 lift 1.003 W-rec 0.1491 W-rec$ 0.1479 top10skip 0.8406 PF 0.454 blocks 4
+  take_or_reenter_at_setup               id da016619669c2f2e kept   734 (0.163) diff   -123.32 pct  52.4 p 0.5767 L-rec 0.8394 L-prec 0.8506 lift 1.003 W-rec 0.1769 W-rec$ 0.1609 top10skip 0.8261 PF 0.416 blocks 4
+  not_block                              id 903af46046234971 kept  2996 (0.665) diff     58.48 pct  97.3 p 0.7301 L-rec 0.3316 L-prec 0.8406 lift 0.991 W-rec 0.6491 W-rec$ 0.6523 top10skip 0.2754 PF 0.446 blocks 8
+  skip_only:BLOCK:clock                  id 70d297fc6113c2ef kept  4397 (0.977) diff     184.9 pct   5.3 p 0.6977 L-rec 0.0189 L-prec 0.6857 lift 0.809 W-rec 0.9518 W-rec$ 0.9503 top10skip 0.058 PF 0.44 blocks 7
+  skip_only:BLOCK:hunt_fade              id fe18d58c8b7b2836 kept  4274 (0.949) diff     119.0 pct  27.4 p 0.7431 L-rec 0.0516 L-prec 0.864 lift 1.019 W-rec 0.9547 W-rec$ 0.963 top10skip 0.0145 PF 0.451 blocks 7
+  skip_only:BLOCK:new                    id 421d7e2614053158 kept  3382 (0.751) diff      19.9 pct  97.3 p 0.9135 L-rec 0.2509 L-prec 0.8554 lift 1.009 W-rec 0.7632 W-rec$ 0.7596 top10skip 0.1739 PF 0.45 blocks 7
+  skip_only:BLOCK:open_pierce            id d1520b622c4ff46a kept  4449 (0.988) diff     -54.5 pct 100.0 p  0.924 L-rec 0.0102 L-prec 0.7358 lift 0.868 W-rec 0.9795 W-rec$ 0.9795 top10skip 0.029 PF 0.443 blocks 8
+  skip_only:WATCH:leave_into_recycle     id 4dcd2e994ec26452 kept  4245 (0.943) diff    -83.17 pct  29.6 p 0.8101 L-rec 0.0566 L-prec 0.8405 lift 0.991 W-rec 0.9401 W-rec$ 0.9221 top10skip 0.087 PF 0.439 blocks 7
+  bridge: Foundation -4,150,086 + price -552,058 + costs 3,934,880 + reenter -1,332 = FZ -768,596 (closes True); cost share of gain 1.1637; FZ book kept mean -1031.67 vs selection-only -1029.88
+  big winners 294 skipped 250 net skipped 2,536,017; huge 146 skipped 121
+  family: 9 candidates, eff trials 1.76, PBO(diff) 0.8708, PBO(kept) 0.8761, SPA p 0.1925 (best = 903af46046234971), boot diff CI [-475.43, 246.5], DSR p 1.0, frozen go/no-go False
+== 5minute_L1: IS units 826 kept 325 | as-of gate {'WATCH': np.int64(384), 'TAKE': np.int64(228), 'BLOCK': np.int64(213), 'REENTER': np.int64(1)} | outcome {'WATCH': np.int64(288), 'TAKE': np.int64(228), 'BLOCK': np.int64(213), 'REENTER': np.int64(97)}
+  frozen                                 id daaf09471b73ca51 kept   325 (0.394) diff   -365.62 pct  11.6 p 0.2504 L-rec 0.6047 L-prec 0.7206 lift 0.997 W-rec 0.3886 W-rec$ 0.3689 top10skip 0.5652 PF 0.563 blocks 3
+  take_only                              id ccbf6f37cc8a2977 kept   228 (0.276) diff   -164.63 pct  18.0 p 0.6302 L-rec 0.7236 L-prec 0.7224 lift 0.999 W-rec 0.2751 W-rec$ 0.2914 top10skip 0.6087 PF 0.618 blocks 4
+  take_or_reenter_at_setup               id 011fdac4f903ee79 kept   229 (0.277) diff   -148.05 pct  19.8 p 0.6752 L-rec 0.7236 L-prec 0.7236 lift 1.001 W-rec 0.2795 W-rec$ 0.2931 top10skip 0.6087 PF 0.622 blocks 4
+  not_block                              id f91cb4af52b1e52c kept   613 (0.742) diff   -144.77 pct  87.0 p 0.6987 L-rec 0.2479 L-prec 0.6948 lift 0.961 W-rec 0.7162 W-rec$ 0.6891 top10skip 0.3043 PF 0.611 blocks 5
+  skip_only:BLOCK:clock                  id 4f4bac1aa89ba8c6 kept   821 (0.994) diff    386.51 pct   0.1 p 0.8601 L-rec 0.0084 L-prec 1.0 lift 1.384 W-rec 1.0 W-rec$ 1.0 top10skip 0.0 PF 0.642 blocks 3
+  skip_only:BLOCK:hunt_fade              id 4988ed3569672d4f kept   808 (0.978) diff   -601.12 pct   5.8 p 0.5792 L-rec 0.0201 L-prec 0.6667 lift 0.922 W-rec 0.9738 W-rec$ 0.9819 top10skip 0.0 PF 0.636 blocks 4
+  skip_only:BLOCK:new                    id 64d727bb357dcb0b kept   667 (0.807) diff     35.91 pct  61.0 p 0.9285 L-rec 0.1876 L-prec 0.7044 lift 0.975 W-rec 0.7948 W-rec$ 0.7731 top10skip 0.2609 PF 0.631 blocks 6
+  skip_only:BLOCK:open_pierce            id 08047b56862edf0c kept   795 (0.963) diff   -631.19 pct 100.0 p 0.4428 L-rec 0.0318 L-prec 0.6129 lift 0.848 W-rec 0.9476 W-rec$ 0.934 top10skip 0.0435 PF 0.625 blocks 4
+  skip_only:WATCH:leave_into_recycle     id f963132b4c147368 kept   728 (0.881) diff   -822.24 pct   0.1 p  0.088 L-rec 0.1139 L-prec 0.6939 lift 0.96 W-rec 0.869 W-rec$ 0.8648 top10skip 0.087 PF 0.607 blocks 4
+  bridge: Foundation -625,325 + price -218,800 + costs 526,011 + reenter -41,830 = FZ -359,944 (closes True); cost share of gain 1.9821; FZ book kept mean -1107.52 vs selection-only -978.81
+  big winners 148 skipped 95 net skipped 654,319; huge 73 skipped 48
+  family: 9 candidates, eff trials 1.68, PBO(diff) 0.5227, PBO(kept) 0.6514, SPA p 0.124 (best = 08047b56862edf0c), boot diff CI [-954.18, 162.78], DSR p 1.0, frozen go/no-go False
+== 5minute_L0: IS units 832 kept 325 | as-of gate {'WATCH': np.int64(384), 'TAKE': np.int64(228), 'BLOCK': np.int64(219), 'REENTER': np.int64(1)} | outcome {'WATCH': np.int64(288), 'TAKE': np.int64(228), 'BLOCK': np.int64(219), 'REENTER': np.int64(97)}
+  frozen                                 id c08a962be699735d kept   325 (0.391) diff     -0.73 pct  28.1 p    1.0 L-rec 0.6049 L-prec 0.7732 lift 0.993 W-rec 0.375 W-rec$ 0.3971 top10skip 0.5263 PF 0.898 blocks 4
+  take_only                              id 2ad039c7d19cf22d kept   228 (0.274) diff    555.21 pct  28.9 p 0.4768 L-rec 0.7269 L-prec 0.7798 lift 1.001 W-rec 0.2772 W-rec$ 0.3276 top10skip 0.6316 PF 1.046 blocks 4
+  take_or_reenter_at_setup               id 5d3759e3d6038faa kept   229 (0.275) diff    566.49 pct  31.4 p 0.4943 L-rec 0.7269 L-prec 0.7811 lift 1.003 W-rec 0.2826 W-rec$ 0.3285 top10skip 0.6316 PF 1.049 blocks 4
+  not_block                              id 5d2041d94e721b9d kept   613 (0.737) diff   -320.24 pct  88.3 p 0.7156 L-rec 0.2546 L-prec 0.7534 lift 0.967 W-rec 0.7065 W-rec$ 0.6902 top10skip 0.2632 PF 0.861 blocks 5
+  skip_only:BLOCK:clock                  id a43e3a6e6e22f60e kept   821 (0.987) diff -12382.53 pct   7.8 p  0.008 L-rec 0.0108 L-prec 0.6364 lift 0.817 W-rec 0.9783 W-rec$ 0.9214 top10skip 0.0526 PF 0.835 blocks 3
+  skip_only:BLOCK:hunt_fade              id 1649c9fbc22a371d kept   814 (0.978) diff  -1585.58 pct  29.9 p 0.4633 L-rec 0.0201 L-prec 0.7222 lift 0.927 W-rec 0.9728 W-rec$ 0.9704 top10skip 0.0526 PF 0.884 blocks 3
+  skip_only:BLOCK:new                    id 8c64c9a221d3c493 kept   673 (0.809) diff    769.55 pct  92.2 p 0.4213 L-rec 0.1944 L-prec 0.7925 lift 1.018 W-rec 0.8207 W-rec$ 0.8276 top10skip 0.1579 PF 0.95 blocks 6
+  skip_only:BLOCK:open_pierce            id cae58c71aab47f63 kept   801 (0.963) diff    391.47 pct  99.6 p 0.8421 L-rec 0.0293 L-prec 0.6129 lift 0.787 W-rec 0.9348 W-rec$ 0.9708 top10skip 0.0 PF 0.902 blocks 6
+  skip_only:WATCH:leave_into_recycle     id fc351f8ba49c57c5 kept   734 (0.882) diff    -88.67 pct   2.3 p  0.937 L-rec 0.1111 L-prec 0.7347 lift 0.943 W-rec 0.8587 W-rec$ 0.8921 top10skip 0.1053 PF 0.894 blocks 7
+  bridge: Foundation -230,262 + price -392,129 + costs 532,300 + reenter -50,201 = FZ -140,291 (closes True); cost share of gain 5.9164; FZ book kept mean -431.67 vs selection-only -277.2
+  big winners 128 skipped 82 net skipped 1,168,411; huge 90 skipped 54
+  family: 9 candidates, eff trials 1.72, PBO(diff) 0.7044, PBO(kept) 0.5413, SPA p 0.5255 (best = cae58c71aab47f63), boot diff CI [-1317.12, 1281.64], DSR p 0.4669, frozen go/no-go False
+crosscheck: {"outcome_gate": true, "gate_at": true, "block_key": true, "read": true, "branch": true, "take_why": true, "hour_bin": true, "dir": true, "visit_bin": true, "zone_kind": true, "exit_reason": true, "pts_bucket": true, "hold_bucket": true, "cross_session": true, "pos_kind": true, "entered_read": true, "big_winners_skipped": {"local_n": 250, "cloud_n": 250, "same_setups": true, "pts_sum_local": 43050.4, "pts_sum_cloud": 43050.4}}
+done in 138.6s; ledger sha after 33170f8df9f5d50e

@@ -1,0 +1,5 @@
+minute L1 not_block_asof cb1c6c5d7876cae6 kept 2985 diff 62.23 pct 99.5 p 0.4723 slip8 -1379.07 blocks 6 | family 10 PBO(diff) 0.5823 SPA p 0.0355 best 0d1bbb98d600860c
+minute L0 not_block_asof 69096afdc57337c0 kept 2985 diff 62.98 pct 97.6 p 0.7426 slip8 -1290.57 blocks 8 | family 10 PBO(diff) 0.9298 SPA p 0.183 best 69096afdc57337c0
+5minute L1 not_block_asof 2fb21a08ab1608ea kept 613 diff -144.77 pct 87.5 p 0.6937 slip8 -1184.35 blocks 5 | family 10 PBO(diff) 0.5457 SPA p 0.134 best 08047b56862edf0c
+5minute L0 not_block_asof a34b906b9d5d302b kept 613 diff -320.24 pct 86.5 p 0.6917 slip8 -751.02 blocks 5 | family 10 PBO(diff) 0.7238 SPA p 0.5195 best cae58c71aab47f63
+done 18.2 s; ledger sha 1ee15dc04860b284

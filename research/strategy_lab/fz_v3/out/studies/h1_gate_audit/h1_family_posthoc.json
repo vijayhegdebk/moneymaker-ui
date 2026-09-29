@@ -1,0 +1,404 @@
+{
+ "minute/L1": {
+  "not_block_asof": {
+   "id": "cb1c6c5d7876cae6",
+   "kept_n": 2985,
+   "kept_share": 0.6705,
+   "kept_mean": -989.1,
+   "skipped_mean": -1051.33,
+   "diff": 62.23,
+   "diff_top1_removed": 87.79,
+   "control_pct": 99.5,
+   "perm_p": 0.4723,
+   "loser_recall": 0.3326,
+   "loser_precision": 0.8521,
+   "lift": 1.009,
+   "winner_recall": 0.6873,
+   "winner_recall_weighted": 0.6637,
+   "top_decile_winners_skipped": 0.3286,
+   "kept_pf": 0.325,
+   "kept_mean_slip8": -1379.07,
+   "sign_blocks": 6,
+   "rows_differing_from_not_block_IS": 11,
+   "go_no_go": {
+    "kept_share>=20%": [
+     true,
+     0.6705
+    ],
+    "kept_n>=300": [
+     true,
+     2985
+    ],
+    "diff>0": [
+     true,
+     62.23
+    ],
+    "diff_top1_removed>0": [
+     true,
+     87.79
+    ],
+    "kept_mean_slip8>0": [
+     false,
+     -1379.07
+    ],
+    "sign_blocks>=8/12": [
+     false,
+     6
+    ],
+    "control_pct>=95": [
+     true,
+     99.5
+    ]
+   }
+  },
+  "family": {
+   "candidates": 10,
+   "ids": [
+    "127543888f5570fe",
+    "4325428b222de52f",
+    "b0b89957ada19605",
+    "0d1bbb98d600860c",
+    "f22c5d17af5e555b",
+    "40451f8101be314c",
+    "6ffb55302debfae1",
+    "bcdd12dd001a1cbd",
+    "ece4919a1486a7aa",
+    "cb1c6c5d7876cae6"
+   ],
+   "pbo_diff": {
+    "candidates": 10,
+    "partitions": 12870,
+    "statistic": "diff",
+    "pbo": 0.5823,
+    "oos_best_below_zero": 0.4884,
+    "degradation_slope": -2.5615,
+    "is_best_mean": 271.79,
+    "oos_best_mean": -300.82
+   },
+   "pbo_kept_mean": {
+    "candidates": 10,
+    "partitions": 12870,
+    "statistic": "kept_mean",
+    "pbo": 0.7804,
+    "oos_best_below_zero": 1.0,
+    "degradation_slope": -0.9037,
+    "is_best_mean": -947.52,
+    "oos_best_mean": -1037.58
+   },
+   "spa": {
+    "candidates": 10,
+    "sessions": 578,
+    "best": 3,
+    "best_mean_gain": 156.95,
+    "best_t": 2.833,
+    "rc_p": 0.0805,
+    "spa_p": 0.0355,
+    "draws": 2000
+   },
+   "effective_trials": 1.54,
+   "spa_best_id": "0d1bbb98d600860c"
+  }
+ },
+ "minute/L0": {
+  "not_block_asof": {
+   "id": "69096afdc57337c0",
+   "kept_n": 2985,
+   "kept_share": 0.663,
+   "kept_mean": -900.61,
+   "skipped_mean": -963.59,
+   "diff": 62.98,
+   "diff_top1_removed": 27.75,
+   "control_pct": 97.6,
+   "perm_p": 0.7426,
+   "loser_recall": 0.3342,
+   "loser_precision": 0.8411,
+   "lift": 0.992,
+   "winner_recall": 0.6477,
+   "winner_recall_weighted": 0.6523,
+   "top_decile_winners_skipped": 0.2754,
+   "kept_pf": 0.447,
+   "kept_mean_slip8": -1290.57,
+   "sign_blocks": 8,
+   "rows_differing_from_not_block_IS": 11,
+   "go_no_go": {
+    "kept_share>=20%": [
+     true,
+     0.663
+    ],
+    "kept_n>=300": [
+     true,
+     2985
+    ],
+    "diff>0": [
+     true,
+     62.98
+    ],
+    "diff_top1_removed>0": [
+     true,
+     27.75
+    ],
+    "kept_mean_slip8>0": [
+     false,
+     -1290.57
+    ],
+    "sign_blocks>=8/12": [
+     true,
+     8
+    ],
+    "control_pct>=95": [
+     true,
+     97.6
+    ]
+   }
+  },
+  "family": {
+   "candidates": 10,
+   "ids": [
+    "d0f4d52bff2714d9",
+    "2d2b8e1bf6447ad3",
+    "da016619669c2f2e",
+    "903af46046234971",
+    "70d297fc6113c2ef",
+    "fe18d58c8b7b2836",
+    "421d7e2614053158",
+    "d1520b622c4ff46a",
+    "4dcd2e994ec26452",
+    "69096afdc57337c0"
+   ],
+   "pbo_diff": {
+    "candidates": 10,
+    "partitions": 12870,
+    "statistic": "diff",
+    "pbo": 0.9298,
+    "oos_best_below_zero": 0.9177,
+    "degradation_slope": -1.0212,
+    "is_best_mean": 687.56,
+    "oos_best_mean": -597.47
+   },
+   "pbo_kept_mean": {
+    "candidates": 10,
+    "partitions": 12870,
+    "statistic": "kept_mean",
+    "pbo": 0.8777,
+    "oos_best_below_zero": 1.0,
+    "degradation_slope": -1.3123,
+    "is_best_mean": -820.69,
+    "oos_best_mean": -1052.34
+   },
+   "spa": {
+    "candidates": 10,
+    "sessions": 579,
+    "best": 9,
+    "best_mean_gain": 227.05,
+    "best_t": 2.369,
+    "rc_p": 0.183,
+    "spa_p": 0.183,
+    "draws": 2000
+   },
+   "effective_trials": 1.72,
+   "spa_best_id": "69096afdc57337c0"
+  }
+ },
+ "5minute/L1": {
+  "not_block_asof": {
+   "id": "2fb21a08ab1608ea",
+   "kept_n": 613,
+   "kept_share": 0.7421,
+   "kept_mean": -794.39,
+   "skipped_mean": -649.61,
+   "diff": -144.77,
+   "diff_top1_removed": -80.21,
+   "control_pct": 87.5,
+   "perm_p": 0.6937,
+   "loser_recall": 0.2479,
+   "loser_precision": 0.6948,
+   "lift": 0.961,
+   "winner_recall": 0.7162,
+   "winner_recall_weighted": 0.6891,
+   "top_decile_winners_skipped": 0.3043,
+   "kept_pf": 0.611,
+   "kept_mean_slip8": -1184.35,
+   "sign_blocks": 5,
+   "rows_differing_from_not_block_IS": 0,
+   "go_no_go": {
+    "kept_share>=20%": [
+     true,
+     0.7421
+    ],
+    "kept_n>=80": [
+     true,
+     613
+    ],
+    "diff>0": [
+     false,
+     -144.77
+    ],
+    "diff_top1_removed>0": [
+     false,
+     -80.21
+    ],
+    "kept_mean_slip8>0": [
+     false,
+     -1184.35
+    ],
+    "sign_blocks>=8/12": [
+     false,
+     5
+    ],
+    "control_pct>=95": [
+     false,
+     87.5
+    ]
+   }
+  },
+  "family": {
+   "candidates": 10,
+   "ids": [
+    "daaf09471b73ca51",
+    "ccbf6f37cc8a2977",
+    "011fdac4f903ee79",
+    "f91cb4af52b1e52c",
+    "4f4bac1aa89ba8c6",
+    "4988ed3569672d4f",
+    "64d727bb357dcb0b",
+    "08047b56862edf0c",
+    "f963132b4c147368",
+    "2fb21a08ab1608ea"
+   ],
+   "pbo_diff": {
+    "candidates": 10,
+    "partitions": 12870,
+    "statistic": "diff",
+    "pbo": 0.5457,
+    "oos_best_below_zero": 0.6011,
+    "degradation_slope": -1.2491,
+    "is_best_mean": 594.65,
+    "oos_best_mean": -480.76
+   },
+   "pbo_kept_mean": {
+    "candidates": 10,
+    "partitions": 12870,
+    "statistic": "kept_mean",
+    "pbo": 0.7557,
+    "oos_best_below_zero": 1.0,
+    "degradation_slope": -1.1296,
+    "is_best_mean": -670.42,
+    "oos_best_mean": -903.52
+   },
+   "spa": {
+    "candidates": 10,
+    "sessions": 408,
+    "best": 7,
+    "best_mean_gain": 72.47,
+    "best_t": 3.04,
+    "rc_p": 0.1365,
+    "spa_p": 0.134,
+    "draws": 2000
+   },
+   "effective_trials": 1.62,
+   "spa_best_id": "08047b56862edf0c"
+  }
+ },
+ "5minute/L0": {
+  "not_block_asof": {
+   "id": "a34b906b9d5d302b",
+   "kept_n": 613,
+   "kept_share": 0.7368,
+   "kept_mean": -361.05,
+   "skipped_mean": -40.81,
+   "diff": -320.24,
+   "diff_top1_removed": 188.03,
+   "control_pct": 86.5,
+   "perm_p": 0.6917,
+   "loser_recall": 0.2546,
+   "loser_precision": 0.7534,
+   "lift": 0.967,
+   "winner_recall": 0.7065,
+   "winner_recall_weighted": 0.6902,
+   "top_decile_winners_skipped": 0.2632,
+   "kept_pf": 0.861,
+   "kept_mean_slip8": -751.02,
+   "sign_blocks": 5,
+   "rows_differing_from_not_block_IS": 0,
+   "go_no_go": {
+    "kept_share>=20%": [
+     true,
+     0.7368
+    ],
+    "kept_n>=80": [
+     true,
+     613
+    ],
+    "diff>0": [
+     false,
+     -320.24
+    ],
+    "diff_top1_removed>0": [
+     true,
+     188.03
+    ],
+    "kept_mean_slip8>0": [
+     false,
+     -751.02
+    ],
+    "sign_blocks>=8/12": [
+     false,
+     5
+    ],
+    "control_pct>=95": [
+     false,
+     86.5
+    ]
+   }
+  },
+  "family": {
+   "candidates": 10,
+   "ids": [
+    "c08a962be699735d",
+    "2ad039c7d19cf22d",
+    "5d3759e3d6038faa",
+    "5d2041d94e721b9d",
+    "a43e3a6e6e22f60e",
+    "1649c9fbc22a371d",
+    "8c64c9a221d3c493",
+    "cae58c71aab47f63",
+    "fc351f8ba49c57c5",
+    "a34b906b9d5d302b"
+   ],
+   "pbo_diff": {
+    "candidates": 10,
+    "partitions": 12870,
+    "statistic": "diff",
+    "pbo": 0.7238,
+    "oos_best_below_zero": 0.7532,
+    "degradation_slope": -0.6568,
+    "is_best_mean": 1609.36,
+    "oos_best_mean": -3342.36
+   },
+   "pbo_kept_mean": {
+    "candidates": 10,
+    "partitions": 12870,
+    "statistic": "kept_mean",
+    "pbo": 0.5767,
+    "oos_best_below_zero": 0.774,
+    "degradation_slope": -0.595,
+    "is_best_mean": 298.44,
+    "oos_best_mean": -310.19
+   },
+   "spa": {
+    "candidates": 10,
+    "sessions": 408,
+    "best": 7,
+    "best_mean_gain": 108.91,
+    "best_t": 1.75,
+    "rc_p": 0.5195,
+    "spa_p": 0.5195,
+    "draws": 2000
+   },
+   "effective_trials": 1.68,
+   "spa_best_id": "cae58c71aab47f63"
+  }
+ },
+ "ledger_sha_after": "1ee15dc04860b284",
+ "run_s": 18.2
+}

@@ -152,7 +152,7 @@ Scale-free (x2 price level gives identical counts): **True**. Re-basing the real
 |---|---|---|---|---|---|---|
 | 5minute | 826 (412 / 414) | 236 | n_events_asof (rho +1.00), sl (rho +0.93) | 0.9031 | **0.9472** | 0.4930 / 0.5255 |
 
-- **5minute reading**: with the time proxies the periods separate at AUC 0.903; without them AUC 0.947 against a permutation p95 of 0.525: the IS-early and IS-late feature distributions are distinguishable well above chance (covariate drift inside IS is real, and a rule learned on all of IS is learned on a mixture); the ranked features below say where. The gap A - B = -0.044 is the part of the separation carried by `n_events_asof`, `sl` alone.
+- **5minute reading**: with the time proxies the periods separate at AUC 0.903; without them AUC 0.947 against a permutation p95 of 0.525: the IS-early and IS-late feature distributions are distinguishable well above chance (covariate drift inside IS is real, and a rule learned on all of IS is learned on a mixture); the ranked features below say where. Removing the calendar proxies `n_events_asof`, `sl` did not lower the separation (A - B = -0.044): their information is redundant with the level- and volatility-dependent features, and a monotone-in-time column's cut points generalise slightly worse across purged blocks.
 
 ### 5minute: top 20 drifted features (variant B, mean |SHAP|; direction = mean in IS-late vs IS-early; shift in pooled sd; KS between the periods)
 
@@ -205,6 +205,7 @@ Pass rule (pre-registered, DESIGN_PANEL (c) + Judge 1): the candidate's real-tap
 - `sl` (the stop price level) is in `Table.asof_columns()` although it is a raw price (|rho| 0.93 with time on 5 minutes); `n_events_asof` is a cumulative count since the data start (rho 1.0). Both are time proxies, excluded in variant B, and a rule using either is refused; the harness allow-list should carry them in NOT_FEATURES (reported, not changed here).
 - The 1-minute tapes are one trading year (247 IS sessions) with 8 tapes per generator: their null percentiles rest on 8 values and are wider than the 5-minute ones; the 5-minute nulls are the primary certificate, as both judges asked.
 - Falsification: if a real gate's diff sat above the GMM/segment p95 while the gate is known to be pure engine mechanics (e.g. the stop-distance gate on the real tape), the null would be too narrow; section 4 shows what the mechanical gates read on the real tape against their own nulls.
+- Drift inside IS is large (section 6) and its top of the ranking is the volatility / price-level regime (5minute: `atr_bps` (lower, -0.51 sd), `atr14` (higher, +0.30 sd), `range_3h_pts` (higher, +0.27 sd), `n_rooms_alive` (higher, +0.02 sd), `hv3_ratio` (higher, +0.12 sd)): the tape went from ~17,500 to ~26,300 while volatility in bps fell, so every point-denominated column (`*_pts`, `atr14`, `sl_dist_pts`, `fz_band_width`, `fz_dist_band_edge_*`, `gap_pts`) drifts with the level. A rule on such a column is a level rule; the gate studies should express thresholds in the `_atr` / `_bps` forms and the CPCV path distribution, not the pooled IS number, is what a drifting IS supports.
 
 ## 9. Null result statement
 

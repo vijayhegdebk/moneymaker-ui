@@ -141,6 +141,8 @@ Full table with members, per-period MDA values and SFI ledger ids: `importance_c
 | 38 | 9 | `cusum_events_60` | 6 | -0.00328 | 0.01142 | -0.29 | no | -395.1 | 765.5 | no | 0.0636 | 0.7657 | 0.488 | -582.7 | 0.959 | - | 29 | 38 | 0 | no | no |
 | 39 | 0 | `gmm4_map` | 43 | -0.01500 | 0.02122 | -0.71 | no | -232.7 | 955.6 | no | 0.3037 | 0.7484 | 0.472 | 933.0 | 0.989 | - | 39 | 39 | 0 | no | no |
 
+Reading the table: 0 of 39 clusters pass the MDA rule (mean > std across the 12 folds). 18 clusters have an MDA of exactly 0 in every fold: the forest never split on any of their members (single one-hot levels or rare flags under min_weight_fraction_leaf 0.05 with balanced class weights), so permuting them changes nothing; 16 clusters have a negative mean MDA (permuting them lowers the OOF log-loss: the forest fits noise on them). The best cluster is 11 (`fz_block_reason=new`, 6 members) with mean 0.00159 against std 0.00290 (ratio 0.55), positive in 9 of 12 folds.
+
 Stability: periods H1_2021-10..2023-09 (412 rows, 124 winners), H2_2023-10..2025-12 (414 rows, 105 winners); rule top-8 in >= 2 of 2 periods; Spearman rank correlation of the cluster MDA vectors across periods: H1_2021-10..2023-09|H2_2023-10..2025-12: 0.0827.
 
 Orthogonal check: 238 components (111 carry 95% of the variance); weighted Kendall tau between the MDI of the PC-score forest and the eigenvalues = **0.0813** (Kendall tau 0.1206, p 0.0123). A low tau is the AFML warning that the importance ranking may be fitting noise rather than variance-bearing directions.
@@ -256,7 +258,7 @@ All ranked pairs: `interaction_pairs_minute.csv`; the full mean |interaction| ma
 
 ### The shortlist (0 clusters; 0 of 39 pass MDA, 2 pass stability, 0 pass both; cap 8)
 
-Frozen at `features_shortlist/minute/shortlist.json`, sha256 `6986800c4cbf966e5cda4f3d3ba52d6928e304d305233fdb41d2d6b7c69ddad8`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
+Frozen at `features_shortlist/minute/shortlist.json`, sha256 `ce9504a636b4f5980f1ed3e7754e03f3ec42e4bfe9e961bf987bc6d5d7799ff0`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
 
 **Empty**: no cluster passes both the MDA rule and the stability filter on this timeframe. The gate studies have no shortlisted column here; a null vocabulary is a result, not a failure of the pipeline.
 
@@ -351,6 +353,8 @@ Full table with members, per-period MDA values and SFI ledger ids: `importance_c
 | 37 | 3 | `n_choch_since_bos` | 17 | -0.00324 | 0.00586 | -0.55 | no | 36.6 | 602.1 | no | 0.0697 | 0.7582 | 0.487 | 405.7 | 0.941 | - | 37 | 34 | 0 | no | no |
 | 38 | 9 | `cusum_events_60` | 6 | -0.00328 | 0.01142 | -0.29 | no | -395.1 | 765.5 | no | 0.0636 | 0.7657 | 0.488 | -582.7 | 0.959 | - | 29 | 38 | 0 | no | no |
 | 39 | 0 | `gmm4_map` | 43 | -0.01500 | 0.02122 | -0.71 | no | -232.7 | 955.6 | no | 0.3037 | 0.7484 | 0.472 | 933.0 | 0.989 | - | 39 | 39 | 0 | no | no |
+
+Reading the table: 0 of 39 clusters pass the MDA rule (mean > std across the 12 folds). 18 clusters have an MDA of exactly 0 in every fold: the forest never split on any of their members (single one-hot levels or rare flags under min_weight_fraction_leaf 0.05 with balanced class weights), so permuting them changes nothing; 16 clusters have a negative mean MDA (permuting them lowers the OOF log-loss: the forest fits noise on them). The best cluster is 11 (`fz_block_reason=new`, 6 members) with mean 0.00159 against std 0.00290 (ratio 0.55), positive in 9 of 12 folds.
 
 Stability: periods H1_2021-10..2023-09 (412 rows, 124 winners), H2_2023-10..2025-12 (414 rows, 105 winners); rule top-8 in >= 2 of 2 periods; Spearman rank correlation of the cluster MDA vectors across periods: H1_2021-10..2023-09|H2_2023-10..2025-12: 0.0827.
 
@@ -467,7 +471,7 @@ All ranked pairs: `interaction_pairs_5minute.csv`; the full mean |interaction| m
 
 ### The shortlist (0 clusters; 0 of 39 pass MDA, 2 pass stability, 0 pass both; cap 8)
 
-Frozen at `features_shortlist/5minute/shortlist.json`, sha256 `9460a56385793959f29e3f1124b0b55c524d0a7b7594526d391ec0aa98b3d3f4`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
+Frozen at `features_shortlist/5minute/shortlist.json`, sha256 `4b2626825a5aff078a57742adb7afcaa049a4bb0a3a32214bc9dcb82e2ccfbb2`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
 
 **Empty**: no cluster passes both the MDA rule and the stability filter on this timeframe. The gate studies have no shortlisted column here; a null vocabulary is a result, not a failure of the pipeline.
 

@@ -206,7 +206,7 @@ def main():
             L.append(f"- **{tf} reading**: with the time proxies the periods separate at AUC {A['auc_oof']:.3f}; without them AUC {B['auc_oof']:.3f} against a permutation p95 of "
                      f"{B['perm_auc_p95']:.3f}: " + ("the IS-early and IS-late feature distributions are distinguishable well above chance (covariate drift inside IS is real, and a rule "
                      "learned on all of IS is learned on a mixture); the ranked features below say where." if B['auc_oof'] > B['perm_auc_p95'] + 0.05 else
-                     "the periods are barely distinguishable once the calendar proxies are removed; the drift ranking below is weak evidence.") +
+                     "the periods are barely distinguishable once the calendar proxies are removed; the drift ranking below is weak evidence.")
                      + (f" The gap A - B = {A['auc_oof'] - B['auc_oof']:+.3f} is the part of the separation carried by `{'`, `'.join(d['time_proxies'])}` alone."
                         if A['auc_oof'] > B['auc_oof'] else
                         f" Removing the calendar proxies `{'`, `'.join(d['time_proxies'])}` did not lower the separation (A - B = {A['auc_oof'] - B['auc_oof']:+.3f}): their information "

@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/shortlist.py", line 18, in <module>
+    R = {tf: json.load(open(_src(tf, "results_{tf}.json"))) for tf in TFS}
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/shortlist.py", line 18, in <dictcomp>
+    R = {tf: json.load(open(_src(tf, "results_{tf}.json"))) for tf in TFS}
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/results_minute.json'
+run_all done 2026-09-29T06:15:43+00:00

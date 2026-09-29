@@ -100,3 +100,6 @@
 [06:11:58 rss 382.4 MB] cpcv split 44/66 (417s)
 [06:13:41 rss 383.0 MB] cpcv split 55/66 (520s)
 [06:15:12 rss 383.1 MB] cpcv split 66/66 (611s)
+[06:15:35 rss 384.0 MB] cpcv: {'paths': 11, 'diff_median': 259.06, 'diff_p5': -314.33, 'diff_min': -352.25, 'diff_share_positive': 0.364, 'kept_share_median': 0.9915, 'control_pct_median': 56.0, 'control_pct_p5': 38.2}
+[06:15:37 rss 388.8 MB] family: rows 53 pbo 0.0267 spa 0.0345 eff 1.04 boot [-11.94, 3374.62] go False
+[06:15:37 rss 390.9 MB] === done 5minute in 3682s; eligible clusters 0 of 39 ===

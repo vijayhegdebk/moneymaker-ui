@@ -168,8 +168,14 @@ for tf in TFS:
     for _, r in t.iterrows():
         M.append(f"| {r.mda_rank} | {r.cluster} | `{r.representative}` | {r.n_members} | {r.mda_ll_mean:.5f} | {r.mda_ll_std:.5f} | {fmt(r.mda_ll_ratio)} | {fmt(r.mda_ll_pass)} | {fmt(r.mda_diff_mean, 1)} | {fmt(r.mda_diff_std, 1)} | {fmt(r.mda_diff_pass)} | {r.mdi:.4f} | {r.sfi_oof_wlogloss:.4f} | {r.sfi_oof_auc:.3f} | {fmt(r['diff'], 1)} | {fmt(r.kept_share, 3)} | {fmt(r.control_pct, 1)} | "
                  + " | ".join(str(int(r[f'rank_{pn}'])) for pn in pnames) + f" | {int(r.stab_top8_periods)} | {fmt(r.stab_pass)} | {fmt(r.shortlist_eligible)} |")
+    n_zero = int(((t.mda_ll_mean == 0) & (t.mda_ll_folds_positive == 0)).sum()); n_neg = int((t.mda_ll_mean < 0).sum())
+    best = t.iloc[0]
+    M.append(f"\nReading the table: {int(t.mda_ll_pass.sum())} of {len(t)} clusters pass the MDA rule (mean > std across the 12 folds). {n_zero} clusters have an MDA of exactly 0 in every fold: the forest never "
+             f"split on any of their members (single one-hot levels or rare flags under min_weight_fraction_leaf {L.MIN_LEAF} with balanced class weights), so permuting them changes nothing; "
+             f"{n_neg} clusters have a negative mean MDA (permuting them lowers the OOF log-loss: the forest fits noise on them). The best cluster is {int(best.cluster)} (`{best.representative}`, "
+             f"{int(best.n_members)} members) with mean {best.mda_ll_mean:.5f} against std {best.mda_ll_std:.5f} (ratio {fmt(best.mda_ll_ratio)}), positive in {int(best.mda_ll_folds_positive)} of 12 folds.\n")
     st = res["stability"]
-    M.append(f"\nStability: periods " + ", ".join(f"{pn} ({v['n_rows']} rows, {v['n_winners']} winners)" for pn, v in st["periods"].items()) + f"; rule {st['rule']}; Spearman rank correlation of the cluster MDA vectors across periods: "
+    M.append(f"Stability: periods " + ", ".join(f"{pn} ({v['n_rows']} rows, {v['n_winners']} winners)" for pn, v in st["periods"].items()) + f"; rule {st['rule']}; Spearman rank correlation of the cluster MDA vectors across periods: "
              + ", ".join(f"{k}: {v}" for k, v in st["rank_corr"].items()) + ".\n")
     pc = res["pca_check"]
     M.append(f"Orthogonal check: {pc['n_components']} components ({pc['n_components_95pct']} carry 95% of the variance); weighted Kendall tau between the MDI of the PC-score forest and the eigenvalues = **{pc['weighted_kendall_tau']}** "

@@ -5,3 +5,5 @@
 [05:58:12 rss 310.6 MB] SFI cluster 1 (25 f): ll 0.7741 auc 0.567 diff 104.99 kept 0.9027 ctrl 35.7 (441.3s)
 [06:04:41 rss 310.8 MB] SFI cluster 2 (23 f): ll 0.7851 auc 0.541 diff -29.7 kept 0.9589 ctrl 28.1 (388.9s)
 [06:09:52 rss 310.8 MB] SFI cluster 3 (22 f): ll 0.7958 auc 0.540 diff 33.07 kept 0.9218 ctrl 3.6 (310.7s)
+[06:15:31 rss 310.8 MB] SFI cluster 4 (21 f): ll 0.7776 auc 0.577 diff -16.53 kept 0.8655 ctrl 0.0 (339.4s)
+[06:19:03 rss 310.8 MB] SFI cluster 5 (20 f): ll 0.8046 auc 0.566 diff -106.05 kept 0.9324 ctrl 1.0 (212.5s)

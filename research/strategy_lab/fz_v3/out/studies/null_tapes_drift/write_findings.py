@@ -106,7 +106,7 @@ def main():
     L.append("")
     # ---- reality
     L.append("## 5. Reality check of the generators (IS part of the real tape vs the tapes; tape p50 [min, max])\n")
-    keys = [("ret_std_bps", "ret std (bps)"), ("ret_kurt_excess", "ret excess kurtosis"), ("absret_ac1", "|r| ac lag1"), ("absret_ac2", "lag2"), ("absret_ac3", "lag3"), ("absret_ac4", "lag4"), ("absret_ac5", "lag5"),
+    keys = [("ret_std_bps", "ret std (bps)"), ("ret_kurt_excess", "ret excess kurtosis"), ("absret_ac1", "abs-return autocorr lag 1"), ("absret_ac2", "lag 2"), ("absret_ac3", "lag 3"), ("absret_ac4", "lag 4"), ("absret_ac5", "lag 5"),
             ("choch_per_session", "CHoCH / session"), ("bos_per_session", "BOS / session"), ("setups_per_session", "SETUPs / session"), ("l1_units_per_session", "L1 units / session"),
             ("l1_mean_net", "L1 mean net"), ("l1_win_rate", "L1 win rate"), ("frozen_kept_share", "frozen kept share"), ("close_last", "last close"), ("atr14_median", "ATR14 median")]
     for tf, d in null["timeframes"].items():
@@ -123,7 +123,11 @@ def main():
             real = d["generators"][gens[0]]["reality"][k]["real"]
             L.append(f"| {lab} | {f(real, 3 if abs(real or 0) < 10 else 1)} | " + " | ".join(cells) + " |")
         flags = [g for g in gens if d["generators"][g]["poor_null_flag"]]
-        L.append(f"\nPoor-null flag (median SETUP rate outside [1/3, 3] x real): {flags if flags else 'none'}.\n")
+        L.append(f"\nPoor-null flag (median SETUP rate outside [1/3, 3] x real): {flags if flags else 'none'}.")
+        if tf == "minute":
+            L.append("The 1-minute tapes are one trading year (247 sessions) starting at the real IS first open (17,523.70), so `last close` and `ATR14 median` are not "
+                     "comparable with the real 5-year IS values in this table; the per-session rates and return moments are.")
+        L.append("")
     # ---- drift
     if drift:
         L.append("## 6. Adversarial validation IS-early vs IS-late (`drift.json`)\n")

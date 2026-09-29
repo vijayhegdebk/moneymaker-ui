@@ -5,3 +5,4 @@
 [04:58:41] minute: IS units 4452 (early 2268, late 2184), design (5266, 244)
 [04:58:41] minute: time proxies (|rho| >= 0.9 with session_idx): [('n_events_asof', 1.0), ('sl', 0.936)]
 [05:01:54] 5minute A_all_asof: OOF AUC 0.9031 (permuted p50 0.4909, p95 0.5418) in 989s
+[05:21:26] 5minute B_without_time_proxies: OOF AUC 0.9472 (permuted p50 0.4930, p95 0.5255) in 1172s

@@ -57,3 +57,7 @@
 05:04:21   grid: 201 cells
 05:04:30     cell 1/201 {"kc": 2, "rule": "choch", "scope": "all"} kept 2943 diff -60.0 pct 16.5 p 0.7166
 05:07:37     cell 21/201 {"W": "since_choch", "q": 0.5, "rule": "range"} kept 2251 diff -49.87 pct 7.2 p 0.7456
+05:10:45     cell 41/201 {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "all"} kept 3751 diff -6.56 pct 71.2 p 0.976
+05:14:07     cell 61/201 {"W": "1h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} kept 3752 diff -60.31 pct 12.6 p 0.7816
+05:17:09     cell 81/201 {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} kept 3579 diff -62.78 pct 14.8 p 0.7581
+05:20:37     cell 101/201 {"W": "3h", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "all"} kept 4143 diff -73.69 pct 22.1 p 0.8006

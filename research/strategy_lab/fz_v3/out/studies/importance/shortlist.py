@@ -10,12 +10,17 @@ import harness as H
 
 OUT = L.OUT
 TFS = ("minute", "5minute")
-R = {tf: json.load(open(os.path.join(HERE, f"results_{tf}.json"))) for tf in TFS}
-CL = {tf: json.load(open(os.path.join(HERE, f"clusters_{tf}.json"))) for tf in TFS}
-TAB = {tf: pd.read_csv(os.path.join(HERE, f"importance_clusters_{tf}.csv")) for tf in TFS}
-FEAT = {tf: pd.read_csv(os.path.join(HERE, f"importance_features_{tf}.csv")) for tf in TFS}
+DRY = "--dry" in sys.argv                     # debugging of this writer on dry/ outputs: no registration, files under dry/
+SRC = os.path.join(HERE, "dry") if DRY else HERE
+def _src(tf, name):
+    p = os.path.join(SRC, name.format(tf=tf))
+    return p if (os.path.exists(p) or not DRY) else os.path.join(SRC, name.format(tf="5minute"))
+R = {tf: json.load(open(_src(tf, "results_{tf}.json"))) for tf in TFS}
+CL = {tf: json.load(open(_src(tf, "clusters_{tf}.json"))) for tf in TFS}
+TAB = {tf: pd.read_csv(_src(tf, "importance_clusters_{tf}.csv")) for tf in TFS}
+FEAT = {tf: pd.read_csv(_src(tf, "importance_features_{tf}.csv")) for tf in TFS}
 defs, card_def, fz_def = L.readme_defs()
-for tf in TFS: assert not R[tf]["dry"], tf
+for tf in TFS: assert R[tf]["dry"] == DRY, tf
 
 
 def fmt(v, nd=2):
@@ -72,12 +77,13 @@ for tf in TFS:
 regs_path = os.path.join(OUT, "ledger", "registrations.jsonl")
 existing = [json.loads(x) for x in open(regs_path, encoding="utf-8") if x.strip()] if os.path.exists(regs_path) else []
 for tf in TFS:
-    d = os.path.join(OUT, "features_shortlist", tf); os.makedirs(d, exist_ok=True)
+    d = os.path.join(SRC, "features_shortlist", tf) if DRY else os.path.join(OUT, "features_shortlist", tf); os.makedirs(d, exist_ok=True)
     p = os.path.join(d, "shortlist.json")
-    if any(e.get("what") == f"feature shortlist {tf}" for e in existing):
+    if not DRY and any(e.get("what") == f"feature shortlist {tf}" for e in existing):
         print(f"{tf}: already registered; not rewriting {p}"); shortlists[tf]["sha256"] = hashlib.sha256(open(p, "rb").read()).hexdigest(); continue
     json.dump(shortlists[tf], open(p, "w"), indent=1, default=lambda z: z.item() if hasattr(z, "item") else str(z))
     sha = hashlib.sha256(open(p, "rb").read()).hexdigest(); shortlists[tf]["sha256"] = sha
+    if DRY: print(f"{tf}: DRY shortlist written to {p} (not registered)"); continue
     rec = dict(kind="pre_registration", what=f"feature shortlist {tf}", file=f"features_shortlist/{tf}/shortlist.json", sha256=sha,
                registered_at=D.datetime.now().isoformat(timespec="seconds"), note="frozen before any gate search",
                n_clusters=len(shortlists[tf]["clusters"]), n_allowed_columns=len(shortlists[tf]["allowed_columns"]), interaction_pairs=5,
@@ -97,7 +103,7 @@ M.append("**What this study is.** The feature-vocabulary pass: which clusters of
 M.append("## Definitions (fixed before the numbers)\n")
 M.append("```\n" + L.__doc__.strip() + "\n```\n")
 M.append(f"Constants: trees {L.N_TREES}, min_weight_fraction_leaf {L.MIN_LEAF}, main depth {L.DEPTH_MAIN} (sensitivity {L.DEPTHS_SENS}), permutations per fold {L.N_PERM}, "
-         f"tau grid {L.TAU_GRID[0]}..{L.TAU_GRID[-1]} step 0.01, weighted winner recall floor {L.WREC_MIN}, silhouette range {min(L.K_RANGE)}..{max(L.K_RANGE)} clusters,"
+         f"tau grid {L.TAU_GRID[0]}..{L.TAU_GRID[-1]} step 0.01, weighted winner recall floor {L.WREC_MIN}, silhouette range {min(L.K_RANGE)}..{max(L.K_RANGE)} clusters, "
          f"stability top-{L.TOP_K_STAB}, interactions on the top-{L.TOP_INTER} features, {L.TOP_PAIRS} pairs; xgboost depth {L.XGB_DEPTH}, {L.XGB_ROUNDS} rounds, eta {L.XGB_ETA}. "
          "Every model fit uses `harness.purged_splits` (12 blocks, purge by the L1 exit bar, 3-session embargo); nothing is fitted on OOS rows; OOS labels and features are never read.\n")
 
@@ -131,12 +137,18 @@ for tf in TFS:
     M.append("| fold | n train | n test | |net| cap (train p99) | tau | OOF weighted log-loss | OOF diff | kept share |\n|---|---|---|---|---|---|---|---|")
     for f in fm["folds"]: M.append(f"| {f['fold']} | {f['n_tr']} | {f['n_te']} | {f['cap_p99']} | {f['tau']} | {f['oof_wlogloss']} | {fmt(f['oof_diff'])} | {fmt(f['kept_share'], 4)} |")
     c = fm["cpcv"]
-    M.append(f"\nCPCV of the full model's OOF gate (66 splits, 11 paths, family `importance/full_model/cpcv`): diff median {c['diff_median']}, 5th percentile {c['diff_p5']}, min {c['diff_min']}, "
-             f"share of paths with diff > 0 {c['diff_share_positive']}, kept share median {c['kept_share_median']}, control pct median {c.get('control_pct_median')} / p5 {c.get('control_pct_p5')}.\n")
+    if c:
+        M.append(f"\nCPCV of the full model's OOF gate (66 splits, 11 paths, family `importance/full_model/cpcv`): diff median {c['diff_median']}, 5th percentile {c['diff_p5']}, min {c['diff_min']}, "
+                 f"share of paths with diff > 0 {c['diff_share_positive']}, kept share median {c['kept_share_median']}, control pct median {c.get('control_pct_median')} / p5 {c.get('control_pct_p5')}.\n")
+    else:
+        M.append("\nCPCV: not run (dry mode).\n")
     fam = res["family"]
     if fam:
+        sp = fam["spa"] or {}
         M.append(f"Family `importance/*` on {tf} ({fam['ledger_rows']} ledger rows: full model x3 depths, {fam['ledger_rows'] - 3 - 11} SFI clusters, 11 CPCV paths): PBO (diff) {fam['pbo']['pbo']} "
-                 f"(IS-best below zero OOS {fam['pbo']['oos_best_below_zero']}), SPA p {fam['spa']['spa_p']} (RC p {fam['spa']['rc_p']}, best mean gain {fam['spa']['best_mean_gain']}), effective trials {fam['effective_trials']}; "
+                 f"(IS-best below zero OOS {fam['pbo']['oos_best_below_zero']}); SPA studentised p {sp.get('spa_p')} (RC p {sp.get('rc_p')}, best mean gain {sp.get('best_mean_gain')} INR/session, "
+                 f"{sp.get('excluded_from_studentised')} candidates excluded for < {sp.get('min_active_sessions')} active sessions), SPA unstudentised p {sp.get('spa_p_unstudentised')} (RC p {sp.get('rc_p_unstudentised')}, "
+                 f"best mean gain {sp.get('best_mean_gain_unstudentised')}); effective trials {fam['effective_trials']}; "
                  f"full model: bootstrap 90% CI of diff {fam['bootstrap_full']['diff_ci']}, DSR p {fam['dsr_full'].get('p')}; go/no-go passed = {fam['go_no_go_full']['passed']} "
                  f"({', '.join(k + ('=ok' if v[0] else '=FAIL') for k, v in fam['go_no_go_full']['checks'].items())}).\n")
 
@@ -219,7 +231,10 @@ cav = [
     "The design's distance sqrt(0.5 (1 - rho)) puts anti-correlated features at maximum distance; substitution between a feature and its negative is therefore not removed by the clustering (mitigated by the duplicate / complement drops above).",
     "On 5minute the FZ card's numeric fields sit at 40.3% NaN (no ref room on 40% of SETUPs): a hair over the 40% rule, so they are dropped while their categorical reads (`fz_read=...`, `card_read=...`, `fz_gate=...`) stay.",
     "`sl` (the Foundation stop price) and `atr14` are price-level / volatility-level columns that also proxy calendar time; if they appear in a shortlist the stability filter is what stands between them and a year effect.",
-    "The other studies' processes shared the 4 cores during this run (load average ~15); runtimes above are wall-clock under that load.",
+    "The other studies' processes shared the 4 cores during this run (load average 15-19); runtimes above are wall-clock under that load. Every fit ran single-threaded "
+    "(IMP_BAG_JOBS=1, IMP_XGB_JOBS=1 in run_all.sh): on this loaded box a 300-tree bagging fit took 35 s at 1 thread vs 50 s at 4 (bag_probe.log) and a 200-round xgboost fit "
+    "0.7 s at 1 thread vs 14 s at 2 (xgb_probe.log, OpenMP spin-wait); the fitted trees do not depend on the thread count (random_state fixes them), so no model was shrunk. "
+    "The run logs' header line prints the module constant n_jobs=4; the environment variable is what the fits used.",
 ]
 M += [f"- {c}" for c in cav]
 M.append("\n## Files\n")
@@ -230,7 +245,7 @@ for tf in TFS:
               f"studies/importance/oof_{tf}.npz", f"studies/importance/run_{tf}.log", f"features_shortlist/{tf}/shortlist.json"]
 files += ["studies/importance/imp_lib.py", "studies/importance/run_importance.py", "studies/importance/shortlist.py", "studies/importance/probe.py", "studies/importance/xgb_probe.py", "ledger/registrations.jsonl"]
 M += [f"- `{f}`" for f in files]
-open(os.path.join(HERE, "FINDINGS.md"), "w", encoding="utf-8").write("\n".join(M) + "\n")
+open(os.path.join(SRC, "FINDINGS.md"), "w", encoding="utf-8").write("\n".join(M) + "\n")
 
 # ---------------------------------------------------------------- findings.json
 fj = dict(study="importance", design="quant-ml-canon-feature-importance (both judges' fixes; features from regime-breaks / regime-states / motif-shapelet / rocket-probe judges)",
@@ -247,5 +262,5 @@ fj = dict(study="importance", design="quant-ml-canon-feature-importance (both ju
                                clusters_table=R[tf]["clusters_table"]) for tf in TFS},
           ffd_verdict=ffd_verdict, candidates=[], null_result=all(shortlists[tf]["n_shortlisted"] == 0 for tf in TFS),
           ledger_families=["importance/full_model", "importance/full_model/cpcv", "importance/sfi"], caveats=cav, files=files)
-json.dump(fj, open(os.path.join(HERE, "findings.json"), "w"), indent=1, default=lambda z: z.item() if hasattr(z, "item") else str(z))
+json.dump(fj, open(os.path.join(SRC, "findings.json"), "w"), indent=1, default=lambda z: z.item() if hasattr(z, "item") else str(z))
 print("FINDINGS.md and findings.json written;", {tf: shortlists[tf]["n_shortlisted"] for tf in TFS}, ffd_verdict)

@@ -235,12 +235,12 @@ def cluster(Xa, is_mask, logf=None):
         for c in mem:
             others = [idx[o] for o in mem if o != c]
             cent = float(np.mean([abs(rho[idx[c], o]) for o in others])) if others else 1.0
-            scored.append((tier_of(c, Xi), -float(coverage[c]), -cent, c))
+            scored.append((int(c.endswith("__na")), tier_of(c, Xi), -float(coverage[c]), -cent, c))   # a missing indicator represents a cluster only when it is alone
         scored.sort()
-        t, cov, cent, c = scored[0]
+        na, t, cov, cent, c = scored[0]
         reps[ci] = dict(representative=c, tier=int(t), coverage=round(-cov, 4), centrality=round(-cent, 4),
                         why=f"tier {t} ({'integer/boolean/one-hot/card field' if t == 0 else 'ratio' if t == 1 else 'raw points/level'}), "
-                            f"coverage {-cov:.3f}, mean |rho| to members {-cent:.3f}")
+                            f"coverage {-cov:.3f}, mean |rho| to members {-cent:.3f}" + (" (missing indicator, the cluster's only member)" if na else ""))
     return dict(clusters=clusters, reps=reps, silhouette={int(k): round(v, 4) for k, v in sil.items()}, k_best=int(k_best),
                 rho=pd.DataFrame(rho, index=cols, columns=cols))
 

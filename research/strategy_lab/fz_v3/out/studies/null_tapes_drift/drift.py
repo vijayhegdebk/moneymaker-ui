@@ -115,7 +115,7 @@ def run_tf(tf, fh):
             D["rank"] = np.arange(1, len(D) + 1)
             D.to_csv(os.path.join(HERE, f"drift_{tf}_features.csv"), index=False)
             top = D.head(20)
-            out["top20_drifted"] = [dict(rank=int(r["rank"]), feature=r.feature, source=r.source, mean_abs_shap=round(r.mean_abs_shap, 5), mean_early=round(r.mean_early, 4) if np.isfinite(r.mean_early) else None,
+            out["top20_drifted"] = [dict(rank=int(r.rank), feature=r.feature, source=r.source, mean_abs_shap=round(r.mean_abs_shap, 5), mean_early=round(r.mean_early, 4) if np.isfinite(r.mean_early) else None,
                                          mean_late=round(r.mean_late, 4) if np.isfinite(r.mean_late) else None, std_shift=round(r.std_shift, 3) if np.isfinite(r.std_shift) else None,
                                          ks=round(r.ks, 4) if np.isfinite(r.ks) else None, shap_x_corr=round(r.shap_x_corr, 3) if np.isfinite(r.shap_x_corr) else None, direction=r.direction)
                                     for r in top.itertuples(index=False)]

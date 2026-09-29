@@ -1,1 +1,2 @@
 minute: 4452 trades, 331993 states, 327541 decision states x 2 actions = 655082 regression rows per fit, rss 902 MB
+{"fold": 0, "test_blocks": [0, 1, 2, 3], "train_trades": 2746, "test_trades": 1677, "purged": 29, "test_states": 118209, "test_mean": -969.21, "test_fnd_mean": -941.9, "exit_early_share": 0.2815, "exit_flag_share": 0.0415, "q_exit_fit_mae": 120.2, "seconds": 3078.2, "rss_mb": 989}

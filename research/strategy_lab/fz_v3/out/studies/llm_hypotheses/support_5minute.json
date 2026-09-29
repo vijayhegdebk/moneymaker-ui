@@ -1,0 +1,621 @@
+{
+ "tf": "5minute",
+ "is_units_L1": 826,
+ "is_setups_L0": 832,
+ "rules": {
+  "r0_f1": {
+   "fired_L1": 57,
+   "comparisons_L1": [
+    {
+     "comparison": [
+      "n_choch_since_bos",
+      ">=",
+      2
+     ],
+     "holds_alone": 259,
+     "excludes_alone": 567,
+     "excludes_given_others": 137,
+     "rows_where_others_hold": 194,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "range_3h_atr",
+      "<=",
+      4.0
+     ],
+     "holds_alone": 194,
+     "excludes_alone": 632,
+     "excludes_given_others": 202,
+     "rows_where_others_hold": 259,
+     "na_rows": 0
+    }
+   ],
+   "fired_L0": 57,
+   "comparisons_L0": [
+    {
+     "comparison": [
+      "n_choch_since_bos",
+      ">=",
+      2
+     ],
+     "holds_alone": 261,
+     "excludes_alone": 571,
+     "excludes_given_others": 137,
+     "rows_where_others_hold": 194,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "range_3h_atr",
+      "<=",
+      4.0
+     ],
+     "holds_alone": 194,
+     "excludes_alone": 638,
+     "excludes_given_others": 204,
+     "rows_where_others_hold": 261,
+     "na_rows": 0
+    }
+   ]
+  },
+  "r0_f2": {
+   "fired_L1": 55,
+   "comparisons_L1": [
+    {
+     "comparison": [
+      "choch_run",
+      ">=",
+      3
+     ],
+     "holds_alone": 116,
+     "excludes_alone": 710,
+     "excludes_given_others": 28,
+     "rows_where_others_hold": 83,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "n_bos_3h",
+      "==",
+      0
+     ],
+     "holds_alone": 83,
+     "excludes_alone": 743,
+     "excludes_given_others": 61,
+     "rows_where_others_hold": 116,
+     "na_rows": 0
+    }
+   ],
+   "fired_L0": 55,
+   "comparisons_L0": [
+    {
+     "comparison": [
+      "choch_run",
+      ">=",
+      3
+     ],
+     "holds_alone": 117,
+     "excludes_alone": 715,
+     "excludes_given_others": 28,
+     "rows_where_others_hold": 83,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "n_bos_3h",
+      "==",
+      0
+     ],
+     "holds_alone": 83,
+     "excludes_alone": 749,
+     "excludes_given_others": 62,
+     "rows_where_others_hold": 117,
+     "na_rows": 0
+    }
+   ]
+  },
+  "r0_f3": {
+   "fired_L1": 78,
+   "comparisons_L1": [
+    {
+     "comparison": [
+      "alt_dir6",
+      ">=",
+      4
+     ],
+     "holds_alone": 158,
+     "excludes_alone": 668,
+     "excludes_given_others": 279,
+     "rows_where_others_hold": 357,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "er_1h",
+      "<=",
+      0.35
+     ],
+     "holds_alone": 357,
+     "excludes_alone": 469,
+     "excludes_given_others": 80,
+     "rows_where_others_hold": 158,
+     "na_rows": 107
+    }
+   ],
+   "fired_L0": 79,
+   "comparisons_L0": [
+    {
+     "comparison": [
+      "alt_dir6",
+      ">=",
+      4
+     ],
+     "holds_alone": 159,
+     "excludes_alone": 673,
+     "excludes_given_others": 282,
+     "rows_where_others_hold": 361,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "er_1h",
+      "<=",
+      0.35
+     ],
+     "holds_alone": 361,
+     "excludes_alone": 471,
+     "excludes_given_others": 80,
+     "rows_where_others_hold": 159,
+     "na_rows": 107
+    }
+   ]
+  },
+  "r0_f4": {
+   "fired_L1": 53,
+   "comparisons_L1": [
+    {
+     "comparison": [
+      "fz_read",
+      "in",
+      [
+       "RECYCLE",
+       "THIN"
+      ]
+     ],
+     "holds_alone": 59,
+     "excludes_alone": 767,
+     "excludes_given_others": 509,
+     "rows_where_others_hold": 562,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "room_ahead_dist_atr",
+      ">",
+      0
+     ],
+     "holds_alone": 710,
+     "excludes_alone": 116,
+     "excludes_given_others": 0,
+     "rows_where_others_hold": 53,
+     "na_rows": 116
+    },
+    {
+     "comparison": [
+      "room_ahead_dist_atr",
+      "<=",
+      1.0
+     ],
+     "holds_alone": 562,
+     "excludes_alone": 264,
+     "excludes_given_others": 5,
+     "rows_where_others_hold": 58,
+     "na_rows": 116
+    }
+   ],
+   "fired_L0": 54,
+   "comparisons_L0": [
+    {
+     "comparison": [
+      "fz_read",
+      "in",
+      [
+       "RECYCLE",
+       "THIN"
+      ]
+     ],
+     "holds_alone": 60,
+     "excludes_alone": 772,
+     "excludes_given_others": 514,
+     "rows_where_others_hold": 568,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "room_ahead_dist_atr",
+      ">",
+      0
+     ],
+     "holds_alone": 716,
+     "excludes_alone": 116,
+     "excludes_given_others": 0,
+     "rows_where_others_hold": 54,
+     "na_rows": 116
+    },
+    {
+     "comparison": [
+      "room_ahead_dist_atr",
+      "<=",
+      1.0
+     ],
+     "holds_alone": 568,
+     "excludes_alone": 264,
+     "excludes_given_others": 5,
+     "rows_where_others_hold": 59,
+     "na_rows": 116
+    }
+   ]
+  },
+  "r0_f5": {
+   "fired_L1": 53,
+   "comparisons_L1": [
+    {
+     "comparison": [
+      "hv3_dir_agree",
+      "==",
+      false
+     ],
+     "holds_alone": 108,
+     "excludes_alone": 718,
+     "excludes_given_others": 191,
+     "rows_where_others_hold": 244,
+     "na_rows": 484
+    },
+    {
+     "comparison": [
+      "hv3_bars_since",
+      "<=",
+      12
+     ],
+     "holds_alone": 244,
+     "excludes_alone": 582,
+     "excludes_given_others": 55,
+     "rows_where_others_hold": 108,
+     "na_rows": 484
+    }
+   ],
+   "fired_L0": 53,
+   "comparisons_L0": [
+    {
+     "comparison": [
+      "hv3_dir_agree",
+      "==",
+      false
+     ],
+     "holds_alone": 109,
+     "excludes_alone": 723,
+     "excludes_given_others": 194,
+     "rows_where_others_hold": 247,
+     "na_rows": 484
+    },
+    {
+     "comparison": [
+      "hv3_bars_since",
+      "<=",
+      12
+     ],
+     "holds_alone": 247,
+     "excludes_alone": 585,
+     "excludes_given_others": 56,
+     "rows_where_others_hold": 109,
+     "na_rows": 484
+    }
+   ]
+  },
+  "r0_f6": {
+   "fired_L1": 37,
+   "comparisons_L1": [
+    {
+     "comparison": [
+      "touch_swing_last",
+      "==",
+      "held"
+     ],
+     "holds_alone": 169,
+     "excludes_alone": 657,
+     "excludes_given_others": 43,
+     "rows_where_others_hold": 80,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "swing_ahead_dist_atr",
+      ">",
+      0
+     ],
+     "holds_alone": 80,
+     "excludes_alone": 746,
+     "excludes_given_others": 132,
+     "rows_where_others_hold": 169,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "swing_ahead_dist_atr",
+      "<=",
+      1.0
+     ],
+     "holds_alone": 826,
+     "excludes_alone": 0,
+     "excludes_given_others": 0,
+     "rows_where_others_hold": 37,
+     "na_rows": 0
+    }
+   ],
+   "fired_L0": 37,
+   "comparisons_L0": [
+    {
+     "comparison": [
+      "touch_swing_last",
+      "==",
+      "held"
+     ],
+     "holds_alone": 171,
+     "excludes_alone": 661,
+     "excludes_given_others": 43,
+     "rows_where_others_hold": 80,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "swing_ahead_dist_atr",
+      ">",
+      0
+     ],
+     "holds_alone": 80,
+     "excludes_alone": 752,
+     "excludes_given_others": 134,
+     "rows_where_others_hold": 171,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "swing_ahead_dist_atr",
+      "<=",
+      1.0
+     ],
+     "holds_alone": 832,
+     "excludes_alone": 0,
+     "excludes_given_others": 0,
+     "rows_where_others_hold": 37,
+     "na_rows": 0
+    }
+   ]
+  },
+  "r0_f7": {
+   "fired_L1": 91,
+   "comparisons_L1": [
+    {
+     "comparison": [
+      "hour",
+      "in",
+      [
+       12,
+       13
+      ]
+     ],
+     "holds_alone": 275,
+     "excludes_alone": 551,
+     "excludes_given_others": 131,
+     "rows_where_others_hold": 222,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "n_choch_since_bos_today",
+      ">=",
+      2
+     ],
+     "holds_alone": 222,
+     "excludes_alone": 604,
+     "excludes_given_others": 184,
+     "rows_where_others_hold": 275,
+     "na_rows": 0
+    }
+   ],
+   "fired_L0": 91,
+   "comparisons_L0": [
+    {
+     "comparison": [
+      "hour",
+      "in",
+      [
+       12,
+       13
+      ]
+     ],
+     "holds_alone": 275,
+     "excludes_alone": 557,
+     "excludes_given_others": 133,
+     "rows_where_others_hold": 224,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "n_choch_since_bos_today",
+      ">=",
+      2
+     ],
+     "holds_alone": 224,
+     "excludes_alone": 608,
+     "excludes_given_others": 184,
+     "rows_where_others_hold": 275,
+     "na_rows": 0
+    }
+   ]
+  },
+  "r0_f8": {
+   "fired_L1": 1,
+   "comparisons_L1": [
+    {
+     "comparison": [
+      "session_bar",
+      ">=",
+      12
+     ],
+     "holds_alone": 640,
+     "excludes_alone": 186,
+     "excludes_given_others": 56,
+     "rows_where_others_hold": 57,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "n_bos_today",
+      "==",
+      0
+     ],
+     "holds_alone": 187,
+     "excludes_alone": 639,
+     "excludes_given_others": 3,
+     "rows_where_others_hold": 4,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "sess_range_atr",
+      "<=",
+      3.0
+     ],
+     "holds_alone": 89,
+     "excludes_alone": 737,
+     "excludes_given_others": 71,
+     "rows_where_others_hold": 72,
+     "na_rows": 0
+    }
+   ],
+   "fired_L0": 1,
+   "comparisons_L0": [
+    {
+     "comparison": [
+      "session_bar",
+      ">=",
+      12
+     ],
+     "holds_alone": 646,
+     "excludes_alone": 186,
+     "excludes_given_others": 56,
+     "rows_where_others_hold": 57,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "n_bos_today",
+      "==",
+      0
+     ],
+     "holds_alone": 187,
+     "excludes_alone": 645,
+     "excludes_given_others": 3,
+     "rows_where_others_hold": 4,
+     "na_rows": 0
+    },
+    {
+     "comparison": [
+      "sess_range_atr",
+      "<=",
+      3.0
+     ],
+     "holds_alone": 89,
+     "excludes_alone": 743,
+     "excludes_given_others": 71,
+     "rows_where_others_hold": 72,
+     "na_rows": 0
+    }
+   ]
+  }
+ },
+ "no_op_comparisons": [
+  {
+   "rule": "r0_f4",
+   "comparison": [
+    "room_ahead_dist_atr",
+    ">",
+    0
+   ],
+   "rows_where_others_hold": 53
+  },
+  {
+   "rule": "r0_f6",
+   "comparison": [
+    "swing_ahead_dist_atr",
+    "<=",
+    1.0
+   ],
+   "rows_where_others_hold": 37
+  }
+ ],
+ "distributions": {
+  "atr14_pts": {
+   "p00": 7.807,
+   "p05": 11.598,
+   "p25": 17.785,
+   "p50": 22.647,
+   "p75": 28.337,
+   "p95": 37.683,
+   "p100": 90.105
+  },
+  "sess_range_atr": {
+   "p00": 0.915,
+   "p05": 2.252,
+   "p25": 4.391,
+   "p50": 6.132,
+   "p75": 7.954,
+   "p95": 10.767,
+   "p100": 16.726
+  },
+  "sess_range_pts": {
+   "p00": 26.951,
+   "p05": 48.012,
+   "p25": 91.437,
+   "p50": 128.05,
+   "p75": 179.301,
+   "p95": 281.537,
+   "p100": 668.2
+  },
+  "session_bar_ge_1h_and_no_bos_today": {
+   "rows": 72,
+   "sess_range_atr_min": 2.875,
+   "sess_range_atr_median": 5.917,
+   "rows_le_2p5": 0,
+   "rows_le_3p0": 1,
+   "rows_le_6p0": 37,
+   "rows_le_10p0": 71
+  },
+  "touch_swing_last": {
+   "broke": 448,
+   "pending": 201,
+   "held": 169,
+   "none": 8
+  },
+  "fz_read": {
+   "LEAVE": 466,
+   "PENDING": 194,
+   "NEW": 84,
+   "THIN": 48,
+   "RECYCLE": 11,
+   "FIRST_PRINT": 7,
+   "REJECT": 7,
+   "HUNT": 5,
+   "ACCEPTED": 4
+  },
+  "hv3_dir_agree": {
+   "None": 484,
+   "True": 234,
+   "False": 108
+  }
+ },
+ "union_fired_L1": 302,
+ "union_kept_L1": 524
+}

@@ -1,0 +1,4703 @@
+{
+ "study": "llm_hypotheses",
+ "aliases": [
+  "llm_round0"
+ ],
+ "design": "DESIGN_PANEL deep-sequence-llm-hypotheses (both judges' fixes): round 0 blind rules from the user's words + feature dictionary, hashed; round 1 = scoring on IS through the harness",
+ "round_scored": 0,
+ "rules_file": "studies/llm_hypotheses/rules_round0.json",
+ "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+ "registered_copy": "ledger/registered/rules_round0.a3c5c063.json",
+ "registration": {
+  "first": {
+   "kind": "pre_registration",
+   "what": "LLM hypotheses round 0 (blind)",
+   "file": "studies/llm_hypotheses/rules_round0.json",
+   "sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "rules": {
+    "minute": 8,
+    "5minute": 8
+   },
+   "registered_at": "2026-09-29T03:51:33",
+   "note": "hashed before any labelled table of the program existed; inputs_read=[\"research/strategy_lab/fz_v3/BRIEF.md (first paragraph: the user's words; H1-H5 text)\", \"research/strategy_lab/fz_v3/out/data/README.md (feature dictionary: columns, definitions, look-ahead status)\", \"research/strategy_lab/FZ.md sections 7, 8, 9 and 19 (what the card reads mean)\"]"
+  },
+  "correction": {
+   "kind": "correction",
+   "corrects": "pre_registration 'LLM hypotheses round 0 (blind)' registered 2026-09-29T03:51:33",
+   "corrects_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "file": "studies/llm_hypotheses/rules_round0.json",
+   "registered_at": "2026-09-29T05:09:16",
+   "false_claim": "hashed before any labelled table of the program existed",
+   "true_ordering": {
+    "labelled_tables_built": {
+     "data/5minute/features.parquet (fnd_*, l1_* labels)": "2026-09-29T02:49:45",
+     "data/minute/features.parquet": "2026-09-29T02:55:51"
+    },
+    "labelled_aggregates_written": {
+     "results/pre_registration.json (raw book, frozen ST7/ST8 statistics)": "2026-09-29T03:02:14",
+     "ledger/trials.jsonl rows family comparator/frozen_st7_st8": "2026-09-29T03:02:06 .. 03:02:13"
+    },
+    "rules_written_at": "2026-09-29T03:29:35+00:00",
+    "rules_file_mtime": "2026-09-29T03:29:35",
+    "first_registration": "2026-09-29T03:51:33",
+    "llm_ledger_rows_before_registration": 0
+   },
+   "statement": "Labelled tables existed from 02:49, about 40 minutes before the rules were hashed. The proposer states that none of them was opened (inputs_read = BRIEF.md first paragraph and H1-H5; data/README.md; FZ.md sections 7-9 and 19). Blindness is therefore a process claim resting on the proposer's self-report and on the empty ledger (0 llm rows before registration), not a verifiable data-ordering fact. Deviation from the judges' 'user's words + dictionary' rule: FZ.md section 19 was also read; it prints ST7/ST8 priced nets, control percentiles and permutation p over the 2026 lab tape (= the OOS window) and no Foundation outcome by read or hour, so no rule cell is visibly informed by it. The same wording goes into studies/llm_hypotheses/FINDINGS.md and REPORT.md.",
+   "unit_error": "sess_range_atr is in ATR14 units and ATR14 on 1-minute bars is ~9 pts, so 'session range <= 2.5 ATR an hour in' (r0_m8) and '<= 3.0 ATR' (r0_f8) are far below the observed range; the rules are untestable on IS (see support_<tf>.json). The hashed rules are not re-thresholded; a corrected proposal would be a new round with its own sha and the multiplicity carried forward.",
+   "note": "repair"
+  }
+ },
+ "blindness": "process claim: labelled tables existed from 02:49:45, the rules were hashed at 03:29:35; the proposer states none was opened; 0 llm ledger rows before registration",
+ "inputs_deviation": "FZ.md section 19 (ST7/ST8 comparator aggregates over the 2026 lab tape = the OOS window; no Foundation outcome by read or hour) was read beyond the judges' 'user's words + dictionary' rule",
+ "label": {
+  "primary": "L1 (15:25 intraday book)",
+  "robustness": "L0 (engine uncut trade)"
+ },
+ "split": "IS only (SETUP date <= 2025-12-31)",
+ "scored_at": "2026-09-29T05:09:16",
+ "holm": {
+  "m": 16,
+  "raw_p": [
+   0.9605,
+   0.9525,
+   0.9745,
+   0.5222,
+   0.8041,
+   0.5752,
+   0.8751,
+   1.0,
+   0.1689,
+   0.0625,
+   0.8481,
+   0.2229,
+   0.3963,
+   0.7616,
+   0.8146,
+   0.3633
+  ],
+  "holm_p": [
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ],
+  "min_holm_p": 1.0,
+  "rules": [
+   "minute:r0_m1",
+   "minute:r0_m2",
+   "minute:r0_m3",
+   "minute:r0_m4",
+   "minute:r0_m5",
+   "minute:r0_m6",
+   "minute:r0_m7",
+   "minute:r0_m8",
+   "5minute:r0_f1",
+   "5minute:r0_f2",
+   "5minute:r0_f3",
+   "5minute:r0_f4",
+   "5minute:r0_f5",
+   "5minute:r0_f6",
+   "5minute:r0_f7",
+   "5minute:r0_f8"
+  ]
+ },
+ "timeframes": {
+  "minute": {
+   "n_is_L1": 4452,
+   "n_is_L0": 4502,
+   "all_mean_L1": -1009.61,
+   "all_mean_L0": -921.83,
+   "rules": {
+    "r0_m1": {
+     "if": [
+      [
+       "n_choch_since_bos",
+       ">=",
+       2
+      ],
+      [
+       "range_since_choch_atr",
+       "<=",
+       2.0
+      ]
+     ],
+     "then": "skip",
+     "reason": "\"if CHoCH and CHoCH and no breaks then it's sideways; trades in sideways are hurting\"",
+     "expected": "skipped SETUPs have lower mean Foundation net than kept ones; most skipped are stop_loss / small next_choch exits; few winners of size lost",
+     "untestable": false,
+     "support_note": null,
+     "support": {
+      "fired_L0": 917,
+      "fired_L1": 903,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "n_choch_since_bos",
+         ">=",
+         2
+        ],
+        "holds_alone": 1544,
+        "excludes_alone": 2908,
+        "excludes_given_others": 1278,
+        "rows_where_others_hold": 2181,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "range_since_choch_atr",
+         "<=",
+         2.0
+        ],
+        "holds_alone": 2181,
+        "excludes_alone": 2271,
+        "excludes_given_others": 641,
+        "rows_where_others_hold": 1544,
+        "na_rows": 0
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "1c3b030ae6d8d040",
+      "n": 4452,
+      "kept_n": 3549,
+      "skipped_n": 903,
+      "kept_share": 0.7972,
+      "kept_mean": -1010.7,
+      "skipped_mean": -1005.33,
+      "diff": -5.37,
+      "diff_top1_removed": -34.13,
+      "perm_p": 0.9605,
+      "control_pct": 6.1,
+      "control_p_beat": 0.939,
+      "loser_recall": 0.2062,
+      "loser_precision": 0.8583,
+      "winner_recall": 0.8156,
+      "winner_recall_weighted": 0.8383,
+      "top_decile_winners_skipped": 0.1714,
+      "kept_mean_slip3": -750.72,
+      "kept_mean_slip8": -1400.66,
+      "sign_blocks": 5,
+      "kept_pf": 0.333,
+      "kept_t": -22.11,
+      "kept_sessions": 573
+     },
+     "L0": {
+      "ledger_id": "dec841f64dd443e3",
+      "n": 4502,
+      "kept_n": 3585,
+      "skipped_n": 917,
+      "kept_share": 0.7963,
+      "kept_mean": -938.36,
+      "skipped_mean": -857.22,
+      "diff": -81.14,
+      "diff_top1_removed": -134.21,
+      "perm_p": 0.6922,
+      "control_pct": 11.8,
+      "control_p_beat": 0.8816,
+      "loser_recall": 0.2064,
+      "loser_precision": 0.8593,
+      "winner_recall": 0.8114,
+      "winner_recall_weighted": 0.8169,
+      "top_decile_winners_skipped": 0.1449,
+      "kept_mean_slip3": -678.38,
+      "kept_mean_slip8": -1328.32,
+      "sign_blocks": 6,
+      "kept_pf": 0.447,
+      "kept_t": -11.17,
+      "kept_sessions": 574
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": -0.061,
+     "maxt_adjusted_p": 1.0,
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -155.81,
+       136.38
+      ],
+      "kept_mean_ci": [
+       -1070.52,
+       -943.95
+      ],
+      "diff_p_le0": 0.502,
+      "diff_point": -5.37
+     },
+     "dsr": {
+      "sr": -0.0031,
+      "sr0": 0.0701,
+      "dsr": 0.0407,
+      "p": 0.9593,
+      "T": 573,
+      "n_trials": 16,
+      "skew": 3.337,
+      "kurt": 15.537
+     },
+     "blocks": {
+      "b00": -671.01,
+      "b01": -42.34,
+      "b02": 303.15,
+      "b03": 76.92,
+      "b04": -57.22,
+      "b05": -10.05,
+      "b06": 213.6,
+      "b07": -41.98,
+      "b08": 83.84,
+      "b09": 311.43,
+      "b10": -71.86,
+      "b11": -255.33,
+      "half_0_5": -69.76,
+      "half_6_11": 56.08,
+      "blocks_defined": 12,
+      "blocks_positive": 5,
+      "block_diff_p5": -442.39,
+      "block_diff_min": -671.01
+     },
+     "expected_direction_met": false,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "kept_share>=20%": [
+        true,
+        0.7972
+       ],
+       "kept_n>=300": [
+        true,
+        3549
+       ],
+       "diff>0": [
+        false,
+        -5.37
+       ],
+       "diff_top1_removed>0": [
+        false,
+        -34.13
+       ],
+       "kept_mean_slip8>0": [
+        false,
+        -1400.66
+       ],
+       "sign_blocks>=8/12": [
+        false,
+        5
+       ],
+       "control_pct>=95": [
+        false,
+        6.1
+       ],
+       "pbo<=0.2": [
+        false,
+        0.9758
+       ],
+       "dsr_p<0.1": [
+        false,
+        0.9593
+       ],
+       "spa_p<=0.10": [
+        false,
+        0.9895
+       ],
+       "boot_ci_excludes_0": [
+        false,
+        [
+         -155.81,
+         136.38
+        ]
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    },
+    "r0_m2": {
+     "if": [
+      [
+       "choch_run",
+       ">=",
+       3
+      ],
+      [
+       "n_bos_1h",
+       "==",
+       0
+      ]
+     ],
+     "then": "skip",
+     "reason": "\"CHoCH and CHoCH and no breaks\" - three flips in a row and nothing broke in the last hour",
+     "expected": "skipped set is concentrated in losers (fast reversals, next_choch exits); kept-vs-skipped expectancy difference positive",
+     "untestable": false,
+     "support_note": null,
+     "support": {
+      "fired_L0": 44,
+      "fired_L1": 43,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "choch_run",
+         ">=",
+         3
+        ],
+        "holds_alone": 721,
+        "excludes_alone": 3731,
+        "excludes_given_others": 7,
+        "rows_where_others_hold": 50,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "n_bos_1h",
+         "==",
+         0
+        ],
+        "holds_alone": 50,
+        "excludes_alone": 4402,
+        "excludes_given_others": 678,
+        "rows_where_others_hold": 721,
+        "na_rows": 0
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "6bc2dafc5db55758",
+      "n": 4452,
+      "kept_n": 4409,
+      "skipped_n": 43,
+      "kept_share": 0.9903,
+      "kept_mean": -1009.37,
+      "skipped_mean": -1033.5,
+      "diff": 24.12,
+      "diff_top1_removed": 197.55,
+      "perm_p": 0.9525,
+      "control_pct": 48.9,
+      "control_p_beat": 0.5112,
+      "loser_recall": 0.0104,
+      "loser_precision": 0.907,
+      "winner_recall": 0.9942,
+      "winner_recall_weighted": 0.9906,
+      "top_decile_winners_skipped": 0.0143,
+      "kept_mean_slip3": -749.4,
+      "kept_mean_slip8": -1399.34,
+      "sign_blocks": 7,
+      "kept_pf": 0.323,
+      "kept_t": -25.46,
+      "kept_sessions": 578
+     },
+     "L0": {
+      "ledger_id": "05824834a08e5275",
+      "n": 4502,
+      "kept_n": 4458,
+      "skipped_n": 44,
+      "kept_share": 0.9902,
+      "kept_mean": -919.58,
+      "skipped_mean": -1150.35,
+      "diff": 230.77,
+      "diff_top1_removed": -153.77,
+      "perm_p": 0.7121,
+      "control_pct": 45.6,
+      "control_p_beat": 0.5442,
+      "loser_recall": 0.0102,
+      "loser_precision": 0.8864,
+      "winner_recall": 0.9927,
+      "winner_recall_weighted": 0.9951,
+      "top_decile_winners_skipped": 0.0,
+      "kept_mean_slip3": -659.6,
+      "kept_mean_slip8": -1309.54,
+      "sign_blocks": 6,
+      "kept_pf": 0.447,
+      "kept_t": -11.56,
+      "kept_sessions": 579
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": 0.061,
+     "maxt_adjusted_p": 1.0,
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -779.41,
+       553.44
+      ],
+      "kept_mean_ci": [
+       -1064.15,
+       -953.33
+      ],
+      "diff_p_le0": 0.4675,
+      "diff_point": 24.12
+     },
+     "dsr": {
+      "sr": 0.022,
+      "sr0": 0.0701,
+      "dsr": 0.115,
+      "p": 0.885,
+      "T": 578,
+      "n_trials": 16,
+      "skew": 3.484,
+      "kurt": 16.678
+     },
+     "blocks": {
+      "b00": -2540.98,
+      "b01": -1128.85,
+      "b02": 481.96,
+      "b03": 558.44,
+      "b04": 122.08,
+      "b05": 312.25,
+      "b06": 1159.48,
+      "b07": 1250.68,
+      "b08": null,
+      "b09": -2212.3,
+      "b10": null,
+      "b11": 640.58,
+      "half_0_5": -40.79,
+      "half_6_11": 263.92,
+      "blocks_defined": 10,
+      "blocks_positive": 7,
+      "block_diff_p5": -2393.07,
+      "block_diff_min": -2540.98
+     },
+     "expected_direction_met": true,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "kept_share>=20%": [
+        true,
+        0.9903
+       ],
+       "kept_n>=300": [
+        true,
+        4409
+       ],
+       "diff>0": [
+        true,
+        24.12
+       ],
+       "diff_top1_removed>0": [
+        true,
+        197.55
+       ],
+       "kept_mean_slip8>0": [
+        false,
+        -1399.34
+       ],
+       "sign_blocks>=8/12": [
+        false,
+        7
+       ],
+       "control_pct>=95": [
+        false,
+        48.9
+       ],
+       "pbo<=0.2": [
+        false,
+        0.9758
+       ],
+       "dsr_p<0.1": [
+        false,
+        0.885
+       ],
+       "spa_p<=0.10": [
+        false,
+        0.9895
+       ],
+       "boot_ci_excludes_0": [
+        false,
+        [
+         -779.41,
+         553.44
+        ]
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    },
+    "r0_m3": {
+     "if": [
+      [
+       "alt_dir6",
+       ">=",
+       4
+      ],
+      [
+       "er_1h",
+       "<=",
+       0.3
+      ]
+     ],
+     "then": "skip",
+     "reason": "sideways: the last events keep changing direction and the last hour's closes went nowhere (\"trades in sideways are hurting\")",
+     "expected": "skipped SETUPs net negative on average; winners skipped are small (no room to run when the hour is inefficient)",
+     "untestable": false,
+     "support_note": null,
+     "support": {
+      "fired_L0": 930,
+      "fired_L1": 920,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "alt_dir6",
+         ">=",
+         4
+        ],
+        "holds_alone": 971,
+        "excludes_alone": 3481,
+        "excludes_given_others": 3180,
+        "rows_where_others_hold": 4100,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "er_1h",
+         "<=",
+         0.3
+        ],
+        "holds_alone": 4100,
+        "excludes_alone": 352,
+        "excludes_given_others": 51,
+        "rows_where_others_hold": 971,
+        "na_rows": 136
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "6a0004c624ff8136",
+      "n": 4452,
+      "kept_n": 3532,
+      "skipped_n": 920,
+      "kept_share": 0.7934,
+      "kept_mean": -1010.2,
+      "skipped_mean": -1007.35,
+      "diff": -2.85,
+      "diff_top1_removed": -119.04,
+      "perm_p": 0.9745,
+      "control_pct": 0.0,
+      "control_p_beat": 1.0,
+      "loser_recall": 0.2076,
+      "loser_precision": 0.8478,
+      "winner_recall": 0.7983,
+      "winner_recall_weighted": 0.8359,
+      "top_decile_winners_skipped": 0.1286,
+      "kept_mean_slip3": -750.22,
+      "kept_mean_slip8": -1400.16,
+      "sign_blocks": 5,
+      "kept_pf": 0.334,
+      "kept_t": -21.74,
+      "kept_sessions": 575
+     },
+     "L0": {
+      "ledger_id": "3fda8b26fc5f8a59",
+      "n": 4502,
+      "kept_n": 3572,
+      "skipped_n": 930,
+      "kept_share": 0.7934,
+      "kept_mean": -930.41,
+      "skipped_mean": -888.87,
+      "diff": -41.55,
+      "diff_top1_removed": -113.12,
+      "perm_p": 0.8326,
+      "control_pct": 0.3,
+      "control_p_beat": 0.997,
+      "loser_recall": 0.2072,
+      "loser_precision": 0.8505,
+      "winner_recall": 0.7968,
+      "winner_recall_weighted": 0.8146,
+      "top_decile_winners_skipped": 0.1449,
+      "kept_mean_slip3": -670.44,
+      "kept_mean_slip8": -1320.38,
+      "sign_blocks": 5,
+      "kept_pf": 0.45,
+      "kept_t": -10.3,
+      "kept_sessions": 576
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": -0.035,
+     "maxt_adjusted_p": 1.0,
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -152.52,
+       141.38
+      ],
+      "kept_mean_ci": [
+       -1075.26,
+       -939.45
+      ],
+      "diff_p_le0": 0.5335,
+      "diff_point": -2.85
+     },
+     "dsr": {
+      "sr": -0.0048,
+      "sr0": 0.0701,
+      "dsr": 0.0375,
+      "p": 0.9625,
+      "T": 575,
+      "n_trials": 16,
+      "skew": 3.461,
+      "kurt": 16.672
+     },
+     "blocks": {
+      "b00": 6.06,
+      "b01": -88.69,
+      "b02": -400.69,
+      "b03": -143.9,
+      "b04": 116.2,
+      "b05": 20.6,
+      "b06": 670.53,
+      "b07": 349.95,
+      "b08": -568.96,
+      "b09": -32.16,
+      "b10": -2.0,
+      "b11": -176.37,
+      "half_0_5": -77.34,
+      "half_6_11": 85.15,
+      "blocks_defined": 12,
+      "blocks_positive": 5,
+      "block_diff_p5": -476.41,
+      "block_diff_min": -568.96
+     },
+     "expected_direction_met": false,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "kept_share>=20%": [
+        true,
+        0.7934
+       ],
+       "kept_n>=300": [
+        true,
+        3532
+       ],
+       "diff>0": [
+        false,
+        -2.85
+       ],
+       "diff_top1_removed>0": [
+        false,
+        -119.04
+       ],
+       "kept_mean_slip8>0": [
+        false,
+        -1400.16
+       ],
+       "sign_blocks>=8/12": [
+        false,
+        5
+       ],
+       "control_pct>=95": [
+        false,
+        0.0
+       ],
+       "pbo<=0.2": [
+        false,
+        0.9758
+       ],
+       "dsr_p<0.1": [
+        false,
+        0.9625
+       ],
+       "spa_p<=0.10": [
+        false,
+        0.9895
+       ],
+       "boot_ci_excludes_0": [
+        false,
+        [
+         -152.52,
+         141.38
+        ]
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    },
+    "r0_m4": {
+     "if": [
+      [
+       "fz_read",
+       "in",
+       [
+        "RECYCLE",
+        "THIN"
+       ]
+      ],
+      [
+       "room_ahead_dist_atr",
+       ">",
+       0
+      ],
+      [
+       "room_ahead_dist_atr",
+       "<=",
+       1.0
+      ]
+     ],
+     "then": "skip",
+     "reason": "\"else price retests, retests and respects\" - a SETUP inside a room, on a revisit that is not accepted, pointing at the room edge less than one ATR away",
+     "expected": "skipped trades mostly die inside the room (stop or next CHoCH before the edge breaks); large winners rarely start from a THIN / RECYCLE read at the edge",
+     "untestable": false,
+     "support_note": null,
+     "support": {
+      "fired_L0": 349,
+      "fired_L1": 347,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "fz_read",
+         "in",
+         [
+          "RECYCLE",
+          "THIN"
+         ]
+        ],
+        "holds_alone": 631,
+        "excludes_alone": 3821,
+        "excludes_given_others": 1538,
+        "rows_where_others_hold": 1885,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "room_ahead_dist_atr",
+         ">",
+         0
+        ],
+        "holds_alone": 4072,
+        "excludes_alone": 380,
+        "excludes_given_others": 0,
+        "rows_where_others_hold": 347,
+        "na_rows": 380
+       },
+       {
+        "comparison": [
+         "room_ahead_dist_atr",
+         "<=",
+         1.0
+        ],
+        "holds_alone": 1885,
+        "excludes_alone": 2567,
+        "excludes_given_others": 284,
+        "rows_where_others_hold": 631,
+        "na_rows": 380
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "44c18f849dbe54a5",
+      "n": 4452,
+      "kept_n": 4105,
+      "skipped_n": 347,
+      "kept_share": 0.9221,
+      "kept_mean": -1017.05,
+      "skipped_mean": -921.5,
+      "diff": -95.55,
+      "diff_top1_removed": 15.58,
+      "perm_p": 0.5222,
+      "control_pct": 28.9,
+      "control_p_beat": 0.7106,
+      "loser_recall": 0.0812,
+      "loser_precision": 0.879,
+      "winner_recall": 0.9395,
+      "winner_recall_weighted": 0.9136,
+      "top_decile_winners_skipped": 0.1143,
+      "kept_mean_slip3": -757.08,
+      "kept_mean_slip8": -1407.02,
+      "sign_blocks": 7,
+      "kept_pf": 0.319,
+      "kept_t": -24.86,
+      "kept_sessions": 574
+     },
+     "L0": {
+      "ledger_id": "e78966ef73fa428b",
+      "n": 4502,
+      "kept_n": 4153,
+      "skipped_n": 349,
+      "kept_share": 0.9225,
+      "kept_mean": -928.59,
+      "skipped_mean": -841.47,
+      "diff": -87.12,
+      "diff_top1_removed": -198.97,
+      "perm_p": 0.7836,
+      "control_pct": 53.9,
+      "control_p_beat": 0.4618,
+      "loser_recall": 0.0804,
+      "loser_precision": 0.8797,
+      "winner_recall": 0.9386,
+      "winner_recall_weighted": 0.9237,
+      "top_decile_winners_skipped": 0.1159,
+      "kept_mean_slip3": -668.61,
+      "kept_mean_slip8": -1318.55,
+      "sign_blocks": 6,
+      "kept_pf": 0.444,
+      "kept_t": -11.4,
+      "kept_sessions": 575
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": -0.622,
+     "maxt_adjusted_p": 0.991,
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -347.42,
+       159.95
+      ],
+      "kept_mean_ci": [
+       -1068.76,
+       -958.02
+      ],
+      "diff_p_le0": 0.721,
+      "diff_point": -95.55
+     },
+     "dsr": {
+      "sr": 0.0013,
+      "sr0": 0.0701,
+      "dsr": 0.0493,
+      "p": 0.9507,
+      "T": 574,
+      "n_trials": 16,
+      "skew": 3.561,
+      "kurt": 17.634
+     },
+     "blocks": {
+      "b00": -240.0,
+      "b01": -345.72,
+      "b02": 193.82,
+      "b03": 17.94,
+      "b04": 217.21,
+      "b05": 4.01,
+      "b06": -967.54,
+      "b07": -238.35,
+      "b08": 685.59,
+      "b09": 431.31,
+      "b10": 343.07,
+      "b11": -288.56,
+      "half_0_5": -9.51,
+      "half_6_11": -194.95,
+      "blocks_defined": 12,
+      "blocks_positive": 7,
+      "block_diff_p5": -625.54,
+      "block_diff_min": -967.54
+     },
+     "expected_direction_met": false,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "kept_share>=20%": [
+        true,
+        0.9221
+       ],
+       "kept_n>=300": [
+        true,
+        4105
+       ],
+       "diff>0": [
+        false,
+        -95.55
+       ],
+       "diff_top1_removed>0": [
+        true,
+        15.58
+       ],
+       "kept_mean_slip8>0": [
+        false,
+        -1407.02
+       ],
+       "sign_blocks>=8/12": [
+        false,
+        7
+       ],
+       "control_pct>=95": [
+        false,
+        28.9
+       ],
+       "pbo<=0.2": [
+        false,
+        0.9758
+       ],
+       "dsr_p<0.1": [
+        false,
+        0.9507
+       ],
+       "spa_p<=0.10": [
+        false,
+        0.9895
+       ],
+       "boot_ci_excludes_0": [
+        false,
+        [
+         -347.42,
+         159.95
+        ]
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    },
+    "r0_m5": {
+     "if": [
+      [
+       "hv3_dir_agree",
+       "==",
+       false
+      ],
+      [
+       "hv3_bars_since",
+       "<=",
+       60
+      ]
+     ],
+     "then": "skip",
+     "reason": "\"check how price reacts in visibly high volume ... if it breaks there will be a large move\" - a SETUP against the last visibly-high-volume bar fades that move",
+     "expected": "skipped SETUPs (fading the high-volume bar within the hour) lose more often than kept ones; kept SETUPs in agreement keep the large moves",
+     "untestable": false,
+     "support_note": null,
+     "support": {
+      "fired_L0": 1462,
+      "fired_L1": 1437,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "hv3_dir_agree",
+         "==",
+         false
+        ],
+        "holds_alone": 1511,
+        "excludes_alone": 2941,
+        "excludes_given_others": 2181,
+        "rows_where_others_hold": 3618,
+        "na_rows": 689
+       },
+       {
+        "comparison": [
+         "hv3_bars_since",
+         "<=",
+         60
+        ],
+        "holds_alone": 3618,
+        "excludes_alone": 834,
+        "excludes_given_others": 74,
+        "rows_where_others_hold": 1511,
+        "na_rows": 689
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "b9e8b3ca7cfe53b0",
+      "n": 4452,
+      "kept_n": 3015,
+      "skipped_n": 1437,
+      "kept_share": 0.6772,
+      "kept_mean": -1002.85,
+      "skipped_mean": -1023.78,
+      "diff": 20.92,
+      "diff_top1_removed": -76.24,
+      "perm_p": 0.8041,
+      "control_pct": 0.0,
+      "control_p_beat": 1.0,
+      "loser_recall": 0.3238,
+      "loser_precision": 0.8469,
+      "winner_recall": 0.683,
+      "winner_recall_weighted": 0.7442,
+      "top_decile_winners_skipped": 0.2,
+      "kept_mean_slip3": -742.88,
+      "kept_mean_slip8": -1392.82,
+      "sign_blocks": 5,
+      "kept_pf": 0.345,
+      "kept_t": -19.36,
+      "kept_sessions": 573
+     },
+     "L0": {
+      "ledger_id": "68a4032e95920ab3",
+      "n": 4502,
+      "kept_n": 3040,
+      "skipped_n": 1462,
+      "kept_share": 0.6753,
+      "kept_mean": -843.25,
+      "skipped_mean": -1085.24,
+      "diff": 241.99,
+      "diff_top1_removed": -31.29,
+      "perm_p": 0.1549,
+      "control_pct": 38.9,
+      "control_p_beat": 0.6117,
+      "loser_recall": 0.3263,
+      "loser_precision": 0.8523,
+      "winner_recall": 0.6842,
+      "winner_recall_weighted": 0.7724,
+      "top_decile_winners_skipped": 0.2319,
+      "kept_mean_slip3": -583.27,
+      "kept_mean_slip8": -1233.21,
+      "sign_blocks": 9,
+      "kept_pf": 0.501,
+      "kept_t": -7.76,
+      "kept_sessions": 574
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": 0.275,
+     "maxt_adjusted_p": 1.0,
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -94.44,
+       135.64
+      ],
+      "kept_mean_ci": [
+       -1070.77,
+       -929.73
+      ],
+      "diff_p_le0": 0.38,
+      "diff_point": 20.92
+     },
+     "dsr": {
+      "sr": -0.0178,
+      "sr0": 0.0701,
+      "dsr": 0.0207,
+      "p": 0.9793,
+      "T": 573,
+      "n_trials": 16,
+      "skew": 3.373,
+      "kurt": 15.93
+     },
+     "blocks": {
+      "b00": -163.01,
+      "b01": 523.16,
+      "b02": -211.17,
+      "b03": -56.41,
+      "b04": 145.88,
+      "b05": -8.83,
+      "b06": 307.29,
+      "b07": 280.33,
+      "b08": -512.71,
+      "b09": -11.6,
+      "b10": 25.11,
+      "b11": -214.54,
+      "half_0_5": 27.24,
+      "half_6_11": 5.93,
+      "blocks_defined": 12,
+      "blocks_positive": 5,
+      "block_diff_p5": -348.72,
+      "block_diff_min": -512.71
+     },
+     "expected_direction_met": true,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "kept_share>=20%": [
+        true,
+        0.6772
+       ],
+       "kept_n>=300": [
+        true,
+        3015
+       ],
+       "diff>0": [
+        true,
+        20.92
+       ],
+       "diff_top1_removed>0": [
+        false,
+        -76.24
+       ],
+       "kept_mean_slip8>0": [
+        false,
+        -1392.82
+       ],
+       "sign_blocks>=8/12": [
+        false,
+        5
+       ],
+       "control_pct>=95": [
+        false,
+        0.0
+       ],
+       "pbo<=0.2": [
+        false,
+        0.9758
+       ],
+       "dsr_p<0.1": [
+        false,
+        0.9793
+       ],
+       "spa_p<=0.10": [
+        false,
+        0.9895
+       ],
+       "boot_ci_excludes_0": [
+        false,
+        [
+         -94.44,
+         135.64
+        ]
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    },
+    "r0_m6": {
+     "if": [
+      [
+       "touch_swing_last",
+       "==",
+       "held"
+      ],
+      [
+       "swing_ahead_dist_atr",
+       ">",
+       0
+      ],
+      [
+       "swing_ahead_dist_atr",
+       "<=",
+       1.0
+      ]
+     ],
+     "then": "skip",
+     "reason": "\"Those levels will be respected ... price retests, retests and respects\" - the swing ahead was just tested and held",
+     "expected": "skipped SETUPs run into the held level and reverse (stop or next_choch); the winners lost are few because a level that just held rarely gives way on the very next approach",
+     "untestable": true,
+     "support_note": "no IS support: skipped_n = 1 on the L1 table (1 of 4502 IS SETUPs); no diff, control percentile or permutation p can be computed",
+     "support": {
+      "fired_L0": 1,
+      "fired_L1": 1,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "touch_swing_last",
+         "==",
+         "held"
+        ],
+        "holds_alone": 5,
+        "excludes_alone": 4447,
+        "excludes_given_others": 306,
+        "rows_where_others_hold": 307,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "swing_ahead_dist_atr",
+         ">",
+         0
+        ],
+        "holds_alone": 311,
+        "excludes_alone": 4141,
+        "excludes_given_others": 4,
+        "rows_where_others_hold": 5,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "swing_ahead_dist_atr",
+         "<=",
+         1.0
+        ],
+        "holds_alone": 4448,
+        "excludes_alone": 4,
+        "excludes_given_others": 0,
+        "rows_where_others_hold": 1,
+        "na_rows": 0
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "7e2e3b02928d00c0",
+      "n": 4452,
+      "kept_n": 4451,
+      "skipped_n": 1,
+      "kept_share": 0.9998,
+      "kept_mean": -1009.44,
+      "skipped_mean": -1734.9,
+      "diff": 725.46,
+      "diff_top1_removed": 548.29,
+      "perm_p": 0.5752,
+      "control_pct": 65.5,
+      "control_p_beat": 0.3458,
+      "loser_recall": 0.0003,
+      "loser_precision": 1.0,
+      "winner_recall": 1.0,
+      "winner_recall_weighted": 1.0,
+      "top_decile_winners_skipped": 0.0,
+      "kept_mean_slip3": -749.47,
+      "kept_mean_slip8": -1399.41,
+      "sign_blocks": 1,
+      "kept_pf": 0.323,
+      "kept_t": -25.59,
+      "kept_sessions": 578
+     },
+     "L0": {
+      "ledger_id": "42d0adb096afecba",
+      "n": 4502,
+      "kept_n": 4501,
+      "skipped_n": 1,
+      "kept_share": 0.9998,
+      "kept_mean": -921.65,
+      "skipped_mean": -1734.9,
+      "diff": 813.25,
+      "diff_top1_removed": 432.4,
+      "perm_p": 0.5867,
+      "control_pct": 83.0,
+      "control_p_beat": 0.1704,
+      "loser_recall": 0.0003,
+      "loser_precision": 1.0,
+      "winner_recall": 1.0,
+      "winner_recall_weighted": 1.0,
+      "top_decile_winners_skipped": 0.0,
+      "kept_mean_slip3": -661.67,
+      "kept_mean_slip8": -1311.62,
+      "sign_blocks": 1,
+      "kept_pf": 0.446,
+      "kept_t": -11.69,
+      "kept_sessions": 579
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": null,
+     "maxt_adjusted_p": 1.0,
+     "boot": null,
+     "dsr": {
+      "sr": 0.0254,
+      "sr0": 0.0701,
+      "dsr": 0.1306,
+      "p": 0.8694,
+      "T": 578,
+      "n_trials": 16,
+      "skew": 3.477,
+      "kurt": 16.621
+     },
+     "blocks": {
+      "b00": null,
+      "b01": null,
+      "b02": null,
+      "b03": null,
+      "b04": null,
+      "b05": null,
+      "b06": 781.39,
+      "b07": null,
+      "b08": null,
+      "b09": null,
+      "b10": null,
+      "b11": null,
+      "half_0_5": null,
+      "half_6_11": 664.63,
+      "blocks_defined": 1,
+      "blocks_positive": 1,
+      "block_diff_p5": 781.39,
+      "block_diff_min": 781.39
+     },
+     "expected_direction_met": null,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "untestable": [
+        false,
+        "no IS support"
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    },
+    "r0_m7": {
+     "if": [
+      [
+       "hour",
+       "in",
+       [
+        12,
+        13
+       ]
+      ],
+      [
+       "n_choch_since_bos_today",
+       ">=",
+       2
+      ]
+     ],
+     "then": "skip",
+     "reason": "\"it's different for different time\" - the midday hours combined with today's own CHoCH-without-break count",
+     "expected": "the midday sideways SETUPs are net negative; kept midday SETUPs (after a BOS) keep the trend continuations",
+     "untestable": false,
+     "support_note": null,
+     "support": {
+      "fired_L0": 571,
+      "fired_L1": 571,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "hour",
+         "in",
+         [
+          12,
+          13
+         ]
+        ],
+        "holds_alone": 1504,
+        "excludes_alone": 2948,
+        "excludes_given_others": 930,
+        "rows_where_others_hold": 1501,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "n_choch_since_bos_today",
+         ">=",
+         2
+        ],
+        "holds_alone": 1501,
+        "excludes_alone": 2951,
+        "excludes_given_others": 933,
+        "rows_where_others_hold": 1504,
+        "na_rows": 0
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "eb1806faee8fe097",
+      "n": 4452,
+      "kept_n": 3881,
+      "skipped_n": 571,
+      "kept_share": 0.8717,
+      "kept_mean": -1007.19,
+      "skipped_mean": -1026.07,
+      "diff": 18.89,
+      "diff_top1_removed": -99.27,
+      "perm_p": 0.8751,
+      "control_pct": 0.9,
+      "control_p_beat": 0.991,
+      "loser_recall": 0.1315,
+      "loser_precision": 0.8651,
+      "winner_recall": 0.889,
+      "winner_recall_weighted": 0.9069,
+      "top_decile_winners_skipped": 0.0714,
+      "kept_mean_slip3": -747.21,
+      "kept_mean_slip8": -1397.15,
+      "sign_blocks": 7,
+      "kept_pf": 0.332,
+      "kept_t": -23.09,
+      "kept_sessions": 577
+     },
+     "L0": {
+      "ledger_id": "b630df8a87a0cd38",
+      "n": 4502,
+      "kept_n": 3931,
+      "skipped_n": 571,
+      "kept_share": 0.8732,
+      "kept_mean": -927.15,
+      "skipped_mean": -885.25,
+      "diff": -41.9,
+      "diff_top1_removed": -125.63,
+      "perm_p": 0.8796,
+      "control_pct": 28.9,
+      "control_p_beat": 0.7106,
+      "loser_recall": 0.1312,
+      "loser_precision": 0.8774,
+      "winner_recall": 0.8977,
+      "winner_recall_weighted": 0.9093,
+      "top_decile_winners_skipped": 0.087,
+      "kept_mean_slip3": -667.17,
+      "kept_mean_slip8": -1317.11,
+      "sign_blocks": 8,
+      "kept_pf": 0.454,
+      "kept_t": -10.84,
+      "kept_sessions": 578
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": 0.204,
+     "maxt_adjusted_p": 1.0,
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -137.45,
+       173.24
+      ],
+      "kept_mean_ci": [
+       -1065.27,
+       -947.85
+      ],
+      "diff_p_le0": 0.4185,
+      "diff_point": 18.89
+     },
+     "dsr": {
+      "sr": 0.0145,
+      "sr0": 0.0701,
+      "dsr": 0.0856,
+      "p": 0.9144,
+      "T": 577,
+      "n_trials": 16,
+      "skew": 3.319,
+      "kurt": 15.964
+     },
+     "blocks": {
+      "b00": 125.62,
+      "b01": -643.54,
+      "b02": 35.64,
+      "b03": 145.98,
+      "b04": -186.78,
+      "b05": -112.58,
+      "b06": 228.3,
+      "b07": 536.47,
+      "b08": -915.37,
+      "b09": 450.77,
+      "b10": -642.15,
+      "b11": 163.42,
+      "half_0_5": -87.59,
+      "half_6_11": 144.52,
+      "blocks_defined": 12,
+      "blocks_positive": 7,
+      "block_diff_p5": -765.86,
+      "block_diff_min": -915.37
+     },
+     "expected_direction_met": true,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "kept_share>=20%": [
+        true,
+        0.8717
+       ],
+       "kept_n>=300": [
+        true,
+        3881
+       ],
+       "diff>0": [
+        true,
+        18.89
+       ],
+       "diff_top1_removed>0": [
+        false,
+        -99.27
+       ],
+       "kept_mean_slip8>0": [
+        false,
+        -1397.15
+       ],
+       "sign_blocks>=8/12": [
+        false,
+        7
+       ],
+       "control_pct>=95": [
+        false,
+        0.9
+       ],
+       "pbo<=0.2": [
+        false,
+        0.9758
+       ],
+       "dsr_p<0.1": [
+        false,
+        0.9144
+       ],
+       "spa_p<=0.10": [
+        false,
+        0.9895
+       ],
+       "boot_ci_excludes_0": [
+        false,
+        [
+         -137.45,
+         173.24
+        ]
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    },
+    "r0_m8": {
+     "if": [
+      [
+       "session_bar",
+       ">=",
+       60
+      ],
+      [
+       "n_bos_today",
+       "==",
+       0
+      ],
+      [
+       "sess_range_atr",
+       "<=",
+       2.5
+      ]
+     ],
+     "then": "skip",
+     "reason": "sideways day: an hour into the session nothing has broken and the day range is narrow (\"if ... no breaks then it's sideways\")",
+     "expected": "skipped SETUPs come from narrow, break-less sessions and average a loss; kept SETUPs from days that have broken keep the runners",
+     "untestable": true,
+     "support_note": "no IS support: skipped_n = 0 on the L1 table (0 of 4502 IS SETUPs); no diff, control percentile or permutation p can be computed",
+     "support": {
+      "fired_L0": 0,
+      "fired_L1": 0,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "session_bar",
+         ">=",
+         60
+        ],
+        "holds_alone": 3739,
+        "excludes_alone": 713,
+        "excludes_given_others": 29,
+        "rows_where_others_hold": 29,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "n_bos_today",
+         "==",
+         0
+        ],
+        "holds_alone": 235,
+        "excludes_alone": 4217,
+        "excludes_given_others": 0,
+        "rows_where_others_hold": 0,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "sess_range_atr",
+         "<=",
+         2.5
+        ],
+        "holds_alone": 34,
+        "excludes_alone": 4418,
+        "excludes_given_others": 1,
+        "rows_where_others_hold": 1,
+        "na_rows": 0
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "5645244e4b0400db",
+      "n": 4452,
+      "kept_n": 4452,
+      "skipped_n": 0,
+      "kept_share": 1.0,
+      "kept_mean": -1009.61,
+      "skipped_mean": null,
+      "diff": null,
+      "diff_top1_removed": null,
+      "perm_p": null,
+      "control_pct": null,
+      "control_p_beat": null,
+      "loser_recall": null,
+      "loser_precision": null,
+      "winner_recall": null,
+      "winner_recall_weighted": null,
+      "top_decile_winners_skipped": null,
+      "kept_mean_slip3": null,
+      "kept_mean_slip8": null,
+      "sign_blocks": null,
+      "kept_pf": 0.323,
+      "kept_t": -25.6,
+      "kept_sessions": 578
+     },
+     "L0": {
+      "ledger_id": "6c533258e369a03d",
+      "n": 4502,
+      "kept_n": 4502,
+      "skipped_n": 0,
+      "kept_share": 1.0,
+      "kept_mean": -921.83,
+      "skipped_mean": null,
+      "diff": null,
+      "diff_top1_removed": null,
+      "perm_p": null,
+      "control_pct": null,
+      "control_p_beat": null,
+      "loser_recall": null,
+      "loser_precision": null,
+      "winner_recall": null,
+      "winner_recall_weighted": null,
+      "top_decile_winners_skipped": null,
+      "kept_mean_slip3": null,
+      "kept_mean_slip8": null,
+      "sign_blocks": null,
+      "kept_pf": 0.445,
+      "kept_t": -11.69,
+      "kept_sessions": 579
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": null,
+     "maxt_adjusted_p": 1.0,
+     "boot": null,
+     "dsr": {
+      "sr": 0.0253,
+      "sr0": 0.0701,
+      "dsr": 0.1303,
+      "p": 0.8697,
+      "T": 578,
+      "n_trials": 16,
+      "skew": 3.477,
+      "kurt": 16.62
+     },
+     "blocks": {
+      "b00": null,
+      "b01": null,
+      "b02": null,
+      "b03": null,
+      "b04": null,
+      "b05": null,
+      "b06": null,
+      "b07": null,
+      "b08": null,
+      "b09": null,
+      "b10": null,
+      "b11": null,
+      "half_0_5": null,
+      "half_6_11": null,
+      "blocks_defined": 0,
+      "blocks_positive": 0,
+      "block_diff_p5": null,
+      "block_diff_min": null
+     },
+     "expected_direction_met": null,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "untestable": [
+        false,
+        "no IS support"
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    }
+   },
+   "union": {
+    "members": [
+     "r0_m1",
+     "r0_m2",
+     "r0_m3",
+     "r0_m4",
+     "r0_m5",
+     "r0_m6",
+     "r0_m7",
+     "r0_m8"
+    ],
+    "L1": {
+     "ledger_id": "a1f9f583ccf77908",
+     "n": 4452,
+     "kept_n": 1845,
+     "skipped_n": 2607,
+     "kept_share": 0.4144,
+     "kept_mean": -985.46,
+     "skipped_mean": -1026.7,
+     "diff": 41.24,
+     "diff_top1_removed": -72.86,
+     "perm_p": 0.6032,
+     "control_pct": 0.0,
+     "control_p_beat": 1.0,
+     "loser_recall": 0.5918,
+     "loser_precision": 0.8531,
+     "winner_recall": 0.4481,
+     "winner_recall_weighted": 0.5164,
+     "top_decile_winners_skipped": 0.4286,
+     "kept_mean_slip3": -725.48,
+     "kept_mean_slip8": -1375.43,
+     "sign_blocks": 6,
+     "kept_pf": 0.378,
+     "kept_t": -13.55,
+     "kept_sessions": 553
+    },
+    "L0": {
+     "ledger_id": "437238064aa78594",
+     "n": 4502,
+     "kept_n": 1860,
+     "skipped_n": 2642,
+     "kept_share": 0.4131,
+     "kept_mean": -858.28,
+     "skipped_mean": -966.57,
+     "diff": 108.29,
+     "diff_top1_removed": -174.13,
+     "perm_p": 0.4903,
+     "control_pct": 0.7,
+     "control_p_beat": 0.993,
+     "loser_recall": 0.5919,
+     "loser_precision": 0.8554,
+     "winner_recall": 0.4415,
+     "winner_recall_weighted": 0.516,
+     "top_decile_winners_skipped": 0.4783,
+     "kept_mean_slip3": -598.31,
+     "kept_mean_slip8": -1248.25,
+     "sign_blocks": 8,
+     "kept_pf": 0.519,
+     "kept_t": -6.18,
+     "kept_sessions": 554
+    },
+    "boot": {
+     "draws": 2000,
+     "ci": 0.9,
+     "diff_ci": [
+      -91.41,
+      171.25
+     ],
+     "kept_mean_ci": [
+      -1089.93,
+      -875.52
+     ],
+     "diff_p_le0": 0.306,
+     "diff_point": 41.24
+    },
+    "dsr": {
+     "sr": -0.0998,
+     "sr0": 0.0701,
+     "dsr": 0.0003,
+     "p": 0.9997,
+     "T": 553,
+     "n_trials": 16,
+     "skew": 3.04,
+     "kurt": 14.363
+    },
+    "blocks": {
+     "b00": -259.67,
+     "b01": 525.04,
+     "b02": -75.9,
+     "b03": -3.69,
+     "b04": 287.36,
+     "b05": 39.67,
+     "b06": 355.82,
+     "b07": 150.72,
+     "b08": -655.94,
+     "b09": 143.14,
+     "b10": -120.5,
+     "b11": -304.08,
+     "half_0_5": 83.97,
+     "half_6_11": -14.33,
+     "blocks_defined": 12,
+     "blocks_positive": 6,
+     "block_diff_p5": -462.42,
+     "block_diff_min": -655.94
+    },
+    "go_no_go": {
+     "passed": false,
+     "checks": {
+      "kept_share>=20%": [
+       true,
+       0.4144
+      ],
+      "kept_n>=300": [
+       true,
+       1845
+      ],
+      "diff>0": [
+       true,
+       41.24
+      ],
+      "diff_top1_removed>0": [
+       false,
+       -72.86
+      ],
+      "kept_mean_slip8>0": [
+       false,
+       -1375.43
+      ],
+      "sign_blocks>=8/12": [
+       false,
+       6
+      ],
+      "control_pct>=95": [
+       false,
+       0.0
+      ],
+      "pbo<=0.2": [
+       false,
+       0.9758
+      ],
+      "dsr_p<0.1": [
+       false,
+       0.9997
+      ],
+      "spa_p<=0.10": [
+       false,
+       0.9895
+      ],
+      "boot_ci_excludes_0": [
+       false,
+       [
+        -91.41,
+        171.25
+       ]
+      ]
+     },
+     "cpcv": "not applicable: fixed rule list, no fitted threshold"
+    }
+   },
+   "family": {
+    "max_t": {
+     "draws": 2000,
+     "statistic": "two-sided Welch t of kept vs skipped mean net, net permuted across IS rows",
+     "t_obs": [
+      -0.061,
+      0.061,
+      -0.035,
+      -0.622,
+      0.275,
+      null,
+      0.204,
+      null
+     ],
+     "best_rule_index": 3,
+     "best_abs_t": 0.622,
+     "familywise_p_best": 0.991,
+     "maxt_null_p95": 3.14,
+     "adjusted_p": [
+      1.0,
+      1.0,
+      1.0,
+      0.991,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "rules_in_family": 8,
+     "rules_testable": 6
+    },
+    "pbo_diff": {
+     "candidates": 9,
+     "partitions": 12870,
+     "statistic": "diff",
+     "pbo": 0.9758,
+     "oos_best_below_zero": 0.8978,
+     "degradation_slope": -0.9022,
+     "is_best_mean": 188.81,
+     "oos_best_mean": -151.37
+    },
+    "pbo_kept_mean": {
+     "candidates": 9,
+     "partitions": 12870,
+     "statistic": "kept_mean",
+     "pbo": 0.7681,
+     "oos_best_below_zero": 1.0,
+     "degradation_slope": -0.7509,
+     "is_best_mean": -968.43,
+     "oos_best_mean": -1024.12
+    },
+    "spa": {
+     "candidates": 9,
+     "sessions": 578,
+     "draws": 2000,
+     "min_active_sessions": 28,
+     "excluded_from_studentised": 2,
+     "best_unstudentised": 5,
+     "best_mean_gain_unstudentised": 0.21,
+     "rc_p_unstudentised": 0.979,
+     "spa_p_unstudentised": 0.945,
+     "best": 0,
+     "best_mean_gain": -19.73,
+     "best_t": -0.584,
+     "best_active_sessions": 396,
+     "rc_p": 0.997,
+     "spa_p": 0.9895
+    },
+    "effective_trials": 1.19,
+    "sharpe_family": [
+     -0.0031,
+     0.022,
+     -0.0048,
+     0.0013,
+     -0.0178,
+     0.0254,
+     0.0145,
+     0.0253,
+     -0.0998
+    ],
+    "sharpe_var_family": 0.001516610753020408
+   },
+   "combination": {
+    "eligible": [],
+    "steps": [],
+    "final": "no rule qualifies; no combination scored",
+    "rule": "Holm p (m=16) < 0.05 and control pct >= 95.0; greedy by diff; stop when marginal diff < 200.0 or |net|-weighted winner recall falls"
+   },
+   "no_op_comparisons": [
+    {
+     "rule": "r0_m4",
+     "comparison": [
+      "room_ahead_dist_atr",
+      ">",
+      0
+     ],
+     "rows_where_others_hold": 347
+    },
+    {
+     "rule": "r0_m6",
+     "comparison": [
+      "swing_ahead_dist_atr",
+      "<=",
+      1.0
+     ],
+     "rows_where_others_hold": 1
+    }
+   ],
+   "union_support": {
+    "fired_L1": 2607,
+    "kept_L1": 1845
+   },
+   "unit_error_evidence": {
+    "atr14_pts": {
+     "p00": 2.284,
+     "p05": 4.808,
+     "p25": 6.821,
+     "p50": 8.858,
+     "p75": 11.271,
+     "p95": 16.382,
+     "p100": 61.499
+    },
+    "sess_range_atr": {
+     "p00": 1.339,
+     "p05": 4.57,
+     "p25": 10.834,
+     "p50": 15.061,
+     "p75": 19.092,
+     "p95": 26.034,
+     "p100": 45.85
+    },
+    "session_bar_ge_1h_and_no_bos_today": {
+     "rows": 1,
+     "sess_range_atr_min": 9.219,
+     "sess_range_atr_median": 9.219,
+     "rows_le_2p5": 0,
+     "rows_le_3p0": 0,
+     "rows_le_6p0": 0,
+     "rows_le_10p0": 1
+    },
+    "touch_swing_last": {
+     "broke": 2736,
+     "pending": 1711,
+     "held": 5
+    }
+   },
+   "runtime_s": 181.9
+  },
+  "5minute": {
+   "n_is_L1": 826,
+   "n_is_L0": 832,
+   "all_mean_L1": -757.05,
+   "all_mean_L0": -276.76,
+   "rules": {
+    "r0_f1": {
+     "if": [
+      [
+       "n_choch_since_bos",
+       ">=",
+       2
+      ],
+      [
+       "range_3h_atr",
+       "<=",
+       4.0
+      ]
+     ],
+     "then": "skip",
+     "reason": "\"if CHoCH and CHoCH and no breaks then it's sideways\" - on 5 min two CHoCHs span hours, so the range of the last 3 hours is the width of the box",
+     "expected": "skipped SETUPs have lower mean net than kept; the skipped set is mostly next_choch / stop_loss exits inside the box",
+     "untestable": false,
+     "support_note": null,
+     "support": {
+      "fired_L0": 57,
+      "fired_L1": 57,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "n_choch_since_bos",
+         ">=",
+         2
+        ],
+        "holds_alone": 259,
+        "excludes_alone": 567,
+        "excludes_given_others": 137,
+        "rows_where_others_hold": 194,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "range_3h_atr",
+         "<=",
+         4.0
+        ],
+        "holds_alone": 194,
+        "excludes_alone": 632,
+        "excludes_given_others": 202,
+        "rows_where_others_hold": 259,
+        "na_rows": 0
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "3b66a4e1aa363c21",
+      "n": 826,
+      "kept_n": 769,
+      "skipped_n": 57,
+      "kept_share": 0.931,
+      "kept_mean": -815.57,
+      "skipped_mean": 32.48,
+      "diff": -848.05,
+      "diff_top1_removed": -396.28,
+      "perm_p": 0.1689,
+      "control_pct": 100.0,
+      "control_p_beat": 0.001,
+      "loser_recall": 0.0653,
+      "loser_precision": 0.6842,
+      "winner_recall": 0.9214,
+      "winner_recall_weighted": 0.8897,
+      "top_decile_winners_skipped": 0.1739,
+      "kept_mean_slip3": -555.6,
+      "kept_mean_slip8": -1205.54,
+      "sign_blocks": 4,
+      "kept_pf": 0.611,
+      "kept_t": -5.16,
+      "kept_sessions": 387
+     },
+     "L0": {
+      "ledger_id": "21baee25603b590a",
+      "n": 832,
+      "kept_n": 775,
+      "skipped_n": 57,
+      "kept_share": 0.9315,
+      "kept_mean": -315.47,
+      "skipped_mean": 249.53,
+      "diff": -565.0,
+      "diff_top1_removed": -1400.2,
+      "perm_p": 0.6957,
+      "control_pct": 99.3,
+      "control_p_beat": 0.007,
+      "loser_recall": 0.0602,
+      "loser_precision": 0.6842,
+      "winner_recall": 0.9022,
+      "winner_recall_weighted": 0.9261,
+      "top_decile_winners_skipped": 0.0,
+      "kept_mean_slip3": -55.49,
+      "kept_mean_slip8": -705.43,
+      "sign_blocks": 6,
+      "kept_pf": 0.883,
+      "kept_t": -0.84,
+      "kept_sessions": 387
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": -1.062,
+     "maxt_adjusted_p": 0.8331,
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -2223.37,
+       272.99
+      ],
+      "kept_mean_ci": [
+       -1048.55,
+       -590.93
+      ],
+      "diff_p_le0": 0.886,
+      "diff_point": -848.05
+     },
+     "dsr": {
+      "sr": -0.004,
+      "sr0": 0.0571,
+      "dsr": 0.1158,
+      "p": 0.8842,
+      "T": 387,
+      "n_trials": 16,
+      "skew": 1.407,
+      "kurt": 8.748
+     },
+     "blocks": {
+      "b00": -3292.08,
+      "b01": -1546.21,
+      "b02": -9044.87,
+      "b03": 2135.71,
+      "b04": -1175.48,
+      "b05": -603.24,
+      "b06": 456.56,
+      "b07": -4897.98,
+      "b08": 1102.98,
+      "b09": -1628.75,
+      "b10": 2058.61,
+      "b11": -1103.13,
+      "half_0_5": -1344.08,
+      "half_6_11": -411.8,
+      "blocks_defined": 12,
+      "blocks_positive": 4,
+      "block_diff_p5": -6764.08,
+      "block_diff_min": -9044.87
+     },
+     "expected_direction_met": false,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "kept_share>=20%": [
+        true,
+        0.931
+       ],
+       "kept_n>=80": [
+        true,
+        769
+       ],
+       "diff>0": [
+        false,
+        -848.05
+       ],
+       "diff_top1_removed>0": [
+        false,
+        -396.28
+       ],
+       "kept_mean_slip8>0": [
+        false,
+        -1205.54
+       ],
+       "sign_blocks>=8/12": [
+        false,
+        4
+       ],
+       "control_pct>=95": [
+        true,
+        100.0
+       ],
+       "pbo<=0.2": [
+        false,
+        0.6875
+       ],
+       "dsr_p<0.1": [
+        false,
+        0.8842
+       ],
+       "spa_p<=0.10": [
+        true,
+        0.045
+       ],
+       "boot_ci_excludes_0": [
+        false,
+        [
+         -2223.37,
+         272.99
+        ]
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    },
+    "r0_f2": {
+     "if": [
+      [
+       "choch_run",
+       ">=",
+       3
+      ],
+      [
+       "n_bos_3h",
+       "==",
+       0
+      ]
+     ],
+     "then": "skip",
+     "reason": "\"CHoCH and CHoCH and no breaks\" - three flips in a row and no BOS in three hours",
+     "expected": "skipped set concentrated in losers; kept-vs-skipped expectancy positive",
+     "untestable": false,
+     "support_note": null,
+     "support": {
+      "fired_L0": 55,
+      "fired_L1": 55,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "choch_run",
+         ">=",
+         3
+        ],
+        "holds_alone": 116,
+        "excludes_alone": 710,
+        "excludes_given_others": 28,
+        "rows_where_others_hold": 83,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "n_bos_3h",
+         "==",
+         0
+        ],
+        "holds_alone": 83,
+        "excludes_alone": 743,
+        "excludes_given_others": 61,
+        "rows_where_others_hold": 116,
+        "na_rows": 0
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "d9bdb49fd0899705",
+      "n": 826,
+      "kept_n": 771,
+      "skipped_n": 55,
+      "kept_share": 0.9334,
+      "kept_mean": -837.79,
+      "skipped_mean": 374.81,
+      "diff": -1212.61,
+      "diff_top1_removed": -1063.19,
+      "perm_p": 0.0625,
+      "control_pct": 0.0,
+      "control_p_beat": 1.0,
+      "loser_recall": 0.0603,
+      "loser_precision": 0.6545,
+      "winner_recall": 0.917,
+      "winner_recall_weighted": 0.8985,
+      "top_decile_winners_skipped": 0.1304,
+      "kept_mean_slip3": -577.82,
+      "kept_mean_slip8": -1227.76,
+      "sign_blocks": 3,
+      "kept_pf": 0.607,
+      "kept_t": -5.23,
+      "kept_sessions": 398
+     },
+     "L0": {
+      "ledger_id": "700731a0ad546a81",
+      "n": 832,
+      "kept_n": 777,
+      "skipped_n": 55,
+      "kept_share": 0.9339,
+      "kept_mean": -389.39,
+      "skipped_mean": 1314.41,
+      "diff": -1703.8,
+      "diff_top1_removed": -1619.51,
+      "perm_p": 0.2119,
+      "control_pct": 0.1,
+      "control_p_beat": 0.999,
+      "loser_recall": 0.0602,
+      "loser_precision": 0.7091,
+      "winner_recall": 0.913,
+      "winner_recall_weighted": 0.9001,
+      "top_decile_winners_skipped": 0.1579,
+      "kept_mean_slip3": -129.41,
+      "kept_mean_slip8": -779.35,
+      "sign_blocks": 5,
+      "kept_pf": 0.856,
+      "kept_t": -1.06,
+      "kept_sessions": 398
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": -1.709,
+     "maxt_adjusted_p": 0.5092,
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -2306.2,
+       -167.69
+      ],
+      "kept_mean_ci": [
+       -1068.05,
+       -590.92
+      ],
+      "diff_p_le0": 0.9725,
+      "diff_point": -1212.61
+     },
+     "dsr": {
+      "sr": -0.0185,
+      "sr0": 0.0571,
+      "dsr": 0.0686,
+      "p": 0.9314,
+      "T": 398,
+      "n_trials": 16,
+      "skew": 1.413,
+      "kurt": 8.207
+     },
+     "blocks": {
+      "b00": 2580.59,
+      "b01": -5024.25,
+      "b02": null,
+      "b03": 202.34,
+      "b04": -1045.36,
+      "b05": -1141.28,
+      "b06": -2206.3,
+      "b07": -196.04,
+      "b08": -1851.92,
+      "b09": -1623.87,
+      "b10": 1905.36,
+      "b11": -4000.22,
+      "half_0_5": -1059.1,
+      "half_6_11": -1364.52,
+      "blocks_defined": 11,
+      "blocks_positive": 3,
+      "block_diff_p5": -4512.23,
+      "block_diff_min": -5024.25
+     },
+     "expected_direction_met": false,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "kept_share>=20%": [
+        true,
+        0.9334
+       ],
+       "kept_n>=80": [
+        true,
+        771
+       ],
+       "diff>0": [
+        false,
+        -1212.61
+       ],
+       "diff_top1_removed>0": [
+        false,
+        -1063.19
+       ],
+       "kept_mean_slip8>0": [
+        false,
+        -1227.76
+       ],
+       "sign_blocks>=8/12": [
+        false,
+        3
+       ],
+       "control_pct>=95": [
+        false,
+        0.0
+       ],
+       "pbo<=0.2": [
+        false,
+        0.6875
+       ],
+       "dsr_p<0.1": [
+        false,
+        0.9314
+       ],
+       "spa_p<=0.10": [
+        true,
+        0.045
+       ],
+       "boot_ci_excludes_0": [
+        false,
+        [
+         -2306.2,
+         -167.69
+        ]
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    },
+    "r0_f3": {
+     "if": [
+      [
+       "alt_dir6",
+       ">=",
+       4
+      ],
+      [
+       "er_1h",
+       "<=",
+       0.35
+      ]
+     ],
+     "then": "skip",
+     "reason": "sideways: alternating event directions and an inefficient last hour (\"trades in sideways are hurting\")",
+     "expected": "skipped SETUPs net negative on average; small winners lost only",
+     "untestable": false,
+     "support_note": null,
+     "support": {
+      "fired_L0": 79,
+      "fired_L1": 78,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "alt_dir6",
+         ">=",
+         4
+        ],
+        "holds_alone": 158,
+        "excludes_alone": 668,
+        "excludes_given_others": 279,
+        "rows_where_others_hold": 357,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "er_1h",
+         "<=",
+         0.35
+        ],
+        "holds_alone": 357,
+        "excludes_alone": 469,
+        "excludes_given_others": 80,
+        "rows_where_others_hold": 158,
+        "na_rows": 107
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "d1995f0e96e190f4",
+      "n": 826,
+      "kept_n": 748,
+      "skipped_n": 78,
+      "kept_share": 0.9056,
+      "kept_mean": -767.17,
+      "skipped_mean": -660.05,
+      "diff": -107.12,
+      "diff_top1_removed": -346.79,
+      "perm_p": 0.8481,
+      "control_pct": 0.3,
+      "control_p_beat": 0.997,
+      "loser_recall": 0.0972,
+      "loser_precision": 0.7436,
+      "winner_recall": 0.9127,
+      "winner_recall_weighted": 0.9251,
+      "top_decile_winners_skipped": 0.0435,
+      "kept_mean_slip3": -507.19,
+      "kept_mean_slip8": -1157.13,
+      "sign_blocks": 5,
+      "kept_pf": 0.641,
+      "kept_t": -4.56,
+      "kept_sessions": 400
+     },
+     "L0": {
+      "ledger_id": "9b22ab6139d2421f",
+      "n": 832,
+      "kept_n": 753,
+      "skipped_n": 79,
+      "kept_share": 0.905,
+      "kept_mean": -260.18,
+      "skipped_mean": -434.75,
+      "diff": 174.57,
+      "diff_top1_removed": -684.66,
+      "perm_p": 0.8776,
+      "control_pct": 31.0,
+      "control_p_beat": 0.6902,
+      "loser_recall": 0.0926,
+      "loser_precision": 0.7595,
+      "winner_recall": 0.8967,
+      "winner_recall_weighted": 0.9276,
+      "top_decile_winners_skipped": 0.0526,
+      "kept_mean_slip3": -0.2,
+      "kept_mean_slip8": -650.15,
+      "sign_blocks": 8,
+      "kept_pf": 0.904,
+      "kept_t": -0.67,
+      "kept_sessions": 400
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": -0.254,
+     "maxt_adjusted_p": 0.9645,
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -689.04,
+       480.27
+      ],
+      "kept_mean_ci": [
+       -1039.61,
+       -485.81
+      ],
+      "diff_p_le0": 0.6215,
+      "diff_point": -107.12
+     },
+     "dsr": {
+      "sr": 0.0118,
+      "sr0": 0.0571,
+      "dsr": 0.1805,
+      "p": 0.8195,
+      "T": 400,
+      "n_trials": 16,
+      "skew": 1.42,
+      "kurt": 7.73
+     },
+     "blocks": {
+      "b00": 1728.0,
+      "b01": -307.47,
+      "b02": 3010.89,
+      "b03": -228.74,
+      "b04": 551.39,
+      "b05": -1030.42,
+      "b06": -267.98,
+      "b07": 650.99,
+      "b08": -1021.58,
+      "b09": -1119.01,
+      "b10": -2451.06,
+      "b11": 279.24,
+      "half_0_5": 359.23,
+      "half_6_11": -507.82,
+      "blocks_defined": 12,
+      "blocks_positive": 5,
+      "block_diff_p5": -1718.43,
+      "block_diff_min": -2451.06
+     },
+     "expected_direction_met": false,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "kept_share>=20%": [
+        true,
+        0.9056
+       ],
+       "kept_n>=80": [
+        true,
+        748
+       ],
+       "diff>0": [
+        false,
+        -107.12
+       ],
+       "diff_top1_removed>0": [
+        false,
+        -346.79
+       ],
+       "kept_mean_slip8>0": [
+        false,
+        -1157.13
+       ],
+       "sign_blocks>=8/12": [
+        false,
+        5
+       ],
+       "control_pct>=95": [
+        false,
+        0.3
+       ],
+       "pbo<=0.2": [
+        false,
+        0.6875
+       ],
+       "dsr_p<0.1": [
+        false,
+        0.8195
+       ],
+       "spa_p<=0.10": [
+        true,
+        0.045
+       ],
+       "boot_ci_excludes_0": [
+        false,
+        [
+         -689.04,
+         480.27
+        ]
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    },
+    "r0_f4": {
+     "if": [
+      [
+       "fz_read",
+       "in",
+       [
+        "RECYCLE",
+        "THIN"
+       ]
+      ],
+      [
+       "room_ahead_dist_atr",
+       ">",
+       0
+      ],
+      [
+       "room_ahead_dist_atr",
+       "<=",
+       1.0
+      ]
+     ],
+     "then": "skip",
+     "reason": "\"price retests, retests and respects\" - a revisit without acceptance, aimed at a room edge less than one ATR away",
+     "expected": "skipped trades die inside the room; large winners rarely start from a THIN / RECYCLE read at the edge",
+     "untestable": false,
+     "support_note": null,
+     "support": {
+      "fired_L0": 54,
+      "fired_L1": 53,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "fz_read",
+         "in",
+         [
+          "RECYCLE",
+          "THIN"
+         ]
+        ],
+        "holds_alone": 59,
+        "excludes_alone": 767,
+        "excludes_given_others": 509,
+        "rows_where_others_hold": 562,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "room_ahead_dist_atr",
+         ">",
+         0
+        ],
+        "holds_alone": 710,
+        "excludes_alone": 116,
+        "excludes_given_others": 0,
+        "rows_where_others_hold": 53,
+        "na_rows": 116
+       },
+       {
+        "comparison": [
+         "room_ahead_dist_atr",
+         "<=",
+         1.0
+        ],
+        "holds_alone": 562,
+        "excludes_alone": 264,
+        "excludes_given_others": 5,
+        "rows_where_others_hold": 58,
+        "na_rows": 116
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "82b3a4bb1a3d7cb8",
+      "n": 826,
+      "kept_n": 773,
+      "skipped_n": 53,
+      "kept_share": 0.9358,
+      "kept_mean": -806.84,
+      "skipped_mean": -30.85,
+      "diff": -775.99,
+      "diff_top1_removed": -578.14,
+      "perm_p": 0.2229,
+      "control_pct": 49.7,
+      "control_p_beat": 0.5032,
+      "loser_recall": 0.062,
+      "loser_precision": 0.6981,
+      "winner_recall": 0.9301,
+      "winner_recall_weighted": 0.9235,
+      "top_decile_winners_skipped": 0.0435,
+      "kept_mean_slip3": -546.87,
+      "kept_mean_slip8": -1196.81,
+      "sign_blocks": 3,
+      "kept_pf": 0.621,
+      "kept_t": -4.99,
+      "kept_sessions": 394
+     },
+     "L0": {
+      "ledger_id": "2c9b33e8a6a77061",
+      "n": 832,
+      "kept_n": 778,
+      "skipped_n": 54,
+      "kept_share": 0.9351,
+      "kept_mean": -376.88,
+      "skipped_mean": 1165.74,
+      "diff": -1542.62,
+      "diff_top1_removed": -536.43,
+      "perm_p": 0.2644,
+      "control_pct": 29.4,
+      "control_p_beat": 0.7056,
+      "loser_recall": 0.0602,
+      "loser_precision": 0.7222,
+      "winner_recall": 0.9185,
+      "winner_recall_weighted": 0.911,
+      "top_decile_winners_skipped": 0.1053,
+      "kept_mean_slip3": -116.9,
+      "kept_mean_slip8": -766.84,
+      "sign_blocks": 7,
+      "kept_pf": 0.861,
+      "kept_t": -1.06,
+      "kept_sessions": 394
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": -1.195,
+     "maxt_adjusted_p": 0.8101,
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -1703.76,
+       122.74
+      ],
+      "kept_mean_ci": [
+       -1053.25,
+       -557.18
+      ],
+      "diff_p_le0": 0.9215,
+      "diff_point": -775.99
+     },
+     "dsr": {
+      "sr": 0.0062,
+      "sr0": 0.0571,
+      "dsr": 0.1552,
+      "p": 0.8448,
+      "T": 394,
+      "n_trials": 16,
+      "skew": 1.479,
+      "kurt": 8.203
+     },
+     "blocks": {
+      "b00": 874.74,
+      "b01": -2104.04,
+      "b02": -1383.6,
+      "b03": -676.3,
+      "b04": -339.04,
+      "b05": -2649.05,
+      "b06": -359.58,
+      "b07": 1390.25,
+      "b08": 2938.4,
+      "b09": -3075.62,
+      "b10": null,
+      "b11": -621.78,
+      "half_0_5": -1068.15,
+      "half_6_11": -381.59,
+      "blocks_defined": 11,
+      "blocks_positive": 3,
+      "block_diff_p5": -2862.34,
+      "block_diff_min": -3075.62
+     },
+     "expected_direction_met": false,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "kept_share>=20%": [
+        true,
+        0.9358
+       ],
+       "kept_n>=80": [
+        true,
+        773
+       ],
+       "diff>0": [
+        false,
+        -775.99
+       ],
+       "diff_top1_removed>0": [
+        false,
+        -578.14
+       ],
+       "kept_mean_slip8>0": [
+        false,
+        -1196.81
+       ],
+       "sign_blocks>=8/12": [
+        false,
+        3
+       ],
+       "control_pct>=95": [
+        false,
+        49.7
+       ],
+       "pbo<=0.2": [
+        false,
+        0.6875
+       ],
+       "dsr_p<0.1": [
+        false,
+        0.8448
+       ],
+       "spa_p<=0.10": [
+        true,
+        0.045
+       ],
+       "boot_ci_excludes_0": [
+        false,
+        [
+         -1703.76,
+         122.74
+        ]
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    },
+    "r0_f5": {
+     "if": [
+      [
+       "hv3_dir_agree",
+       "==",
+       false
+      ],
+      [
+       "hv3_bars_since",
+       "<=",
+       12
+      ]
+     ],
+     "then": "skip",
+     "reason": "\"check how price reacts in visibly high volume ... if it breaks there will be a large move\" - a SETUP against the last visibly-high-volume 5-min bar within the hour fades it",
+     "expected": "skipped SETUPs (fading the high-volume bar) lose more often than kept ones; kept SETUPs in agreement keep the large moves",
+     "untestable": false,
+     "support_note": null,
+     "support": {
+      "fired_L0": 53,
+      "fired_L1": 53,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "hv3_dir_agree",
+         "==",
+         false
+        ],
+        "holds_alone": 108,
+        "excludes_alone": 718,
+        "excludes_given_others": 191,
+        "rows_where_others_hold": 244,
+        "na_rows": 484
+       },
+       {
+        "comparison": [
+         "hv3_bars_since",
+         "<=",
+         12
+        ],
+        "holds_alone": 244,
+        "excludes_alone": 582,
+        "excludes_given_others": 55,
+        "rows_where_others_hold": 108,
+        "na_rows": 484
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "d92c44d6adc501ac",
+      "n": 826,
+      "kept_n": 773,
+      "skipped_n": 53,
+      "kept_share": 0.9358,
+      "kept_mean": -792.37,
+      "skipped_mean": -241.92,
+      "diff": -550.45,
+      "diff_top1_removed": -348.4,
+      "perm_p": 0.3963,
+      "control_pct": 0.1,
+      "control_p_beat": 0.9995,
+      "loser_recall": 0.0603,
+      "loser_precision": 0.6792,
+      "winner_recall": 0.9258,
+      "winner_recall_weighted": 0.9316,
+      "top_decile_winners_skipped": 0.0435,
+      "kept_mean_slip3": -532.4,
+      "kept_mean_slip8": -1182.34,
+      "sign_blocks": 5,
+      "kept_pf": 0.628,
+      "kept_t": -4.89,
+      "kept_sessions": 401
+     },
+     "L0": {
+      "ledger_id": "f02893d8611997fa",
+      "n": 832,
+      "kept_n": 779,
+      "skipped_n": 53,
+      "kept_share": 0.9363,
+      "kept_mean": -292.78,
+      "skipped_mean": -41.32,
+      "diff": -251.45,
+      "diff_top1_removed": -105.21,
+      "perm_p": 0.8596,
+      "control_pct": 15.2,
+      "control_p_beat": 0.8476,
+      "loser_recall": 0.0648,
+      "loser_precision": 0.7925,
+      "winner_recall": 0.9402,
+      "winner_recall_weighted": 0.9309,
+      "top_decile_winners_skipped": 0.0526,
+      "kept_mean_slip3": -32.8,
+      "kept_mean_slip8": -682.74,
+      "sign_blocks": 8,
+      "kept_pf": 0.89,
+      "kept_t": -0.79,
+      "kept_sessions": 401
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": -0.871,
+     "maxt_adjusted_p": 0.8511,
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -1443.52,
+       302.21
+      ],
+      "kept_mean_ci": [
+       -1053.74,
+       -536.48
+      ],
+      "diff_p_le0": 0.849,
+      "diff_point": -550.45
+     },
+     "dsr": {
+      "sr": -0.0003,
+      "sr0": 0.0571,
+      "dsr": 0.1256,
+      "p": 0.8744,
+      "T": 401,
+      "n_trials": 16,
+      "skew": 1.442,
+      "kurt": 7.919
+     },
+     "blocks": {
+      "b00": 729.87,
+      "b01": -3027.98,
+      "b02": -605.41,
+      "b03": -174.11,
+      "b04": -1116.98,
+      "b05": 1090.38,
+      "b06": -1129.66,
+      "b07": 1391.15,
+      "b08": 707.74,
+      "b09": -1684.74,
+      "b10": -2695.55,
+      "b11": 1158.67,
+      "half_0_5": -632.1,
+      "half_6_11": -481.09,
+      "blocks_defined": 12,
+      "blocks_positive": 5,
+      "block_diff_p5": -2845.14,
+      "block_diff_min": -3027.98
+     },
+     "expected_direction_met": false,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "kept_share>=20%": [
+        true,
+        0.9358
+       ],
+       "kept_n>=80": [
+        true,
+        773
+       ],
+       "diff>0": [
+        false,
+        -550.45
+       ],
+       "diff_top1_removed>0": [
+        false,
+        -348.4
+       ],
+       "kept_mean_slip8>0": [
+        false,
+        -1182.34
+       ],
+       "sign_blocks>=8/12": [
+        false,
+        5
+       ],
+       "control_pct>=95": [
+        false,
+        0.1
+       ],
+       "pbo<=0.2": [
+        false,
+        0.6875
+       ],
+       "dsr_p<0.1": [
+        false,
+        0.8744
+       ],
+       "spa_p<=0.10": [
+        true,
+        0.045
+       ],
+       "boot_ci_excludes_0": [
+        false,
+        [
+         -1443.52,
+         302.21
+        ]
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    },
+    "r0_f6": {
+     "if": [
+      [
+       "touch_swing_last",
+       "==",
+       "held"
+      ],
+      [
+       "swing_ahead_dist_atr",
+       ">",
+       0
+      ],
+      [
+       "swing_ahead_dist_atr",
+       "<=",
+       1.0
+      ]
+     ],
+     "then": "skip",
+     "reason": "\"Those levels will be respected ... retests, retests and respects\" - the swing ahead was just tested and held",
+     "expected": "skipped SETUPs run into the held level and reverse; few winners lost",
+     "untestable": false,
+     "support_note": null,
+     "support": {
+      "fired_L0": 37,
+      "fired_L1": 37,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "touch_swing_last",
+         "==",
+         "held"
+        ],
+        "holds_alone": 169,
+        "excludes_alone": 657,
+        "excludes_given_others": 43,
+        "rows_where_others_hold": 80,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "swing_ahead_dist_atr",
+         ">",
+         0
+        ],
+        "holds_alone": 80,
+        "excludes_alone": 746,
+        "excludes_given_others": 132,
+        "rows_where_others_hold": 169,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "swing_ahead_dist_atr",
+         "<=",
+         1.0
+        ],
+        "holds_alone": 826,
+        "excludes_alone": 0,
+        "excludes_given_others": 0,
+        "rows_where_others_hold": 37,
+        "na_rows": 0
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "71acfc38786c1cdf",
+      "n": 826,
+      "kept_n": 789,
+      "skipped_n": 37,
+      "kept_share": 0.9552,
+      "kept_mean": -746.86,
+      "skipped_mean": -974.46,
+      "diff": 227.61,
+      "diff_top1_removed": 0.77,
+      "perm_p": 0.7616,
+      "control_pct": 29.7,
+      "control_p_beat": 0.7031,
+      "loser_recall": 0.0452,
+      "loser_precision": 0.7297,
+      "winner_recall": 0.9563,
+      "winner_recall_weighted": 0.9716,
+      "top_decile_winners_skipped": 0.0,
+      "kept_mean_slip3": -486.88,
+      "kept_mean_slip8": -1136.82,
+      "sign_blocks": 7,
+      "kept_pf": 0.646,
+      "kept_t": -4.6,
+      "kept_sessions": 402
+     },
+     "L0": {
+      "ledger_id": "a97acd1349302a68",
+      "n": 832,
+      "kept_n": 795,
+      "skipped_n": 37,
+      "kept_share": 0.9555,
+      "kept_mean": -269.59,
+      "skipped_mean": -430.8,
+      "diff": 161.21,
+      "diff_top1_removed": -652.22,
+      "perm_p": 0.925,
+      "control_pct": 34.5,
+      "control_p_beat": 0.6557,
+      "loser_recall": 0.0463,
+      "loser_precision": 0.8108,
+      "winner_recall": 0.962,
+      "winner_recall_weighted": 0.9656,
+      "top_decile_winners_skipped": 0.0,
+      "kept_mean_slip3": -9.61,
+      "kept_mean_slip8": -659.55,
+      "sign_blocks": 7,
+      "kept_pf": 0.9,
+      "kept_t": -0.73,
+      "kept_sessions": 402
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": 0.42,
+     "maxt_adjusted_p": 0.9645,
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -638.84,
+       1039.91
+      ],
+      "kept_mean_ci": [
+       -993.75,
+       -467.65
+      ],
+      "diff_p_le0": 0.3275,
+      "diff_point": 227.61
+     },
+     "dsr": {
+      "sr": 0.0228,
+      "sr0": 0.0571,
+      "dsr": 0.2423,
+      "p": 0.7577,
+      "T": 402,
+      "n_trials": 16,
+      "skew": 1.46,
+      "kurt": 7.813
+     },
+     "blocks": {
+      "b00": 1105.93,
+      "b01": 776.45,
+      "b02": 2008.08,
+      "b03": -367.56,
+      "b04": -2290.92,
+      "b05": 667.41,
+      "b06": -647.99,
+      "b07": 1055.31,
+      "b08": 2655.74,
+      "b09": -2712.83,
+      "b10": -3246.29,
+      "b11": 1787.42,
+      "half_0_5": 270.04,
+      "half_6_11": 181.12,
+      "blocks_defined": 12,
+      "blocks_positive": 7,
+      "block_diff_p5": -2952.89,
+      "block_diff_min": -3246.29
+     },
+     "expected_direction_met": true,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "kept_share>=20%": [
+        true,
+        0.9552
+       ],
+       "kept_n>=80": [
+        true,
+        789
+       ],
+       "diff>0": [
+        true,
+        227.61
+       ],
+       "diff_top1_removed>0": [
+        true,
+        0.77
+       ],
+       "kept_mean_slip8>0": [
+        false,
+        -1136.82
+       ],
+       "sign_blocks>=8/12": [
+        false,
+        7
+       ],
+       "control_pct>=95": [
+        false,
+        29.7
+       ],
+       "pbo<=0.2": [
+        false,
+        0.6875
+       ],
+       "dsr_p<0.1": [
+        false,
+        0.7577
+       ],
+       "spa_p<=0.10": [
+        true,
+        0.045
+       ],
+       "boot_ci_excludes_0": [
+        false,
+        [
+         -638.84,
+         1039.91
+        ]
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    },
+    "r0_f7": {
+     "if": [
+      [
+       "hour",
+       "in",
+       [
+        12,
+        13
+       ]
+      ],
+      [
+       "n_choch_since_bos_today",
+       ">=",
+       2
+      ]
+     ],
+     "then": "skip",
+     "reason": "\"it's different for different time\" - midday hours with today's own CHoCH-without-break count",
+     "expected": "midday sideways SETUPs are net negative; kept midday SETUPs after a BOS keep the continuations",
+     "untestable": false,
+     "support_note": null,
+     "support": {
+      "fired_L0": 91,
+      "fired_L1": 91,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "hour",
+         "in",
+         [
+          12,
+          13
+         ]
+        ],
+        "holds_alone": 275,
+        "excludes_alone": 551,
+        "excludes_given_others": 131,
+        "rows_where_others_hold": 222,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "n_choch_since_bos_today",
+         ">=",
+         2
+        ],
+        "holds_alone": 222,
+        "excludes_alone": 604,
+        "excludes_given_others": 184,
+        "rows_where_others_hold": 275,
+        "na_rows": 0
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "d62b114016d51dcb",
+      "n": 826,
+      "kept_n": 735,
+      "skipped_n": 91,
+      "kept_share": 0.8898,
+      "kept_mean": -743.64,
+      "skipped_mean": -865.36,
+      "diff": 121.72,
+      "diff_top1_removed": -121.95,
+      "perm_p": 0.8146,
+      "control_pct": 4.7,
+      "control_p_beat": 0.9535,
+      "loser_recall": 0.124,
+      "loser_precision": 0.8132,
+      "winner_recall": 0.9258,
+      "winner_recall_weighted": 0.9018,
+      "top_decile_winners_skipped": 0.1304,
+      "kept_mean_slip3": -483.67,
+      "kept_mean_slip8": -1133.61,
+      "sign_blocks": 6,
+      "kept_pf": 0.647,
+      "kept_t": -4.43,
+      "kept_sessions": 400
+     },
+     "L0": {
+      "ledger_id": "23884d9a5ab187a3",
+      "n": 832,
+      "kept_n": 741,
+      "skipped_n": 91,
+      "kept_share": 0.8906,
+      "kept_mean": -209.86,
+      "skipped_mean": -821.45,
+      "diff": 611.59,
+      "diff_top1_removed": -261.12,
+      "perm_p": 0.6027,
+      "control_pct": 52.5,
+      "control_p_beat": 0.4748,
+      "loser_recall": 0.1204,
+      "loser_precision": 0.8571,
+      "winner_recall": 0.9293,
+      "winner_recall_weighted": 0.9327,
+      "top_decile_winners_skipped": 0.0526,
+      "kept_mean_slip3": 50.11,
+      "kept_mean_slip8": -599.83,
+      "sign_blocks": 9,
+      "kept_pf": 0.923,
+      "kept_t": -0.53,
+      "kept_sessions": 400
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": 0.264,
+     "maxt_adjusted_p": 0.9645,
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -637.22,
+       800.76
+      ],
+      "kept_mean_ci": [
+       -1018.07,
+       -458.18
+      ],
+      "diff_p_le0": 0.4,
+      "diff_point": 121.72
+     },
+     "dsr": {
+      "sr": 0.0131,
+      "sr0": 0.0571,
+      "dsr": 0.1873,
+      "p": 0.8127,
+      "T": 400,
+      "n_trials": 16,
+      "skew": 1.403,
+      "kurt": 7.837
+     },
+     "blocks": {
+      "b00": 1749.89,
+      "b01": -1800.75,
+      "b02": -685.05,
+      "b03": 1197.37,
+      "b04": 1139.19,
+      "b05": -78.06,
+      "b06": -2860.74,
+      "b07": 713.05,
+      "b08": 64.34,
+      "b09": -40.3,
+      "b10": -3918.2,
+      "b11": 2312.39,
+      "half_0_5": 319.59,
+      "half_6_11": -116.82,
+      "blocks_defined": 12,
+      "blocks_positive": 6,
+      "block_diff_p5": -3336.6,
+      "block_diff_min": -3918.2
+     },
+     "expected_direction_met": true,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "kept_share>=20%": [
+        true,
+        0.8898
+       ],
+       "kept_n>=80": [
+        true,
+        735
+       ],
+       "diff>0": [
+        true,
+        121.72
+       ],
+       "diff_top1_removed>0": [
+        false,
+        -121.95
+       ],
+       "kept_mean_slip8>0": [
+        false,
+        -1133.61
+       ],
+       "sign_blocks>=8/12": [
+        false,
+        6
+       ],
+       "control_pct>=95": [
+        false,
+        4.7
+       ],
+       "pbo<=0.2": [
+        false,
+        0.6875
+       ],
+       "dsr_p<0.1": [
+        false,
+        0.8127
+       ],
+       "spa_p<=0.10": [
+        true,
+        0.045
+       ],
+       "boot_ci_excludes_0": [
+        false,
+        [
+         -637.22,
+         800.76
+        ]
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    },
+    "r0_f8": {
+     "if": [
+      [
+       "session_bar",
+       ">=",
+       12
+      ],
+      [
+       "n_bos_today",
+       "==",
+       0
+      ],
+      [
+       "sess_range_atr",
+       "<=",
+       3.0
+      ]
+     ],
+     "then": "skip",
+     "reason": "sideways day: an hour in, nothing has broken and the day range is narrow (\"if ... no breaks then it's sideways\")",
+     "expected": "skipped SETUPs come from narrow, break-less sessions and average a loss; kept SETUPs from days that broke keep the runners",
+     "untestable": true,
+     "support_note": "no IS support: skipped_n = 1 on the L1 table (1 of 832 IS SETUPs); no diff, control percentile or permutation p can be computed",
+     "support": {
+      "fired_L0": 1,
+      "fired_L1": 1,
+      "comparisons_L1": [
+       {
+        "comparison": [
+         "session_bar",
+         ">=",
+         12
+        ],
+        "holds_alone": 640,
+        "excludes_alone": 186,
+        "excludes_given_others": 56,
+        "rows_where_others_hold": 57,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "n_bos_today",
+         "==",
+         0
+        ],
+        "holds_alone": 187,
+        "excludes_alone": 639,
+        "excludes_given_others": 3,
+        "rows_where_others_hold": 4,
+        "na_rows": 0
+       },
+       {
+        "comparison": [
+         "sess_range_atr",
+         "<=",
+         3.0
+        ],
+        "holds_alone": 89,
+        "excludes_alone": 737,
+        "excludes_given_others": 71,
+        "rows_where_others_hold": 72,
+        "na_rows": 0
+       }
+      ]
+     },
+     "L1": {
+      "ledger_id": "af6b26dbc455e8f7",
+      "n": 826,
+      "kept_n": 825,
+      "skipped_n": 1,
+      "kept_share": 0.9988,
+      "kept_mean": -753.54,
+      "skipped_mean": -3651.44,
+      "diff": 2897.9,
+      "diff_top1_removed": 2680.99,
+      "perm_p": 0.3633,
+      "control_pct": 87.6,
+      "control_p_beat": 0.2479,
+      "loser_recall": 0.0017,
+      "loser_precision": 1.0,
+      "winner_recall": 1.0,
+      "winner_recall_weighted": 1.0,
+      "top_decile_winners_skipped": 0.0,
+      "kept_mean_slip3": -493.57,
+      "kept_mean_slip8": -1143.51,
+      "sign_blocks": 1,
+      "kept_pf": 0.641,
+      "kept_t": -4.8,
+      "kept_sessions": 408
+     },
+     "L0": {
+      "ledger_id": "37c3783db229b9b6",
+      "n": 832,
+      "kept_n": 831,
+      "skipped_n": 1,
+      "kept_share": 0.9988,
+      "kept_mean": -272.7,
+      "skipped_mean": -3651.44,
+      "diff": 3378.74,
+      "diff_top1_removed": 2600.9,
+      "perm_p": 0.4118,
+      "control_pct": 87.7,
+      "control_p_beat": 0.2474,
+      "loser_recall": 0.0015,
+      "loser_precision": 1.0,
+      "winner_recall": 1.0,
+      "winner_recall_weighted": 1.0,
+      "top_decile_winners_skipped": 0.0,
+      "kept_mean_slip3": -12.72,
+      "kept_mean_slip8": -662.66,
+      "sign_blocks": 1,
+      "kept_pf": 0.898,
+      "kept_t": -0.77,
+      "kept_sessions": 408
+     },
+     "holm_p_round": 1.0,
+     "maxt_t": null,
+     "maxt_adjusted_p": 1.0,
+     "boot": null,
+     "dsr": {
+      "sr": 0.0259,
+      "sr0": 0.0571,
+      "dsr": 0.2607,
+      "p": 0.7393,
+      "T": 408,
+      "n_trials": 16,
+      "skew": 1.444,
+      "kurt": 8.106
+     },
+     "blocks": {
+      "b00": null,
+      "b01": null,
+      "b02": null,
+      "b03": null,
+      "b04": null,
+      "b05": null,
+      "b06": 2749.64,
+      "b07": null,
+      "b08": null,
+      "b09": null,
+      "b10": null,
+      "b11": null,
+      "half_0_5": null,
+      "half_6_11": 2815.56,
+      "blocks_defined": 1,
+      "blocks_positive": 1,
+      "block_diff_p5": 2749.64,
+      "block_diff_min": 2749.64
+     },
+     "expected_direction_met": null,
+     "go_no_go": {
+      "passed": false,
+      "checks": {
+       "untestable": [
+        false,
+        "no IS support"
+       ]
+      },
+      "cpcv": "not applicable: fixed rule, no fitted threshold"
+     }
+    }
+   },
+   "union": {
+    "members": [
+     "r0_f1",
+     "r0_f2",
+     "r0_f3",
+     "r0_f4",
+     "r0_f5",
+     "r0_f6",
+     "r0_f7",
+     "r0_f8"
+    ],
+    "L1": {
+     "ledger_id": "2a862ff61ce349f0",
+     "n": 826,
+     "kept_n": 524,
+     "skipped_n": 302,
+     "kept_share": 0.6344,
+     "kept_mean": -874.88,
+     "skipped_mean": -552.61,
+     "diff": -322.28,
+     "diff_top1_removed": -360.45,
+     "perm_p": 0.3213,
+     "control_pct": 0.8,
+     "control_p_beat": 0.9915,
+     "loser_recall": 0.3635,
+     "loser_precision": 0.7185,
+     "winner_recall": 0.6288,
+     "winner_recall_weighted": 0.6332,
+     "top_decile_winners_skipped": 0.3478,
+     "kept_mean_slip3": -614.91,
+     "kept_mean_slip8": -1264.85,
+     "sign_blocks": 3,
+     "kept_pf": 0.605,
+     "kept_t": -4.33,
+     "kept_sessions": 335
+    },
+    "L0": {
+     "ledger_id": "b654aa3b955243a1",
+     "n": 832,
+     "kept_n": 529,
+     "skipped_n": 303,
+     "kept_share": 0.6358,
+     "kept_mean": -333.69,
+     "skipped_mean": -177.36,
+     "diff": -156.33,
+     "diff_top1_removed": -648.19,
+     "perm_p": 0.8291,
+     "control_pct": 14.3,
+     "control_p_beat": 0.8566,
+     "loser_recall": 0.3627,
+     "loser_precision": 0.7756,
+     "winner_recall": 0.6304,
+     "winner_recall_weighted": 0.657,
+     "top_decile_winners_skipped": 0.2632,
+     "kept_mean_slip3": -73.71,
+     "kept_mean_slip8": -723.65,
+     "sign_blocks": 4,
+     "kept_pf": 0.881,
+     "kept_t": -0.69,
+     "kept_sessions": 335
+    },
+    "boot": {
+     "draws": 2000,
+     "ci": 0.9,
+     "diff_ci": [
+      -767.47,
+      129.9
+     ],
+     "kept_mean_ci": [
+      -1190.04,
+      -541.45
+     ],
+     "diff_p_le0": 0.879,
+     "diff_point": -322.28
+    },
+    "dsr": {
+     "sr": -0.0788,
+     "sr0": 0.0571,
+     "dsr": 0.0096,
+     "p": 0.9904,
+     "T": 335,
+     "n_trials": 16,
+     "skew": 1.43,
+     "kurt": 8.399
+    },
+    "blocks": {
+     "b00": 721.82,
+     "b01": -1790.28,
+     "b02": -1178.44,
+     "b03": 753.83,
+     "b04": -165.14,
+     "b05": -212.32,
+     "b06": -202.7,
+     "b07": -415.05,
+     "b08": -72.51,
+     "b09": -935.94,
+     "b10": -2404.37,
+     "b11": 204.63,
+     "half_0_5": -238.13,
+     "half_6_11": -412.1,
+     "blocks_defined": 12,
+     "blocks_positive": 3,
+     "block_diff_p5": -2066.62,
+     "block_diff_min": -2404.37
+    },
+    "go_no_go": {
+     "passed": false,
+     "checks": {
+      "kept_share>=20%": [
+       true,
+       0.6344
+      ],
+      "kept_n>=80": [
+       true,
+       524
+      ],
+      "diff>0": [
+       false,
+       -322.28
+      ],
+      "diff_top1_removed>0": [
+       false,
+       -360.45
+      ],
+      "kept_mean_slip8>0": [
+       false,
+       -1264.85
+      ],
+      "sign_blocks>=8/12": [
+       false,
+       3
+      ],
+      "control_pct>=95": [
+       false,
+       0.8
+      ],
+      "pbo<=0.2": [
+       false,
+       0.6875
+      ],
+      "dsr_p<0.1": [
+       false,
+       0.9904
+      ],
+      "spa_p<=0.10": [
+       true,
+       0.045
+      ],
+      "boot_ci_excludes_0": [
+       false,
+       [
+        -767.47,
+        129.9
+       ]
+      ]
+     },
+     "cpcv": "not applicable: fixed rule list, no fitted threshold"
+    }
+   },
+   "family": {
+    "max_t": {
+     "draws": 2000,
+     "statistic": "two-sided Welch t of kept vs skipped mean net, net permuted across IS rows",
+     "t_obs": [
+      -1.062,
+      -1.709,
+      -0.254,
+      -1.195,
+      -0.871,
+      0.42,
+      0.264,
+      null
+     ],
+     "best_rule_index": 1,
+     "best_abs_t": 1.709,
+     "familywise_p_best": 0.5092,
+     "maxt_null_p95": 3.131,
+     "adjusted_p": [
+      0.8331,
+      0.5092,
+      0.9645,
+      0.8101,
+      0.8511,
+      0.9645,
+      0.9645,
+      1.0
+     ],
+     "rules_in_family": 8,
+     "rules_testable": 7
+    },
+    "pbo_diff": {
+     "candidates": 9,
+     "partitions": 12870,
+     "statistic": "diff",
+     "pbo": 0.6875,
+     "oos_best_below_zero": 0.735,
+     "degradation_slope": -0.8424,
+     "is_best_mean": 536.38,
+     "oos_best_mean": -329.85
+    },
+    "pbo_kept_mean": {
+     "candidates": 9,
+     "partitions": 12870,
+     "statistic": "kept_mean",
+     "pbo": 0.343,
+     "oos_best_below_zero": 1.0,
+     "degradation_slope": -1.0272,
+     "is_best_mean": -718.01,
+     "oos_best_mean": -798.22
+    },
+    "spa": {
+     "candidates": 9,
+     "sessions": 408,
+     "draws": 2000,
+     "min_active_sessions": 20,
+     "excluded_from_studentised": 1,
+     "best_unstudentised": 0,
+     "best_mean_gain_unstudentised": 106.22,
+     "rc_p_unstudentised": 0.0495,
+     "spa_p_unstudentised": 0.022,
+     "best": 0,
+     "best_mean_gain": 106.22,
+     "best_t": 2.466,
+     "best_active_sessions": 33,
+     "rc_p": 0.0745,
+     "spa_p": 0.045
+    },
+    "effective_trials": 1.22,
+    "sharpe_family": [
+     -0.004,
+     -0.0185,
+     0.0118,
+     0.0062,
+     -0.0003,
+     0.0228,
+     0.0131,
+     0.0259,
+     -0.0788
+    ],
+    "sharpe_var_family": 0.00100608822148636
+   },
+   "combination": {
+    "eligible": [],
+    "steps": [],
+    "final": "no rule qualifies; no combination scored",
+    "rule": "Holm p (m=16) < 0.05 and control pct >= 95.0; greedy by diff; stop when marginal diff < 200.0 or |net|-weighted winner recall falls"
+   },
+   "no_op_comparisons": [
+    {
+     "rule": "r0_f4",
+     "comparison": [
+      "room_ahead_dist_atr",
+      ">",
+      0
+     ],
+     "rows_where_others_hold": 53
+    },
+    {
+     "rule": "r0_f6",
+     "comparison": [
+      "swing_ahead_dist_atr",
+      "<=",
+      1.0
+     ],
+     "rows_where_others_hold": 37
+    }
+   ],
+   "union_support": {
+    "fired_L1": 302,
+    "kept_L1": 524
+   },
+   "unit_error_evidence": {
+    "atr14_pts": {
+     "p00": 7.807,
+     "p05": 11.598,
+     "p25": 17.785,
+     "p50": 22.647,
+     "p75": 28.337,
+     "p95": 37.683,
+     "p100": 90.105
+    },
+    "sess_range_atr": {
+     "p00": 0.915,
+     "p05": 2.252,
+     "p25": 4.391,
+     "p50": 6.132,
+     "p75": 7.954,
+     "p95": 10.767,
+     "p100": 16.726
+    },
+    "session_bar_ge_1h_and_no_bos_today": {
+     "rows": 72,
+     "sess_range_atr_min": 2.875,
+     "sess_range_atr_median": 5.917,
+     "rows_le_2p5": 0,
+     "rows_le_3p0": 1,
+     "rows_le_6p0": 37,
+     "rows_le_10p0": 71
+    },
+    "touch_swing_last": {
+     "broke": 448,
+     "pending": 201,
+     "held": 169,
+     "none": 8
+    }
+   },
+   "runtime_s": 58.6
+  }
+ },
+ "candidates": [
+  {
+   "id": "r0_m1",
+   "timeframe": "minute",
+   "if": [
+    [
+     "n_choch_since_bos",
+     ">=",
+     2
+    ],
+    [
+     "range_since_choch_atr",
+     "<=",
+     2.0
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "1c3b030ae6d8d040",
+   "ledger_id_L0": "dec841f64dd443e3",
+   "untestable": false,
+   "statistic": {
+    "kept_n": 3549,
+    "skipped_n": 903,
+    "diff": -5.37,
+    "diff_top1_removed": -34.13,
+    "perm_p": 0.9605,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 1.0,
+    "control_pct": 6.1,
+    "loser_recall": 0.2062,
+    "winner_recall_weighted": 0.8383,
+    "top_decile_winners_skipped": 0.1714,
+    "boot_diff_ci": [
+     -155.81,
+     136.38
+    ],
+    "diff_L0": -81.14,
+    "control_pct_L0": 11.8
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  },
+  {
+   "id": "r0_m2",
+   "timeframe": "minute",
+   "if": [
+    [
+     "choch_run",
+     ">=",
+     3
+    ],
+    [
+     "n_bos_1h",
+     "==",
+     0
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "6bc2dafc5db55758",
+   "ledger_id_L0": "05824834a08e5275",
+   "untestable": false,
+   "statistic": {
+    "kept_n": 4409,
+    "skipped_n": 43,
+    "diff": 24.12,
+    "diff_top1_removed": 197.55,
+    "perm_p": 0.9525,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 1.0,
+    "control_pct": 48.9,
+    "loser_recall": 0.0104,
+    "winner_recall_weighted": 0.9906,
+    "top_decile_winners_skipped": 0.0143,
+    "boot_diff_ci": [
+     -779.41,
+     553.44
+    ],
+    "diff_L0": 230.77,
+    "control_pct_L0": 45.6
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  },
+  {
+   "id": "r0_m3",
+   "timeframe": "minute",
+   "if": [
+    [
+     "alt_dir6",
+     ">=",
+     4
+    ],
+    [
+     "er_1h",
+     "<=",
+     0.3
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "6a0004c624ff8136",
+   "ledger_id_L0": "3fda8b26fc5f8a59",
+   "untestable": false,
+   "statistic": {
+    "kept_n": 3532,
+    "skipped_n": 920,
+    "diff": -2.85,
+    "diff_top1_removed": -119.04,
+    "perm_p": 0.9745,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 1.0,
+    "control_pct": 0.0,
+    "loser_recall": 0.2076,
+    "winner_recall_weighted": 0.8359,
+    "top_decile_winners_skipped": 0.1286,
+    "boot_diff_ci": [
+     -152.52,
+     141.38
+    ],
+    "diff_L0": -41.55,
+    "control_pct_L0": 0.3
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  },
+  {
+   "id": "r0_m4",
+   "timeframe": "minute",
+   "if": [
+    [
+     "fz_read",
+     "in",
+     [
+      "RECYCLE",
+      "THIN"
+     ]
+    ],
+    [
+     "room_ahead_dist_atr",
+     ">",
+     0
+    ],
+    [
+     "room_ahead_dist_atr",
+     "<=",
+     1.0
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "44c18f849dbe54a5",
+   "ledger_id_L0": "e78966ef73fa428b",
+   "untestable": false,
+   "statistic": {
+    "kept_n": 4105,
+    "skipped_n": 347,
+    "diff": -95.55,
+    "diff_top1_removed": 15.58,
+    "perm_p": 0.5222,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 0.991,
+    "control_pct": 28.9,
+    "loser_recall": 0.0812,
+    "winner_recall_weighted": 0.9136,
+    "top_decile_winners_skipped": 0.1143,
+    "boot_diff_ci": [
+     -347.42,
+     159.95
+    ],
+    "diff_L0": -87.12,
+    "control_pct_L0": 53.9
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  },
+  {
+   "id": "r0_m5",
+   "timeframe": "minute",
+   "if": [
+    [
+     "hv3_dir_agree",
+     "==",
+     false
+    ],
+    [
+     "hv3_bars_since",
+     "<=",
+     60
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "b9e8b3ca7cfe53b0",
+   "ledger_id_L0": "68a4032e95920ab3",
+   "untestable": false,
+   "statistic": {
+    "kept_n": 3015,
+    "skipped_n": 1437,
+    "diff": 20.92,
+    "diff_top1_removed": -76.24,
+    "perm_p": 0.8041,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 1.0,
+    "control_pct": 0.0,
+    "loser_recall": 0.3238,
+    "winner_recall_weighted": 0.7442,
+    "top_decile_winners_skipped": 0.2,
+    "boot_diff_ci": [
+     -94.44,
+     135.64
+    ],
+    "diff_L0": 241.99,
+    "control_pct_L0": 38.9
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  },
+  {
+   "id": "r0_m6",
+   "timeframe": "minute",
+   "if": [
+    [
+     "touch_swing_last",
+     "==",
+     "held"
+    ],
+    [
+     "swing_ahead_dist_atr",
+     ">",
+     0
+    ],
+    [
+     "swing_ahead_dist_atr",
+     "<=",
+     1.0
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "7e2e3b02928d00c0",
+   "ledger_id_L0": "42d0adb096afecba",
+   "untestable": true,
+   "statistic": {
+    "kept_n": 4451,
+    "skipped_n": 1,
+    "diff": 725.46,
+    "diff_top1_removed": 548.29,
+    "perm_p": 0.5752,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 1.0,
+    "control_pct": 65.5,
+    "loser_recall": 0.0003,
+    "winner_recall_weighted": 1.0,
+    "top_decile_winners_skipped": 0.0,
+    "boot_diff_ci": null,
+    "diff_L0": 813.25,
+    "control_pct_L0": 83.0
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  },
+  {
+   "id": "r0_m7",
+   "timeframe": "minute",
+   "if": [
+    [
+     "hour",
+     "in",
+     [
+      12,
+      13
+     ]
+    ],
+    [
+     "n_choch_since_bos_today",
+     ">=",
+     2
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "eb1806faee8fe097",
+   "ledger_id_L0": "b630df8a87a0cd38",
+   "untestable": false,
+   "statistic": {
+    "kept_n": 3881,
+    "skipped_n": 571,
+    "diff": 18.89,
+    "diff_top1_removed": -99.27,
+    "perm_p": 0.8751,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 1.0,
+    "control_pct": 0.9,
+    "loser_recall": 0.1315,
+    "winner_recall_weighted": 0.9069,
+    "top_decile_winners_skipped": 0.0714,
+    "boot_diff_ci": [
+     -137.45,
+     173.24
+    ],
+    "diff_L0": -41.9,
+    "control_pct_L0": 28.9
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  },
+  {
+   "id": "r0_m8",
+   "timeframe": "minute",
+   "if": [
+    [
+     "session_bar",
+     ">=",
+     60
+    ],
+    [
+     "n_bos_today",
+     "==",
+     0
+    ],
+    [
+     "sess_range_atr",
+     "<=",
+     2.5
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "5645244e4b0400db",
+   "ledger_id_L0": "6c533258e369a03d",
+   "untestable": true,
+   "statistic": {
+    "kept_n": 4452,
+    "skipped_n": 0,
+    "diff": null,
+    "diff_top1_removed": null,
+    "perm_p": null,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 1.0,
+    "control_pct": null,
+    "loser_recall": null,
+    "winner_recall_weighted": null,
+    "top_decile_winners_skipped": null,
+    "boot_diff_ci": null,
+    "diff_L0": null,
+    "control_pct_L0": null
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  },
+  {
+   "id": "r0_f1",
+   "timeframe": "5minute",
+   "if": [
+    [
+     "n_choch_since_bos",
+     ">=",
+     2
+    ],
+    [
+     "range_3h_atr",
+     "<=",
+     4.0
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "3b66a4e1aa363c21",
+   "ledger_id_L0": "21baee25603b590a",
+   "untestable": false,
+   "statistic": {
+    "kept_n": 769,
+    "skipped_n": 57,
+    "diff": -848.05,
+    "diff_top1_removed": -396.28,
+    "perm_p": 0.1689,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 0.8331,
+    "control_pct": 100.0,
+    "loser_recall": 0.0653,
+    "winner_recall_weighted": 0.8897,
+    "top_decile_winners_skipped": 0.1739,
+    "boot_diff_ci": [
+     -2223.37,
+     272.99
+    ],
+    "diff_L0": -565.0,
+    "control_pct_L0": 99.3
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  },
+  {
+   "id": "r0_f2",
+   "timeframe": "5minute",
+   "if": [
+    [
+     "choch_run",
+     ">=",
+     3
+    ],
+    [
+     "n_bos_3h",
+     "==",
+     0
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "d9bdb49fd0899705",
+   "ledger_id_L0": "700731a0ad546a81",
+   "untestable": false,
+   "statistic": {
+    "kept_n": 771,
+    "skipped_n": 55,
+    "diff": -1212.61,
+    "diff_top1_removed": -1063.19,
+    "perm_p": 0.0625,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 0.5092,
+    "control_pct": 0.0,
+    "loser_recall": 0.0603,
+    "winner_recall_weighted": 0.8985,
+    "top_decile_winners_skipped": 0.1304,
+    "boot_diff_ci": [
+     -2306.2,
+     -167.69
+    ],
+    "diff_L0": -1703.8,
+    "control_pct_L0": 0.1
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  },
+  {
+   "id": "r0_f3",
+   "timeframe": "5minute",
+   "if": [
+    [
+     "alt_dir6",
+     ">=",
+     4
+    ],
+    [
+     "er_1h",
+     "<=",
+     0.35
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "d1995f0e96e190f4",
+   "ledger_id_L0": "9b22ab6139d2421f",
+   "untestable": false,
+   "statistic": {
+    "kept_n": 748,
+    "skipped_n": 78,
+    "diff": -107.12,
+    "diff_top1_removed": -346.79,
+    "perm_p": 0.8481,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 0.9645,
+    "control_pct": 0.3,
+    "loser_recall": 0.0972,
+    "winner_recall_weighted": 0.9251,
+    "top_decile_winners_skipped": 0.0435,
+    "boot_diff_ci": [
+     -689.04,
+     480.27
+    ],
+    "diff_L0": 174.57,
+    "control_pct_L0": 31.0
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  },
+  {
+   "id": "r0_f4",
+   "timeframe": "5minute",
+   "if": [
+    [
+     "fz_read",
+     "in",
+     [
+      "RECYCLE",
+      "THIN"
+     ]
+    ],
+    [
+     "room_ahead_dist_atr",
+     ">",
+     0
+    ],
+    [
+     "room_ahead_dist_atr",
+     "<=",
+     1.0
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "82b3a4bb1a3d7cb8",
+   "ledger_id_L0": "2c9b33e8a6a77061",
+   "untestable": false,
+   "statistic": {
+    "kept_n": 773,
+    "skipped_n": 53,
+    "diff": -775.99,
+    "diff_top1_removed": -578.14,
+    "perm_p": 0.2229,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 0.8101,
+    "control_pct": 49.7,
+    "loser_recall": 0.062,
+    "winner_recall_weighted": 0.9235,
+    "top_decile_winners_skipped": 0.0435,
+    "boot_diff_ci": [
+     -1703.76,
+     122.74
+    ],
+    "diff_L0": -1542.62,
+    "control_pct_L0": 29.4
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  },
+  {
+   "id": "r0_f5",
+   "timeframe": "5minute",
+   "if": [
+    [
+     "hv3_dir_agree",
+     "==",
+     false
+    ],
+    [
+     "hv3_bars_since",
+     "<=",
+     12
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "d92c44d6adc501ac",
+   "ledger_id_L0": "f02893d8611997fa",
+   "untestable": false,
+   "statistic": {
+    "kept_n": 773,
+    "skipped_n": 53,
+    "diff": -550.45,
+    "diff_top1_removed": -348.4,
+    "perm_p": 0.3963,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 0.8511,
+    "control_pct": 0.1,
+    "loser_recall": 0.0603,
+    "winner_recall_weighted": 0.9316,
+    "top_decile_winners_skipped": 0.0435,
+    "boot_diff_ci": [
+     -1443.52,
+     302.21
+    ],
+    "diff_L0": -251.45,
+    "control_pct_L0": 15.2
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  },
+  {
+   "id": "r0_f6",
+   "timeframe": "5minute",
+   "if": [
+    [
+     "touch_swing_last",
+     "==",
+     "held"
+    ],
+    [
+     "swing_ahead_dist_atr",
+     ">",
+     0
+    ],
+    [
+     "swing_ahead_dist_atr",
+     "<=",
+     1.0
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "71acfc38786c1cdf",
+   "ledger_id_L0": "a97acd1349302a68",
+   "untestable": false,
+   "statistic": {
+    "kept_n": 789,
+    "skipped_n": 37,
+    "diff": 227.61,
+    "diff_top1_removed": 0.77,
+    "perm_p": 0.7616,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 0.9645,
+    "control_pct": 29.7,
+    "loser_recall": 0.0452,
+    "winner_recall_weighted": 0.9716,
+    "top_decile_winners_skipped": 0.0,
+    "boot_diff_ci": [
+     -638.84,
+     1039.91
+    ],
+    "diff_L0": 161.21,
+    "control_pct_L0": 34.5
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  },
+  {
+   "id": "r0_f7",
+   "timeframe": "5minute",
+   "if": [
+    [
+     "hour",
+     "in",
+     [
+      12,
+      13
+     ]
+    ],
+    [
+     "n_choch_since_bos_today",
+     ">=",
+     2
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "d62b114016d51dcb",
+   "ledger_id_L0": "23884d9a5ab187a3",
+   "untestable": false,
+   "statistic": {
+    "kept_n": 735,
+    "skipped_n": 91,
+    "diff": 121.72,
+    "diff_top1_removed": -121.95,
+    "perm_p": 0.8146,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 0.9645,
+    "control_pct": 4.7,
+    "loser_recall": 0.124,
+    "winner_recall_weighted": 0.9018,
+    "top_decile_winners_skipped": 0.1304,
+    "boot_diff_ci": [
+     -637.22,
+     800.76
+    ],
+    "diff_L0": 611.59,
+    "control_pct_L0": 52.5
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  },
+  {
+   "id": "r0_f8",
+   "timeframe": "5minute",
+   "if": [
+    [
+     "session_bar",
+     ">=",
+     12
+    ],
+    [
+     "n_bos_today",
+     "==",
+     0
+    ],
+    [
+     "sess_range_atr",
+     "<=",
+     3.0
+    ]
+   ],
+   "then": "skip",
+   "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+   "ledger_id_L1": "af6b26dbc455e8f7",
+   "ledger_id_L0": "37c3783db229b9b6",
+   "untestable": true,
+   "statistic": {
+    "kept_n": 825,
+    "skipped_n": 1,
+    "diff": 2897.9,
+    "diff_top1_removed": 2680.99,
+    "perm_p": 0.3633,
+    "holm_p_m16": 1.0,
+    "maxt_adjusted_p": 1.0,
+    "control_pct": 87.6,
+    "loser_recall": 0.0017,
+    "winner_recall_weighted": 1.0,
+    "top_decile_winners_skipped": 0.0,
+    "boot_diff_ci": null,
+    "diff_L0": 3378.74,
+    "control_pct_L0": 87.7
+   },
+   "passed_go_no_go": false,
+   "source": "blind round 0 from the user's words (rules_round0.json sha256 a3c5c06382227c95), scored on IS 2021-10..2025-12 by score_round0.py"
+  }
+ ],
+ "candidates_passing": [],
+ "null_result": true,
+ "null_result_source": "harness.go_no_go on every rule and both unions (no cpcv item: fixed rules); no rule and no union passed; the step-4 combination had no eligible rule",
+ "headline": "Null: none of the 16 blind round-0 rules separates losers from winners on IS (1 min: every testable diff within +-96 INR, min Holm p 1.0, max-T family-wise p 0.991; 5 min: the sideways / retest rules skip the better trades, max-T family-wise p 0.5092); r0_m6, r0_m8, r0_f8 untestable (no IS support, unit error in sess_range_atr thresholds); L0 agrees in sign on 11 of 13; nothing reaches candidates/",
+ "ledger_families": [
+  "llm_hypotheses/round0",
+  "llm_hypotheses/round0_combo"
+ ],
+ "ledger_rows": {
+  "round0": 36,
+  "combo": 0
+ },
+ "ledger_note": "repair",
+ "ledger_sha_before": "b6e2cad5bfe0265a",
+ "ledger_sha_after": "9bdec2367d24308b",
+ "runtime_s": 240.6,
+ "untestable": [
+  {
+   "id": "r0_m8",
+   "timeframe": "minute",
+   "fired_L0": 0,
+   "fired_L1": 0
+  },
+  {
+   "id": "r0_m6",
+   "timeframe": "minute",
+   "fired_L0": 1,
+   "fired_L1": 1
+  },
+  {
+   "id": "r0_f8",
+   "timeframe": "5minute",
+   "fired_L0": 1,
+   "fired_L1": 1
+  }
+ ],
+ "repair": [
+  {
+   "issue": "three rules without IS support (m6, m8, f8); unit error in sess_range_atr thresholds; two no-op comparisons; 'all 16 to be scored' overstated",
+   "change": "label-free support recorded (support_<tf>.json, FINDINGS section 3); every rule scored so the untestable ones are ledger rows with diff None and stay in the family for max-T / Holm / PBO / SPA; unit error recorded in FINDINGS, the registration correction and a ROUND0.md errata section; hashed file unchanged (sha verified); no re-thresholding"
+  },
+  {
+   "issue": "registration note 'hashed before any labelled table of the program existed' is false by the artefacts' timestamps",
+   "change": "kind=correction line appended to ledger/registrations.jsonl at 2026-09-29T05:09:16 with the true ordering and the process-claim wording; same wording in FINDINGS.md section 2 and the REPORT.md paragraph (section 11)"
+  },
+  {
+   "issue": "round 0 read FZ.md 19 beyond the judges' 'user's words + dictionary' rule",
+   "change": "stated as the one deviation in FINDINGS section 2, the registration correction and the ROUND0.md errata; round 0 not described as blind to every labelled aggregate"
+  },
+  {
+   "issue": "no FINDINGS.md / findings.json / script; report said completed=true, null_result=false with nothing tested; folder name llm_hypotheses vs task name llm_round0",
+   "change": "score_round0.py, write_findings.py, logs, CSVs, round0_results.json, FINDINGS.md and findings.json written; candidates = the 16 rules with sha; null_result from harness.go_no_go; folder keeps the registered name, aliases records llm_round0"
+  }
+ ],
+ "caveats": [
+  "IS only; nothing was read from OOS beyond row counts (the OOS rows are in the same parquet; only `T.is_mask` rows were ever passed to a statistic).",
+  "Blindness of round 0 is the proposer's process claim (section 2); the labelled tables pre-date the hash by ~40 minutes; FZ.md 19 was read.",
+  "Three of sixteen rules are untestable on IS (no support): their ledger rows carry no diff, control percentile or permutation p; they count in every family statistic.",
+  "The pooled diff and the session-matched control can disagree in sign for a rule that keeps > 90% of the book (r0_f1); both are reported, neither alone is the criterion.",
+  "The 5-min studentised SPA p (0.045) is driven by r0_f1 with 33 active sessions of 408, just above the harness's exclusion floor of 20; it is not evidence of selection skill (that rule's pooled diff is -848 INR).",
+  "CPCV does not apply to fixed rules (no fitted threshold); go/no-go ran without the CPCV item; the per-block table is the stability statistic.",
+  "The max-T permutation shuffles net across IS rows (the harness's permutation convention), not by session block.",
+  "The L1 book is the futures tape cut at 15:25; option-type books are not in the cloud.",
+  "The proposer of round 0 has now seen the IS labels through this scoring; any later blind round needs a different agent (Judge 2)."
+ ],
+ "falsifiers": [
+  "a ledger row of one of these 16 unchanged rules with diff > 0, diff_top1_removed > 0, control pct >= 95 and Holm p (m=16) < 0.05 on a rebuilt L1 table",
+  "a different sign on another book (L0 agrees with L1 on 11 of 13 testable rules)",
+  "a max-T family-wise p < 0.05 under a session-block permutation",
+  "a registered round-1 proposal by a different agent surviving with the round-0 multiplicity carried forward (supersedes, does not overturn)"
+ ],
+ "files": [
+  "studies/llm_hypotheses/rules_round0.json (hashed, unchanged)",
+  "studies/llm_hypotheses/rules_round0.sha256",
+  "studies/llm_hypotheses/ROUND0.md (+ errata section appended)",
+  "studies/llm_hypotheses/score_round0.py",
+  "studies/llm_hypotheses/write_findings.py",
+  "studies/llm_hypotheses/score_round0.log",
+  "studies/llm_hypotheses/run.nohup",
+  "studies/llm_hypotheses/round0_results.json",
+  "studies/llm_hypotheses/round0_scores_minute.csv",
+  "studies/llm_hypotheses/round0_scores_5minute.csv",
+  "studies/llm_hypotheses/round0_blocks_minute.csv",
+  "studies/llm_hypotheses/round0_blocks_5minute.csv",
+  "studies/llm_hypotheses/support_minute.json",
+  "studies/llm_hypotheses/support_5minute.json",
+  "studies/llm_hypotheses/FINDINGS.md",
+  "studies/llm_hypotheses/findings.json",
+  "ledger/registrations.jsonl (line 2: the correction, appended)",
+  "ledger/trials.jsonl (36 rows, family llm_hypotheses/round0, note repair)"
+ ]
+}

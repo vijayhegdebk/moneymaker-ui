@@ -75,3 +75,24 @@ are left out on purpose so round 0 is independent of ST7 / ST8, and because the 
 the "hunt then fade" reading). I also left out the today's-ledger columns (`today_net_asof` etc.), the gap, the day of week,
 days to expiry and every raw price or id, because the user's observations say nothing about them and a blind rule on them
 would be a fishing rule rather than a hypothesis. No SETUP direction rule (up vs down) was written for the same reason.
+
+## Errata (repair round, 2026-09-29 05:09, appended after the adversarial refuters; `rules_round0.json` is unchanged and still hashes to `a3c5c063...a1182`)
+
+1. **Registration wording.** The ledger registration of 03:51:33 said the rules were "hashed before any labelled table of the program
+   existed". That is false by the artefacts' timestamps: `data/5minute/features.parquet` (with `fnd_*` / `l1_*` labels) was built at
+   02:49:45, `data/minute/features.parquet` at 02:55:51, `results/pre_registration.json` (raw book and frozen ST7/ST8 statistics) at
+   03:02:14, and this file's twin was written at 03:29:35. The proposer states none of those files was opened; blindness is a process
+   claim (self-report plus an empty `llm` ledger before registration), not a data-ordering fact. A correcting line was appended to
+   `ledger/registrations.jsonl` (`kind: correction`); nothing was edited.
+2. **Inputs.** The judges' fix for round 0 was "the user's words and the README feature dictionary only". Sections 7-9 of `FZ.md` are the
+   card vocabulary the dictionary points to; section 19 was also read and prints ST7/ST8 priced nets, control percentiles and permutation
+   p over the 2026 lab tape, which coincides with the OOS window (no Foundation outcome by read or hour). This is the one deviation.
+3. **Unit error.** `sess_range_atr` is in ATR14 units, and ATR14 on 1-minute bars has an IS median of 8.86 pts (5-minute: 22.6 pts), so a
+   session range "<= 2.5 ATR an hour in" (r0_m8) or "<= 3.0 ATR" (r0_f8) is far below anything observed (1-minute IS median 15.1 ATR,
+   minimum 1.34 at the session open; the single row with an hour elapsed and no BOS sits at 9.22 ATR). The claim in "How each rule should
+   be judged" that the thresholds are "round guesses in the user's units" is wrong for these two rules.
+4. **Support.** On IS, r0_m8 fires on 0 of 4,502 SETUPs, r0_m6 on 1 (`touch_swing_last == held` holds on 5 IS rows on 1 minute),
+   r0_f8 on 1 of 832; they are untestable and are reported as such in `FINDINGS.md`, kept in the family for max-T / Holm / PBO. Two
+   comparisons are no-ops given their companions (`room_ahead_dist_atr > 0` in r0_m4 / r0_f4; `swing_ahead_dist_atr <= 1.0` in r0_m6 /
+   r0_f6). None of the sixteen rules is re-thresholded: a corrected proposal would be a new round with its own sha and the multiplicity
+   carried forward. Scoring and the machine-readable results: `score_round0.py`, `round0_results.json`, `FINDINGS.md`, `findings.json`.

@@ -15,7 +15,7 @@ os.makedirs(ODIR, exist_ok=True)
 if dry: L.N_TREES = 20
 logf = open(os.path.join(ODIR, f"run_{tf}.log"), "a", encoding="utf-8")
 T0 = time.time()
-L.log(f"=== importance {tf} dry={dry} trees={L.N_TREES} n_jobs={L.N_JOBS} ===", logf)
+L.log(f"=== importance {tf} dry={dry} trees={L.N_TREES} bag_jobs={L.BAG_JOBS} xgb_jobs={L.XGB_JOBS} ===", logf)
 
 
 def scorer(T, keep, family, cfg):

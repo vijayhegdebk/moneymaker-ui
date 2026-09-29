@@ -578,8 +578,24 @@ def break_tests(T, lag=5):
 
 
 # ---------------------------------------------------------------- go / no-go
-def go_no_go(res, tf, cpcv=None, pbo_value=None, dsr=None, spa_p=None, boot=None):
-    """The pre-registered pass rule on a candidate's IS results. Returns (passed, {check: (ok, value)})."""
+TIME_PROXIES = {"sl", "n_events_asof"}   # as-of columns that are calendar proxies (|rho| with the session index 0.93 / 1.00 on the
+                                         # IS tape: null_tapes_drift, importance). Still in the design matrix of the studies that
+                                         # were running when this was found (2026-09-29 12:55 UTC), so they are refused at the
+                                         # candidate, here and in oos_once.py, not removed from Table.asof_columns() mid-run.
+
+
+def go_no_go(res, tf, cpcv=None, pbo_value=None, dsr=None, spa_p=None, boot=None, null_tape=None, columns=None):
+    """The pre-registered pass rule on a candidate's IS results. Returns (passed, {check: (ok, value)}).
+
+    Two items added 2026-09-29 12:55 UTC from the null_tapes_drift refuters (Judge 1's binding fix), both required for a pass:
+      null_tape  the `checks` dict of studies/null_tapes_drift/tapes.py::null_tape_check(real_diff, tf, rules) (or of
+                 null_tape_check_from_diffs for a candidate replayed on the certificate tapes some other way, e.g. an online
+                 learner run on each tape's table): the real-tape kept-vs-skipped difference must exceed the gmm AND segment
+                 tapes' 95th percentile and the session tapes must carry its sign in >= 75% of tapes. None -> the item fails as
+                 "not run"; a string -> recorded as the reason and the item still fails (no candidate passes without the tapes).
+      columns    the as-of columns the candidate reads; any TIME_PROXIES / NOT_FEATURES / label-prefixed name fails the item
+                 "no_time_proxy_columns" (a rule on `sl` or `n_events_asof` is a calendar rule). None -> fails as "not declared".
+    Before that date the function had neither item; every study that called it up to then recorded passed=False anyway."""
     ch = {}
     ch["kept_share>=20%"] = (res.get("kept_share") is not None and res["kept_share"] >= GO["kept_share_min"], res.get("kept_share"))
     ch[f"kept_n>={GO['kept_n_min'][tf]}"] = (res.get("kept_n", 0) >= GO["kept_n_min"][tf], res.get("kept_n"))
@@ -593,6 +609,15 @@ def go_no_go(res, tf, cpcv=None, pbo_value=None, dsr=None, spa_p=None, boot=None
     if dsr is not None: ch["dsr_p<0.1"] = (dsr.get("p") is not None and dsr["p"] < GO["dsr_p_max"], dsr.get("p"))
     if spa_p is not None: ch["spa_p<=0.10"] = (spa_p <= GO["spa_p_max"], spa_p)
     if boot is not None: ch["boot_ci_excludes_0"] = (boot["diff_ci"][0] > 0, boot["diff_ci"])
+    if isinstance(null_tape, dict) and null_tape:
+        for k, v in null_tape.items(): ch[k if str(k).startswith("null_tape") else f"null_tape:{k}"] = (bool(v[0]), v[1]) if isinstance(v, (tuple, list)) else (bool(v), v)
+    else:
+        ch["null_tape:evaluated"] = (False, "not run" if null_tape is None else str(null_tape))
+    if columns is None:
+        ch["no_time_proxy_columns"] = (False, "columns not declared")
+    else:
+        bad = sorted(c for c in columns if c in TIME_PROXIES or c in NOT_FEATURES or str(c).startswith(LABEL_PREFIX))
+        ch["no_time_proxy_columns"] = (not bad, bad if bad else sorted(set(columns)))
     return all(v[0] for v in ch.values()), ch
 
 

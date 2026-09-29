@@ -77,6 +77,29 @@ def online_mask(T, cand):
     return keep, journal
 
 
+def candidate_columns(c):
+    """The as-of columns a frozen candidate reads (for the calendar-proxy refusal)."""
+    k = c.get("kind")
+    if k == "rule_list": return sorted({cond[0] for r in c["rules"] for cond in r.get("if", [])})
+    if k == "scorecard": return sorted(c["scorecard"]["bins"].keys())
+    return sorted(c.get("columns") or c.get("cfg", {}).get("features") or [])
+
+
+def check_candidate(p, c):
+    """A candidate is scored on OOS only if its frozen provenance carries the null-tape checks and a passed go/no-go, and it reads
+    no calendar proxy (harness.TIME_PROXIES) - the program-level rules added 2026-09-29 12:55 UTC from the null_tapes_drift
+    refuters. --accept-unchecked-candidates records the deviation instead of refusing (a user decision, written to the output)."""
+    prov = c.get("provenance", {})
+    problems = []
+    if not prov.get("null_tape"): problems.append("provenance.null_tape missing (tapes.null_tape_check was not run on this candidate)")
+    if not (prov.get("go_no_go") or {}).get("passed", False): problems.append("provenance.go_no_go.passed is not true")
+    bad = [x for x in candidate_columns(c) if x in H.TIME_PROXIES]
+    if bad: problems.append(f"reads calendar-proxy columns {bad}")
+    if problems and "--accept-unchecked-candidates" not in sys.argv:
+        sys.exit(f"{p}: refused - " + "; ".join(problems) + " (run with --accept-unchecked-candidates to score it anyway, recorded as a deviation)")
+    return problems
+
+
 def table(T, keep, tag, split):
     rows = np.flatnonzero(T.is_mask if split == "IS" else T.oos_mask)
     return H.metrics(T, keep, rows, f"oos_once|{T.tf}|{T.label}|{split}|{tag}")
@@ -104,11 +127,12 @@ def main():
                 if sh not in reg: sys.exit(f"{p}: sha {sh[:16]} is not registered in ledger/registrations.jsonl; a candidate must be frozen before OOS")
                 name = os.path.basename(p)[:-5]
                 kind = c.get("kind")
+                deviations = check_candidate(p, c)
                 if kind == "rule_list": gates[name] = rule_list_mask(T, c["rules"], c.get("default", "take"))
                 elif kind == "scorecard": gates[name] = scorecard_mask(T, c["scorecard"])
                 elif kind == "online": gates[name], journals[name] = online_mask(T, c)
                 else: sys.exit(f"{p}: unknown candidate kind {kind!r}")
-                if label == "L1": out["candidates"].append(dict(file=os.path.relpath(p, HERE), sha256=sh, kind=kind, registration=reg[sh]))
+                if label == "L1": out["candidates"].append(dict(file=os.path.relpath(p, HERE), sha256=sh, kind=kind, registration=reg[sh], columns=candidate_columns(c), accepted_with_deviations=deviations))
             for name, keep in gates.items():
                 key = f"{tf}/{label}/{name}"
                 out["tables"][key] = dict(OOS=table(T, keep, name, "OOS"), IS=table(T, keep, name, "IS"))

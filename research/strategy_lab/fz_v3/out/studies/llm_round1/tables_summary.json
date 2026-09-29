@@ -1,0 +1,98 @@
+{
+ "study": "llm_round1",
+ "step": 1,
+ "written_at": "2026-09-29T12:36:07",
+ "halves": {
+  "A": {
+   "blocks": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "files": {
+    "minute": {
+     "json": "studies/llm_round1/tables_minute_A.json",
+     "md": "studies/llm_round1/tables_minute_A.md",
+     "sha256_json": "a621b26c727a3e73fe60473607f433729cdbdcd2ae0e71c9c117544f5a607c8d",
+     "sha256_md": "a464f17ceb0de965cf79f1a71ff9d8e61befef394f0e8d2a3794a77092add21d",
+     "n_rows": 2408,
+     "n_sessions": 324,
+     "n_cells_labelled": 184,
+     "n_cells_suppressed": 21,
+     "n_cells_empty": 39,
+     "n_columns_shown": 14,
+     "n_two_way_tables": 4
+    },
+    "5minute": {
+     "json": "studies/llm_round1/tables_5minute_A.json",
+     "md": "studies/llm_round1/tables_5minute_A.md",
+     "sha256_json": "ea40281dd540f6c95723e9f87078d71e2d9abb4d2486886fff28e119b0972219",
+     "sha256_md": "54006119bde415d4bf564d321c3c0629f2fa0a2d53346e6855eaf63d1549dc39",
+     "n_rows": 428,
+     "n_sessions": 214,
+     "n_cells_labelled": 122,
+     "n_cells_suppressed": 42,
+     "n_cells_empty": 69,
+     "n_columns_shown": 14,
+     "n_two_way_tables": 4
+    }
+   },
+   "n_cells_labelled_total": 306
+  },
+  "B": {
+   "blocks": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "files": {
+    "minute": {
+     "json": "studies/llm_round1/tables_minute_B.json",
+     "md": "studies/llm_round1/tables_minute_B.md",
+     "sha256_json": "8b596e329bc0af017439668daf73f7f7689a1c58884f5b5869e5d82832e5190b",
+     "sha256_md": "d111f2c9536cabe53aeffcdbca077b401f34351d6b922b436fcdb54fb1b844cb",
+     "n_rows": 2044,
+     "n_sessions": 254,
+     "n_cells_labelled": 181,
+     "n_cells_suppressed": 23,
+     "n_cells_empty": 39,
+     "n_columns_shown": 14,
+     "n_two_way_tables": 4
+    },
+    "5minute": {
+     "json": "studies/llm_round1/tables_5minute_B.json",
+     "md": "studies/llm_round1/tables_5minute_B.md",
+     "sha256_json": "3c74db45331e13dce70e86dcfacea17266c907dd6826897676e24d23e70f50f5",
+     "sha256_md": "8772243c36b50db7b6c0c57cfe9767df2b30b0252a06f4dddba32c540c40c884",
+     "n_rows": 398,
+     "n_sessions": 194,
+     "n_cells_labelled": 118,
+     "n_cells_suppressed": 46,
+     "n_cells_empty": 68,
+     "n_columns_shown": 14,
+     "n_two_way_tables": 4
+    }
+   },
+   "n_cells_labelled_total": 299
+  }
+ },
+ "shortlist": {
+  "minute": {
+   "sha256": "66f6e004bd93e47c55ca219785a9a30f36d618cbbbd215cfcbad5a44412b5bdb",
+   "n_shortlisted": 0,
+   "n_allowed_columns": 0
+  },
+  "5minute": {
+   "sha256": "4747257f41ecb40f1b3c27ea35cc50868d7c6b91f84f61ab7666911aef019dc9",
+   "n_shortlisted": 0,
+   "n_allowed_columns": 0
+  }
+ },
+ "notes": []
+}

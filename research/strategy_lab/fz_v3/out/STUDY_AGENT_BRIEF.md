@@ -73,6 +73,22 @@ last checkpoint if the script saves per-fold or per-split results. States at the
   FINDINGS.md / findings.json is still to write.
 - `exit_policy`: `04_a_fqi.py minute` finished (`a_result_minute.json`); a follow-up agent folds it in (task in PROGRESS.md).
 
+## Program-level rules added 2026-09-29 12:55 UTC (from the null_tapes_drift refuters; binding for every candidate)
+
+- `harness.go_no_go(...)` now has two more required items. `null_tape=` takes the `checks` dict of
+  `studies/null_tapes_drift/tapes.py::null_tape_check(real_diff, tf, rules)` (import it with `sys.path.insert` of that folder):
+  the candidate replayed on the certificate tapes (`tapes.tape_folders(tf, gen)`, healthy tapes, 20 / 8 per generator) must have
+  a real-tape kept-vs-skipped difference above the gmm AND segment tapes' 95th percentile and the session tapes must carry its
+  sign in >= 75% of them. A candidate that is not a rule list (a scorecard, an online learner) is replayed on each tape's table
+  the same way (`tapes.evaluate_rule_list` shows how a tape folder is loaded; use `null_tape_check_from_diffs(real_diff, diffs)`
+  with your own per-tape diffs). Without it the item fails ("not run") and nothing passes. `columns=` takes the as-of columns
+  the candidate reads; `harness.TIME_PROXIES` (`sl`, `n_events_asof`: calendar proxies, |rho| with time 0.93 / 1.00) fail it.
+  They stay in `harness.design(T)` for this run (studies were mid-flight), so a rule or split on them is refused at the candidate,
+  never silently dropped: report it and refit without the column. `oos_once.py` refuses a candidate whose provenance lacks the
+  `null_tape` block and a passed `go_no_go`, or that reads a time proxy.
+- Write the tape result into the candidate JSON: `provenance.null_tape = {"checks": ..., "summary": ...}` and
+  `provenance.go_no_go = {"passed": true, "checks": ...}` from the same call.
+
 ## Deliverables (every study)
 
 - `OUT/studies/<study>/*.py` (the scripts, runnable end to end), their logs, and their outputs (CSV / JSON / parquet).

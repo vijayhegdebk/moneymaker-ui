@@ -1,0 +1,5989 @@
+{
+ "study": "llm_round1",
+ "step": 1,
+ "kind": "labelled_tables",
+ "tf": "5minute",
+ "half": "A",
+ "blocks": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "label": "L1",
+ "split": "IS",
+ "strategy": "Strategy 2 rules + ST8 card",
+ "n_rows": 428,
+ "n_sessions": 214,
+ "date_first": "2021-10-01",
+ "date_last": "2023-11-06",
+ "base": {
+  "n": 428,
+  "mean_net": -677.17,
+  "win_rate": 0.2967,
+  "labelled": true,
+  "share": 1.0
+ },
+ "shortlist_state": {
+  "sha256": "4747257f41ecb40f1b3c27ea35cc50868d7c6b91f84f61ab7666911aef019dc9",
+  "n_shortlisted": 0,
+  "allowed_columns": [],
+  "rule": "EMPTY-SHORTLIST RULE applied"
+ },
+ "vocabulary": [
+  {
+   "column": "hour_bin",
+   "kind": "level",
+   "provenance": "always included (design: hour_bin, fz_read, dir)",
+   "label": "design",
+   "cluster": null,
+   "mda_rank": null,
+   "representative": null,
+   "swap": null,
+   "caveats": [],
+   "bins": [
+    {
+     "kind": "level",
+     "level": "09",
+     "label": "09",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    },
+    {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    },
+    {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    },
+    {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    },
+    {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    },
+    {
+     "kind": "level",
+     "level": "15",
+     "label": "15",
+     "i": 6
+    },
+    {
+     "kind": "level",
+     "level": "<09:25",
+     "label": "<09:25",
+     "i": 7
+    },
+    {
+     "kind": "level",
+     "level": ">=15:20",
+     "label": ">=15:20",
+     "i": 8
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "<09:25",
+    ">=15:20"
+   ],
+   "na_rows": 0
+  },
+  {
+   "column": "fz_read",
+   "kind": "level",
+   "provenance": "always included (design: hour_bin, fz_read, dir)",
+   "label": "design",
+   "cluster": null,
+   "mda_rank": null,
+   "representative": null,
+   "swap": null,
+   "caveats": [],
+   "bins": [
+    {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    },
+    {
+     "kind": "level",
+     "level": "HUNT",
+     "label": "HUNT",
+     "i": 2
+    },
+    {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    },
+    {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    },
+    {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    },
+    {
+     "kind": "level",
+     "level": "RECYCLE",
+     "label": "RECYCLE",
+     "i": 6
+    },
+    {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    },
+    {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [
+    "ACCEPTED",
+    "FIRST_PRINT",
+    "HUNT",
+    "LEAVE",
+    "NEW",
+    "PENDING",
+    "RECYCLE",
+    "REJECT",
+    "THIN"
+   ],
+   "na_rows": 0
+  },
+  {
+   "column": "dir",
+   "kind": "level",
+   "provenance": "always included (design: hour_bin, fz_read, dir)",
+   "label": "design",
+   "cluster": null,
+   "mda_rank": null,
+   "representative": null,
+   "swap": null,
+   "caveats": [],
+   "bins": [
+    {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [
+    "down",
+    "up"
+   ],
+   "na_rows": 0
+  },
+  {
+   "cluster": 17,
+   "mda_rank": 1,
+   "representative": "touch_room_last=broke",
+   "n_members": 4,
+   "mda_ll_mean": 0.0017688236901888,
+   "mda_ll_std": 0.0071008934858569,
+   "members": [
+    "room_ahead_dist_atr",
+    "touch_room_n",
+    "touch_room_last=broke",
+    "room_ahead_dist_atr__na"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 17, log-loss MDA rank 1 of 39 (MDA mean 0.00177, std 0.00710; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": "touch_room_last",
+   "kind": "level",
+   "swap": "representative `touch_room_last=broke` is a one-hot level: its source column `touch_room_last` is shown by level",
+   "caveats": [],
+   "via_member": "touch_room_last=broke",
+   "bins": [
+    {
+     "kind": "level",
+     "level": "broke",
+     "label": "broke",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "held",
+     "label": "held",
+     "i": 1
+    },
+    {
+     "kind": "level",
+     "level": "none",
+     "label": "none",
+     "i": 2
+    },
+    {
+     "kind": "level",
+     "level": "pending",
+     "label": "pending",
+     "i": 3
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [
+    "broke",
+    "held",
+    "none",
+    "pending"
+   ],
+   "na_rows": 0
+  },
+  {
+   "cluster": 7,
+   "mda_rank": 2,
+   "representative": "fz_gate=TAKE",
+   "n_members": 6,
+   "mda_ll_mean": 0.0005006179245996,
+   "mda_ll_std": 0.0049869804339575,
+   "members": [
+    "card_last_hunt_dir=nan",
+    "fz_gate=TAKE",
+    "fz_block_reason=nan",
+    "fz_branch=leave",
+    "fz_take_why=nan",
+    "fz_entered_read=nan"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 7, log-loss MDA rank 2 of 39 (MDA mean 0.00050, std 0.00499; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": "fz_gate",
+   "kind": "level",
+   "swap": "representative `fz_gate=TAKE` is a one-hot level: its source column `fz_gate` is shown by level",
+   "caveats": [],
+   "via_member": "fz_gate=TAKE",
+   "bins": [
+    {
+     "kind": "level",
+     "level": "BLOCK",
+     "label": "BLOCK",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "REENTER",
+     "label": "REENTER",
+     "i": 1
+    },
+    {
+     "kind": "level",
+     "level": "TAKE",
+     "label": "TAKE",
+     "i": 2
+    },
+    {
+     "kind": "level",
+     "level": "WATCH",
+     "label": "WATCH",
+     "i": 3
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [
+    "BLOCK",
+    "REENTER",
+    "TAKE",
+    "WATCH"
+   ],
+   "na_rows": 0
+  },
+  {
+   "cluster": 12,
+   "mda_rank": 3,
+   "representative": "card_read=LEAVE",
+   "n_members": 5,
+   "mda_ll_mean": 0.0002100765834604,
+   "mda_ll_std": 0.0015982206080826,
+   "members": [
+    "card_read=LEAVE",
+    "card_leave_side=up",
+    "card_leave_kind=normal",
+    "fz_take_why=leave_vol_fail",
+    "fz_entered_read=REJECT"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 12, log-loss MDA rank 3 of 39 (MDA mean 0.00021, std 0.00160; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": "card_leave_kind",
+   "kind": "level",
+   "swap": "representative `card_read=LEAVE` not shown (`card_read=LEAVE`: source column `fz_read` already shown (`card_read` == `fz_read` on every IS row)); shown through the highest-MDI admissible member `card_leave_kind=normal` (MDI 0.00217) -> column `card_leave_kind`",
+   "caveats": [],
+   "via_member": "card_leave_kind=normal",
+   "bins": [
+    {
+     "kind": "level",
+     "level": "gap",
+     "label": "gap",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "normal",
+     "label": "normal",
+     "i": 1
+    },
+    {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [
+    "gap",
+    "normal"
+   ],
+   "na_rows": 187
+  },
+  {
+   "cluster": 22,
+   "mda_rank": 4,
+   "representative": "days_to_expiry",
+   "n_members": 2,
+   "mda_ll_mean": 9.496716395366308e-05,
+   "mda_ll_std": 0.0009797739451791,
+   "members": [
+    "days_to_expiry",
+    "n_rooms_alive"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 22, log-loss MDA rank 4 of 39 (MDA mean 0.00009, std 0.00098; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": "days_to_expiry",
+   "kind": "decile",
+   "swap": null,
+   "caveats": [
+    "top-20 drifted column: shift 0.18 sd, higher in IS-late"
+   ],
+   "via_member": "days_to_expiry",
+   "bins": [
+    {
+     "kind": "range",
+     "lo": null,
+     "hi": 1.0,
+     "hi_inclusive": false,
+     "label": "< 1.0",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 1.0,
+     "hi": 5.0,
+     "hi_inclusive": false,
+     "label": "[1.0, 5.0)",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 5.0,
+     "hi": 7.0,
+     "hi_inclusive": false,
+     "label": "[5.0, 7.0)",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 7.0,
+     "hi": 9.0,
+     "hi_inclusive": false,
+     "label": "[7.0, 9.0)",
+     "i": 3
+    },
+    {
+     "kind": "range",
+     "lo": 9.0,
+     "hi": 13.0,
+     "hi_inclusive": false,
+     "label": "[9.0, 13.0)",
+     "i": 4
+    },
+    {
+     "kind": "range",
+     "lo": 13.0,
+     "hi": 16.0,
+     "hi_inclusive": false,
+     "label": "[13.0, 16.0)",
+     "i": 5
+    },
+    {
+     "kind": "range",
+     "lo": 16.0,
+     "hi": 21.0,
+     "hi_inclusive": false,
+     "label": "[16.0, 21.0)",
+     "i": 6
+    },
+    {
+     "kind": "range",
+     "lo": 21.0,
+     "hi": 23.0,
+     "hi_inclusive": false,
+     "label": "[21.0, 23.0)",
+     "i": 7
+    },
+    {
+     "kind": "range",
+     "lo": 23.0,
+     "hi": 27.0,
+     "hi_inclusive": false,
+     "label": "[23.0, 27.0)",
+     "i": 8
+    },
+    {
+     "kind": "range",
+     "lo": 27.0,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 27.0",
+     "i": 9
+    },
+    {
+     "kind": "na",
+     "label": "NA",
+     "i": 10
+    }
+   ],
+   "allowed_thresholds": [
+    1.0,
+    5.0,
+    7.0,
+    9.0,
+    13.0,
+    16.0,
+    21.0,
+    23.0,
+    27.0
+   ],
+   "levels": [],
+   "na_rows": 0
+  },
+  {
+   "cluster": 16,
+   "mda_rank": 5,
+   "representative": "touch_prot_last=held",
+   "n_members": 4,
+   "mda_ll_mean": 4.114911945167163e-06,
+   "mda_ll_std": 0.0035483278960548,
+   "members": [
+    "last_sh_bars_ago",
+    "last_sl_bars_ago",
+    "touch_prot_last=held",
+    "touch_prot_bars_ago"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 16, log-loss MDA rank 5 of 39 (MDA mean 0.00000, std 0.00355; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": "touch_prot_last",
+   "kind": "level",
+   "swap": "representative `touch_prot_last=held` is a one-hot level: its source column `touch_prot_last` is shown by level",
+   "caveats": [],
+   "via_member": "touch_prot_last=held",
+   "bins": [
+    {
+     "kind": "level",
+     "level": "broke",
+     "label": "broke",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "held",
+     "label": "held",
+     "i": 1
+    },
+    {
+     "kind": "level",
+     "level": "na",
+     "label": "na",
+     "i": 2
+    },
+    {
+     "kind": "level",
+     "level": "none",
+     "label": "none",
+     "i": 3
+    },
+    {
+     "kind": "level",
+     "level": "pending",
+     "label": "pending",
+     "i": 4
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [
+    "broke",
+    "held",
+    "na",
+    "none",
+    "pending"
+   ],
+   "na_rows": 0
+  },
+  {
+   "cluster": 21,
+   "mda_rank": 6,
+   "representative": "n_events_asof",
+   "n_members": 3,
+   "mda_ll_mean": 8.708999059211267e-07,
+   "mda_ll_std": 0.0003745508098004,
+   "members": [
+    "sl",
+    "n_events_asof",
+    "ffd_close_dstar"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 21, log-loss MDA rank 6 of 39 (MDA mean 0.00000, std 0.00037; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": "ffd_close_dstar",
+   "kind": "decile",
+   "swap": "representative `n_events_asof` not shown (`n_events_asof`: calendar-time proxy (drift.json time_proxies), refused); shown through the highest-MDI admissible member `ffd_close_dstar` (MDI 0.00472) -> column `ffd_close_dstar`",
+   "caveats": [
+    "extended as-of column (features_ext): not a features.parquet column; a rule on it needs a new per-bar routine in the lab (a user decision, never assumed)",
+    "FFD of the log close at d* = 0.2 keeps most of the price level: the importance study calls it a calendar-time proxy and did not adopt FFD (MDA <= 1 std on both timeframes); a rule on it is a level rule and must hold inside every period"
+   ],
+   "via_member": "ffd_close_dstar",
+   "bins": [
+    {
+     "kind": "range",
+     "lo": null,
+     "hi": 2.4071,
+     "hi_inclusive": false,
+     "label": "< 2.4071",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 2.4071,
+     "hi": 2.4159,
+     "hi_inclusive": false,
+     "label": "[2.4071, 2.4159)",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 2.4159,
+     "hi": 2.4193,
+     "hi_inclusive": false,
+     "label": "[2.4159, 2.4193)",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 2.4193,
+     "hi": 2.4234,
+     "hi_inclusive": false,
+     "label": "[2.4193, 2.4234)",
+     "i": 3
+    },
+    {
+     "kind": "range",
+     "lo": 2.4234,
+     "hi": 2.4284,
+     "hi_inclusive": false,
+     "label": "[2.4234, 2.4284)",
+     "i": 4
+    },
+    {
+     "kind": "range",
+     "lo": 2.4284,
+     "hi": 2.4314,
+     "hi_inclusive": false,
+     "label": "[2.4284, 2.4314)",
+     "i": 5
+    },
+    {
+     "kind": "range",
+     "lo": 2.4314,
+     "hi": 2.4347,
+     "hi_inclusive": false,
+     "label": "[2.4314, 2.4347)",
+     "i": 6
+    },
+    {
+     "kind": "range",
+     "lo": 2.4347,
+     "hi": 2.4432,
+     "hi_inclusive": false,
+     "label": "[2.4347, 2.4432)",
+     "i": 7
+    },
+    {
+     "kind": "range",
+     "lo": 2.4432,
+     "hi": 2.4515,
+     "hi_inclusive": false,
+     "label": "[2.4432, 2.4515)",
+     "i": 8
+    },
+    {
+     "kind": "range",
+     "lo": 2.4515,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 2.4515",
+     "i": 9
+    },
+    {
+     "kind": "na",
+     "label": "NA",
+     "i": 10
+    }
+   ],
+   "allowed_thresholds": [
+    2.4071,
+    2.4159,
+    2.4193,
+    2.4234,
+    2.4284,
+    2.4314,
+    2.4347,
+    2.4432,
+    2.4515
+   ],
+   "levels": [],
+   "na_rows": 9
+  },
+  {
+   "cluster": 8,
+   "mda_rank": 7,
+   "representative": "gap_pts__na",
+   "n_members": 6,
+   "mda_ll_mean": 0.0,
+   "mda_ll_std": 0.0,
+   "members": [
+    "gap_pts__na",
+    "bars_since_prev_choch__na",
+    "sess_cumvol_ratio20s__na",
+    "bocpd_ret_h60_since_reset__na",
+    "bocpd_rng_h60_since_reset__na",
+    "nn_dist_prefix_long__na"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 8, log-loss MDA rank 7 of 39 (MDA mean 0.00000, std 0.00000; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": "gap_pts",
+   "kind": "na_indicator",
+   "swap": "representative `gap_pts__na` is a missing indicator: `gap_pts` is shown as an NA indicator (NA / not NA)",
+   "caveats": [
+    "top-20 drifted column: shift 0.013 sd, higher in IS-late"
+   ],
+   "via_member": "gap_pts__na",
+   "bins": [
+    {
+     "kind": "notna",
+     "label": "gap_pts defined",
+     "i": 0
+    },
+    {
+     "kind": "na",
+     "label": "gap_pts NA",
+     "i": 1
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [],
+   "na_rows": 4
+  },
+  {
+   "cluster": 38,
+   "mda_rank": 8,
+   "representative": "touch_prot_last=broke",
+   "n_members": 1,
+   "mda_ll_mean": 0.0,
+   "mda_ll_std": 0.0,
+   "members": [
+    "touch_prot_last=broke"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 38, log-loss MDA rank 8 of 39 (MDA mean 0.00000, std 0.00000; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": null,
+   "kind": null,
+   "swap": "`touch_prot_last=broke`: source column `touch_prot_last` already shown",
+   "covered_by": [
+    "`touch_prot_last=broke`: source column `touch_prot_last` already shown"
+   ],
+   "caveats": [
+    "no admissible member: the cluster is covered by tables already shown; zero own cells"
+   ]
+  },
+  {
+   "column": "n_choch_since_bos",
+   "kind": "nchoch",
+   "provenance": "outside the frozen shortlist: a column of the design's two-way tables (not in any top-8 cluster)",
+   "label": "outside the frozen shortlist",
+   "cluster": null,
+   "mda_rank": null,
+   "representative": null,
+   "swap": null,
+   "caveats": [],
+   "bins": [
+    {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 3
+    },
+    {
+     "kind": "range",
+     "lo": 4,
+     "hi": 4,
+     "hi_inclusive": true,
+     "label": "4",
+     "i": 4
+    },
+    {
+     "kind": "range",
+     "lo": 5,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=5",
+     "i": 5
+    }
+   ],
+   "allowed_thresholds": [
+    0.0,
+    1.0,
+    2.0,
+    3.0,
+    4.0,
+    5.0
+   ],
+   "levels": [],
+   "na_rows": 0
+  },
+  {
+   "column": "hv3_dir_agree",
+   "kind": "level",
+   "provenance": "outside the frozen shortlist: a column of the design's two-way tables (not in any top-8 cluster)",
+   "label": "outside the frozen shortlist",
+   "cluster": null,
+   "mda_rank": null,
+   "representative": null,
+   "swap": null,
+   "caveats": [],
+   "bins": [
+    {
+     "kind": "level",
+     "level": "False",
+     "label": "False",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    },
+    {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [
+    "False",
+    "True"
+   ],
+   "na_rows": 255
+  },
+  {
+   "column": "hv3_bars_since",
+   "kind": "hv3b",
+   "provenance": "outside the frozen shortlist: a column of the design's two-way tables (not in any top-8 cluster)",
+   "label": "outside the frozen shortlist",
+   "cluster": null,
+   "mda_rank": null,
+   "representative": null,
+   "swap": null,
+   "caveats": [],
+   "bins": [
+    {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0 bars",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1 bars",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 2,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "2-3 bars",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 4,
+     "hi": 12,
+     "hi_inclusive": true,
+     "label": "4-12 bars",
+     "i": 3
+    },
+    {
+     "kind": "range",
+     "lo": 13,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=13 bars",
+     "i": 4
+    },
+    {
+     "kind": "na",
+     "label": "NA (no bar with vol_ratio20 >= 3 in the session so far)",
+     "i": 5
+    }
+   ],
+   "allowed_thresholds": [
+    0.0,
+    1.0,
+    2.0,
+    3.0,
+    4.0,
+    12.0,
+    13.0
+   ],
+   "levels": [],
+   "na_rows": 255
+  },
+  {
+   "column": "fz_visit_n",
+   "kind": "visit",
+   "provenance": "outside the frozen shortlist: a column of the design's two-way tables (not in any top-8 cluster)",
+   "label": "outside the frozen shortlist",
+   "cluster": null,
+   "mda_rank": null,
+   "representative": null,
+   "swap": null,
+   "caveats": [],
+   "bins": [
+    {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    },
+    {
+     "kind": "na",
+     "label": "NA (no ref room)",
+     "i": 4
+    }
+   ],
+   "allowed_thresholds": [
+    1.0,
+    2.0,
+    3.0,
+    4.0
+   ],
+   "levels": [],
+   "na_rows": 166
+  }
+ ],
+ "one_way": {
+  "hour_bin": [
+   {
+    "bin": {
+     "kind": "level",
+     "level": "09",
+     "label": "09",
+     "i": 0
+    },
+    "n": 45,
+    "mean_net": -774.24,
+    "win_rate": 0.3333,
+    "labelled": true,
+    "share": 0.1051
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    },
+    "n": 56,
+    "mean_net": -856.64,
+    "win_rate": 0.2321,
+    "labelled": true,
+    "share": 0.1308
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    },
+    "n": 54,
+    "mean_net": -1433.92,
+    "win_rate": 0.2407,
+    "labelled": true,
+    "share": 0.1262
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    },
+    "n": 65,
+    "mean_net": -1313.09,
+    "win_rate": 0.2,
+    "labelled": true,
+    "share": 0.1519
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    },
+    "n": 80,
+    "mean_net": -384.59,
+    "win_rate": 0.325,
+    "labelled": true,
+    "share": 0.1869
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    },
+    "n": 69,
+    "mean_net": -310.61,
+    "win_rate": 0.4203,
+    "labelled": true,
+    "share": 0.1612
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "15",
+     "label": "15",
+     "i": 6
+    },
+    "n": 26,
+    "mean_net": -935.27,
+    "win_rate": 0.1538,
+    "labelled": true,
+    "share": 0.0607
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "<09:25",
+     "label": "<09:25",
+     "i": 7
+    },
+    "n": 29,
+    "mean_net": 1272.21,
+    "win_rate": 0.4828,
+    "labelled": true,
+    "share": 0.0678
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": ">=15:20",
+     "label": ">=15:20",
+     "i": 8
+    },
+    "n": 4,
+    "mean_net": null,
+    "win_rate": null,
+    "labelled": false,
+    "share": 0.0093
+   }
+  ],
+  "fz_read": [
+   {
+    "bin": {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    },
+    "n": 2,
+    "mean_net": null,
+    "win_rate": null,
+    "labelled": false,
+    "share": 0.0047
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    },
+    "n": 4,
+    "mean_net": null,
+    "win_rate": null,
+    "labelled": false,
+    "share": 0.0093
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "HUNT",
+     "label": "HUNT",
+     "i": 2
+    },
+    "n": 1,
+    "mean_net": null,
+    "win_rate": null,
+    "labelled": false,
+    "share": 0.0023
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    },
+    "n": 241,
+    "mean_net": -548.45,
+    "win_rate": 0.2988,
+    "labelled": true,
+    "share": 0.5631
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    },
+    "n": 39,
+    "mean_net": -429.16,
+    "win_rate": 0.3846,
+    "labelled": true,
+    "share": 0.0911
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    },
+    "n": 106,
+    "mean_net": -1207.94,
+    "win_rate": 0.2642,
+    "labelled": true,
+    "share": 0.2477
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "RECYCLE",
+     "label": "RECYCLE",
+     "i": 6
+    },
+    "n": 4,
+    "mean_net": null,
+    "win_rate": null,
+    "labelled": false,
+    "share": 0.0093
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    },
+    "n": 3,
+    "mean_net": null,
+    "win_rate": null,
+    "labelled": false,
+    "share": 0.007
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    },
+    "n": 28,
+    "mean_net": 235.45,
+    "win_rate": 0.3571,
+    "labelled": true,
+    "share": 0.0654
+   }
+  ],
+  "dir": [
+   {
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    },
+    "n": 209,
+    "mean_net": -402.24,
+    "win_rate": 0.3349,
+    "labelled": true,
+    "share": 0.4883
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    },
+    "n": 219,
+    "mean_net": -939.54,
+    "win_rate": 0.2603,
+    "labelled": true,
+    "share": 0.5117
+   }
+  ],
+  "touch_room_last": [
+   {
+    "bin": {
+     "kind": "level",
+     "level": "broke",
+     "label": "broke",
+     "i": 0
+    },
+    "n": 70,
+    "mean_net": -261.92,
+    "win_rate": 0.3143,
+    "labelled": true,
+    "share": 0.1636
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "held",
+     "label": "held",
+     "i": 1
+    },
+    "n": 31,
+    "mean_net": -1039.1,
+    "win_rate": 0.1935,
+    "labelled": true,
+    "share": 0.0724
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "none",
+     "label": "none",
+     "i": 2
+    },
+    "n": 238,
+    "mean_net": -789.42,
+    "win_rate": 0.3277,
+    "labelled": true,
+    "share": 0.5561
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "pending",
+     "label": "pending",
+     "i": 3
+    },
+    "n": 89,
+    "mean_net": -577.52,
+    "win_rate": 0.236,
+    "labelled": true,
+    "share": 0.2079
+   }
+  ],
+  "fz_gate": [
+   {
+    "bin": {
+     "kind": "level",
+     "level": "BLOCK",
+     "label": "BLOCK",
+     "i": 0
+    },
+    "n": 103,
+    "mean_net": 10.66,
+    "win_rate": 0.3786,
+    "labelled": true,
+    "share": 0.2407
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "REENTER",
+     "label": "REENTER",
+     "i": 1
+    },
+    "n": 1,
+    "mean_net": null,
+    "win_rate": null,
+    "labelled": false,
+    "share": 0.0023
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "TAKE",
+     "label": "TAKE",
+     "i": 2
+    },
+    "n": 116,
+    "mean_net": -1349.51,
+    "win_rate": 0.25,
+    "labelled": true,
+    "share": 0.271
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "WATCH",
+     "label": "WATCH",
+     "i": 3
+    },
+    "n": 208,
+    "mean_net": -655.28,
+    "win_rate": 0.2788,
+    "labelled": true,
+    "share": 0.486
+   }
+  ],
+  "card_leave_kind": [
+   {
+    "bin": {
+     "kind": "level",
+     "level": "gap",
+     "label": "gap",
+     "i": 0
+    },
+    "n": 24,
+    "mean_net": 1262.3,
+    "win_rate": 0.5,
+    "labelled": true,
+    "share": 0.0561
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "normal",
+     "label": "normal",
+     "i": 1
+    },
+    "n": 217,
+    "mean_net": -748.72,
+    "win_rate": 0.2765,
+    "labelled": true,
+    "share": 0.507
+   },
+   {
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    },
+    "n": 187,
+    "mean_net": -843.06,
+    "win_rate": 0.2941,
+    "labelled": true,
+    "share": 0.4369
+   }
+  ],
+  "days_to_expiry": [
+   {
+    "bin": {
+     "kind": "range",
+     "lo": null,
+     "hi": 1.0,
+     "hi_inclusive": false,
+     "label": "< 1.0",
+     "i": 0
+    },
+    "n": 17,
+    "mean_net": -877.8,
+    "win_rate": 0.2941,
+    "labelled": true,
+    "share": 0.0397
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 1.0,
+     "hi": 5.0,
+     "hi_inclusive": false,
+     "label": "[1.0, 5.0)",
+     "i": 1
+    },
+    "n": 64,
+    "mean_net": -1419.93,
+    "win_rate": 0.2031,
+    "labelled": true,
+    "share": 0.1495
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 5.0,
+     "hi": 7.0,
+     "hi_inclusive": false,
+     "label": "[5.0, 7.0)",
+     "i": 2
+    },
+    "n": 32,
+    "mean_net": -1463.34,
+    "win_rate": 0.1562,
+    "labelled": true,
+    "share": 0.0748
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 7.0,
+     "hi": 9.0,
+     "hi_inclusive": false,
+     "label": "[7.0, 9.0)",
+     "i": 3
+    },
+    "n": 39,
+    "mean_net": -1020.07,
+    "win_rate": 0.3333,
+    "labelled": true,
+    "share": 0.0911
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 9.0,
+     "hi": 13.0,
+     "hi_inclusive": false,
+     "label": "[9.0, 13.0)",
+     "i": 4
+    },
+    "n": 45,
+    "mean_net": 425.24,
+    "win_rate": 0.3111,
+    "labelled": true,
+    "share": 0.1051
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 13.0,
+     "hi": 16.0,
+     "hi_inclusive": false,
+     "label": "[13.0, 16.0)",
+     "i": 5
+    },
+    "n": 50,
+    "mean_net": -452.96,
+    "win_rate": 0.34,
+    "labelled": true,
+    "share": 0.1168
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 16.0,
+     "hi": 21.0,
+     "hi_inclusive": false,
+     "label": "[16.0, 21.0)",
+     "i": 6
+    },
+    "n": 49,
+    "mean_net": -690.28,
+    "win_rate": 0.2857,
+    "labelled": true,
+    "share": 0.1145
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 21.0,
+     "hi": 23.0,
+     "hi_inclusive": false,
+     "label": "[21.0, 23.0)",
+     "i": 7
+    },
+    "n": 40,
+    "mean_net": 245.24,
+    "win_rate": 0.4,
+    "labelled": true,
+    "share": 0.0935
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 23.0,
+     "hi": 27.0,
+     "hi_inclusive": false,
+     "label": "[23.0, 27.0)",
+     "i": 8
+    },
+    "n": 30,
+    "mean_net": 153.33,
+    "win_rate": 0.4,
+    "labelled": true,
+    "share": 0.0701
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 27.0,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 27.0",
+     "i": 9
+    },
+    "n": 62,
+    "mean_net": -1201.52,
+    "win_rate": 0.2903,
+    "labelled": true,
+    "share": 0.1449
+   },
+   {
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 10
+    },
+    "n": 0,
+    "mean_net": null,
+    "win_rate": null,
+    "labelled": false,
+    "share": 0.0
+   }
+  ],
+  "touch_prot_last": [
+   {
+    "bin": {
+     "kind": "level",
+     "level": "broke",
+     "label": "broke",
+     "i": 0
+    },
+    "n": 2,
+    "mean_net": null,
+    "win_rate": null,
+    "labelled": false,
+    "share": 0.0047
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "held",
+     "label": "held",
+     "i": 1
+    },
+    "n": 302,
+    "mean_net": -543.18,
+    "win_rate": 0.298,
+    "labelled": true,
+    "share": 0.7056
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "na",
+     "label": "na",
+     "i": 2
+    },
+    "n": 11,
+    "mean_net": -2008.8,
+    "win_rate": 0.1818,
+    "labelled": true,
+    "share": 0.0257
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "none",
+     "label": "none",
+     "i": 3
+    },
+    "n": 35,
+    "mean_net": -1921.17,
+    "win_rate": 0.2286,
+    "labelled": true,
+    "share": 0.0818
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "pending",
+     "label": "pending",
+     "i": 4
+    },
+    "n": 78,
+    "mean_net": -406.8,
+    "win_rate": 0.3462,
+    "labelled": true,
+    "share": 0.1822
+   }
+  ],
+  "ffd_close_dstar": [
+   {
+    "bin": {
+     "kind": "range",
+     "lo": null,
+     "hi": 2.4071,
+     "hi_inclusive": false,
+     "label": "< 2.4071",
+     "i": 0
+    },
+    "n": 42,
+    "mean_net": 364.76,
+    "win_rate": 0.4524,
+    "labelled": true,
+    "share": 0.0981
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.4071,
+     "hi": 2.4159,
+     "hi_inclusive": false,
+     "label": "[2.4071, 2.4159)",
+     "i": 1
+    },
+    "n": 41,
+    "mean_net": -1163.22,
+    "win_rate": 0.2439,
+    "labelled": true,
+    "share": 0.0958
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.4159,
+     "hi": 2.4193,
+     "hi_inclusive": false,
+     "label": "[2.4159, 2.4193)",
+     "i": 2
+    },
+    "n": 43,
+    "mean_net": 436.47,
+    "win_rate": 0.3488,
+    "labelled": true,
+    "share": 0.1005
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.4193,
+     "hi": 2.4234,
+     "hi_inclusive": false,
+     "label": "[2.4193, 2.4234)",
+     "i": 3
+    },
+    "n": 41,
+    "mean_net": -724.42,
+    "win_rate": 0.2195,
+    "labelled": true,
+    "share": 0.0958
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.4234,
+     "hi": 2.4284,
+     "hi_inclusive": false,
+     "label": "[2.4234, 2.4284)",
+     "i": 4
+    },
+    "n": 43,
+    "mean_net": -1451.43,
+    "win_rate": 0.2791,
+    "labelled": true,
+    "share": 0.1005
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.4284,
+     "hi": 2.4314,
+     "hi_inclusive": false,
+     "label": "[2.4284, 2.4314)",
+     "i": 5
+    },
+    "n": 42,
+    "mean_net": -330.54,
+    "win_rate": 0.3333,
+    "labelled": true,
+    "share": 0.0981
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.4314,
+     "hi": 2.4347,
+     "hi_inclusive": false,
+     "label": "[2.4314, 2.4347)",
+     "i": 6
+    },
+    "n": 41,
+    "mean_net": -964.04,
+    "win_rate": 0.2683,
+    "labelled": true,
+    "share": 0.0958
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.4347,
+     "hi": 2.4432,
+     "hi_inclusive": false,
+     "label": "[2.4347, 2.4432)",
+     "i": 7
+    },
+    "n": 42,
+    "mean_net": -754.23,
+    "win_rate": 0.3095,
+    "labelled": true,
+    "share": 0.0981
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.4432,
+     "hi": 2.4515,
+     "hi_inclusive": false,
+     "label": "[2.4432, 2.4515)",
+     "i": 8
+    },
+    "n": 43,
+    "mean_net": -1359.15,
+    "win_rate": 0.3023,
+    "labelled": true,
+    "share": 0.1005
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.4515,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 2.4515",
+     "i": 9
+    },
+    "n": 41,
+    "mean_net": -1005.37,
+    "win_rate": 0.1707,
+    "labelled": true,
+    "share": 0.0958
+   },
+   {
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 10
+    },
+    "n": 9,
+    "mean_net": 70.92,
+    "win_rate": 0.4444,
+    "labelled": true,
+    "share": 0.021
+   }
+  ],
+  "gap_pts": [
+   {
+    "bin": {
+     "kind": "notna",
+     "label": "gap_pts defined",
+     "i": 0
+    },
+    "n": 424,
+    "mean_net": -663.37,
+    "win_rate": 0.2995,
+    "labelled": true,
+    "share": 0.9907
+   },
+   {
+    "bin": {
+     "kind": "na",
+     "label": "gap_pts NA",
+     "i": 1
+    },
+    "n": 4,
+    "mean_net": null,
+    "win_rate": null,
+    "labelled": false,
+    "share": 0.0093
+   }
+  ],
+  "n_choch_since_bos": [
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0",
+     "i": 0
+    },
+    "n": 120,
+    "mean_net": -612.17,
+    "win_rate": 0.3083,
+    "labelled": true,
+    "share": 0.2804
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 1
+    },
+    "n": 177,
+    "mean_net": -604.8,
+    "win_rate": 0.3051,
+    "labelled": true,
+    "share": 0.4136
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 2
+    },
+    "n": 70,
+    "mean_net": -1189.72,
+    "win_rate": 0.2429,
+    "labelled": true,
+    "share": 0.1636
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 3
+    },
+    "n": 38,
+    "mean_net": -261.76,
+    "win_rate": 0.3684,
+    "labelled": true,
+    "share": 0.0888
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": 4,
+     "hi_inclusive": true,
+     "label": "4",
+     "i": 4
+    },
+    "n": 13,
+    "mean_net": -726.74,
+    "win_rate": 0.2308,
+    "labelled": true,
+    "share": 0.0304
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 5,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=5",
+     "i": 5
+    },
+    "n": 10,
+    "mean_net": -664.46,
+    "win_rate": 0.2,
+    "labelled": true,
+    "share": 0.0234
+   }
+  ],
+  "hv3_dir_agree": [
+   {
+    "bin": {
+     "kind": "level",
+     "level": "False",
+     "label": "False",
+     "i": 0
+    },
+    "n": 53,
+    "mean_net": -134.96,
+    "win_rate": 0.3396,
+    "labelled": true,
+    "share": 0.1238
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    },
+    "n": 120,
+    "mean_net": -830.94,
+    "win_rate": 0.2833,
+    "labelled": true,
+    "share": 0.2804
+   },
+   {
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    },
+    "n": 255,
+    "mean_net": -717.5,
+    "win_rate": 0.2941,
+    "labelled": true,
+    "share": 0.5958
+   }
+  ],
+  "hv3_bars_since": [
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0 bars",
+     "i": 0
+    },
+    "n": 51,
+    "mean_net": -1035.49,
+    "win_rate": 0.3333,
+    "labelled": true,
+    "share": 0.1192
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1 bars",
+     "i": 1
+    },
+    "n": 8,
+    "mean_net": 862.02,
+    "win_rate": 0.375,
+    "labelled": true,
+    "share": 0.0187
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "2-3 bars",
+     "i": 2
+    },
+    "n": 13,
+    "mean_net": -1850.24,
+    "win_rate": 0.0769,
+    "labelled": true,
+    "share": 0.0304
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": 12,
+     "hi_inclusive": true,
+     "label": "4-12 bars",
+     "i": 3
+    },
+    "n": 47,
+    "mean_net": -704.05,
+    "win_rate": 0.2553,
+    "labelled": true,
+    "share": 0.1098
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 13,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=13 bars",
+     "i": 4
+    },
+    "n": 54,
+    "mean_net": -70.53,
+    "win_rate": 0.3519,
+    "labelled": true,
+    "share": 0.1262
+   },
+   {
+    "bin": {
+     "kind": "na",
+     "label": "NA (no bar with vol_ratio20 >= 3 in the session so far)",
+     "i": 5
+    },
+    "n": 255,
+    "mean_net": -717.5,
+    "win_rate": 0.2941,
+    "labelled": true,
+    "share": 0.5958
+   }
+  ],
+  "fz_visit_n": [
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 0
+    },
+    "n": 33,
+    "mean_net": -1445.11,
+    "win_rate": 0.1818,
+    "labelled": true,
+    "share": 0.0771
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    },
+    "n": 68,
+    "mean_net": -264.99,
+    "win_rate": 0.2794,
+    "labelled": true,
+    "share": 0.1589
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    },
+    "n": 45,
+    "mean_net": -1313.2,
+    "win_rate": 0.2222,
+    "labelled": true,
+    "share": 0.1051
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    },
+    "n": 116,
+    "mean_net": -455.78,
+    "win_rate": 0.3103,
+    "labelled": true,
+    "share": 0.271
+   },
+   {
+    "bin": {
+     "kind": "na",
+     "label": "NA (no ref room)",
+     "i": 4
+    },
+    "n": 166,
+    "mean_net": -675.63,
+    "win_rate": 0.3373,
+    "labelled": true,
+    "share": 0.3879
+   }
+  ]
+ },
+ "two_way": {
+  "fz_readxhour_bin": {
+   "row_column": "fz_read",
+   "col_column": "hour_bin",
+   "row_bins": [
+    {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    },
+    {
+     "kind": "level",
+     "level": "HUNT",
+     "label": "HUNT",
+     "i": 2
+    },
+    {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    },
+    {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    },
+    {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    },
+    {
+     "kind": "level",
+     "level": "RECYCLE",
+     "label": "RECYCLE",
+     "i": 6
+    },
+    {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    },
+    {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   ],
+   "col_bins": [
+    {
+     "kind": "level",
+     "level": "09",
+     "label": "09",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    },
+    {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    },
+    {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    },
+    {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    },
+    {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    },
+    {
+     "kind": "level",
+     "level": "15",
+     "label": "15",
+     "i": 6
+    },
+    {
+     "kind": "level",
+     "level": "<09:25",
+     "label": "<09:25",
+     "i": 7
+    },
+    {
+     "kind": "level",
+     "level": ">=15:20",
+     "label": ">=15:20",
+     "i": 8
+    }
+   ],
+   "grid": [
+    [
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 29,
+      "mean_net": -838.94,
+      "win_rate": 0.3103,
+      "labelled": true
+     },
+     {
+      "n": 36,
+      "mean_net": -888.74,
+      "win_rate": 0.2222,
+      "labelled": true
+     },
+     {
+      "n": 31,
+      "mean_net": -1161.14,
+      "win_rate": 0.2581,
+      "labelled": true
+     },
+     {
+      "n": 36,
+      "mean_net": -1195.25,
+      "win_rate": 0.2222,
+      "labelled": true
+     },
+     {
+      "n": 41,
+      "mean_net": 130.59,
+      "win_rate": 0.3171,
+      "labelled": true
+     },
+     {
+      "n": 38,
+      "mean_net": -553.48,
+      "win_rate": 0.3684,
+      "labelled": true
+     },
+     {
+      "n": 14,
+      "mean_net": -812.08,
+      "win_rate": 0.2857,
+      "labelled": true
+     },
+     {
+      "n": 15,
+      "mean_net": 2117.19,
+      "win_rate": 0.5333,
+      "labelled": true
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 2,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 5,
+      "mean_net": -540.32,
+      "win_rate": 0.2,
+      "labelled": true
+     },
+     {
+      "n": 6,
+      "mean_net": -1107.99,
+      "win_rate": 0.5,
+      "labelled": true
+     },
+     {
+      "n": 4,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 9,
+      "mean_net": 17.11,
+      "win_rate": 0.4444,
+      "labelled": true
+     },
+     {
+      "n": 6,
+      "mean_net": -69.99,
+      "win_rate": 0.6667,
+      "labelled": true
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 5,
+      "mean_net": 1248.63,
+      "win_rate": 0.4,
+      "labelled": true
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 12,
+      "mean_net": -922.84,
+      "win_rate": 0.3333,
+      "labelled": true
+     },
+     {
+      "n": 11,
+      "mean_net": -1904.04,
+      "win_rate": 0.1818,
+      "labelled": true
+     },
+     {
+      "n": 10,
+      "mean_net": -1782.45,
+      "win_rate": 0.2,
+      "labelled": true
+     },
+     {
+      "n": 20,
+      "mean_net": -1313.47,
+      "win_rate": 0.2,
+      "labelled": true
+     },
+     {
+      "n": 20,
+      "mean_net": -1639.26,
+      "win_rate": 0.25,
+      "labelled": true
+     },
+     {
+      "n": 17,
+      "mean_net": -494.49,
+      "win_rate": 0.4706,
+      "labelled": true
+     },
+     {
+      "n": 8,
+      "mean_net": -812.44,
+      "win_rate": 0.0,
+      "labelled": true
+     },
+     {
+      "n": 8,
+      "mean_net": -529.77,
+      "win_rate": 0.375,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 2,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 4,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 2,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 3,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 9,
+      "mean_net": -368.62,
+      "win_rate": 0.4444,
+      "labelled": true
+     },
+     {
+      "n": 6,
+      "mean_net": 1814.46,
+      "win_rate": 0.3333,
+      "labelled": true
+     },
+     {
+      "n": 3,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ]
+   ]
+  },
+  "n_choch_since_bosxdir": {
+   "row_column": "n_choch_since_bos",
+   "col_column": "dir",
+   "row_bins": [
+    {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 3,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=3",
+     "i": 3
+    }
+   ],
+   "col_bins": [
+    {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   ],
+   "grid": [
+    [
+     {
+      "n": 50,
+      "mean_net": -207.91,
+      "win_rate": 0.36,
+      "labelled": true
+     },
+     {
+      "n": 70,
+      "mean_net": -900.92,
+      "win_rate": 0.2714,
+      "labelled": true
+     }
+    ],
+    [
+     {
+      "n": 93,
+      "mean_net": -197.22,
+      "win_rate": 0.3441,
+      "labelled": true
+     },
+     {
+      "n": 84,
+      "mean_net": -1056.04,
+      "win_rate": 0.2619,
+      "labelled": true
+     }
+    ],
+    [
+     {
+      "n": 32,
+      "mean_net": -1073.39,
+      "win_rate": 0.25,
+      "labelled": true
+     },
+     {
+      "n": 38,
+      "mean_net": -1287.68,
+      "win_rate": 0.2368,
+      "labelled": true
+     }
+    ],
+    [
+     {
+      "n": 34,
+      "mean_net": -617.13,
+      "win_rate": 0.3529,
+      "labelled": true
+     },
+     {
+      "n": 27,
+      "mean_net": -187.28,
+      "win_rate": 0.2593,
+      "labelled": true
+     }
+    ]
+   ]
+  },
+  "hv3_dir_agreexhv3_bars_since": {
+   "row_column": "hv3_dir_agree",
+   "col_column": "hv3_bars_since",
+   "row_bins": [
+    {
+     "kind": "level",
+     "level": "False",
+     "label": "False",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    },
+    {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    }
+   ],
+   "col_bins": [
+    {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0 bars",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1 bars",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 2,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "2-3 bars",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 4,
+     "hi": 12,
+     "hi_inclusive": true,
+     "label": "4-12 bars",
+     "i": 3
+    },
+    {
+     "kind": "range",
+     "lo": 13,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=13 bars",
+     "i": 4
+    },
+    {
+     "kind": "na",
+     "label": "NA (no bar with vol_ratio20 >= 3 in the session so far)",
+     "i": 5
+    }
+   ],
+   "grid": [
+    [
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 2,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 2,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 22,
+      "mean_net": 473.23,
+      "win_rate": 0.4091,
+      "labelled": true
+     },
+     {
+      "n": 27,
+      "mean_net": -184.55,
+      "win_rate": 0.3333,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 51,
+      "mean_net": -1035.49,
+      "win_rate": 0.3333,
+      "labelled": true
+     },
+     {
+      "n": 6,
+      "mean_net": 2234.27,
+      "win_rate": 0.5,
+      "labelled": true
+     },
+     {
+      "n": 11,
+      "mean_net": -1634.67,
+      "win_rate": 0.0909,
+      "labelled": true
+     },
+     {
+      "n": 25,
+      "mean_net": -1740.06,
+      "win_rate": 0.12,
+      "labelled": true
+     },
+     {
+      "n": 27,
+      "mean_net": 43.48,
+      "win_rate": 0.3704,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 255,
+      "mean_net": -717.5,
+      "win_rate": 0.2941,
+      "labelled": true
+     }
+    ]
+   ]
+  },
+  "fz_visit_nxfz_read": {
+   "row_column": "fz_visit_n",
+   "col_column": "fz_read",
+   "row_bins": [
+    {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    },
+    {
+     "kind": "na",
+     "label": "NA (no ref room)",
+     "i": 4
+    }
+   ],
+   "col_bins": [
+    {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    },
+    {
+     "kind": "level",
+     "level": "HUNT",
+     "label": "HUNT",
+     "i": 2
+    },
+    {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    },
+    {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    },
+    {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    },
+    {
+     "kind": "level",
+     "level": "RECYCLE",
+     "label": "RECYCLE",
+     "i": 6
+    },
+    {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    },
+    {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   ],
+   "grid": [
+    [
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 4,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 2,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 27,
+      "mean_net": -1777.16,
+      "win_rate": 0.1852,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 34,
+      "mean_net": 607.16,
+      "win_rate": 0.2941,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 25,
+      "mean_net": -817.33,
+      "win_rate": 0.32,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 8,
+      "mean_net": -1840.51,
+      "win_rate": 0.125,
+      "labelled": true
+     }
+    ],
+    [
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 21,
+      "mean_net": -2096.44,
+      "win_rate": 0.1429,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 14,
+      "mean_net": -1675.22,
+      "win_rate": 0.2857,
+      "labelled": true
+     },
+     {
+      "n": 2,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 7,
+      "mean_net": 1815.57,
+      "win_rate": 0.4286,
+      "labelled": true
+     }
+    ],
+    [
+     {
+      "n": 2,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 57,
+      "mean_net": -379.58,
+      "win_rate": 0.2982,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 40,
+      "mean_net": -904.3,
+      "win_rate": 0.275,
+      "labelled": true
+     },
+     {
+      "n": 2,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 2,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 13,
+      "mean_net": 662.13,
+      "win_rate": 0.4615,
+      "labelled": true
+     }
+    ],
+    [
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 127,
+      "mean_net": -751.32,
+      "win_rate": 0.3228,
+      "labelled": true
+     },
+     {
+      "n": 39,
+      "mean_net": -429.16,
+      "win_rate": 0.3846,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ]
+   ]
+  }
+ },
+ "cells": [
+  {
+   "table": "base",
+   "a": null,
+   "b": null,
+   "n": 428,
+   "mean_net": -677.17,
+   "win_rate": 0.2967
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "09",
+     "label": "09",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 45,
+   "mean_net": -774.24,
+   "win_rate": 0.3333
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 56,
+   "mean_net": -856.64,
+   "win_rate": 0.2321
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 54,
+   "mean_net": -1433.92,
+   "win_rate": 0.2407
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 65,
+   "mean_net": -1313.09,
+   "win_rate": 0.2
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 80,
+   "mean_net": -384.59,
+   "win_rate": 0.325
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    }
+   },
+   "b": null,
+   "n": 69,
+   "mean_net": -310.61,
+   "win_rate": 0.4203
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "15",
+     "label": "15",
+     "i": 6
+    }
+   },
+   "b": null,
+   "n": 26,
+   "mean_net": -935.27,
+   "win_rate": 0.1538
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "<09:25",
+     "label": "<09:25",
+     "i": 7
+    }
+   },
+   "b": null,
+   "n": 29,
+   "mean_net": 1272.21,
+   "win_rate": 0.4828
+  },
+  {
+   "table": "one_way:fz_read",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 241,
+   "mean_net": -548.45,
+   "win_rate": 0.2988
+  },
+  {
+   "table": "one_way:fz_read",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 39,
+   "mean_net": -429.16,
+   "win_rate": 0.3846
+  },
+  {
+   "table": "one_way:fz_read",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": null,
+   "n": 106,
+   "mean_net": -1207.94,
+   "win_rate": 0.2642
+  },
+  {
+   "table": "one_way:fz_read",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "b": null,
+   "n": 28,
+   "mean_net": 235.45,
+   "win_rate": 0.3571
+  },
+  {
+   "table": "one_way:dir",
+   "a": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 209,
+   "mean_net": -402.24,
+   "win_rate": 0.3349
+  },
+  {
+   "table": "one_way:dir",
+   "a": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 219,
+   "mean_net": -939.54,
+   "win_rate": 0.2603
+  },
+  {
+   "table": "one_way:touch_room_last",
+   "a": {
+    "column": "touch_room_last",
+    "bin": {
+     "kind": "level",
+     "level": "broke",
+     "label": "broke",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 70,
+   "mean_net": -261.92,
+   "win_rate": 0.3143
+  },
+  {
+   "table": "one_way:touch_room_last",
+   "a": {
+    "column": "touch_room_last",
+    "bin": {
+     "kind": "level",
+     "level": "held",
+     "label": "held",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 31,
+   "mean_net": -1039.1,
+   "win_rate": 0.1935
+  },
+  {
+   "table": "one_way:touch_room_last",
+   "a": {
+    "column": "touch_room_last",
+    "bin": {
+     "kind": "level",
+     "level": "none",
+     "label": "none",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 238,
+   "mean_net": -789.42,
+   "win_rate": 0.3277
+  },
+  {
+   "table": "one_way:touch_room_last",
+   "a": {
+    "column": "touch_room_last",
+    "bin": {
+     "kind": "level",
+     "level": "pending",
+     "label": "pending",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 89,
+   "mean_net": -577.52,
+   "win_rate": 0.236
+  },
+  {
+   "table": "one_way:fz_gate",
+   "a": {
+    "column": "fz_gate",
+    "bin": {
+     "kind": "level",
+     "level": "BLOCK",
+     "label": "BLOCK",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 103,
+   "mean_net": 10.66,
+   "win_rate": 0.3786
+  },
+  {
+   "table": "one_way:fz_gate",
+   "a": {
+    "column": "fz_gate",
+    "bin": {
+     "kind": "level",
+     "level": "TAKE",
+     "label": "TAKE",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 116,
+   "mean_net": -1349.51,
+   "win_rate": 0.25
+  },
+  {
+   "table": "one_way:fz_gate",
+   "a": {
+    "column": "fz_gate",
+    "bin": {
+     "kind": "level",
+     "level": "WATCH",
+     "label": "WATCH",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 208,
+   "mean_net": -655.28,
+   "win_rate": 0.2788
+  },
+  {
+   "table": "one_way:card_leave_kind",
+   "a": {
+    "column": "card_leave_kind",
+    "bin": {
+     "kind": "level",
+     "level": "gap",
+     "label": "gap",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 24,
+   "mean_net": 1262.3,
+   "win_rate": 0.5
+  },
+  {
+   "table": "one_way:card_leave_kind",
+   "a": {
+    "column": "card_leave_kind",
+    "bin": {
+     "kind": "level",
+     "level": "normal",
+     "label": "normal",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 217,
+   "mean_net": -748.72,
+   "win_rate": 0.2765
+  },
+  {
+   "table": "one_way:card_leave_kind",
+   "a": {
+    "column": "card_leave_kind",
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 187,
+   "mean_net": -843.06,
+   "win_rate": 0.2941
+  },
+  {
+   "table": "one_way:days_to_expiry",
+   "a": {
+    "column": "days_to_expiry",
+    "bin": {
+     "kind": "range",
+     "lo": null,
+     "hi": 1.0,
+     "hi_inclusive": false,
+     "label": "< 1.0",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 17,
+   "mean_net": -877.8,
+   "win_rate": 0.2941
+  },
+  {
+   "table": "one_way:days_to_expiry",
+   "a": {
+    "column": "days_to_expiry",
+    "bin": {
+     "kind": "range",
+     "lo": 1.0,
+     "hi": 5.0,
+     "hi_inclusive": false,
+     "label": "[1.0, 5.0)",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 64,
+   "mean_net": -1419.93,
+   "win_rate": 0.2031
+  },
+  {
+   "table": "one_way:days_to_expiry",
+   "a": {
+    "column": "days_to_expiry",
+    "bin": {
+     "kind": "range",
+     "lo": 5.0,
+     "hi": 7.0,
+     "hi_inclusive": false,
+     "label": "[5.0, 7.0)",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 32,
+   "mean_net": -1463.34,
+   "win_rate": 0.1562
+  },
+  {
+   "table": "one_way:days_to_expiry",
+   "a": {
+    "column": "days_to_expiry",
+    "bin": {
+     "kind": "range",
+     "lo": 7.0,
+     "hi": 9.0,
+     "hi_inclusive": false,
+     "label": "[7.0, 9.0)",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 39,
+   "mean_net": -1020.07,
+   "win_rate": 0.3333
+  },
+  {
+   "table": "one_way:days_to_expiry",
+   "a": {
+    "column": "days_to_expiry",
+    "bin": {
+     "kind": "range",
+     "lo": 9.0,
+     "hi": 13.0,
+     "hi_inclusive": false,
+     "label": "[9.0, 13.0)",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 45,
+   "mean_net": 425.24,
+   "win_rate": 0.3111
+  },
+  {
+   "table": "one_way:days_to_expiry",
+   "a": {
+    "column": "days_to_expiry",
+    "bin": {
+     "kind": "range",
+     "lo": 13.0,
+     "hi": 16.0,
+     "hi_inclusive": false,
+     "label": "[13.0, 16.0)",
+     "i": 5
+    }
+   },
+   "b": null,
+   "n": 50,
+   "mean_net": -452.96,
+   "win_rate": 0.34
+  },
+  {
+   "table": "one_way:days_to_expiry",
+   "a": {
+    "column": "days_to_expiry",
+    "bin": {
+     "kind": "range",
+     "lo": 16.0,
+     "hi": 21.0,
+     "hi_inclusive": false,
+     "label": "[16.0, 21.0)",
+     "i": 6
+    }
+   },
+   "b": null,
+   "n": 49,
+   "mean_net": -690.28,
+   "win_rate": 0.2857
+  },
+  {
+   "table": "one_way:days_to_expiry",
+   "a": {
+    "column": "days_to_expiry",
+    "bin": {
+     "kind": "range",
+     "lo": 21.0,
+     "hi": 23.0,
+     "hi_inclusive": false,
+     "label": "[21.0, 23.0)",
+     "i": 7
+    }
+   },
+   "b": null,
+   "n": 40,
+   "mean_net": 245.24,
+   "win_rate": 0.4
+  },
+  {
+   "table": "one_way:days_to_expiry",
+   "a": {
+    "column": "days_to_expiry",
+    "bin": {
+     "kind": "range",
+     "lo": 23.0,
+     "hi": 27.0,
+     "hi_inclusive": false,
+     "label": "[23.0, 27.0)",
+     "i": 8
+    }
+   },
+   "b": null,
+   "n": 30,
+   "mean_net": 153.33,
+   "win_rate": 0.4
+  },
+  {
+   "table": "one_way:days_to_expiry",
+   "a": {
+    "column": "days_to_expiry",
+    "bin": {
+     "kind": "range",
+     "lo": 27.0,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 27.0",
+     "i": 9
+    }
+   },
+   "b": null,
+   "n": 62,
+   "mean_net": -1201.52,
+   "win_rate": 0.2903
+  },
+  {
+   "table": "one_way:touch_prot_last",
+   "a": {
+    "column": "touch_prot_last",
+    "bin": {
+     "kind": "level",
+     "level": "held",
+     "label": "held",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 302,
+   "mean_net": -543.18,
+   "win_rate": 0.298
+  },
+  {
+   "table": "one_way:touch_prot_last",
+   "a": {
+    "column": "touch_prot_last",
+    "bin": {
+     "kind": "level",
+     "level": "na",
+     "label": "na",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 11,
+   "mean_net": -2008.8,
+   "win_rate": 0.1818
+  },
+  {
+   "table": "one_way:touch_prot_last",
+   "a": {
+    "column": "touch_prot_last",
+    "bin": {
+     "kind": "level",
+     "level": "none",
+     "label": "none",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 35,
+   "mean_net": -1921.17,
+   "win_rate": 0.2286
+  },
+  {
+   "table": "one_way:touch_prot_last",
+   "a": {
+    "column": "touch_prot_last",
+    "bin": {
+     "kind": "level",
+     "level": "pending",
+     "label": "pending",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 78,
+   "mean_net": -406.8,
+   "win_rate": 0.3462
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": null,
+     "hi": 2.4071,
+     "hi_inclusive": false,
+     "label": "< 2.4071",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 42,
+   "mean_net": 364.76,
+   "win_rate": 0.4524
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.4071,
+     "hi": 2.4159,
+     "hi_inclusive": false,
+     "label": "[2.4071, 2.4159)",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 41,
+   "mean_net": -1163.22,
+   "win_rate": 0.2439
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.4159,
+     "hi": 2.4193,
+     "hi_inclusive": false,
+     "label": "[2.4159, 2.4193)",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 43,
+   "mean_net": 436.47,
+   "win_rate": 0.3488
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.4193,
+     "hi": 2.4234,
+     "hi_inclusive": false,
+     "label": "[2.4193, 2.4234)",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 41,
+   "mean_net": -724.42,
+   "win_rate": 0.2195
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.4234,
+     "hi": 2.4284,
+     "hi_inclusive": false,
+     "label": "[2.4234, 2.4284)",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 43,
+   "mean_net": -1451.43,
+   "win_rate": 0.2791
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.4284,
+     "hi": 2.4314,
+     "hi_inclusive": false,
+     "label": "[2.4284, 2.4314)",
+     "i": 5
+    }
+   },
+   "b": null,
+   "n": 42,
+   "mean_net": -330.54,
+   "win_rate": 0.3333
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.4314,
+     "hi": 2.4347,
+     "hi_inclusive": false,
+     "label": "[2.4314, 2.4347)",
+     "i": 6
+    }
+   },
+   "b": null,
+   "n": 41,
+   "mean_net": -964.04,
+   "win_rate": 0.2683
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.4347,
+     "hi": 2.4432,
+     "hi_inclusive": false,
+     "label": "[2.4347, 2.4432)",
+     "i": 7
+    }
+   },
+   "b": null,
+   "n": 42,
+   "mean_net": -754.23,
+   "win_rate": 0.3095
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.4432,
+     "hi": 2.4515,
+     "hi_inclusive": false,
+     "label": "[2.4432, 2.4515)",
+     "i": 8
+    }
+   },
+   "b": null,
+   "n": 43,
+   "mean_net": -1359.15,
+   "win_rate": 0.3023
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.4515,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 2.4515",
+     "i": 9
+    }
+   },
+   "b": null,
+   "n": 41,
+   "mean_net": -1005.37,
+   "win_rate": 0.1707
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 10
+    }
+   },
+   "b": null,
+   "n": 9,
+   "mean_net": 70.92,
+   "win_rate": 0.4444
+  },
+  {
+   "table": "one_way:gap_pts",
+   "a": {
+    "column": "gap_pts",
+    "bin": {
+     "kind": "notna",
+     "label": "gap_pts defined",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 424,
+   "mean_net": -663.37,
+   "win_rate": 0.2995
+  },
+  {
+   "table": "one_way:n_choch_since_bos",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 120,
+   "mean_net": -612.17,
+   "win_rate": 0.3083
+  },
+  {
+   "table": "one_way:n_choch_since_bos",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 177,
+   "mean_net": -604.8,
+   "win_rate": 0.3051
+  },
+  {
+   "table": "one_way:n_choch_since_bos",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 70,
+   "mean_net": -1189.72,
+   "win_rate": 0.2429
+  },
+  {
+   "table": "one_way:n_choch_since_bos",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 38,
+   "mean_net": -261.76,
+   "win_rate": 0.3684
+  },
+  {
+   "table": "one_way:n_choch_since_bos",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": 4,
+     "hi_inclusive": true,
+     "label": "4",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 13,
+   "mean_net": -726.74,
+   "win_rate": 0.2308
+  },
+  {
+   "table": "one_way:n_choch_since_bos",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 5,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=5",
+     "i": 5
+    }
+   },
+   "b": null,
+   "n": 10,
+   "mean_net": -664.46,
+   "win_rate": 0.2
+  },
+  {
+   "table": "one_way:hv3_dir_agree",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "False",
+     "label": "False",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 53,
+   "mean_net": -134.96,
+   "win_rate": 0.3396
+  },
+  {
+   "table": "one_way:hv3_dir_agree",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 120,
+   "mean_net": -830.94,
+   "win_rate": 0.2833
+  },
+  {
+   "table": "one_way:hv3_dir_agree",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 255,
+   "mean_net": -717.5,
+   "win_rate": 0.2941
+  },
+  {
+   "table": "one_way:hv3_bars_since",
+   "a": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0 bars",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 51,
+   "mean_net": -1035.49,
+   "win_rate": 0.3333
+  },
+  {
+   "table": "one_way:hv3_bars_since",
+   "a": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1 bars",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 8,
+   "mean_net": 862.02,
+   "win_rate": 0.375
+  },
+  {
+   "table": "one_way:hv3_bars_since",
+   "a": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "2-3 bars",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 13,
+   "mean_net": -1850.24,
+   "win_rate": 0.0769
+  },
+  {
+   "table": "one_way:hv3_bars_since",
+   "a": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": 12,
+     "hi_inclusive": true,
+     "label": "4-12 bars",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 47,
+   "mean_net": -704.05,
+   "win_rate": 0.2553
+  },
+  {
+   "table": "one_way:hv3_bars_since",
+   "a": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 13,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=13 bars",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 54,
+   "mean_net": -70.53,
+   "win_rate": 0.3519
+  },
+  {
+   "table": "one_way:hv3_bars_since",
+   "a": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "na",
+     "label": "NA (no bar with vol_ratio20 >= 3 in the session so far)",
+     "i": 5
+    }
+   },
+   "b": null,
+   "n": 255,
+   "mean_net": -717.5,
+   "win_rate": 0.2941
+  },
+  {
+   "table": "one_way:fz_visit_n",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 33,
+   "mean_net": -1445.11,
+   "win_rate": 0.1818
+  },
+  {
+   "table": "one_way:fz_visit_n",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 68,
+   "mean_net": -264.99,
+   "win_rate": 0.2794
+  },
+  {
+   "table": "one_way:fz_visit_n",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 45,
+   "mean_net": -1313.2,
+   "win_rate": 0.2222
+  },
+  {
+   "table": "one_way:fz_visit_n",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 116,
+   "mean_net": -455.78,
+   "win_rate": 0.3103
+  },
+  {
+   "table": "one_way:fz_visit_n",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "na",
+     "label": "NA (no ref room)",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 166,
+   "mean_net": -675.63,
+   "win_rate": 0.3373
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "09",
+     "label": "09",
+     "i": 0
+    }
+   },
+   "n": 29,
+   "mean_net": -838.94,
+   "win_rate": 0.3103
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    }
+   },
+   "n": 36,
+   "mean_net": -888.74,
+   "win_rate": 0.2222
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    }
+   },
+   "n": 31,
+   "mean_net": -1161.14,
+   "win_rate": 0.2581
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    }
+   },
+   "n": 36,
+   "mean_net": -1195.25,
+   "win_rate": 0.2222
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    }
+   },
+   "n": 41,
+   "mean_net": 130.59,
+   "win_rate": 0.3171
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    }
+   },
+   "n": 38,
+   "mean_net": -553.48,
+   "win_rate": 0.3684
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "15",
+     "label": "15",
+     "i": 6
+    }
+   },
+   "n": 14,
+   "mean_net": -812.08,
+   "win_rate": 0.2857
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "<09:25",
+     "label": "<09:25",
+     "i": 7
+    }
+   },
+   "n": 15,
+   "mean_net": 2117.19,
+   "win_rate": 0.5333
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    }
+   },
+   "n": 5,
+   "mean_net": -540.32,
+   "win_rate": 0.2
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    }
+   },
+   "n": 6,
+   "mean_net": -1107.99,
+   "win_rate": 0.5
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    }
+   },
+   "n": 9,
+   "mean_net": 17.11,
+   "win_rate": 0.4444
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    }
+   },
+   "n": 6,
+   "mean_net": -69.99,
+   "win_rate": 0.6667
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "<09:25",
+     "label": "<09:25",
+     "i": 7
+    }
+   },
+   "n": 5,
+   "mean_net": 1248.63,
+   "win_rate": 0.4
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "09",
+     "label": "09",
+     "i": 0
+    }
+   },
+   "n": 12,
+   "mean_net": -922.84,
+   "win_rate": 0.3333
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    }
+   },
+   "n": 11,
+   "mean_net": -1904.04,
+   "win_rate": 0.1818
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    }
+   },
+   "n": 10,
+   "mean_net": -1782.45,
+   "win_rate": 0.2
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    }
+   },
+   "n": 20,
+   "mean_net": -1313.47,
+   "win_rate": 0.2
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    }
+   },
+   "n": 20,
+   "mean_net": -1639.26,
+   "win_rate": 0.25
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    }
+   },
+   "n": 17,
+   "mean_net": -494.49,
+   "win_rate": 0.4706
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "15",
+     "label": "15",
+     "i": 6
+    }
+   },
+   "n": 8,
+   "mean_net": -812.44,
+   "win_rate": 0.0
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "<09:25",
+     "label": "<09:25",
+     "i": 7
+    }
+   },
+   "n": 8,
+   "mean_net": -529.77,
+   "win_rate": 0.375
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    }
+   },
+   "n": 9,
+   "mean_net": -368.62,
+   "win_rate": 0.4444
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    }
+   },
+   "n": 6,
+   "mean_net": 1814.46,
+   "win_rate": 0.3333
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    }
+   },
+   "n": 50,
+   "mean_net": -207.91,
+   "win_rate": 0.36
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   },
+   "n": 70,
+   "mean_net": -900.92,
+   "win_rate": 0.2714
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    }
+   },
+   "n": 93,
+   "mean_net": -197.22,
+   "win_rate": 0.3441
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   },
+   "n": 84,
+   "mean_net": -1056.04,
+   "win_rate": 0.2619
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 2
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    }
+   },
+   "n": 32,
+   "mean_net": -1073.39,
+   "win_rate": 0.25
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 2
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   },
+   "n": 38,
+   "mean_net": -1287.68,
+   "win_rate": 0.2368
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=3",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    }
+   },
+   "n": 34,
+   "mean_net": -617.13,
+   "win_rate": 0.3529
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=3",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   },
+   "n": 27,
+   "mean_net": -187.28,
+   "win_rate": 0.2593
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "False",
+     "label": "False",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": 12,
+     "hi_inclusive": true,
+     "label": "4-12 bars",
+     "i": 3
+    }
+   },
+   "n": 22,
+   "mean_net": 473.23,
+   "win_rate": 0.4091
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "False",
+     "label": "False",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 13,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=13 bars",
+     "i": 4
+    }
+   },
+   "n": 27,
+   "mean_net": -184.55,
+   "win_rate": 0.3333
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0 bars",
+     "i": 0
+    }
+   },
+   "n": 51,
+   "mean_net": -1035.49,
+   "win_rate": 0.3333
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1 bars",
+     "i": 1
+    }
+   },
+   "n": 6,
+   "mean_net": 2234.27,
+   "win_rate": 0.5
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "2-3 bars",
+     "i": 2
+    }
+   },
+   "n": 11,
+   "mean_net": -1634.67,
+   "win_rate": 0.0909
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": 12,
+     "hi_inclusive": true,
+     "label": "4-12 bars",
+     "i": 3
+    }
+   },
+   "n": 25,
+   "mean_net": -1740.06,
+   "win_rate": 0.12
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 13,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=13 bars",
+     "i": 4
+    }
+   },
+   "n": 27,
+   "mean_net": 43.48,
+   "win_rate": 0.3704
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "na",
+     "label": "NA (no bar with vol_ratio20 >= 3 in the session so far)",
+     "i": 5
+    }
+   },
+   "n": 255,
+   "mean_net": -717.5,
+   "win_rate": 0.2941
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "n": 27,
+   "mean_net": -1777.16,
+   "win_rate": 0.1852
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "n": 34,
+   "mean_net": 607.16,
+   "win_rate": 0.2941
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "n": 25,
+   "mean_net": -817.33,
+   "win_rate": 0.32
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "n": 8,
+   "mean_net": -1840.51,
+   "win_rate": 0.125
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "n": 21,
+   "mean_net": -2096.44,
+   "win_rate": 0.1429
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "n": 14,
+   "mean_net": -1675.22,
+   "win_rate": 0.2857
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "n": 7,
+   "mean_net": 1815.57,
+   "win_rate": 0.4286
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "n": 57,
+   "mean_net": -379.58,
+   "win_rate": 0.2982
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "n": 40,
+   "mean_net": -904.3,
+   "win_rate": 0.275
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "n": 13,
+   "mean_net": 662.13,
+   "win_rate": 0.4615
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "na",
+     "label": "NA (no ref room)",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "n": 127,
+   "mean_net": -751.32,
+   "win_rate": 0.3228
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "na",
+     "label": "NA (no ref room)",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "n": 39,
+   "mean_net": -429.16,
+   "win_rate": 0.3846
+  }
+ ],
+ "written_at": "2026-09-29T12:36:07",
+ "n_cells_labelled": 122,
+ "n_cells_suppressed": 42,
+ "n_cells_empty": 69,
+ "n_columns_shown": 14,
+ "n_two_way_tables": 4,
+ "interaction_pairs": [
+  {
+   "feature_a": "touch_prot_bars_ago",
+   "feature_b": "ffd_close_dstar",
+   "source_a": "touch_prot_bars_ago",
+   "source_b": "ffd_close_dstar",
+   "split_a": [
+    6.0,
+    7.0,
+    8.0
+   ],
+   "split_b": [
+    2.4189,
+    2.419,
+    2.4232
+   ],
+   "refused": false,
+   "refused_why": null
+  },
+  {
+   "feature_a": "room_ahead_dist_atr",
+   "feature_b": "n_rooms_alive",
+   "source_a": "room_ahead_dist_atr",
+   "source_b": "n_rooms_alive",
+   "split_a": [
+    0.7394,
+    0.7617,
+    4.1739
+   ],
+   "split_b": [
+    6.0,
+    7.0,
+    8.0
+   ],
+   "refused": false,
+   "refused_why": null
+  },
+  {
+   "feature_a": "room_ahead_dist_atr",
+   "feature_b": "fz_take_why=nan",
+   "source_a": "room_ahead_dist_atr",
+   "source_b": "fz_take_why",
+   "split_a": [
+    0.0776,
+    0.1701,
+    0.3558
+   ],
+   "split_b": [
+    1.0
+   ],
+   "refused": false,
+   "refused_why": null
+  },
+  {
+   "feature_a": "ffd_close_dstar",
+   "feature_b": "sl",
+   "source_a": "ffd_close_dstar",
+   "source_b": "sl",
+   "split_a": [
+    2.4159,
+    2.4189,
+    2.4245,
+    2.5133
+   ],
+   "split_b": [
+    15985.5,
+    16086.5,
+    16705.25,
+    25184.0
+   ],
+   "refused": true,
+   "refused_why": "calendar-time proxy (drift.json time_proxies)"
+  },
+  {
+   "feature_a": "room_ahead_dist_atr",
+   "feature_b": "ffd_close_dstar",
+   "source_a": "room_ahead_dist_atr",
+   "source_b": "ffd_close_dstar",
+   "split_a": [
+    0.1598,
+    0.1618,
+    0.3787,
+    0.4549
+   ],
+   "split_b": [
+    2.4698,
+    2.5133,
+    2.5277
+   ],
+   "refused": false,
+   "refused_why": null
+  }
+ ],
+ "duplicates": {
+  "card_read": "fz_read"
+ },
+ "definitions": "llm_round1: definitions shared by step 1 (tables.py, the labelled summary tables) and step 3 (scorer.py).\nDESIGN_PANEL deep-sequence-llm-hypotheses with Judge 1's cross-fitting and Judge 2's family-size rule; STUDY_AGENT_BRIEF rules.\nEverything here was fixed before any labelled number of this study was looked at.\n\nUnit / label / split   harness.load(tf) (label L1, the 15:25 book); IS rows only (SETUP date <= 2025-12-31). OOS rows are never read\n                       (only the harness's own row counts).\nHalves                 A = harness blocks 0-5, B = blocks 6-11 (Table.block of the IS rows; the 12 contiguous IS session blocks of the\n                       harness splitter). A proposer sees the tables of ONE half; its rules are scored on the OTHER half (cross-fitted).\nVocabulary             the frozen shortlist (features_shortlist/<tf>/shortlist.json) is EMPTY on both timeframes (n_shortlisted = 0,\n                       allowed_columns = [], sha registered 2026-09-29T11:31:33, no newer shortlist line), so the EMPTY-SHORTLIST RULE\n                       applies: hour_bin, fz_read, dir (always) plus, as an exploratory vocabulary labelled \"outside the frozen\n                       shortlist\", the representative of each of the top-8 clusters by log-loss MDA rank per timeframe\n                       (studies/importance/importance_clusters_<tf>.csv, column mda_rank) and the columns of the design's four two-way\n                       tables (fz_read x hour_bin, n_choch_since_bos x dir, hv3_dir_agree x hv3_bars_since bucket, fz_visit_n x fz_read).\nSwap rule              a cluster is shown through its representative's SOURCE column (a one-hot `col=level` -> `col` by level; a missing\n                       indicator `col__na` -> `col` as an NA indicator). When that source column is (a) always included, (b) an exact\n                       duplicate of an always-included column on every IS row (card_read == fz_read), (c) a calendar-time proxy\n                       (drift.json time_proxies: n_events_asof, sl) or (d) already shown for a higher-ranked cluster, the cluster is shown\n                       through its highest-MDI member (importance_features_<tf>.csv mdi_mean) whose source column is not excluded by\n                       (a)-(d); a single-member cluster with no admissible member is recorded as covered, with zero own cells. Every\n                       swap is stated in the file header.\nBins                   text / boolean columns and integer columns with <= 12 distinct IS values: one row per level (+ NA when present);\n                       other numeric columns: deciles of the HALF's own rows (np.nanquantile 0.1 .. 0.9, duplicate edges dropped,\n                       bins [e_i, e_{i+1}), the first open below, the last open above) + an NA row. Fixed buckets: n_choch_since_bos\n                       0 / 1 / 2 / 3 / 4 / >=5 (one-way) and 0 / 1 / 2 / >=3 (two-way); hv3_bars_since 0 / 1-5 / 6-15 / 16-60 / >60\n                       bars on minute and 0 / 1 / 2-3 / 4-12 / >12 on 5minute (the same clock: 5 / 15 / 60 minutes) + NA;\n                       fz_visit_n 1 / 2 / 3 / >=4 + NA (no ref room).\nCell                   one row of a one-way table or one populated cell of a two-way table: count, mean L1 net (INR per trade), win\n                       rate. A cell with fewer than MIN_CELL_N = 5 units shows its count only (mean and win rate suppressed: no raw\n                       rows) and is NOT a labelled cell. The half's base row (all rows) is one labelled cell.\nFamily size            labelled cells shown in tables_<tf>_<half>.json + rules proposed (round 0 and round 1): the max-T family of the\n                       scorer (every labelled cell is a candidate skip set the proposer could have chosen).\nRule grammar           {\"id\", \"if\": [[column, op, value], ...] (<= 3 comparisons), \"then\": \"skip\", \"reason\", \"cells\"}; ops >=, >, <=,\n                       <, ==, !=, in, not_in (the null-tape checker's tapes._cmp grammar); a None / NaN in a rule column makes the\n                       comparison False (a skip rule never fires on an undefined value). Refused: a label column, a harness.NOT_FEATURES\n                       column, a time proxy, depth > 3, a column absent from the table. Flagged (scored, but ineligible for the\n                       combination): a column outside the vocabulary shown to the proposer, a numeric threshold that is not a table\n                       edge / level / listed interaction split point of that column.\n"
+}

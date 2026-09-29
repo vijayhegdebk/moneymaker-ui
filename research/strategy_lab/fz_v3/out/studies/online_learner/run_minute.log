@@ -1,0 +1,4 @@
+[minute] start 2026-09-29T15:43:22 stage all
+[minute] spec context: 11 encoded columns from 2 source columns (time proxies excluded: ['n_events_asof', 'sl']); sha 16f99dd47ca2d589
+[minute] spec full: 304 encoded columns from 152 source columns (time proxies excluded: ['n_events_asof', 'sl']); sha f4dfd2ef790526cf
+[minute] fit: 81 jobs, 81 to run, workers 3

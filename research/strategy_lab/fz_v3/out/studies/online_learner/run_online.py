@@ -192,19 +192,30 @@ def stage_score(tf):
             done.add(cid); n_new += 1
             if n_new % 20 == 0: print(f"[{tf}] scored {n_new} rows ({time.time() - t0:.0f}s)", flush=True)
     # comparators (own family, outside online/*)
-    comps = {"take_all": np.ones(T.n, dtype=bool), "frozen_st7_st8": T.F.fz_traded.astype(bool).to_numpy()}
-    gf = os.path.join(OUT, "studies", "gate_family", f"oof_{tf}.parquet")
-    if os.path.exists(gf):
-        G = pd.read_parquet(gf); m = dict(zip(G.setup_i, G.keep if "keep" in G.columns else G.iloc[:, -1]))
-        comps["gate_family_oof"] = np.array([bool(m.get(int(s), True)) for s in T.setup_i])
-    for name, keep in comps.items():
-        fam = f"online_comparator/{name}"; c = dict(comparator=name, source="pre_registration.json" if name != "gate_family_oof" else gf)
+    comps = {"take_all": (np.ones(T.n, dtype=bool), "pre_registration.json"), "frozen_st7_st8": (T.F.fz_traded.astype(bool).to_numpy(), "pre_registration.json")}
+    # the gate_family study's OOF decisions (studies/gate_family/results/oof_<tf>_<sub>.parquet: one row per sub-family x model x IS
+    # unit, columns setup_i, sub, model, keep): the sub-family's finalist model when gate_family/findings.json names one, else every
+    # model in the file (labelled by sub / model; the h5_full sub is outside the frozen shortlist). Absent files are recorded.
+    gf_dir = os.path.join(OUT, "studies", "gate_family"); gf_files = []
+    fj = os.path.join(gf_dir, "findings.json"); fin = json.load(open(fj)).get("timeframes", {}).get(tf, {}).get("sub_families", {}) if os.path.exists(fj) else {}
+    for sub in ("context", "h5_full"):
+        gf = os.path.join(gf_dir, "results", f"oof_{tf}_{sub}.parquet")
+        if not os.path.exists(gf): continue
+        gf_files.append(os.path.relpath(gf, OUT)); G = pd.read_parquet(gf)
+        fm = ((fin.get(sub) or {}).get("finalist") or {}).get("model")
+        models = [fm] if fm and fm in set(G.model) else sorted(set(G.model))
+        for mdl in models:
+            m = dict(zip(G.setup_i[G.model == mdl], G.keep[G.model == mdl].astype(bool)))
+            comps[f"gate_family_oof/{sub}/{mdl}" + ("/finalist" if fm == mdl else "")] = (np.array([bool(m.get(int(s), True)) for s in T.setup_i]), os.path.relpath(gf, OUT))
+    for name, (keep, src) in comps.items():
+        fam = f"online_comparator/{name}"; c = dict(comparator=name, source=src)
+        if name.startswith("gate_family_oof/h5_full"): c["vocabulary"] = "outside the frozen shortlist"
         if H.candidate_id(fam, c, T.label, T.tf) in done: continue
         res = H.score(T, keep, fam, c, script=__file__); res["job"] = "comparator"; res["head"] = None
         with open(sp, "a", encoding="utf-8") as f: f.write(json.dumps(res, default=str) + "\n")
         with open(cp, "a", encoding="utf-8") as f: f.write(json.dumps(dict(id=res["id"], family=fam, curve=curve(T, keep, rows))) + "\n")
         done.add(res["id"])
-    print(f"[{tf}] score: {n_new} new rows, gate_family OOF file {'present' if os.path.exists(gf) else 'absent'} ({time.time() - t0:.0f}s)", flush=True)
+    print(f"[{tf}] score: {n_new} new rows, gate_family OOF files {gf_files or 'absent'} ({time.time() - t0:.0f}s)", flush=True)
 
 
 CHECK_JOBS = {  # design, learner, k, window, fit reward: the fixed subset the determinism / truncation checks run on

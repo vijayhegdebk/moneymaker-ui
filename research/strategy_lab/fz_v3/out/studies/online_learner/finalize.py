@@ -105,20 +105,27 @@ def keep_of(tf, T, r):
     return keep, h
 
 
-def tape_replay(tf, cfg, real_diff, log):
-    """The learner with the same cfg on every certificate tape's own table (tapes.tape_folders(tf, gen)); the tape's
-    kept-vs-skipped diff through harness.metrics (controls off). Returns (passed, checks, summary)."""
-    diffs, per = {}, []
-    for g in ("gmm", "segment", "session"):
-        diffs[g] = []
-        for folder in tapes.tape_folders(tf, g):
-            t0 = time.time(); Tt = tapes.load_tape(folder); rows = np.flatnonzero(Tt.is_mask)
-            dec, _, _ = O.run(Tt, cfg, rows)
-            keep = np.zeros(Tt.n, dtype=bool); keep[rows] = [d["take"] for d in dec]
-            m = tapes.evaluate_keep(Tt, keep, f"tape|{os.path.basename(folder)}|online", controls=False)
-            d = m["diff"]; diffs[g].append(np.nan if d is None else d)
-            per.append(dict(tape=os.path.relpath(folder, OUT), gen=g, n=m["n"], kept_n=m["kept_n"], kept_share=m["kept_share"], diff=d, kept_pf=m["kept_pf"], seconds=round(time.time() - t0, 1)))
-            log(f"    tape {os.path.basename(folder):<12} n {m['n']:>5} kept {m['kept_share']!s:>6} diff {d!s:>9} ({time.time() - t0:.0f}s)")
+def _one_tape(folder, g, cfg):
+    """One certificate tape: the learner with the same cfg on the tape's own table (worker process; one BLAS thread inside
+    online.run_heads). The tape's kept-vs-skipped diff through harness.metrics (controls off); never a ledger row."""
+    t0 = time.time(); Tt = tapes.load_tape(folder); rows = np.flatnonzero(Tt.is_mask)
+    dec, _, _ = O.run(Tt, cfg, rows)
+    keep = np.zeros(Tt.n, dtype=bool); keep[rows] = [d["take"] for d in dec]
+    m = tapes.evaluate_keep(Tt, keep, f"tape|{os.path.basename(folder)}|online", controls=False)
+    return dict(tape=os.path.relpath(folder, OUT), gen=g, n=m["n"], kept_n=m["kept_n"], kept_share=m["kept_share"], diff=m["diff"], kept_pf=m["kept_pf"], seconds=round(time.time() - t0, 1))
+
+
+def tape_replay(tf, cfg, real_diff, log, workers=3):
+    """The learner with the same cfg on every certificate tape's own table (tapes.tape_folders(tf, gen), healthy tapes, the
+    design count per generator), in parallel worker processes (the tapes are independent runs; each is deterministic on its
+    own). Returns (passed, checks, summary) from tapes.null_tape_check_from_diffs."""
+    from joblib import Parallel, delayed
+    todo = [(folder, g) for g in ("gmm", "segment", "session") for folder in tapes.tape_folders(tf, g)]
+    per = Parallel(n_jobs=workers, backend="loky")(delayed(_one_tape)(folder, g, cfg) for folder, g in todo)
+    diffs = {g: [] for g in ("gmm", "segment", "session")}
+    for p in per:
+        diffs[p["gen"]].append(np.nan if p["diff"] is None else p["diff"])
+        log(f"    tape {os.path.basename(p['tape']):<12} n {p['n']:>5} kept {p['kept_share']!s:>6} diff {p['diff']!s:>9} ({p['seconds']:.0f}s)")
     passed, ch, summ = tapes.null_tape_check_from_diffs(real_diff, diffs)
     summ.update(tf=tf, real_diff=real_diff, per_tape=per, tape_set="certificate (healthy, first DESIGN_N per generator)")
     return passed, ch, summ

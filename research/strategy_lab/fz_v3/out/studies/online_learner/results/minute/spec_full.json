@@ -1,0 +1,1826 @@
+[
+{
+"name": "session_bar",
+"source": "session_bar",
+"kind": "num",
+"level": null
+},
+{
+"name": "hour",
+"source": "hour",
+"kind": "num",
+"level": null
+},
+{
+"name": "hour_bin=09",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "09"
+},
+{
+"name": "hour_bin=10",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "10"
+},
+{
+"name": "hour_bin=11",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "11"
+},
+{
+"name": "hour_bin=12",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "12"
+},
+{
+"name": "hour_bin=13",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "13"
+},
+{
+"name": "hour_bin=14",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "14"
+},
+{
+"name": "hour_bin=15",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "15"
+},
+{
+"name": "hour_bin=<09:25",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "<09:25"
+},
+{
+"name": "hour_bin=>=15:20",
+"source": "hour_bin",
+"kind": "onehot",
+"level": ">=15:20"
+},
+{
+"name": "dow",
+"source": "dow",
+"kind": "num",
+"level": null
+},
+{
+"name": "dir=down",
+"source": "dir",
+"kind": "onehot",
+"level": "down"
+},
+{
+"name": "dir=up",
+"source": "dir",
+"kind": "onehot",
+"level": "up"
+},
+{
+"name": "dir_sign",
+"source": "dir_sign",
+"kind": "num",
+"level": null
+},
+{
+"name": "bars_since_choch",
+"source": "bars_since_choch",
+"kind": "num",
+"level": null
+},
+{
+"name": "choch_flip",
+"source": "choch_flip",
+"kind": "num",
+"level": null
+},
+{
+"name": "choch_trend_before",
+"source": "choch_trend_before",
+"kind": "num",
+"level": null
+},
+{
+"name": "choch_same_session",
+"source": "choch_same_session",
+"kind": "num",
+"level": null
+},
+{
+"name": "days_to_expiry",
+"source": "days_to_expiry",
+"kind": "num",
+"level": null
+},
+{
+"name": "sl_dist_pts",
+"source": "sl_dist_pts",
+"kind": "num",
+"level": null
+},
+{
+"name": "sl_dist_atr",
+"source": "sl_dist_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "atr14",
+"source": "atr14",
+"kind": "num",
+"level": null
+},
+{
+"name": "atr_bps",
+"source": "atr_bps",
+"kind": "num",
+"level": null
+},
+{
+"name": "range_1h_pts",
+"source": "range_1h_pts",
+"kind": "num",
+"level": null
+},
+{
+"name": "range_1h_atr",
+"source": "range_1h_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "range_3h_pts",
+"source": "range_3h_pts",
+"kind": "num",
+"level": null
+},
+{
+"name": "range_3h_atr",
+"source": "range_3h_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "range_since_choch_atr",
+"source": "range_since_choch_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "bar_range_pts",
+"source": "bar_range_pts",
+"kind": "num",
+"level": null
+},
+{
+"name": "bar_body_pts",
+"source": "bar_body_pts",
+"kind": "num",
+"level": null
+},
+{
+"name": "bar_range_atr",
+"source": "bar_range_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "close_pos_in_bar",
+"source": "close_pos_in_bar",
+"kind": "num",
+"level": null
+},
+{
+"name": "close_vs_sess_open_pts",
+"source": "close_vs_sess_open_pts",
+"kind": "num",
+"level": null
+},
+{
+"name": "sess_range_atr",
+"source": "sess_range_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "pos_in_session_range",
+"source": "pos_in_session_range",
+"kind": "num",
+"level": null
+},
+{
+"name": "gap_pts",
+"source": "gap_pts",
+"kind": "num",
+"level": null
+},
+{
+"name": "gap_pts__na",
+"source": "gap_pts",
+"kind": "na",
+"level": null
+},
+{
+"name": "ret_1h_pts",
+"source": "ret_1h_pts",
+"kind": "num",
+"level": null
+},
+{
+"name": "ret_1h_pts__na",
+"source": "ret_1h_pts",
+"kind": "na",
+"level": null
+},
+{
+"name": "ret_3h_pts",
+"source": "ret_3h_pts",
+"kind": "num",
+"level": null
+},
+{
+"name": "ret_3h_pts__na",
+"source": "ret_3h_pts",
+"kind": "na",
+"level": null
+},
+{
+"name": "er_1h",
+"source": "er_1h",
+"kind": "num",
+"level": null
+},
+{
+"name": "er_1h__na",
+"source": "er_1h",
+"kind": "na",
+"level": null
+},
+{
+"name": "n_choch_since_bos",
+"source": "n_choch_since_bos",
+"kind": "num",
+"level": null
+},
+{
+"name": "n_flip_since_bos",
+"source": "n_flip_since_bos",
+"kind": "num",
+"level": null
+},
+{
+"name": "n_bos_since_choch",
+"source": "n_bos_since_choch",
+"kind": "num",
+"level": null
+},
+{
+"name": "bars_since_bos",
+"source": "bars_since_bos",
+"kind": "num",
+"level": null
+},
+{
+"name": "bars_since_bos__na",
+"source": "bars_since_bos",
+"kind": "na",
+"level": null
+},
+{
+"name": "last_bos_dir=down",
+"source": "last_bos_dir",
+"kind": "onehot",
+"level": "down"
+},
+{
+"name": "last_bos_dir=none",
+"source": "last_bos_dir",
+"kind": "onehot",
+"level": "none"
+},
+{
+"name": "last_bos_dir=up",
+"source": "last_bos_dir",
+"kind": "onehot",
+"level": "up"
+},
+{
+"name": "last_bos_same_session",
+"source": "last_bos_same_session",
+"kind": "bool",
+"level": null
+},
+{
+"name": "last_bos_same_session__na",
+"source": "last_bos_same_session",
+"kind": "na",
+"level": null
+},
+{
+"name": "n_choch_since_bos_today",
+"source": "n_choch_since_bos_today",
+"kind": "num",
+"level": null
+},
+{
+"name": "bars_since_prev_choch",
+"source": "bars_since_prev_choch",
+"kind": "num",
+"level": null
+},
+{
+"name": "bars_since_prev_choch__na",
+"source": "bars_since_prev_choch",
+"kind": "na",
+"level": null
+},
+{
+"name": "last_choch_dir=down",
+"source": "last_choch_dir",
+"kind": "onehot",
+"level": "down"
+},
+{
+"name": "last_choch_dir=up",
+"source": "last_choch_dir",
+"kind": "onehot",
+"level": "up"
+},
+{
+"name": "alt_dir6",
+"source": "alt_dir6",
+"kind": "num",
+"level": null
+},
+{
+"name": "alt_kind6",
+"source": "alt_kind6",
+"kind": "num",
+"level": null
+},
+{
+"name": "choch_run",
+"source": "choch_run",
+"kind": "num",
+"level": null
+},
+{
+"name": "n_choch_1h",
+"source": "n_choch_1h",
+"kind": "num",
+"level": null
+},
+{
+"name": "n_bos_1h",
+"source": "n_bos_1h",
+"kind": "num",
+"level": null
+},
+{
+"name": "n_choch_3h",
+"source": "n_choch_3h",
+"kind": "num",
+"level": null
+},
+{
+"name": "n_bos_3h",
+"source": "n_bos_3h",
+"kind": "num",
+"level": null
+},
+{
+"name": "n_events_today",
+"source": "n_events_today",
+"kind": "num",
+"level": null
+},
+{
+"name": "n_choch_today",
+"source": "n_choch_today",
+"kind": "num",
+"level": null
+},
+{
+"name": "n_bos_today",
+"source": "n_bos_today",
+"kind": "num",
+"level": null
+},
+{
+"name": "vol_ratio20",
+"source": "vol_ratio20",
+"kind": "num",
+"level": null
+},
+{
+"name": "vol_ratio20__na",
+"source": "vol_ratio20",
+"kind": "na",
+"level": null
+},
+{
+"name": "vol_ratio60",
+"source": "vol_ratio60",
+"kind": "num",
+"level": null
+},
+{
+"name": "vol_ratio60__na",
+"source": "vol_ratio60",
+"kind": "na",
+"level": null
+},
+{
+"name": "vol_na",
+"source": "vol_na",
+"kind": "num",
+"level": null
+},
+{
+"name": "sess_cumvol_ratio20s",
+"source": "sess_cumvol_ratio20s",
+"kind": "num",
+"level": null
+},
+{
+"name": "sess_cumvol_ratio20s__na",
+"source": "sess_cumvol_ratio20s",
+"kind": "na",
+"level": null
+},
+{
+"name": "vol_max_ratio20_5",
+"source": "vol_max_ratio20_5",
+"kind": "num",
+"level": null
+},
+{
+"name": "vol_max_ratio20_5__na",
+"source": "vol_max_ratio20_5",
+"kind": "na",
+"level": null
+},
+{
+"name": "vol_max_ratio20_15",
+"source": "vol_max_ratio20_15",
+"kind": "num",
+"level": null
+},
+{
+"name": "vol_max_ratio20_15__na",
+"source": "vol_max_ratio20_15",
+"kind": "na",
+"level": null
+},
+{
+"name": "hv2_bars_since",
+"source": "hv2_bars_since",
+"kind": "num",
+"level": null
+},
+{
+"name": "hv2_bars_since__na",
+"source": "hv2_bars_since",
+"kind": "na",
+"level": null
+},
+{
+"name": "hv2_dir=down",
+"source": "hv2_dir",
+"kind": "onehot",
+"level": "down"
+},
+{
+"name": "hv2_dir=flat",
+"source": "hv2_dir",
+"kind": "onehot",
+"level": "flat"
+},
+{
+"name": "hv2_dir=none",
+"source": "hv2_dir",
+"kind": "onehot",
+"level": "none"
+},
+{
+"name": "hv2_dir=up",
+"source": "hv2_dir",
+"kind": "onehot",
+"level": "up"
+},
+{
+"name": "hv2_dir_agree",
+"source": "hv2_dir_agree",
+"kind": "bool",
+"level": null
+},
+{
+"name": "hv2_dir_agree__na",
+"source": "hv2_dir_agree",
+"kind": "na",
+"level": null
+},
+{
+"name": "hv2_low_held",
+"source": "hv2_low_held",
+"kind": "bool",
+"level": null
+},
+{
+"name": "hv2_low_held__na",
+"source": "hv2_low_held",
+"kind": "na",
+"level": null
+},
+{
+"name": "hv2_high_held",
+"source": "hv2_high_held",
+"kind": "bool",
+"level": null
+},
+{
+"name": "hv2_high_held__na",
+"source": "hv2_high_held",
+"kind": "na",
+"level": null
+},
+{
+"name": "hv2_ratio",
+"source": "hv2_ratio",
+"kind": "num",
+"level": null
+},
+{
+"name": "hv2_ratio__na",
+"source": "hv2_ratio",
+"kind": "na",
+"level": null
+},
+{
+"name": "hv3_bars_since",
+"source": "hv3_bars_since",
+"kind": "num",
+"level": null
+},
+{
+"name": "hv3_bars_since__na",
+"source": "hv3_bars_since",
+"kind": "na",
+"level": null
+},
+{
+"name": "hv3_dir=down",
+"source": "hv3_dir",
+"kind": "onehot",
+"level": "down"
+},
+{
+"name": "hv3_dir=flat",
+"source": "hv3_dir",
+"kind": "onehot",
+"level": "flat"
+},
+{
+"name": "hv3_dir=none",
+"source": "hv3_dir",
+"kind": "onehot",
+"level": "none"
+},
+{
+"name": "hv3_dir=up",
+"source": "hv3_dir",
+"kind": "onehot",
+"level": "up"
+},
+{
+"name": "hv3_dir_agree",
+"source": "hv3_dir_agree",
+"kind": "bool",
+"level": null
+},
+{
+"name": "hv3_dir_agree__na",
+"source": "hv3_dir_agree",
+"kind": "na",
+"level": null
+},
+{
+"name": "hv3_low_held",
+"source": "hv3_low_held",
+"kind": "bool",
+"level": null
+},
+{
+"name": "hv3_low_held__na",
+"source": "hv3_low_held",
+"kind": "na",
+"level": null
+},
+{
+"name": "hv3_high_held",
+"source": "hv3_high_held",
+"kind": "bool",
+"level": null
+},
+{
+"name": "hv3_high_held__na",
+"source": "hv3_high_held",
+"kind": "na",
+"level": null
+},
+{
+"name": "hv3_ratio",
+"source": "hv3_ratio",
+"kind": "num",
+"level": null
+},
+{
+"name": "hv3_ratio__na",
+"source": "hv3_ratio",
+"kind": "na",
+"level": null
+},
+{
+"name": "vol_ratio20_at_choch",
+"source": "vol_ratio20_at_choch",
+"kind": "num",
+"level": null
+},
+{
+"name": "vol_ratio20_at_choch__na",
+"source": "vol_ratio20_at_choch",
+"kind": "na",
+"level": null
+},
+{
+"name": "vol_max_ratio20_choch_to_k",
+"source": "vol_max_ratio20_choch_to_k",
+"kind": "num",
+"level": null
+},
+{
+"name": "vol_max_ratio20_choch_to_k__na",
+"source": "vol_max_ratio20_choch_to_k",
+"kind": "na",
+"level": null
+},
+{
+"name": "sess_vol_vs_prev_sess",
+"source": "sess_vol_vs_prev_sess",
+"kind": "num",
+"level": null
+},
+{
+"name": "sess_vol_vs_prev_sess__na",
+"source": "sess_vol_vs_prev_sess",
+"kind": "na",
+"level": null
+},
+{
+"name": "dist_prot_dir_atr",
+"source": "dist_prot_dir_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "dist_prot_dir_atr__na",
+"source": "dist_prot_dir_atr",
+"kind": "na",
+"level": null
+},
+{
+"name": "dist_sh_atr",
+"source": "dist_sh_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "dist_sl_atr",
+"source": "dist_sl_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "last_sh_bars_ago",
+"source": "last_sh_bars_ago",
+"kind": "num",
+"level": null
+},
+{
+"name": "last_sl_bars_ago",
+"source": "last_sl_bars_ago",
+"kind": "num",
+"level": null
+},
+{
+"name": "swing_ahead_dist_atr",
+"source": "swing_ahead_dist_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "dist_choch_lvl_atr",
+"source": "dist_choch_lvl_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "n_swings_1h",
+"source": "n_swings_1h",
+"kind": "num",
+"level": null
+},
+{
+"name": "choch_bar_range_atr",
+"source": "choch_bar_range_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "move_since_choch_pts",
+"source": "move_since_choch_pts",
+"kind": "num",
+"level": null
+},
+{
+"name": "swing_near_kind=H",
+"source": "swing_near_kind",
+"kind": "onehot",
+"level": "H"
+},
+{
+"name": "swing_near_kind=L",
+"source": "swing_near_kind",
+"kind": "onehot",
+"level": "L"
+},
+{
+"name": "swing_near_dist_dir_atr",
+"source": "swing_near_dist_dir_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "n_rooms_alive",
+"source": "n_rooms_alive",
+"kind": "num",
+"level": null
+},
+{
+"name": "room_edge_dist_dir_atr",
+"source": "room_edge_dist_dir_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "room_edge_dist_dir_atr__na",
+"source": "room_edge_dist_dir_atr",
+"kind": "na",
+"level": null
+},
+{
+"name": "room_edge_kind=",
+"source": "room_edge_kind",
+"kind": "onehot",
+"level": ""
+},
+{
+"name": "room_edge_kind=hi",
+"source": "room_edge_kind",
+"kind": "onehot",
+"level": "hi"
+},
+{
+"name": "room_edge_kind=lo",
+"source": "room_edge_kind",
+"kind": "onehot",
+"level": "lo"
+},
+{
+"name": "room_ahead_dist_atr",
+"source": "room_ahead_dist_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "room_ahead_dist_atr__na",
+"source": "room_ahead_dist_atr",
+"kind": "na",
+"level": null
+},
+{
+"name": "room_behind_dist_atr",
+"source": "room_behind_dist_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "room_behind_dist_atr__na",
+"source": "room_behind_dist_atr",
+"kind": "na",
+"level": null
+},
+{
+"name": "touch_prot_n",
+"source": "touch_prot_n",
+"kind": "num",
+"level": null
+},
+{
+"name": "touch_prot_n__na",
+"source": "touch_prot_n",
+"kind": "na",
+"level": null
+},
+{
+"name": "touch_prot_last=broke",
+"source": "touch_prot_last",
+"kind": "onehot",
+"level": "broke"
+},
+{
+"name": "touch_prot_last=held",
+"source": "touch_prot_last",
+"kind": "onehot",
+"level": "held"
+},
+{
+"name": "touch_prot_last=na",
+"source": "touch_prot_last",
+"kind": "onehot",
+"level": "na"
+},
+{
+"name": "touch_prot_last=none",
+"source": "touch_prot_last",
+"kind": "onehot",
+"level": "none"
+},
+{
+"name": "touch_prot_last=pending",
+"source": "touch_prot_last",
+"kind": "onehot",
+"level": "pending"
+},
+{
+"name": "touch_prot_bars_ago",
+"source": "touch_prot_bars_ago",
+"kind": "num",
+"level": null
+},
+{
+"name": "touch_prot_bars_ago__na",
+"source": "touch_prot_bars_ago",
+"kind": "na",
+"level": null
+},
+{
+"name": "touch_room_n",
+"source": "touch_room_n",
+"kind": "num",
+"level": null
+},
+{
+"name": "touch_room_n__na",
+"source": "touch_room_n",
+"kind": "na",
+"level": null
+},
+{
+"name": "touch_room_last=broke",
+"source": "touch_room_last",
+"kind": "onehot",
+"level": "broke"
+},
+{
+"name": "touch_room_last=held",
+"source": "touch_room_last",
+"kind": "onehot",
+"level": "held"
+},
+{
+"name": "touch_room_last=na",
+"source": "touch_room_last",
+"kind": "onehot",
+"level": "na"
+},
+{
+"name": "touch_room_last=none",
+"source": "touch_room_last",
+"kind": "onehot",
+"level": "none"
+},
+{
+"name": "touch_room_last=pending",
+"source": "touch_room_last",
+"kind": "onehot",
+"level": "pending"
+},
+{
+"name": "touch_room_bars_ago",
+"source": "touch_room_bars_ago",
+"kind": "num",
+"level": null
+},
+{
+"name": "touch_room_bars_ago__na",
+"source": "touch_room_bars_ago",
+"kind": "na",
+"level": null
+},
+{
+"name": "touch_swing_n",
+"source": "touch_swing_n",
+"kind": "num",
+"level": null
+},
+{
+"name": "touch_swing_last=broke",
+"source": "touch_swing_last",
+"kind": "onehot",
+"level": "broke"
+},
+{
+"name": "touch_swing_last=held",
+"source": "touch_swing_last",
+"kind": "onehot",
+"level": "held"
+},
+{
+"name": "touch_swing_last=pending",
+"source": "touch_swing_last",
+"kind": "onehot",
+"level": "pending"
+},
+{
+"name": "touch_swing_bars_ago",
+"source": "touch_swing_bars_ago",
+"kind": "num",
+"level": null
+},
+{
+"name": "today_n_closed_asof",
+"source": "today_n_closed_asof",
+"kind": "num",
+"level": null
+},
+{
+"name": "today_net_asof",
+"source": "today_net_asof",
+"kind": "num",
+"level": null
+},
+{
+"name": "today_pts_asof",
+"source": "today_pts_asof",
+"kind": "num",
+"level": null
+},
+{
+"name": "today_n_stops_asof",
+"source": "today_n_stops_asof",
+"kind": "num",
+"level": null
+},
+{
+"name": "today_n_setups_before",
+"source": "today_n_setups_before",
+"kind": "num",
+"level": null
+},
+{
+"name": "last_closed_net_asof",
+"source": "last_closed_net_asof",
+"kind": "num",
+"level": null
+},
+{
+"name": "last_closed_net_asof__na",
+"source": "last_closed_net_asof",
+"kind": "na",
+"level": null
+},
+{
+"name": "last_closed_reason_asof=nan",
+"source": "last_closed_reason_asof",
+"kind": "onehot",
+"level": "nan"
+},
+{
+"name": "last_closed_reason_asof=next_choch",
+"source": "last_closed_reason_asof",
+"kind": "onehot",
+"level": "next_choch"
+},
+{
+"name": "last_closed_reason_asof=stop_loss",
+"source": "last_closed_reason_asof",
+"kind": "onehot",
+"level": "stop_loss"
+},
+{
+"name": "card_visit_n",
+"source": "card_visit_n",
+"kind": "num",
+"level": null
+},
+{
+"name": "card_visit_n__na",
+"source": "card_visit_n",
+"kind": "na",
+"level": null
+},
+{
+"name": "card_this_bars",
+"source": "card_this_bars",
+"kind": "num",
+"level": null
+},
+{
+"name": "card_this_bars__na",
+"source": "card_this_bars",
+"kind": "na",
+"level": null
+},
+{
+"name": "card_vol_na",
+"source": "card_vol_na",
+"kind": "num",
+"level": null
+},
+{
+"name": "card_first_bars",
+"source": "card_first_bars",
+"kind": "num",
+"level": null
+},
+{
+"name": "card_first_bars__na",
+"source": "card_first_bars",
+"kind": "na",
+"level": null
+},
+{
+"name": "card_first_vol_na",
+"source": "card_first_vol_na",
+"kind": "bool",
+"level": null
+},
+{
+"name": "card_first_vol_na__na",
+"source": "card_first_vol_na",
+"kind": "na",
+"level": null
+},
+{
+"name": "card_read=ACCEPTED",
+"source": "card_read",
+"kind": "onehot",
+"level": "ACCEPTED"
+},
+{
+"name": "card_read=FIRST_PRINT",
+"source": "card_read",
+"kind": "onehot",
+"level": "FIRST_PRINT"
+},
+{
+"name": "card_read=HUNT",
+"source": "card_read",
+"kind": "onehot",
+"level": "HUNT"
+},
+{
+"name": "card_read=LEAVE",
+"source": "card_read",
+"kind": "onehot",
+"level": "LEAVE"
+},
+{
+"name": "card_read=NEW",
+"source": "card_read",
+"kind": "onehot",
+"level": "NEW"
+},
+{
+"name": "card_read=PENDING",
+"source": "card_read",
+"kind": "onehot",
+"level": "PENDING"
+},
+{
+"name": "card_read=RECYCLE",
+"source": "card_read",
+"kind": "onehot",
+"level": "RECYCLE"
+},
+{
+"name": "card_read=REJECT",
+"source": "card_read",
+"kind": "onehot",
+"level": "REJECT"
+},
+{
+"name": "card_read=THIN",
+"source": "card_read",
+"kind": "onehot",
+"level": "THIN"
+},
+{
+"name": "card_out_run",
+"source": "card_out_run",
+"kind": "num",
+"level": null
+},
+{
+"name": "card_out_run__na",
+"source": "card_out_run",
+"kind": "na",
+"level": null
+},
+{
+"name": "card_out_side=down",
+"source": "card_out_side",
+"kind": "onehot",
+"level": "down"
+},
+{
+"name": "card_out_side=nan",
+"source": "card_out_side",
+"kind": "onehot",
+"level": "nan"
+},
+{
+"name": "card_out_side=up",
+"source": "card_out_side",
+"kind": "onehot",
+"level": "up"
+},
+{
+"name": "card_wick_depth",
+"source": "card_wick_depth",
+"kind": "num",
+"level": null
+},
+{
+"name": "card_wick_depth__na",
+"source": "card_wick_depth",
+"kind": "na",
+"level": null
+},
+{
+"name": "card_last_hunt_dir=down",
+"source": "card_last_hunt_dir",
+"kind": "onehot",
+"level": "down"
+},
+{
+"name": "card_last_hunt_dir=nan",
+"source": "card_last_hunt_dir",
+"kind": "onehot",
+"level": "nan"
+},
+{
+"name": "card_last_hunt_dir=up",
+"source": "card_last_hunt_dir",
+"kind": "onehot",
+"level": "up"
+},
+{
+"name": "card_last_reject_dir=down",
+"source": "card_last_reject_dir",
+"kind": "onehot",
+"level": "down"
+},
+{
+"name": "card_last_reject_dir=nan",
+"source": "card_last_reject_dir",
+"kind": "onehot",
+"level": "nan"
+},
+{
+"name": "card_last_reject_dir=up",
+"source": "card_last_reject_dir",
+"kind": "onehot",
+"level": "up"
+},
+{
+"name": "card_cluster_sit",
+"source": "card_cluster_sit",
+"kind": "num",
+"level": null
+},
+{
+"name": "card_prev_bars",
+"source": "card_prev_bars",
+"kind": "num",
+"level": null
+},
+{
+"name": "card_prev_bars__na",
+"source": "card_prev_bars",
+"kind": "na",
+"level": null
+},
+{
+"name": "card_last_leave_failed",
+"source": "card_last_leave_failed",
+"kind": "bool",
+"level": null
+},
+{
+"name": "card_last_leave_failed__na",
+"source": "card_last_leave_failed",
+"kind": "na",
+"level": null
+},
+{
+"name": "card_leave_side=down",
+"source": "card_leave_side",
+"kind": "onehot",
+"level": "down"
+},
+{
+"name": "card_leave_side=nan",
+"source": "card_leave_side",
+"kind": "onehot",
+"level": "nan"
+},
+{
+"name": "card_leave_side=up",
+"source": "card_leave_side",
+"kind": "onehot",
+"level": "up"
+},
+{
+"name": "card_leave_vol_ok",
+"source": "card_leave_vol_ok",
+"kind": "bool",
+"level": null
+},
+{
+"name": "card_leave_vol_ok__na",
+"source": "card_leave_vol_ok",
+"kind": "na",
+"level": null
+},
+{
+"name": "card_leave_kind=gap",
+"source": "card_leave_kind",
+"kind": "onehot",
+"level": "gap"
+},
+{
+"name": "card_leave_kind=nan",
+"source": "card_leave_kind",
+"kind": "onehot",
+"level": "nan"
+},
+{
+"name": "card_leave_kind=normal",
+"source": "card_leave_kind",
+"kind": "onehot",
+"level": "normal"
+},
+{
+"name": "card_first_clock_lived",
+"source": "card_first_clock_lived",
+"kind": "bool",
+"level": null
+},
+{
+"name": "card_first_clock_lived__na",
+"source": "card_first_clock_lived",
+"kind": "na",
+"level": null
+},
+{
+"name": "card_touches",
+"source": "card_touches",
+"kind": "num",
+"level": null
+},
+{
+"name": "card_touches__na",
+"source": "card_touches",
+"kind": "na",
+"level": null
+},
+{
+"name": "fz_zone_kind=B",
+"source": "fz_zone_kind",
+"kind": "onehot",
+"level": "B"
+},
+{
+"name": "fz_zone_kind=nan",
+"source": "fz_zone_kind",
+"kind": "onehot",
+"level": "nan"
+},
+{
+"name": "fz_visit_n",
+"source": "fz_visit_n",
+"kind": "num",
+"level": null
+},
+{
+"name": "fz_visit_n__na",
+"source": "fz_visit_n",
+"kind": "na",
+"level": null
+},
+{
+"name": "fz_this_bars",
+"source": "fz_this_bars",
+"kind": "num",
+"level": null
+},
+{
+"name": "fz_this_bars__na",
+"source": "fz_this_bars",
+"kind": "na",
+"level": null
+},
+{
+"name": "fz_first_bars",
+"source": "fz_first_bars",
+"kind": "num",
+"level": null
+},
+{
+"name": "fz_first_bars__na",
+"source": "fz_first_bars",
+"kind": "na",
+"level": null
+},
+{
+"name": "fz_vol_na",
+"source": "fz_vol_na",
+"kind": "num",
+"level": null
+},
+{
+"name": "fz_first_vol_na",
+"source": "fz_first_vol_na",
+"kind": "bool",
+"level": null
+},
+{
+"name": "fz_first_vol_na__na",
+"source": "fz_first_vol_na",
+"kind": "na",
+"level": null
+},
+{
+"name": "fz_read=ACCEPTED",
+"source": "fz_read",
+"kind": "onehot",
+"level": "ACCEPTED"
+},
+{
+"name": "fz_read=FIRST_PRINT",
+"source": "fz_read",
+"kind": "onehot",
+"level": "FIRST_PRINT"
+},
+{
+"name": "fz_read=HUNT",
+"source": "fz_read",
+"kind": "onehot",
+"level": "HUNT"
+},
+{
+"name": "fz_read=LEAVE",
+"source": "fz_read",
+"kind": "onehot",
+"level": "LEAVE"
+},
+{
+"name": "fz_read=NEW",
+"source": "fz_read",
+"kind": "onehot",
+"level": "NEW"
+},
+{
+"name": "fz_read=PENDING",
+"source": "fz_read",
+"kind": "onehot",
+"level": "PENDING"
+},
+{
+"name": "fz_read=RECYCLE",
+"source": "fz_read",
+"kind": "onehot",
+"level": "RECYCLE"
+},
+{
+"name": "fz_read=REJECT",
+"source": "fz_read",
+"kind": "onehot",
+"level": "REJECT"
+},
+{
+"name": "fz_read=THIN",
+"source": "fz_read",
+"kind": "onehot",
+"level": "THIN"
+},
+{
+"name": "fz_level_in_band",
+"source": "fz_level_in_band",
+"kind": "bool",
+"level": null
+},
+{
+"name": "fz_level_in_band__na",
+"source": "fz_level_in_band",
+"kind": "na",
+"level": null
+},
+{
+"name": "fz_gate=BLOCK",
+"source": "fz_gate",
+"kind": "onehot",
+"level": "BLOCK"
+},
+{
+"name": "fz_gate=REENTER",
+"source": "fz_gate",
+"kind": "onehot",
+"level": "REENTER"
+},
+{
+"name": "fz_gate=TAKE",
+"source": "fz_gate",
+"kind": "onehot",
+"level": "TAKE"
+},
+{
+"name": "fz_gate=WATCH",
+"source": "fz_gate",
+"kind": "onehot",
+"level": "WATCH"
+},
+{
+"name": "fz_block_reason=clock",
+"source": "fz_block_reason",
+"kind": "onehot",
+"level": "clock"
+},
+{
+"name": "fz_block_reason=hunt_fade",
+"source": "fz_block_reason",
+"kind": "onehot",
+"level": "hunt_fade"
+},
+{
+"name": "fz_block_reason=leave_into_recycle",
+"source": "fz_block_reason",
+"kind": "onehot",
+"level": "leave_into_recycle"
+},
+{
+"name": "fz_block_reason=nan",
+"source": "fz_block_reason",
+"kind": "onehot",
+"level": "nan"
+},
+{
+"name": "fz_block_reason=new",
+"source": "fz_block_reason",
+"kind": "onehot",
+"level": "new"
+},
+{
+"name": "fz_block_reason=open_pierce",
+"source": "fz_block_reason",
+"kind": "onehot",
+"level": "open_pierce"
+},
+{
+"name": "fz_branch=defend",
+"source": "fz_branch",
+"kind": "onehot",
+"level": "defend"
+},
+{
+"name": "fz_branch=first_print",
+"source": "fz_branch",
+"kind": "onehot",
+"level": "first_print"
+},
+{
+"name": "fz_branch=leave",
+"source": "fz_branch",
+"kind": "onehot",
+"level": "leave"
+},
+{
+"name": "fz_branch=nan",
+"source": "fz_branch",
+"kind": "onehot",
+"level": "nan"
+},
+{
+"name": "fz_branch=watch",
+"source": "fz_branch",
+"kind": "onehot",
+"level": "watch"
+},
+{
+"name": "fz_take_why=accepted_no_defend",
+"source": "fz_take_why",
+"kind": "onehot",
+"level": "accepted_no_defend"
+},
+{
+"name": "fz_take_why=defend_opposite_in_visit",
+"source": "fz_take_why",
+"kind": "onehot",
+"level": "defend_opposite_in_visit"
+},
+{
+"name": "fz_take_why=defend_wrong_half",
+"source": "fz_take_why",
+"kind": "onehot",
+"level": "defend_wrong_half"
+},
+{
+"name": "fz_take_why=first_print_against",
+"source": "fz_take_why",
+"kind": "onehot",
+"level": "first_print_against"
+},
+{
+"name": "fz_take_why=leave_against",
+"source": "fz_take_why",
+"kind": "onehot",
+"level": "leave_against"
+},
+{
+"name": "fz_take_why=leave_gap_quiet",
+"source": "fz_take_why",
+"kind": "onehot",
+"level": "leave_gap_quiet"
+},
+{
+"name": "fz_take_why=leave_into_recycle",
+"source": "fz_take_why",
+"kind": "onehot",
+"level": "leave_into_recycle"
+},
+{
+"name": "fz_take_why=leave_vol_fail",
+"source": "fz_take_why",
+"kind": "onehot",
+"level": "leave_vol_fail"
+},
+{
+"name": "fz_take_why=nan",
+"source": "fz_take_why",
+"kind": "onehot",
+"level": "nan"
+},
+{
+"name": "fz_entered_visit_n",
+"source": "fz_entered_visit_n",
+"kind": "num",
+"level": null
+},
+{
+"name": "fz_entered_visit_n__na",
+"source": "fz_entered_visit_n",
+"kind": "na",
+"level": null
+},
+{
+"name": "fz_entered_read=ACCEPTED",
+"source": "fz_entered_read",
+"kind": "onehot",
+"level": "ACCEPTED"
+},
+{
+"name": "fz_entered_read=FIRST_PRINT",
+"source": "fz_entered_read",
+"kind": "onehot",
+"level": "FIRST_PRINT"
+},
+{
+"name": "fz_entered_read=HUNT",
+"source": "fz_entered_read",
+"kind": "onehot",
+"level": "HUNT"
+},
+{
+"name": "fz_entered_read=RECYCLE",
+"source": "fz_entered_read",
+"kind": "onehot",
+"level": "RECYCLE"
+},
+{
+"name": "fz_entered_read=REJECT",
+"source": "fz_entered_read",
+"kind": "onehot",
+"level": "REJECT"
+},
+{
+"name": "fz_entered_read=THIN",
+"source": "fz_entered_read",
+"kind": "onehot",
+"level": "THIN"
+},
+{
+"name": "fz_entered_read=nan",
+"source": "fz_entered_read",
+"kind": "onehot",
+"level": "nan"
+},
+{
+"name": "fz_leave_vol_ok",
+"source": "fz_leave_vol_ok",
+"kind": "bool",
+"level": null
+},
+{
+"name": "fz_leave_vol_ok__na",
+"source": "fz_leave_vol_ok",
+"kind": "na",
+"level": null
+},
+{
+"name": "fz_leave_kind=gap",
+"source": "fz_leave_kind",
+"kind": "onehot",
+"level": "gap"
+},
+{
+"name": "fz_leave_kind=nan",
+"source": "fz_leave_kind",
+"kind": "onehot",
+"level": "nan"
+},
+{
+"name": "fz_leave_kind=normal",
+"source": "fz_leave_kind",
+"kind": "onehot",
+"level": "normal"
+},
+{
+"name": "fz_watch_kind=WATCH",
+"source": "fz_watch_kind",
+"kind": "onehot",
+"level": "WATCH"
+},
+{
+"name": "fz_watch_kind=WATCH_EDGE",
+"source": "fz_watch_kind",
+"kind": "onehot",
+"level": "WATCH_EDGE"
+},
+{
+"name": "fz_watch_kind=nan",
+"source": "fz_watch_kind",
+"kind": "onehot",
+"level": "nan"
+},
+{
+"name": "fz_band_width",
+"source": "fz_band_width",
+"kind": "num",
+"level": null
+},
+{
+"name": "fz_band_width__na",
+"source": "fz_band_width",
+"kind": "na",
+"level": null
+},
+{
+"name": "fz_band_width_atr",
+"source": "fz_band_width_atr",
+"kind": "num",
+"level": null
+},
+{
+"name": "fz_band_width_atr__na",
+"source": "fz_band_width_atr",
+"kind": "na",
+"level": null
+},
+{
+"name": "fz_pos_in_band",
+"source": "fz_pos_in_band",
+"kind": "num",
+"level": null
+},
+{
+"name": "fz_pos_in_band__na",
+"source": "fz_pos_in_band",
+"kind": "na",
+"level": null
+},
+{
+"name": "fz_pos_in_band_dir",
+"source": "fz_pos_in_band_dir",
+"kind": "num",
+"level": null
+},
+{
+"name": "fz_pos_in_band_dir__na",
+"source": "fz_pos_in_band_dir",
+"kind": "na",
+"level": null
+},
+{
+"name": "fz_dist_band_edge_ahead",
+"source": "fz_dist_band_edge_ahead",
+"kind": "num",
+"level": null
+},
+{
+"name": "fz_dist_band_edge_ahead__na",
+"source": "fz_dist_band_edge_ahead",
+"kind": "na",
+"level": null
+},
+{
+"name": "fz_dist_band_edge_behind",
+"source": "fz_dist_band_edge_behind",
+"kind": "num",
+"level": null
+},
+{
+"name": "fz_dist_band_edge_behind__na",
+"source": "fz_dist_band_edge_behind",
+"kind": "na",
+"level": null
+},
+{
+"name": "card_vol_ratio",
+"source": "card_vol_ratio",
+"kind": "num",
+"level": null
+},
+{
+"name": "card_vol_ratio__na",
+"source": "card_vol_ratio",
+"kind": "na",
+"level": null
+},
+{
+"name": "card_bars_since_hunt",
+"source": "card_bars_since_hunt",
+"kind": "num",
+"level": null
+},
+{
+"name": "card_bars_since_hunt__na",
+"source": "card_bars_since_hunt",
+"kind": "na",
+"level": null
+},
+{
+"name": "card_bars_since_reject",
+"source": "card_bars_since_reject",
+"kind": "num",
+"level": null
+},
+{
+"name": "card_bars_since_reject__na",
+"source": "card_bars_since_reject",
+"kind": "na",
+"level": null
+},
+{
+"name": "card_hunt_dir_agree",
+"source": "card_hunt_dir_agree",
+"kind": "bool",
+"level": null
+},
+{
+"name": "card_hunt_dir_agree__na",
+"source": "card_hunt_dir_agree",
+"kind": "na",
+"level": null
+},
+{
+"name": "card_in_room",
+"source": "card_in_room",
+"kind": "num",
+"level": null
+},
+{
+"name": "card_ref_room_live",
+"source": "card_ref_room_live",
+"kind": "num",
+"level": null
+}
+]

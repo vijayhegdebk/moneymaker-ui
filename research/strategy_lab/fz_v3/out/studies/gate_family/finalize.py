@@ -83,6 +83,53 @@ def rowsum(r):
                                   "loser_recall", "loser_precision", "winner_recall_weighted", "top_decile_winners_skipped", "sign_blocks", "kept_mean_slip8", "kept_pf")}
 
 
+_FEAT = {}
+
+
+def feats(tf, sub):
+    """The (Table, design X, column info, feature frame) of a (tf, sub), as run_gf built them; cached per process."""
+    if (tf, sub) not in _FEAT:
+        T = H.load(tf)
+        if sub == "context": X, info, _ = G.context_features(T); Fx = T.F.reset_index(drop=True)
+        else:
+            T, X, info, fmeta, cl, pairs, E = G.full_features(tf, None); Fx = pd.concat([T.F.reset_index(drop=True), E.reset_index(drop=True)], axis=1)
+        _FEAT[(tf, sub)] = (T, X, info, Fx)
+    return _FEAT[(tf, sub)]
+
+
+def pooled_oof_keep(T, res):
+    o = res["stages"]["oof12"]["oof"]; pos = {int(s): i for i, s in enumerate(T.setup_i)}
+    oof_keep = np.ones(T.n, dtype=bool)
+    for s, k in zip(o["setup_i"], o["keep"]): oof_keep[pos[int(s)]] = bool(k)
+    return oof_keep
+
+
+def frozen_tree_for(tf, sub, name, results):
+    """The frozen counterpart of the nested 'distilled tree' form: the same depth-3 DecisionTreeClassifier (min leaf 100 / 40) fit on
+    all IS rows to the learner's POOLED 12-block OOF decisions (never the label), converted to skip rules by gf_lib.tree_to_rules and
+    scored once (family gate_family/<sub>/<model>/frozen_tree: a selection on pooled OOF, one trial, like the frozen rule list run_gf
+    writes). Cached in results/<tf>/<sub>/frozen_tree.json so a rerun of finalize never appends a second ledger row."""
+    cache_p = os.path.join(G.RES, tf, sub, "frozen_tree.json")
+    cache = json.load(open(cache_p)) if os.path.exists(cache_p) else {}
+    if name in cache: return cache[name]
+    if QUICK: return None
+    t0 = time.time()
+    T, X, info, Fx = feats(tf, sub); cols = list(X.columns); Xn = X.to_numpy(float); is_rows = np.flatnonzero(T.is_mask)
+    oof_keep = pooled_oof_keep(T, results[name])
+    from sklearn.tree import DecisionTreeClassifier
+    med = G.impute_fit(Xn[is_rows])
+    dt = DecisionTreeClassifier(max_depth=3, min_samples_leaf=G.MIN_LEAF[tf], random_state=0).fit(G.impute_apply(Xn[is_rows], med), oof_keep[is_rows].astype(int))
+    trules, dropped = G.tree_to_rules(dt, cols, info); kt = G.rules_keep(Fx, trules, tf)
+    vocab = "inside the frozen vocabulary (context columns)" if sub == "context" else "outside the frozen shortlist (importance rule failed for every cluster)"
+    rr = H.score(T, kt, f"{G.STUDY}/{sub}/{name}/frozen_tree", dict(sub=sub, model=name, stage="frozen_tree", label="L1", vocabulary=vocab, rules=trules), script=SCRIPT,
+                 controls=True, note=G.SUB_NOTE[sub] + "; the depth-3 tree distilled from the pooled OOF decisions (selection on pooled OOF, one trial)")
+    ent = dict(rules=trules, n_rules=len(trules), dropped_inexpressible=int(dropped), id=rr["id"], row=json.loads(json.dumps(rr, default=lambda z: z.item() if hasattr(z, "item") else str(z))),
+               fidelity=G.fidelity(kt[is_rows], oof_keep[is_rows]), features=G.rule_features(trules), seconds=round(time.time() - t0, 1))
+    cache[name] = ent; G.jdump(cache, cache_p)
+    log(f"  {tf}/{sub}/{name} frozen tree ({len(trules)} rules): id {rr['id']} kept {rr['kept_share']} diff {rr['diff']} ctrl {rr['control_pct']} fidelity {ent['fidelity']['agreement']}")
+    return ent
+
+
 def finalist_set(tf, sub, results):
     """Every rule-list / scorecard form with a nested OOF row and a CPCV distribution."""
     out = []
@@ -98,7 +145,7 @@ def finalist_set(tf, sub, results):
                 if form not in o["distill"]: continue
                 d = o["distill"][form]
                 out.append(dict(model=name, form=f"distill_{form}", label=f"{name} -> distilled {form}", oof=rowsum(d["row"]), cpcv=((c or {}).get("distill", {}).get(form) or {}).get("dist"),
-                                frozen=f.get("rules") if form == "rules" else None, frozen_kind="rules", fidelity=d.get("fidelity_oof")))
+                                frozen=f.get("rules") if form == "rules" else frozen_tree_for(tf, sub, name, results), frozen_kind="rules", fidelity=d.get("fidelity_oof")))
         if kind == "score":
             out.append(dict(model=name, form="scorecard", label=f"{name} (scorecard)", oof=rowsum(o["row"]), cpcv=(c or {}).get("dist"),
                             frozen=f.get("scorecard"), frozen_kind="scorecard", fidelity=None))
@@ -162,7 +209,14 @@ def drift_refit(tf, sub, fin, results):
     for s, k in zip(o["setup_i"], o["keep"]): oof_keep[pos[int(s)]] = bool(k)
     fam = f"{G.STUDY}/{sub}/{fin['model']}"
     cfg = dict(sub=sub, model=fin["model"], stage="drift_refit", label="L1", dropped=used, form=fin["form"])
-    if fin["frozen_kind"] == "rules" and fin["form"].startswith("distill"):
+    if fin["frozen_kind"] == "rules" and fin["form"] == "distill_tree":
+        from sklearn.tree import DecisionTreeClassifier
+        med = G.impute_fit(Xn[is_rows])
+        dt = DecisionTreeClassifier(max_depth=3, min_samples_leaf=G.MIN_LEAF[tf], random_state=0).fit(G.impute_apply(Xn[is_rows], med), oof_keep[is_rows].astype(int))
+        rules, dropped = G.tree_to_rules(dt, cols, info2); kr = G.rules_keep(Fx, rules, tf)
+        rr = H.score(T, kr, fam + "/drift_refit", dict(cfg, rules=rules), script=SCRIPT, controls=True, note="drift refit of the frozen distilled tree")
+        ref = dict(rules=rules, dropped_inexpressible=int(dropped), row=rowsum(rr))
+    elif fin["frozen_kind"] == "rules" and fin["form"].startswith("distill"):
         bank = G.CondBank(Xn, cols, info2, Fx, is_rows); v = np.where(~oof_keep[is_rows], 1.0, -1.0)
         conds, trace = G.greedy_rules(bank, is_rows, v, "fidelity", G.MIN_LEAF[tf]); rules = G.rules_json(conds, bank)
         kr = G.rules_keep(Fx, rules, tf); rr = H.score(T, kr, fam + "/drift_refit", dict(cfg, rules=rules), script=SCRIPT, controls=True, note="drift refit of the frozen distilled rule list")
@@ -215,7 +269,11 @@ def write_candidate(tf, sub, fin, jd, nt, fam, script_sha):
                 sub_family=sub, model=fin["model"], form=fin["form"], ledger_id=fin["oof"]["id"], frozen_ledger_id=(fz.get("row") or {}).get("id"),
                 cpcv=fin["cpcv"], pbo=fam.get("pbo_diff", {}).get("pbo"), dsr_p=(jd.get("dsr") or {}).get("p"), spa_p=fam.get("spa", {}).get("spa_p"),
                 boot_ci=(jd.get("boot") or {}).get("diff_ci"), trials=fam["n_rows_all_labels"], effective_trials=fam.get("effective_trials"),
-                fidelity=fin.get("fidelity"), null_tape=nt.get("summary", {}).get("null_tape_diff_inr"), go_no_go=jd["checks"],
+                fidelity=fin.get("fidelity"),
+                # the two blocks oos_once.py requires (program rule of 2026-09-29 12:55 UTC): the tape checks / summary and the go/no-go from the same call
+                null_tape={"checks": nt.get("checks"), "summary": nt.get("summary"), "real_diff": nt.get("real_diff"), "n_tapes": nt.get("n_tapes")},
+                go_no_go={"passed": bool(jd.get("passed")), "checks": jd["checks"]},
+                columns=jd.get("columns"),
                 statistic="kept-vs-skipped mean L1 net (INR per trade)", is_window="2021-10-01..2025-12-31")
     if sub == "h5_full": prov["vocabulary"] = "outside the frozen shortlist (importance rule failed for every cluster)"
     else: prov["vocabulary"] = "inside the frozen vocabulary (hour_bin one-hot + dir: the design's context columns)"
@@ -230,14 +288,17 @@ def write_candidate(tf, sub, fin, jd, nt, fam, script_sha):
 
 
 # ---------------------------------------------------------------- the tables
+SUB_TAG = {"context": "(I) context, inside the frozen vocabulary", "h5_full": "(II) h5_full, OUTSIDE THE FROZEN SHORTLIST"}
+
+
 def model_table(results, sub):
-    lines = ["| model | description | OOF id | kept n | kept share | kept mean | skipped mean | diff | diff top-1% off | perm p | control pct | loser recall / precision | wtd winner recall | top-decile skipped | sign blocks | kept mean slip 8 | taus (12 folds) | tau constraint met (folds) |",
-             "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    lines = ["| sub-family | model | description | OOF id | kept n | kept share | kept mean | skipped mean | diff | diff top-1% off | perm p | control pct | loser recall / precision | wtd winner recall | top-decile skipped | sign blocks | kept mean slip 8 | taus (12 folds) | tau constraint met (folds) |",
+             "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for name, res in results.items():
         o = res["stages"].get("oof12")
-        if not o: lines.append(f"| {name} | {res['desc']} | not run | | | | | | | | | | | | | | | |"); continue
+        if not o: lines.append(f"| {SUB_TAG[sub]} | {name} | {res['desc']} | not run | | | | | | | | | | | | | | | |"); continue
         r = o["row"]; taus = o.get("taus")
-        lines.append(f"| {name} | {res['desc']} | `{r['id']}` | {fmt(r['kept_n'])} | {fmt(r['kept_share'], 4)} | {fmt(r['kept_mean'])} | {fmt(r['skipped_mean'])} | **{fmt(r['diff'])}** | {fmt(r['diff_top1_removed'])} | {fmt(r['perm_p'], 4)} | {fmt(r['control_pct'], 1)} | "
+        lines.append(f"| {SUB_TAG[sub]} | {name} | {res['desc']} | `{r['id']}` | {fmt(r['kept_n'])} | {fmt(r['kept_share'], 4)} | {fmt(r['kept_mean'])} | {fmt(r['skipped_mean'])} | **{fmt(r['diff'])}** | {fmt(r['diff_top1_removed'])} | {fmt(r['perm_p'], 4)} | {fmt(r['control_pct'], 1)} | "
                      f"{fmt(r['loser_recall'], 3)} / {fmt(r['loser_precision'], 3)} | {fmt(r['winner_recall_weighted'], 3)} | {fmt(r['top_decile_winners_skipped'], 3)} | {fmt(r['sign_blocks'])} | {fmt(r['kept_mean_slip8'])} | "
                      f"{' '.join(fmt(t, 2) for t in taus) if taus and taus[0] is not None else '-'} | {sum(1 for x in o.get('tau_constraint_satisfied', []) if x) if o.get('tau_constraint_satisfied') and o['tau_constraint_satisfied'][0] is not None else '-'} |")
     return "\n".join(lines)
@@ -266,7 +327,7 @@ def tau_table(results):
     return "\n".join(lines)
 
 
-def distill_table(results):
+def distill_table(results, ftrees=None):
     lines = ["| model | form | nested OOF id | kept share | diff | diff top-1% off | control pct | sign blocks | fidelity to the learner's OOF decision (agreement / skip precision / skip recall) | rules per fold (median) | frozen form id | frozen kept share | frozen diff | frozen control pct | frozen fidelity | frozen rules |",
              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for name, res in results.items():
@@ -275,7 +336,7 @@ def distill_table(results):
         for form in ("rules", "tree"):
             d = (o.get("distill") or {}).get(form)
             if not d: continue
-            r = d["row"]; fid = d["fidelity_oof"]; fz = f.get("rules") if form == "rules" else None
+            r = d["row"]; fid = d["fidelity_oof"]; fz = f.get("rules") if form == "rules" else (ftrees or {}).get(name)
             fr = (fz or {}).get("row") or {}
             rules_txt = "; ".join(" AND ".join(f"{c[0]} {c[1]} {c[2]}" for c in ru["if"]) for ru in (fz or {}).get("rules", [])) if fz else "-"
             lines.append(f"| {name} | {form} | `{r['id']}` | {fmt(r['kept_share'], 4)} | {fmt(r['diff'])} | {fmt(r['diff_top1_removed'])} | {fmt(r['control_pct'], 1)} | {fmt(r['sign_blocks'])} | {fmt(fid['agreement'], 3)} / {fmt(fid['skip_precision'], 3)} / {fmt(fid['skip_recall'], 3)} | "
@@ -413,11 +474,13 @@ def main():
             if sub == "h5_full" and fmeta:
                 fm = fmeta.get("fmeta", {}); sm = fmeta.get("smeta", {})
                 md += [f"Feature matrix: base design {fm.get('base_design_cols')} + ext {fm.get('ext_cols')} -> {fm.get('n_features_final')} after the importance study's drops -> **{fm.get('n_features_final_after_proxies')}** after dropping the time proxies {fm.get('dropped_time_proxies')}. HGB interaction_cst: {sm.get('interaction_cst')}; monotonic_cst: {sm.get('monotonic_cst')}. Interaction pairs of the shortlist file: {fm.get('interaction_pairs')} (pairs with a time proxy: {fm.get('pairs_with_time_proxy')}; both rooms pairs are used as HGB interaction groups; the rule searches of this sub-family are H5 as pre-registered, i.e. over the whole table, outside the shortlist).", ""]
+            ftrees = {n: frozen_tree_for(tf, sub, n, results) for n, r in results.items() if (r["stages"].get("oof12") or {}).get("distill")}
+            ftrees = {n: v for n, v in ftrees.items() if v}
             md += ["#### OOF (12 purged blocks, nested tau; controls on)", "", model_table(results, sub), "",
                    "Reading: `-` in a kept-vs-skipped column = the gate skipped nothing (or kept nothing) in the pooled OOF, so the difference is undefined. A tau of 0.10 = the grid floor: no threshold on the grid kept >= 90% of the |net|-weighted winner net with a higher kept mean than keeping everything (the column 'tau constraint met' counts the folds where a grid value satisfied the recall constraint).", "",
                    "#### The fixed-tau grid (every tau tried = a trial; controls off)", "", tau_table(results) or "no probability learner", "",
                    "#### CPCV (66 splits, 11 paths; controls on)", "", cpcv_table(results) or "not run", "",
-                   "#### Distillation (nested: fit inside every split to the learner's training-fold decisions; frozen: fit to the pooled OOF decisions / refit on all IS)", "", distill_table(results) or "no distillable learner", "",
+                   "#### Distillation (nested: fit inside every split to the learner's training-fold decisions; frozen: fit to the pooled OOF decisions / refit on all IS; the frozen tree of a 'tree' row is fit by finalize.py, family `.../frozen_tree`)", "", distill_table(results, ftrees) or "no distillable learner", "",
                    "#### Robustness labels (trained on the label, scored on the label's table and on the L1 book; controls off; never candidates)", "", robust_table(results) or "not run", "",
                    "#### Sensitivities (controls off)", "", sens_table(results) or "none", "",
                    "#### Kept share by hour bin, regime and direction (pooled OOF decisions)", "", hour_table(results), "",
@@ -441,11 +504,11 @@ def main():
                     except Exception as e: dr = dict(error=repr(e), trace=traceback.format_exc()[-800:])
                 best["judge"] = judge(tf, sub, fin, fam, vecs_by_id, null_tape=(nt["checks"] if nt.get("evaluable") else f"not evaluable: {nt.get('reason')}")) if fam.get("pbo_diff") else best["judge"]
             md += ["#### Finalist set of the sub-family: every rule-list / scorecard form, judged by its own nested CPCV 5th percentile and `harness.go_no_go` with cpcv, pbo, dsr, spa_p, boot, columns and (for the finalist) the null-tape checks filled", "",
-                   "| form | nested OOF id | kept share | diff | diff top-1% off | control pct | sign blocks | CPCV p5 | CPCV median | fidelity | DSR p | boot 90% CI of diff | go/no-go items failed | failing items |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+                   "| sub-family | form | nested OOF id | kept share | diff | diff top-1% off | control pct | sign blocks | CPCV p5 | CPCV median | fidelity | DSR p | boot 90% CI of diff | go/no-go items failed | failing items |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
             for j in judged:
                 f_, jd = j["fin"], j["judge"]; r = f_["oof"] or {}
                 fails = [k for k, v in jd.get("checks", {}).items() if not v[0]]
-                md.append(f"| {f_['label']} | `{r.get('id', '-')}` | {fmt(r.get('kept_share'), 4)} | {fmt(r.get('diff'))} | {fmt(r.get('diff_top1_removed'))} | {fmt(r.get('control_pct'), 1)} | {fmt(r.get('sign_blocks'))} | {fmt((f_['cpcv'] or {}).get('diff_p5'))} | {fmt((f_['cpcv'] or {}).get('diff_median'))} | {fmt((f_.get('fidelity') or {}).get('agreement'), 3) if f_.get('fidelity') else '-'} | {fmt((jd.get('dsr') or {}).get('p'), 4)} | {(jd.get('boot') or {}).get('diff_ci', '-')} | {jd.get('n_fail', '-')} / {len(jd.get('checks', {}))} | {', '.join(fails) if fails else ('PASS' if jd.get('passed') else jd.get('reason', '-'))} |")
+                md.append(f"| {SUB_TAG[sub]} | {f_['label']} | `{r.get('id', '-')}` | {fmt(r.get('kept_share'), 4)} | {fmt(r.get('diff'))} | {fmt(r.get('diff_top1_removed'))} | {fmt(r.get('control_pct'), 1)} | {fmt(r.get('sign_blocks'))} | {fmt((f_['cpcv'] or {}).get('diff_p5'))} | {fmt((f_['cpcv'] or {}).get('diff_median'))} | {fmt((f_.get('fidelity') or {}).get('agreement'), 3) if f_.get('fidelity') else '-'} | {fmt((jd.get('dsr') or {}).get('p'), 4)} | {(jd.get('boot') or {}).get('diff_ci', '-')} | {jd.get('n_fail', '-')} / {len(jd.get('checks', {}))} | {', '.join(fails) if fails else ('PASS' if jd.get('passed') else jd.get('reason', '-'))} |")
             md.append("")
             sub_out = dict(models={n: json.loads(json.dumps({k: v for k, v in r["stages"].items() if k != "oof12"} | {"oof12": {kk: vv for kk, vv in r["stages"].get("oof12", {}).items() if kk not in ("oof", "recs")}} if "oof12" in r["stages"] else {k: v for k, v in r["stages"].items()}, default=lambda z: z.tolist() if isinstance(z, np.ndarray) else (z.item() if hasattr(z, "item") else str(z)))) for n, r in results.items()},
                            finalist_set=[dict(label=j["fin"]["label"], model=j["fin"]["model"], form=j["fin"]["form"], oof=j["fin"]["oof"], cpcv=j["fin"]["cpcv"], fidelity=j["fin"]["fidelity"], judge=j["judge"]) for j in judged],
@@ -495,6 +558,13 @@ def main():
             md.append("")
         tfo["near_miss"] = [dict(sub=k[1], label=v["fin"]["label"], model=v["fin"]["model"], form=v["fin"]["form"], judge=v["judge"], null_tape=v["null_tape"]) for k, v in near]
         md += [f"### {tf} compute log", "", compute_table(tf), ""]
+        # the merged OOF file the operating-point / sizing agent consumes: one row per (sub, model, IS unit) with the OOF score / p / tau / decision
+        parts = [pd.read_parquet(os.path.join(G.RES, f"oof_{tf}_{s}.parquet")) for s in SUBS if os.path.exists(os.path.join(G.RES, f"oof_{tf}_{s}.parquet"))]
+        if parts and not QUICK:
+            P = pd.concat(parts, ignore_index=True); P["vocabulary"] = np.where(P["sub"] == "context", "inside the frozen vocabulary", "outside the frozen shortlist")
+            P.to_parquet(os.path.join(G.RES, f"oof_{tf}.parquet"), index=False)
+            tfo["oof_file"] = dict(file=f"results/oof_{tf}.parquet", rows=int(len(P)), models_by_sub={s: sorted(P.loc[P["sub"] == s, "model"].unique().tolist()) for s in SUBS})
+            md += [f"OOF scores for the operating-point / sizing agent: `results/oof_{tf}.parquet` ({len(P)} rows = one per sub-family x model x IS unit; columns setup_i, tf, sub, model, fold, score, p, tau, keep, vocabulary; `p` is NaN for the policy learners, whose decision is `keep`).", ""]
         out["timeframes"][tf] = json.loads(json.dumps(tfo, default=lambda z: z.tolist() if isinstance(z, np.ndarray) else (z.item() if hasattr(z, "item") else str(z))))
     # result paragraph
     res_lines = []
@@ -522,7 +592,9 @@ def main():
            "The policy learners carry the DM-1 kept-share floor (>= 20% of the training rows) inside the search: without it the value-maximising tree skips every SETUP because the book's expectancy is negative in every hour x direction cell.",
            "A rule on an ext-features column (features_ext) is expressible on the real tape but cannot be replayed on the null tapes (their feature tables carry the 261 base columns): the null-tape item then reads 'not evaluable' and the form cannot be a candidate.",
            "`sl` and `n_events_asof` (drift.json time proxies) are excluded from sub-family (II); the interaction pairs that carry them are unusable and are listed.",
-           "Two processes appended to the ledger concurrently (procA: 5minute context / 5minute h5_full / minute context; procB: minute h5_full); every line was parsed back by finalize (ids unique per config).",
+           "Two processes appended to the ledger concurrently (procA: 5minute context / 5minute h5_full / minute context; procB / procB2: minute h5_full; procC / procD: the 5minute scorecard and 5minute h5_full reruns with jobs=1); every line was parsed back by finalize (ids unique per config).",
+           "The minute / context run (procA) was killed with its agent at 14:03 UTC during the hgbc robustness stage (L0 fold 4 of 12; no ledger row of that stage had been written: the stage scores after its 12 folds). It was restarted at 15:35 UTC (procA2.nohup, GF_JOBS=4) from its checkpoints: bag4 (all stages) and hgbc (oof12, cpcv, frozen) were not rerun; hgbc robust, hgbr, pt1-pt3, scorecard and diag ran in the restart. Every model is seeded (random_state 0 / per-estimator seeds), so the job count changes timings only.",
+           "On 5minute the scorecard's C-search was run twice: the first runs walked the C grid linearly (`c_search = linear`; results kept as `scorecard_linear.pkl`, its rows are separate trials in the ledger because `c_search` is part of the config), the rerun bisects (`bisect`, `scorecard.pkl`, the procedure every other (tf, sub) uses). Both are in the family; the bisect one is the reported scorecard.",
            "The L3 label is dimensionless (a t-value); its rows' slippage column is not read; the L2 labels use the engine's same-bar conventions and are checked against the L1 stop exits.",
            "IS/OOS: no OOS row was read; the OOS window is the published lab window (BRIEF caveat)."]
     md += [f"- {c}" for c in cav] + ["", "## 9. Files", ""]

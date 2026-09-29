@@ -58,7 +58,7 @@ def main():
         n_ctx = len(specs[tf]["context"]) + 1; n_full = len(specs[tf]["full"]) + 1
         L.append(f"## 2. {tf}\n")
         L.append(f"Designs: context = {n_ctx} columns ({len(specs[tf]['context'])} one-hot levels of hour_bin / dir + bias); full = {n_full} columns ({len({e['source'] for e in specs[tf]['full']})} source columns, {sum(1 for e in specs[tf]['full'] if e['kind'] == 'na')} missing indicators, bias; without `sl`, `n_events_asof`), standardised online. Paths (ledger rows): {Fz['n_rows']} ({', '.join(f'{k} {v}' for k, v in Fz['n_paths_by_design'].items())}).\n")
-        comps = {c["family"].split("/")[-1]: c for c in Fz["comparators"]}
+        comps = {c["family"].replace("online_comparator/", ""): c for c in Fz["comparators"]}
         L.append("### Comparators (family `online_comparator/*`)\n")
         L.append("| comparator | ledger id | kept n | kept share | kept mean | skipped mean | diff | kept PF | control pct | perm p | sign blocks |\n|---|---|---|---|---|---|---|---|---|---|---|")
         for name, c in comps.items():
@@ -170,10 +170,13 @@ def main():
     for x in files: L.append(f"- `{x}`" + (" (per timeframe: spec_*.json, jobs/*.pkl, journals/*.parquet, features_full.parquet, scores.jsonl, curves.jsonl, checks.json, finalize.json)" if x == "results" else ""))
     fj["files"] = files
     fj["ledger_families"] = sorted({r["family"] for tf in fin for r in fin[tf]["all_rows"]} | {c["family"] for tf in fin for c in fin[tf]["comparators"]})
+    gf_present = {tf: sorted(c["family"] for c in fin[tf]["comparators"] if "gate_family_oof" in c["family"]) for tf in fin}
     fj["caveats"] = ["the frozen shortlist is empty on both timeframes: the context design (hour_bin + dir) is the designed feature set; the full design is a labelled sensitivity outside the frozen shortlist",
                      "full information: the policy learns from every SETUP's Foundation L1 outcome, taken or skipped (BRIEF addendum 4, rl.py)",
                      "the sized book saturates at 0 / 3 lots at 420,000 INR of capital; the ledger statistic is the 1-lot keep mask",
-                     "the gate_family OOF comparator was absent at scoring time (study still running)",
+                     "cadence k applies to the model refit; the running W / L, the calibration record and the nested tau record are updated at every closed outcome (they are the journal's running book, not the model)",
+                     "the hgb_cls learner's two decision heads (net / pf) share the fitted classifier and differ only in the nested tau (chosen on the record's net vs penalised net)",
+                     "gate_family OOF comparators: " + "; ".join(f"{tf}: {gf_present[tf] or 'absent at scoring time (study still running; the finalist was not named)'}" for tf in fin),
                      "IS drift (null_tapes_drift section 6): a full-design path reads level- and volatility-dependent columns; the drift refit is reported only when such a path is selected"]
     fj["written_at"] = D.datetime.now().isoformat(timespec="seconds")
     open(os.path.join(HERE, "FINDINGS.md"), "w", encoding="utf-8").write("\n".join(L))

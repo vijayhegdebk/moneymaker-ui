@@ -3,3 +3,8 @@
 [13:16:16 +    1.9s rss  219.6 MB] === 5minute
 [13:16:18 +    3.7s rss  236.0 MB] 5minute family: 106 rows (98 L1), PBO(diff) 0.606, SPA p 0.4535 (unstud 0.666), eff trials 1.06, 1.7s
 [13:16:18 +    4.1s rss  239.0 MB] FINDINGS.md and findings.json written; null_result=True; candidates=[]
+[15:37:35 +    0.0s rss  204.6 MB] === minute
+[15:37:42 +    6.5s rss  257.0 MB] minute family: 272 rows (248 L1), PBO(diff) 0.525, SPA p 0.9075 (unstud 0.6305), eff trials 1.21, 5.8s
+[15:37:43 +    7.8s rss  292.2 MB] === 5minute
+[15:37:51 +   15.7s rss  325.8 MB] 5minute family: 532 rows (480 L1), PBO(diff) 0.5225, SPA p 0.0565 (unstud 0.01), eff trials 1.22, 7.2s
+[15:37:53 +   17.5s rss  337.9 MB] FINDINGS.md and findings.json written; null_result=True; candidates=[]

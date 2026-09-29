@@ -1,9 +1,9 @@
 {
- "agentId": "a9da6406214d23e57",
+ "agentId": "a15f18296d7b28ce5",
  "label": "study:gate_family",
  "phase": "Studies",
  "result": null,
  "key": "v2:f707827ad1f4ee47062f668c838766a6774ce75f3df698e7c10258fbaba24e27",
- "transcript": "audit/workflows/phase3/agent-a9da6406214d23e57.jsonl",
- "meta": "audit/workflows/phase3/agent-a9da6406214d23e57.meta.json"
+ "transcript": "audit/workflows/phase3/agent-a15f18296d7b28ce5.jsonl",
+ "meta": "audit/workflows/phase3/agent-a15f18296d7b28ce5.meta.json"
 }

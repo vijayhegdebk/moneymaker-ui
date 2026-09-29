@@ -58,7 +58,8 @@ Definitions (fixed before any number was looked at)
                           p >= tau, tau NESTED IN THE PAST: chosen at every refit on the record of the policy's own earlier
                           predictions (each made before its outcome was known, so an honest walk-forward sample) as the grid
                           value 0.05..0.95 (step 0.01) maximising the kept mean (penalised) net subject to kept share >= 20%
-                          and kept n >= 50 of the record; fallback 0.5 while the record holds < 100 closed rows.
+                          and kept n >= 50 of the record; fallback 0.5 while the record holds < 100 closed rows. One tau per
+                          decision-side reward (the `net` head's on the record's net, the `pf` head's on the penalised net).
   warm-up        until 30 closed outcomes have been applied the policy takes every SETUP with 1 lot (the Foundation book is
                  the prior; `warmup_min_closed`, `warmup_policy` are cfg keys).
   sizing         lots in {0, 1, 2, 3} by half Kelly (fraction 0.5) on the calibrated p_win and the running W / L: for a bet
@@ -358,7 +359,10 @@ class HGB:
 
     def __init__(self, kind, params, seed, reward, ru, tau_rule):
         self.kind, self.params, self.seed, self.reward, self.ru = kind, dict(params), seed, reward, ru
-        self.model = None; self.n = 0; self.tau = tau_rule["fallback"]; self.tau_src = "fallback"; self._sid = None
+        self.model = None; self.n = 0; self._sid = None
+        # the classifier's nested tau, one per decision-side reward (the `pf` head chooses tau on the record's penalised net,
+        # the `net` head on the net: the reward enters the DECISION for the win-label learners)
+        self.taus = {r: (tau_rule["fallback"], "fallback") for r in ("net", "pf")}
 
     def refit(self, X, r, y, w, record=None):
         P = dict(self.params, early_stopping=False, random_state=self.seed)
@@ -373,8 +377,11 @@ class HGB:
                 self.model = None; self.const = float(y[0])
             else:
                 self.model = HistGradientBoostingClassifier(class_weight="balanced", **P).fit(X, y.astype(int), sample_weight=sw)
-            if record is not None: self.tau, self.tau_src = record.tau(self.reward, self.ru)
+            if record is not None: self.taus = {rw: record.tau(rw, self.ru) for rw in ("net", "pf")}
         self.n = len(r); self._sid = _sha(pickle.dumps(self.model) + str(self.n).encode())
+
+    def tau_for(self, head_reward):
+        return self.taus[head_reward if head_reward in self.taus else "net"]
 
     def score(self, x):
         if self.model is None: return 0.0 if self.kind == "reg" else getattr(self, "const", 0.5)
@@ -383,7 +390,8 @@ class HGB:
 
     def decide(self, x, score, head, z, W, L, ru):
         if self.kind == "reg": return score > 0, ("E[net] > 0" if score > 0 else "E[net] <= 0"), score
-        return score >= self.tau, (f"p >= tau ({self.tau_src})" if score >= self.tau else f"p < tau ({self.tau_src})"), score
+        tau, src = self.tau_for(head["reward"])
+        return score >= tau, (f"p >= tau ({src}, {head['reward']})" if score >= tau else f"p < tau ({src}, {head['reward']})"), score
 
     def state_id(self, n_applied): return self._sid or "prior:0"
 
@@ -478,7 +486,7 @@ def _walk(T, cfg, rows, heads, spec, features_out):
                 if take and sz.get("daily_loss_stop") is not None and h["today_net"] <= -float(sz["daily_loss_stop"]):
                     take, reason = False, f"daily loss stop {sz['daily_loss_stop']}"
                 lots, f = kelly_lots(p_cal, W, L, sz) if take else (0, None)
-            tau = learner.tau if isinstance(learner, HGB) and learner.kind == "cls" else None
+            tau = learner.tau_for(h["reward"])[0] if isinstance(learner, HGB) and learner.kind == "cls" else None
             wl = [] if h["last100"] == [] else h["last100"]
             gw = sum(v for v in wl if v > 0); gl = -sum(v for v in wl if v <= 0)
             pf100 = round(gw / gl, 3) if gl > 0 else None

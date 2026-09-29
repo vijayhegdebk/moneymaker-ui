@@ -1,0 +1,5 @@
+=== score_round0.py 2026-09-29T05:09:16 (repair round) ===
+appended correcting registration line
+[minute] L1 units 5266 (IS 4452), L0 5326 (IS 4502); 8 round-0 rules
+[minute] support (label-free): r0_m1 903, r0_m2 43, r0_m3 920, r0_m4 347, r0_m5 1437, r0_m6 1, r0_m7 571, r0_m8 0; union 2607; no-op comparisons 2
+[minute] r0_m1  skipped   903 kept  3549 diff -5.37 ctrl 6.1 perm_p 0.9605 loserR 0.2062 winR(w) 0.8383 topdec_skipped 0.1714 | L0 diff -81.14 ctrl 11.8

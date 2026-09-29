@@ -20,3 +20,4 @@ h2_regime start Tue Sep 29 04:06:40 2026 ledger sha f2c2f7154dd30e85
   by n_choch_since_bos: 0: n 1191 mean -983.73 win 0.1444; 1: n 1752 mean -914.66 win 0.1553; 2: n 830 mean -927.02 win 0.1554; 3: n 377 mean -633.07 win 0.1485; 4+: n 352 mean -1045.13 win 0.1562
   grid: 201 cells
     cell 1/201 {"kc": 2, "rule": "choch", "scope": "all"} kept 2943 diff -60.0 pct 16.5 p 0.7166
+    cell 21/201 {"W": "since_choch", "q": 0.5, "rule": "range"} kept 2251 diff -49.87 pct 7.2 p 0.7456

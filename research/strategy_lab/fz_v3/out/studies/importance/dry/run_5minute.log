@@ -83,3 +83,4 @@
 [05:00:17 rss 265.5 MB] PCA check: 238 components, 95% variance in 111; weighted tau(MDI, eigenvalue) 0.0813, Kendall tau 0.1206 (p 0.0123)
 [05:02:52 rss 381.4 MB] xgb fold 0: ll 0.8917, shap tensor (82, 40, 40) (153.5s)
 [05:05:35 rss 383.5 MB] xgb fold 1: ll 0.6929, shap tensor (83, 40, 40) (163.5s)
+[05:08:10 rss 383.8 MB] xgb fold 2: ll 0.7863, shap tensor (42, 40, 40) (155.1s)

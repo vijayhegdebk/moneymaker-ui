@@ -1,0 +1,7 @@
+[11:27:28 rss 193.3 MB] === importance minute stage=finalize dry=False trees=300 bag_jobs=1 xgb_jobs=1 ===
+[11:27:31 rss 299.9 MB] minute: design 244 + ext 61 -> dropped nan>40% 11, const 6, binary 2nd level 4, duplicates 32; + 24 missing indicators = 276 features
+[11:27:33 rss 283.8 MB] clustering: 276 features, silhouette best k=38 (0.1136), clusters formed 38, 1.2s
+/usr/local/lib/python3.11/dist-packages/numpy/lib/_nanfunctions_impl.py:1573: RuntimeWarning: All-NaN slice encountered
+  return _nanquantile_unchecked(
+[11:27:34 rss 288.3 MB] family: rows 52 pbo 0.0308 spa 0.724 eff 1.04 boot [nan, nan] go False
+[11:27:34 rss 288.5 MB] === finalize done minute; eligible clusters 0 of 38 ===

@@ -5,6 +5,10 @@ session-block sign-flip test against the Foundation exit and the block bootstrap
 learner's decisions into a depth-3 tree -> 'exit_rules' JSON (fidelity reported), and the multiplication with the frozen
 ST7/ST8 gate (the exit applied to the fz_traded rows), scored through harness.score under the exit's label
 (Table.with_label) so the gate x exit book is a harness ledger row.
+Follow-up (2026-09-29 16:45 IST): the family SPA is recomputed here with the current harness.spa (near-degenerate candidates
+excluded from the studentised family, White's unstudentised statistic reported too; the excluded candidates are listed), over the
+same 1,568-variant family and bootstrap tag 02_c_select.py used, and over every exit trial of the timeframe; a gate x exit row
+already in the harness ledger is reused by id, a new one is appended with note="followup".
 Outputs: eval_table_<tf>.csv, eval_<tf>.json, exit_rules_<tf>.json."""
 import sys, os, json, time
 sys.dont_write_bytecode = True
@@ -58,10 +62,32 @@ print(tab[["policy", "mean_per_lot", "diff_vs_foundation", "random_pct", "regret
 
 # effective trials of the family on the selection-gain series (variant minus Foundation per session), beside the harness's kept_sum figure
 fam = X.read_exit_ledger("exit_policy/C", tf)
-gains = np.array([H.selection_gain(X.load_vec(r["id"]))[0] for r in fam])
+fam_vecs = [X.load_vec(r["id"]) for r in fam]
+gains = np.array([H.selection_gain(v)[0] for v in fam_vecs])
 Cm = np.corrcoef(gains[:, gains.std(axis=0) > 0]); Cm = np.nan_to_num(Cm); np.fill_diagonal(Cm, 1.0)
 lam = np.clip(np.linalg.eigvalsh(Cm), 0, None); eff_gain = round(float(lam.sum() ** 2 / (lam ** 2).sum()), 2)
 distinct = len({tuple(np.round(g, 6)) for g in gains})
+
+# ---------------------------------------------------------------- family SPA with the current harness.spa (follow-up 2026-09-29 16:45 IST)
+# 02_c_select.py computed the family SPA with the earlier harness.spa; the harness now excludes near-degenerate candidates (selection
+# gain non-zero in fewer than max(10, 5% of T) sessions) from the studentised family and reports White's unstudentised statistic too.
+# Same family (the 1,568 learner C variants, ledger order), same bootstrap tag as 02_c_select.py, so only the harness revision changes.
+def spa_block(rows_, vecs_, tag_, label_):
+    sp = H.spa(vecs_, tag=tag_)
+    Dm = np.array([H.selection_gain(v)[0] for v in vecs_]); T_ = Dm.shape[1]
+    active = (np.abs(Dm) > 1e-9).sum(axis=1); mu = Dm.mean(axis=1); sd = Dm.std(axis=1, ddof=1) + 1e-12
+    def who(i):
+        r = rows_[i]
+        return dict(index=int(i), id=r["id"], family=r["family"], keys=r.get("keys") or r.get("config"), active_sessions=int(active[i]), mean_gain=round(float(mu[i]), 2),
+                    t_studentised=round(float(np.sqrt(T_) * mu[i] / sd[i]), 3), diff_vs_foundation=r.get("diff"))
+    excluded = [who(i) for i in np.flatnonzero(active < sp["min_active_sessions"])]
+    return dict(family=label_, harness_sha=H.file_sha(H.__file__), tag=tag_, **sp, best_keys=who(sp["best"]) if sp.get("best") is not None else None,
+                best_keys_unstudentised=who(sp["best_unstudentised"]), excluded_candidates=excluded)
+spa_c = spa_block(fam, fam_vecs, f"exit|{tf}", "learner C grid, 1568 variants (the pre-registered family of 02_c_select.py)")
+all_rows = [r for r in X.read_exit_ledger("exit_policy", tf) if r["family"] in ("exit_policy/C", "exit_policy/C_nested", "exit_policy/C_best_is", "exit_policy/B", "exit_policy/A")]
+all_vecs = [X.load_vec(r["id"]) for r in all_rows]
+spa_all = spa_block(all_rows, all_vecs, f"exit|all|{tf}", f"every exit trial of the timeframe: {len(all_rows)} rows (C variants + C nested pick + C in-sample best + learners B and A); comparators and CPCV paths excluded")
+print(json.dumps(dict(spa_family_C={k: v for k, v in spa_c.items() if k not in ("excluded_candidates",)}, excluded=spa_c["excluded_candidates"], spa_all_trials={k: v for k, v in spa_all.items() if k not in ("excluded_candidates",)}), indent=1, default=str), flush=True)
 
 # ---------------------------------------------------------------- distillation of the best learner
 best = max(learners, key=lambda k: learners[k].mean())
@@ -110,15 +136,24 @@ json.dump(exit_rules, open(os.path.join(HERE, f"exit_rules_{tf}.json"), "w"), in
 # ---------------------------------------------------------------- multiplication with the frozen ST7/ST8 gate
 gate = T.F.fz_traded.astype(bool).to_numpy()
 mult = {}
+# the harness ledger is append-only: a (family, config, label, tf) already scored is reused by its id (same deterministic numbers), a new
+# one is appended with note="followup" (the follow-up of 2026-09-29 16:45 IST: learner A on 1 min, the whole 5 min evaluation)
+existing = {r["id"]: r for r in H.read_ledger("exit_policy/gate_x_exit", tf)}
+GATE_FAMILY = "exit_policy/gate_x_exit"
 for name, net in (("C_nested", cpick["nested_net"]), *[(k, v) for k, v in learners.items() if k != "C"]):
     net_all = T.net.copy(); xb_all = T.exit_bar.copy()
     net_all[D.is_idx] = net                                                 # IS rows take the exit policy's OOF net; OOS rows are untouched copies
     xb_all[D.is_idx] = (cpick["nested_exit_bar"] if name == "C_nested" else extra[name]["exit_bar"])
     T2 = T.with_label(f"L1entries_x_{name}", net_all, xb_all)
-    res = H.score(T2, gate, "exit_policy/gate_x_exit", dict(gate="ST7/ST8 as traded (fz_traded)", exit=name, note="exit applied to every IS unit; the gate's kept set is judged under it"), script=__file__)
+    cfg = dict(gate="ST7/ST8 as traded (fz_traded)", exit=name, note="exit applied to every IS unit; the gate's kept set is judged under it")
+    cid = H.candidate_id(GATE_FAMILY, cfg, T2.label, T2.tf)
+    if cid in existing:
+        res = existing[cid]; ledger_row = "existing row reused (scored " + str(res.get("at")) + ")"
+    else:
+        res = H.score(T2, gate, GATE_FAMILY, cfg, script=__file__, note="followup"); ledger_row = "new row, note=followup"
     g = gate[D.is_idx]
     d = net[g] - D.fnd_net[g]
-    mult[name] = dict(harness_id=res["id"], kept_n=res["kept_n"], kept_mean=res["kept_mean"], skipped_mean=res["skipped_mean"], diff=res["diff"], control_pct=res["control_pct"], perm_p=res["perm_p"],
+    mult[name] = dict(harness_id=res["id"], ledger_row=ledger_row, kept_n=res["kept_n"], kept_mean=res["kept_mean"], skipped_mean=res["skipped_mean"], diff=res["diff"], control_pct=res["control_pct"], perm_p=res["perm_p"],
                       sign_blocks=res["sign_blocks"], kept_mean_slip8=res["kept_mean_slip8"], winner_recall_weighted=res["winner_recall_weighted"],
                       gate_rows=dict(n=int(g.sum()), foundation_mean=round(float(D.fnd_net[g].mean()), 2), exit_mean=round(float(net[g].mean()), 2), diff=round(float(d.mean()), 2),
                                      signflip_blocks=X.sign_flip_blocks(d, D.block[g]), signflip_sessions=X.sign_flip_sessions(d, D.session[g], tag=f"{tf}|gate|{name}"),
@@ -127,7 +162,8 @@ for name, net in (("C_nested", cpick["nested_net"]), *[(k, v) for k, v in learne
                       non_gate_rows=dict(n=int((~g).sum()), foundation_mean=round(float(D.fnd_net[~g].mean()), 2), exit_mean=round(float(net[~g].mean()), 2)))
 frozen_l1 = [r for r in H.read_ledger("selftest/frozen_gate", tf) + H.read_ledger("comparator", tf) if r.get("label") == "L1"]
 out = dict(tf=tf, n=int(D.n), table=rows, effective_trials_kept_sum=csel["effective_trials"], effective_trials_selection_gain=eff_gain, distinct_gain_vectors=distinct,
-           distillation=dist, exit_rules=rules, gate_multiplication=mult,
+           spa_family=spa_c, spa_all_trials=spa_all, spa_superseded_02_c_select=dict(csel["spa"], note="computed by 02_c_select.py with the harness.spa before its revision; superseded by spa_family"),
+           learners_present=sorted(learners), distillation=dist, exit_rules=rules, gate_multiplication=mult,
            frozen_gate_under_L1=[dict(id=r["id"], kept_n=r["kept_n"], kept_mean=r["kept_mean"], skipped_mean=r["skipped_mean"], diff=r["diff"], control_pct=r["control_pct"]) for r in frozen_l1[:1]],
            seconds=round(time.time() - t0, 1))
 json.dump(out, open(os.path.join(HERE, f"eval_{tf}.json"), "w"), indent=1, default=lambda z: z.item() if hasattr(z, "item") else str(z))

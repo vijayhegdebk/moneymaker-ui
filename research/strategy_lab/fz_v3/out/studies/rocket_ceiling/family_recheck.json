@@ -1,0 +1,336 @@
+{
+ "study": "rocket_ceiling",
+ "recomputed_at": "2026-09-29T11:31:20",
+ "harness_sha": "0fe3d75a0bd6e78d",
+ "script_sha_on_disk": "771f509e5cc4faf8",
+ "ids": [
+  "80e5e282bcb601dc",
+  "d3a34084752ef27a",
+  "b2195fdc6cc1b267",
+  "07b5eb852d6512bc",
+  "10128de1aa08e6fe",
+  "e6729c6012216484",
+  "7594408d55b3a8c9",
+  "1d2af8d85982e293",
+  "6263d2e353f32624",
+  "2034e749729ecff3",
+  "887ddb6af27a2514",
+  "334a8df20e257596"
+ ],
+ "ledger": {
+  "rows_total": 1759,
+  "rocket_rows": 144,
+  "oof_rows": 12,
+  "cpcv_rows": 132,
+  "by_family": {
+   "rocket/rocket": 3,
+   "rocket/rocket/cpcv": 33,
+   "rocket/pca16": 3,
+   "rocket/pca16/cpcv": 33,
+   "rocket/tabular": 3,
+   "rocket/tabular/cpcv": 33,
+   "rocket/stacked": 3,
+   "rocket/stacked/cpcv": 33
+  },
+  "first_at": "2026-09-29T07:00:02",
+  "last_at": "2026-09-29T07:12:37",
+  "row_index_range": [
+   1591,
+   1745
+  ],
+  "interleaved_other_rows_in_span": [
+   [
+    1594,
+    "importance/sfi",
+    "2026-09-29T07:00:17"
+   ],
+   [
+    1604,
+    "importance/sfi",
+    "2026-09-29T07:01:10"
+   ],
+   [
+    1613,
+    "importance/sfi",
+    "2026-09-29T07:01:51"
+   ],
+   [
+    1624,
+    "importance/sfi",
+    "2026-09-29T07:02:40"
+   ],
+   [
+    1634,
+    "importance/sfi",
+    "2026-09-29T07:03:27"
+   ],
+   [
+    1641,
+    "importance/sfi",
+    "2026-09-29T07:04:03"
+   ],
+   [
+    1648,
+    "importance/sfi",
+    "2026-09-29T07:04:40"
+   ],
+   [
+    1656,
+    "importance/sfi",
+    "2026-09-29T07:05:16"
+   ],
+   [
+    1665,
+    "importance/sfi",
+    "2026-09-29T07:05:53"
+   ],
+   [
+    1673,
+    "importance/sfi",
+    "2026-09-29T07:06:30"
+   ],
+   [
+    1701,
+    "importance/full_model",
+    "2026-09-29T07:08:56"
+   ]
+  ],
+  "script_sha_of_rows": [
+   "771f509e5cc4faf8"
+  ],
+  "script_sha_matches_file_on_disk": true,
+  "oof_rows_match_results_json": true,
+  "mismatches": [],
+  "split": [
+   "IS"
+  ],
+  "label": [
+   "L1"
+  ],
+  "tf": [
+   "minute"
+  ]
+ },
+ "ledger_sha_after_reproduced": {
+  "target": "621159330c8bb103",
+  "prefix_rows": 1746,
+  "match": true,
+  "last_rocket_row_index": 1745,
+  "last_rocket_row_at": "2026-09-29T07:12:37",
+  "first_row_after_prefix": {
+   "index": 1746,
+   "family": "importance/full_model/cpcv",
+   "at": "2026-09-29T07:14:41"
+  },
+  "statement": "results.json was written when the ledger held exactly the rows up to and including the last rocket CPCV row: the run finished and wrote its results itself"
+ },
+ "log": {
+  "lines": 50,
+  "identical_to_run_nohup": true,
+  "first_line_time": "05:01:33",
+  "last_line_time": "07:12:37",
+  "last_line_is_gate_row": true,
+  "run_finished_at_from_results_json": "07:12:37.5 (first line + timing.total_s 7864.5 s)",
+  "final_log_calls_in_script_present": [
+   "log(f\"family: eff trials",
+   "log(f\"distillation not run:",
+   "log(f\"done in"
+  ],
+  "final_log_lines_present_in_log": [],
+  "explanation": "PROGRESS.md (Git incident): the 06:24 checkout replaced every tracked file's inode; the running process kept writing to the unlinked inodes; a mirror loop copied the orphaned logs back from /proc/<pid>/fd until the process exited, and the last copy predates the run's final second. results.json holds the family / distillation / timing values those lines would have printed, and its ledger sha reproduces (above)."
+ },
+ "family_recomputed": {
+  "effective_trials": 1.49,
+  "pbo_diff": {
+   "candidates": 12,
+   "partitions": 12870,
+   "statistic": "diff",
+   "pbo": 0.4298,
+   "oos_best_below_zero": 0.3159,
+   "degradation_slope": -1.067,
+   "is_best_mean": 164.37,
+   "oos_best_mean": 31.8
+  },
+  "pbo_kept_mean": {
+   "candidates": 12,
+   "partitions": 12870,
+   "statistic": "kept_mean",
+   "pbo": 0.6926,
+   "oos_best_below_zero": 1.0,
+   "degradation_slope": -0.9961,
+   "is_best_mean": -922.2,
+   "oos_best_mean": -1017.9
+  },
+  "spa": {
+   "candidates": 12,
+   "sessions": 578,
+   "draws": 2000,
+   "min_active_sessions": 28,
+   "excluded_from_studentised": 0,
+   "best_unstudentised": 6,
+   "best_mean_gain_unstudentised": 5.34,
+   "rc_p_unstudentised": 0.9545,
+   "spa_p_unstudentised": 0.783,
+   "best": 6,
+   "best_mean_gain": 5.34,
+   "best_t": 0.218,
+   "best_active_sessions": 365,
+   "rc_p": 0.9445,
+   "spa_p": 0.762
+  },
+  "spa_best": {
+   "model": "tabular",
+   "skip_q": 0.3,
+   "id": "7594408d55b3a8c9"
+  },
+  "spa_best_unstudentised": {
+   "model": "tabular",
+   "skip_q": 0.3,
+   "id": "7594408d55b3a8c9"
+  },
+  "best_by_diff": {
+   "model": "tabular",
+   "skip_q": 0.3,
+   "id": "7594408d55b3a8c9",
+   "diff": 125.03
+  },
+  "dsr_best": {
+   "sr": 0.0105,
+   "sr0": 0.0735,
+   "dsr": 0.0629,
+   "p": 0.9371,
+   "T": 569,
+   "n_trials": 12,
+   "skew": 3.421,
+   "kurt": 16.215
+  },
+  "bootstrap_best": {
+   "draws": 2000,
+   "ci": 0.9,
+   "diff_ci": [
+    22.03,
+    224.11
+   ],
+   "kept_mean_ci": [
+    -1040.79,
+    -912.36
+   ],
+   "diff_p_le0": 0.026,
+   "diff_point": 125.03
+  },
+  "go_no_go_best": {
+   "passed": false,
+   "checks": {
+    "kept_share>=20%": [
+     true,
+     0.7455
+    ],
+    "kept_n>=300": [
+     true,
+     3319
+    ],
+    "diff>0": [
+     true,
+     125.03
+    ],
+    "diff_top1_removed>0": [
+     false,
+     -60.08
+    ],
+    "kept_mean_slip8>0": [
+     false,
+     -1367.75
+    ],
+    "sign_blocks>=8/12": [
+     true,
+     9
+    ],
+    "control_pct>=95": [
+     false,
+     4.9
+    ],
+    "cpcv_p5_diff>0": [
+     true,
+     6.15
+    ],
+    "pbo<=0.2": [
+     false,
+     0.4298
+    ],
+    "dsr_p<0.1": [
+     false,
+     0.9371
+    ],
+    "spa_p<=0.10": [
+     false,
+     0.762
+    ],
+    "boot_ci_excludes_0": [
+     true,
+     [
+      22.03,
+      224.11
+     ]
+    ]
+   },
+   "note": "information only: this study never gets a candidate slot (Judge 1)"
+  },
+  "active_sessions_per_candidate": [
+   281,
+   357,
+   365,
+   431,
+   462,
+   460,
+   365,
+   434,
+   429,
+   363,
+   438,
+   423
+  ]
+ },
+ "reproduces_results_json": {
+  "effective_trials": true,
+  "pbo_diff.pbo": true,
+  "pbo_kept_mean.pbo": true,
+  "spa.best": true,
+  "spa.best_t": true,
+  "spa.rc_p": true,
+  "spa.spa_p": true,
+  "best_by_diff.id": true,
+  "dsr_best.p": true,
+  "bootstrap_best.diff_ci": true,
+  "go_no_go_best.passed": true
+ },
+ "spa_revised_extra": {
+  "min_active_sessions": 28,
+  "excluded_from_studentised": 0,
+  "best_active_sessions": 365,
+  "best_unstudentised": 6,
+  "best_mean_gain_unstudentised": 5.34,
+  "rc_p_unstudentised": 0.9545,
+  "spa_p_unstudentised": 0.783
+ },
+ "win_ext": {
+  "file": "features_ext/minute/ext_features.parquet",
+  "columns": [
+   "win_sign_agree10",
+   "win_dd_extreme_atr",
+   "win_range_slope"
+  ],
+  "rows": 5326,
+  "is_units": 4452,
+  "is_units_found": 4452,
+  "coverage_is_units": {
+   "win_sign_agree10": 1.0,
+   "win_dd_extreme_atr": 1.0,
+   "win_range_slope": 0.9816
+  },
+  "note": "never read by the run (the pre-registered stop fired before distillation); listed for the record"
+ },
+ "timing_s": 3.9,
+ "peak_rss_mb": 282,
+ "ledger_rows_written_by_this_script": 0,
+ "ledger_sha_now": "cc31405d1ba03634"
+}

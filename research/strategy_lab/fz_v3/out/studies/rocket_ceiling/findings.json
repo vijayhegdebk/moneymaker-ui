@@ -1,0 +1,1231 @@
+{
+ "study": "rocket_ceiling",
+ "design": "deep-sequence-rocket-probe reduced to the single ceiling check (both judges); pretrain-probe rung 1 (PCA-16) as comparator",
+ "timeframes": {
+  "minute": {
+   "label": "L1",
+   "units_is": 4452,
+   "oos_row_count_only": 814,
+   "seed": 3795216026,
+   "L": 60,
+   "kernels": 2000,
+   "channels": 7,
+   "trunc_check": {
+    "PASS": true,
+    "max_abs_diff": 0.0,
+    "setups_before_cut": [
+     3767,
+     3767
+    ]
+   },
+   "oof12_auc": {
+    "rocket": 0.5884280681520153,
+    "pca16": 0.5474210253476541,
+    "tabular": 0.5887397950654358,
+    "stacked": 0.5892447696595007
+   },
+   "oof12_ap": {
+    "rocket": 0.20213486568541172,
+    "pca16": 0.18420795643494592,
+    "tabular": 0.21305487689886504,
+    "stacked": 0.20592055693890624
+   },
+   "per_block_auc": {
+    "rocket": [
+     0.5731524747085242,
+     0.5824863542254847,
+     0.5323183760683761,
+     0.6355760368663594,
+     0.6311226269370671,
+     0.4493971811852606,
+     0.6494791666666667,
+     0.5993835034013606,
+     0.4409722222222222,
+     0.5932172093309535,
+     0.6183783783783784,
+     0.6184895833333334
+    ],
+    "pca16": [
+     0.5112280542575874,
+     0.6112836438923395,
+     0.5838675213675214,
+     0.5310291858678955,
+     0.5933031042901988,
+     0.523348616063848,
+     0.5302517361111111,
+     0.6075680272108843,
+     0.4847756410256411,
+     0.5472394903674525,
+     0.5316216216216216,
+     0.5395254629629629
+    ],
+    "tabular": [
+     0.6022773669645693,
+     0.6455862977602108,
+     0.55818198005698,
+     0.5955453149001536,
+     0.6651053864168618,
+     0.45661402615045,
+     0.6246527777777777,
+     0.5340136054421769,
+     0.5323183760683761,
+     0.5689358035329599,
+     0.6175675675675676,
+     0.5884837962962963
+    ],
+    "stacked": [
+     0.6154788368189449,
+     0.6251646903820817,
+     0.5399305555555556,
+     0.6031336405529955,
+     0.6714335542378793,
+     0.46383087111563936,
+     0.6220486111111111,
+     0.5380527210884354,
+     0.5272435897435898,
+     0.57262879300794,
+     0.6691891891891892,
+     0.5800347222222222
+    ]
+   },
+   "per_block_gain": {
+    "stacked-tabular": [
+     0.013201469854375536,
+     -0.020421607378129147,
+     -0.018251424501424474,
+     0.007588325652841843,
+     0.006328167821017527,
+     0.007216844965189373,
+     -0.0026041666666666297,
+     0.004039115646258473,
+     -0.005074786324786307,
+     0.0036929894749800907,
+     0.05162162162162165,
+     -0.008449074074074137
+    ],
+    "rocket-tabular": [
+     -0.0291248922560452,
+     -0.06309994353472614,
+     -0.02586360398860399,
+     0.04003072196620583,
+     -0.03398275947979468,
+     -0.007216844965189373,
+     0.024826388888888995,
+     0.06536989795918369,
+     -0.09134615384615385,
+     0.024281405797993538,
+     0.0008108108108108025,
+     0.030005787037037046
+    ],
+    "pca16-tabular": [
+     -0.09104931270698191,
+     -0.03430265386787135,
+     0.02568554131054135,
+     -0.06451612903225812,
+     -0.07180228212666295,
+     0.06673458991339798,
+     -0.09440104166666663,
+     0.07355442176870741,
+     -0.047542735042734985,
+     -0.021696313165507464,
+     -0.08594594594594596,
+     -0.04895833333333344
+    ]
+   },
+   "judge1_all_blocks_below_0_02": false,
+   "cpcv": {
+    "paths": 11,
+    "gain_stacked": {
+     "median": -0.0016,
+     "p5": -0.0073,
+     "min": -0.0079,
+     "max": 0.0076,
+     "share_positive": 0.455,
+     "n": 11
+    },
+    "gain_rocket": {
+     "median": -0.0063,
+     "p5": -0.0165,
+     "min": -0.0167,
+     "max": 0.0041,
+     "share_positive": 0.091,
+     "n": 11
+    },
+    "gain_pca16": {
+     "median": -0.0447,
+     "p5": -0.0556,
+     "min": -0.0588,
+     "max": -0.0266,
+     "share_positive": 0.0,
+     "n": 11
+    },
+    "auc_rocket": {
+     "median": 0.5846,
+     "p5": 0.58,
+     "min": 0.5783,
+     "max": 0.5904,
+     "share_positive": 1.0,
+     "n": 11
+    },
+    "auc_pca16": {
+     "median": 0.5468,
+     "p5": 0.542,
+     "min": 0.5399,
+     "max": 0.5571,
+     "share_positive": 1.0,
+     "n": 11
+    },
+    "auc_tabular": {
+     "median": 0.5927,
+     "p5": 0.5798,
+     "min": 0.5742,
+     "max": 0.6037,
+     "share_positive": 1.0,
+     "n": 11
+    },
+    "auc_stacked": {
+     "median": 0.5901,
+     "p5": 0.5808,
+     "min": 0.5766,
+     "max": 0.6027,
+     "share_positive": 1.0,
+     "n": 11
+    },
+    "split_gain_stacked": {
+     "min": -0.0267,
+     "median": -0.0011,
+     "share_below_0_02": 0.955
+    },
+    "split_gain_rocket": {
+     "min": -0.0915,
+     "median": -0.0053
+    },
+    "alpha_rocket_counts": {
+     "0.001": 0,
+     "0.01": 0,
+     "0.1": 0,
+     "1.0": 3,
+     "10.0": 57,
+     "100.0": 6,
+     "1000.0": 0
+    },
+    "alpha_pca16_counts": {
+     "0.001": 1,
+     "0.01": 2,
+     "0.1": 20,
+     "1.0": 43,
+     "10.0": 0,
+     "100.0": 0,
+     "1000.0": 0
+    }
+   },
+   "stop": {
+    "triggered": true,
+    "p5_gain_stacked": -0.0073,
+    "threshold": 0.03
+   },
+   "gates": [
+    {
+     "model": "rocket",
+     "skip_q": 0.3,
+     "id": "80e5e282bcb601dc",
+     "family": "rocket/rocket",
+     "kept_n": 3091,
+     "kept_share": 0.6943,
+     "kept_mean": -971.99,
+     "skipped_mean": -1095.05,
+     "diff": 123.06,
+     "diff_top1_removed": -88.8,
+     "control_pct": 0.0,
+     "perm_p": 0.1474,
+     "loser_recall": 0.3254,
+     "loser_precision": 0.8986,
+     "winner_recall": 0.8012,
+     "winner_recall_weighted": 0.8737,
+     "top_decile_winners_skipped": 0.0571,
+     "kept_pf": 0.384,
+     "kept_mean_slip8": -1361.95,
+     "sign_blocks": 9,
+     "kept_win_rate": 0.1799,
+     "skipped_win_rate": 0.1014,
+     "go_raw": false,
+     "cpcv": {
+      "paths": 11,
+      "diff_median": 134.04,
+      "diff_p5": 102.97,
+      "diff_min": 96.34,
+      "diff_share_positive": 1.0,
+      "kept_share_median": 0.6864,
+      "control_pct_median": 0.0,
+      "control_pct_p5": 0.0
+     }
+    },
+    {
+     "model": "rocket",
+     "skip_q": 0.5,
+     "id": "d3a34084752ef27a",
+     "family": "rocket/rocket",
+     "kept_n": 2209,
+     "kept_share": 0.4962,
+     "kept_mean": -957.54,
+     "skipped_mean": -1060.89,
+     "diff": 103.35,
+     "diff_top1_removed": -162.99,
+     "control_pct": 0.0,
+     "perm_p": 0.1909,
+     "loser_recall": 0.5237,
+     "loser_precision": 0.8774,
+     "winner_recall": 0.6037,
+     "winner_recall_weighted": 0.7305,
+     "top_decile_winners_skipped": 0.1571,
+     "kept_pf": 0.425,
+     "kept_mean_slip8": -1347.5,
+     "sign_blocks": 9,
+     "kept_win_rate": 0.1897,
+     "skipped_win_rate": 0.1226,
+     "go_raw": false,
+     "cpcv": {
+      "paths": 11,
+      "diff_median": 91.68,
+      "diff_p5": 66.98,
+      "diff_min": 65.51,
+      "diff_share_positive": 1.0,
+      "kept_share_median": 0.4935,
+      "control_pct_median": 0.0,
+      "control_pct_p5": 0.0
+     }
+    },
+    {
+     "model": "rocket",
+     "skip_q": 0.7,
+     "id": "b2195fdc6cc1b267",
+     "family": "rocket/rocket",
+     "kept_n": 1373,
+     "kept_share": 0.3084,
+     "kept_mean": -981.06,
+     "skipped_mean": -1022.34,
+     "diff": 41.28,
+     "diff_top1_removed": -307.9,
+     "control_pct": 0.0,
+     "perm_p": 0.6222,
+     "loser_recall": 0.7076,
+     "loser_precision": 0.8636,
+     "winner_recall": 0.3948,
+     "winner_recall_weighted": 0.5199,
+     "top_decile_winners_skipped": 0.3857,
+     "kept_pf": 0.452,
+     "kept_mean_slip8": -1371.02,
+     "sign_blocks": 4,
+     "kept_win_rate": 0.1996,
+     "skipped_win_rate": 0.1364,
+     "go_raw": false,
+     "cpcv": {
+      "paths": 11,
+      "diff_median": 50.36,
+      "diff_p5": 7.21,
+      "diff_min": 5.18,
+      "diff_share_positive": 1.0,
+      "kept_share_median": 0.3039,
+      "control_pct_median": 0.0,
+      "control_pct_p5": 0.0
+     }
+    },
+    {
+     "model": "pca16",
+     "skip_q": 0.3,
+     "id": "07b5eb852d6512bc",
+     "family": "rocket/pca16",
+     "kept_n": 3135,
+     "kept_share": 0.7042,
+     "kept_mean": -1016.03,
+     "skipped_mean": -994.31,
+     "diff": -21.72,
+     "diff_top1_removed": -126.84,
+     "control_pct": 0.0,
+     "perm_p": 0.7991,
+     "loser_recall": 0.3007,
+     "loser_precision": 0.858,
+     "winner_recall": 0.7305,
+     "winner_recall_weighted": 0.7895,
+     "top_decile_winners_skipped": 0.1714,
+     "kept_pf": 0.347,
+     "kept_mean_slip8": -1406.0,
+     "sign_blocks": 4,
+     "kept_win_rate": 0.1617,
+     "skipped_win_rate": 0.142,
+     "go_raw": false,
+     "cpcv": {
+      "paths": 11,
+      "diff_median": -26.98,
+      "diff_p5": -67.66,
+      "diff_min": -69.03,
+      "diff_share_positive": 0.273,
+      "kept_share_median": 0.7118,
+      "control_pct_median": 0.0,
+      "control_pct_p5": 0.0
+     }
+    },
+    {
+     "model": "pca16",
+     "skip_q": 0.5,
+     "id": "10128de1aa08e6fe",
+     "family": "rocket/pca16",
+     "kept_n": 2225,
+     "kept_share": 0.4998,
+     "kept_mean": -1015.82,
+     "skipped_mean": -1003.4,
+     "diff": -12.42,
+     "diff_top1_removed": -103.23,
+     "control_pct": 0.0,
+     "perm_p": 0.8781,
+     "loser_recall": 0.513,
+     "loser_precision": 0.8657,
+     "winner_recall": 0.5692,
+     "winner_recall_weighted": 0.6103,
+     "top_decile_winners_skipped": 0.3571,
+     "kept_pf": 0.366,
+     "kept_mean_slip8": -1405.78,
+     "sign_blocks": 4,
+     "kept_win_rate": 0.1775,
+     "skipped_win_rate": 0.1343,
+     "go_raw": false,
+     "cpcv": {
+      "paths": 11,
+      "diff_median": -7.2,
+      "diff_p5": -74.62,
+      "diff_min": -90.37,
+      "diff_share_positive": 0.455,
+      "kept_share_median": 0.498,
+      "control_pct_median": 0.0,
+      "control_pct_p5": 0.0
+     }
+    },
+    {
+     "model": "pca16",
+     "skip_q": 0.7,
+     "id": "e6729c6012216484",
+     "family": "rocket/pca16",
+     "kept_n": 1290,
+     "kept_share": 0.2898,
+     "kept_mean": -1004.58,
+     "skipped_mean": -1011.66,
+     "diff": 7.08,
+     "diff_top1_removed": -179.48,
+     "control_pct": 0.0,
+     "perm_p": 0.9275,
+     "loser_recall": 0.7227,
+     "loser_precision": 0.859,
+     "winner_recall": 0.3573,
+     "winner_recall_weighted": 0.4349,
+     "top_decile_winners_skipped": 0.5143,
+     "kept_pf": 0.418,
+     "kept_mean_slip8": -1394.54,
+     "sign_blocks": 6,
+     "kept_win_rate": 0.1922,
+     "skipped_win_rate": 0.141,
+     "go_raw": false,
+     "cpcv": {
+      "paths": 11,
+      "diff_median": 24.11,
+      "diff_p5": -46.31,
+      "diff_min": -53.69,
+      "diff_share_positive": 0.636,
+      "kept_share_median": 0.2918,
+      "control_pct_median": 0.0,
+      "control_pct_p5": 0.0
+     }
+    },
+    {
+     "model": "tabular",
+     "skip_q": 0.3,
+     "id": "7594408d55b3a8c9",
+     "family": "rocket/tabular",
+     "kept_n": 3319,
+     "kept_share": 0.7455,
+     "kept_mean": -977.79,
+     "skipped_mean": -1102.82,
+     "diff": 125.03,
+     "diff_top1_removed": -60.08,
+     "control_pct": 4.9,
+     "perm_p": 0.1774,
+     "loser_recall": 0.2717,
+     "loser_precision": 0.9011,
+     "winner_recall": 0.8386,
+     "winner_recall_weighted": 0.8819,
+     "top_decile_winners_skipped": 0.1143,
+     "kept_pf": 0.368,
+     "kept_mean_slip8": -1367.75,
+     "sign_blocks": 9,
+     "kept_win_rate": 0.1754,
+     "skipped_win_rate": 0.0989,
+     "go_raw": false,
+     "cpcv": {
+      "paths": 11,
+      "diff_median": 98.01,
+      "diff_p5": 6.15,
+      "diff_min": 4.6,
+      "diff_share_positive": 1.0,
+      "kept_share_median": 0.7246,
+      "control_pct_median": 15.4,
+      "control_pct_p5": 0.3
+     }
+    },
+    {
+     "model": "tabular",
+     "skip_q": 0.5,
+     "id": "1d2af8d85982e293",
+     "family": "rocket/tabular",
+     "kept_n": 2386,
+     "kept_share": 0.5359,
+     "kept_mean": -1022.02,
+     "skipped_mean": -995.27,
+     "diff": -26.75,
+     "diff_top1_removed": -109.9,
+     "control_pct": 0.1,
+     "perm_p": 0.7321,
+     "loser_recall": 0.4808,
+     "loser_precision": 0.8746,
+     "winner_recall": 0.6268,
+     "winner_recall_weighted": 0.6573,
+     "top_decile_winners_skipped": 0.3571,
+     "kept_pf": 0.366,
+     "kept_mean_slip8": -1411.98,
+     "sign_blocks": 5,
+     "kept_win_rate": 0.1823,
+     "skipped_win_rate": 0.1254,
+     "go_raw": false,
+     "cpcv": {
+      "paths": 11,
+      "diff_median": 9.87,
+      "diff_p5": -24.62,
+      "diff_min": -38.35,
+      "diff_share_positive": 0.727,
+      "kept_share_median": 0.5101,
+      "control_pct_median": 0.3,
+      "control_pct_p5": 0.0
+     }
+    },
+    {
+     "model": "tabular",
+     "skip_q": 0.7,
+     "id": "6263d2e353f32624",
+     "family": "rocket/tabular",
+     "kept_n": 1417,
+     "kept_share": 0.3183,
+     "kept_mean": -955.2,
+     "skipped_mean": -1035.01,
+     "diff": 79.81,
+     "diff_top1_removed": -116.37,
+     "control_pct": 0.4,
+     "perm_p": 0.3548,
+     "loser_recall": 0.6982,
+     "loser_precision": 0.8646,
+     "winner_recall": 0.4078,
+     "winner_recall_weighted": 0.4771,
+     "top_decile_winners_skipped": 0.4857,
+     "kept_pf": 0.43,
+     "kept_mean_slip8": -1345.17,
+     "sign_blocks": 8,
+     "kept_win_rate": 0.1997,
+     "skipped_win_rate": 0.1354,
+     "go_raw": false,
+     "cpcv": {
+      "paths": 11,
+      "diff_median": 88.52,
+      "diff_p5": 56.95,
+      "diff_min": 50.96,
+      "diff_share_positive": 1.0,
+      "kept_share_median": 0.3001,
+      "control_pct_median": 0.5,
+      "control_pct_p5": 0.1
+     }
+    },
+    {
+     "model": "stacked",
+     "skip_q": 0.3,
+     "id": "2034e749729ecff3",
+     "family": "rocket/stacked",
+     "kept_n": 3286,
+     "kept_share": 0.7381,
+     "kept_mean": -991.04,
+     "skipped_mean": -1061.95,
+     "diff": 70.91,
+     "diff_top1_removed": -29.13,
+     "control_pct": 2.4,
+     "perm_p": 0.4343,
+     "loser_recall": 0.2797,
+     "loser_precision": 0.9014,
+     "winner_recall": 0.8343,
+     "winner_recall_weighted": 0.8508,
+     "top_decile_winners_skipped": 0.1429,
+     "kept_pf": 0.359,
+     "kept_mean_slip8": -1381.0,
+     "sign_blocks": 7,
+     "kept_win_rate": 0.1762,
+     "skipped_win_rate": 0.0986,
+     "go_raw": false,
+     "cpcv": {
+      "paths": 11,
+      "diff_median": 50.8,
+      "diff_p5": -10.48,
+      "diff_min": -10.89,
+      "diff_share_positive": 0.818,
+      "kept_share_median": 0.7188,
+      "control_pct_median": 4.5,
+      "control_pct_p5": 0.7
+     }
+    },
+    {
+     "model": "stacked",
+     "skip_q": 0.5,
+     "id": "887ddb6af27a2514",
+     "family": "rocket/stacked",
+     "kept_n": 2376,
+     "kept_share": 0.5337,
+     "kept_mean": -995.86,
+     "skipped_mean": -1025.34,
+     "diff": 29.48,
+     "diff_top1_removed": -80.31,
+     "control_pct": 0.1,
+     "perm_p": 0.7131,
+     "loser_recall": 0.4843,
+     "loser_precision": 0.8767,
+     "winner_recall": 0.6311,
+     "winner_recall_weighted": 0.6754,
+     "top_decile_winners_skipped": 0.3143,
+     "kept_pf": 0.379,
+     "kept_mean_slip8": -1385.82,
+     "sign_blocks": 5,
+     "kept_win_rate": 0.1843,
+     "skipped_win_rate": 0.1233,
+     "go_raw": false,
+     "cpcv": {
+      "paths": 11,
+      "diff_median": 10.58,
+      "diff_p5": -37.45,
+      "diff_min": -39.1,
+      "diff_share_positive": 0.636,
+      "kept_share_median": 0.5137,
+      "control_pct_median": 1.1,
+      "control_pct_p5": 0.1
+     }
+    },
+    {
+     "model": "stacked",
+     "skip_q": 0.7,
+     "id": "334a8df20e257596",
+     "family": "rocket/stacked",
+     "kept_n": 1441,
+     "kept_share": 0.3237,
+     "kept_mean": -1012.7,
+     "skipped_mean": -1008.13,
+     "diff": -4.57,
+     "diff_top1_removed": -105.73,
+     "control_pct": 0.0,
+     "perm_p": 0.958,
+     "loser_recall": 0.6943,
+     "loser_precision": 0.8665,
+     "winner_recall": 0.4207,
+     "winner_recall_weighted": 0.4483,
+     "top_decile_winners_skipped": 0.5143,
+     "kept_pf": 0.397,
+     "kept_mean_slip8": -1402.67,
+     "sign_blocks": 5,
+     "kept_win_rate": 0.2026,
+     "skipped_win_rate": 0.1335,
+     "go_raw": false,
+     "cpcv": {
+      "paths": 11,
+      "diff_median": 69.75,
+      "diff_p5": -65.31,
+      "diff_min": -97.55,
+      "diff_share_positive": 0.545,
+      "kept_share_median": 0.2994,
+      "control_pct_median": 0.1,
+      "control_pct_p5": 0.0
+     }
+    }
+   ],
+   "family": {
+    "design_family": "window lengths x kernel counts x probes = 1 x 1 x 3",
+    "probes": [
+     "rocket (L2 logistic on PPV)",
+     "pca16 (L2 logistic on PCA-16 of the window)",
+     "stacked (HGB on base + PCA-16 of PPV)"
+    ],
+    "ledger_rows_oof": 12,
+    "ledger_rows_cpcv": 132,
+    "effective_trials": 1.49,
+    "pbo_diff": {
+     "candidates": 12,
+     "partitions": 12870,
+     "statistic": "diff",
+     "pbo": 0.4298,
+     "oos_best_below_zero": 0.3159,
+     "degradation_slope": -1.067,
+     "is_best_mean": 164.37,
+     "oos_best_mean": 31.8
+    },
+    "pbo_kept_mean": {
+     "candidates": 12,
+     "partitions": 12870,
+     "statistic": "kept_mean",
+     "pbo": 0.6926,
+     "oos_best_below_zero": 1.0,
+     "degradation_slope": -0.9961,
+     "is_best_mean": -922.2,
+     "oos_best_mean": -1017.9
+    },
+    "spa": {
+     "candidates": 12,
+     "sessions": 578,
+     "best": 6,
+     "best_mean_gain": 5.34,
+     "best_t": 0.218,
+     "rc_p": 0.9445,
+     "spa_p": 0.762,
+     "draws": 2000
+    },
+    "spa_best": {
+     "model": "tabular",
+     "skip_q": 0.3,
+     "id": "7594408d55b3a8c9"
+    },
+    "best_by_diff": {
+     "model": "tabular",
+     "skip_q": 0.3,
+     "id": "7594408d55b3a8c9",
+     "diff": 125.03
+    },
+    "dsr_best": {
+     "sr": 0.0105,
+     "sr0": 0.0735,
+     "dsr": 0.0629,
+     "p": 0.9371,
+     "T": 569,
+     "n_trials": 12,
+     "skew": 3.421,
+     "kurt": 16.215
+    },
+    "bootstrap_best": {
+     "draws": 2000,
+     "ci": 0.9,
+     "diff_ci": [
+      22.03,
+      224.11
+     ],
+     "kept_mean_ci": [
+      -1040.79,
+      -912.36
+     ],
+     "diff_p_le0": 0.026,
+     "diff_point": 125.03
+    },
+    "go_no_go_best": {
+     "passed": false,
+     "checks": {
+      "kept_share>=20%": [
+       true,
+       0.7455
+      ],
+      "kept_n>=300": [
+       true,
+       3319
+      ],
+      "diff>0": [
+       true,
+       125.03
+      ],
+      "diff_top1_removed>0": [
+       false,
+       -60.08
+      ],
+      "kept_mean_slip8>0": [
+       false,
+       -1367.75
+      ],
+      "sign_blocks>=8/12": [
+       true,
+       9
+      ],
+      "control_pct>=95": [
+       false,
+       4.9
+      ],
+      "cpcv_p5_diff>0": [
+       true,
+       6.15
+      ],
+      "pbo<=0.2": [
+       false,
+       0.4298
+      ],
+      "dsr_p<0.1": [
+       false,
+       0.9371
+      ],
+      "spa_p<=0.10": [
+       false,
+       0.762
+      ],
+      "boot_ci_excludes_0": [
+       true,
+       [
+        22.03,
+        224.11
+       ]
+      ]
+     },
+     "note": "information only: this study never gets a candidate slot (Judge 1)"
+    }
+   },
+   "family_recheck_current_harness": {
+    "effective_trials": 1.49,
+    "pbo_diff": {
+     "candidates": 12,
+     "partitions": 12870,
+     "statistic": "diff",
+     "pbo": 0.4298,
+     "oos_best_below_zero": 0.3159,
+     "degradation_slope": -1.067,
+     "is_best_mean": 164.37,
+     "oos_best_mean": 31.8
+    },
+    "pbo_kept_mean": {
+     "candidates": 12,
+     "partitions": 12870,
+     "statistic": "kept_mean",
+     "pbo": 0.6926,
+     "oos_best_below_zero": 1.0,
+     "degradation_slope": -0.9961,
+     "is_best_mean": -922.2,
+     "oos_best_mean": -1017.9
+    },
+    "spa": {
+     "candidates": 12,
+     "sessions": 578,
+     "draws": 2000,
+     "min_active_sessions": 28,
+     "excluded_from_studentised": 0,
+     "best_unstudentised": 6,
+     "best_mean_gain_unstudentised": 5.34,
+     "rc_p_unstudentised": 0.9545,
+     "spa_p_unstudentised": 0.783,
+     "best": 6,
+     "best_mean_gain": 5.34,
+     "best_t": 0.218,
+     "best_active_sessions": 365,
+     "rc_p": 0.9445,
+     "spa_p": 0.762
+    },
+    "spa_best": {
+     "model": "tabular",
+     "skip_q": 0.3,
+     "id": "7594408d55b3a8c9"
+    },
+    "spa_best_unstudentised": {
+     "model": "tabular",
+     "skip_q": 0.3,
+     "id": "7594408d55b3a8c9"
+    },
+    "best_by_diff": {
+     "model": "tabular",
+     "skip_q": 0.3,
+     "id": "7594408d55b3a8c9",
+     "diff": 125.03
+    },
+    "dsr_best": {
+     "sr": 0.0105,
+     "sr0": 0.0735,
+     "dsr": 0.0629,
+     "p": 0.9371,
+     "T": 569,
+     "n_trials": 12,
+     "skew": 3.421,
+     "kurt": 16.215
+    },
+    "bootstrap_best": {
+     "draws": 2000,
+     "ci": 0.9,
+     "diff_ci": [
+      22.03,
+      224.11
+     ],
+     "kept_mean_ci": [
+      -1040.79,
+      -912.36
+     ],
+     "diff_p_le0": 0.026,
+     "diff_point": 125.03
+    },
+    "go_no_go_best": {
+     "passed": false,
+     "checks": {
+      "kept_share>=20%": [
+       true,
+       0.7455
+      ],
+      "kept_n>=300": [
+       true,
+       3319
+      ],
+      "diff>0": [
+       true,
+       125.03
+      ],
+      "diff_top1_removed>0": [
+       false,
+       -60.08
+      ],
+      "kept_mean_slip8>0": [
+       false,
+       -1367.75
+      ],
+      "sign_blocks>=8/12": [
+       true,
+       9
+      ],
+      "control_pct>=95": [
+       false,
+       4.9
+      ],
+      "cpcv_p5_diff>0": [
+       true,
+       6.15
+      ],
+      "pbo<=0.2": [
+       false,
+       0.4298
+      ],
+      "dsr_p<0.1": [
+       false,
+       0.9371
+      ],
+      "spa_p<=0.10": [
+       false,
+       0.762
+      ],
+      "boot_ci_excludes_0": [
+       true,
+       [
+        22.03,
+        224.11
+       ]
+      ]
+     },
+     "note": "information only: this study never gets a candidate slot (Judge 1)"
+    },
+    "active_sessions_per_candidate": [
+     281,
+     357,
+     365,
+     431,
+     462,
+     460,
+     365,
+     434,
+     429,
+     363,
+     438,
+     423
+    ]
+   },
+   "spa_revised_extra": {
+    "min_active_sessions": 28,
+    "excluded_from_studentised": 0,
+    "best_active_sessions": 365,
+    "best_unstudentised": 6,
+    "best_mean_gain_unstudentised": 5.34,
+    "rc_p_unstudentised": 0.9545,
+    "spa_p_unstudentised": 0.783
+   },
+   "recheck_reproduces_results_json": {
+    "effective_trials": true,
+    "pbo_diff.pbo": true,
+    "pbo_kept_mean.pbo": true,
+    "spa.best": true,
+    "spa.best_t": true,
+    "spa.rc_p": true,
+    "spa.spa_p": true,
+    "best_by_diff.id": true,
+    "dsr_best.p": true,
+    "bootstrap_best.diff_ci": true,
+    "go_no_go_best.passed": true
+   },
+   "distillation": {
+    "ran": false,
+    "reason": "pre-registered stop: CPCV p5 gain stacked - tabular = -0.0073 < 0.03"
+   },
+   "win_ext": {
+    "file": "features_ext/minute/ext_features.parquet",
+    "columns": [
+     "win_sign_agree10",
+     "win_dd_extreme_atr",
+     "win_range_slope"
+    ],
+    "rows": 5326,
+    "is_units": 4452,
+    "is_units_found": 4452,
+    "coverage_is_units": {
+     "win_sign_agree10": 1.0,
+     "win_dd_extreme_atr": 1.0,
+     "win_range_slope": 0.9816
+    },
+    "note": "never read by the run (the pre-registered stop fired before distillation); listed for the record"
+   },
+   "timing": {
+    "jit_s": 1.38,
+    "one_transform_s": 23.92,
+    "models_done_s": 7102.5,
+    "fold_s_purged": [
+     416.4,
+     425.8,
+     429.9,
+     418.5,
+     412.6,
+     439.6,
+     419.2,
+     442.3,
+     443.7,
+     423.9,
+     420.5,
+     392.4
+    ],
+    "fold_s_cpcv_mean": 347.6,
+    "stage_s_mean": {
+     "transform": 97.44,
+     "rocket": 122.6,
+     "pca16": 5.77,
+     "tabular": 54.59,
+     "stacked": 78.75
+    },
+    "rss_after_models_mb": 476,
+    "peak_rss_models_mb": 504,
+    "total_s": 7864.5,
+    "peak_rss_mb": 504
+   }
+  }
+ },
+ "headline": {
+  "stop_triggered": true,
+  "cpcv_p5_gain_stacked_minus_tabular": -0.0073,
+  "threshold": 0.03,
+  "cpcv_gain_stacked": {
+   "median": -0.0016,
+   "p5": -0.0073,
+   "min": -0.0079,
+   "max": 0.0076,
+   "share_positive": 0.455,
+   "n": 11
+  },
+  "cpcv_gain_rocket": {
+   "median": -0.0063,
+   "p5": -0.0165,
+   "min": -0.0167,
+   "max": 0.0041,
+   "share_positive": 0.091,
+   "n": 11
+  },
+  "cpcv_gain_pca16": {
+   "median": -0.0447,
+   "p5": -0.0556,
+   "min": -0.0588,
+   "max": -0.0266,
+   "share_positive": 0.0,
+   "n": 11
+  },
+  "oof12_auc": {
+   "rocket": 0.5884280681520153,
+   "pca16": 0.5474210253476541,
+   "tabular": 0.5887397950654358,
+   "stacked": 0.5892447696595007
+  },
+  "best_gate_by_diff": {
+   "model": "tabular",
+   "skip_q": 0.3,
+   "id": "7594408d55b3a8c9",
+   "diff": 125.03
+  },
+  "pbo_diff": 0.4298,
+  "spa_p_studentised": 0.762,
+  "spa_p_unstudentised": 0.783,
+  "effective_trials": 1.49,
+  "go_no_go_best_passed": false
+ },
+ "candidates": [],
+ "null_result": true,
+ "candidate_slot": "none (Judge 1: this study never gets a candidate slot; its trials still count)",
+ "ledger_families": [
+  "rocket/pca16",
+  "rocket/pca16/cpcv",
+  "rocket/rocket",
+  "rocket/rocket/cpcv",
+  "rocket/stacked",
+  "rocket/stacked/cpcv",
+  "rocket/tabular",
+  "rocket/tabular/cpcv"
+ ],
+ "ledger_rows": {
+  "oof": 12,
+  "cpcv": 132,
+  "total": 144
+ },
+ "ledger_sha_after": "621159330c8bb103",
+ "run_integrity": {
+  "ledger_sha_after_reproduced": {
+   "target": "621159330c8bb103",
+   "prefix_rows": 1746,
+   "match": true,
+   "last_rocket_row_index": 1745,
+   "last_rocket_row_at": "2026-09-29T07:12:37",
+   "first_row_after_prefix": {
+    "index": 1746,
+    "family": "importance/full_model/cpcv",
+    "at": "2026-09-29T07:14:41"
+   },
+   "statement": "results.json was written when the ledger held exactly the rows up to and including the last rocket CPCV row: the run finished and wrote its results itself"
+  },
+  "ledger": {
+   "rows_total": 1759,
+   "rocket_rows": 144,
+   "oof_rows": 12,
+   "cpcv_rows": 132,
+   "by_family": {
+    "rocket/rocket": 3,
+    "rocket/rocket/cpcv": 33,
+    "rocket/pca16": 3,
+    "rocket/pca16/cpcv": 33,
+    "rocket/tabular": 3,
+    "rocket/tabular/cpcv": 33,
+    "rocket/stacked": 3,
+    "rocket/stacked/cpcv": 33
+   },
+   "first_at": "2026-09-29T07:00:02",
+   "last_at": "2026-09-29T07:12:37",
+   "row_index_range": [
+    1591,
+    1745
+   ],
+   "interleaved_other_rows_in_span": [
+    [
+     1594,
+     "importance/sfi",
+     "2026-09-29T07:00:17"
+    ],
+    [
+     1604,
+     "importance/sfi",
+     "2026-09-29T07:01:10"
+    ],
+    [
+     1613,
+     "importance/sfi",
+     "2026-09-29T07:01:51"
+    ],
+    [
+     1624,
+     "importance/sfi",
+     "2026-09-29T07:02:40"
+    ],
+    [
+     1634,
+     "importance/sfi",
+     "2026-09-29T07:03:27"
+    ],
+    [
+     1641,
+     "importance/sfi",
+     "2026-09-29T07:04:03"
+    ],
+    [
+     1648,
+     "importance/sfi",
+     "2026-09-29T07:04:40"
+    ],
+    [
+     1656,
+     "importance/sfi",
+     "2026-09-29T07:05:16"
+    ],
+    [
+     1665,
+     "importance/sfi",
+     "2026-09-29T07:05:53"
+    ],
+    [
+     1673,
+     "importance/sfi",
+     "2026-09-29T07:06:30"
+    ],
+    [
+     1701,
+     "importance/full_model",
+     "2026-09-29T07:08:56"
+    ]
+   ],
+   "script_sha_of_rows": [
+    "771f509e5cc4faf8"
+   ],
+   "script_sha_matches_file_on_disk": true,
+   "oof_rows_match_results_json": true,
+   "mismatches": [],
+   "split": [
+    "IS"
+   ],
+   "label": [
+    "L1"
+   ],
+   "tf": [
+    "minute"
+   ]
+  },
+  "log": {
+   "lines": 50,
+   "identical_to_run_nohup": true,
+   "first_line_time": "05:01:33",
+   "last_line_time": "07:12:37",
+   "last_line_is_gate_row": true,
+   "run_finished_at_from_results_json": "07:12:37.5 (first line + timing.total_s 7864.5 s)",
+   "final_log_calls_in_script_present": [
+    "log(f\"family: eff trials",
+    "log(f\"distillation not run:",
+    "log(f\"done in"
+   ],
+   "final_log_lines_present_in_log": [],
+   "explanation": "PROGRESS.md (Git incident): the 06:24 checkout replaced every tracked file's inode; the running process kept writing to the unlinked inodes; a mirror loop copied the orphaned logs back from /proc/<pid>/fd until the process exited, and the last copy predates the run's final second. results.json holds the family / distillation / timing values those lines would have printed, and its ledger sha reproduces (above)."
+  }
+ },
+ "resume_note": "run finished on its own at 07:12:37 UTC during the usage-limit pause; FINDINGS / findings.json / family recheck written by the resuming agent from results.json and the ledger; nothing rerun",
+ "caveats": [
+  "Reduced design (both judges): 1 minute only, L = 60, 2,000 kernels, one probe family; the 5-minute frame, L = 120 and the ridge / net-regression probes of the original design were cut and are not tested.",
+  "The pre-SETUP window is templated by the engine's own SETUP definition (CHoCH then continuation), so shape motifs are the rule rather than information (Judge 1); the result is consistent with that.",
+  "Thresholds for the skip fractions come from the training fold's inner-OOF score distribution; the test-fold scores come from the model refit on the whole training fold (same per-sample regularisation, so the same scale up to sampling), and the test block's own score distribution shifts with its regime, so the realised kept share deviates from 1 - q (reported per gate).",
+  "The alpha grid is the design's 1e-3 .. 1e3 read as a per-sample L2 penalty (sklearn C = 1/(alpha n)); with sklearn's unnormalised C the same numbers would have put the optimum on the grid's edge (seen in a one-split timing benchmark before the study ran, no ledger row).",
+  "The stacked model is the same HGB with 16 extra columns; a gain of exactly zero is not guaranteed by construction (the extra columns can hurt), so negative gains are possible and are reported as such.",
+  "Windows crossing the session start carry the overnight gap in the log-return channel; the same-session channel flags those bars. Bars before the tape start (session 0 only) are zero-padded.",
+  "Sequence pretraining (the design's rungs 2-3) is deferred: torch is present in the cloud but the sample-size objection of both judges is unchanged; the PCA-16 rung ran as a comparator and is the weakest of the four models.",
+  "The box ran other studies concurrently; wall-clock timings are inflated, CPU seconds are not reported.",
+  "The log on disk ends at the last gate row: the run's final three log lines (family statistics, 'distillation not run', 'done in') were lost to the 06:24 checkout-inode incident (PROGRESS.md); results.json carries their values and its ledger sha reproduces as a ledger prefix (section 8a). The agent that launched the run was cut off by the usage limit at 06:44 UTC while the run was between CPCV splits 43 and 49 (logged 06:39:50 and 06:47:17); FINDINGS.md, findings.json and the family recheck were written by the resuming agent from results.json and the ledger, nothing was rerun.",
+  "results.json's SPA is the harness's SPA as of 07:12; the revised harness.spa (min-active-session filter, unstudentised statistic) is reported next to it in section 6a. Both agree on the studentised p because no rocket gate is near-degenerate: the 12 candidates have a non-zero selection gain in 281-462 of the 578 active sessions, against the exclusion threshold of 28."
+ ],
+ "files": [
+  "studies/rocket_ceiling/rocket_lib.py",
+  "studies/rocket_ceiling/rocket_ceiling.py",
+  "studies/rocket_ceiling/finalize_family.py",
+  "studies/rocket_ceiling/write_findings.py",
+  "studies/rocket_ceiling/rocket_ceiling.log",
+  "studies/rocket_ceiling/run.nohup",
+  "studies/rocket_ceiling/finalize.log",
+  "studies/rocket_ceiling/results.json",
+  "studies/rocket_ceiling/family_recheck.json",
+  "studies/rocket_ceiling/fold_auc.csv",
+  "studies/rocket_ceiling/path_auc.csv",
+  "studies/rocket_ceiling/gates.csv",
+  "studies/rocket_ceiling/cpcv_gate_paths.csv",
+  "studies/rocket_ceiling/windows_trunc_check.json",
+  "studies/rocket_ceiling/kernels.npz",
+  "studies/rocket_ceiling/oof_scores.npz",
+  "studies/rocket_ceiling/FINDINGS.md",
+  "studies/rocket_ceiling/findings.json"
+ ]
+}

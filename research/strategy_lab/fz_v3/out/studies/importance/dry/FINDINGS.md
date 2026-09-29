@@ -66,15 +66,17 @@ Constants: trees 300, min_weight_fraction_leaf 0.05, main depth 4 (sensitivity (
 | missing indicators (one per NaN pattern) | 17: `gap_pts__na` (2 cols), `ret_1h_pts__na` (1 cols), `er_1h__na` (5 cols), `bars_since_prev_choch__na` (6 cols), `sess_cumvol_ratio20s__na` (5 cols), `hv2_bars_since__na` (3 cols), `vol_ratio20_at_choch__na` (1 cols), `vol_max_ratio20_choch_to_k__na` (1 cols), `dist_prot_dir_atr__na` (2 cols), `room_ahead_dist_atr__na` (1 cols), `room_behind_dist_atr__na` (1 cols), `touch_prot_bars_ago__na` (1 cols), `touch_swing_bars_ago__na` (1 cols), `csw_max_abs__na` (4 cols), `bocpd_ret_h60_since_reset__na` (2 cols), `bocpd_rng_h60_since_reset__na` (2 cols), `nn_dist_prefix_long__na` (2 cols) |
 | **features in the model** | **238** |
 | clustering | silhouette best k = 39 (0.1502), clusters formed 39 |
-| runtime / max RSS | 252.4 s / 371.7 MB |
+| run | three parallel single-thread processes (run_all.sh): main 5871 s (05:33-07:11 UTC), sfi 5592 s (-07:06), cpcv 6047 s (-07:14); finalize 11:27 after the usage-limit pause (the cpcv log lacks its two closing lines: the process wrote them to an inode unlinked by the 06:24 checkout; cpcv_minute.json and its 11 ledger rows are complete). Max RSS 448 MB (main). |
 
 ### The full bagged model (ceiling; not a candidate)
 
 | depth | OOF weighted log-loss | OOF AUC | gate kept n | kept share | kept mean | skipped mean | diff | diff top-1% removed | perm p | control pct | loser recall | weighted winner recall | top-decile winners skipped | sign blocks | kept mean slip 8 | ledger id |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 4 (main) | 0.734 | 0.5158 | 800 | 0.9685 | -760.09 | -663.59 | -96.5 | -320.34 | None | None | 0.0335 | 0.9774 | 0.0 | 2 | -1150.05 | `DRY` |
-| 3 | 0.73752 | 0.5304 | - | 0.9504 | - | - | 239.82 | - | None | None | - | - | - | - | - | `DRY` |
-| 5 | 0.72506 | 0.5227 | - | 0.9758 | - | - | -119.27 | - | None | None | - | - | - | - | - | `DRY` |
+| 4 (main) | 0.734 | 0.5158 | 800 | 0.9685 | -760.09 | -663.59 | -96.50 | -320.34 | - | - | 0.0335 | 0.9774 | 0.0000 | 2 | -1150.05 | `DRY` |
+| 3 | 0.73752 | 0.5304 | - | 0.9504 | - | - | 239.82 | - | - | - | - | - | - | - | - | `DRY` |
+| 5 | 0.72506 | 0.5227 | - | 0.9758 | - | - | -119.27 | - | - | - | - | - | - | - | - | `DRY` |
+
+In 7 of 12 folds the training-fold tau rule chose tau = 0.05 and kept every test row (a '-' in the gate columns = nothing skipped, the difference is undefined): on the training fold's OOB probabilities no threshold that kept >= 90% of |net|-weighted winner net had a higher kept mean than keeping everything. The full model's OOF gate is therefore close to 'take everything' and its kept-vs-skipped numbers, where defined, are a ceiling of no practical value.
 
 Per fold (depth 4): tau chosen on the training fold's OOB probabilities.
 
@@ -141,9 +143,30 @@ Full table with members, per-period MDA values and SFI ledger ids: `importance_c
 | 38 | 9 | `cusum_events_60` | 6 | -0.00328 | 0.01142 | -0.29 | no | -395.1 | 765.5 | no | 0.0636 | 0.7657 | 0.488 | -582.7 | 0.959 | - | 29 | 38 | 0 | no | no |
 | 39 | 0 | `gmm4_map` | 43 | -0.01500 | 0.02122 | -0.71 | no | -232.7 | 955.6 | no | 0.3037 | 0.7484 | 0.472 | 933.0 | 0.989 | - | 39 | 39 | 0 | no | no |
 
-Reading the table: 0 of 39 clusters pass the MDA rule (mean > std across the 12 folds). 18 clusters have an MDA of exactly 0 in every fold: the forest never split on any of their members (single one-hot levels or rare flags under min_weight_fraction_leaf 0.05 with balanced class weights), so permuting them changes nothing; 16 clusters have a negative mean MDA (permuting them lowers the OOF log-loss: the forest fits noise on them). The best cluster is 11 (`fz_block_reason=new`, 6 members) with mean 0.00159 against std 0.00290 (ratio 0.55), positive in 9 of 12 folds.
+Reading the table: 0 of 39 clusters pass the MDA rule (mean > std across the 12 folds). 18 clusters have an MDA of exactly 0 in every fold: the forest never split on any of their members (single one-hot levels or rare flags under min_weight_fraction_leaf 0.05 with balanced class weights), so permuting them changes nothing; 16 clusters have a negative mean MDA (permuting them lowers the OOF weighted log-loss), 5 a positive one. The best cluster is 11 (`fz_block_reason=new`, 6 members) with mean 0.00159 against std 0.00290 (ratio 0.55), positive in 9 of 12 folds. The large clusters, the ones the forest actually splits on (MDI), all sit at a negative log-loss MDA: cluster 0 (`gmm4_map`, 43 members, MDI 0.304) -0.01500 +- 0.02122; cluster 1 (`n_events_today`, 26 members, MDI 0.141) -0.00190 +- 0.01659; cluster 2 (`hv2_dir=none`, 18 members, MDI 0.047) -0.00209 +- 0.00842; cluster 3 (`n_choch_since_bos`, 17 members, MDI 0.070) -0.00324 +- 0.00586; cluster 4 (`swing_near_kind=H`, 16 members, MDI 0.113) -0.00074 +- 0.01014; cluster 5 (`n_bos_since_choch`, 14 members, MDI 0.021) -0.00129 +- 0.00265; cluster 6 (`fz_watch_kind=WATCH`, 12 members, MDI 0.035) -0.00103 +- 0.00368. The supplementary diagnostic below asks whether that is 'no ranking information' or a calibration effect of the balanced-weight forest; either way the pre-registered rule is the log-loss one and no cluster passes it.
 
-Stability: periods H1_2021-10..2023-09 (412 rows, 124 winners), H2_2023-10..2025-12 (414 rows, 105 winners); rule top-8 in >= 2 of 2 periods; Spearman rank correlation of the cluster MDA vectors across periods: H1_2021-10..2023-09|H2_2023-10..2025-12: 0.0827.
+Stability: periods H1_2021-10..2023-09 (412 rows, 124 winners), H2_2023-10..2025-12 (414 rows, 105 winners); rule top-8 in >= 2 of 2 periods; Spearman rank correlation of the cluster MDA vectors across periods: H1_2021-10..2023-09|H2_2023-10..2025-12: 0.0827. 2 clusters pass the stability filter, but with 34 of 39 clusters at a mean MDA <= 0 a cluster whose MDA is exactly 0 in every fold ranks inside the top 8 of a period by default (its rank is a tie among zeros above the negative clusters), so the stability column is meaningful only together with the MDA pass, which no cluster achieves; the filter is applied as the conjunction the design specifies.
+
+### Supplementary diagnostic (not the pass rule; `mda_diag.py`, from the saved OOF arrays, no refit, no ledger row)
+
+| item | value |
+|---|---|
+| log-loss MDA recomputed from `oof_minute.npz` vs the table | max abs diff 7.64e-10 (agree) |
+| full model OOF AUC, pooled / per-fold mean +- std | 0.5935 / 0.5841 +- 0.0567 |
+| mean OOF probability vs winner share (unweighted / |net|-weighted) | 0.5261 vs 0.1559 / 0.2185 |
+| OOF weighted log-loss: model vs the constant predictor at the weighted winner share | 0.74474 vs 0.52502 (the constant is better: the forest is mis-calibrated under balanced class weights) |
+| clusters passing an AUC-drop version of the same rule (mean drop > std across folds) | 2 of 38 |
+| clusters with negative / exactly-zero log-loss MDA | 15 / 0 |
+
+| AUC rank | cluster | representative | AUC drop mean | std | ratio | folds positive | pooled-OOF AUC drop | log-loss MDA mean |
+|---|---|---|---|---|---|---|---|---|
+| 1 | 0 | `gmm4_map` | 0.0300 | 0.0165 | 1.82 | 12 | 0.0225 | -0.01500 |
+| 2 | 4 | `swing_near_kind=H` | 0.0200 | 0.0396 | 0.50 | 9 | 0.0268 | -0.00074 |
+| 3 | 3 | `n_choch_since_bos` | 0.0040 | 0.0068 | 0.59 | 10 | 0.0027 | -0.00324 |
+| 4 | 13 | `last_choch_dir=down` | 0.0008 | 0.0008 | 1.09 | 12 | 0.0003 | -0.00048 |
+| 5 | 10 | `touch_swing_last=pending` | 0.0003 | 0.0025 | 0.13 | 8 | 0.0009 | -0.00047 |
+
+Full table: `mda_diag_minute.csv`. Reading: the constant predictor at the weighted winner share beats the forest in weighted log-loss, so the OOF probabilities are mis-calibrated (balanced class weights centre them near 0.5 while the weighted winner share is 0.2185); permuting a cluster the forest splits on shrinks its predictions toward the centre, which lowers the log-loss even where the ranking degrades. The AUC drop asks the ranking question alone: 2 cluster(s) would pass a mean > std rule on it, and the pooled OOF AUC of the whole forest is 0.5935. This diagnostic is reported for the reader's judgement of the null; it is not the pre-registered statistic, it changes no rank in the shortlist rule, and it proposes nothing.
 
 Orthogonal check: 238 components (111 carry 95% of the variance); weighted Kendall tau between the MDI of the PC-score forest and the eigenvalues = **0.0813** (Kendall tau 0.1206, p 0.0123). A low tau is the AFML warning that the importance ranking may be fitting noise rather than variance-bearing directions.
 
@@ -258,9 +281,9 @@ All ranked pairs: `interaction_pairs_minute.csv`; the full mean |interaction| ma
 
 ### The shortlist (0 clusters; 0 of 39 pass MDA, 2 pass stability, 0 pass both; cap 8)
 
-Frozen at `features_shortlist/minute/shortlist.json`, sha256 `ce9504a636b4f5980f1ed3e7754e03f3ec42e4bfe9e961bf987bc6d5d7799ff0`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
+Frozen at `features_shortlist/minute/shortlist.json`, sha256 `0894759af428140d8d4cdff250c7b8927acbee822dae0b5c1df2674d1dcdf681`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
 
-**Empty**: no cluster passes both the MDA rule and the stability filter on this timeframe. The gate studies have no shortlisted column here; a null vocabulary is a result, not a failure of the pipeline.
+**Empty**: no cluster passes both the MDA rule and the stability filter on this timeframe (none passes the MDA rule alone). The gate studies have no shortlisted column here; a null vocabulary is a result, not a failure of the pipeline. Consequence under the frozen rule: the downstream gate studies (gate_family, llm_round1, regime_gate) may not draw features on this timeframe from this study's vocabulary; any re-opening of the vocabulary (a weaker rule, a different statistic, a different model) is a user decision that would be a new registration with its own sha and the multiplicity carried forward, never an edit of this one. For that decision only, the clusters with a positive mean MDA (none exceeds its std): cluster 11 `fz_block_reason=new` (6 members) +0.00159 +- 0.00290, ratio 0.55, top-8 in 2 periods; cluster 17 `touch_room_last=broke` (4 members) +0.00148 +- 0.00653, ratio 0.23, top-8 in 2 periods; cluster 12 `card_read=LEAVE` (5 members) +0.00120 +- 0.00317, ratio 0.38, top-8 in 1 periods; cluster 22 `days_to_expiry` (2 members) +0.00054 +- 0.00391, ratio 0.14, top-8 in 1 periods; cluster 23 `dow` (2 members) +0.00000 +- 0.00604, ratio 0.00, top-8 in 1 periods. These are NOT allowed columns.
 
 
 ## 5minute
@@ -279,15 +302,17 @@ Frozen at `features_shortlist/minute/shortlist.json`, sha256 `ce9504a636b4f5980f
 | missing indicators (one per NaN pattern) | 17: `gap_pts__na` (2 cols), `ret_1h_pts__na` (1 cols), `er_1h__na` (5 cols), `bars_since_prev_choch__na` (6 cols), `sess_cumvol_ratio20s__na` (5 cols), `hv2_bars_since__na` (3 cols), `vol_ratio20_at_choch__na` (1 cols), `vol_max_ratio20_choch_to_k__na` (1 cols), `dist_prot_dir_atr__na` (2 cols), `room_ahead_dist_atr__na` (1 cols), `room_behind_dist_atr__na` (1 cols), `touch_prot_bars_ago__na` (1 cols), `touch_swing_bars_ago__na` (1 cols), `csw_max_abs__na` (4 cols), `bocpd_ret_h60_since_reset__na` (2 cols), `bocpd_rng_h60_since_reset__na` (2 cols), `nn_dist_prefix_long__na` (2 cols) |
 | **features in the model** | **238** |
 | clustering | silhouette best k = 39 (0.1502), clusters formed 39 |
-| runtime / max RSS | 252.4 s / 371.7 MB |
+| run | one single-thread process (--stage all, started before the stage split): 3682 s (05:14-06:15 UTC), finalize included. Max RSS 391 MB. |
 
 ### The full bagged model (ceiling; not a candidate)
 
 | depth | OOF weighted log-loss | OOF AUC | gate kept n | kept share | kept mean | skipped mean | diff | diff top-1% removed | perm p | control pct | loser recall | weighted winner recall | top-decile winners skipped | sign blocks | kept mean slip 8 | ledger id |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 4 (main) | 0.734 | 0.5158 | 800 | 0.9685 | -760.09 | -663.59 | -96.5 | -320.34 | None | None | 0.0335 | 0.9774 | 0.0 | 2 | -1150.05 | `DRY` |
-| 3 | 0.73752 | 0.5304 | - | 0.9504 | - | - | 239.82 | - | None | None | - | - | - | - | - | `DRY` |
-| 5 | 0.72506 | 0.5227 | - | 0.9758 | - | - | -119.27 | - | None | None | - | - | - | - | - | `DRY` |
+| 4 (main) | 0.734 | 0.5158 | 800 | 0.9685 | -760.09 | -663.59 | -96.50 | -320.34 | - | - | 0.0335 | 0.9774 | 0.0000 | 2 | -1150.05 | `DRY` |
+| 3 | 0.73752 | 0.5304 | - | 0.9504 | - | - | 239.82 | - | - | - | - | - | - | - | - | `DRY` |
+| 5 | 0.72506 | 0.5227 | - | 0.9758 | - | - | -119.27 | - | - | - | - | - | - | - | - | `DRY` |
+
+In 7 of 12 folds the training-fold tau rule chose tau = 0.05 and kept every test row (a '-' in the gate columns = nothing skipped, the difference is undefined): on the training fold's OOB probabilities no threshold that kept >= 90% of |net|-weighted winner net had a higher kept mean than keeping everything. The full model's OOF gate is therefore close to 'take everything' and its kept-vs-skipped numbers, where defined, are a ceiling of no practical value.
 
 Per fold (depth 4): tau chosen on the training fold's OOB probabilities.
 
@@ -354,9 +379,30 @@ Full table with members, per-period MDA values and SFI ledger ids: `importance_c
 | 38 | 9 | `cusum_events_60` | 6 | -0.00328 | 0.01142 | -0.29 | no | -395.1 | 765.5 | no | 0.0636 | 0.7657 | 0.488 | -582.7 | 0.959 | - | 29 | 38 | 0 | no | no |
 | 39 | 0 | `gmm4_map` | 43 | -0.01500 | 0.02122 | -0.71 | no | -232.7 | 955.6 | no | 0.3037 | 0.7484 | 0.472 | 933.0 | 0.989 | - | 39 | 39 | 0 | no | no |
 
-Reading the table: 0 of 39 clusters pass the MDA rule (mean > std across the 12 folds). 18 clusters have an MDA of exactly 0 in every fold: the forest never split on any of their members (single one-hot levels or rare flags under min_weight_fraction_leaf 0.05 with balanced class weights), so permuting them changes nothing; 16 clusters have a negative mean MDA (permuting them lowers the OOF log-loss: the forest fits noise on them). The best cluster is 11 (`fz_block_reason=new`, 6 members) with mean 0.00159 against std 0.00290 (ratio 0.55), positive in 9 of 12 folds.
+Reading the table: 0 of 39 clusters pass the MDA rule (mean > std across the 12 folds). 18 clusters have an MDA of exactly 0 in every fold: the forest never split on any of their members (single one-hot levels or rare flags under min_weight_fraction_leaf 0.05 with balanced class weights), so permuting them changes nothing; 16 clusters have a negative mean MDA (permuting them lowers the OOF weighted log-loss), 5 a positive one. The best cluster is 11 (`fz_block_reason=new`, 6 members) with mean 0.00159 against std 0.00290 (ratio 0.55), positive in 9 of 12 folds. The large clusters, the ones the forest actually splits on (MDI), all sit at a negative log-loss MDA: cluster 0 (`gmm4_map`, 43 members, MDI 0.304) -0.01500 +- 0.02122; cluster 1 (`n_events_today`, 26 members, MDI 0.141) -0.00190 +- 0.01659; cluster 2 (`hv2_dir=none`, 18 members, MDI 0.047) -0.00209 +- 0.00842; cluster 3 (`n_choch_since_bos`, 17 members, MDI 0.070) -0.00324 +- 0.00586; cluster 4 (`swing_near_kind=H`, 16 members, MDI 0.113) -0.00074 +- 0.01014; cluster 5 (`n_bos_since_choch`, 14 members, MDI 0.021) -0.00129 +- 0.00265; cluster 6 (`fz_watch_kind=WATCH`, 12 members, MDI 0.035) -0.00103 +- 0.00368. The supplementary diagnostic below asks whether that is 'no ranking information' or a calibration effect of the balanced-weight forest; either way the pre-registered rule is the log-loss one and no cluster passes it.
 
-Stability: periods H1_2021-10..2023-09 (412 rows, 124 winners), H2_2023-10..2025-12 (414 rows, 105 winners); rule top-8 in >= 2 of 2 periods; Spearman rank correlation of the cluster MDA vectors across periods: H1_2021-10..2023-09|H2_2023-10..2025-12: 0.0827.
+Stability: periods H1_2021-10..2023-09 (412 rows, 124 winners), H2_2023-10..2025-12 (414 rows, 105 winners); rule top-8 in >= 2 of 2 periods; Spearman rank correlation of the cluster MDA vectors across periods: H1_2021-10..2023-09|H2_2023-10..2025-12: 0.0827. 2 clusters pass the stability filter, but with 34 of 39 clusters at a mean MDA <= 0 a cluster whose MDA is exactly 0 in every fold ranks inside the top 8 of a period by default (its rank is a tie among zeros above the negative clusters), so the stability column is meaningful only together with the MDA pass, which no cluster achieves; the filter is applied as the conjunction the design specifies.
+
+### Supplementary diagnostic (not the pass rule; `mda_diag.py`, from the saved OOF arrays, no refit, no ledger row)
+
+| item | value |
+|---|---|
+| log-loss MDA recomputed from `oof_5minute.npz` vs the table | max abs diff 1.91e-09 (agree) |
+| full model OOF AUC, pooled / per-fold mean +- std | 0.4974 / 0.4915 +- 0.0833 |
+| mean OOF probability vs winner share (unweighted / |net|-weighted) | 0.5222 vs 0.2772 / 0.3766 |
+| OOF weighted log-loss: model vs the constant predictor at the weighted winner share | 0.72748 vs 0.66239 (the constant is better: the forest is mis-calibrated under balanced class weights) |
+| clusters passing an AUC-drop version of the same rule (mean drop > std across folds) | 0 of 39 |
+| clusters with negative / exactly-zero log-loss MDA | 19 / 0 |
+
+| AUC rank | cluster | representative | AUC drop mean | std | ratio | folds positive | pooled-OOF AUC drop | log-loss MDA mean |
+|---|---|---|---|---|---|---|---|---|
+| 1 | 1 | `n_events_today` | 0.0109 | 0.0442 | 0.25 | 7 | 0.0117 | -0.00190 |
+| 2 | 2 | `hv2_dir=none` | 0.0022 | 0.0252 | 0.09 | 8 | 0.0061 | -0.00209 |
+| 3 | 12 | `card_read=LEAVE` | 0.0017 | 0.0080 | 0.21 | 9 | 0.0020 | +0.00120 |
+| 4 | 7 | `fz_gate=TAKE` | 0.0013 | 0.0178 | 0.07 | 8 | 0.0031 | -0.00032 |
+| 5 | 17 | `touch_room_last=broke` | 0.0012 | 0.0171 | 0.07 | 8 | 0.0028 | +0.00148 |
+
+Full table: `mda_diag_5minute.csv`. Reading: the constant predictor at the weighted winner share beats the forest in weighted log-loss, so the OOF probabilities are mis-calibrated (balanced class weights centre them near 0.5 while the weighted winner share is 0.3766); permuting a cluster the forest splits on shrinks its predictions toward the centre, which lowers the log-loss even where the ranking degrades. The AUC drop asks the ranking question alone: no cluster passes a mean > std rule on it either, and the pooled OOF AUC of the whole forest is 0.4974. This diagnostic is reported for the reader's judgement of the null; it is not the pre-registered statistic, it changes no rank in the shortlist rule, and it proposes nothing.
 
 Orthogonal check: 238 components (111 carry 95% of the variance); weighted Kendall tau between the MDI of the PC-score forest and the eigenvalues = **0.0813** (Kendall tau 0.1206, p 0.0123). A low tau is the AFML warning that the importance ranking may be fitting noise rather than variance-bearing directions.
 
@@ -471,9 +517,9 @@ All ranked pairs: `interaction_pairs_5minute.csv`; the full mean |interaction| m
 
 ### The shortlist (0 clusters; 0 of 39 pass MDA, 2 pass stability, 0 pass both; cap 8)
 
-Frozen at `features_shortlist/5minute/shortlist.json`, sha256 `4b2626825a5aff078a57742adb7afcaa049a4bb0a3a32214bc9dcb82e2ccfbb2`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
+Frozen at `features_shortlist/5minute/shortlist.json`, sha256 `e2ebe1469750854e63aad6eecd4103695b245847f3d201cbcf2564504c0e3e5f`, registered in `ledger/registrations.jsonl`. Allowed columns for the gate studies: 0.
 
-**Empty**: no cluster passes both the MDA rule and the stability filter on this timeframe. The gate studies have no shortlisted column here; a null vocabulary is a result, not a failure of the pipeline.
+**Empty**: no cluster passes both the MDA rule and the stability filter on this timeframe (none passes the MDA rule alone). The gate studies have no shortlisted column here; a null vocabulary is a result, not a failure of the pipeline. Consequence under the frozen rule: the downstream gate studies (gate_family, llm_round1, regime_gate) may not draw features on this timeframe from this study's vocabulary; any re-opening of the vocabulary (a weaker rule, a different statistic, a different model) is a user decision that would be a new registration with its own sha and the multiplicity carried forward, never an edit of this one. For that decision only, the clusters with a positive mean MDA (none exceeds its std): cluster 11 `fz_block_reason=new` (6 members) +0.00159 +- 0.00290, ratio 0.55, top-8 in 2 periods; cluster 17 `touch_room_last=broke` (4 members) +0.00148 +- 0.00653, ratio 0.23, top-8 in 2 periods; cluster 12 `card_read=LEAVE` (5 members) +0.00120 +- 0.00317, ratio 0.38, top-8 in 1 periods; cluster 22 `days_to_expiry` (2 members) +0.00054 +- 0.00391, ratio 0.14, top-8 in 1 periods; cluster 23 `dow` (2 members) +0.00000 +- 0.00604, ratio 0.00, top-8 in 1 periods. These are NOT allowed columns.
 
 
 ## FFD verdict (both timeframes)
@@ -502,6 +548,9 @@ None. This study fixes the vocabulary (the shortlist JSON + the five interaction
 - On 5minute the FZ card's numeric fields sit at 40.3% NaN (no ref room on 40% of SETUPs): a hair over the 40% rule, so they are dropped while their categorical reads (`fz_read=...`, `card_read=...`, `fz_gate=...`) stay.
 - `sl` (the Foundation stop price) and `atr14` are price-level / volatility-level columns that also proxy calendar time; if they appear in a shortlist the stability filter is what stands between them and a year effect.
 - The other studies' processes shared the 4 cores during this run (load average 15-19); runtimes above are wall-clock under that load. Every fit ran single-threaded (IMP_BAG_JOBS=1, IMP_XGB_JOBS=1 in run_all.sh): on this loaded box a 300-tree bagging fit took 35 s at 1 thread vs 50 s at 4 (bag_probe.log) and a 200-round xgboost fit 0.7 s at 1 thread vs 14 s at 2 (xgb_probe.log, OpenMP spin-wait); the fitted trees do not depend on the thread count (random_state fixes them), so no model was shrunk. The run logs' header line prints the module constant n_jobs=4; the environment variable is what the fits used.
+- The stability ranks are ranks of a mostly non-positive vector: a cluster with an MDA of exactly 0 in every fold (never split on) ranks in the top 8 above the negative clusters. The filter is the conjunction 'MDA > 1 std AND top-8 in the periods' as designed, so this quirk cannot admit a cluster; it does make the stability column alone unreadable as evidence.
+- The pre-registered MDA statistic is the OOF weighted log-loss. `mda_diag.py` shows (from the saved OOF arrays, no refit, no ledger row) that the balanced-weight forest is mis-calibrated under that loss, which is why the clusters the forest splits on have a negative log-loss MDA; the AUC-drop diagnostic is reported next to it for the reader and is not a pass rule.
+- Resume: the run was interrupted by the model's usage limit (12:00-16:30 IST) after every stage process had finished on its own; only the minute finalize (11:27 UTC), the shortlist writer and this document were produced after the pause. Nothing was rerun; the minute cpcv log lacks its two closing lines (orphaned inode, see PROGRESS.md), cpcv_minute.json and the 11 ledger rows are complete.
 
 ## Files
 
@@ -527,9 +576,28 @@ None. This study fixes the vocabulary (the shortlist JSON + the five interaction
 - `studies/importance/oof_5minute.npz`
 - `studies/importance/run_5minute.log`
 - `features_shortlist/5minute/shortlist.json`
+- `studies/importance/main_minute.json`
+- `studies/importance/mda_minute.csv`
+- `studies/importance/sfi_minute.csv`
+- `studies/importance/cpcv_minute.json`
+- `studies/importance/run_minute_main.nohup`
+- `studies/importance/run_minute_sfi.nohup`
+- `studies/importance/run_minute_cpcv.nohup`
+- `studies/importance/run_minute_finalize.nohup`
+- `studies/importance/run_5minute.nohup`
+- `studies/importance/mda_diag.py`
+- `studies/importance/mda_diag.json`
+- `studies/importance/mda_diag_minute.csv`
+- `studies/importance/mda_diag_5minute.csv`
+- `studies/importance/mda_diag.log`
 - `studies/importance/imp_lib.py`
 - `studies/importance/run_importance.py`
+- `studies/importance/run_all.sh`
 - `studies/importance/shortlist.py`
+- `studies/importance/shortlist.log`
 - `studies/importance/probe.py`
+- `studies/importance/bag_probe.py`
+- `studies/importance/bag_probe.log`
 - `studies/importance/xgb_probe.py`
+- `studies/importance/xgb_probe.log`
 - `ledger/registrations.jsonl`

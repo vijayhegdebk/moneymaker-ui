@@ -3,7 +3,10 @@ Pass rule for an exit candidate (fixed here, adapted from harness.GO to a policy
 written before the 1-minute learner A / B results were read, after the learner C results were): nested-CV diff > 0; CPCV 5th
 percentile diff > 0; random-exit percentile >= 95; sign-flip (12 blocks) one-sided p <= 0.05 with >= 8 blocks positive;
 90% block-bootstrap CI of the diff excludes 0; diff with the top 1% of per-trade gains removed > 0; PBO (family, 'diff') <= 0.2;
-SPA p over the family <= 0.10."""
+SPA p over the family <= 0.10.
+Follow-up (2026-09-29 16:45 IST): learner A's 1-minute result folded in like the 5-minute one (sections 5, 6, 8, 9, with the same
+pass rule applied to learners A and B); the family SPA read from eval_<tf>.json (05_evaluate.py, current harness.spa: both
+statistics, the min-active exclusions) instead of c_select_<tf>.json; section 10 names what changed and why."""
 import sys, os, json, glob
 sys.dont_write_bytecode = True
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
@@ -19,16 +22,93 @@ ledger = X.read_exit_ledger()
 fam_counts = {tf: {f: sum(1 for r in ledger if r["tf"] == tf and r["family"] == f) for f in sorted({r["family"] for r in ledger})} for tf in TFS}
 
 
+def spa_of(tf):
+    """The family SPA: eval_<tf>.json's `spa_family` (05_evaluate.py, current harness.spa: min-active exclusion + the unstudentised
+    statistic; follow-up 2026-09-29 16:45 IST) when present, else 02_c_select.py's block (the earlier harness.spa)."""
+    ev = R[tf]["ev"]
+    if ev and ev.get("spa_family"): return ev["spa_family"], "current"
+    return R[tf]["csel"]["spa"], "02_c_select"
+
+
 def pass_rule(tf):
-    c = R[tf]["csel"]; ev = R[tf]["ev"]; sf = c["sign_flip"]["C_nested"]["blocks"]
+    c = R[tf]["csel"]; ev = R[tf]["ev"]; sf = c["sign_flip"]["C_nested"]["blocks"]; sp, _ = spa_of(tf)
     row = next(r for r in ev["table"] if r["policy"].startswith("C nested")) if ev else None
     ch = {"nested_diff>0": (c["nested"]["diff"] > 0, c["nested"]["diff"]), "cpcv_p5_diff>0": (c["cpcv"]["diff_p5"] > 0, c["cpcv"]["diff_p5"]),
           "random_pct>=95": (c["nested"]["random_pct"] >= 95, c["nested"]["random_pct"]),
           "signflip_blocks_p1<=0.05": (sf["p_one_sided"] <= 0.05, sf["p_one_sided"]), "blocks_positive>=8/12": (sf["blocks_positive"] >= 8, sf["blocks_positive"]),
           "boot_ci90_excludes_0": (c["bootstrap_nested"]["diff_ci"][0] > 0, c["bootstrap_nested"]["diff_ci"]),
           "diff_top1_gains_removed>0": (row["diff_top1_gains_removed"] > 0, row["diff_top1_gains_removed"]) if row else (False, "pending (05_evaluate.py not run yet)"),
-          "pbo<=0.2": (c["pbo"]["pbo"] <= 0.2, c["pbo"]["pbo"]), "spa_p<=0.10": (c["spa"]["spa_p"] <= 0.10, c["spa"]["spa_p"])}
+          "pbo<=0.2": (c["pbo"]["pbo"] <= 0.2, c["pbo"]["pbo"]), "spa_p<=0.10": (sp["spa_p"] <= 0.10, sp["spa_p"])}
     return all(v[0] for v in ch.values()), ch
+
+
+LEARNER_ROW = {"A": "A FQI pessimistic ensemble (OOF)", "B": "B hindsight imitation (OOF)"}
+
+
+def pass_rule_learner(tf, key):
+    """The same pass rule applied to learner A / B's OOF policy (3 contiguous session-block folds, judge 2): the OOF diff stands in
+    for the nested-CV diff; the CPCV item cannot be evaluated (no CPCV paths for the learners by design), so the rule cannot be
+    passed in full; PBO is the family's (the 1,568 C variants); SPA p is the studentised p over every exit trial of the timeframe."""
+    a = R[tf][key.lower()]; ev = R[tf]["ev"]; c = R[tf]["csel"]
+    if not a or not ev: return None
+    row = next((r for r in ev["table"] if r["policy"] == LEARNER_ROW[key]), None)
+    if row is None: return None
+    sf = a["sign_flip"]["blocks"]; sa = ev.get("spa_all_trials") or spa_of(tf)[0]
+    ch = {"oof_diff>0": (a["diff"] > 0, a["diff"]),
+          "cpcv_p5_diff>0": (False, "n/a: 3-fold OOF by design, no CPCV paths"),
+          "random_pct>=95": (a["random_pct"] >= 95, a["random_pct"]),
+          "signflip_blocks_p1<=0.05": (sf["p_one_sided"] <= 0.05, sf["p_one_sided"]), "blocks_positive>=8/12": (sf["blocks_positive"] >= 8, sf["blocks_positive"]),
+          "boot_ci90_excludes_0": (row["boot_diff_ci90"][0] > 0, row["boot_diff_ci90"]),
+          "diff_top1_gains_removed>0": (row["diff_top1_gains_removed"] > 0, row["diff_top1_gains_removed"]),
+          "pbo<=0.2": (c["pbo"]["pbo"] <= 0.2, c["pbo"]["pbo"]), "spa_p<=0.10": (sa["spa_p"] <= 0.10, sa["spa_p"])}
+    return all(v[0] for v in ch.values()), ch
+
+
+def kstr(k):
+    return keys_str(k) if isinstance(k, dict) and {"stop", "scale", "trail"} <= set(k) else json.dumps(k, default=str)
+
+
+def spa_text(tf):
+    sp, kind = spa_of(tf)
+    if kind != "current":
+        return f"SPA best gain {sp['best_mean_gain']} per session (t {sp['best_t']}), RC p {sp['rc_p']}, **SPA p {sp['spa_p']}** (harness.spa as at 02_c_select.py)"
+    exc = sp["excluded_candidates"]
+    exc_txt = "none" if not exc else "; ".join(f"{kstr(e['keys'])} ({e['active_sessions']} active sessions, mean gain {e['mean_gain']})" for e in exc)
+    bk, bu = sp["best_keys"], sp["best_keys_unstudentised"]
+    return (f"SPA (`harness.spa` sha `{sp['harness_sha']}`, {sp['draws']} stationary-bootstrap draws, tag `{sp['tag']}`, the same draws as 02_c_select.py): "
+            f"studentised (Hansen) best = {kstr(bk['keys'])}, mean selection gain {sp['best_mean_gain']} per session (t {sp['best_t']}; active in {sp['best_active_sessions']} / {sp['sessions']} sessions; "
+            f"its per-trade diff vs Foundation is {bk['diff_vs_foundation']}" + (" — the SPA statistic is a per-session mean, so a variant can lead it with a negative per-trade diff" if (bk['diff_vs_foundation'] or 0) < 0 else "") + f"), RC p {sp['rc_p']}, **SPA p {sp['spa_p']}**; "
+            f"unstudentised (White) best = {kstr(bu['keys'])}, mean gain {sp['best_mean_gain_unstudentised']} (per-trade diff {bu['diff_vs_foundation']}), RC p {sp['rc_p_unstudentised']}, **SPA p {sp['spa_p_unstudentised']}**; "
+            f"min-active rule max(10, 5% of T) = {sp['min_active_sessions']} sessions: {sp['excluded_from_studentised']} of {sp['candidates']} candidates excluded from the studentised family ({exc_txt})")
+
+
+def spa_all_text(tf):
+    ev = R[tf]["ev"]; sa = (ev or {}).get("spa_all_trials")
+    if not sa: return ""
+    return (f" Over every exit trial of the timeframe ({sa['candidates']} rows: the C variants, the C nested pick, the C in-sample best, learners B and A; tag `{sa['tag']}`): "
+            f"studentised best = {kstr(sa['best_keys']['keys'])} (family `{sa['best_keys']['family']}`), RC p {sa['rc_p']}, SPA p {sa['spa_p']}; unstudentised RC p {sa['rc_p_unstudentised']}, SPA p {sa['spa_p_unstudentised']}; "
+            f"{sa['excluded_from_studentised']} excluded by the min-active rule.")
+
+
+def learner_verdict(tf, a, key):
+    """A plain statement of whether the learner's exit helps or hurts on this timeframe, every number from a_result / b_result /
+    eval_<tf>.json, and the pass rule applied to it (pass_rule_learner)."""
+    worse = [f["fold"] for f in a["folds"] if f["test_mean"] < f["test_fnd_mean"]]
+    better = [f["fold"] for f in a["folds"] if f["test_mean"] > f["test_fnd_mean"]]
+    ev = R[tf]["ev"] or {}; row = next((r for r in ev.get("table", []) if r["policy"] == LEARNER_ROW[key]), None)
+    others = {k: v for k, v in (("C nested pick", R[tf]["csel"]["nested"]["mean"]), ("B", (R[tf]["b"] or {}).get("mean")), ("A", (R[tf]["a"] or {}).get("mean"))) if k != key and v is not None}
+    ci = row["boot_diff_ci90"] if row else None
+    if a["diff"] < 0:
+        head = f"is below the Foundation exit on the pooled OOF by {-a['diff']} INR per trade (t {a['t']})" + (": **it hurts** (the 90% block-bootstrap CI of the diff lies entirely below 0)" if ci and ci[1] < 0 else " (the 90% block-bootstrap CI of the diff includes 0: not significantly)" if ci else "")
+    else:
+        head = f"is above the Foundation exit on the pooled OOF by {a['diff']} INR per trade (t {a['t']})" + (" (the 90% block-bootstrap CI of the diff excludes 0)" if ci and ci[0] > 0 else " (the 90% block-bootstrap CI of the diff includes 0: not a significant gain)" if ci else "")
+    s = (f"Plainly: on {tf} the learner {key} exit {head}; it is below the Foundation exit in {len(worse)} of {len(a['folds'])} folds" + (f" (folds {', '.join(map(str, worse))})" if worse else "")
+         + (f" and above it in {len(better)} (folds {', '.join(map(str, better))})" if better else "") + f"; random-exit percentile {a['random_pct']}")
+    if row: s += f"; bootstrap 90% CI of the diff {ci}; diff with the top 1% of per-trade gains removed {row['diff_top1_gains_removed']}"
+    s += "; " + "; ".join(f"{k} OOF mean {v}" for k, v in others.items()) + f" (this learner {a['mean']})."
+    pr = pass_rule_learner(tf, key)
+    if pr: s += " Pass rule: " + ", ".join(f"{k}: {'pass' if v[0] else 'FAIL'} ({v[1]})" for k, v in pr[1].items()) + f". **{'PASS' if pr[0] else 'no candidate'}**."
+    return s
 
 
 def md_table(df, cols, fmt=None):
@@ -88,7 +168,7 @@ for tf in TFS:
     md += ["", f"**CPCV** (66 splits, 11 paths): diff median {c['cpcv']['diff_median']}, p5 {c['cpcv']['diff_p5']}, min {c['cpcv']['diff_min']}, share of paths positive {c['cpcv']['diff_share_positive']}; {c['cpcv']['distinct_picks']} distinct picks: "
            + "; ".join(f"{keys_str(p['keys'])} ({p['n_splits']} splits)" for p in c["cpcv"]["picks"]) + ".", "",
            f"**Multiplicity over the family** ({c['pbo']['candidates']} variants): PBO ('diff', {c['pbo']['partitions']} partitions) **{c['pbo']['pbo']}**, IS-best OOS below zero {c['pbo']['oos_best_below_zero']}, degradation slope {c['pbo']['degradation_slope']}; "
-           f"SPA best gain {c['spa']['best_mean_gain']} per session (t {c['spa']['best_t']}), RC p {c['spa']['rc_p']}, **SPA p {c['spa']['spa_p']}**; effective trials {c['effective_trials']} on the kept_sum series (harness) and **{ev['effective_trials_selection_gain'] if ev else 'pending'}** on the variant-minus-Foundation series ({ev['distinct_gain_vectors'] if ev else 'pending'} distinct gain vectors; variants that differ only by an inert key — e.g. a 120-bar time stop on 5 min, a CHoCH exit that never fires — are identical by construction). "
+           f"{spa_text(tf)}.{spa_all_text(tf)} Effective trials {c['effective_trials']} on the kept_sum series (harness) and **{ev['effective_trials_selection_gain'] if ev else 'pending'}** on the variant-minus-Foundation series ({ev['distinct_gain_vectors'] if ev else 'pending'} distinct gain vectors; variants that differ only by an inert key — e.g. a 120-bar time stop on 5 min, a CHoCH exit that never fires — are identical by construction). "
            f"DSR of the in-sample best against {c['dsr_best'].get('n_trials')} trials: p {c['dsr_best'].get('p')}.", "",
            f"**ST9 R-ladder** (stop 50, 1R / 2R, trail 3R lag 1, 3 lots): per position {c['st9']['mean_per_position']}, per lot {c['st9']['mean']} (diff {c['st9']['diff']}, t {c['st9']['t']}), random pct {c['st9']['random_pct']}, sign blocks {c['st9']['sign_blocks']}/12, win rate {c['st9']['win_rate']}, PF {c['st9']['pf']}. "
            "It was tuned on 2026 (= this study's OOS window), so it cannot serve as an OOS comparator; here it is an IS comparator only.", "",
@@ -101,17 +181,17 @@ for tf in TFS:
            f"regret free {b['regret_vs_oracle_free']} / floor {b['regret_vs_oracle_floor']}, early-exit share {b['exit_early_share']}, OOF AUC of 'this is the oracle bar' {b['auc_oof']}, sign-flip blocks p1 {b['sign_flip']['blocks']['p_one_sided']}, sessions p1 {b['sign_flip']['sessions']['p_one_sided']}. Ledger id `{b['ledger_id']}`. {b['seconds']} s, RSS {b['rss_mb']} MB.", "",
            "| fold | train / test trades (purged) | p* | inner value at p* / never-exit / Foundation | test mean | test Foundation | test AUC | early exits |", "|---|---|---|---|---|---|---|---|"]
     md += [f"| {f['fold']} | {f['train_trades']} / {f['test_trades']} ({f['purged']}) | {'never exit' if f['p_star_is_never_exit'] else f['p_star']} | {f['inner_value_at_p_star']} / {f['inner_value_never_exit']} / {f['inner_value_foundation']} | {f['test_mean']} | {f['test_fnd_mean']} | {f['test_auc']} | {f['exit_early_share']} |" for f in b["folds"]]
-    md += [""]
+    md += ["", learner_verdict(tf, b, "B"), ""]
 md += ["## 5. Learner A — fitted Q-iteration, pessimistic ensemble (`a_result_*.json`, `a_oof_*.npz`)", ""]
 for tf in TFS:
     a = R[tf]["a"]
     if not a:
-        md += [f"**{tf}**: " + ("not run: the condition for the 1-minute FQI (learner B or C cutting the regret vs the oracle on IS CV, i.e. beating the Foundation exit OOF) was not met." if tf == "minute" else "not finished (see the log).")]; continue
+        md += [f"**{tf}**: no result file (`a_result_{tf}.json` missing; see `04_a_{tf}.log`)."]; continue
     md += [f"**{tf}**: {a['decision_states']} decision states ({a['states']} states, {a['trades']} trades), {a['iterations']} iterations x {a['members']} members, kappa {a['kappa']}, HGB {a['hgb']}. OOF mean **{a['mean']}** vs Foundation {a['fnd_mean']} (diff {a['diff']}, t {a['t']}), random pct {a['random_pct']}, "
-           f"regret free {a['regret_vs_oracle_free']} / floor {a['regret_vs_oracle_floor']}, early-exit share {a['exit_early_share']}, sign-flip blocks p1 {a['sign_flip']['blocks']['p_one_sided']}. Ledger id `{a['ledger_id']}`. {a['seconds']} s, RSS {a['rss_mb']} MB.", "",
-           "| fold | train / test trades (purged) | test mean | test Foundation | early exits | exit-flag share of states | MAE of Q(s, exit) vs the exact exit value |", "|---|---|---|---|---|---|---|"]
-    md += [f"| {f['fold']} | {f['train_trades']} / {f['test_trades']} ({f['purged']}) | {f['test_mean']} | {f['test_fnd_mean']} | {f['exit_early_share']} | {f['exit_flag_share']} | {f['q_exit_fit_mae']} |" for f in a["folds"]]
-    md += [""]
+           f"regret free {a['regret_vs_oracle_free']} / floor {a['regret_vs_oracle_floor']}, early-exit share {a['exit_early_share']}, sign-flip blocks p1 {a['sign_flip']['blocks']['p_one_sided']} ({a['sign_flip']['blocks']['blocks_positive']}/12 positive), sessions p1 {a['sign_flip']['sessions']['p_one_sided']}. Ledger id `{a['ledger_id']}`. {a['seconds']} s, RSS {a['rss_mb']} MB.", "",
+           "| fold | train / test trades (purged) | test mean | test Foundation | test diff | early exits | exit-flag share of states | MAE of Q(s, exit) vs the exact exit value | seconds |", "|---|---|---|---|---|---|---|---|---|"]
+    md += [f"| {f['fold']} | {f['train_trades']} / {f['test_trades']} ({f['purged']}) | {f['test_mean']} | {f['test_fnd_mean']} | {round(f['test_mean'] - f['test_fnd_mean'], 2)} | {f['exit_early_share']} | {f['exit_flag_share']} | {f['q_exit_fit_mae']} | {f['seconds']} |" for f in a["folds"]]
+    md += ["", learner_verdict(tf, a, "A"), ""]
 md += ["## 6. Evaluation on IS CV — net per trade per lot on the same entries, all cut at 15:25 (`eval_table_*.csv`)", ""]
 cols = ["policy", "mean_per_lot", "diff_vs_foundation", "random_pct", "regret_vs_oracle_free", "regret_vs_oracle_floor", "win_rate", "pf", "sign_blocks", "signflip_blocks_p1", "signflip_sessions_p1", "boot_diff_ci90", "diff_top1_gains_removed", "bars_held_mean"]
 for tf in TFS:
@@ -145,22 +225,82 @@ pending = [tf for tf in TFS if not R[tf]["ev"] or not R[tf]["b"] or not R[tf]["a
 if pending:
     md += [f"**STATUS: PRELIMINARY** — pending on {', '.join(pending)}: " + "; ".join(f"{tf}: " + ", ".join(k for k, v in (("05_evaluate.py (eval table, distillation, gate x exit)", R[tf]["ev"]), ("learner B", R[tf]["b"]), ("learner A", R[tf]["a"])) if not v) for tf in pending)
            + ". Learner C (grid, nested CV, CPCV, multiplicity), the yardsticks and the parity checks are final. Re-run `05_evaluate.py <tf>` when the learners finish, then `06_findings.py`.", ""]
+def learner_block(tf, key):
+    a = R[tf][key.lower()]
+    if not a: return "pending"
+    pr = pass_rule_learner(tf, key)
+    keys = ("mean", "fnd_mean", "diff", "t", "random_pct", "regret_vs_oracle_free", "regret_vs_oracle_floor", "exit_early_share", "win_rate", "pf", "sign_blocks", "ledger_id", "seconds", "rss_mb")
+    out = {k: a.get(k) for k in keys if k in a}
+    if "auc_oof" in a: out["auc_oof"] = a["auc_oof"]
+    out.update(sign_flip=a["sign_flip"], folds=[{k: f[k] for k in f if k not in ("test_blocks",)} for f in a["folds"]],
+               folds_below_foundation=[f["fold"] for f in a["folds"] if f["test_mean"] < f["test_fnd_mean"]],
+               pass_rule=dict(passed=pr[0], checks={k: [bool(v[0]), v[1]] for k, v in pr[1].items()}) if pr else "pending")
+    return out
+
+
 for tf in TFS:
     ok, ch = pass_rule(tf)
-    c = R[tf]["csel"]; ev = R[tf]["ev"] or {}
+    c = R[tf]["csel"]; ev = R[tf]["ev"] or {}; sp, sp_kind = spa_of(tf)
     findings["timeframes"][tf] = dict(n=c["n"], foundation_mean=c["foundation"]["mean"], foundation_random_pct=c["foundation"]["random_pct"], nested_pick=c["nested"], cpcv={k: v for k, v in c["cpcv"].items() if k != "per_path"},
-                                      pbo=c["pbo"], spa=c["spa"], effective_trials_kept_sum=c["effective_trials"], effective_trials_gain=ev.get("effective_trials_selection_gain"), bootstrap_nested=c["bootstrap_nested"],
+                                      pbo=c["pbo"], spa=sp, spa_source=("eval_%s.json spa_family: 05_evaluate.py with the current harness.spa (follow-up 2026-09-29 16:45 IST)" % tf) if sp_kind == "current" else "c_select (earlier harness.spa)",
+                                      spa_all_trials=ev.get("spa_all_trials", "pending"), spa_superseded_02_c_select=ev.get("spa_superseded_02_c_select", "pending"),
+                                      effective_trials_kept_sum=c["effective_trials"], effective_trials_gain=ev.get("effective_trials_selection_gain"), bootstrap_nested=c["bootstrap_nested"],
                                       st9=c["st9"], best_is=c["best_is"], random_control=c["random_control"], oracle_free=c["oracle_free"], oracle_floor=c["oracle_floor"], sign_flip=c["sign_flip"],
-                                      learner_B={k: R[tf]["b"][k] for k in ("mean", "diff", "random_pct", "regret_vs_oracle_free", "exit_early_share", "auc_oof", "ledger_id")} if R[tf]["b"] else "pending",
-                                      learner_A={k: R[tf]["a"][k] for k in ("mean", "diff", "random_pct", "regret_vs_oracle_free", "exit_early_share", "ledger_id")} if R[tf]["a"] else "pending",
+                                      learner_B=learner_block(tf, "B"), learner_A=learner_block(tf, "A"),
                                       eval_table=ev.get("table", "pending"), distillation=ev.get("distillation", "pending"), exit_rules=ev.get("exit_rules", "pending"), gate_multiplication=ev.get("gate_multiplication", "pending"),
                                       pass_rule=dict(passed=ok, checks={k: [bool(v[0]), v[1]] for k, v in ch.items()}), ledger_rows=fam_counts[tf], parity=parity[tf], grid_check=R[tf]["grid"])
     md += [f"**{tf}** — learner C nested pick: " + ", ".join(f"{k}: {'pass' if v[0] else 'FAIL'} ({v[1]})" for k, v in ch.items()) + f". **{'PASS' if ok else 'no candidate'}**.", ""]
+    for key in ("B", "A"):
+        pr = pass_rule_learner(tf, key)
+        if pr: md += [f"**{tf}** — learner {key} (OOF; the CPCV item is not evaluable for the 3-fold learners, PBO is the C family's, SPA p the studentised p over every exit trial): "
+                      + ", ".join(f"{k}: {'pass' if v[0] else 'FAIL'} ({v[1]})" for k, v in pr[1].items()) + f". **{'PASS' if pr[0] else 'no candidate'}**.", ""]
     if ok:
         findings["null_result"] = False
         pick = c["nested"]["folds"][0]["pick"]
         findings["candidates"].append(dict(tf=tf, kind="exit (learner C keys)", config=dict(stop=pick["stop"], scale=pick["scale"], trail=pick["trail"], time_stop_bars=pick["time_stop"], exit_on_choch_against=pick["choch"], square_off="15:25"),
-                                           provenance=dict(source="learned on IS 2021-10..2025-12", script="01_c_grid.py / 02_c_select.py", ledger_id=c["nested"]["id"], statistic=dict(nested_diff=c["nested"]["diff"], cpcv_p5=c["cpcv"]["diff_p5"], pbo=c["pbo"]["pbo"], spa_p=c["spa"]["spa_p"]))))
+                                           provenance=dict(source="learned on IS 2021-10..2025-12", script="01_c_grid.py / 02_c_select.py", ledger_id=c["nested"]["id"], statistic=dict(nested_diff=c["nested"]["diff"], cpcv_p5=c["cpcv"]["diff_p5"], pbo=c["pbo"]["pbo"], spa_p=sp["spa_p"]))))
+
+# ---------------------------------------------------------------- follow-up (2026-09-29 16:45 IST): the two refuters' minor findings + the missing 5 min finalize step
+hl = H_LEDGER = [json.loads(x) for x in open(os.path.join(HERE, "..", "..", "ledger", "trials.jsonl"), encoding="utf-8") if x.strip()]
+new_rows = [r for r in hl if r["family"] == "exit_policy/gate_x_exit" and r.get("note") == "followup"]
+reused = {tf: [f"{n} `{m['harness_id']}`" for n, m in (R[tf]["ev"] or {}).get("gate_multiplication", {}).items() if str(m.get("ledger_row", "")).startswith("existing")] for tf in TFS}
+a1, a5 = R["minute"]["a"], R["5minute"]["a"]
+sp1, sp5 = R["minute"]["ev"]["spa_family"], R["5minute"]["ev"]["spa_family"]
+old1, old5 = R["minute"]["csel"]["spa"], R["5minute"]["csel"]["spa"]
+followup = dict(at="2026-09-29 16:45 IST", harness_sha=sp1["harness_sha"], exit_ledger_rows=len(ledger), exit_ledger_appended=0,
+                harness_ledger_new_rows=[dict(id=r["id"], tf=r["tf"], label=r["label"], note=r["note"], at=r["at"]) for r in new_rows], harness_ledger_rows_reused=reused,
+                spa_old_to_new={tf: dict(old_studentised=dict(spa_p=R[tf]["csel"]["spa"]["spa_p"], rc_p=R[tf]["csel"]["spa"]["rc_p"], best=R[tf]["csel"]["spa"]["best"]),
+                                          new_studentised=dict(spa_p=R[tf]["ev"]["spa_family"]["spa_p"], rc_p=R[tf]["ev"]["spa_family"]["rc_p"], best=R[tf]["ev"]["spa_family"]["best"], excluded=R[tf]["ev"]["spa_family"]["excluded_from_studentised"], min_active_sessions=R[tf]["ev"]["spa_family"]["min_active_sessions"]),
+                                          new_unstudentised=dict(spa_p=R[tf]["ev"]["spa_family"]["spa_p_unstudentised"], rc_p=R[tf]["ev"]["spa_family"]["rc_p_unstudentised"], best=R[tf]["ev"]["spa_family"]["best_unstudentised"])) for tf in TFS},
+                what_changed=["learner A (1-minute FQI) folded into sections 5, 6, 8, 9 from a_result_minute.json / a_oof_minute.npz; the sentence saying it was not run replaced",
+                              "family SPA recomputed with the current harness.spa (min-active exclusion, unstudentised statistic) for both timeframes; the excluded candidates listed (none)",
+                              "05_evaluate.py 5minute run for the first time (eval_table_5minute.csv, eval_5minute.json, exit_rules_5minute.json, gate x exit rows); the PRELIMINARY status closed",
+                              "not rerun: the C grid (01), the C selection (02), learner B (03), any FQI fold (04)"])
+findings["followup"] = followup
+findings["caveats"] = ["the OOS window (2026) was used by the ST9-12 exit grid (r_combinations), so no exit table here can treat 2026 as untouched; every exit comparison carries this (judge 1)",
+                       "learners A / B are evaluated on 3 contiguous session-block folds (judge 2), so they have no CPCV path distribution and cannot pass the pass rule in full",
+                       "the SPA statistic is a per-session mean selection gain: a variant with a negative per-trade diff vs the Foundation exit can lead the studentised family (1 min: stop 75 / choch True, diff -13.27)",
+                       "c_select_<tf>.json's `spa` block is the finished selection stage's output (earlier harness.spa) and is superseded by eval_<tf>.json `spa_family`; it was not edited"]
+md += ["## 10. Follow-up (2026-09-29 16:45 IST)", "",
+       "What changed and why (the two refuters' minor findings, plus the one finalize step that had not run). Nothing else was rerun: the learner C grid (`01_c_grid.py`), the C selection (`02_c_select.py`), learner B (`03_b_imitation.py`) and every FQI fold (`04_a_fqi.py`) are the runs already on disk.", "",
+       f"1. **Learner A on 1 min.** Judge 2's condition for the 1-minute FQI (learner B or C beating the Foundation exit OOF on 1 min) was met (B +{R['minute']['b']['diff']}, C nested +{R['minute']['csel']['nested']['diff']}); `04_a_fqi.py minute` ran under nohup and finished at 07:08 UTC "
+       f"(`a_result_minute.json`, `a_oof_minute.npz`, exit-ledger row `{a1['ledger_id']}`, family `exit_policy/A`; `04_a_minute.log` holds the three per-fold JSON lines — its final summary line was lost when the 06:24 checkout replaced the file's inode, the JSON was written before it). "
+       f"The earlier section 5 sentence \"not run: the condition ... was not met\" was `06_findings.py`'s fallback text while the run was in progress and was wrong; it is replaced by the measured numbers. "
+       f"Per fold (test mean vs Foundation): " + "; ".join(f"fold {f['fold']}: {f['test_mean']} vs {f['test_fnd_mean']} ({round(f['test_mean'] - f['test_fnd_mean'], 2)}), early exits {f['exit_early_share']}, Q-fit MAE {f['q_exit_fit_mae']}" for f in a1["folds"])
+       + f". Pooled OOF mean {a1['mean']} vs {a1['fnd_mean']} (diff {a1['diff']}, t {a1['t']}), random-exit percentile {a1['random_pct']}, early-exit share {a1['exit_early_share']}; "
+       + f"below the Foundation exit in {len([f for f in a1['folds'] if f['test_mean'] < f['test_fnd_mean']])} of 3 folds; it does not beat learner B ({R['minute']['b']['mean']}) or the C nested pick ({R['minute']['csel']['nested']['mean']}); pass rule: **{'PASS' if pass_rule_learner('minute', 'A')[0] else 'no candidate'}** (section 9). "
+       + f"On 5 min (already in `a_result_5minute.json`, now also in sections 6, 8, 9): pooled OOF {a5['mean']} vs {a5['fnd_mean']} (diff {a5['diff']}, t {a5['t']}), random pct {a5['random_pct']}, below the Foundation exit in {len([f for f in a5['folds'] if f['test_mean'] < f['test_fnd_mean']])} of 3 folds: **it hurts**.", "",
+       f"2. **Family SPA with the current `harness.spa`** (sha `{sp1['harness_sha']}`; `harness.py` was not modified here). The earlier numbers came from `02_c_select.py` with the harness before its revision; the harness now excludes from the studentised (Hansen) family any candidate whose selection gain is non-zero in fewer than max(10, 5% of T) sessions "
+       f"(1 min: {sp1['min_active_sessions']} of {sp1['sessions']} sessions; 5 min: {sp5['min_active_sessions']} of {sp5['sessions']}) and reports White's unstudentised reality-check statistic beside it. Re-run over the same family (the 1,568 C variants, ledger order) with the same bootstrap tag, so the only change is the harness: "
+       f"**1 min** studentised SPA p {old1['spa_p']} -> **{sp1['spa_p']}** (RC p {old1['rc_p']} -> {sp1['rc_p']}; best variant {old1['best']} -> {sp1['best']}), unstudentised SPA p **{sp1['spa_p_unstudentised']}** (RC p {sp1['rc_p_unstudentised']}); "
+       f"**5 min** studentised SPA p {old5['spa_p']} -> **{sp5['spa_p']}** (RC p {old5['rc_p']} -> {sp5['rc_p']}; best {old5['best']} -> {sp5['best']}), unstudentised SPA p **{sp5['spa_p_unstudentised']}** (RC p {sp5['rc_p_unstudentised']}). "
+       f"Candidates excluded by the min-active rule: 1 min {sp1['excluded_from_studentised']}, 5 min {sp5['excluded_from_studentised']} — **none on either timeframe**: every grid variant's selection gain is non-zero in every active session (no variant applies the Foundation's next-CHoCH exit, so every variant differs from the benchmark wherever a session has a trade), "
+       f"so the studentised numbers are unchanged and the revision adds the unstudentised p. The extended family (every exit trial, learners included) is in section 3. `c_select_<tf>.json`'s `spa` block is the finished stage's output and was not edited; `eval_<tf>.json` `spa_family` / `spa_all_trials` and `findings.json` carry the new block, `spa_superseded_02_c_select` the old one.", "",
+       f"3. **`05_evaluate.py 5minute` ran for the first time** (it had not been run when the 5 min learners finished): `eval_table_5minute.csv`, `eval_5minute.json`, `exit_rules_5minute.json` (best learner B exits early on 0 states: nothing to distil), the 5 min effective-trials figure on the gain series and the top-1%-removed pass item, the gate x exit rows; the PRELIMINARY status of section 9 is closed.", "",
+       f"**Ledgers.** Exit ledger (`exit_ledger.jsonl`): {len(ledger)} rows, nothing appended by the follow-up (learner A's rows were written by `04_a_fqi.py`). Harness ledger (`OUT/ledger/trials.jsonl`): {len(new_rows)} new rows, note `followup`: "
+       + "; ".join(f"`{r['id']}` ({r['tf']}, {r['label']})" for r in new_rows) + "; reused by id, no duplicate written: " + "; ".join(f"{tf}: {', '.join(v)}" for tf, v in reused.items() if v) + ".", "",
+       f"**Verdict after the follow-up**: unchanged — " + "; ".join(f"{tf}: learner C nested pick {'PASS' if pass_rule(tf)[0] else 'no candidate'}, learner B {'PASS' if pass_rule_learner(tf, 'B')[0] else 'no candidate'}, learner A {'PASS' if pass_rule_learner(tf, 'A')[0] else 'no candidate'}" for tf in TFS)
+       + ". No exit policy rescues the book on either timeframe; the null result stands.", ""]
 json.dump(findings, open(os.path.join(HERE, "findings.json"), "w"), indent=1, default=lambda z: z.item() if hasattr(z, "item") else str(z))
 open(os.path.join(HERE, "FINDINGS.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
 print("\n".join(md)[-6000:])

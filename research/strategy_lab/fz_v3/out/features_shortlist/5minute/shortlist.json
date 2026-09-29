@@ -1,9 +1,9 @@
 {
  "kind": "feature_shortlist",
- "tf": "minute",
+ "tf": "5minute",
  "label": "L1",
  "is_window": "2021-10-01..2025-12-31",
- "frozen_at": "2026-09-29T11:31:30",
+ "frozen_at": "2026-09-29T11:31:33",
  "study": "importance",
  "script": "studies/importance/run_importance.py + shortlist.py",
  "rule": {
@@ -13,7 +13,7 @@
   "model": {
    "model": "bagging_dt",
    "depth": 4,
-   "trees": 20,
+   "trees": 300,
    "min_weight_fraction_leaf": 0.05,
    "features": 238,
    "weights": "|net| winsorised at train p99, class_weight balanced",
@@ -29,93 +29,91 @@
  "allowed_columns": [],
  "interaction_pairs_top5": [
   {
+   "feature_a": "touch_prot_bars_ago",
+   "feature_b": "ffd_close_dstar",
+   "mean_abs_interaction": 0.051618,
+   "n_paths_with_both": 661,
+   "split_a_gain_weighted_median": 8.0,
+   "split_b_gain_weighted_median": 2.4232,
+   "split_a_common": [
+    8.0,
+    6.0,
+    7.0
+   ],
+   "split_b_common": [
+    2.419,
+    2.4189,
+    2.4232
+   ]
+  },
+  {
    "feature_a": "room_ahead_dist_atr",
    "feature_b": "n_rooms_alive",
-   "mean_abs_interaction": 0.052708,
-   "n_paths_with_both": 746,
-   "split_a_gain_weighted_median": 0.7548,
+   "mean_abs_interaction": 0.044289,
+   "n_paths_with_both": 846,
+   "split_a_gain_weighted_median": 0.7394,
    "split_b_gain_weighted_median": 8.0,
    "split_a_common": [
     0.7394,
     0.7617,
-    0.7664
+    4.1739
    ],
    "split_b_common": [
     7.0,
-    8.0,
-    10.0
-   ]
-  },
-  {
-   "feature_a": "room_behind_dist_atr",
-   "feature_b": "room_ahead_dist_atr",
-   "mean_abs_interaction": 0.040988,
-   "n_paths_with_both": 1509,
-   "split_a_gain_weighted_median": 0.7312,
-   "split_b_gain_weighted_median": 0.5646,
-   "split_a_common": [
-    3.4141,
-    3.3514,
-    3.4717
-   ],
-   "split_b_common": [
-    4.1739,
-    0.0284,
-    0.1638
+    6.0,
+    8.0
    ]
   },
   {
    "feature_a": "room_ahead_dist_atr",
-   "feature_b": "days_to_expiry",
-   "mean_abs_interaction": 0.03984,
-   "n_paths_with_both": 973,
-   "split_a_gain_weighted_median": 0.5124,
-   "split_b_gain_weighted_median": 12.0,
+   "feature_b": "fz_take_why=nan",
+   "mean_abs_interaction": 0.042425,
+   "n_paths_with_both": 247,
+   "split_a_gain_weighted_median": 0.1701,
+   "split_b_gain_weighted_median": 1.0,
    "split_a_common": [
-    0.0284,
-    0.3419,
-    4.1739
+    0.1701,
+    0.0776,
+    0.3558
    ],
    "split_b_common": [
-    27.0,
-    8.0,
-    29.0
+    1.0
    ]
   },
   {
-   "feature_a": "room_behind_dist_atr",
-   "feature_b": "days_to_expiry",
-   "mean_abs_interaction": 0.032939,
-   "n_paths_with_both": 655,
-   "split_a_gain_weighted_median": 0.2798,
-   "split_b_gain_weighted_median": 10.0,
+   "feature_a": "ffd_close_dstar",
+   "feature_b": "sl",
+   "mean_abs_interaction": 0.039569,
+   "n_paths_with_both": 701,
+   "split_a_gain_weighted_median": 2.4245,
+   "split_b_gain_weighted_median": 16705.25,
    "split_a_common": [
-    0.2798,
-    0.2764,
-    0.1888
+    2.4159,
+    2.5133,
+    2.4189
    ],
    "split_b_common": [
-    9.0,
-    29.0,
-    10.0
+    15985.5,
+    16086.5,
+    25184.0
    ]
   },
   {
-   "feature_a": "n_rooms_alive",
-   "feature_b": "dow",
-   "mean_abs_interaction": 0.027953,
-   "n_paths_with_both": 180,
-   "split_a_gain_weighted_median": 10.0,
-   "split_b_gain_weighted_median": 3.0,
+   "feature_a": "room_ahead_dist_atr",
+   "feature_b": "ffd_close_dstar",
+   "mean_abs_interaction": 0.037084,
+   "n_paths_with_both": 614,
+   "split_a_gain_weighted_median": 0.3787,
+   "split_b_gain_weighted_median": 2.4698,
    "split_a_common": [
-    10.0,
-    11.0,
-    7.0
+    0.1618,
+    0.1598,
+    0.4549
    ],
    "split_b_common": [
-    3.0,
-    1.0,
-    4.0
+    2.5133,
+    2.5277,
+    2.4698
    ]
   }
  ],
@@ -131,29 +129,38 @@
    "minute": {
     "0": {
      "members": [
+      "hour_bin=09",
+      "hour_bin=<09:25",
       "sl_dist_pts",
       "sl_dist_atr",
-      "atr14",
-      "atr_bps",
-      "range_1h_pts",
-      "range_1h_atr",
       "range_since_choch_atr",
       "bar_range_pts",
       "bar_range_atr",
       "er_1h",
-      "bars_since_prev_choch",
       "vol_ratio20",
       "vol_ratio60",
       "vol_max_ratio20_5",
       "vol_max_ratio20_15",
+      "hv2_dir=none",
       "hv2_dir_agree",
       "hv2_ratio",
+      "hv3_dir=none",
+      "hv3_dir_agree",
+      "hv3_ratio",
       "vol_ratio20_at_choch",
       "vol_max_ratio20_choch_to_k",
       "dist_prot_dir_atr",
       "dist_choch_lvl_atr",
       "choch_bar_range_atr",
       "move_since_choch_pts",
+      "touch_room_last=none",
+      "touch_swing_last=broke",
+      "today_net_asof",
+      "today_pts_asof",
+      "last_closed_reason_asof=nan",
+      "card_leave_kind=gap",
+      "fz_block_reason=open_pierce",
+      "fz_take_why=leave_gap_quiet",
       "ffd_vol_dstar",
       "ffd_vol_dstar_z60",
       "bsadf_close",
@@ -161,6 +168,8 @@
       "csw_max_exceed",
       "bocpd_ret_h60_p10",
       "bocpd_ret_h240_p10",
+      "bocpd_rng_h60_p10",
+      "bocpd_rng_h240_p10",
       "rv_absret",
       "rv_body_frac",
       "rv_logvol_rel20",
@@ -171,17 +180,24 @@
       "hmm3_p2",
       "hmm3_map",
       "hmm4_map",
-      "jump4_run",
-      "win_sign_agree10",
-      "win_range_slope"
+      "ret_1h_pts__na",
+      "er_1h__na",
+      "hv2_bars_since__na",
+      "hv3_bars_since__na",
+      "hv3_low_held__na",
+      "vol_ratio20_at_choch__na",
+      "vol_max_ratio20_choch_to_k__na",
+      "touch_room_bars_ago__na",
+      "last_closed_net_asof__na",
+      "csw_max_abs__na"
      ],
-     "mda_ll_mean": -0.0149981619490493,
-     "mda_ll_std": 0.0212198757083551,
+     "mda_ll_mean": -0.0093711845382923,
+     "mda_ll_std": 0.0096709742314419,
      "mda_ll_pass": false,
      "stab_pass": false,
      "mixed_with_non_ffd": true
     },
-    "4": {
+    "6": {
      "members": [
       "bar_body_pts",
       "close_pos_in_bar",
@@ -190,30 +206,47 @@
       "ret_1h_pts",
       "hv2_dir=up",
       "hv3_dir=up",
+      "hv3_low_held",
       "dist_sl_atr",
       "swing_near_kind=H",
       "room_edge_kind=hi",
-      "card_read=PENDING",
       "card_out_side=up",
-      "card_last_reject_dir=down",
-      "fz_watch_kind=WATCH_EDGE",
+      "fz_pos_in_band",
       "ffd_close_dstar_z60",
       "rv_ret36_atr"
      ],
-     "mda_ll_mean": -0.0007409127271712,
-     "mda_ll_std": 0.0101435133890179,
+     "mda_ll_mean": -5.795225730026814e-05,
+     "mda_ll_std": 0.0005344057362394,
      "mda_ll_pass": false,
      "stab_pass": false,
      "mixed_with_non_ffd": true
     },
-    "21": {
+    "8": {
+     "members": [
+      "last_bos_dir=none",
+      "gap_pts__na",
+      "bars_since_bos__na",
+      "bars_since_prev_choch__na",
+      "sess_cumvol_ratio20s__na",
+      "ffd_close_dstar__na",
+      "bsadf_close__na",
+      "bocpd_ret_h60_since_reset__na",
+      "nn_dist_prefix_long__na"
+     ],
+     "mda_ll_mean": 0.0,
+     "mda_ll_std": 0.0,
+     "mda_ll_pass": false,
+     "stab_pass": true,
+     "mixed_with_non_ffd": true
+    },
+    "15": {
      "members": [
       "sl",
       "n_events_asof",
       "ffd_close_dstar"
      ],
-     "mda_ll_mean": -0.0004304737042109,
-     "mda_ll_std": 0.0015402112922925,
+     "mda_ll_mean": 1.876366707147156e-05,
+     "mda_ll_std": 5.18583104415435e-05,
      "mda_ll_pass": false,
      "stab_pass": false,
      "mixed_with_non_ffd": true
@@ -266,8 +299,8 @@
       "win_sign_agree10",
       "win_range_slope"
      ],
-     "mda_ll_mean": -0.0149981619490493,
-     "mda_ll_std": 0.0212198757083551,
+     "mda_ll_mean": -0.013450532426169864,
+     "mda_ll_std": 0.009743753359607374,
      "mda_ll_pass": false,
      "stab_pass": false,
      "mixed_with_non_ffd": true
@@ -291,8 +324,8 @@
       "ffd_close_dstar_z60",
       "rv_ret36_atr"
      ],
-     "mda_ll_mean": -0.0007409127271712,
-     "mda_ll_std": 0.0101435133890179,
+     "mda_ll_mean": -0.0007394992562618795,
+     "mda_ll_std": 0.007902871321625253,
      "mda_ll_pass": false,
      "stab_pass": false,
      "mixed_with_non_ffd": true
@@ -303,8 +336,8 @@
       "n_events_asof",
       "ffd_close_dstar"
      ],
-     "mda_ll_mean": -0.0004304737042109,
-     "mda_ll_std": 0.0015402112922925,
+     "mda_ll_mean": 8.708999059211267e-07,
+     "mda_ll_std": 0.0003745508098004317,
      "mda_ll_pass": false,
      "stab_pass": false,
      "mixed_with_non_ffd": true
@@ -371,5 +404,5 @@
    ]
   }
  },
- "ledger_family_rows": null
+ "ledger_family_rows": 53
 }

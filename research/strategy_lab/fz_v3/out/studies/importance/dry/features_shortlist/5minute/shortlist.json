@@ -3,7 +3,7 @@
  "tf": "5minute",
  "label": "L1",
  "is_window": "2021-10-01..2025-12-31",
- "frozen_at": "2026-09-29T06:16:57",
+ "frozen_at": "2026-09-29T11:31:30",
  "study": "importance",
  "script": "studies/importance/run_importance.py + shortlist.py",
  "rule": {

@@ -14,3 +14,9 @@ h2_regime start Tue Sep 29 04:06:40 2026 ledger sha f2c2f7154dd30e85
     cell 181/201 {"W": "1h", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "today"} kept 4263 diff -181.95 pct 0.1 p 0.3438
     cell 201/201 {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "today"} kept 4251 diff -68.31 pct 0.4 p 0.7271
   nested-CV OOF: kept 4307 (0.9674) diff -226.81 pct 1.1 p 0.3148 blocks 6 id 96a71fa0c77cbd57
+  CPCV 11 paths: diff median -198.78 p5 -417.49 min -451.17 share>0 0.182 control pct median 1.9 p5 0.7
+  family: 202 candidates, eff 1.35, PBO diff 0.3564 kept 0.5611, SPA p 0.1255 best {'rule': 'range', 'W': '3h', 'q': 0.2}, boot [-582.49, 91.16], DSR p 1.0, go False
+== H2 minute_L0: IS units 4502 mean -921.83 win 0.1519
+  by n_choch_since_bos: 0: n 1191 mean -983.73 win 0.1444; 1: n 1752 mean -914.66 win 0.1553; 2: n 830 mean -927.02 win 0.1554; 3: n 377 mean -633.07 win 0.1485; 4+: n 352 mean -1045.13 win 0.1562
+  grid: 201 cells
+    cell 1/201 {"kc": 2, "rule": "choch", "scope": "all"} kept 2943 diff -60.0 pct 16.5 p 0.7166

@@ -1,0 +1,9 @@
+{
+ "agentId": "aa90baa907599adc8",
+ "label": "recheck:session_stop",
+ "phase": "Repair",
+ "result": null,
+ "key": "v2:e80a588bb86ec47feaa9265f589b0ae6e3f9408be1ffe46ed2403c8dc3e39199",
+ "transcript": "audit/workflows/phase1/agent-aa90baa907599adc8.jsonl",
+ "meta": "audit/workflows/phase1/agent-aa90baa907599adc8.meta.json"
+}

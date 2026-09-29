@@ -1,6 +1,6 @@
 # FZ v3 audit index
 
-Regenerated 2026-09-29T06:21:59 by `audit_export.py`. Every agent of the program is listed with its full transcript (every prompt, tool call, tool result and final report) and its structured verdict. The harness ledger (`ledger/trials.jsonl`, one row per configuration ever scored; `ledger/vectors/<id>_<split>.npz`, the per-session vectors behind PBO / SPA / bootstrap) and the registrations (`ledger/registrations.jsonl`, hashed pre-registrations, corrections, candidates, the OOS opening) are committed as they are. The main session's own record is the commit history of branch `research/strategy-lab-pwxiug` plus `PROGRESS.md`.
+Regenerated 2026-09-29T11:16:26 by `audit_export.py`. Every agent of the program is listed with its full transcript (every prompt, tool call, tool result and final report) and its structured verdict. The harness ledger (`ledger/trials.jsonl`, one row per configuration ever scored; `ledger/vectors/<id>_<split>.npz`, the per-session vectors behind PBO / SPA / bootstrap) and the registrations (`ledger/registrations.jsonl`, hashed pre-registrations, corrections, candidates, the OOS opening) are committed as they are. The main session's own record is the commit history of branch `research/strategy-lab-pwxiug` plus `PROGRESS.md`.
 
 ## Workflows
 
@@ -28,6 +28,7 @@ Regenerated 2026-09-29T06:21:59 by `audit_export.py`. Every agent of the program
 | repair:h2_h3_h4 | Repair | a18ed65f3524cbba5 | `audit/workflows/phase1/agent-a18ed65f3524cbba5.jsonl` | `audit/workflows/phase1/results/repair:h2_h3_h4.json` |
 | recheck:llm_round0 | Repair | a56b18e1224f43f4d | `audit/workflows/phase1/agent-a56b18e1224f43f4d.jsonl` | `audit/workflows/phase1/results/recheck:llm_round0.json` |
 | recheck:h2_h3_h4 | Repair | aae0d01b5691fc702 | `audit/workflows/phase1/agent-aae0d01b5691fc702.jsonl` | `audit/workflows/phase1/results/recheck:h2_h3_h4.json` |
+| recheck:session_stop | Repair | aa90baa907599adc8 | `audit/workflows/phase1/agent-aa90baa907599adc8.jsonl` | `audit/workflows/phase1/results/recheck:session_stop.json` |
 
 ### phase1b (run wf_9d4b7078-af8; script `workflows/phase1b.js`; journal `audit/workflows/phase1b/journal.jsonl`)
 
@@ -49,7 +50,7 @@ Regenerated 2026-09-29T06:21:59 by `audit_export.py`. Every agent of the program
 
 ### exit_policy
 
-- folder `studies/exit_policy/` (3225 files); FINDINGS: `studies/exit_policy/FINDINGS.md`; findings.json: yes
+- folder `studies/exit_policy/` (3228 files); FINDINGS: `studies/exit_policy/FINDINGS.md`; findings.json: yes
 - study:exit_policy (phase1b, a522174ba8150a407): completed=False null_result=True -> `audit/workflows/phase1b/results/study:exit_policy.json`
 - verify:exit_policy:leakage (phase1b, a8dbe4e991e1efee7): refuted=False severity=minor issues=4 -> `audit/workflows/phase1b/results/verify:exit_policy:leakage.json`
 - verify:exit_policy:arithmetic (phase1b, ad997f004dc62e286): refuted=False severity=minor issues=6 -> `audit/workflows/phase1b/results/verify:exit_policy:arithmetic.json`
@@ -79,7 +80,7 @@ Regenerated 2026-09-29T06:21:59 by `audit_export.py`. Every agent of the program
 
 ### importance
 
-- folder `studies/importance/` (58 files); FINDINGS: not written yet; findings.json: no
+- folder `studies/importance/` (67 files); FINDINGS: not written yet; findings.json: no
 - study:importance (phase2, a7b1704339f2fe9f3):  -> `audit/workflows/phase2/results/study:importance.json`
 
 ### llm_hypotheses
@@ -93,21 +94,22 @@ Regenerated 2026-09-29T06:21:59 by `audit_export.py`. Every agent of the program
 
 ### null_tapes_drift
 
-- folder `studies/null_tapes_drift/` (1557 files); FINDINGS: `studies/null_tapes_drift/FINDINGS.md`; findings.json: yes
+- folder `studies/null_tapes_drift/` (1560 files); FINDINGS: `studies/null_tapes_drift/FINDINGS.md`; findings.json: yes
 - study:null_tapes_drift (phase1b, a672b3f04fd37340a):  -> `audit/workflows/phase1b/results/study:null_tapes_drift.json`
 
 ### rocket_ceiling
 
-- folder `studies/rocket_ceiling/` (19 files); FINDINGS: not written yet; findings.json: no
+- folder `studies/rocket_ceiling/` (25 files); FINDINGS: not written yet; findings.json: no
 - study:rocket_ceiling (phase2, a2fa1fcd6089ef4ee):  -> `audit/workflows/phase2/results/study:rocket_ceiling.json`
 
 ### session_stop
 
-- folder `studies/session_stop/` (32 files); FINDINGS: `studies/session_stop/FINDINGS.md`; findings.json: yes
+- folder `studies/session_stop/` (40 files); FINDINGS: `studies/session_stop/FINDINGS.md`; findings.json: yes
 - study:session_stop (phase1, a07c85b4febd843d1): completed=True null_result=True -> `audit/workflows/phase1/results/study:session_stop.json`
 - verify:session_stop:leakage (phase1, a80e81d450c78d68c): refuted=True severity=material issues=5 -> `audit/workflows/phase1/results/verify:session_stop:leakage.json`
 - verify:session_stop:arithmetic (phase1, afe6dd09508e6eea7): refuted=False severity=minor issues=5 -> `audit/workflows/phase1/results/verify:session_stop:arithmetic.json`
 - repair:session_stop (phase1, ab771f33db99f61c4):  -> `audit/workflows/phase1/results/repair:session_stop.json`
+- recheck:session_stop (phase1, aa90baa907599adc8):  -> `audit/workflows/phase1/results/recheck:session_stop.json`
 
 ## Other agents
 

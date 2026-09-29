@@ -28,16 +28,28 @@ block sign test, CPCV 5th percentile, PBO, DSR, SPA, bootstrap CI (`harness.go_n
 | null_tapes_drift | `studies/null_tapes_drift/FINDINGS.md`, `tapes.py`, `null_distributions.json`, `drift.json` | complete; refuters running |
 | harness fix | `harness.spa` | near-degenerate candidates excluded from the studentised family (min active sessions); White's unstudentised statistic reported too |
 
-## Running at the time of writing
-- Workflow phase 1 (`workflows/phase1.js`, run wf_55c65499-a4f): rechecks of h2_h3_h4, repairs of session_stop and h1 in progress.
-- Workflow phase 1b (`workflows/phase1b.js`, run wf_9d4b7078-af8): null_tapes_drift verification.
-- Workflow phase 2 (`workflows/phase2.js`, run wf_b5100757-3f4): `studies/importance/` (clustered MDA, the frozen <= 8-cluster
-  shortlist -> `features_shortlist/<tf>/shortlist.json` + a registration line) and `studies/rocket_ceiling/` (1m, 2,000 kernels;
-  the purged 12-block gains are ~+0.003 AUC, far below the 0.03 stop; its 66 CPCV splits take ~8 min each: if it is still
-  running when everything else is done, stop it and write FINDINGS from the completed splits, stating the truncation).
-- `studies/exit_policy/04_a_fqi.py minute` (nohup, log `04_a_minute.log`): the 1m FQI; when it finishes run task "exit_policy
-  follow-up" (fold the result into 05_evaluate / 06_findings, rerun the family SPA with the revised harness.spa, fix the FINDINGS
-  sentence that says it was not run).
+## Interruption (2026-09-29 12:00-16:30 IST) and resume
+
+- **Usage limit.** At about 12:00 IST every running agent failed with the model's usage limit: phase 1 `repair:session_stop` and
+  `recheck:session_stop`, phase 1b `study:null_tapes_drift`, phase 2 `study:importance` and `study:rocket_ceiling` (the three
+  workflows completed with those failures; every other agent had finished). Per the user's instruction the run paused until
+  16:30 IST. The studies' own `nohup` processes kept running and all finished by 07:15 UTC: importance minute `main` / `sfi` /
+  `cpcv`, the whole rocket run (`results.json`), the 1m FQI (`a_result_minute.json`), the minute drift (`drift_minute.json`), the
+  session_stop repair (`results_repair.json`). What each folder still needs is listed in `STUDY_AGENT_BRIEF.md` ("Resuming").
+- **Resume = the same three workflows with `resumeFromRunId`** (finished agents replay from the journal cache; the failed ones
+  re-run with the same prompt and continue from the files), plus a small follow-up workflow for exit_policy (fold the 1m FQI in,
+  rerun the family SPA with the revised `harness.spa`, fix the FINDINGS sentence).
+- **Git incident, repaired.** The re-signing rebase (`git rebase --exec "git commit --amend --no-edit --reset-author"`) had
+  stopped before its last pick, so HEAD sat detached at 06:24 with the branch still on the unsigned tip; the checkout at 06:24
+  also replaced every tracked file's inode, so the running processes kept writing their logs to unlinked inodes. Fixed at 12:00
+  IST: `git rebase --quit`, branch re-pointed at the re-signed HEAD, the one ledger row (2919f2bb65d22f11) and vector from the
+  unpicked commit restored (append-only union, ids unique; commit 9b82a7e), and a mirror loop copied every orphaned log back from
+  `/proc/<pid>/fd` until the processes exited (scratchpad `mirror_logs.sh`), so the logs on disk are complete. 43 commits since
+  the base, all signed.
+- **GitHub.** Pushes are refused for kiran6154/money-maker and for the user's own repositories alike ("Claude doesn't have GitHub
+  access ... for your organization"); the API refuses `create_repository` (403). The user must install the Claude GitHub App on
+  the account that will hold the repository, then (for a new home) create an empty private `vijayhegdebk/money-maker`; then
+  `add_repo` + push + draft PR from here.
 
 ## Next (in order)
 1. When `features_shortlist/minute/shortlist.json`, `features_shortlist/5minute/shortlist.json` and `studies/importance/FINDINGS.md`

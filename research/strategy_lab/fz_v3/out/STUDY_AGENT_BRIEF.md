@@ -51,6 +51,28 @@ log; keep every log in the folder.
   `engine.py`, `fz.py`, `fz_exec.py`, `fz_report.py`, `lab.py`, `rl.py`, `strategies/`, `results/`, `tests/`, the data folders, or
   another study's folder. Do not run `lab.py`. Do not commit.
 
+## Resuming a study an earlier agent left unfinished
+
+The run was cut off by the model's usage limit from about 12:00 to 16:30 IST on 2026-09-29; the agents died, most of their
+`nohup` processes finished on their own. If your study folder already holds scripts, logs and outputs, you are **continuing that
+work, not starting over**. Before launching anything: `ls -la` the folder, read every log to its end, `pgrep -af` the folder's
+scripts (never start a second copy of a running one). A stage whose outputs exist and whose log ends normally is done: do not
+rerun it (the design fixes every grid and fold count, so a rerun only reproduces the numbers hours later). Run only what is
+missing (typically the finalize / shortlist / FINDINGS.md / findings.json / registration steps), then return the summary. Only
+a stage that was killed mid-run (log stops without its final line, no output file) is restarted, and only that stage, from its
+last checkpoint if the script saves per-fold or per-split results. States at the resume (16:45 IST):
+
+- `importance`: the minute stages `main`, `sfi`, `cpcv` finished (`run_minute_*.nohup`, 07:11-07:14); `results_minute.json`,
+  `--stage finalize` for both timeframes, `shortlist.py` (`features_shortlist/<tf>/shortlist.json` + the registration line) and
+  FINDINGS are still to do. `results_5minute.json` is complete.
+- `rocket_ceiling`: `rocket_ceiling.py` ran to the end (`results.json`, `fold_auc.csv`, `path_auc.csv`, `gates.csv`,
+  `cpcv_gate_paths.csv`, `oof_scores.npz`, log to 07:12); only FINDINGS.md / findings.json are missing (`write_findings.py`
+  exists). Never restart the run.
+- `null_tapes_drift`: `drift_minute.json` was written at 06:38 after FINDINGS.md; fold the minute drift into FINDINGS / findings.json.
+- `session_stop` (repair round): `session_stop_repair.py` finished (`results_repair.json`, 06:52); the "Repair" section of
+  FINDINGS.md / findings.json is still to write.
+- `exit_policy`: `04_a_fqi.py minute` finished (`a_result_minute.json`); a follow-up agent folds it in (task in PROGRESS.md).
+
 ## Deliverables (every study)
 
 - `OUT/studies/<study>/*.py` (the scripts, runnable end to end), their logs, and their outputs (CSV / JSON / parquet).

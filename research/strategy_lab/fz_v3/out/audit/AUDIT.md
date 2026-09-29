@@ -1,6 +1,6 @@
 # FZ v3 audit index
 
-Regenerated 2026-09-29T12:32:58 by `audit_export.py`. Every agent of the program is listed with its full transcript (every prompt, tool call, tool result and final report) and its structured verdict. The harness ledger (`ledger/trials.jsonl`, one row per configuration ever scored; `ledger/vectors/<id>_<split>.npz`, the per-session vectors behind PBO / SPA / bootstrap) and the registrations (`ledger/registrations.jsonl`, hashed pre-registrations, corrections, candidates, the OOS opening) are committed as they are. The main session's own record is the commit history of branch `research/strategy-lab-pwxiug` plus `PROGRESS.md`.
+Regenerated 2026-09-29T12:34:54 by `audit_export.py`. Every agent of the program is listed with its full transcript (every prompt, tool call, tool result and final report) and its structured verdict. The harness ledger (`ledger/trials.jsonl`, one row per configuration ever scored; `ledger/vectors/<id>_<split>.npz`, the per-session vectors behind PBO / SPA / bootstrap) and the registrations (`ledger/registrations.jsonl`, hashed pre-registrations, corrections, candidates, the OOS opening) are committed as they are. The main session's own record is the commit history of branch `research/strategy-lab-pwxiug` plus `PROGRESS.md`.
 
 ## Workflows
 
@@ -162,7 +162,7 @@ Regenerated 2026-09-29T12:32:58 by `audit_export.py`. Every agent of the program
 
 ### llm_round1
 
-- folder `studies/llm_round1/` (0 files); FINDINGS: not written yet; findings.json: no
+- folder `studies/llm_round1/` (1 files); FINDINGS: not written yet; findings.json: no
 - study:llm_round1:tables (phase3, ac13a14f7946836cc):  -> `audit/workflows/phase3/results/study:llm_round1:tables.json`
 
 ### null_tapes_drift
@@ -173,7 +173,7 @@ Regenerated 2026-09-29T12:32:58 by `audit_export.py`. Every agent of the program
 - verify:null_tapes_drift:leakage (phase1b, a76929d834615ef18): refuted=True severity=material issues=4 -> `audit/workflows/phase1b/results/verify:null_tapes_drift:leakage.json`
 - verify:null_tapes_drift:arithmetic (phase1b, af6dd0a604185cc01): refuted=False severity=minor issues=5 -> `audit/workflows/phase1b/results/verify:null_tapes_drift:arithmetic.json`
 - repair:null_tapes_drift (phase1b, ab48a4b1b8f1b0821): completed=True null_result=True -> `audit/workflows/phase1b/results/repair:null_tapes_drift.json`
-- recheck:null_tapes_drift (phase1b, a4441d9d6ae5fd3b7):  -> `audit/workflows/phase1b/results/recheck:null_tapes_drift.json`
+- recheck:null_tapes_drift (phase1b, a4441d9d6ae5fd3b7): refuted=False severity=minor issues=2 -> `audit/workflows/phase1b/results/recheck:null_tapes_drift.json`
 
 ### rocket_ceiling
 

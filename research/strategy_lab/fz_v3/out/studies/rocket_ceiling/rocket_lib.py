@@ -76,7 +76,7 @@ def make_kernels(K, L, C, seed):
     return dict(pos2=pos2, dil=dil, ch=ch, qlev=qlev, weights=weights, K=K, L=L, C=C, seed=seed)
 
 
-@njit(cache=False)
+@njit(cache=True)
 def _conv_one(W, i, weights, d, c0, c1, out):
     """Padded dilated convolution of window i with kernel (weights, d) over channels c0 (+ c1 when >= 0); writes L values to out."""
     L = W.shape[2]
@@ -91,7 +91,7 @@ def _conv_one(W, i, weights, d, c0, c1, out):
         out[t] = s
 
 
-@njit(parallel=True, cache=False)
+@njit(parallel=True, cache=True)
 def conv_samples(W, rows, weights, dil, ch):
     """Convolution outputs (K, len(rows), L) for the sampled windows `rows` (used for the bias quantiles)."""
     K = weights.shape[0]; n = rows.shape[0]; L = W.shape[2]
@@ -104,7 +104,7 @@ def conv_samples(W, rows, weights, dil, ch):
     return out
 
 
-@njit(parallel=True, cache=False)
+@njit(parallel=True, cache=True)
 def ppv_transform(W, rows, weights, dil, ch, bias):
     """PPV features (len(rows), K) float32: the share of output positions with conv > bias[j]."""
     K = weights.shape[0]; n = rows.shape[0]; L = W.shape[2]

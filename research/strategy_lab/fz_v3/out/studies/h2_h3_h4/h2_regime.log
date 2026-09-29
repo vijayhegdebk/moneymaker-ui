@@ -46,3 +46,7 @@
 04:43:39     cell 101/201 {"W": "3h", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "all"} kept 4097 diff -161.78 pct 2.4 p 0.2669
 04:48:22     cell 121/201 {"W": "1h", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "today"} kept 4084 diff -180.98 pct 0.0 p 0.1959
 04:52:08     cell 141/201 {"W": "since_choch", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "today"} kept 4018 diff -47.74 pct 0.1 p 0.7421
+04:54:51     cell 161/201 {"W": "3h", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "all"} kept 4282 diff -2.65 pct 3.3 p 0.991
+04:57:35     cell 181/201 {"W": "1h", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "today"} kept 4263 diff -181.95 pct 0.1 p 0.3438
+05:00:56     cell 201/201 {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "today"} kept 4251 diff -68.31 pct 0.4 p 0.7271
+05:01:18   nested-CV OOF: kept 4307 (0.9674) diff -226.81 pct 1.1 p 0.3148 blocks 6 id 96a71fa0c77cbd57

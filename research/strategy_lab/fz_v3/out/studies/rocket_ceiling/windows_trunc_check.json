@@ -1,0 +1,41 @@
+{
+ "cut": "trunc_20250630_120000",
+ "bars_truncated": 335934,
+ "setups_before_cut": [
+  3767,
+  3767
+ ],
+ "same_setup_keys": true,
+ "channels": {
+  "ch0": {
+   "max_abs_diff": 0.0,
+   "identical": true
+  },
+  "ch1": {
+   "max_abs_diff": 0.0,
+   "identical": true
+  },
+  "ch2": {
+   "max_abs_diff": 0.0,
+   "identical": true
+  },
+  "ch3": {
+   "max_abs_diff": 0.0,
+   "identical": true
+  },
+  "ch4": {
+   "max_abs_diff": 0.0,
+   "identical": true
+  },
+  "ch5": {
+   "max_abs_diff": 0.0,
+   "identical": true
+  },
+  "ch6": {
+   "max_abs_diff": 0.0,
+   "identical": true
+  }
+ },
+ "max_abs_diff": 0.0,
+ "PASS": true
+}

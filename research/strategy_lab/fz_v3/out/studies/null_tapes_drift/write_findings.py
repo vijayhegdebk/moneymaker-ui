@@ -24,6 +24,14 @@ def f(x, d=2):
 def main():
     null = json.load(open(os.path.join(HERE, "null_distributions.json")))
     drift = json.load(open(os.path.join(HERE, "drift.json"))) if os.path.exists(os.path.join(HERE, "drift.json")) else None
+    for tf in ("5minute", "minute"):                                   # per-timeframe runs (drift.py --tf <tf> --out drift_<tf>.json) merged in
+        p = os.path.join(HERE, f"drift_{tf}.json")
+        if os.path.exists(p):
+            d = json.load(open(p))
+            if drift is None: drift = d
+            elif tf in d["timeframes"]: drift["timeframes"][tf] = d["timeframes"][tf]
+    if drift is not None and set(drift["timeframes"]) == {"5minute", "minute"}:
+        json.dump(drift, open(os.path.join(HERE, "drift.json"), "w"), indent=1, default=str)     # the merged file is the deliverable
     R = pd.read_csv(os.path.join(HERE, "tape_results.csv")); RC = pd.read_csv(os.path.join(HERE, "reality_check.csv"))
     fits = {tf: json.load(open(p)) for tf in ("5minute", "minute") for p in [os.path.join(HERE, f"fit_{tf}.json")] if os.path.exists(p)}
     refs = {tf: json.load(open(p)) for tf in ("5minute", "minute") for p in [os.path.join(HERE, f"real_reference_{tf}.json")] if os.path.exists(p)}

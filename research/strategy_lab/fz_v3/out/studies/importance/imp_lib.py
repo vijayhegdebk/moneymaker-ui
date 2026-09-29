@@ -60,7 +60,8 @@ N_PERM, TAU_GRID, WREC_MIN = 5, np.round(np.arange(0.05, 0.951, 0.01), 2), 0.90
 K_RANGE = range(20, 41)
 TOP_K_STAB, TOP_INTER, TOP_PAIRS, XGB_ROUNDS, XGB_ETA, XGB_DEPTH = 8, 40, 5, 200, 0.05, 3
 N_JOBS = 4
-XGB_JOBS = int(os.environ.get("IMP_XGB_JOBS", "4"))
+XGB_JOBS = int(os.environ.get("IMP_XGB_JOBS", "1"))   # xgboost's OpenMP spin-wait is pathological on the shared box: 0.7 s at 1 thread vs 14 s at 2 (xgb_probe.log)
+BAG_JOBS = int(os.environ.get("IMP_BAG_JOBS", str(N_JOBS)))
 PERIODS = {"minute": lambda d: ("2022" if d[:4] in ("2021", "2022") else d[:4]),
            "5minute": lambda d: ("H1_2021-10..2023-09" if d <= "2023-09-30" else "H2_2023-10..2025-12")}
 STAB_MIN_PERIODS = {"minute": 3, "5minute": 2}
@@ -94,11 +95,17 @@ def readme_defs():
     defs = {}
     for name, path in (("data/README.md", os.path.join(OUT, "data", "README.md")),
                        ("features_ext/README.md", os.path.join(OUT, "features_ext", "README.md"))):
+        n_cols, parse = 0, False
         for line in open(path, encoding="utf-8"):
-            if not line.startswith("| `"): continue
+            if line.startswith("| column"):                      # a table header: parse only tables that carry a definition column
+                n_cols, parse = line.count("|") - 1, "definition" in line; continue
+            if not (parse and line.startswith("| `")): continue
             cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            if len(cells) > n_cols >= 2:                          # a literal '|' inside the definition cell: merge the extra splits into it
+                extra = len(cells) - n_cols
+                cells = [cells[0], " | ".join(cells[1:2 + extra])] + cells[2 + extra:]
             if len(cells) < 2: continue
-            toks = [t.strip().strip("`") for t in re.findall(r"`([^`]*)`", cells[0])]
+            toks = [t.strip().strip("`").replace("{j}", "{0,1,2,3}") for t in re.findall(r"`([^`]*)`", cells[0])]
             base_prefix = None
             for t in toks:
                 for col in _expand(t):
@@ -254,7 +261,7 @@ def wlogloss(y, p, w):
 
 def make_bag(depth, seed):
     return BaggingClassifier(DecisionTreeClassifier(max_depth=depth, min_weight_fraction_leaf=MIN_LEAF, class_weight="balanced"),
-                             n_estimators=N_TREES, bootstrap=True, oob_score=True, n_jobs=N_JOBS, random_state=seed)
+                             n_estimators=N_TREES, bootstrap=True, oob_score=True, n_jobs=BAG_JOBS, random_state=seed)
 
 
 def fit_bag(Xtr, y, w, depth, seed):
@@ -344,8 +351,10 @@ def full_model_pass(T, Xa, clusters, depth, tf, logf=None, with_mda=True):
                     ll_drop[ci, r] = wlogloss(y[te], pp, w_te) - base_ll
                     d, _ = fold_diff(T, pp >= tau, te)
                     df_drop[ci, r] = base_diff - d
-            rec["mda"] = dict(ll_drop=ll_drop.mean(axis=1).tolist(), diff_drop=np.nanmean(df_drop, axis=1).tolist(),
-                              diff_drop_nan=int(np.isnan(df_drop).sum()))
+            with np.errstate(all="ignore"), __import__("warnings").catch_warnings():
+                __import__("warnings").simplefilter("ignore")
+                rec["mda"] = dict(ll_drop=ll_drop.mean(axis=1).tolist(), diff_drop=np.nanmean(df_drop, axis=1).tolist(),
+                                  diff_drop_nan=int(np.isnan(df_drop).sum()))
         folds.append(rec)
         log(f"depth {depth} fold {f}: n_tr {len(tr)} n_te {len(te)} tau {tau} ll {base_ll:.4f} diff {base_diff:.1f} kept {mbase['kept_share']} ({time.time() - t0:.1f}s)", logf)
     assert not np.isnan(p_oof[T.is_mask]).any()
@@ -357,9 +366,12 @@ def summarise_mda(res, clusters):
     ll = np.array([f["mda"]["ll_drop"] for f in res["folds"]])        # folds x K
     df = np.array([f["mda"]["diff_drop"] for f in res["folds"]])
     rows = []
+    import warnings
     for ci in range(K):
         m_ll, s_ll = float(ll[:, ci].mean()), float(ll[:, ci].std(ddof=1))
-        m_df, s_df = float(np.nanmean(df[:, ci])), float(np.nanstd(df[:, ci], ddof=1))
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            m_df, s_df = float(np.nanmean(df[:, ci])), float(np.nanstd(df[:, ci], ddof=1))
         rows.append(dict(cluster=ci, mda_ll_mean=m_ll, mda_ll_std=s_ll, mda_ll_ratio=(m_ll / s_ll if s_ll > 0 else np.nan),
                          mda_ll_pass=bool(m_ll > s_ll), mda_diff_mean=m_df, mda_diff_std=s_df,
                          mda_diff_ratio=(m_df / s_df if s_df > 0 else np.nan), mda_diff_pass=bool(m_df > s_df),

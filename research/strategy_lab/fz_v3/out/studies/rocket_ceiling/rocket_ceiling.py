@@ -20,9 +20,15 @@ Definitions (fixed before any number was looked at):
   kernels     2,000 MiniRocket-style kernels (rocket_lib.make_kernels): length 9, weights {-1, +2} centred, dilation log-uniform
               on 1 .. L/4 = 15, one channel or a random pair, zero padding, a quantile level per kernel; biases fitted per training
               fold from the quantiles of the convolution outputs of 32 sampled training windows (seed = fold seed); PPV pooling
-  probe       "rocket": StandardScaler + L2 LogisticRegression (lbfgs) on the 2,000 PPV features; alpha (= 1 / C) on the grid
-              1e-3 .. 1e3 (7 values) chosen by nested GroupKFold(5) inside each training fold with groups = the harness block
-              of the row (time-contiguous groups), criterion = mean inner AUC; refit on the whole training fold at the chosen alpha
+  probe       "rocket": StandardScaler + L2 LogisticRegression (lbfgs) on the 2,000 PPV features; alpha = the PER-SAMPLE L2
+              penalty (objective (1/n) sum loss + alpha/2 |w|^2, i.e. sklearn C = 1 / (alpha n), so that the inner 80 % fits and
+              the full-fold refit carry the same regularisation and the same score scale) on the design's grid 1e-3 .. 1e3
+              (7 values), chosen by nested GroupKFold(5) inside each training fold with groups = the harness block of the row
+              (time-contiguous groups), criterion = inner OOF AUC; the path is fitted with warm starts from the smallest alpha
+              upward (a fit that reports 0 iterations is refitted cold); refit on the whole training fold at the chosen alpha.
+              (A timing benchmark on one chronological IS split before the study ran, no ledger row, showed that with sklearn's
+              unnormalised C the optimum sat on the grid's edge and the refit's logit scale drifted; the per-sample convention
+              was adopted for that reason before any fold of the study was run.)
   comparators (in the same folds)
               "tabular": HistGradientBoostingClassifier(max_depth 3, max_iter 200, learning_rate 0.05, random_state 0) on
                          harness.design(T) (244 base as-of columns; NaN native)
@@ -50,6 +56,7 @@ Definitions (fixed before any number was looked at):
 """
 import os, sys, json, time, hashlib, resource, argparse
 sys.dont_write_bytecode = True
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "NUMBA_NUM_THREADS"): os.environ.setdefault(_v, "1")   # 4 single-threaded fold workers
 HERE = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.abspath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, OUT); sys.path.insert(0, HERE)
 import numpy as np, pandas as pd, psutil
@@ -69,8 +76,8 @@ ARGS = ap.parse_args()
 
 TF, LABEL, L, K, C = "minute", "L1", 60, 2000, 7
 SEED = int(hashlib.sha1(f"fz|rocket_ceiling|{TF}|L{L}|K{K}".encode()).hexdigest(), 16) % (2 ** 32)
-ALPHAS = [10.0 ** e for e in range(-3, 4)]                       # 1e-3 .. 1e3; C = 1 / alpha
-N_INNER, N_BIAS = 5, 32
+ALPHAS = [10.0 ** e for e in range(-3, 4)]                       # 1e-3 .. 1e3 per-sample L2 penalty; sklearn C = 1 / (alpha n)
+N_INNER, N_BIAS, N_JOBS = 5, 32, 4
 SKIP_Q = (0.30, 0.50, 0.70)
 STOP_P5 = 0.03
 MODELS = ("rocket", "pca16", "tabular", "stacked")
@@ -120,22 +127,32 @@ def trunc_check(W_full, F_is, bars_cols):
 
 
 # ---------------------------------------------------------------- the models inside one fold
-def logit_nested(Ztr_fn, y_tr, groups, tag):
+def logit(alpha, n, warm=None):
+    """L2 logistic with the per-sample penalty alpha: sklearn C = 1 / (alpha n)."""
+    m = LogisticRegression(C=1.0 / (alpha * n), solver="lbfgs", max_iter=5000, tol=1e-4, warm_start=warm is not None)
+    if warm is not None: m.coef_, m.intercept_, m.classes_ = warm.coef_.copy(), warm.intercept_.copy(), warm.classes_
+    return m
+
+
+def logit_path(Zi, yi, Zo):
+    """L2 logistic fits along the alpha grid from the smallest alpha upward with warm starts (a fit reporting 0 iterations is refitted
+    cold, so no alpha inherits its neighbour's solution by the convergence test alone). Returns {alpha: (scores on Zo, n_iter)}."""
+    res, prev = {}, None
+    for a in ALPHAS:
+        m = logit(a, len(yi), prev).fit(Zi, yi)
+        if int(m.n_iter_[0]) == 0: m = logit(a, len(yi)).fit(Zi, yi)
+        res[a] = (m.decision_function(Zo), int(m.n_iter_[0])); prev = m
+    return res
+
+
+def logit_nested(Ztr_fn, y_tr, groups):
     """Nested GroupKFold alpha choice for a linear probe. Ztr_fn(itr, ite) -> (Z_inner_train, Z_inner_test) with every scaler / PCA
     fitted on the inner training rows only. Returns best alpha, the inner OOF scores at every alpha, the per-alpha inner AUC."""
     gkf = GroupKFold(n_splits=N_INNER)
-    splits = list(gkf.split(np.zeros(len(y_tr)), y_tr, groups))
-
-    def one(itr, ite):
-        Zi, Zo = Ztr_fn(itr, ite)
-        res = {}
-        for a in ALPHAS:
-            m = LogisticRegression(C=1.0 / a, penalty="l2", solver="lbfgs", max_iter=5000, tol=1e-4).fit(Zi, y_tr[itr])
-            res[a] = (m.decision_function(Zo), int(m.n_iter_[0]))
-        return res
-    parts = Parallel(n_jobs=min(4, N_INNER), prefer="processes")(delayed(one)(itr, ite) for itr, ite in splits)
     oof = {a: np.full(len(y_tr), np.nan) for a in ALPHAS}; iters = {a: [] for a in ALPHAS}
-    for (itr, ite), res in zip(splits, parts):
+    for itr, ite in gkf.split(np.zeros(len(y_tr)), y_tr, groups):
+        Zi, Zo = Ztr_fn(itr, ite)
+        res = logit_path(Zi, y_tr[itr], Zo)
         for a in ALPHAS: oof[a][ite] = res[a][0]; iters[a].append(res[a][1])
     auc = {a: float(roc_auc_score(y_tr, oof[a])) for a in ALPHAS}
     best = max(ALPHAS, key=lambda a: auc[a])
@@ -161,15 +178,15 @@ def fit_fold(ctx, tr, te, tag):
     # -- kernel biases from the training fold, PPV features
     t = time.time(); bias, samp = R.fit_biases(W, ptr, kern, fs, N_BIAS)
     Ptr, Pte = R.transform(W, ptr, kern, bias), R.transform(W, pte, kern, bias); times["transform"] = round(time.time() - t, 2)
-    out = dict(tag=tag, seed=int(fs), n_train=int(len(tr)), n_test=int(len(te)), bias_sample_rows=[int(ptr[i] == 0) for i in []], scores={}, thr={}, auc={}, ap={}, alpha={}, inner_auc={}, iters={})
+    out = dict(tag=tag, seed=int(fs), n_train=int(len(tr)), n_test=int(len(te)), scores={}, thr={}, auc={}, ap={}, alpha={}, inner_auc={}, iters={})
     out["bias_sample_first5"] = [int(x) for x in samp[:5]]
     # -- rocket probe
     t = time.time()
     def z_ppv(itr, ite):
         sc = StandardScaler().fit(Ptr[itr]); return sc.transform(Ptr[itr]), sc.transform(Ptr[ite])
-    a_r, oof_r, auc_r, it_r = logit_nested(z_ppv, y_tr, groups, tag)
+    a_r, oof_r, auc_r, it_r = logit_nested(z_ppv, y_tr, groups)
     sc = StandardScaler().fit(Ptr)
-    m = LogisticRegression(C=1.0 / a_r, penalty="l2", solver="lbfgs", max_iter=5000, tol=1e-4).fit(sc.transform(Ptr), y_tr)
+    m = logit(a_r, len(y_tr)).fit(sc.transform(Ptr), y_tr)
     s_te = m.decision_function(sc.transform(Pte)); s_in = oof_r[a_r]
     out["scores"]["rocket"], out["alpha"]["rocket"], out["inner_auc"]["rocket"], out["iters"]["rocket"] = s_te, a_r, auc_r, it_r
     out["thr"]["rocket"] = {q: float(np.quantile(s_in, q)) for q in SKIP_Q}; out["iters"]["rocket_final"] = int(m.n_iter_[0])
@@ -180,9 +197,9 @@ def fit_fold(ctx, tr, te, tag):
     def z_pca(itr, ite):
         sc_ = StandardScaler().fit(Ftr[itr]); p_ = PCA(16, random_state=0).fit(sc_.transform(Ftr[itr]))
         return p_.transform(sc_.transform(Ftr[itr])), p_.transform(sc_.transform(Ftr[ite]))
-    a_p, oof_p, auc_p, it_p = logit_nested(z_pca, y_tr, groups, tag + "|pca")
+    a_p, oof_p, auc_p, it_p = logit_nested(z_pca, y_tr, groups)
     sc2 = StandardScaler().fit(Ftr); pca_w = PCA(16, random_state=0).fit(sc2.transform(Ftr))
-    m2 = LogisticRegression(C=1.0 / a_p, penalty="l2", solver="lbfgs", max_iter=5000, tol=1e-4).fit(pca_w.transform(sc2.transform(Ftr)), y_tr)
+    m2 = logit(a_p, len(y_tr)).fit(pca_w.transform(sc2.transform(Ftr)), y_tr)
     out["scores"]["pca16"] = m2.decision_function(pca_w.transform(sc2.transform(Fte)))
     out["alpha"]["pca16"], out["inner_auc"]["pca16"], out["iters"]["pca16"] = a_p, auc_p, it_p
     out["thr"]["pca16"] = {q: float(np.quantile(oof_p[a_p], q)) for q in SKIP_Q}
@@ -249,15 +266,17 @@ def main():
     log(f"numba JIT {t_jit}s; one full transform {Pall.shape} in {t_tr}s ({Pall.nbytes / 2 ** 20:.1f} MB float32); PPV mean {Pall.mean():.4f}, constant kernels {(Pall.std(axis=0) == 0).sum()}")
     del Pall
 
-    # ---------------- 12 purged splits: OOF probabilities and per-fold AUC
+    # ---------------- 12 purged splits: OOF probabilities and per-fold AUC (folds run 4 at a time, one thread each)
+    KEYS = ("seed", "n_train", "n_test", "auc", "ap", "alpha", "inner_auc", "inner_oof_auc_at_chosen", "iters", "thr", "times", "fold_s", "pca16_window_evr", "pca16_ppv_evr", "bias_sample_first5")
     oof = {m: np.full(T.n, np.nan) for m in MODELS}; keep12 = {(m, q): np.ones(T.n, dtype=bool) for m in MODELS for q in SKIP_Q}
-    folds = []
-    for b, (tr, te) in enumerate(H.purged_splits(T)):
-        r = fit_fold(ctx, tr, te, f"purged|{b}")
+    folds = []; P12 = list(H.purged_splits(T))
+    gen = Parallel(n_jobs=N_JOBS, return_as="generator")(delayed(fit_fold)(ctx, tr, te, f"purged|{b}") for b, (tr, te) in enumerate(P12))
+    for b, r in enumerate(gen):
+        tr, te = P12[b]
         for m in MODELS:
             oof[m][te] = r["scores"][m]
             for q, kp in keep_from(r["scores"][m], r["thr"][m]).items(): keep12[(m, q)][te] = kp
-        folds.append(dict(split="purged", block=b, **{k: r[k] for k in ("seed", "n_train", "n_test", "auc", "ap", "alpha", "inner_auc", "inner_oof_auc_at_chosen", "iters", "thr", "times", "fold_s", "pca16_window_evr", "pca16_ppv_evr", "bias_sample_first5")}))
+        folds.append(dict(split="purged", block=b, **{k: r[k] for k in KEYS}))
         log(f"purged block {b}: n {len(tr)}/{len(te)} AUC " + " ".join(f"{m} {r['auc'][m]:.4f}" for m in MODELS) + f" | alpha rocket {r['alpha']['rocket']} pca16 {r['alpha']['pca16']} | {r['fold_s']}s {r['times']}")
     is_y = T.win[is_rows]
     oof_auc = {m: float(roc_auc_score(is_y, oof[m][is_rows])) for m in MODELS}
@@ -269,14 +288,16 @@ def main():
 
     # ---------------- 66 CPCV splits -> 11 paths
     oof_scores = {m: {} for m in MODELS}; oof_keep = {(m, q): {} for m in MODELS for q in SKIP_Q}; cp = []
-    for j, (tr, te, (a, b)) in enumerate(H.cpcv_splits(T)):
-        r = fit_fold(ctx, tr, te, f"cpcv|{a}|{b}")
+    P66 = list(H.cpcv_splits(T))
+    gen = Parallel(n_jobs=N_JOBS, return_as="generator")(delayed(fit_fold)(ctx, tr, te, f"cpcv|{a}|{b}") for tr, te, (a, b) in P66)
+    for j, r in enumerate(gen):
+        tr, te, (a, b) = P66[j]
         for m in MODELS:
             oof_scores[m][(a, b)] = r["scores"][m].astype(float)
             for q, kp in keep_from(r["scores"][m], r["thr"][m]).items(): oof_keep[(m, q)][(a, b)] = kp.astype(float)
-        cp.append(dict(split="cpcv", blocks=[a, b], **{k: r[k] for k in ("seed", "n_train", "n_test", "auc", "ap", "alpha", "inner_auc", "inner_oof_auc_at_chosen", "iters", "thr", "times", "fold_s", "pca16_window_evr", "pca16_ppv_evr", "bias_sample_first5")}))
+        cp.append(dict(split="cpcv", blocks=[a, b], **{k: r[k] for k in KEYS}))
         if j % 6 == 0 or j == 65:
-            log(f"cpcv split {j + 1}/66 ({a},{b}): AUC " + " ".join(f"{m} {r['auc'][m]:.4f}" for m in MODELS) + f" | {r['fold_s']}s")
+            log(f"cpcv split {j + 1}/66 ({a},{b}): AUC " + " ".join(f"{m} {r['auc'][m]:.4f}" for m in MODELS) + f" | alpha rocket {r['alpha']['rocket']} | {r['fold_s']}s")
     paths = {m: H.cpcv_paths(T, oof_scores[m]) for m in MODELS}
     path_rows = []
     for p in range(len(paths["tabular"])):
@@ -305,7 +326,7 @@ def main():
     log(f"all 78 folds done at {t_models}s; RSS now {rss_models} MB, peak {peak_models} MB")
 
     # ---------------- the ledger: every OOF gate and its CPCV paths
-    cfg0 = dict(L=L, kernels=K, channels=C, seed=SEED, n_bias=N_BIAS, alphas=ALPHAS, inner_folds=N_INNER, threshold="q-quantile of the training fold's inner OOF scores", label=LABEL)
+    cfg0 = dict(L=L, kernels=K, channels=C, seed=SEED, n_bias=N_BIAS, alphas=ALPHAS, alpha_convention="per-sample L2, C = 1/(alpha n)", inner_folds=N_INNER, threshold="q-quantile of the training fold's inner OOF scores", label=LABEL)
     gates = []; gate_paths = {}
     controls = not ARGS.skip_controls
     for m in MODELS:

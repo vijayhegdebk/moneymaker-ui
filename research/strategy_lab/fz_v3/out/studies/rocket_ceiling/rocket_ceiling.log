@@ -1,0 +1,6 @@
+[05:01:33 +    0.0s rss   254MB] rocket_ceiling start; ledger sha b2713a7abf8fadd6; SEED 3795216026; L 60 K 2000 C 7; alphas [0.001, 0.01, 0.1, 1.0, 10.0, 100.0, 1000.0]; inner 5; n_bias 32; skip_q (0.3, 0.5, 0.7); STOP p5 < 0.03
+[05:01:34 +    0.9s rss   344MB] units 5266 (IS 4452, OOS 814 = row count only); IS win rate 0.1559; blocks [396, 388, 384, 509, 390, 341, 424, 266, 170, 499, 173, 512]
+[05:01:35 +    1.8s rss   401MB] windows (4452, 7, 60) float32 7.1 MB in 0.09s; channel means [0.13600000739097595, 0.9810000061988831, 0.02199999988079071, 0.11599999666213989, 0.03099999949336052, -0.6480000019073486, 0.9110000133514404] sds [4.242000102996826, 0.46700000762939453, 0.6819999814033508, 0.7559999823570251, 0.1720000058412552, 2.75600004196167, 0.2849999964237213]; NA-flag share 0.0305; same-session share 0.9110; windows crossing the session start 0.1584
+[05:01:36 +    2.4s rss   374MB] truncation check: setups before cut [3767, 3767] same keys True max |diff| 0.0 PASS True
+[05:01:36 +    2.5s rss   374MB] kernel bank saved (seed 3795216026): dilation counts [496, 303, 205, 176, 123, 110, 89, 93, 86, 66, 67, 77, 61, 48, 0], pair share 0.504, channel use [439, 466, 443, 402, 392, 442, 425]
+[05:01:37 +    3.4s rss   398MB] design matrix (4452, 244) (base as-of columns), flattened window (4452, 420)

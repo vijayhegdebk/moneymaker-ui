@@ -125,6 +125,10 @@ def run_tf(tf, fh):
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser(); ap.add_argument("--tf", default="5minute,minute", help="comma list; one timeframe per process lets both run in parallel")
+    ap.add_argument("--out", default="drift.json", help="output file (drift_<tf>.json for a per-timeframe run; write_findings.py merges it)")
+    a = ap.parse_args()
     fh = open(os.path.join(HERE, "drift.log"), "a")
     res = dict(study="null_tapes_drift", part="d: adversarial validation IS-early vs IS-late",
                not_run_here="IS-vs-OOS adversarial validation (runs after the single OOS evaluation, in oos_once.py's post-mortem, label-free, explanatory only)",
@@ -132,10 +136,10 @@ def main():
                                       "in the study's FINDINGS; a rule that uses a time proxy (time_proxies) is refused as a calendar rule, not a market rule; "
                                       "a rule that uses any feature of top20_drifted carries the feature's std_shift as a caveat"),
                timeframes={})
-    for tf in ("5minute", "minute"):
+    for tf in a.tf.split(","):
         res["timeframes"][tf] = run_tf(tf, fh)
-        json.dump(res, open(os.path.join(HERE, "drift.json"), "w"), indent=1, default=str)
-    log("drift.json written", fh)
+        json.dump(res, open(os.path.join(HERE, a.out), "w"), indent=1, default=str)
+    log(f"{a.out} written", fh)
 
 
 if __name__ == "__main__":

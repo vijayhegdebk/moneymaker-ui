@@ -1,3 +1,5 @@
 [04:52:33 rss 193.1 MB] === importance 5minute dry=True trees=20 n_jobs=4 ===
 [04:52:35 rss 247.0 MB] 5minute: design 236 + ext 61 -> dropped nan>40% 38, const 4, binary 2nd level 6, duplicates 28; + 17 missing indicators = 238 features
 [04:52:36 rss 245.9 MB] clustering: 238 features, silhouette best k=39 (0.1502), clusters formed 39, 0.8s
+[04:53:01 rss 253.9 MB] depth 4 fold 0: n_tr 741 n_te 82 tau 0.05 ll 0.7165 diff nan kept 1.0 (25.2s)
+[04:53:11 rss 255.4 MB] depth 4 fold 1: n_tr 741 n_te 83 tau 0.05 ll 0.7133 diff nan kept 1.0 (9.6s)

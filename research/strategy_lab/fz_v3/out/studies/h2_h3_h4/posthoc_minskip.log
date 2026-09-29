@@ -17,3 +17,4 @@
 05:39:14   pre-registered row 8eaee251afffdbb3 over the completed family: 56 candidates, PBO diff 0.6604, SPA p 0.0, DSR p 0.9967, go False
 05:39:14 == h4 5minute_L1: 9 cells
 05:39:26   nested-CV_minskip OOF: kept 466 (0.5642) diff -414.67 pct 21.9 p 0.1934 blocks 4 id 2d6bb302b6a0f498
+05:40:34   CPCV 11 paths: diff median -82.14 p5 -266.27 min -320.77 share>0 0.455 control pct median 26.9 p5 6.0

@@ -1,6 +1,6 @@
 # FZ v3 audit index
 
-Regenerated 2026-09-29T12:18:18 by `audit_export.py`. Every agent of the program is listed with its full transcript (every prompt, tool call, tool result and final report) and its structured verdict. The harness ledger (`ledger/trials.jsonl`, one row per configuration ever scored; `ledger/vectors/<id>_<split>.npz`, the per-session vectors behind PBO / SPA / bootstrap) and the registrations (`ledger/registrations.jsonl`, hashed pre-registrations, corrections, candidates, the OOS opening) are committed as they are. The main session's own record is the commit history of branch `research/strategy-lab-pwxiug` plus `PROGRESS.md`.
+Regenerated 2026-09-29T12:24:12 by `audit_export.py`. Every agent of the program is listed with its full transcript (every prompt, tool call, tool result and final report) and its structured verdict. The harness ledger (`ledger/trials.jsonl`, one row per configuration ever scored; `ledger/vectors/<id>_<split>.npz`, the per-session vectors behind PBO / SPA / bootstrap) and the registrations (`ledger/registrations.jsonl`, hashed pre-registrations, corrections, candidates, the OOS opening) are committed as they are. The main session's own record is the commit history of branch `research/strategy-lab-pwxiug` plus `PROGRESS.md`.
 
 ## Workflows
 
@@ -84,6 +84,13 @@ Regenerated 2026-09-29T12:18:18 by `audit_export.py`. Every agent of the program
 | repair:importance | Repair | ab1fe3b4846387a6c | `audit/workflows/phase2/agent-ab1fe3b4846387a6c.jsonl` | `audit/workflows/phase2/results/repair:importance.json` |
 | recheck:importance | Repair | a1bfa346fb0ba633d | `audit/workflows/phase2/agent-a1bfa346fb0ba633d.jsonl` | `audit/workflows/phase2/results/recheck:importance.json` |
 
+### phase3 (run wf_e200b95a-fcc; script `workflows/phase3.js`; journal `audit/workflows/phase3/journal.jsonl`)
+
+| agent label | phase | agentId | transcript | structured result |
+|---|---|---|---|---|
+| study:gate_family | Studies | a9da6406214d23e57 | `audit/workflows/phase3/agent-a9da6406214d23e57.jsonl` | `audit/workflows/phase3/results/study:gate_family.json` |
+| study:llm_round1:tables | Studies | ac13a14f7946836cc | `audit/workflows/phase3/agent-ac13a14f7946836cc.jsonl` | `audit/workflows/phase3/results/study:llm_round1:tables.json` |
+
 ## Studies
 
 ### exit_policy
@@ -95,7 +102,7 @@ Regenerated 2026-09-29T12:18:18 by `audit_export.py`. Every agent of the program
 - verify:exit_policy:leakage (phase1b, a23436ca2aa96f5f0): refuted=False severity=minor issues=5 -> `audit/workflows/phase1b/results/verify:exit_policy:leakage.json`
 - verify:exit_policy:arithmetic (phase1b, a27323cae47775d69): refuted=True severity=material issues=4 -> `audit/workflows/phase1b/results/verify:exit_policy:arithmetic.json`
 - repair:exit_policy (phase1b, a587fab1b464f38bc): completed=True null_result=True -> `audit/workflows/phase1b/results/repair:exit_policy.json`
-- recheck:exit_policy (phase1b, a5ad42c6954f97d05):  -> `audit/workflows/phase1b/results/recheck:exit_policy.json`
+- recheck:exit_policy (phase1b, a5ad42c6954f97d05): refuted=False severity=minor issues=1 -> `audit/workflows/phase1b/results/recheck:exit_policy.json`
 
 ### ext_features
 
@@ -149,7 +156,7 @@ Regenerated 2026-09-29T12:18:18 by `audit_export.py`. Every agent of the program
 
 ### null_tapes_drift
 
-- folder `studies/null_tapes_drift/` (2358 files); FINDINGS: `studies/null_tapes_drift/FINDINGS.md`; findings.json: yes
+- folder `studies/null_tapes_drift/` (2373 files); FINDINGS: `studies/null_tapes_drift/FINDINGS.md`; findings.json: yes
 - study:null_tapes_drift (phase1b, a672b3f04fd37340a):  -> `audit/workflows/phase1b/results/study:null_tapes_drift.json`
 - study:null_tapes_drift (phase1b, aaf4bfe3c33b6b10c): completed=True null_result=True -> `audit/workflows/phase1b/results/study:null_tapes_drift.json`
 - verify:null_tapes_drift:leakage (phase1b, a76929d834615ef18): refuted=True severity=material issues=4 -> `audit/workflows/phase1b/results/verify:null_tapes_drift:leakage.json`
@@ -175,7 +182,7 @@ Regenerated 2026-09-29T12:18:18 by `audit_export.py`. Every agent of the program
 - verify:session_stop:leakage (phase1, abfafc66be6a6d8ee): refuted=True severity=material issues=6 -> `audit/workflows/phase1/results/verify:session_stop:leakage.json`
 - verify:session_stop:arithmetic (phase1, abd9f684f36ef4935): refuted=True severity=material issues=4 -> `audit/workflows/phase1/results/verify:session_stop:arithmetic.json`
 - repair:session_stop (phase1, aab80629544f3a62c): completed=True null_result=True -> `audit/workflows/phase1/results/repair:session_stop.json`
-- recheck:session_stop (phase1, a3c00cd6268108ba3):  -> `audit/workflows/phase1/results/recheck:session_stop.json`
+- recheck:session_stop (phase1, a3c00cd6268108ba3): refuted=False severity=none issues=0 -> `audit/workflows/phase1/results/recheck:session_stop.json`
 
 ## Other agents
 

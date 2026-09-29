@@ -1,0 +1,9 @@
+{
+ "agentId": "ac13a14f7946836cc",
+ "label": "study:llm_round1:tables",
+ "phase": "Studies",
+ "result": null,
+ "key": "v2:aaeff31010bc321d2fb3acf8217f0bce36eafc713de6c2f6198e7c8e0dc72b76",
+ "transcript": "audit/workflows/phase3/agent-ac13a14f7946836cc.jsonl",
+ "meta": "audit/workflows/phase3/agent-ac13a14f7946836cc.meta.json"
+}

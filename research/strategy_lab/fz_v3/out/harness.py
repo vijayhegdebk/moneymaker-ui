@@ -471,25 +471,40 @@ def selection_gain(vec):
     return np.where(np.isnan(d), 0.0, d), vec["kept_n"] > 0
 
 
-def spa(vectors, draws=BOOT_DRAWS, tag=""):
+def spa(vectors, draws=BOOT_DRAWS, tag="", min_active=None):
     """White's Reality Check and Hansen's SPA over a family of candidates: H0 = no candidate has positive expected selection
-    gain (per-session kept mean minus the session mean). Stationary bootstrap of sessions, studentised statistics, Hansen's
-    consistent recentring. Returns the best candidate's statistic and the RC / SPA p-values."""
+    gain (per-session kept mean minus the session mean). Stationary bootstrap of sessions, Hansen's consistent recentring;
+    reported both studentised (Hansen) and unstudentised (White's original statistic, sqrt(T) x mean). A candidate whose
+    selection gain differs from zero in fewer than `min_active` sessions (default max(10, 5% of T)) is excluded from the
+    studentised family: its near-zero variance would give it an arbitrarily large t (the exit-policy refuter's finding); it
+    stays in the unstudentised family. Returns the best candidate under each statistic and the four p-values."""
     Dm = np.array([selection_gain(v)[0] for v in vectors], dtype=float)       # M x T
     M, T_ = Dm.shape
-    mu = Dm.mean(axis=1); se = Dm.std(axis=1, ddof=1) / math.sqrt(T_); se = np.where(se > 0, se, np.inf)
-    tstat = np.sqrt(T_) * mu / (Dm.std(axis=1, ddof=1) + 1e-12)
+    if min_active is None: min_active = max(10, int(0.05 * T_))
+    active = (np.abs(Dm) > 1e-9).sum(axis=1)
+    ok = active >= min_active
+    mu = Dm.mean(axis=1); sd = Dm.std(axis=1, ddof=1) + 1e-12
     idx = stationary_bootstrap_idx(T_, draws, tag=tag)
-    best = int(np.argmax(tstat)); rc_stat = float(tstat[best])
-    # bootstrap of the max studentised statistic under the recentred null
     mub = np.stack([Dm[:, idx[d]].mean(axis=1) for d in range(draws)])           # draws x M
     sdb = np.stack([Dm[:, idx[d]].std(axis=1, ddof=1) for d in range(draws)]) + 1e-12
-    rc_max = np.max(np.sqrt(T_) * (mub - mu) / sdb, axis=1)                       # White: recentre at the sample mean
     thr = np.sqrt(np.var(Dm, axis=1, ddof=1) / T_ * 2 * math.log(math.log(T_)))
     mu_c = np.where(mu < -thr, mu, 0.0)                                            # Hansen's consistent recentring
-    spa_max = np.max(np.sqrt(T_) * (mub - mu + mu_c) / sdb, axis=1)
-    return dict(candidates=M, sessions=T_, best=best, best_mean_gain=round(float(mu[best]), 2), best_t=round(rc_stat, 3),
-                rc_p=round(float((rc_max >= rc_stat).mean()), 4), spa_p=round(float((spa_max >= rc_stat).mean()), 4), draws=draws)
+    out = dict(candidates=M, sessions=T_, draws=draws, min_active_sessions=int(min_active), excluded_from_studentised=int((~ok).sum()))
+    # unstudentised (White 2000): statistic sqrt(T) x mean gain, every candidate
+    tu = np.sqrt(T_) * mu; bu = int(np.argmax(tu)); stat_u = float(tu[bu])
+    rc_u = np.max(np.sqrt(T_) * (mub - mu), axis=1); spa_u = np.max(np.sqrt(T_) * (mub - mu + mu_c), axis=1)
+    out.update(best_unstudentised=bu, best_mean_gain_unstudentised=round(float(mu[bu]), 2),
+               rc_p_unstudentised=round(float((rc_u >= stat_u).mean()), 4), spa_p_unstudentised=round(float((spa_u >= stat_u).mean()), 4))
+    # studentised (Hansen 2005), candidates with enough active sessions
+    if ok.any():
+        ts = np.where(ok, np.sqrt(T_) * mu / sd, -np.inf); bs = int(np.argmax(ts)); stat_s = float(ts[bs])
+        rc_s = np.max(np.where(ok, np.sqrt(T_) * (mub - mu) / sdb, -np.inf), axis=1)
+        spa_s = np.max(np.where(ok, np.sqrt(T_) * (mub - mu + mu_c) / sdb, -np.inf), axis=1)
+        out.update(best=bs, best_mean_gain=round(float(mu[bs]), 2), best_t=round(stat_s, 3), best_active_sessions=int(active[bs]),
+                   rc_p=round(float((rc_s >= stat_s).mean()), 4), spa_p=round(float((spa_s >= stat_s).mean()), 4))
+    else:
+        out.update(best=None, best_mean_gain=None, best_t=None, best_active_sessions=None, rc_p=None, spa_p=None)
+    return out
 
 
 # ---------------------------------------------------------------- structural breaks of the book's own expectancy

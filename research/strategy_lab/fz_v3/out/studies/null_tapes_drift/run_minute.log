@@ -45,3 +45,5 @@
 [04:40:37] evaluated minute gmm_4: units 1470, setups/sess 6.0648, frozen_st7_st8 diff -37.25 pct 89.7 choch2_skip diff 132.04 pct 90.9 sl_above_median_skip diff 71.62 pct 89.0
 [04:41:22] built minute gmm_5: 102.7s, peak rss 484.3 MB
 [04:41:36] evaluated minute gmm_5: units 1312, setups/sess 5.4049, frozen_st7_st8 diff -90.26 pct 28.6 choch2_skip diff 173.19 pct 71.2 sl_above_median_skip diff 26.14 pct 46.4
+[04:42:19] built minute gmm_6: 101.8s, peak rss 489.5 MB
+[04:42:32] evaluated minute gmm_6: units 1500, setups/sess 6.1741, frozen_st7_st8 diff -97.52 pct 26.1 choch2_skip diff 94.5 pct 69.8 sl_above_median_skip diff -63.9 pct 56.0

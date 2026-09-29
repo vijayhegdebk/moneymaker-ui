@@ -1,0 +1,45 @@
+{
+ "agentId": "a0dafb56d058c04fe",
+ "label": "verify:llm_round0:arithmetic",
+ "phase": "Verify",
+ "result": {
+  "refuted": true,
+  "severity": "material",
+  "issues": [
+   {
+    "what": "Three of the sixteen pre-registered rules have no support on IS and are untestable: r0_m8 fires on 0 of 4,502 minute IS SETUPs, r0_m6 on 1, r0_f8 on 1 of 832 5-minute IS SETUPs (r0_m2 on 44 = 0.98%). The cause for m8/f8 is a unit error in the 'round guesses in the user's units' claim: sess_range_atr is in ATR14 units and ATR14 on 1-minute bars has IS median 8.82 pts, so the session range an hour in is ~9+ ATR (IS median 15.1, min 1.34 at session start); the only minute row with session_bar >= 60 and n_bos_today == 0 sits at 9.22 ATR. No kept-vs-skipped difference, control percentile or permutation p can be computed for these rules, so the study's statement that all 16 rules are 'to be scored on IS' overstates the deliverable (3 of 8 minute rules dead or near-dead).",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/llm_hypotheses/rules_round0.json lines 129-152 (r0_m6), 176-198 (r0_m8), 351-373 (r0_f8); ROUND0.md line 65 ('round guesses in the user's units')",
+    "evidence": "Reproduced label-free on IS rows of OUT/data/<tf>/features.parquet with scratchpad check_round0.py: minute fired counts m1 917, m2 44, m3 930, m4 349, m5 1462, m6 1, m7 571, m8 0 (union 2642 = 58.7% skipped, kept 1860); 5minute f1 57, f2 55, f3 79, f4 54, f5 53, f6 37, f7 91, f8 1 (union 303, kept 529). minute: touch_swing_last == 'held' on 5 of 4,502 rows; rows with session_bar>=60 & n_bos_today==0: 1, its sess_range_atr 9.22; atr14 median 8.82 pts. 5minute: 72 rows with session_bar>=12 & n_bos_today==0, min sess_range_atr 2.87, 1 row <= 3.0. Also no-op comparisons: room_ahead_dist_atr > 0 excludes 0 rows on both tfs; swing_ahead_dist_atr <= 1.0 excludes 0 rows on 5m and 4 on 1m.",
+    "fix": "Do not edit the hashed file. In round-1 scoring report m6, m8, f8 as 'no IS support (n_skipped <= 1), untestable' with their counts, keep them in the family count for max-T / Holm / PBO, and record the unit error against the sess_range_atr thresholds. If a corrected proposal is wanted, register it as a new round with its own sha and carry the multiplicity forward; never re-threshold the round-0 rules after seeing labels."
+   },
+   {
+    "what": "The ledger registration asserts the rules were 'hashed before any labelled table of the program existed'; that is false by the artifacts' timestamps, so the study's central property (blind) rests only on the proposer's self-report, not on a verifiable ordering. Judge 2's binding fix reads 'hashed before any labelled table exists'.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/ledger/registrations.jsonl line 1 (note field); DESIGN_PANEL.md line 82 (Judge 2 fix); ROUND0.md lines 14-16 (self-report)",
+    "evidence": "data/5minute/meta.json built_at 2026-09-29T02:49:45 and data/minute/meta.json built_at 02:55:51 (features.parquet carries fnd_*/l1_* labels); results/pre_registration.json mtime 03:02:14 with raw_book and frozen_gate statistics; 4 ledger rows family comparator/frozen_st7_st8 at 03:02:06; rules_round0.json written_at 03:29:35 (file mtime 03:29); registration at 03:51:33. Zero ledger rows for the llm study (grep -ci 'llm' trials.jsonl = 0), so nothing about these rules was scored before registration, but labelled tables did exist ~40 minutes before the hash.",
+    "fix": "Append (never edit) a correcting registration line stating the true ordering: labelled tables existed from 02:49; the proposer states none was opened; blindness is a process claim, not a data-ordering fact. Carry the same wording into REPORT.md and the round-1 FINDINGS.md."
+   },
+   {
+    "what": "Inputs exceed the binding judges' fix for round 0 ('the user's words and the README feature dictionary only'): FZ.md sections 7-9 and 19 were also read. Sections 7-9 are the card vocabulary the README points to (defensible); section 19 prints ST7/ST8 priced nets, control percentiles and permutation p over the 2026 lab tape, which coincides with the OOS window. It does not print Foundation outcome by read or hour, so no rule cell is visibly informed, and the read was disclosed; caveat, not refutation.",
+    "where": "ROUND0.md lines 11, 70-72; DESIGN_PANEL.md lines 80 and 82; FZ.md lines 455-473",
+    "evidence": "FZ.md 19 tables at lines 457-469 give All data / Design / Unseen positions, net vs Foundation, control pct and perm p for ST7/ST8 on the 3-month 2026 tape; grep of FZ.md for THIN/RECYCLE with net/INR/win terms finds only card descriptions, no outcome-by-read table. STUDY_AGENT_BRIEF.md line 11 permits FZ.md 7-9 and 19 for studies reading card/gate columns, which conflicts with the narrower judges' fix.",
+    "fix": "State in the round-1 FINDINGS.md that round 0's inputs included FZ.md 19 (OOS-window comparator aggregates) and that this is the only deviation from the judges' 'user's words + dictionary' rule; do not describe round 0 as blind to every labelled aggregate."
+   },
+   {
+    "what": "Deliverables and naming: the task names the study/folder llm_round0 but the files live under studies/llm_hypotheses/; the folder holds no FINDINGS.md, findings.json or script although the standing brief requires both files for every study; the report marks completed=true and null_result=false although nothing has been tested (null_result should be null / not yet scored). A report aggregator reading studies/*/findings.json will not see this study.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/llm_hypotheses/ (only ROUND0.md, rules_round0.json, rules_round0.sha256); STUDY_AGENT_BRIEF.md lines 56-62",
+    "evidence": "ls of OUT/studies shows no llm_round0 directory; ls of llm_hypotheses shows three files, none .py/.json findings; the study report JSON says completed true, null_result false with no statistic.",
+    "fix": "After round-1 scoring, write studies/llm_hypotheses/FINDINGS.md and findings.json with candidates = the 16 round-0 rules (with their sha), per-rule and union statistics, and null_result set from harness.go_no_go; until then record null_result as not-yet-scored, not false. Use one folder name consistently in the orchestrator."
+   },
+   {
+    "what": "Judge 1's binding fix 'features restricted to study 3's shortlist' could not have been applied: the feature-importance pass (the shortlist) has not run, and ROUND0.md does not mention the constraint. Also the multiplicity for scoring is not pre-declared (16 rules + 2 unions + any greedy combination), and the design's max-T / Holm, CPCV distribution, PBO and SPA are not named in the judging paragraph.",
+    "where": "DESIGN_PANEL.md line 80 (Judge 1) and line 68 (method steps 3-4); ROUND0.md lines 60-65",
+    "evidence": "Task list shows the feature-vocabulary pass (#4) pending; no features_ext or importance shortlist referenced in ROUND0.md; the judging paragraph names net kept vs skipped, share of winners skipped, control percentile and permutation p only.",
+    "fix": "Before scoring, decide and record whether round-0 columns are exempt from the shortlist (they derive from the user's words) or are intersected with it when it exists; declare the family size (at least 18 trials per timeframe) for max-T and PBO in the scoring script and report the CPCV path distribution for any union or greedy combination."
+   }
+  ],
+  "verified": "Reproduced: sha256sum -c rules_round0.sha256 = OK (a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182), matching ROUND0.md line 5 and ledger/registrations.jsonl; the report's mistyped sha is only in its prose. 8 rules per timeframe, every rule <= 3 comparisons (asserted in code). All 17 rule columns per timeframe exist in features.parquet (19 distinct across both), none carries a label prefix, none is in harness.NOT_FEATURES (harness.py lines 52-58), so all are in Table.asof_columns(); each is listed as as-of in data/README.md. Value spellings match the data: fz_read uppercase RECYCLE/THIN, touch_swing_last 'held', hv3_dir_agree object True/False/None, hour int64. No ledger row for this study (0 of 786 trials), i.e. nothing scored before the 03:51:33 registration; written_at 03:29:35 agrees with the file mtime. FZ.md section 19 carries no Foundation-outcome-by-read or by-hour table. Union kept share on IS: minute 1,860 of 4,502 (41.3%), 5minute 529 of 832 (63.6%), both above the kept-share >= 20% and kept-n >= 300/80 floors. No OOS label or feature was read (OOS used only as a row count: 824 / 180). No study, ledger or data file was modified; the check script lives in the scratchpad."
+ },
+ "key": "v2:5b8af6bcce941e8a15b090aac9582ebe0b834cf58b8fce3fe28c1409ef8cfd27",
+ "transcript": "audit/workflows/phase1/agent-a0dafb56d058c04fe.jsonl",
+ "meta": "audit/workflows/phase1/agent-a0dafb56d058c04fe.meta.json"
+}

@@ -1,0 +1,9 @@
+{
+ "agentId": "a2fa1fcd6089ef4ee",
+ "label": "study:rocket_ceiling",
+ "phase": "Studies",
+ "result": null,
+ "key": "v2:e9f5ccf28ac0bf3bae7222e964c85b2f3d1f21df4459c71af466dd1a8b44f469",
+ "transcript": "audit/workflows/phase2/agent-a2fa1fcd6089ef4ee.jsonl",
+ "meta": "audit/workflows/phase2/agent-a2fa1fcd6089ef4ee.meta.json"
+}

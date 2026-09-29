@@ -1,0 +1,9 @@
+{
+ "agentId": "a672b3f04fd37340a",
+ "label": "study:null_tapes_drift",
+ "phase": "Studies",
+ "result": null,
+ "key": "v2:15b04a71b5261086225ed474af7d2882e4933d776d534a135616612974c16689",
+ "transcript": "audit/workflows/phase1b/agent-a672b3f04fd37340a.jsonl",
+ "meta": "audit/workflows/phase1b/agent-a672b3f04fd37340a.meta.json"
+}

@@ -1,0 +1,9 @@
+{
+ "agentId": "a7b1704339f2fe9f3",
+ "label": "study:importance",
+ "phase": "Studies",
+ "result": null,
+ "key": "v2:65f9152cd183d7a29042fa7a385371aef23ce875797eea63bc42ef794e4d4cdf",
+ "transcript": "audit/workflows/phase2/agent-a7b1704339f2fe9f3.jsonl",
+ "meta": "audit/workflows/phase2/agent-a7b1704339f2fe9f3.meta.json"
+}

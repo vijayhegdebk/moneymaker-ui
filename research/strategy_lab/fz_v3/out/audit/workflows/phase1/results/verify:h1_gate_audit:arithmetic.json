@@ -1,0 +1,51 @@
+{
+ "agentId": "ad1e0a52c0b0578e7",
+ "label": "verify:h1_gate_audit:arithmetic",
+ "phase": "Verify",
+ "result": {
+  "refuted": false,
+  "severity": "minor",
+  "issues": [
+   {
+    "what": "Late-runner count overstated: FINDINGS (and the agent's summary key_numbers) say 238 of the 268 1m/L1 big winners are held more than 60 bars; the study's own hold-bucket table and a direct recount give 223 (131 in 121-375 + 92 in 61-120). The companion figures (gate keeps 36 of them; they carry 1.62M of 1.77M) are correct.",
+    "where": "OUT/studies/h1_gate_audit/FINDINGS.md:182-183 (section 6 prose); also the study agent's final summary 'late_runners' entry",
+    "evidence": "Recomputed from data/minute/features.parquet IS rows: big & bars>60 -> 223 of 268, kept 36, net 1,616,633; h1_summary.json big_winners.by_hold: 121-375 n=131, 61-120 n=92 (sum 223); h1_minute_L1_by_hold_bucket.csv big column 131 + 92.",
+    "fix": "Replace 238 with 223 in FINDINGS.md section 6 and in the summary; no other number changes."
+   },
+   {
+    "what": "Overstatement: 'Half of the skipped big-winner net on 1 min sits in two clocks (before 09:25 and the 14:00 bin)'. The two bins carry 242,281 + 297,023 = 539,304 of 1,478,374 skipped big-winner net = 36.5%, not half.",
+    "where": "OUT/studies/h1_gate_audit/FINDINGS.md:183-185",
+    "evidence": "h1_minute_L1_by_hour_bin.csv / h1_summary.json by_hour: <09:25 net_skipped 242,281, 14 net_skipped 297,023; total skipped big net 1,478,374 (findings.json big_winners.skipped_net). Ratio 0.365, reproduced from the parquet.",
+    "fix": "Write 'about a third (36%)' instead of 'half'."
+   },
+   {
+    "what": "The 5m L0 skip_only:BLOCK:clock artefact is described as 'the 5 SETUPs at or after 15:20 that the engine held for several sessions (mean +11,942 INR under L0)'. Under L0 the >=15:20 bin has 11 rows (the ledger row itself skips 11: kept 821 of 832), nine held 1 session, one 2 sessions and one 70 sessions; the +11,942 mean is driven by that single 70-session trade. The conclusion (an uncut-label artefact) still holds; the count and the 'several sessions' description do not.",
+    "where": "OUT/studies/h1_gate_audit/FINDINGS.md:91-93; findings.json caveats[4]",
+    "evidence": "Ledger row a43e3a6e6e22f60e (5minute L0 skip_only:BLOCK:clock) kept 821 of n 832 -> 11 skipped; recount from data/5minute/features.parquet L0 IS rows with hour_bin '>=15:20': n=11, mean 11,942, fnd_sessions_held = [1,1,2,1,1,1,0,1,1,1,70]. The '5' is the L1 count (5 rows, all losers), not the L0 count.",
+    "fix": "State '11 SETUPs under L0 (5 under L1), one of which the engine held 70 sessions'."
+   },
+   {
+    "what": "'By hour the kept rows lose to the skipped in every bin but 11' on 5m/L1 is not literally true: the <09:25 bin also has kept > skipped (+1,859.5, from 2 kept rows at +1,912 vs 48 skipped at +53).",
+    "where": "OUT/studies/h1_gate_audit/FINDINGS.md:159",
+    "evidence": "h1_5minute_L1_by_hour_bin.csv rows '11' kept_minus_skipped 72.15 and '<09:25' kept_minus_skipped 1859.5.",
+    "fix": "Say 'in every bin but 11 and the 2-row <09:25 bin'."
+   },
+   {
+    "what": "Scope gap not stated: BRIEF H1 asks what 'ST7/ST8 (rooms, frozen rules) and ST5/ST6 skip'; the study audits ST7/ST8 only and never mentions ST5/ST6 or why they are out of scope (the cloud dataset carries only the ST7/ST8 fz block per data/README.md, and DESIGN_PANEL.md never names ST5/ST6).",
+    "where": "OUT/studies/h1_gate_audit/FINDINGS.md (no occurrence of ST5/ST6); fz_v3/BRIEF.md:15",
+    "evidence": "grep -i 'ST5|ST6' on FINDINGS.md returns nothing; grep -i 'ST5' on DESIGN_PANEL.md returns nothing; data/README.md line 9: 'FZ block: the frozen ST7 (1 min) / ST8 (5 min) fz block'.",
+    "fix": "Add one line to section 1 or 11: ST5/ST6 are not audited because the program dataset carries only the ST7/ST8 card and comparator."
+   },
+   {
+    "what": "No CPCV path distribution was produced and the caveat only says 'the splitter is not used in this study' without saying why. This is defensible (the frozen gate has no chosen parameter; the variants are pre-declared decompositions; the one post-hoc trial not_block_asof fails go/no-go on kept_mean_slip8 and sign_blocks regardless of any CPCV number), and it does not affect the null result, but the justification should be explicit.",
+    "where": "OUT/studies/h1_gate_audit/FINDINGS.md:257; findings.json caveats[2]",
+    "evidence": "h1_family_posthoc.json minute/L1 not_block_asof go_no_go: kept_mean_slip8>0 false (-1379.07), sign_blocks>=8/12 false (6); no 'h1/cpcv' rows in ledger/trials.jsonl (44 h1 rows, none under */cpcv).",
+    "fix": "State in the caveat that CPCV applies to searched/learned gates only and that no h1 variant has a searched parameter; note the post-hoc row fails two slippage-independent checks."
+   }
+  ],
+  "verified": "Read STUDY_AGENT_BRIEF.md, OUT/README.md, data/README.md, BRIEF.md, the DESIGN_PANEL harness/framing lines, harness.py, pre_registration.json, FINDINGS.md, findings.json, TABLES-derived CSVs, h1_summary.json, h1_family_posthoc.json, both scripts and both logs, and all 44 h1 rows of ledger/trials.jsonl. Re-derived from data/<tf>/features.parquet (IS rows only, harness.load without score, ledger untouched) on all four tables: n_is 4452/4502/826/832, kept 745/325, kept/skipped means and diff (-19.71, -129.48, -365.62, -0.73), base loser rate 0.8441/0.8481/0.7228/0.7788, precision 0.8468/0.8504/0.7206/0.7732, recall 0.8353/0.8368/0.6047/0.6049, lift 1.003/1.003/0.997/0.993, winner recall 0.1816/0.1734 (net) etc., top-decile skipped 0.8429/0.8261/0.5652/0.5263, big winners 268->225 skipped (1,478,374 of 1,771,850), 294->250, 148->95 (654,319 of 1,029,787), 128->82, huge 111->94 / 73->48, kept PF 0.327/0.411/0.563/0.898; the bridge closes to 0.0000 on all four tables with gross_inr+650 == pts*65 to 0.0000; cost share 1.0409/1.1637/1.9821/5.9164; FZ-book kept means -1027.81/-1031.67/-1107.52/-431.67; REENTER 140 (11 rows changed, -1,332) and 97 (94 changed, -41,830, -431 each, 27 band_reclaim); as-of vs outcome gate crosstabs (11 BLOCK->REENTER on 1m, 96 WATCH->REENTER on 5m); the hour bins (<09:25 28/28 and 189 rows at -843/25% winners; 14: 58/62; 5m <09:25 14/15 and 50 rows at +127), hold buckets (1m 107/131, 80/92; 5m 40/52), exit reasons (eod 471 at +2,930, 61%, 191 big, kept 20%; 5m eod 280 at +3,467, 139 big, kept 38%), reads (ACCEPTED 55%, FIRST_PRINT 49%, LEAVE 31%; NEW -831, RECYCLE -539; 5m LEAVE refused -125 vs 221 leave TAKEs -838; THIN 48 at -43; WATCH->REENTER -1,253 vs PENDING -1,279), take_why rows (654/-957, 257/-929, 44/-341; 113/-114, 98/-32, 12/+170), by-direction and median-bars figures, precision SE (0.006 -> +-0.012; 0.02 -> +-0.04), big-winner kept share 0.160/0.358. Ledger: every variant is a row with control_pct and perm_p, diff_top1_removed, kept_mean_slip8, sign_blocks; frozen rows match pre_registration on every statistic except the tag-seeded control pct and perm p; 9-family (PBO diff 0.5202/0.8708/0.5227/0.7044, SPA p 0.031/0.1925/0.124/0.5255, RC p 0.084 on 1m/L1) and 10-family (0.5823/0.9298/0.5457/0.7238; 0.0355/0.183/0.134/0.5195; eff trials 1.54/1.72/1.62/1.68; bootstrap CIs; DSR p) values match FINDINGS. go/no-go evaluated for every variant with kept_n floors 300/80; no variant passes; null stated; no candidates/ JSON. fz_report.random_control confirmed: fz_pct = share of draws below the candidate's kept net; the exact session-matched statistic for skip_only:open_pierce is +88,928 (1m) and +48,540 (5m), so the 100th percentiles alongside negative pooled diffs are correct. Cross-check script opens only built/study/h1_1m_IS_*.csv and h1_1m_big_winners_skipped_IS.csv. Verdict statements (not a loser filter; entire gain over Foundation is cost avoidance; diff inside the random band on all four tables) are supported by the reproduced numbers; the '5m keeps the worse side' phrase is a point estimate reported with its 11.6th percentile and p 0.25 beside it."
+ },
+ "key": "v2:57f4faf9483cd77afc7fd303db8cf407fdadc946629505bef21304c4af8b5e09",
+ "transcript": "audit/workflows/phase1/agent-ad1e0a52c0b0578e7.jsonl",
+ "meta": "audit/workflows/phase1/agent-ad1e0a52c0b0578e7.meta.json"
+}

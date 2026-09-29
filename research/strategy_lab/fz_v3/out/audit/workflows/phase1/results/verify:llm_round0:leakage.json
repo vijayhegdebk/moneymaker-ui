@@ -1,0 +1,45 @@
+{
+ "agentId": "a9dd44cb0345a6e48",
+ "label": "verify:llm_round0:leakage",
+ "phase": "Verify",
+ "result": {
+  "refuted": false,
+  "severity": "minor",
+  "issues": [
+   {
+    "what": "Rule r0_m8 (minute) matches 0 IS rows and r0_f8 (5minute) matches 1 IS row: the `sess_range_atr` thresholds (2.5 / 3.0) are mis-scaled for a session range measured in bar-level ATR14 units, so the 'range day with no break' rule is inert on both timeframes.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/llm_hypotheses/rules_round0.json (ids r0_m8, r0_f8); /home/user/money-maker/research/strategy_lab/fz_v3/out/studies/llm_hypotheses/ROUND0.md table rows r0_m8 / r0_f8",
+    "evidence": "Feature-only match counts on IS rows (no label read): minute `session_bar>=60`:3739, `n_bos_today==0`:235, `sess_range_atr<=2.5`:34 -> conjunction 0 of 4,452; 5minute conjunction 1 of 826. Column minimum is 1.31 (minute) / 0.915 (5minute) per features.parquet; the 34 minute rows under 2.5 are all early-session.",
+    "fix": "Do not edit the hashed file. At the scoring step record both rules as inert (kept_n floor fails) and keep them in the family count; if round 1 re-proposes a 'narrow day' rule it must use a scale-aware threshold (e.g. a quantile of sess_range_atr chosen inside training folds) and be counted as a new trial."
+   },
+   {
+    "what": "Rule r0_m6 is effectively empty on minute (1 IS row) and its third comparison is vacuous on both timeframes; the rule's stated reading ('the swing ahead was just tested and held') does not match the code, which computes `touch_swing_*` on the nearer swing, not the swing ahead.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/llm_hypotheses/rules_round0.json (r0_m6, r0_f6); /home/user/money-maker/research/strategy_lab/fz_v3/out/build/build.py:64 (TOUCH_VERDICT_BARS = 15 on minute), :389-392 and :408-410 (touch level Ls = nearest of last swing high / low to the close), :384 (swing_ahead_dist_atr)",
+    "evidence": "`touch_swing_last == 'held'` holds on 5 of 4,452 IS minute rows (169 of 826 on 5minute); `swing_ahead_dist_atr <= 1.0` holds on 99.92% of minute rows and 100% of 5minute rows (column max 1.437 / 0.924), so the '<= 1.0' comparison narrows nothing. Crosstab on 5minute IS: held rows split swing_near_kind H 92 / L 77, so the held touch is often on the swing behind the SETUP, not ahead.",
+    "fix": "At scoring, state r0_m6/r0_f6 as coded ('the nearer swing was touched and held in the last hour and a swing lies ahead') and expect kept_n failure on minute; a round-1 variant that pins the touched swing to the ahead side needs `swing_near_kind` (H for up, L for down) as a comparison and counts as a new trial."
+   },
+   {
+    "what": "`hv3_dir_agree == False` (r0_m5, r0_f5) also fires on 'flat' high-volume bars (close == open), while ROUND0.md reads it as 'in the opposite direction'.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/build/build.py:323 (dir = 'flat' when c == o) and :339 (`dir_agree = (dir == d)` whenever dir != 'none'); ROUND0.md r0_m5 reading",
+    "evidence": "On minute IS rows with hv3_dir_agree == False: hv3_dir up 748, down 742, flat 21 (1.4% of the rule's matches); 5minute: 0 flat.",
+    "fix": "Note the definition in FINDINGS.md at scoring time ('not in the SETUP's direction', flat included); no change to the hashed file."
+   },
+   {
+    "what": "The report claims `completed: true` and `null_result: false`, but nothing has been scored: no `llm*` family exists in the ledger, and the folder has no FINDINGS.md, findings.json or script, which the standing brief lists as deliverables of every study. The folder name also differs from the one the task names.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/ledger/trials.jsonl (774 rows, 24 families, none llm/round0); /home/user/money-maker/research/strategy_lab/fz_v3/out/studies/llm_hypotheses/ (3 files: ROUND0.md, rules_round0.json, rules_round0.sha256); task names studies/llm_round0, which does not exist",
+    "evidence": "`grep -i 'llm\\|round0\\|hypothes' ledger/trials.jsonl` returns nothing; `ls studies/llm_round0` -> No such file or directory; STUDY_AGENT_BRIEF.md lines 54-62 require *.py, FINDINGS.md and findings.json per study.",
+    "fix": "Treat this as the pre-registration step only (null_result = pending). The scoring step must score all 16 rules and the union(s) through `harness.score(..., 'llm_hypotheses/round0', ...)`, write FINDINGS.md + findings.json in the same folder, and the orchestrator should reference `studies/llm_hypotheses/` consistently."
+   },
+   {
+    "what": "Blindness caveats, all disclosed and non-material: FZ.md section 19 carries ST7/ST8 priced nets and control percentiles on the Jul-Sep 2026 lab tape (inside the program's OOS window); the ledger registration note's claim 'hashed before any labelled table of the program existed' is literally inaccurate; the registration row was appended 22 minutes after the hash, after H1 ledger rows existed; Judge 1's 'features restricted to study 3's shortlist' cannot be checked because the importance pass has not run.",
+    "where": "/home/user/money-maker/research/strategy_lab/FZ.md section 19 ('Priced' tables); /home/user/money-maker/research/strategy_lab/fz_v3/out/ledger/registrations.jsonl (registered_at 03:51:33); /home/user/money-maker/research/strategy_lab/fz_v3/DESIGN_PANEL.md lines 80-82 (judges' fixes)",
+    "evidence": "rules_round0.json / .sha256 mtime 03:29:35.219 (matches written_at); ledger rows before that: comparator/frozen_st7_st8 at 03:02:06-03:02:14 (from pre_register.py; results/pre_registration.json mtime 03:02:14) - labelled tables of the program that predate the hash; H1 rows start 03:37:01 and h1_gate_audit/TABLES.md is 03:39:15, after the hash. The rules use no fz_gate / fz_block_reason / fz_branch / fz_take_why column; the section-19 numbers are gate-level aggregates, not per-feature statistics.",
+    "fix": "Amend the note at scoring time to 'hashed before any labelled table other than results/pre_registration.json existed, which the proposer states it did not read'; when the feature-importance shortlist is frozen, record which of the 19 round-0 columns fall outside it and carry the deviation into the multiplicity count rather than editing the rules."
+   }
+  ],
+  "verified": "sha256 of rules_round0.json verified with `sha256sum -c` (a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182, matching rules_round0.sha256, ROUND0.md and ledger/registrations.jsonl); 8 + 8 rules, every rule <= 3 comparisons (asserted programmatically). All 19 columns the rules name are in `harness.Table.asof_columns()` on both timeframes (155 as-of columns each); none has a fnd_/l1_/fwd_/fzpos_/fzpost_ prefix, none is fz_traded or a final-state side-table field. `fz_read` equals `card_read` on every row (the as-of card read at the SETUP bar, FZ.md section 8) and `hour` equals the bar open hour (build.py:438). The build's causality check (data/<tf>/trunc_20250630_120000/trunc_diff.json) is PASS on both timeframes with asof_differ = [] over all 201 as-of columns and ledger_gate_identical = True, so every column used is bar-<=k. No script exists, no data or OOS rows were read, no threshold was fitted, no purge/embargo was involved, and the ledger holds no rows for this family - consistent with the study's claim that no Python ran; the hash time (03:29:35) predates the first H1 labelled table (03:37-03:39). Match counts per rule were computed on IS feature columns only, without touching any label, to check definitions."
+ },
+ "key": "v2:bc434662d1f7edf54c3b6663d1e6e8847cc6399e26ca0870095d565030ccd8df",
+ "transcript": "audit/workflows/phase1/agent-a9dd44cb0345a6e48.jsonl",
+ "meta": "audit/workflows/phase1/agent-a9dd44cb0345a6e48.meta.json"
+}

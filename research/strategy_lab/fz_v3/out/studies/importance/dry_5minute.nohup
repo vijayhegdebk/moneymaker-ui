@@ -7,3 +7,12 @@
 /home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/imp_lib.py:347: RuntimeWarning: Mean of empty slice
   rec["mda"] = dict(ll_drop=ll_drop.mean(axis=1).tolist(), diff_drop=np.nanmean(df_drop, axis=1).tolist(),
 [04:53:11 rss 255.4 MB] depth 4 fold 1: n_tr 741 n_te 83 tau 0.05 ll 0.7133 diff nan kept 1.0 (9.6s)
+[04:53:20 rss 256.9 MB] depth 4 fold 2: n_tr 784 n_te 42 tau 0.35 ll 0.7038 diff 431.0 kept 0.9286 (9.2s)
+[04:53:32 rss 256.9 MB] depth 4 fold 3: n_tr 742 n_te 76 tau 0.42 ll 0.8119 diff -451.2 kept 0.8816 (11.4s)
+/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/imp_lib.py:347: RuntimeWarning: Mean of empty slice
+  rec["mda"] = dict(ll_drop=ll_drop.mean(axis=1).tolist(), diff_drop=np.nanmean(df_drop, axis=1).tolist(),
+[04:53:43 rss 256.9 MB] depth 4 fold 4: n_tr 754 n_te 72 tau 0.22 ll 0.7428 diff nan kept 1.0 (11.0s)
+/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/imp_lib.py:347: RuntimeWarning: Mean of empty slice
+  rec["mda"] = dict(ll_drop=ll_drop.mean(axis=1).tolist(), diff_drop=np.nanmean(df_drop, axis=1).tolist(),
+[04:53:54 rss 256.9 MB] depth 4 fold 5: n_tr 747 n_te 73 tau 0.12 ll 0.7397 diff nan kept 1.0 (11.3s)
+[04:54:07 rss 256.9 MB] depth 4 fold 6: n_tr 745 n_te 77 tau 0.33 ll 0.6982 diff -1839.2 kept 0.961 (12.7s)

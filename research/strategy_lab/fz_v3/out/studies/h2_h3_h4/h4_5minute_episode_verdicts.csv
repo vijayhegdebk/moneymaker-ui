@@ -1,0 +1,11 @@
+kind,verdict,n,share
+prot,broke,515,0.4387
+prot,held,645,0.5494
+prot,session_end,14,0.0119
+room,broke,16011,0.436
+room,held,19025,0.5181
+room,na,561,0.0153
+room,session_end,1123,0.0306
+swing,broke,11388,0.4534
+swing,held,12721,0.5065
+swing,session_end,1006,0.0401

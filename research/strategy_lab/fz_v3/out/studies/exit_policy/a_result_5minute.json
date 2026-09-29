@@ -1,0 +1,112 @@
+{
+ "tf": "5minute",
+ "trades": 826,
+ "states": 18124,
+ "decision_states": 17298,
+ "iterations": 20,
+ "members": 5,
+ "kappa": 1.0,
+ "hgb": {
+  "max_iter": 200,
+  "learning_rate": 0.1,
+  "max_leaf_nodes": 31,
+  "min_samples_leaf": 100,
+  "l2_regularization": 1.0,
+  "random_state": 11
+ },
+ "folds": [
+  {
+   "fold": 0,
+   "test_blocks": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "train_trades": 535,
+   "test_trades": 283,
+   "purged": 8,
+   "test_states": 6264,
+   "test_mean": -655.89,
+   "test_fnd_mean": -475.16,
+   "exit_early_share": 0.576,
+   "exit_flag_share": 0.1285,
+   "q_exit_fit_mae": 155.1,
+   "seconds": 300.7,
+   "rss_mb": 490
+  },
+  {
+   "fold": 1,
+   "test_blocks": [
+    4,
+    5,
+    6,
+    7
+   ],
+   "train_trades": 553,
+   "test_trades": 273,
+   "purged": 0,
+   "test_states": 5712,
+   "test_mean": -1184.61,
+   "test_fnd_mean": -1018.09,
+   "exit_early_share": 0.5275,
+   "exit_flag_share": 0.1322,
+   "q_exit_fit_mae": 116.41,
+   "seconds": 290.2,
+   "rss_mb": 499
+  },
+  {
+   "fold": 2,
+   "test_blocks": [
+    8,
+    9,
+    10,
+    11
+   ],
+   "train_trades": 556,
+   "test_trades": 270,
+   "purged": 0,
+   "test_states": 6148,
+   "test_mean": -875.4,
+   "test_fnd_mean": -788.58,
+   "exit_early_share": 0.6407,
+   "exit_flag_share": 0.195,
+   "q_exit_fit_mae": 142.66,
+   "seconds": 305.9,
+   "rss_mb": 499
+  }
+ ],
+ "n": 826,
+ "mean": -902.39,
+ "fnd_mean": -757.05,
+ "diff": -145.34,
+ "win_rate": 0.2579,
+ "pf": 0.489,
+ "t": -1.37,
+ "mean_per_session": -1826.9,
+ "sign_blocks": 4,
+ "random_pct": 62.7,
+ "regret_vs_oracle_free": 3703.86,
+ "regret_vs_oracle_floor": 2763.31,
+ "exit_early_share": 0.5811,
+ "sign_flip": {
+  "blocks": {
+   "stat": -184.53,
+   "blocks": 12,
+   "p_one_sided": 0.9597,
+   "p_two_sided": 0.0811,
+   "blocks_positive": 4
+  },
+  "sessions": {
+   "stat_per_session": -294.24,
+   "sessions": 408,
+   "p_one_sided": 0.9175,
+   "p_two_sided": 0.1745,
+   "sessions_positive": 219,
+   "sessions_negative": 189
+  }
+ },
+ "seconds": 902.1,
+ "rss_mb": 510,
+ "ledger_id": "142df5863c0422ba"
+}

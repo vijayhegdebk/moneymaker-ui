@@ -1,0 +1,1233 @@
+# H2 / H3 / H4: sideways, visibly high volume, levels respected or broken (IS only, through the harness)
+
+Study folder `fz_v3/out/studies/h2_h3_h4/`. Scripts: `h2_regime.py`, `h3_volume.py`, `h4_levels.py` on the shared `h234_common.py`; `posthoc_minskip.py` (one declared post-hoc selection variant, section 3); `write_findings.py` (this file: sections 1-5 followed by the auto-generated tables T1-T4). Logs: `h2_regime.log`, `h3_volume.log`, `h4_levels.log`, `posthoc_minskip.log`, `run_*.nohup`. Every number is IS only (SETUP date <= 2025-12-31) and is a harness ledger row (id given) or a row of a CSV in this folder; the definitions (table T1) were fixed in the scripts' docstrings before any number was read. Machine-readable: `findings.json`. Ledger after this study: sha `ed600c7ca91c1e4d`, 755 rows (659 of families h2/h3/h4, 659 distinct ids), 0 unparseable lines, 0 rows without a per-session vector.
+## 1. Result
+
+**Null result.** No cell family of H2, H3 or H4 produced a candidate that passes `harness.go_no_go` on either timeframe, on L1 or on L0, under the pre-registered nested-CV selection or under the post-hoc minimum-skip variant. No candidate config JSON is written. The tables that carry the result:
+
+| study | tf | label | selection | ledger_id | kept_share | diff | control_pct | perm_p | sign_blocks | cpcv_diff_p5 | cpcv_share_pos | pbo_diff | spa_p | dsr_p | boot_ci90 | go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| h2 | 5 min | L1 | pre-registered | 74e1239d4204941d | 0.9976 | 3,991.66 | 94.30 | 0.1339 | 2 | 3,444.78 | 1.00 | 0.3293 | 0.076 | 0.9957 | [2816.25, 5189.35] | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1 |
+| h2 | 5 min | L0 | pre-registered | c04a0d2a19d216fd | 0.9976 | 4,473.04 | 93.80 | 0.2124 | 2 | 732.98 | 0.909 | 0.3043 | 0.124 | 0.7772 | [3078.04, 5879.24] | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
+| h3 | 5 min | L1 | pre-registered | 8eaee251afffdbb3 | 0.9383 | -200.09 | 0.4 | 0.7566 | 6 | -598.43 | 0.273 | 0.6568 | 0.155 | 0.9965 | [-1159.18, 581.14] | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| h3 | 5 min | L0 | pre-registered | 0b364a8b48bd9207 | 0.9712 | 451.83 | 34.90 | 0.8321 | 6 | 261.32 | 1.00 | 0.5181 | 0.5765 | 0.7825 | [-2269.14, 2575.06] | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| h4 | 5 min | L1 | pre-registered | 9e32a86bcfc8f5ce | 0.9322 | 613.48 | 83.80 | 0.3228 | 7 | -1,774.85 | 0.455 | 0.6501 | 0.1705 | 0.8863 | [-289.64, 1371.11] | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| h4 | 5 min | L0 | pre-registered | a329912797859321 | 0.9267 | 2,221.97 | 99.20 | 0.097 | 10 | 2,221.97 | 1.00 | 0.1556 | 0.3625 | 0.3623 | [1238.07, 3148.44] | False | kept_mean_slip8>0, dsr_p<0.1, spa_p<=0.10 |
+
+
+The grids themselves (L1): how many cells have a positive diff, a control percentile >= 95, and how many pass every raw go/no-go check at once (kept floors, diff, top-1 % removed, slip-8 kept mean, sign blocks >= 8, control >= 95):
+
+| study | tf | cells | diff_pos | control_ge95 | cells_passing_raw_checks |
+|---|---|---|---|---|---|
+| h2 | 5 min | 201 | 79 | 35 | 0 |
+| h3 | 5 min | 54 | 26 | 35 | 0 |
+| h4 | 5 min | 9 | 4 | 1 | 0 |
+
+## 2. The user's claims, restated as measured (IS, L1 unless stated)
+
+### 2.1 "CHoCH, CHoCH, no BOS = sideways; trades in sideways are hurting"
+
+Foundation mean net by `n_choch_since_bos` (the user's sideways = 2 and above):
+
+| table | n_choch_since_bos | n | net_mean | net_se | win_rate | all_rows_mean |
+|---|---|---|---|---|---|---|
+| 5minute_L1 | 0 | 235 | -717.44 | 289.68 | 0.2766 | -757.05 |
+| 5minute_L1 | 1 | 332 | -647.02 | 259.50 | 0.3072 | -757.05 |
+| 5minute_L1 | 2 | 143 | -1,439.43 | 344.10 | 0.2028 | -757.05 |
+| 5minute_L1 | 3 | 54 | -335.79 | 606.61 | 0.3333 | -757.05 |
+| 5minute_L1 | 4+ | 62 | -289.43 | 555.73 | 0.2419 | -757.05 |
+| 5minute_L0 | 0 | 237 | -273.07 | 837.17 | 0.211 | -276.76 |
+| 5minute_L0 | 1 | 334 | 230.07 | 568.67 | 0.2425 | -276.76 |
+| 5minute_L0 | 2 | 144 | -2,017.80 | 416.96 | 0.1597 | -276.76 |
+| 5minute_L0 | 3 | 55 | 310.45 | 1,099.59 | 0.2909 | -276.76 |
+| 5minute_L0 | 4+ | 62 | 501.60 | 1,079.59 | 0.2258 | -276.76 |
+
+
+The pre-registered gate cells that encode the claim (ledger rows):
+
+| table | gate | id | kept_n | skipped_mean | kept_mean | diff | control_pct | perm_p | sign_blocks | loser_precision | winner_recall_weighted | verdict |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5minute_L1 | skip when n_choch_since_bos >= 2 | cdd9b4281b0e451c | 567 | -934.04 | -676.21 | 257.83 | 45.90 | 0.4613 | 6.00 | 0.7606 | 0.7182 | fails the raw go/no-go checks |
+| 5minute_L1 | skip when n_choch_since_bos_today >= 2 | 60d25ea57daf33dd | 604 | -1,217.79 | -587.71 | 630.08 | 8.30 | 0.072 | 9.00 | 0.7883 | 0.8268 | fails the raw go/no-go checks |
+| 5minute_L0 | skip when n_choch_since_bos >= 2 | e007e395ec212c79 | 571 | -928.70 | 21.24 | 949.94 | 81.20 | 0.2114 | 8.00 | 0.7969 | 0.7751 | fails the raw go/no-go checks |
+| 5minute_L0 | skip when n_choch_since_bos_today >= 2 | 8e30eb4817d3bf5f | 608 | -1,108.61 | 29.71 | 1,138.32 | 64.10 | 0.1684 | 8.00 | 0.8214 | 0.8299 | fails the raw go/no-go checks |
+
+
+### 2.2 "Check how price reacts in visibly high volume"
+
+Bars (IS), direction rows pooled (`dir = both`): the 30-bar move in the bar's own direction, its magnitude, the excursions, and whether the bar's extremes held for 15 / 30 bars; the baseline is every bar:
+
+| tf | set | v | N | n | fwd30_atr_mean | fwd30_atr_median | fwd30_pos_share | fwd30_abs_atr_mean | mfe30_atr_median | mae30_atr_median | own_extreme_held_15 | opp_extreme_held_15 | opp_extreme_held_30 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 min | baseline_all_bars |  | 20 | 372,489 | -0.016 | -0.043 | 0.4927 | 2.72 | 2.17 | -2.24 | 0.1043 | 0.2428 | 0.1733 |
+| 1 min | high_volume | 2.00 | 20 | 57,448 | -0.022 | -0.1 | 0.4864 | 2.80 | 2.20 | -2.31 | 0.1291 | 0.3027 | 0.2179 |
+| 1 min | high_volume | 2.00 | 60 | 63,874 | -0.014 | -0.101 | 0.4865 | 2.79 | 2.19 | -2.30 | 0.1288 | 0.2995 | 0.2153 |
+| 1 min | high_volume | 3.00 | 20 | 26,039 | -0.02 | -0.118 | 0.4836 | 2.82 | 2.21 | -2.33 | 0.1414 | 0.3311 | 0.2412 |
+| 1 min | high_volume | 3.00 | 60 | 30,189 | -0.026 | -0.119 | 0.4833 | 2.80 | 2.19 | -2.32 | 0.138 | 0.3216 | 0.2363 |
+| 1 min | high_volume | 4.00 | 20 | 14,337 | 0.014 | -0.115 | 0.4842 | 2.85 | 2.25 | -2.30 | 0.1516 | 0.3596 | 0.2693 |
+| 1 min | high_volume | 4.00 | 60 | 16,722 | -0.016 | -0.126 | 0.4835 | 2.82 | 2.21 | -2.33 | 0.1468 | 0.3412 | 0.2529 |
+| 5 min | baseline_all_bars |  | 20 | 71,091 | 0.008 | -0.012 | 0.4977 | 2.47 | 1.89 | -1.91 | 0.0924 | 0.2498 | 0.1864 |
+| 5 min | high_volume | 2.00 | 20 | 10,365 | 0.092 | -0.01 | 0.4981 | 2.70 | 2.15 | -2.11 | 0.1213 | 0.3372 | 0.2547 |
+| 5 min | high_volume | 2.00 | 60 | 9,142 | 0.055 | -0.056 | 0.4914 | 2.61 | 2.16 | -2.07 | 0.1251 | 0.377 | 0.2914 |
+| 5 min | high_volume | 3.00 | 20 | 4,282 | 0.127 | -0.012 | 0.4986 | 2.65 | 2.31 | -2.08 | 0.1323 | 0.3877 | 0.289 |
+| 5 min | high_volume | 3.00 | 60 | 4,021 | 0.035 | -0.082 | 0.488 | 2.65 | 2.29 | -2.12 | 0.1382 | 0.4285 | 0.3258 |
+| 5 min | high_volume | 4.00 | 20 | 2,041 | 0.197 | 0.198 | 0.526 | 2.71 | 2.54 | -2.00 | 0.1403 | 0.4237 | 0.3353 |
+| 5 min | high_volume | 4.00 | 60 | 1,923 | 0.136 | 0.291 | 0.5316 | 2.92 | 2.61 | -1.99 | 0.1321 | 0.4849 | 0.3792 |
+
+
+Foundation SETUPs within 15 bars after a high-volume bar (v = 2 and 3, N = 20), by direction agreement:
+
+| table | variable | bucket | n | net_mean | net_se | win_rate |
+|---|---|---|---|---|---|---|
+| 5minute_L1 | hv v2 N20 M15 | agree | 382 | -829.64 | 203.50 | 0.2696 |
+| 5minute_L1 | hv v2 N20 M15 | disagree | 84 | -811.57 | 402.25 | 0.25 |
+| 5minute_L1 | hv v2 N20 M15 | none | 360 | -667.31 | 272.17 | 0.2917 |
+| 5minute_L1 | hv v3 N20 M15 | agree | 204 | -901.54 | 266.19 | 0.2647 |
+| 5minute_L1 | hv v3 N20 M15 | disagree | 60 | -292.67 | 552.52 | 0.3333 |
+| 5minute_L1 | hv v3 N20 M15 | none | 562 | -754.18 | 200.72 | 0.2758 |
+| 5minute_L0 | hv v2 N20 M15 | agree | 388 | -313.98 | 545.04 | 0.2165 |
+| 5minute_L0 | hv v2 N20 M15 | disagree | 84 | -1,004.13 | 689.19 | 0.1786 |
+| 5minute_L0 | hv v2 N20 M15 | none | 360 | -66.92 | 551.76 | 0.2361 |
+| 5minute_L0 | hv v3 N20 M15 | agree | 207 | -186.98 | 820.92 | 0.2271 |
+| 5minute_L0 | hv v3 N20 M15 | disagree | 61 | -98.82 | 1,093.59 | 0.2295 |
+| 5minute_L0 | hv v3 N20 M15 | none | 564 | -328.95 | 413.17 | 0.2181 |
+
+
+The (v=2, N=20, M=15) gate cells:
+
+| table | gate | id | kept_n | diff | control_pct | perm_p | sign_blocks | verdict |
+|---|---|---|---|---|---|---|---|---|
+| 5minute_L1 | skip_if_disagree | 5694b41eb921fb5b | 742 | 60.69 | 0.2 | 0.9095 | 6 | fails the raw go/no-go checks |
+| 5minute_L1 | skip_if_none | 20892326d3da1f02 | 466 | -159.07 | 100.00 | 0.6107 | 4 | fails the raw go/no-go checks |
+| 5minute_L1 | take_only_agree | a2c2f9584e5b150d | 382 | -135.03 | 100.00 | 0.6937 | 4 | fails the raw go/no-go checks |
+| 5minute_L0 | skip_if_disagree | 08fab6b42f223bfe | 748 | 809.05 | 27.00 | 0.5037 | 9 | fails the raw go/no-go checks |
+| 5minute_L0 | skip_if_none | 45337909b275d8fd | 472 | -369.89 | 99.00 | 0.6317 | 5 | fails the raw go/no-go checks |
+| 5minute_L0 | take_only_agree | a4db2c6586f0467e | 388 | -69.75 | 97.20 | 0.915 | 6 | fails the raw go/no-go checks |
+
+
+### 2.3 "Those levels will be respected: if it breaks there will be a large move, else price retests, retests and respects"
+
+Move after a confirmed break vs after a respect vs any bar (ATR; `move` signed in the break / bounce direction):
+
+| tf | kind | verdict | n_bars | n | abs_median | abs_mean | abs_share_gt2 | move_median | move_share_pos | beyond_share_pos |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | baseline_all_bars | any | 30 | 45,889 | 1.91 | 2.47 | 0.4814 |  |  |  |
+| 5 min | baseline_all_bars | any | 60 | 15,280 | 2.60 | 3.33 | 0.5974 |  |  |  |
+| 5 min | prot | broke | 30 | 285 | 2.07 | 2.71 | 0.5263 | 0.047 | 0.5088 | 0.6105 |
+| 5 min | prot | broke | 60 | 110 | 2.91 | 3.79 | 0.6727 | 0.512 | 0.5455 | 0.6364 |
+| 5 min | prot | held | 30 | 366 | 2.01 | 2.58 | 0.5027 | -0.117 | 0.4809 |  |
+| 5 min | prot | held | 60 | 130 | 2.85 | 3.64 | 0.7077 | -1.18 | 0.4 |  |
+| 5 min | room | broke | 30 | 9,547 | 2.00 | 2.52 | 0.4998 | 0.056 | 0.5073 | 0.651 |
+| 5 min | room | broke | 60 | 3,970 | 2.66 | 3.45 | 0.5955 | 0.159 | 0.5161 | 0.6348 |
+| 5 min | room | held | 30 | 11,194 | 1.84 | 2.40 | 0.4674 | 0.049 | 0.5053 |  |
+| 5 min | room | held | 60 | 3,506 | 2.46 | 3.21 | 0.5836 | 0.123 | 0.5106 |  |
+| 5 min | swing | broke | 30 | 5,197 | 2.05 | 2.64 | 0.5116 | 0.135 | 0.5191 | 0.6552 |
+| 5 min | swing | broke | 60 | 760 | 2.52 | 3.39 | 0.5882 | 0.296 | 0.5395 | 0.6671 |
+| 5 min | swing | held | 30 | 5,507 | 1.90 | 2.54 | 0.4792 | 0.023 | 0.503 |  |
+| 5 min | swing | held | 60 | 576 | 2.33 | 3.13 | 0.5833 | 0.119 | 0.5139 |  |
+
+
+P(the touch breaks the level) by the number of earlier respects of the same level instance:
+
+| tf | kind | prior_held_bin | n | p_broke |
+|---|---|---|---|---|
+| 5 min | prot | 0 | 1,160 | 0.444 |
+| 5 min | room | 0 | 7,481 | 0.4342 |
+| 5 min | room | 1 | 3,282 | 0.447 |
+| 5 min | room | 2 | 1,366 | 0.4444 |
+| 5 min | room | 3+ | 1,011 | 0.4797 |
+| 5 min | swing | 0 | 15,448 | 0.4691 |
+| 5 min | swing | 1 | 4,895 | 0.4547 |
+| 5 min | swing | 2 | 1,579 | 0.4326 |
+| 5 min | swing | 3+ | 673 | 0.4591 |
+
+
+Foundation SETUPs by the last touch verdict of the protected level / room edge / swing in the hour before the SETUP (L1):
+
+| table | variable | bucket | n | net_mean | net_se | win_rate |
+|---|---|---|---|---|---|---|
+| 5minute_L1 | touch_prot_last | broke | 3 | 2,048.26 | 4,408.97 | 0.3333 |
+| 5minute_L1 | touch_prot_last | held | 604 | -685.62 | 186.24 | 0.2781 |
+| 5minute_L1 | touch_prot_last | pending | 137 | -777.24 | 352.07 | 0.2701 |
+| 5minute_L1 | touch_prot_last | none | 67 | -1,048.93 | 571.90 | 0.3134 |
+| 5minute_L1 | touch_prot_last | na | 15 | -2,706.37 | 814.64 | 0.1333 |
+| 5minute_L1 | touch_room_last | broke | 149 | -609.75 | 399.81 | 0.2886 |
+| 5minute_L1 | touch_room_last | held | 61 | -1,393.89 | 442.13 | 0.1803 |
+| 5minute_L1 | touch_room_last | pending | 163 | -100.76 | 377.42 | 0.2699 |
+| 5minute_L1 | touch_room_last | none | 453 | -955.90 | 205.14 | 0.2892 |
+| 5minute_L1 | touch_swing_last | broke | 448 | -866.09 | 207.50 | 0.2835 |
+| 5minute_L1 | touch_swing_last | held | 169 | -911.35 | 382.64 | 0.284 |
+| 5minute_L1 | touch_swing_last | pending | 201 | -471.17 | 299.63 | 0.2438 |
+| 5minute_L1 | touch_swing_last | none | 8 | 1,425.69 | 2,245.50 | 0.625 |
+
+
+The 9 touch-verdict gate cells per table:
+
+| table | level | skip_when_last | id | kept_n | diff | control_pct | perm_p | sign_blocks | verdict |
+|---|---|---|---|---|---|---|---|---|---|
+| 5minute_L1 | prot | broke | cf2a5f1dd3e82550 | 823 | -2,815.53 | 41.60 | 0.2324 | 2 | fails the raw go/no-go checks |
+| 5minute_L1 | prot | held | 6fd8306a0548d73b | 222 | -265.78 | 47.70 | 0.4493 | 5 | fails the raw go/no-go checks |
+| 5minute_L1 | prot | pending | 0818dce9159abc40 | 689 | 24.21 | 18.90 | 0.9555 | 6 | fails the raw go/no-go checks |
+| 5minute_L1 | room | broke | 136f703118c8fefb | 677 | -179.73 | 98.80 | 0.6737 | 6 | fails the raw go/no-go checks |
+| 5minute_L1 | room | held | 74d6b4f066d0481e | 765 | 687.62 | 87.30 | 0.2629 | 7 | fails the raw go/no-go checks |
+| 5minute_L1 | room | pending | 7b760716df543532 | 663 | -817.64 | 0.2 | 0.0325 | 3 | fails the raw go/no-go checks |
+| 5minute_L1 | swing | broke | a551ed716f433a2b | 378 | 238.26 | 43.10 | 0.4493 | 7 | fails the raw go/no-go checks |
+| 5minute_L1 | swing | held | 6929b817eddc2da3 | 657 | 193.99 | 94.80 | 0.6152 | 9 | fails the raw go/no-go checks |
+| 5minute_L1 | swing | pending | ed145b95e5cb7898 | 625 | -377.82 | 7.00 | 0.2919 | 2 | fails the raw go/no-go checks |
+| 5minute_L0 | prot | broke | 4fc3902e61454f5e | 829 | -2,798.79 | 8.80 | 0.4738 | 2 | fails the raw go/no-go checks |
+| 5minute_L0 | prot | held | 096e34f1d9907f78 | 223 | -264.68 | 21.60 | 0.7371 | 4 | fails the raw go/no-go checks |
+| 5minute_L0 | prot | pending | 23ee5cd6705d3e7d | 694 | -43.20 | 52.90 | 0.964 | 8 | fails the raw go/no-go checks |
+| 5minute_L0 | room | broke | f39f9f975ca1e7a3 | 683 | -1,735.10 | 48.00 | 0.055 | 4 | fails the raw go/no-go checks |
+| 5minute_L0 | room | held | 6a4bd44ed294d96c | 771 | 2,221.97 | 99.50 | 0.092 | 10 | fails the raw go/no-go checks |
+| 5minute_L0 | room | pending | 0e0b57a2d4b3fa4c | 669 | -305.09 | 18.70 | 0.7431 | 8 | fails the raw go/no-go checks |
+| 5minute_L0 | swing | broke | a513568feef6df11 | 380 | -103.04 | 63.00 | 0.8901 | 4 | fails the raw go/no-go checks |
+| 5minute_L0 | swing | held | 7f3bdf6c8658015c | 661 | -815.08 | 43.90 | 0.3663 | 7 | fails the raw go/no-go checks |
+| 5minute_L0 | swing | pending | bf1d6d3a3066cd94 | 631 | 974.61 | 29.40 | 0.2414 | 8 | fails the raw go/no-go checks |
+
+## 3. Selection note (why a post-hoc variant exists)
+
+The pre-registered nested-CV criterion (largest training-fold kept-vs-skipped diff subject to the harness *kept* floors) has no floor on the skipped set. On every table it selected a cell that skips a handful of rows (see the `chosen per training fold` tables: e.g. 5 min H2 skips 2 of 826 rows, 5 min H4 skips 3 in most CPCV training sets), because a two-row skip set has an unbounded diff. The harness go/no-go is what catches this (sign blocks, control percentile, PBO, DSR, the CPCV 5th percentile). `posthoc_minskip.py` re-runs the identical selection with `skipped share >= 10 %` added to the fold eligibility, declared after the primary rows were read and counted as one more trial per family (its rows are in the family PBO / SPA above). Nothing was chosen on the pooled OOF in either variant.
+
+## 4. What would falsify these findings
+
+- H2: a `h2/choch` or `h2/range` ledger row with diff > 0, control percentile >= 95, sign blocks >= 8 and a CPCV 5th-percentile diff > 0 under the nested-CV selection; or the bucket `n_choch_since_bos >= 2` showing a mean net below the other buckets by more than two standard errors on both timeframes and both labels.
+- H3: a `h3/gate` row skipping >= 10 % of the SETUPs with diff > 0 at control percentile >= 95 in the nested-CV paths; or a bar aftermath table where the 30-bar move in the high-volume bar's direction differs from the baseline by more than 0.5 ATR.
+- H4: a `h4/touch_gate` row with control percentile >= 95, sign blocks >= 8 and a positive CPCV 5th percentile; or an episode table where the absolute 30 / 60-bar move after a confirmed break exceeds the baseline by more than 0.5 ATR, or P(broke given prior_held >= 2) is lower than P(broke given prior_held = 0) by more than 0.2 on both timeframes with a positive Foundation expectancy at respected levels.
+- Any of the above on a rebuild with a different `features.parquet` (the SETUP counts and the frozen kept set are pinned by `data/<tf>/meta.json`).
+
+## 5. Caveats
+
+- Bucket tables and the episode / bar-aftermath tables are descriptive decompositions (means, counts, iid standard errors, block sign counts). No p-value is attached to them; every question that needs one is a ledger row, and the kept-vs-skipped statistics of the 201 + 54 + 9 cells (plus the nested-CV rows) are the only kept-vs-skipped numbers in this study.
+- The session-matched control percentile and the pooled diff disagree in sign on many cells (e.g. the 5 min `range_3h` cells: negative diff, control percentile 100). The control matches per-session kept counts, the diff pools all rows; a gate that skips whole sessions of the 5 min book (median two SETUPs per session) is matched trivially there. Both are reported; neither alone is the criterion.
+- Under the harness `score`, a cell with a learned quantile is one ledger row on its OOF mask; its 12 fold thresholds differ by a few hundredths of an ATR (recorded in the grid CSV).
+- L0 (the engine's uncut trade) is a robustness label only; on 1 min it runs to 70 sessions and its purge is coarser.
+- The episode study's `prot` level instances are short on both timeframes (the engine moves the protected level at each swing update), so a protected level almost never sees a second episode: its retest counts are structural zeros, not evidence.
+- The 1 min swing instances end at the first break or at their session's end by definition, so P(broke given prior_held = 0) on 1 min counts the many swings that break on their first touch shortly after confirmation.
+- The recomputed volume baselines equal the build's `vol_med20_prior` / `vol_ratio20` / `vol_ratio60` exactly; the new per-SETUP H3 features equal the build's `hv2_*` / `hv3_*` (N = 20) and are identical on the truncated build for every SETUP before the cut (`trunc_20250630_120000`); the H4 episode features are labels of the level, never features.
+- The ledger was appended by up to four processes in parallel (one per study x timeframe); the integrity counts are in the header (every line parses, every id has its vector file).
+- On 5 min the `range_*_atr` terciles and quantiles use 12 / 36-bar windows; hour-of-day effects and the range rule are entangled (a session's range grows through the day).
+
+
+---
+
+# Tables (auto-generated by `write_findings.py` from the CSV / JSON outputs)
+
+## T1. Definitions (fixed before the numbers)
+
+| term | definition |
+|---|---|
+| unit | a harness row: a Foundation SETUP taken under the label's book, `harness.load(tf, label)`, IS rows only (1 min L1 4,452 / L0 4,502; 5 min L1 826 / L0 832) |
+| cell | one gate configuration = one ledger row scored on IS by `harness.score` (2,000 control draws, 2,000 permutations). A cell with a learned threshold (the H2 range quantiles) is scored on its 12-block out-of-fold mask: the threshold is the quantile of the *training fold's* rows (`harness.purged_splits`), applied to the test block; the fold thresholds are in the ledger row's `note` and in `h2_<tf>_<label>_grid.csv` |
+| nested CV | inside each of the 12 purged training folds every cell is fitted and evaluated on the training rows with `harness.metrics` (controls off); the cell with the largest kept-vs-skipped diff subject to the harness kept floors (kept share >= 20 %, kept n >= 300 (1 min) / 80 (5 min) scaled by train / IS) is applied to the test block; the 12 test blocks form the OOF mask, one ledger row `<study>/nested_cv`; the same selection inside the 66 CPCV training sets gives the 11 paths (`<study>/nested_cv/cpcv`, `harness.score_paths`, controls on) |
+| post-hoc variant | `<study>/nested_cv_minskip`: the same selection with skipped share >= 10 % added to the eligibility (declared after the primary rows were read; one more counted trial per family) |
+| family | every non-cpcv ledger row of the study on that timeframe and label; PBO (`harness.pbo`, CSCV 16 blocks, 12,870 partitions, statistic diff and kept_mean), SPA / Reality Check (`harness.spa`, 2,000 stationary-bootstrap draws), effective trials (participation ratio of the kept-net correlation matrix), block bootstrap 90 % CI and DSR of the nested-CV row, `harness.go_no_go` on it |
+| bucket table | descriptive decomposition of the label by an as-of categorical: n, share, sum, mean, se (iid), median, win rate, mean pts, stop share, blocks below (of the 12 IS blocks, how many have the bucket mean below the block's all-rows mean). No rule is chosen on a bucket table; tercile edges are pooled IS quantiles, recorded |
+| H2 columns | `n_choch_since_bos` (CHoCHs after the last BOS, own CHoCH included; >= 2 = the user's 'CHoCH, CHoCH, no BOS'), `n_choch_since_bos_today`, `alt_dir6` / `alt_kind6` (direction / kind changes among the last 6 events), `range_{1h,3h,since_choch}_atr` (same-session range / atr14), `er_1h` (Kaufman efficiency ratio, last hour), `hour_bin` |
+| H2 grid | choch rule: skip when `n_choch_since_bos[_today] >= kc`, kc in {2,3,4}, scope all / today; range rule: skip when `range_W_atr <= r`, W in {1h, 3h, since_choch}, r = training-fold quantile q in {0.1 .. 0.5}; both rules combined by OR / AND; or one rule alone. 6 + 15 + 180 = 201 cells (families `h2/choch`, `h2/range`, `h2/both`) |
+| H3 high-volume bar | volume >= v x median of the previous N bars of the same session (at least 5), v in {2,3,4}, N in {20,60}; never a non-front-month / zero-volume bar. Bar direction = sign(close - open). The N = 20 / 60 medians and ratios are recomputed and asserted equal to `bars.vol_med20_prior` / `vol_ratio20` / `vol_ratio60` |
+| H3 aftermath (labels of the bar, IS bars) | fwd_n = sg x (close[j+n] - close[j]) for n in {5,15,30} (pts and / atr14[j]); mfe30 / mae30 = best / worst excursion in the bar's direction over j+1..j+30 (/ atr14); high_held_n / low_held_n = the bar's high / low not exceeded over j+1..j+n (n = 15, 30); own_extreme_held = the extreme in the bar's direction held (no continuation), opp_extreme_held = the other extreme held (respect). Every window inside the session and complete. Baseline = every IS bar with a defined ratio and a non-flat direction |
+| H3 per SETUP (as-of) | for each (v, N): the latest high-volume bar j <= k of the session (the SETUP bar counts); for M in {5,15,30}: agree (k - j <= M and same direction), disagree (opposite), none (no such bar within M or a flat bar). Re-run on the truncated build (`trunc_20250630_120000`) and identical for every SETUP before the cut; (v=2,N=20) and (v=3,N=20) equal the build's `hv2_*` / `hv3_*` |
+| H3 grid | per (v, N, M): skip_if_disagree, skip_if_none, take_only_agree (= skip disagree and none): 54 cells, family `h3/gate` |
+| H4 touch verdict (as-of, the build's columns) | `touch_{prot,room,swing}_last`: touch episodes of the protected level / nearest room edge / nearest confirmed swing in the hour before k (a bar touches when low <= L <= high, consecutive touching bars = one episode); the last episode's verdict inside 15 minutes after it, never past k: broke (a close beyond by > 0.5 x atr14 on the far side), held, pending (window open at k), none, na. `touch_*_n` = episodes in the hour |
+| H4 grid | skip when `touch_<level>_last == broke / held / pending`, level in {prot, room, swing}: 9 cells, family `h4/touch_gate` |
+| H4 episode study (IS bars, labels of the level) | level instances: protected level = a maximal run of bars with the same `bars.prot`; room edge = lo and hi of every ST7/ST8 room over birth_bar <= i < retired_bar; swing = `swings.price` from conf_bar to the first close beyond it by > 0.5 x atr14 or its session's end. Same touch / episode / side / verdict rule as the build (15-minute window inside the touch bar's session, `session_end` when cut). Aftermath from the verdict bar v (the breaking close, or the window end for held): move_n = sg x (close[v+n] - close[v]) / atr14[v], n in {15,30,60}, sg = break direction (broke) or bounce direction away from the level (held); mfe_n the best excursion that way; beyond_n = sg x (close[v+n] - L) / atr14[v] (broke only). Baseline = abs(close[i+n] - close[i]) / atr14[i] over every IS bar. prior_held = held episodes of the same instance before this one; P(broke given prior_held) over broke + held episodes not after a break |
+
+
+## T2. H2 - sideways = CHoCH without break
+
+### 5 min / L1 (826 IS units)
+
+by `n_choch_since_bos`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| 0 | 235 | 0.2845 | -717.44 | 289.68 | -2,222.55 | 0.2766 | 5.14 | 0.4383 | 7 |
+| 1 | 332 | 0.4019 | -647.02 | 259.50 | -2,039.38 | 0.3072 | 6.18 | 0.3765 | 3 |
+| 2 | 143 | 0.1731 | -1,439.43 | 344.10 | -2,337.62 | 0.2028 | -5.96 | 0.5105 | 8 |
+| 3 | 54 | 0.0654 | -335.79 | 606.61 | -1,723.76 | 0.3333 | 10.69 | 0.3519 | 7 |
+| 4+ | 62 | 0.0751 | -289.43 | 555.73 | -2,030.88 | 0.2419 | 11.87 | 0.4194 | 3 |
+
+by `n_choch_since_bos_today`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| 0 | 242 | 0.293 | -691.14 | 285.27 | -2,193.78 | 0.281 | 5.54 | 0.4256 | 7 |
+| 1 | 362 | 0.4383 | -518.56 | 266.65 | -2,039.38 | 0.3149 | 8.15 | 0.384 | 3 |
+| 2 | 133 | 0.161 | -1,570.73 | 293.27 | -2,337.62 | 0.188 | -7.96 | 0.5338 | 10 |
+| 3 | 49 | 0.0593 | -867.92 | 429.38 | -1,761.49 | 0.2857 | 2.56 | 0.3469 | 7 |
+| 4+ | 40 | 0.0484 | -472.86 | 640.22 | -1,978.70 | 0.2 | 9.10 | 0.4 | 4 |
+
+by `alt_dir6`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | 168 | 0.2034 | -1,116.80 | 349.25 | -2,210.91 | 0.2738 | -0.973 | 0.3988 | 8 |
+| 2 | 265 | 0.3208 | -1,029.12 | 253.58 | -2,289.26 | 0.2566 | 0.257 | 0.4302 | 8 |
+| 3 | 235 | 0.2845 | -301.66 | 321.62 | -1,980.85 | 0.3191 | 11.47 | 0.4128 | 5 |
+| 4 | 123 | 0.1489 | -855.22 | 379.25 | -2,009.15 | 0.2439 | 3.02 | 0.4472 | 5 |
+| 5 | 35 | 0.0424 | 317.03 | 838.04 | -2,036.58 | 0.2857 | 21.39 | 0.3714 | 3 |
+
+by `alt_kind6`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| 0 | 18 | 0.0218 | 910.32 | 1,182.83 | -1,002.83 | 0.3889 | 30.63 | 0.2222 | 2 |
+| 1 | 209 | 0.253 | -1,031.64 | 307.40 | -2,187.87 | 0.244 | 0.267 | 0.4306 | 7 |
+| 2 | 236 | 0.2857 | -1,159.16 | 238.20 | -2,211.28 | 0.2627 | -1.67 | 0.4703 | 9 |
+| 3 | 246 | 0.2978 | -456.49 | 320.04 | -2,011.17 | 0.2967 | 9.11 | 0.378 | 3 |
+| 4 | 102 | 0.1235 | -268.54 | 493.81 | -2,227.03 | 0.3137 | 11.94 | 0.4118 | 4 |
+| 5 | 15 | 0.0182 | -856.56 | 1,013.40 | -2,176.34 | 0.2667 | 3.26 | 0.4 | 3 |
+
+by `range_1h_atr_tercile`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| T1<=2.880 | 276 | 0.3341 | -653.27 | 252.04 | -2,028.11 | 0.2717 | 6.20 | 0.4565 | 4 |
+| T2<=3.724 | 275 | 0.3329 | -535.27 | 276.77 | -2,054.02 | 0.2873 | 7.81 | 0.3818 | 6 |
+| T3>3.724 | 275 | 0.3329 | -1,083.00 | 284.43 | -2,352.58 | 0.2727 | -0.503 | 0.4182 | 8 |
+
+by `range_3h_atr_tercile`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| T1<=4.330 | 276 | 0.3341 | -497.83 | 312.03 | -2,218.30 | 0.3043 | 8.44 | 0.4022 | 4 |
+| T2<=5.690 | 275 | 0.3329 | -632.91 | 260.34 | -1,980.39 | 0.2873 | 6.43 | 0.4109 | 4 |
+| T3>5.690 | 275 | 0.3329 | -1,141.36 | 235.36 | -2,245.62 | 0.24 | -1.37 | 0.4436 | 9 |
+
+by `range_since_choch_atr_tercile`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| T1<=1.820 | 276 | 0.3341 | -733.63 | 223.43 | -2,035.66 | 0.2391 | 4.86 | 0.5435 | 6 |
+| T2<=2.379 | 275 | 0.3329 | -874.23 | 252.87 | -2,297.79 | 0.2691 | 2.61 | 0.4 | 6 |
+| T3>2.379 | 275 | 0.3329 | -663.38 | 328.30 | -2,200.88 | 0.3236 | 6.04 | 0.3127 | 9 |
+
+by `er_1h_tercile`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| T1<=0.278 | 240 | 0.2906 | -784.80 | 257.33 | -2,036.32 | 0.2542 | 4.09 | 0.4625 | 6 |
+| T2<=0.464 | 239 | 0.2893 | -929.51 | 258.01 | -2,069.53 | 0.2385 | 1.83 | 0.3933 | 6 |
+| T3>0.464 | 240 | 0.2906 | -849.71 | 268.88 | -2,217.41 | 0.2917 | 3.06 | 0.4167 | 6 |
+|  | 107 | 0.1295 | -101.77 | 660.46 | -2,420.00 | 0.3832 | 14.62 | 0.3832 | 5 |
+
+by `hour_bin`:
+
+| bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|
+| <09:25 | 50 | 0.0605 | 126.99 | 973.13 | -2,413.39 | 0.38 | 18.02 | 0.34 | 5 |
+| 09 | 96 | 0.1162 | -907.07 | 611.15 | -2,754.80 | 0.3021 | 2.29 | 0.4583 | 7 |
+| 10 | 123 | 0.1489 | -1,083.65 | 433.61 | -2,615.84 | 0.252 | -0.403 | 0.4309 | 9 |
+| 11 | 100 | 0.1211 | -1,082.55 | 405.81 | -2,266.07 | 0.24 | -0.536 | 0.48 | 7 |
+| 12 | 126 | 0.1525 | -987.81 | 359.08 | -2,289.39 | 0.2222 | 0.951 | 0.5238 | 9 |
+| 13 | 149 | 0.1804 | -524.51 | 330.00 | -2,033.52 | 0.302 | 8.05 | 0.4631 | 6 |
+| 14 | 132 | 0.1598 | -346.09 | 337.53 | -1,362.19 | 0.3485 | 10.80 | 0.3409 | 5 |
+| 15 | 45 | 0.0545 | -1,089.89 | 151.78 | -1,090.96 | 0.1556 | -0.736 | 0.0667 | 9 |
+| >=15:20 | 5 | 0.0061 | -1,141.22 | 205.66 | -1,126.84 | 0 | -1.65 | 0.2 | 3 |
+
+two-way `n_choch_since_bos` x `hour_bin`, mean net (n in the second table):
+
+| hour_bin | 0 | 1 | 2 | 3 | 4+ |
+|---|---|---|---|---|---|
+| <09:25 | 1,139.79 | 118.38 | -2,815.12 | 1,879.20 | 2,041.98 |
+| 09 | -1,021.69 | -1,508.40 | -1,082.02 | 3,893.41 | 1,178.87 |
+| 10 | -519.29 | -1,339.62 | -1,588.64 | -467.36 | -774.45 |
+| 11 | -1,058.47 | -454.15 | -2,077.32 | -1,814.55 | -2,025.98 |
+| 12 | -544.34 | -1,447.38 | -1,146.06 | -1,763.28 | -1.43 |
+| 13 | -912.37 | -60.38 | -1,114.82 | 997.23 | -344.85 |
+| 14 | -938.16 | 202.02 | -1,280.49 | -273.88 | -436.79 |
+| 15 | -919.43 | -1,196.68 | -1,546.72 | -669.07 | -1,037.48 |
+| >=15:20 |  | -1,399.72 | -1,094.84 |  | -412.09 |
+
+| hour_bin | 0 | 1 | 2 | 3 | 4+ |
+|---|---|---|---|---|---|
+| <09:25 | 12.00 | 21.00 | 9.00 | 5.00 | 3.00 |
+| 09 | 28.00 | 42.00 | 15.00 | 3.00 | 8.00 |
+| 10 | 35.00 | 48.00 | 27.00 | 7.00 | 6.00 |
+| 11 | 28.00 | 42.00 | 13.00 | 9.00 | 8.00 |
+| 12 | 42.00 | 39.00 | 24.00 | 10.00 | 11.00 |
+| 13 | 45.00 | 58.00 | 30.00 | 4.00 | 12.00 |
+| 14 | 30.00 | 63.00 | 18.00 | 12.00 | 9.00 |
+| 15 | 15.00 | 16.00 | 6.00 | 4.00 | 4.00 |
+| >=15:20 |  | 3.00 | 1.00 |  | 1.00 |
+
+The grid: 201 cells; diff > 0 in 79; control pct >= 95 in 35; passing every raw go/no-go check (kept floors, diff, top-1 % removed, slip-8 kept mean, sign blocks, control) in 0. Median cell diff -172.16, median control pct 44.90. Full table `h2_5minute_L1_grid.csv`. The six choch-only cells and the 15 range-only cells:
+
+| kc | scope | W | q | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2.00 | all |  |  | cdd9b4281b0e451c | 567 | 0.6864 | -676.21 | -934.04 | 257.83 | 151.83 | 45.90 | 0.4613 | 0.33 | 0.7606 | 0.7182 | 0.3478 | -1,066.17 | 6.00 | False |
+| 2.00 | today |  |  | 60d25ea57daf33dd | 604 | 0.7312 | -587.71 | -1,217.79 | 630.08 | 335.12 | 8.30 | 0.072 | 0.2931 | 0.7883 | 0.8268 | 0.1739 | -977.67 | 9.00 | False |
+| 3.00 | all |  |  | 6e32c51940ce5a11 | 710 | 0.8596 | -829.93 | -311.01 | -518.91 | -570.00 | 1.20 | 0.2679 | 0.139 | 0.7155 | 0.8488 | 0.1739 | -1,219.89 | 5.00 | False |
+| 3.00 | today |  |  | 1210d3613c329844 | 737 | 0.8923 | -765.11 | -690.36 | -74.74 | -318.01 | 0 | 0.8656 | 0.1122 | 0.7528 | 0.9184 | 0.087 | -1,155.07 | 6.00 | False |
+| 4.00 | all |  |  | 58431928cdcb8a87 | 764 | 0.9249 | -795.00 | -289.43 | -505.57 | -740.50 | 2.20 | 0.3978 | 0.0787 | 0.7581 | 0.9152 | 0.087 | -1,184.97 | 3.00 | False |
+| 4.00 | today |  |  | d31cdd229b2fb904 | 786 | 0.9516 | -771.52 | -472.86 | -298.66 | -526.66 | 0.1 | 0.6832 | 0.0536 | 0.8 | 0.9539 | 0.0435 | -1,161.48 | 4.00 | False |
+|  |  | 1h | 0.1 | 0530a9a0684c7a06 | 742 | 0.8983 | -861.62 | 166.67 | -1,028.29 | -796.64 | 95.20 | 0.0455 | 0.0905 | 0.6429 | 0.8519 | 0.1739 | -1,251.59 | 6.00 | False |
+|  |  | 1h | 0.2 | a0a30c80e9609ed1 | 657 | 0.7954 | -863.16 | -344.56 | -518.60 | -521.62 | 83.80 | 0.1999 | 0.1993 | 0.7041 | 0.7662 | 0.3043 | -1,253.12 | 3.00 | False |
+|  |  | 1h | 0.3 | f8d5ce7741f67e73 | 577 | 0.6985 | -808.95 | -636.79 | -172.16 | -272.00 | 86.30 | 0.6282 | 0.2998 | 0.7189 | 0.7115 | 0.3043 | -1,198.91 | 5.00 | False |
+|  |  | 1h | 0.4 | 87a5cb7d41375060 | 495 | 0.5993 | -827.65 | -651.47 | -176.18 | -354.39 | 90.00 | 0.5892 | 0.4037 | 0.7281 | 0.6061 | 0.3913 | -1,217.62 | 6.00 | False |
+|  |  | 1h | 0.5 | 2d397c3f5ea43347 | 415 | 0.5024 | -964.63 | -547.45 | -417.17 | -569.65 | 41.80 | 0.1824 | 0.4941 | 0.7178 | 0.4865 | 0.5652 | -1,354.59 | 4.00 | False |
+|  |  | 3h | 0.1 | 90bf13e268335b43 | 741 | 0.8971 | -809.66 | -298.41 | -511.25 | -273.26 | 100.00 | 0.3338 | 0.0905 | 0.6353 | 0.8422 | 0.1739 | -1,199.63 | 5.00 | False |
+|  |  | 3h | 0.2 | c6baf3ab8cafe967 | 659 | 0.7978 | -870.75 | -308.37 | -562.39 | -255.31 | 100.00 | 0.1579 | 0.1843 | 0.6587 | 0.7163 | 0.3478 | -1,260.72 | 4.00 | False |
+|  |  | 3h | 0.3 | f3ad224066e780fd | 578 | 0.6998 | -841.53 | -560.16 | -281.37 | -144.71 | 100.00 | 0.3923 | 0.2864 | 0.6895 | 0.6311 | 0.4348 | -1,231.50 | 5.00 | False |
+|  |  | 3h | 0.4 | 06d5b32818642e15 | 492 | 0.5956 | -880.62 | -575.04 | -305.58 | 22.82 | 100.00 | 0.3328 | 0.3936 | 0.7036 | 0.5157 | 0.6087 | -1,270.58 | 5.00 | False |
+|  |  | 3h | 0.5 | 384739c2c0cfb896 | 412 | 0.4988 | -859.10 | -655.50 | -203.60 | 135.69 | 100.00 | 0.5282 | 0.4941 | 0.7126 | 0.4414 | 0.6957 | -1,249.07 | 7.00 | False |
+|  |  | since_choch | 0.1 | 27364c7f3b9f90cb | 741 | 0.8971 | -706.43 | -1,198.37 | 491.94 | 250.72 | 47.10 | 0.3463 | 0.1223 | 0.8588 | 0.9487 | 0.0435 | -1,096.39 | 9.00 | False |
+|  |  | since_choch | 0.2 | f27959543a3e3e19 | 659 | 0.7978 | -722.25 | -894.37 | 172.12 | -99.75 | 11.20 | 0.6557 | 0.2228 | 0.7964 | 0.8655 | 0.1304 | -1,112.22 | 7.00 | False |
+|  |  | since_choch | 0.3 | cca60d2ed7819513 | 580 | 0.7022 | -830.62 | -583.60 | -247.02 | -322.43 | 0.2 | 0.4768 | 0.3099 | 0.752 | 0.7434 | 0.2174 | -1,220.58 | 4.00 | False |
+|  |  | since_choch | 0.4 | a14feb8dc3a7ee2c | 493 | 0.5969 | -758.95 | -754.25 | -4.70 | -53.23 | 0.4 | 0.985 | 0.4255 | 0.7628 | 0.6622 | 0.3043 | -1,148.91 | 5.00 | False |
+|  |  | since_choch | 0.5 | cb3984ce08562f50 | 413 | 0.5 | -735.19 | -778.91 | 43.71 | -6.71 | 0.6 | 0.8946 | 0.5226 | 0.7554 | 0.5864 | 0.3913 | -1,125.16 | 5.00 | False |
+
+Top 10 cells by IS diff (selection is by nested CV, never by this table):
+
+| cell | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 1b558762f9801ac8 | 824 | 0.9976 | -747.39 | -4,739.05 | 3,991.66 | 3,774.55 | 93.50 | 0.1374 | 0.0034 | 1.00 | 1.00 | 0 | -1,137.35 | 2.00 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "all"} | 473438a97da60a31 | 818 | 0.9903 | -739.42 | -2,559.46 | 1,820.03 | 1,601.41 | 31.60 | 0.2394 | 0.0134 | 1.00 | 1.00 | 0 | -1,129.39 | 4.00 | False |
+| {"W": "1h", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} | a4dc48585afbbfe2 | 825 | 0.9988 | -754.87 | -2,555.50 | 1,800.63 | 1,583.71 | 74.60 | 0.5992 | 0.0017 | 1.00 | 1.00 | 0 | -1,144.84 | 1.00 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} | fc54acaab0d26462 | 823 | 0.9964 | -751.22 | -2,355.68 | 1,604.45 | 1,387.04 | 25.40 | 0.5267 | 0.005 | 1.00 | 1.00 | 0 | -1,141.19 | 3.00 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | f4f0a18c9aa06662 | 818 | 0.9903 | -741.86 | -2,310.28 | 1,568.42 | 1,349.77 | 46.70 | 0.3023 | 0.0134 | 1.00 | 1.00 | 0 | -1,131.83 | 5.00 | False |
+| {"W": "1h", "combine": "AND", "kc": 4, "q": 0.3, "rule": "both", "scope": "today"} | f133b98084b9ff70 | 814 | 0.9855 | -740.47 | -1,881.59 | 1,141.11 | 921.39 | 67.30 | 0.3768 | 0.0201 | 1.00 | 1.00 | 0 | -1,130.44 | 7.00 | False |
+| {"W": "1h", "combine": "AND", "kc": 4, "q": 0.2, "rule": "both", "scope": "today"} | 655bfa4cf1235bb1 | 820 | 0.9927 | -748.98 | -1,860.48 | 1,111.50 | 893.31 | 60.90 | 0.5317 | 0.0101 | 1.00 | 1.00 | 0 | -1,138.94 | 4.00 | False |
+| {"W": "3h", "combine": "AND", "kc": 2, "q": 0.2, "rule": "both", "scope": "today"} | f8071020b292e4f2 | 807 | 0.977 | -732.60 | -1,795.65 | 1,063.05 | 841.49 | 69.80 | 0.3113 | 0.0268 | 0.8421 | 0.9955 | 0 | -1,122.56 | 7.00 | False |
+| {"W": "3h", "combine": "AND", "kc": 2, "q": 0.4, "rule": "both", "scope": "today"} | 4458f42aa2281627 | 755 | 0.914 | -665.69 | -1,728.54 | 1,062.85 | 826.65 | 85.80 | 0.067 | 0.1005 | 0.8451 | 0.9686 | 0.0435 | -1,055.66 | 9.00 | False |
+| {"W": "3h", "combine": "AND", "kc": 4, "q": 0.2, "rule": "both", "scope": "today"} | cd325f4ca07452c6 | 822 | 0.9952 | -752.04 | -1,786.64 | 1,034.60 | 816.91 | 44.90 | 0.6362 | 0.0067 | 1.00 | 1.00 | 0 | -1,142.01 | 3.00 | False |
+
+**Nested-CV candidate** (family `h2/nested_cv`, the 12-block OOF mask):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 74e1239d4204941d | 824 | 0.9976 | -747.39 | -4,739.05 | 3,991.66 | 3,774.55 | 94.30 | 0.1339 | 0.0034 | 1.00 | 1.00 | 0 | -1,137.35 | 2 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|
+| 0 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 3,951.78 | 199 | 82 | 82 |
+| 1 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.89 | 3,945.20 | 199 | 83 | 83 |
+| 2 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.97 | 3,963.29 | 199 | 42 | 42 |
+| 3 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.89 | 4,007.24 | 199 | 76 | 76 |
+| 4 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.86 | 5,090.75 | 199 | 72 | 72 |
+| 5 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.96 | 4,045.46 | 199 | 73 | 73 |
+| 6 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 5,063.28 | 199 | 77 | 76 |
+| 7 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.96 | 4,007.54 | 199 | 51 | 51 |
+| 8 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.89 | 3,964.33 | 198 | 76 | 76 |
+| 9 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 4,049.20 | 199 | 80 | 80 |
+| 10 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.94 | 2,918.75 | 199 | 31 | 30 |
+| 11 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.97 | 3,937.57 | 199 | 83 | 83 |
+
+CPCV paths (`h2/nested_cv/cpcv`, 11 rows): diff median 3,991.66, 5th pct 3,444.78, min 2,897.90, share > 0 1.00, control pct median 87.80 / 5th pct 74.50
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 0a5bc6b99975a851 | 824 | 0.9976 | -747.39 | -4,739.05 | 3,991.66 | 93.70 | 0.1434 | 1.00 | 2 | 0 |
+| 66e459373a14f057 | 825 | 0.9988 | -750.91 | -5,826.65 | 5,075.74 | 74.50 | 0.1459 | 1.00 | 1 | 1 |
+| fcd555388be90de9 | 824 | 0.9976 | -747.39 | -4,739.05 | 3,991.66 | 94.00 | 0.1364 | 1.00 | 2 | 2 |
+| ee35b5bd47155635 | 825 | 0.9988 | -750.91 | -5,826.65 | 5,075.74 | 75.50 | 0.1294 | 1.00 | 1 | 3 |
+| cd9f7fbaf9683c64 | 825 | 0.9988 | -750.91 | -5,826.65 | 5,075.74 | 74.50 | 0.1359 | 1.00 | 1 | 4 |
+| 8bc82aa52898581c | 824 | 0.9976 | -747.39 | -4,739.05 | 3,991.66 | 93.80 | 0.1414 | 1.00 | 2 | 5 |
+| 7e0c7a8f19791e8b | 825 | 0.9988 | -753.54 | -3,651.44 | 2,897.90 | 87.80 | 0.3633 | 1.00 | 1 | 6 |
+| cb138c698faf2d2a | 825 | 0.9988 | -750.91 | -5,826.65 | 5,075.74 | 75.20 | 0.1304 | 1.00 | 1 | 7 |
+| de7830d4f81559bc | 824 | 0.9976 | -747.39 | -4,739.05 | 3,991.66 | 93.30 | 0.1604 | 1.00 | 2 | 8 |
+| 46f9348be3bfca4a | 825 | 0.9988 | -750.91 | -5,826.65 | 5,075.74 | 76.50 | 0.1459 | 1.00 | 1 | 9 |
+| 2fc3c5b11e1870d6 | 824 | 0.9976 | -747.39 | -4,739.05 | 3,991.66 | 93.30 | 0.1464 | 1.00 | 2 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} x65; {"rule": "both", "kc": 4, "scope": "today", "W": "1h", "q": 0.1, "combine": "AND"} x1
+
+Family (after every row of this study on this table, the post-hoc row included):
+
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | L1 | pre-registered | 202 | 202 | 1.44 | 0.3293 | 0.5333 | 0.076 | 0.0835 | {"rule": "range", "W": "3h", "q": 0.1} | 127.60 | [2816.25, 5189.35] | 0 | 0.9957 | 3,991.66 | 3,444.78 | 1.00 | 87.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1 |
+
+
+### 5 min / L0 (832 IS units)
+
+L0 robustness, by `n_choch_since_bos` and `n_choch_since_bos_today`:
+
+| variable | bucket | n | net_mean | net_se | win_rate | blocks_below_block_mean |
+|---|---|---|---|---|---|---|
+| n_choch_since_bos | 0 | 237 | -273.07 | 837.17 | 0.211 | 7 |
+| n_choch_since_bos | 1 | 334 | 230.07 | 568.67 | 0.2425 | 2 |
+| n_choch_since_bos | 2 | 144 | -2,017.80 | 416.96 | 0.1597 | 12 |
+| n_choch_since_bos | 3 | 55 | 310.45 | 1,099.59 | 0.2909 | 7 |
+| n_choch_since_bos | 4+ | 62 | 501.60 | 1,079.59 | 0.2258 | 4 |
+| n_choch_since_bos_today | 0 | 244 | -278.62 | 813.74 | 0.2131 | 8 |
+| n_choch_since_bos_today | 1 | 364 | 236.40 | 536.18 | 0.2527 | 2 |
+| n_choch_since_bos_today | 2 | 134 | -2,140.68 | 398.61 | 0.1343 | 12 |
+| n_choch_since_bos_today | 3 | 50 | 531.22 | 1,187.06 | 0.28 | 7 |
+| n_choch_since_bos_today | 4+ | 40 | 299.07 | 1,429.24 | 0.2 | 7 |
+
+The grid: 201 cells; diff > 0 in 103; control pct >= 95 in 22; passing every raw go/no-go check (kept floors, diff, top-1 % removed, slip-8 kept mean, sign blocks, control) in 0. Median cell diff 42.73, median control pct 68.70. Full table `h2_5minute_L0_grid.csv`. The six choch-only cells and the 15 range-only cells:
+
+| kc | scope | W | q | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2.00 | all |  |  | e007e395ec212c79 | 571 | 0.6863 | 21.24 | -928.70 | 949.94 | 89.43 | 81.20 | 0.2114 | 0.321 | 0.7969 | 0.7751 | 0.1579 | -368.73 | 8.00 | False |
+| 2.00 | today |  |  | 8e30eb4817d3bf5f | 608 | 0.7308 | 29.71 | -1,108.61 | 1,138.32 | 374.16 | 64.10 | 0.1684 | 0.284 | 0.8214 | 0.8299 | 0.1579 | -360.25 | 8.00 | False |
+| 3.00 | all |  |  | 79b133d6f3cf4160 | 715 | 0.8594 | -389.42 | 411.74 | -801.16 | -1,233.57 | 30.00 | 0.4498 | 0.1343 | 0.7436 | 0.8461 | 0.1579 | -779.39 | 7.00 | False |
+| 3.00 | today |  |  | 57a2e6cbdcabecc2 | 742 | 0.8918 | -362.25 | 428.05 | -790.29 | -1,068.67 | 17.90 | 0.4953 | 0.1049 | 0.7556 | 0.8826 | 0.1579 | -752.21 | 8.00 | False |
+| 4.00 | all |  |  | fd0518ec575c77e1 | 770 | 0.9255 | -339.43 | 501.60 | -841.03 | -1,682.01 | 8.20 | 0.5222 | 0.0741 | 0.7742 | 0.91 | 0.1053 | -729.40 | 4.00 | False |
+| 4.00 | today |  |  | ed14be2df0f7ee3b | 792 | 0.9519 | -305.84 | 299.07 | -604.91 | -1,421.88 | 0.3 | 0.7086 | 0.0494 | 0.8 | 0.9433 | 0.1053 | -695.80 | 7.00 | False |
+|  |  | 1h | 0.1 | 06920ca30c0ae2db | 748 | 0.899 | -307.78 | -0.55 | -307.22 | -663.47 | 99.00 | 0.7936 | 0.0941 | 0.7262 | 0.8964 | 0.0526 | -697.74 | 7.00 | False |
+|  |  | 1h | 0.2 | ddee9576c0f618ac | 663 | 0.7969 | -194.73 | -598.57 | 403.84 | -283.96 | 98.70 | 0.6377 | 0.2006 | 0.7692 | 0.8401 | 0.0526 | -584.69 | 8.00 | False |
+|  |  | 1h | 0.3 | 92d61d9ab265fd9b | 584 | 0.7019 | -554.53 | 377.36 | -931.89 | -473.46 | 42.20 | 0.2379 | 0.2963 | 0.7742 | 0.6446 | 0.2105 | -944.50 | 6.00 | False |
+|  |  | 1h | 0.4 | 4e978c6639265a54 | 502 | 0.6034 | -415.36 | -65.91 | -349.45 | -266.58 | 40.30 | 0.6262 | 0.4012 | 0.7879 | 0.5981 | 0.2105 | -805.33 | 7.00 | False |
+|  |  | 1h | 0.5 | 7612ba89577b25ef | 418 | 0.5024 | -174.79 | -379.71 | 204.92 | -27.20 | 43.60 | 0.7946 | 0.5031 | 0.7874 | 0.5595 | 0.2105 | -564.75 | 8.00 | False |
+|  |  | 3h | 0.1 | 826161958736bcf3 | 747 | 0.8978 | -294.15 | -123.87 | -170.28 | -531.45 | 100.00 | 0.8791 | 0.091 | 0.6941 | 0.8854 | 0.0526 | -684.12 | 5.00 | False |
+|  |  | 3h | 0.2 | 53ee2ad1fb6d2290 | 665 | 0.7993 | -286.73 | -237.04 | -49.69 | -300.44 | 100.00 | 0.9495 | 0.1898 | 0.7365 | 0.7939 | 0.1579 | -676.70 | 7.00 | False |
+|  |  | 3h | 0.3 | 70726c1d9e388564 | 583 | 0.7007 | -240.15 | -362.46 | 122.30 | -436.00 | 99.40 | 0.8891 | 0.2886 | 0.751 | 0.704 | 0.2632 | -630.12 | 6.00 | False |
+|  |  | 3h | 0.4 | 1160eab80a9f9337 | 497 | 0.5974 | -259.55 | -302.28 | 42.73 | -31.94 | 92.20 | 0.9515 | 0.3966 | 0.7672 | 0.5844 | 0.3684 | -649.52 | 7.00 | False |
+|  |  | 3h | 0.5 | dbaf94b27fd09ce5 | 415 | 0.4988 | -128.33 | -424.47 | 296.13 | 153.33 | 94.30 | 0.6857 | 0.4969 | 0.7722 | 0.5115 | 0.4737 | -518.30 | 6.00 | False |
+|  |  | since_choch | 0.1 | c2cc47230967d66e | 745 | 0.8954 | -52.17 | -2,199.95 | 2,147.78 | 1,281.75 | 88.40 | 0.054 | 0.1173 | 0.8736 | 0.985 | 0 | -442.13 | 11.00 | False |
+|  |  | since_choch | 0.2 | ade48394be497d13 | 663 | 0.7969 | -245.67 | -398.72 | 153.05 | 208.52 | 43.60 | 0.8631 | 0.2145 | 0.8225 | 0.8431 | 0.0526 | -635.63 | 7.00 | False |
+|  |  | since_choch | 0.3 | 4c3b4de765885211 | 582 | 0.6995 | -524.28 | 299.47 | -823.75 | -146.63 | 18.10 | 0.2964 | 0.3056 | 0.792 | 0.6758 | 0.3684 | -914.24 | 3.00 | False |
+|  |  | since_choch | 0.4 | 570d4162d98cbab2 | 497 | 0.5974 | -351.38 | -166.05 | -185.33 | 79.05 | 26.70 | 0.8121 | 0.4136 | 0.8 | 0.6233 | 0.3684 | -741.34 | 5.00 | False |
+|  |  | since_choch | 0.5 | e85dabafd727f250 | 415 | 0.4988 | -335.65 | -218.15 | -117.50 | 293.06 | 26.80 | 0.8731 | 0.517 | 0.8034 | 0.5321 | 0.4737 | -725.61 | 6.00 | False |
+
+Top 10 cells by IS diff (selection is by nested CV, never by this table):
+
+| cell | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| {"W": "3h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 0a19dd9cb85eef2e | 830 | 0.9976 | -266.00 | -4,739.05 | 4,473.04 | 3,694.33 | 93.30 | 0.2084 | 0.0031 | 1.00 | 1.00 | 0 | -655.97 | 2.00 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 14a553ec17ea33f5 | 789 | 0.9483 | -134.92 | -2,879.34 | 2,744.43 | 1,926.29 | 72.80 | 0.0725 | 0.0602 | 0.907 | 0.9948 | 0 | -524.88 | 11.00 | False |
+| {"W": "1h", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "today"} | 05827040dd99ea33 | 824 | 0.9904 | -250.98 | -2,931.73 | 2,680.75 | 1,896.46 | 95.40 | 0.3113 | 0.0108 | 0.875 | 0.9988 | 0 | -640.95 | 4.00 | False |
+| {"W": "3h", "combine": "AND", "kc": 4, "q": 0.2, "rule": "both", "scope": "today"} | 0933d775ae9709c0 | 828 | 0.9952 | -264.31 | -2,854.31 | 2,590.00 | 1,809.40 | 68.70 | 0.4443 | 0.0046 | 0.75 | 0.9999 | 0 | -654.27 | 3.00 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 3, "q": 0.1, "rule": "both", "scope": "today"} | 0590c7232028848a | 823 | 0.9892 | -248.96 | -2,819.01 | 2,570.05 | 1,784.83 | 72.80 | 0.3348 | 0.0139 | 1.00 | 1.00 | 0 | -638.92 | 5.00 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.1, "rule": "both", "scope": "all"} | b5c6839aa8a75378 | 788 | 0.9471 | -144.09 | -2,652.75 | 2,508.66 | 1,689.37 | 74.50 | 0.093 | 0.0602 | 0.8864 | 0.9912 | 0 | -534.05 | 11.00 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "all"} | 6f584ccdc84b7237 | 824 | 0.9904 | -254.60 | -2,559.46 | 2,304.86 | 1,520.54 | 43.80 | 0.4103 | 0.0123 | 1.00 | 1.00 | 0 | -644.56 | 3.00 | False |
+| {"W": "1h", "combine": "AND", "kc": 4, "q": 0.1, "rule": "both", "scope": "today"} | 66b81d9153654368 | 831 | 0.9988 | -274.02 | -2,555.50 | 2,281.48 | 1,503.63 | 74.10 | 0.6422 | 0.0015 | 1.00 | 1.00 | 0 | -663.98 | 1.00 | False |
+| {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} | 3d439749bccac179 | 694 | 0.8341 | 100.36 | -2,173.25 | 2,273.61 | 1,345.10 | 83.50 | 0.0205 | 0.1821 | 0.8551 | 0.9617 | 0 | -289.61 | 11.00 | False |
+| {"W": "3h", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "today"} | e0176b2dbc774583 | 815 | 0.9796 | -231.88 | -2,428.11 | 2,196.23 | 1,403.40 | 69.00 | 0.3103 | 0.0216 | 0.8235 | 0.993 | 0 | -621.85 | 7.00 | False |
+
+**Nested-CV candidate** (family `h2/nested_cv`, the 12-block OOF mask):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| c04a0d2a19d216fd | 830 | 0.9976 | -266.00 | -4,739.05 | 4,473.04 | 3,694.33 | 93.80 | 0.2124 | 0.0031 | 1.00 | 1.00 | 0 | -655.97 | 2 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|
+| 0 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 4,489.00 | 199 | 83 | 83 |
+| 1 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 4,407.99 | 199 | 84 | 84 |
+| 2 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.98 | 4,360.60 | 199 | 42 | 42 |
+| 3 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 4,548.29 | 199 | 77 | 77 |
+| 4 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.86 | 5,455.09 | 199 | 72 | 72 |
+| 5 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.97 | 4,506.12 | 199 | 73 | 73 |
+| 6 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 5,681.24 | 199 | 78 | 77 |
+| 7 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.97 | 4,360.56 | 199 | 51 | 51 |
+| 8 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.89 | 4,381.80 | 198 | 76 | 76 |
+| 9 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.90 | 4,313.11 | 199 | 82 | 82 |
+| 10 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.95 | 3,300.83 | 199 | 31 | 30 |
+| 11 | {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} | 2.98 | 4,448.03 | 199 | 83 | 83 |
+
+CPCV paths (`h2/nested_cv/cpcv`, 11 rows): diff median 4,473.04, 5th pct 732.98, min -27.99, share > 0 0.909, control pct median 75.40 / 5th pct 42.20
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1075285c2e71d1dc | 830 | 0.9976 | -266.00 | -4,739.05 | 4,473.04 | 93.00 | 0.2224 | 1.00 | 2 | 0 |
+| 23c2c36cac95b362 | 831 | 0.9988 | -274.96 | -1,768.90 | 1,493.94 | 62.90 | 0.8576 | 1.00 | 0 | 1 |
+| 74087fa14568c188 | 830 | 0.9976 | -266.00 | -4,739.05 | 4,473.04 | 94.20 | 0.1939 | 1.00 | 2 | 2 |
+| 35b760e88bce2abb | 831 | 0.9988 | -270.08 | -5,826.65 | 5,556.57 | 75.30 | 0.1699 | 1.00 | 1 | 3 |
+| 0c9de90cb4418743 | 831 | 0.9988 | -270.08 | -5,826.65 | 5,556.57 | 75.40 | 0.1759 | 1.00 | 1 | 4 |
+| 44265ceb218bae1e | 830 | 0.9976 | -266.00 | -4,739.05 | 4,473.04 | 94.00 | 0.2134 | 1.00 | 2 | 5 |
+| 900b3332b45d30ec | 825 | 0.9916 | -254.13 | -2,943.43 | 2,689.30 | 66.70 | 0.3283 | 1.00 | 2 | 6 |
+| 336893cd99907af1 | 831 | 0.9988 | -270.08 | -5,826.65 | 5,556.57 | 74.40 | 0.1764 | 1.00 | 1 | 7 |
+| 13d071fed750a55f | 830 | 0.9976 | -266.00 | -4,739.05 | 4,473.04 | 93.70 | 0.2149 | 1.00 | 2 | 8 |
+| b4e66fb1c11044ef | 815 | 0.9796 | -277.33 | -249.34 | -27.99 | 21.60 | 0.99 | 0.9817 | 1 | 9 |
+| ad274d6f7a234b9d | 830 | 0.9976 | -266.00 | -4,739.05 | 4,473.04 | 94.10 | 0.2214 | 1.00 | 2 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"rule": "both", "kc": 2, "scope": "today", "W": "3h", "q": 0.1, "combine": "AND"} x64; {"rule": "both", "kc": 4, "scope": "today", "W": "3h", "q": 0.3, "combine": "AND"} x1; {"rule": "both", "kc": 2, "scope": "today", "W": "since_choch", "q": 0.5, "combine": "AND"} x1
+
+Family (after every row of this study on this table, the post-hoc row included):
+
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | L0 | pre-registered | 202 | 202 | 1.44 | 0.3043 | 0.5855 | 0.124 | 0.136 | {"rule": "range", "W": "3h", "q": 0.2} | 248.49 | [3078.04, 5879.24] | 0 | 0.7772 | 4,473.04 | 732.98 | 0.909 | 75.40 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
+
+
+### H2 family summary (all tables)
+
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | L1 | pre-registered | 202 | 202 | 1.44 | 0.3293 | 0.5333 | 0.076 | 0.0835 | {"rule": "range", "W": "3h", "q": 0.1} | 127.60 | [2816.25, 5189.35] | 0 | 0.9957 | 3,991.66 | 3,444.78 | 1.00 | 87.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1 |
+| 5 min | L0 | pre-registered | 202 | 202 | 1.44 | 0.3043 | 0.5855 | 0.124 | 0.136 | {"rule": "range", "W": "3h", "q": 0.2} | 248.49 | [3078.04, 5879.24] | 0 | 0.7772 | 4,473.04 | 732.98 | 0.909 | 75.40 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10 |
+
+
+
+## T3. H3 - visibly high volume
+
+### 1 min: reaction after a high-volume bar (IS bars; `h3_minute_bar_aftermath.csv`)
+
+| set | v | N | dir | n | fwd5_atr_mean | fwd15_atr_mean | fwd30_atr_mean | fwd30_atr_median | fwd30_pos_share | fwd30_abs_atr_mean | mfe30_atr_median | mae30_atr_median | own_extreme_held_15 | own_extreme_held_30 | opp_extreme_held_15 | opp_extreme_held_30 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| baseline_all_bars |  | 20 | up | 186,679 | -0.028 | -0.017 | -0.014 | 0.07 | 0.5081 | 2.70 | 2.15 | -2.23 | 0.1031 | 0.0724 | 0.2488 | 0.1784 |
+| baseline_all_bars |  | 20 | down | 185,810 | -0.032 | -0.022 | -0.018 | -0.165 | 0.4773 | 2.74 | 2.19 | -2.25 | 0.1055 | 0.075 | 0.2369 | 0.1682 |
+| baseline_all_bars |  | 20 | both | 372,489 | -0.03 | -0.019 | -0.016 | -0.043 | 0.4927 | 2.72 | 2.17 | -2.24 | 0.1043 | 0.0737 | 0.2428 | 0.1733 |
+| high_volume | 2.00 | 20 | up | 29,238 | -0.053 | -0.044 | -0.088 | -0.017 | 0.4954 | 2.77 | 2.13 | -2.31 | 0.1283 | 0.0923 | 0.3079 | 0.2204 |
+| high_volume | 2.00 | 20 | down | 28,210 | -0.051 | 0.021 | 0.046 | -0.175 | 0.477 | 2.84 | 2.27 | -2.32 | 0.1299 | 0.0941 | 0.2974 | 0.2153 |
+| high_volume | 2.00 | 20 | both | 57,448 | -0.052 | -0.012 | -0.022 | -0.1 | 0.4864 | 2.80 | 2.20 | -2.31 | 0.1291 | 0.0932 | 0.3027 | 0.2179 |
+| high_volume | 2.00 | 60 | up | 32,356 | -0.063 | -0.06 | -0.089 | -0.021 | 0.4951 | 2.75 | 2.11 | -2.30 | 0.1285 | 0.0932 | 0.3045 | 0.2172 |
+| high_volume | 2.00 | 60 | down | 31,518 | -0.047 | 0.019 | 0.062 | -0.164 | 0.4777 | 2.83 | 2.27 | -2.30 | 0.1291 | 0.0932 | 0.2945 | 0.2133 |
+| high_volume | 2.00 | 60 | both | 63,874 | -0.055 | -0.021 | -0.014 | -0.101 | 0.4865 | 2.79 | 2.19 | -2.30 | 0.1288 | 0.0932 | 0.2995 | 0.2153 |
+| high_volume | 3.00 | 20 | up | 13,302 | -0.042 | -0.058 | -0.112 | -0.078 | 0.4896 | 2.77 | 2.14 | -2.32 | 0.1416 | 0.1023 | 0.3379 | 0.2437 |
+| high_volume | 3.00 | 20 | down | 12,737 | -0.05 | 0.047 | 0.076 | -0.165 | 0.4774 | 2.87 | 2.30 | -2.33 | 0.1412 | 0.1051 | 0.3241 | 0.2386 |
+| high_volume | 3.00 | 20 | both | 26,039 | -0.046 | -0.007 | -0.02 | -0.118 | 0.4836 | 2.82 | 2.21 | -2.33 | 0.1414 | 0.1037 | 0.3311 | 0.2412 |
+| high_volume | 3.00 | 60 | up | 15,268 | -0.066 | -0.055 | -0.129 | -0.057 | 0.4912 | 2.77 | 2.09 | -2.32 | 0.1382 | 0.0996 | 0.3245 | 0.2345 |
+| high_volume | 3.00 | 60 | down | 14,921 | -0.05 | 0.047 | 0.078 | -0.18 | 0.4752 | 2.83 | 2.30 | -2.32 | 0.1379 | 0.1019 | 0.3185 | 0.2381 |
+| high_volume | 3.00 | 60 | both | 30,189 | -0.058 | -0.004 | -0.026 | -0.119 | 0.4833 | 2.80 | 2.19 | -2.32 | 0.138 | 0.1007 | 0.3216 | 0.2363 |
+| high_volume | 4.00 | 20 | up | 7,394 | -0.025 | -0.018 | -0.083 | -0.079 | 0.4877 | 2.79 | 2.15 | -2.29 | 0.1531 | 0.1128 | 0.3649 | 0.2699 |
+| high_volume | 4.00 | 20 | down | 6,943 | -0.027 | 0.079 | 0.116 | -0.152 | 0.4805 | 2.91 | 2.39 | -2.31 | 0.15 | 0.1124 | 0.3539 | 0.2687 |
+| high_volume | 4.00 | 20 | both | 14,337 | -0.026 | 0.029 | 0.014 | -0.115 | 0.4842 | 2.85 | 2.25 | -2.30 | 0.1516 | 0.1126 | 0.3596 | 0.2693 |
+| high_volume | 4.00 | 60 | up | 8,470 | -0.052 | -0.049 | -0.15 | -0.108 | 0.4849 | 2.80 | 2.08 | -2.36 | 0.1512 | 0.1125 | 0.3469 | 0.2519 |
+| high_volume | 4.00 | 60 | down | 8,252 | -0.046 | 0.071 | 0.121 | -0.149 | 0.4821 | 2.85 | 2.36 | -2.30 | 0.1423 | 0.1059 | 0.3355 | 0.254 |
+| high_volume | 4.00 | 60 | both | 16,722 | -0.049 | 0.011 | -0.016 | -0.126 | 0.4835 | 2.82 | 2.21 | -2.33 | 0.1468 | 0.1092 | 0.3412 | 0.2529 |
+
+Flat high-volume bars (excluded from the direction rows): v2 N20: 579, v2 N60: 680, v3 N20: 235, v3 N60: 283, v4 N20: 125, v4 N60: 156
+
+### 5 min: reaction after a high-volume bar (IS bars; `h3_5minute_bar_aftermath.csv`)
+
+| set | v | N | dir | n | fwd5_atr_mean | fwd15_atr_mean | fwd30_atr_mean | fwd30_atr_median | fwd30_pos_share | fwd30_abs_atr_mean | mfe30_atr_median | mae30_atr_median | own_extreme_held_15 | own_extreme_held_30 | opp_extreme_held_15 | opp_extreme_held_30 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| baseline_all_bars |  | 20 | up | 36,102 | -0.005 | 0.009 | 0.019 | 0.14 | 0.5196 | 2.47 | 1.89 | -1.87 | 0.0883 | 0.0643 | 0.2586 | 0.1962 |
+| baseline_all_bars |  | 20 | down | 34,989 | -0.005 | 0.007 | -0.002 | -0.17 | 0.4751 | 2.48 | 1.89 | -1.94 | 0.0967 | 0.0713 | 0.2407 | 0.1762 |
+| baseline_all_bars |  | 20 | both | 71,091 | -0.005 | 0.008 | 0.008 | -0.012 | 0.4977 | 2.47 | 1.89 | -1.91 | 0.0924 | 0.0678 | 0.2498 | 0.1864 |
+| high_volume | 2.00 | 20 | up | 5,273 | -0.007 | 0.031 | 0.078 | 0.079 | 0.513 | 2.76 | 2.12 | -2.07 | 0.1205 | 0.0912 | 0.3352 | 0.262 |
+| high_volume | 2.00 | 20 | down | 5,092 | 0.058 | 0.09 | 0.106 | -0.088 | 0.483 | 2.64 | 2.19 | -2.15 | 0.122 | 0.0855 | 0.3392 | 0.2474 |
+| high_volume | 2.00 | 20 | both | 10,365 | 0.025 | 0.06 | 0.092 | -0.01 | 0.4981 | 2.70 | 2.15 | -2.11 | 0.1213 | 0.0884 | 0.3372 | 0.2547 |
+| high_volume | 2.00 | 60 | up | 4,620 | -0.011 | 0.002 | 0.066 | 0.062 | 0.5085 | 2.62 | 2.04 | -1.97 | 0.1263 | 0.0951 | 0.3701 | 0.2911 |
+| high_volume | 2.00 | 60 | down | 4,522 | 0.076 | 0.186 | 0.044 | -0.184 | 0.4751 | 2.61 | 2.29 | -2.13 | 0.1239 | 0.0889 | 0.3836 | 0.2918 |
+| high_volume | 2.00 | 60 | both | 9,142 | 0.032 | 0.096 | 0.055 | -0.056 | 0.4914 | 2.61 | 2.16 | -2.07 | 0.1251 | 0.092 | 0.377 | 0.2914 |
+| high_volume | 3.00 | 20 | up | 2,125 | -0.041 | -0.073 | 0.105 | 0.103 | 0.5182 | 2.67 | 2.18 | -2.00 | 0.134 | 0.0918 | 0.366 | 0.2906 |
+| high_volume | 3.00 | 20 | down | 2,157 | 0.099 | 0.223 | 0.148 | -0.09 | 0.4808 | 2.63 | 2.43 | -2.14 | 0.1308 | 0.0923 | 0.4077 | 0.2875 |
+| high_volume | 3.00 | 20 | both | 4,282 | 0.032 | 0.081 | 0.127 | -0.012 | 0.4986 | 2.65 | 2.31 | -2.08 | 0.1323 | 0.0921 | 0.3877 | 0.289 |
+| high_volume | 3.00 | 60 | up | 2,012 | 0.021 | 0.018 | 0.109 | 0.081 | 0.516 | 2.63 | 2.18 | -2.00 | 0.1482 | 0.0819 | 0.4143 | 0.3381 |
+| high_volume | 3.00 | 60 | down | 2,009 | 0.129 | 0.306 | -0.026 | -0.184 | 0.4649 | 2.66 | 2.41 | -2.19 | 0.1297 | 0.0994 | 0.4404 | 0.3158 |
+| high_volume | 3.00 | 60 | both | 4,021 | 0.077 | 0.174 | 0.035 | -0.082 | 0.488 | 2.65 | 2.29 | -2.12 | 0.1382 | 0.0915 | 0.4285 | 0.3258 |
+| high_volume | 4.00 | 20 | up | 1,006 | -0.012 | -0.067 | 0.156 | 0.293 | 0.5462 | 2.67 | 2.34 | -1.90 | 0.1545 | 0.0756 | 0.3923 | 0.3193 |
+| high_volume | 4.00 | 20 | down | 1,035 | 0.125 | 0.365 | 0.233 | 0.14 | 0.5089 | 2.74 | 2.60 | -2.09 | 0.1279 | 0.0925 | 0.4512 | 0.3488 |
+| high_volume | 4.00 | 20 | both | 2,041 | 0.06 | 0.164 | 0.197 | 0.198 | 0.526 | 2.71 | 2.54 | -2.00 | 0.1403 | 0.0848 | 0.4237 | 0.3353 |
+| high_volume | 4.00 | 60 | up | 965 | 0.153 | 0.216 | 0.352 | 0.715 | 0.5812 | 2.99 | 2.98 | -1.83 | 0.12 | 0.0598 | 0.4889 | 0.4017 |
+| high_volume | 4.00 | 60 | down | 958 | 0.223 | 0.59 | -0.03 | -0.05 | 0.4934 | 2.87 | 2.37 | -2.15 | 0.141 | 0.0987 | 0.482 | 0.3618 |
+| high_volume | 4.00 | 60 | both | 1,923 | 0.19 | 0.431 | 0.136 | 0.291 | 0.5316 | 2.92 | 2.61 | -1.99 | 0.1321 | 0.0818 | 0.4849 | 0.3792 |
+
+Flat high-volume bars (excluded from the direction rows): v2 N20: 42, v2 N60: 38, v3 N20: 11, v3 N60: 7, v4 N20: 3, v4 N60: 3
+
+### 5 min / L1 (826 IS units)
+
+Foundation outcome by direction agreement with the latest high-volume bar within M bars (`h3_5minute_L1_by_agreement.csv`; every (v, N, M)):
+
+| variable | bucket | n | share | net_mean | net_se | win_rate | pts_mean | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|
+| hv v2 N20 M5 | agree | 327 | 0.3959 | -746.89 | 230.82 | 0.2752 | 4.70 | 5 |
+| hv v2 N20 M5 | disagree | 28 | 0.0339 | -1,146.76 | 558.36 | 0.25 | -1.51 | 6 |
+| hv v2 N20 M5 | none | 471 | 0.5702 | -740.94 | 221.03 | 0.2803 | 4.73 | 6 |
+| hv v2 N20 M15 | agree | 382 | 0.4625 | -829.64 | 203.50 | 0.2696 | 3.40 | 8 |
+| hv v2 N20 M15 | disagree | 84 | 0.1017 | -811.57 | 402.25 | 0.25 | 3.60 | 6 |
+| hv v2 N20 M15 | none | 360 | 0.4358 | -667.31 | 272.17 | 0.2917 | 5.89 | 4 |
+| hv v2 N20 M30 | agree | 407 | 0.4927 | -828.52 | 193.95 | 0.2703 | 3.42 | 7 |
+| hv v2 N20 M30 | disagree | 107 | 0.1295 | -630.78 | 364.59 | 0.2523 | 6.42 | 6 |
+| hv v2 N20 M30 | none | 312 | 0.3777 | -707.12 | 304.67 | 0.2949 | 5.26 | 5 |
+| hv v2 N60 M5 | agree | 255 | 0.3087 | -668.90 | 261.56 | 0.2863 | 5.84 | 5 |
+| hv v2 N60 M5 | disagree | 19 | 0.023 | -1,031.54 | 773.66 | 0.2105 | 0.192 | 5 |
+| hv v2 N60 M5 | none | 552 | 0.6683 | -788.33 | 199.41 | 0.2754 | 4.04 | 6 |
+| hv v2 N60 M15 | agree | 303 | 0.3668 | -797.07 | 227.07 | 0.2772 | 3.88 | 6 |
+| hv v2 N60 M15 | disagree | 56 | 0.0678 | -1,295.36 | 433.25 | 0.1786 | -3.85 | 8 |
+| hv v2 N60 M15 | none | 467 | 0.5654 | -666.54 | 229.06 | 0.2891 | 5.91 | 4 |
+| hv v2 N60 M30 | agree | 333 | 0.4031 | -837.85 | 214.20 | 0.2643 | 3.28 | 8 |
+| hv v2 N60 M30 | disagree | 102 | 0.1235 | -688.65 | 393.96 | 0.2353 | 5.50 | 6 |
+| hv v2 N60 M30 | none | 391 | 0.4734 | -706.09 | 256.84 | 0.2992 | 5.29 | 4 |
+| hv v3 N20 M5 | agree | 152 | 0.184 | -778.44 | 333.52 | 0.2697 | 4.21 | 8 |
+| hv v3 N20 M5 | disagree | 17 | 0.0206 | -612.01 | 984.92 | 0.2941 | 6.88 | 6 |
+| hv v3 N20 M5 | none | 657 | 0.7954 | -755.86 | 179.70 | 0.2785 | 4.51 | 5 |
+| hv v3 N20 M15 | agree | 204 | 0.247 | -901.54 | 266.19 | 0.2647 | 2.30 | 7 |
+| hv v3 N20 M15 | disagree | 60 | 0.0726 | -292.67 | 552.52 | 0.3333 | 11.65 | 5 |
+| hv v3 N20 M15 | none | 562 | 0.6804 | -754.18 | 200.72 | 0.2758 | 4.54 | 5 |
+| hv v3 N20 M30 | agree | 229 | 0.2772 | -784.32 | 259.14 | 0.2664 | 4.07 | 7 |
+| hv v3 N20 M30 | disagree | 95 | 0.115 | -453.22 | 433.18 | 0.2737 | 9.22 | 5 |
+| hv v3 N20 M30 | none | 502 | 0.6077 | -802.11 | 214.23 | 0.2829 | 3.81 | 6 |
+| hv v3 N60 M5 | agree | 102 | 0.1235 | -600.20 | 389.52 | 0.2941 | 6.94 | 5 |
+| hv v3 N60 M5 | disagree | 9 | 0.0109 | -277.02 | 642.15 | 0.4444 | 12.06 | 2 |
+| hv v3 N60 M5 | none | 715 | 0.8656 | -785.47 | 172.19 | 0.2727 | 4.06 | 7 |
+| hv v3 N60 M15 | agree | 134 | 0.1622 | -833.93 | 323.74 | 0.291 | 3.33 | 7 |
+| hv v3 N60 M15 | disagree | 35 | 0.0424 | -129.88 | 783.94 | 0.3143 | 14.22 | 6 |
+| hv v3 N60 M15 | none | 657 | 0.7954 | -774.78 | 181.01 | 0.2725 | 4.23 | 6 |
+| hv v3 N60 M30 | agree | 153 | 0.1852 | -702.32 | 318.90 | 0.2876 | 5.35 | 7 |
+| hv v3 N60 M30 | disagree | 68 | 0.0823 | -348.21 | 502.40 | 0.2647 | 10.84 | 5 |
+| hv v3 N60 M30 | none | 605 | 0.7324 | -816.85 | 190.10 | 0.276 | 3.58 | 7 |
+| hv v4 N20 M5 | agree | 79 | 0.0956 | -460.47 | 499.15 | 0.2911 | 9.21 | 6 |
+| hv v4 N20 M5 | disagree | 8 | 0.0097 | 1,141.18 | 1,749.99 | 0.5 | 34.38 | 2 |
+| hv v4 N20 M5 | none | 739 | 0.8947 | -809.31 | 165.79 | 0.2733 | 3.68 | 6 |
+| hv v4 N20 M15 | agree | 104 | 0.1259 | -641.25 | 406.52 | 0.2885 | 6.34 | 6 |
+| hv v4 N20 M15 | disagree | 36 | 0.0436 | -901.87 | 602.50 | 0.25 | 2.54 | 7 |
+| hv v4 N20 M15 | none | 686 | 0.8305 | -767.01 | 175.69 | 0.277 | 4.33 | 6 |
+| hv v4 N20 M30 | agree | 123 | 0.1489 | -707.72 | 354.21 | 0.2764 | 5.31 | 6 |
+| hv v4 N20 M30 | disagree | 65 | 0.0787 | -516.78 | 463.02 | 0.2615 | 8.33 | 6 |
+| hv v4 N20 M30 | none | 638 | 0.7724 | -791.04 | 185.31 | 0.279 | 3.96 | 7 |
+| hv v4 N60 M5 | agree | 52 | 0.063 | -309.42 | 538.20 | 0.2885 | 11.36 | 5 |
+| hv v4 N60 M5 | disagree | 5 | 0.0061 | 1,476.85 | 1,452.75 | 0.6 | 39.77 | 1 |
+| hv v4 N60 M5 | none | 769 | 0.931 | -801.85 | 164.01 | 0.2744 | 3.81 | 8 |
+| hv v4 N60 M15 | agree | 69 | 0.0835 | -569.41 | 457.09 | 0.2754 | 7.32 | 5 |
+| hv v4 N60 M15 | disagree | 16 | 0.0194 | 455.88 | 854.00 | 0.4375 | 23.30 | 1 |
+| hv v4 N60 M15 | none | 741 | 0.8971 | -800.72 | 168.41 | 0.274 | 3.84 | 8 |
+| hv v4 N60 M30 | agree | 77 | 0.0932 | -686.35 | 420.12 | 0.2597 | 5.51 | 6 |
+| hv v4 N60 M30 | disagree | 30 | 0.0363 | -103.00 | 596.30 | 0.3 | 14.58 | 5 |
+| hv v4 N60 M30 | none | 719 | 0.8705 | -791.91 | 172.59 | 0.2782 | 3.98 | 7 |
+
+by bars since the latest high-volume bar (`h3_5minute_L1_by_bars_since.csv`):
+
+| variable | bucket | n | share | net_mean | net_se | win_rate | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|
+| hv v2 N20 bars_since | 0 | 243 | 0.2942 | -762.79 | 266.48 | 0.2757 | 7 |
+| hv v2 N20 bars_since | 1-5 | 114 | 0.138 | -787.21 | 370.54 | 0.2719 | 6 |
+| hv v2 N20 bars_since | 6-15 | 113 | 0.1368 | -946.14 | 316.22 | 0.2478 | 5 |
+| hv v2 N20 bars_since | 16-30 | 48 | 0.0581 | -408.54 | 499.79 | 0.2708 | 7 |
+| hv v2 N20 bars_since | >30 | 10 | 0.0121 | -118.74 | 963.16 | 0.5 | 3 |
+| hv v2 N20 bars_since | none | 298 | 0.3608 | -746.70 | 316.46 | 0.2852 | 6 |
+| hv v2 N60 bars_since | 0 | 190 | 0.23 | -631.39 | 292.87 | 0.2947 | 5 |
+| hv v2 N60 bars_since | 1-5 | 85 | 0.1029 | -780.14 | 470.09 | 0.2588 | 4 |
+| hv v2 N60 bars_since | 6-15 | 88 | 0.1065 | -1,422.44 | 296.11 | 0.2045 | 7 |
+| hv v2 N60 bars_since | 16-30 | 76 | 0.092 | -463.07 | 487.49 | 0.2368 | 3 |
+| hv v2 N60 bars_since | >30 | 36 | 0.0436 | -1,309.50 | 413.71 | 0.2778 | 5 |
+| hv v2 N60 bars_since | none | 351 | 0.4249 | -659.65 | 282.04 | 0.2991 | 4 |
+| hv v3 N20 bars_since | 0 | 110 | 0.1332 | -722.88 | 406.64 | 0.2727 | 8 |
+| hv v3 N20 bars_since | 1-5 | 59 | 0.0714 | -834.07 | 493.76 | 0.2712 | 7 |
+| hv v3 N20 bars_since | 6-15 | 95 | 0.115 | -765.75 | 368.83 | 0.2947 | 7 |
+| hv v3 N20 bars_since | 16-30 | 60 | 0.0726 | -353.20 | 569.65 | 0.2167 | 5 |
+| hv v3 N20 bars_since | >30 | 18 | 0.0218 | -141.59 | 675.17 | 0.3889 | 4 |
+| hv v3 N20 bars_since | none | 484 | 0.586 | -826.68 | 220.78 | 0.2789 | 6 |
+| hv v3 N60 bars_since | 0 | 72 | 0.0872 | -642.98 | 494.68 | 0.2917 | 6 |
+| hv v3 N60 bars_since | 1-5 | 39 | 0.0472 | -446.63 | 480.20 | 0.3333 | 5 |
+| hv v3 N60 bars_since | 6-15 | 58 | 0.0702 | -906.55 | 554.13 | 0.2759 | 8 |
+| hv v3 N60 bars_since | 16-30 | 52 | 0.063 | -285.39 | 583.03 | 0.2308 | 7 |
+| hv v3 N60 bars_since | >30 | 25 | 0.0303 | -1,082.49 | 509.85 | 0.24 | 6 |
+| hv v3 N60 bars_since | none | 580 | 0.7022 | -805.40 | 197.11 | 0.2776 | 7 |
+| hv v4 N20 bars_since | 0 | 55 | 0.0666 | -156.36 | 670.27 | 0.3091 | 5 |
+| hv v4 N20 bars_since | 1-5 | 32 | 0.0387 | -582.74 | 624.94 | 0.3125 | 6 |
+| hv v4 N20 bars_since | 6-15 | 53 | 0.0642 | -1,356.79 | 412.14 | 0.2264 | 10 |
+| hv v4 N20 bars_since | 16-30 | 48 | 0.0581 | -447.56 | 491.18 | 0.25 | 5 |
+| hv v4 N20 bars_since | >30 | 16 | 0.0194 | -824.62 | 670.81 | 0.375 | 4 |
+| hv v4 N20 bars_since | none | 622 | 0.753 | -790.18 | 189.34 | 0.2765 | 8 |
+| hv v4 N60 bars_since | 0 | 34 | 0.0412 | 219.97 | 759.53 | 0.3235 | 5 |
+| hv v4 N60 bars_since | 1-5 | 23 | 0.0278 | -703.68 | 572.70 | 0.3043 | 5 |
+| hv v4 N60 bars_since | 6-15 | 28 | 0.0339 | -831.77 | 666.06 | 0.2857 | 5 |
+| hv v4 N60 bars_since | 16-30 | 22 | 0.0266 | -1,088.34 | 609.73 | 0.1364 | 5 |
+| hv v4 N60 bars_since | >30 | 15 | 0.0182 | -1,085.63 | 764.14 | 0.4 | 5 |
+| hv v4 N60 bars_since | none | 704 | 0.8523 | -785.66 | 175.56 | 0.2756 | 6 |
+
+The grid: 54 cells; diff > 0 in 26; control pct >= 95 in 35; passing every raw go/no-go check (kept floors, diff, top-1 % removed, slip-8 kept mean, sign blocks, control) in 0. Median cell diff -7.41, median control pct 99.65. Full table `h3_5minute_L1_grid.csv`:
+
+| v | N | M | gate | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2 | 20 | 5 | skip_if_disagree | 5bb8df27d933a542 | 798 | 0.9661 | -743.38 | -1,146.76 | 403.38 | 179.17 | 0.9 | 0.6317 | 0.0352 | 0.75 | 0.9832 | 0 | -1,133.34 | 6 | False |
+| 2 | 20 | 5 | skip_if_none | d48b335fa7c8fb2a | 355 | 0.4298 | -778.43 | -740.94 | -37.49 | 150.40 | 100.00 | 0.9 | 0.5678 | 0.7197 | 0.3818 | 0.6522 | -1,168.40 | 6 | False |
+| 2 | 20 | 5 | take_only_agree | 78e5ec98d9bbecb5 | 327 | 0.3959 | -746.89 | -763.71 | 16.82 | 178.82 | 99.90 | 0.9645 | 0.603 | 0.7214 | 0.365 | 0.6522 | -1,136.86 | 7 | False |
+| 2 | 20 | 15 | skip_if_disagree | 5694b41eb921fb5b | 742 | 0.8983 | -750.88 | -811.57 | 60.69 | -180.75 | 0.2 | 0.9095 | 0.1055 | 0.75 | 0.9218 | 0.0435 | -1,140.85 | 6 | False |
+| 2 | 20 | 15 | skip_if_none | 20892326d3da1f02 | 466 | 0.5642 | -826.38 | -667.31 | -159.07 | 147.09 | 100.00 | 0.6107 | 0.4271 | 0.7083 | 0.4744 | 0.6087 | -1,216.34 | 4 | False |
+| 2 | 20 | 15 | take_only_agree | a2c2f9584e5b150d | 382 | 0.4625 | -829.64 | -694.60 | -135.03 | 78.06 | 100.00 | 0.6937 | 0.5327 | 0.7162 | 0.3962 | 0.6522 | -1,219.60 | 4 | False |
+| 2 | 20 | 30 | skip_if_disagree | c57175398734ff98 | 719 | 0.8705 | -775.84 | -630.78 | -145.06 | -394.64 | 0.1 | 0.7411 | 0.134 | 0.7477 | 0.8891 | 0.0435 | -1,165.81 | 6 | False |
+| 2 | 20 | 30 | skip_if_none | 00cca7d0b739f715 | 514 | 0.6223 | -787.36 | -707.12 | -80.24 | 296.21 | 100.00 | 0.8046 | 0.3685 | 0.7051 | 0.5241 | 0.6087 | -1,177.32 | 5 | False |
+| 2 | 20 | 30 | take_only_agree | 1c6ad7c2ca8145ce | 407 | 0.4927 | -828.52 | -687.63 | -140.90 | 97.54 | 100.00 | 0.6642 | 0.5025 | 0.716 | 0.4132 | 0.6522 | -1,218.49 | 5 | False |
+| 2 | 60 | 5 | skip_if_disagree | 04d33f65b093e8a3 | 807 | 0.977 | -750.59 | -1,031.54 | 280.95 | 59.18 | 4.90 | 0.7836 | 0.0251 | 0.7895 | 0.9859 | 0 | -1,140.55 | 5 | False |
+| 2 | 60 | 5 | skip_if_none | 0208c32a133b361c | 274 | 0.3317 | -694.05 | -788.33 | 94.28 | 206.43 | 100.00 | 0.7791 | 0.67 | 0.7246 | 0.2994 | 0.7391 | -1,084.01 | 6 | False |
+| 2 | 60 | 5 | take_only_agree | 83ee4a25087f2db6 | 255 | 0.3087 | -668.90 | -796.42 | 127.52 | 220.74 | 100.00 | 0.7301 | 0.6951 | 0.7268 | 0.2853 | 0.7391 | -1,058.87 | 7 | False |
+| 2 | 60 | 15 | skip_if_disagree | 9ee80f7138a51100 | 770 | 0.9322 | -717.90 | -1,295.36 | 577.45 | 345.29 | 9.30 | 0.3693 | 0.0771 | 0.8214 | 0.9609 | 0 | -1,107.87 | 8 | False |
+| 2 | 60 | 15 | skip_if_none | cbcd91057109fd38 | 359 | 0.4346 | -874.80 | -666.54 | -208.26 | -18.21 | 100.00 | 0.5132 | 0.5561 | 0.7109 | 0.3471 | 0.7391 | -1,264.76 | 4 | False |
+| 2 | 60 | 15 | take_only_agree | 2b8a5a2faa7ff9e0 | 303 | 0.3668 | -797.07 | -733.87 | -63.20 | 75.48 | 100.00 | 0.8461 | 0.6332 | 0.7228 | 0.308 | 0.7391 | -1,187.03 | 6 | False |
+| 2 | 60 | 30 | skip_if_disagree | 294e6764980ee762 | 724 | 0.8765 | -766.69 | -688.65 | -78.04 | -325.75 | 2.80 | 0.8671 | 0.1307 | 0.7647 | 0.8835 | 0.0435 | -1,156.65 | 6 | False |
+| 2 | 60 | 30 | skip_if_none | 1c830fef39b4459b | 435 | 0.5266 | -802.86 | -706.09 | -96.78 | 172.71 | 100.00 | 0.7661 | 0.459 | 0.7008 | 0.4437 | 0.6522 | -1,192.83 | 4 | False |
+| 2 | 60 | 30 | take_only_agree | 53660344c6c5c26e | 333 | 0.4031 | -837.85 | -702.48 | -135.37 | 30.83 | 100.00 | 0.6597 | 0.5896 | 0.714 | 0.3271 | 0.6957 | -1,227.81 | 4 | False |
+| 3 | 20 | 5 | skip_if_disagree | e37802fbc30515f5 | 809 | 0.9794 | -760.10 | -612.01 | -148.09 | -369.41 | 5.50 | 0.8976 | 0.0201 | 0.7059 | 0.9793 | 0 | -1,150.06 | 6 | False |
+| 3 | 20 | 5 | skip_if_none | 35a624052800b49e | 169 | 0.2046 | -761.70 | -755.86 | -5.84 | 138.45 | 100.00 | 0.9905 | 0.794 | 0.7215 | 0.1813 | 0.7826 | -1,151.67 | 5 | False |
+| 3 | 20 | 5 | take_only_agree | 4d9ccfd472480e9a | 152 | 0.184 | -778.44 | -752.23 | -26.21 | 100.15 | 99.80 | 0.951 | 0.8141 | 0.7211 | 0.1607 | 0.7826 | -1,168.41 | 4 | False |
+| 3 | 20 | 15 | skip_if_disagree | 45d87dd1e2b7ccae | 766 | 0.9274 | -793.43 | -292.67 | -500.76 | -347.86 | 0 | 0.3943 | 0.067 | 0.6667 | 0.9252 | 0.0435 | -1,183.39 | 5 | False |
+| 3 | 20 | 15 | skip_if_none | 12a3d3ce68207a50 | 264 | 0.3196 | -763.16 | -754.18 | -8.97 | 92.22 | 100.00 | 0.9815 | 0.6817 | 0.7242 | 0.267 | 0.7391 | -1,153.12 | 5 | False |
+| 3 | 20 | 15 | take_only_agree | 0ea5ec9b1d5959fe | 204 | 0.247 | -901.54 | -709.66 | -191.87 | -17.23 | 100.00 | 0.6127 | 0.7487 | 0.7186 | 0.1922 | 0.7826 | -1,291.50 | 5 | False |
+| 3 | 20 | 30 | skip_if_disagree | 5f1648ea121a5cc5 | 731 | 0.885 | -796.54 | -453.22 | -343.32 | -332.11 | 0.1 | 0.4913 | 0.1156 | 0.7263 | 0.889 | 0.087 | -1,186.50 | 5 | False |
+| 3 | 20 | 30 | skip_if_none | 307fb598d9b19d10 | 324 | 0.3923 | -687.24 | -802.11 | 114.87 | 274.97 | 100.00 | 0.6942 | 0.603 | 0.7171 | 0.3433 | 0.6522 | -1,077.20 | 6 | False |
+| 3 | 20 | 30 | take_only_agree | ff15f6820fca5e23 | 229 | 0.2772 | -784.32 | -746.59 | -37.73 | 158.29 | 100.00 | 0.9175 | 0.7186 | 0.7186 | 0.2323 | 0.7391 | -1,174.29 | 5 | False |
+| 3 | 60 | 5 | skip_if_disagree | d01ba23aba6e5704 | 817 | 0.9891 | -762.34 | -277.02 | -485.32 | -704.47 | 1.60 | 0.7566 | 0.0084 | 0.5556 | 0.9949 | 0 | -1,152.31 | 2 | False |
+| 3 | 60 | 5 | skip_if_none | 81898aa668ee829f | 111 | 0.1344 | -574.00 | -785.47 | 211.47 | 462.58 | 99.30 | 0.6472 | 0.871 | 0.7273 | 0.1131 | 0.913 | -963.96 | 7 | False |
+| 3 | 60 | 5 | take_only_agree | e211de0f194006d7 | 102 | 0.1235 | -600.20 | -779.15 | 178.95 | 426.82 | 98.20 | 0.7036 | 0.8794 | 0.7251 | 0.108 | 0.913 | -990.16 | 7 | False |
+| 3 | 60 | 15 | skip_if_disagree | 503c228d35f982d4 | 791 | 0.9576 | -784.80 | -129.88 | -654.92 | -236.68 | 0.8 | 0.3773 | 0.0402 | 0.6857 | 0.9562 | 0.0435 | -1,174.77 | 6 | False |
+| 3 | 60 | 15 | skip_if_none | ecf4dab78d302d29 | 169 | 0.2046 | -688.13 | -774.78 | 86.66 | 198.16 | 100.00 | 0.8231 | 0.8007 | 0.7275 | 0.1732 | 0.8696 | -1,078.09 | 6 | False |
+| 3 | 60 | 15 | take_only_agree | d90836d5373bd06c | 134 | 0.1622 | -833.93 | -742.16 | -91.77 | 167.22 | 98.50 | 0.8356 | 0.8409 | 0.7254 | 0.1295 | 0.913 | -1,223.90 | 5 | False |
+| 3 | 60 | 30 | skip_if_disagree | c45657a082849292 | 758 | 0.9177 | -793.73 | -348.21 | -445.52 | -336.76 | 0.5 | 0.4478 | 0.0838 | 0.7353 | 0.923 | 0.0435 | -1,183.69 | 5 | False |
+| 3 | 60 | 30 | skip_if_none | 90de9193342c262d | 221 | 0.2676 | -593.36 | -816.85 | 223.48 | 387.15 | 100.00 | 0.5222 | 0.7337 | 0.724 | 0.2402 | 0.8261 | -983.33 | 7 | False |
+| 3 | 60 | 30 | take_only_agree | daf17339a46857fb | 153 | 0.1852 | -702.32 | -769.49 | 67.17 | 333.95 | 99.70 | 0.8626 | 0.8174 | 0.7251 | 0.1633 | 0.8696 | -1,092.29 | 5 | False |
+| 4 | 20 | 5 | skip_if_disagree | dbcde631c9ee29ae | 818 | 0.9903 | -775.62 | 1,141.18 | -1,916.80 | -2,135.83 | 4.60 | 0.2049 | 0.0067 | 0.5 | 0.982 | 0 | -1,165.58 | 2 | False |
+| 4 | 20 | 5 | skip_if_none | ef7e313f68494734 | 87 | 0.1053 | -313.19 | -809.31 | 496.12 | 521.28 | 98.50 | 0.3328 | 0.8995 | 0.7267 | 0.1151 | 0.8696 | -703.16 | 6 | False |
+| 4 | 20 | 5 | take_only_agree | 15f6915ee3bbfb86 | 79 | 0.0956 | -460.47 | -788.42 | 327.95 | 328.71 | 93.90 | 0.5597 | 0.9062 | 0.7242 | 0.0971 | 0.8696 | -850.43 | 6 | False |
+| 4 | 20 | 15 | skip_if_disagree | 0bb88c6a6a8ffa3f | 790 | 0.9564 | -750.45 | -901.87 | 151.42 | -75.17 | 2.30 | 0.8341 | 0.0452 | 0.75 | 0.9666 | 0 | -1,140.42 | 7 | False |
+| 4 | 20 | 15 | skip_if_none | 38268600623ceadb | 140 | 0.1695 | -708.27 | -767.01 | 58.74 | 171.73 | 100.00 | 0.8946 | 0.8308 | 0.723 | 0.1493 | 0.8696 | -1,098.23 | 6 | False |
+| 4 | 20 | 15 | take_only_agree | e8af548ba6902237 | 104 | 0.1259 | -641.25 | -773.73 | 132.48 | 191.33 | 98.80 | 0.7716 | 0.876 | 0.7244 | 0.1159 | 0.8696 | -1,031.21 | 6 | False |
+| 4 | 20 | 30 | skip_if_disagree | c221585f5bd5f15c | 761 | 0.9213 | -777.57 | -516.78 | -260.79 | -496.45 | 0.1 | 0.6492 | 0.0804 | 0.7385 | 0.93 | 0 | -1,167.54 | 6 | False |
+| 4 | 20 | 30 | skip_if_none | 08acacd20b67f66a | 188 | 0.2276 | -641.70 | -791.04 | 149.34 | 312.52 | 100.00 | 0.6847 | 0.7705 | 0.721 | 0.1975 | 0.8696 | -1,031.67 | 7 | False |
+| 4 | 20 | 30 | take_only_agree | d95d9eba36eb1950 | 123 | 0.1489 | -707.72 | -765.68 | 57.97 | 148.04 | 99.30 | 0.8771 | 0.8509 | 0.7226 | 0.1275 | 0.8696 | -1,097.68 | 6 | False |
+| 4 | 60 | 5 | skip_if_disagree | 396e8c6db9b6529e | 821 | 0.9939 | -770.66 | 1,476.85 | -2,247.51 | -2,465.67 | 10.90 | 0.2294 | 0.0034 | 0.4 | 0.9908 | 0 | -1,160.62 | 1 | False |
+| 4 | 60 | 5 | skip_if_none | 787de1111d634bf1 | 57 | 0.069 | -152.73 | -801.85 | 649.11 | 882.57 | 99.70 | 0.3073 | 0.9347 | 0.7256 | 0.066 | 0.9565 | -542.70 | 8 | False |
+| 4 | 60 | 5 | take_only_agree | 518f33f14669872c | 52 | 0.063 | -309.42 | -787.13 | 477.70 | 709.46 | 99.60 | 0.4368 | 0.938 | 0.7235 | 0.0568 | 0.9565 | -699.39 | 7 | False |
+| 4 | 60 | 15 | skip_if_disagree | ea648dd03e98e397 | 810 | 0.9806 | -781.01 | 455.88 | -1,236.89 | -1,458.16 | 0.3 | 0.2734 | 0.0151 | 0.5625 | 0.9804 | 0 | -1,170.98 | 1 | False |
+| 4 | 60 | 15 | skip_if_none | b68bb7024c7c6c45 | 85 | 0.1029 | -376.41 | -800.72 | 424.30 | 666.68 | 100.00 | 0.4273 | 0.9012 | 0.726 | 0.091 | 0.9565 | -766.38 | 8 | False |
+| 4 | 60 | 15 | take_only_agree | 5cb3d2ab9b665f81 | 69 | 0.0835 | -569.41 | -774.16 | 204.75 | 441.62 | 99.60 | 0.7216 | 0.9162 | 0.7226 | 0.0714 | 0.9565 | -959.37 | 7 | False |
+| 4 | 60 | 30 | skip_if_disagree | 2a9ec96e0b7fd12e | 796 | 0.9637 | -781.70 | -103.00 | -678.70 | -903.92 | 0.9 | 0.4213 | 0.0352 | 0.7 | 0.9703 | 0 | -1,171.67 | 5 | False |
+| 4 | 60 | 30 | skip_if_none | 50bebdca52884cda | 107 | 0.1295 | -522.79 | -791.91 | 269.12 | 518.90 | 100.00 | 0.5552 | 0.8693 | 0.7218 | 0.1049 | 0.9565 | -912.76 | 7 | False |
+| 4 | 60 | 30 | take_only_agree | 48c221b8171c342f | 77 | 0.0932 | -686.35 | -764.32 | 77.97 | 317.29 | 99.80 | 0.8861 | 0.9045 | 0.721 | 0.0751 | 0.9565 | -1,076.31 | 6 | False |
+
+**Nested-CV candidate** (family `h3/nested_cv`, the 12-block OOF mask):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 8eaee251afffdbb3 | 775 | 0.9383 | -769.41 | -569.31 | -200.09 | -431.35 | 0.4 | 0.7566 | 0.0637 | 0.7451 | 0.9465 | 0 | -1,159.37 | 6 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|
+| 0 | {"v": 2, "N": 20, "M": 5, "gate": "skip_if_disagree"} |  | 608.48 | 38 | 82 | 79 |
+| 1 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 496.05 | 37 | 83 | 77 |
+| 2 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 469.66 | 38 | 42 | 37 |
+| 3 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 515.47 | 38 | 76 | 73 |
+| 4 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 650.80 | 36 | 72 | 63 |
+| 5 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 563.97 | 38 | 73 | 68 |
+| 6 | {"v": 2, "N": 60, "M": 5, "gate": "skip_if_disagree"} |  | 884.99 | 38 | 77 | 76 |
+| 7 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 576.37 | 38 | 51 | 50 |
+| 8 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 700.93 | 38 | 76 | 71 |
+| 9 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 909.14 | 37 | 80 | 70 |
+| 10 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 610.50 | 38 | 31 | 30 |
+| 11 | {"v": 2, "N": 20, "M": 5, "gate": "skip_if_disagree"} |  | 873.19 | 37 | 83 | 81 |
+
+CPCV paths (`h3/nested_cv/cpcv`, 11 rows): diff median -200.09, 5th pct -598.43, min -612.43, share > 0 0.273, control pct median 0.7 / 5th pct 0.1
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| a3a433a09dfefff8 | 796 | 0.9637 | -779.30 | -166.86 | -612.43 | 0.1 | 0.4688 | 0.9615 | 5 | 0 |
+| 2cd6243c08fd4a59 | 775 | 0.9383 | -769.41 | -569.31 | -200.09 | 0.7 | 0.7586 | 0.9465 | 6 | 1 |
+| 57de19e6964e0535 | 775 | 0.9383 | -769.41 | -569.31 | -200.09 | 0.5 | 0.7536 | 0.9465 | 6 | 2 |
+| 8bc0695cc4cf1e9c | 782 | 0.9467 | -782.39 | -306.65 | -475.75 | 0.1 | 0.4888 | 0.9465 | 5 | 3 |
+| ae82e1c081aa2990 | 775 | 0.9383 | -752.90 | -820.17 | 67.27 | 2.50 | 0.9155 | 0.9518 | 7 | 4 |
+| dcdfcca9f8a54852 | 795 | 0.9625 | -778.99 | -194.54 | -584.44 | 1.20 | 0.4828 | 0.9544 | 5 | 5 |
+| 4378cbd2ee79a882 | 779 | 0.9431 | -762.72 | -663.04 | -99.68 | 1.40 | 0.8836 | 0.9579 | 5 | 6 |
+| 4d68d187d4d1ef01 | 775 | 0.9383 | -752.90 | -820.17 | 67.27 | 2.80 | 0.9195 | 0.9518 | 7 | 7 |
+| 8e938a6f5857928d | 770 | 0.9322 | -734.52 | -1,066.90 | 332.38 | 2.50 | 0.5872 | 0.9556 | 7 | 8 |
+| 7ec0a850b3393d35 | 775 | 0.9383 | -769.41 | -569.31 | -200.09 | 0.7 | 0.7611 | 0.9465 | 6 | 9 |
+| 7a046b7ee67be535 | 795 | 0.9625 | -774.61 | -306.84 | -467.77 | 0.1 | 0.5647 | 0.9626 | 5 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} x39; {"v": 2, "N": 20, "M": 5, "gate": "skip_if_disagree"} x17; {"v": 2, "N": 60, "M": 5, "gate": "skip_if_disagree"} x9; {"v": 3, "N": 20, "M": 5, "gate": "skip_if_disagree"} x1
+
+Family (after every row of this study on this table, the post-hoc row included):
+
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | L1 | pre-registered | 55 | 55 | 2.49 | 0.6568 | 0.3895 | 0.155 | 0.172 | {"v": 2, "N": 20, "M": 30, "gate": "skip_if_none"} | 428.85 | [-1159.18, 581.14] | 0.6535 | 0.9965 | -200.09 | -598.43 | 0.273 | 0.7 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+
+
+### 5 min / L0 (832 IS units)
+
+L0 robustness, (v=2, N=20) and (v=3, N=20), M = 15:
+
+| variable | bucket | n | net_mean | net_se | win_rate | blocks_below_block_mean |
+|---|---|---|---|---|---|---|
+| hv v2 N20 M15 | agree | 388 | -313.98 | 545.04 | 0.2165 | 6 |
+| hv v2 N20 M15 | disagree | 84 | -1,004.13 | 689.19 | 0.1786 | 9 |
+| hv v2 N20 M15 | none | 360 | -66.92 | 551.76 | 0.2361 | 5 |
+| hv v3 N20 M15 | agree | 207 | -186.98 | 820.92 | 0.2271 | 6 |
+| hv v3 N20 M15 | disagree | 61 | -98.82 | 1,093.59 | 0.2295 | 6 |
+| hv v3 N20 M15 | none | 564 | -328.95 | 413.17 | 0.2181 | 7 |
+
+The grid: 54 cells; diff > 0 in 36; control pct >= 95 in 31; passing every raw go/no-go check (kept floors, diff, top-1 % removed, slip-8 kept mean, sign blocks, control) in 0. Median cell diff 256.74, median control pct 96.40. Full table `h3_5minute_L0_grid.csv`:
+
+| v | N | M | gate | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2 | 20 | 5 | skip_if_disagree | e87cc44181ce771d | 804 | 0.9663 | -275.48 | -313.33 | 37.84 | -766.45 | 8.40 | 0.9845 | 0.034 | 0.7857 | 0.9717 | 0 | -665.45 | 5 | False |
+| 2 | 20 | 5 | skip_if_none | 964410d7db7b0abe | 361 | 0.4339 | -415.75 | -170.23 | -245.52 | 213.43 | 97.90 | 0.7441 | 0.5664 | 0.7792 | 0.4242 | 0.5789 | -805.71 | 6 | False |
+| 2 | 20 | 5 | take_only_agree | a200b55b40d3ae2b | 333 | 0.4002 | -424.36 | -178.26 | -246.10 | 113.55 | 95.60 | 0.7351 | 0.6003 | 0.7796 | 0.3959 | 0.5789 | -814.32 | 6 | False |
+| 2 | 20 | 15 | skip_if_disagree | 08fab6b42f223bfe | 748 | 0.899 | -195.07 | -1,004.13 | 809.05 | -55.20 | 27.00 | 0.5037 | 0.1065 | 0.8214 | 0.9312 | 0.0526 | -585.04 | 9 | False |
+| 2 | 20 | 15 | skip_if_none | 45337909b275d8fd | 472 | 0.5673 | -436.80 | -66.92 | -369.89 | 118.96 | 99.00 | 0.6317 | 0.4244 | 0.7639 | 0.5384 | 0.4211 | -826.77 | 5 | False |
+| 2 | 20 | 15 | take_only_agree | a4db2c6586f0467e | 388 | 0.4663 | -313.98 | -244.23 | -69.75 | 96.80 | 97.20 | 0.915 | 0.5309 | 0.7748 | 0.4696 | 0.4737 | -703.95 | 6 | False |
+| 2 | 20 | 30 | skip_if_disagree | db7fb23bd731fc2b | 725 | 0.8714 | -162.55 | -1,050.63 | 888.08 | -3.53 | 36.80 | 0.3848 | 0.1327 | 0.8037 | 0.9235 | 0.0526 | -552.51 | 9 | False |
+| 2 | 20 | 30 | skip_if_none | 647e36bca382adda | 520 | 0.625 | -477.69 | 58.13 | -535.83 | 168.27 | 99.30 | 0.4788 | 0.3688 | 0.766 | 0.5611 | 0.4211 | -867.66 | 5 | False |
+| 2 | 20 | 30 | take_only_agree | 3d305e85937205cc | 413 | 0.4964 | -329.26 | -225.01 | -104.25 | 155.62 | 98.50 | 0.8911 | 0.5015 | 0.7757 | 0.4846 | 0.4737 | -719.22 | 6 | False |
+| 2 | 60 | 5 | skip_if_disagree | 4f420241ca973d79 | 813 | 0.9772 | -251.37 | -1,363.16 | 1,111.79 | 316.78 | 57.50 | 0.6112 | 0.0216 | 0.7368 | 0.9936 | 0 | -641.33 | 7 | False |
+| 2 | 60 | 5 | skip_if_none | 17e978953576f90d | 280 | 0.3365 | -83.18 | -374.95 | 291.77 | 459.78 | 97.80 | 0.6947 | 0.6728 | 0.7899 | 0.3674 | 0.5789 | -473.15 | 7 | False |
+| 2 | 60 | 5 | take_only_agree | 321c96bd93f0f0de | 261 | 0.3137 | 10.00 | -407.83 | 417.83 | 510.01 | 99.80 | 0.6012 | 0.6944 | 0.7881 | 0.3611 | 0.5789 | -379.97 | 7 | False |
+| 2 | 60 | 15 | skip_if_disagree | c09a6c359567613e | 776 | 0.9327 | -148.72 | -2,051.02 | 1,902.30 | 1,070.14 | 92.50 | 0.1569 | 0.0741 | 0.8571 | 0.9842 | 0 | -538.68 | 10 | False |
+| 2 | 60 | 15 | skip_if_none | eecc0d0a556ef8c5 | 365 | 0.4387 | -314.67 | -247.13 | -67.54 | 12.67 | 93.00 | 0.925 | 0.5571 | 0.773 | 0.4414 | 0.5263 | -704.63 | 5 | False |
+| 2 | 60 | 15 | take_only_agree | 5ae3ad1d3485caef | 309 | 0.3714 | 0.01 | -440.28 | 440.29 | 303.91 | 99.90 | 0.5527 | 0.6312 | 0.782 | 0.4257 | 0.5263 | -389.96 | 6 | False |
+| 2 | 60 | 30 | skip_if_disagree | 5a557b099bc59a79 | 730 | 0.8774 | -85.26 | -1,647.29 | 1,562.03 | 677.57 | 85.60 | 0.1469 | 0.125 | 0.7941 | 0.9587 | 0 | -475.22 | 11 | False |
+| 2 | 60 | 30 | skip_if_none | 0aed983e351d2de7 | 441 | 0.53 | -410.78 | -125.60 | -285.19 | 79.80 | 95.60 | 0.6982 | 0.466 | 0.7724 | 0.4908 | 0.5263 | -800.75 | 5 | False |
+| 2 | 60 | 30 | take_only_agree | fc6ca3d069ab82f1 | 339 | 0.4075 | -38.73 | -440.43 | 401.69 | 386.76 | 99.80 | 0.5797 | 0.591 | 0.7769 | 0.4495 | 0.5263 | -428.70 | 5 | False |
+| 3 | 20 | 5 | skip_if_disagree | 012a9ff8fa943ff6 | 815 | 0.9796 | -302.37 | 951.38 | -1,253.75 | 920.69 | 24.10 | 0.5777 | 0.0201 | 0.7647 | 0.9719 | 0.0526 | -692.34 | 8 | False |
+| 3 | 20 | 5 | skip_if_none | ad82be33cfc9676a | 172 | 0.2067 | 324.16 | -433.36 | 757.51 | 89.12 | 99.10 | 0.3838 | 0.7963 | 0.7818 | 0.2625 | 0.7368 | -65.81 | 6 | False |
+| 3 | 20 | 5 | take_only_agree | 815f8b89ae39cc10 | 155 | 0.1863 | 255.36 | -398.59 | 653.95 | 212.06 | 98.70 | 0.4953 | 0.8164 | 0.7814 | 0.2344 | 0.7895 | -134.60 | 6 | False |
+| 3 | 20 | 15 | skip_if_disagree | a200fc239a273eb9 | 771 | 0.9267 | -290.84 | -98.82 | -192.02 | -174.68 | 14.90 | 0.8936 | 0.0725 | 0.7705 | 0.9232 | 0.0526 | -680.80 | 6 | False |
+| 3 | 20 | 15 | skip_if_none | 38ef56612ad05f2f | 268 | 0.3221 | -166.91 | -328.95 | 162.04 | 70.33 | 99.30 | 0.8376 | 0.6806 | 0.7819 | 0.3408 | 0.7368 | -556.88 | 7 | False |
+| 3 | 20 | 15 | take_only_agree | 8136246e18697fef | 207 | 0.2488 | -186.98 | -306.49 | 119.51 | 18.96 | 97.30 | 0.8821 | 0.7531 | 0.7808 | 0.264 | 0.7895 | -576.95 | 6 | False |
+| 3 | 20 | 30 | skip_if_disagree | 4d723ef18f3dcb34 | 736 | 0.8846 | -283.96 | -221.55 | -62.41 | -373.13 | 10.30 | 0.9575 | 0.1157 | 0.7812 | 0.8888 | 0.1053 | -673.92 | 7 | False |
+| 3 | 20 | 30 | skip_if_none | 38c89658de41226a | 329 | 0.3954 | -171.37 | -345.69 | 174.32 | 331.52 | 99.80 | 0.8316 | 0.6065 | 0.7813 | 0.4078 | 0.6842 | -561.33 | 6 | False |
+| 3 | 20 | 30 | take_only_agree | 164f9ab4600e2463 | 233 | 0.28 | -150.69 | -325.80 | 175.11 | 204.08 | 98.00 | 0.8276 | 0.7222 | 0.7813 | 0.2965 | 0.7895 | -540.65 | 6 | False |
+| 3 | 60 | 5 | skip_if_disagree | f58f15dce6dc67fa | 823 | 0.9892 | -352.57 | 6,655.46 | -7,008.03 | -2,632.03 | 2.90 | 0.051 | 0.0062 | 0.4444 | 0.961 | 0.0526 | -742.53 | 2 | False |
+| 3 | 60 | 5 | skip_if_none | f07e9abe7f8ff7ff | 116 | 0.1394 | 1,510.58 | -566.33 | 2,076.91 | 743.03 | 99.80 | 0.034 | 0.8735 | 0.7905 | 0.2477 | 0.7368 | 1,120.62 | 5 | False |
+| 3 | 60 | 5 | take_only_agree | 4cba271872f6202a | 107 | 0.1286 | 1,077.83 | -476.68 | 1,554.51 | 563.11 | 98.20 | 0.1324 | 0.8796 | 0.7862 | 0.2087 | 0.7895 | 687.87 | 4 | False |
+| 3 | 60 | 15 | skip_if_disagree | f6a4d7fe9a7b5a78 | 797 | 0.9579 | -327.19 | 871.64 | -1,198.82 | -578.48 | 17.40 | 0.4763 | 0.0401 | 0.7429 | 0.9365 | 0.0526 | -717.15 | 5 | False |
+| 3 | 60 | 15 | skip_if_none | bf94b12f200d4276 | 174 | 0.2091 | 493.87 | -480.54 | 974.41 | 326.68 | 99.10 | 0.2599 | 0.7994 | 0.7872 | 0.2846 | 0.7368 | 103.91 | 5 | False |
+| 3 | 60 | 15 | take_only_agree | 3fcd06f583fa77d7 | 139 | 0.1671 | 398.75 | -412.25 | 811.00 | 222.42 | 97.80 | 0.4048 | 0.8395 | 0.785 | 0.2211 | 0.7895 | 8.79 | 4 | False |
+| 3 | 60 | 30 | skip_if_disagree | 170953cc98090eee | 764 | 0.9183 | -320.76 | 217.60 | -538.36 | -616.08 | 10.20 | 0.6847 | 0.0787 | 0.75 | 0.9034 | 0.1053 | -710.72 | 5 | False |
+| 3 | 60 | 30 | skip_if_none | 59fae4093c2645bf | 226 | 0.2716 | 327.47 | -502.10 | 829.57 | 535.89 | 100.00 | 0.2999 | 0.7392 | 0.7904 | 0.3403 | 0.6842 | -62.49 | 5 | False |
+| 3 | 60 | 30 | take_only_agree | 22b60b12dbcbcfff | 158 | 0.1899 | 374.76 | -429.49 | 804.25 | 389.19 | 97.40 | 0.3753 | 0.8179 | 0.7864 | 0.2437 | 0.7895 | -15.20 | 4 | False |
+| 4 | 20 | 5 | skip_if_disagree | 46b09655132198e6 | 824 | 0.9904 | -274.63 | -496.34 | 221.71 | -562.83 | 4.00 | 0.9465 | 0.0093 | 0.75 | 0.9918 | 0 | -664.59 | 4 | False |
+| 4 | 20 | 5 | skip_if_none | 2bbd1676ce68d0a7 | 88 | 0.1058 | 515.99 | -370.52 | 886.51 | 1,288.02 | 96.30 | 0.4583 | 0.8997 | 0.7836 | 0.1319 | 0.8421 | 126.02 | 6 | False |
+| 4 | 20 | 5 | take_only_agree | 1787b88d5a0c971d | 80 | 0.0962 | 617.22 | -371.86 | 989.08 | 1,340.77 | 91.80 | 0.4143 | 0.909 | 0.7832 | 0.1237 | 0.8421 | 227.25 | 6 | False |
+| 4 | 20 | 15 | skip_if_disagree | 7c4fcac6578e4324 | 796 | 0.9567 | -187.91 | -2,241.18 | 2,053.26 | 1,241.80 | 59.80 | 0.1794 | 0.0494 | 0.8889 | 0.9803 | 0 | -577.88 | 9 | False |
+| 4 | 20 | 15 | skip_if_none | b222684ac658d4f4 | 141 | 0.1695 | -558.15 | -219.34 | -338.81 | 275.02 | 89.30 | 0.7356 | 0.8287 | 0.7771 | 0.1524 | 0.8421 | -948.11 | 5 | False |
+| 4 | 20 | 15 | take_only_agree | e329bf1452165feb | 105 | 0.1262 | 18.89 | -319.46 | 338.35 | 822.19 | 92.10 | 0.7556 | 0.8781 | 0.7827 | 0.1326 | 0.8421 | -371.07 | 6 | False |
+| 4 | 20 | 30 | skip_if_disagree | 7e19da7d58665c18 | 767 | 0.9219 | -213.49 | -1,023.28 | 809.79 | -33.02 | 23.20 | 0.5452 | 0.0802 | 0.8 | 0.9415 | 0.0526 | -603.46 | 8 | False |
+| 4 | 20 | 30 | skip_if_none | ffd290f7e0528565 | 190 | 0.2284 | -505.43 | -209.08 | -296.35 | 455.03 | 99.00 | 0.7321 | 0.7731 | 0.7804 | 0.1992 | 0.7895 | -895.40 | 6 | False |
+| 4 | 20 | 30 | take_only_agree | a1ba5dd35340bd75 | 125 | 0.1502 | -236.15 | -283.94 | 47.79 | 610.29 | 91.70 | 0.9605 | 0.8534 | 0.7822 | 0.1407 | 0.8421 | -626.12 | 6 | False |
+| 4 | 60 | 5 | skip_if_disagree | b7c9bae2ae5a76f6 | 827 | 0.994 | -276.08 | -389.15 | 113.07 | -668.61 | 4.40 | 0.976 | 0.0062 | 0.8 | 0.9948 | 0 | -666.04 | 3 | False |
+| 4 | 60 | 5 | skip_if_none | 228e135068e492c4 | 60 | 0.0721 | 762.48 | -357.53 | 1,120.00 | 1,297.25 | 99.00 | 0.4203 | 0.9336 | 0.7837 | 0.1025 | 0.8421 | 372.51 | 5 | False |
+| 4 | 60 | 5 | take_only_agree | 46b81496704df654 | 55 | 0.0661 | 867.17 | -357.73 | 1,224.90 | 1,342.29 | 97.80 | 0.3978 | 0.9398 | 0.7838 | 0.0973 | 0.8421 | 477.20 | 6 | False |
+| 4 | 60 | 15 | skip_if_disagree | d52e6d4620ea4d29 | 816 | 0.9808 | -228.98 | -2,713.16 | 2,484.18 | 1,692.36 | 40.80 | 0.2484 | 0.0231 | 0.9375 | 0.9948 | 0 | -618.95 | 7 | False |
+| 4 | 60 | 15 | skip_if_none | d61c1fdf9dbea14b | 88 | 0.1058 | -396.57 | -262.59 | -133.98 | 255.87 | 96.50 | 0.8946 | 0.8951 | 0.7796 | 0.1074 | 0.8421 | -786.53 | 4 | False |
+| 4 | 60 | 15 | take_only_agree | c61b2953d4f9cb3b | 72 | 0.0865 | 118.23 | -314.18 | 432.41 | 716.14 | 96.50 | 0.7661 | 0.9182 | 0.7829 | 0.1023 | 0.8421 | -271.73 | 6 | False |
+| 4 | 60 | 30 | skip_if_disagree | c1abcf6f1eed8c6c | 802 | 0.9639 | -235.33 | -1,384.25 | 1,148.92 | 343.06 | 23.40 | 0.5372 | 0.0401 | 0.8667 | 0.9808 | 0 | -625.30 | 7 | False |
+| 4 | 60 | 30 | skip_if_none | 4d3e3974dbc4503a | 110 | 0.1322 | -507.19 | -241.65 | -265.54 | 234.72 | 98.70 | 0.8031 | 0.8673 | 0.7784 | 0.1221 | 0.8421 | -897.16 | 4 | False |
+| 4 | 60 | 30 | take_only_agree | 0975498fb79502ca | 80 | 0.0962 | -178.29 | -287.23 | 108.94 | 449.65 | 95.40 | 0.9205 | 0.9074 | 0.7819 | 0.1029 | 0.8421 | -568.26 | 5 | False |
+
+**Nested-CV candidate** (family `h3/nested_cv`, the 12-block OOF mask):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0b364a8b48bd9207 | 808 | 0.9712 | -263.72 | -715.55 | 451.83 | -348.30 | 34.90 | 0.8321 | 0.0309 | 0.8333 | 0.9753 | 0 | -653.69 | 6 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|
+| 0 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,058.11 | 38 | 83 | 82 |
+| 1 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,422.24 | 38 | 84 | 84 |
+| 2 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,285.46 | 38 | 42 | 41 |
+| 3 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,427.14 | 38 | 77 | 77 |
+| 4 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,471.59 | 37 | 72 | 68 |
+| 5 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,619.76 | 38 | 73 | 71 |
+| 6 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,615.98 | 38 | 78 | 78 |
+| 7 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,372.16 | 38 | 51 | 51 |
+| 8 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 3,278.60 | 38 | 76 | 75 |
+| 9 | {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,003.94 | 38 | 82 | 72 |
+| 10 | {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} |  | 2,272.25 | 38 | 31 | 29 |
+| 11 | {"v": 4, "N": 20, "M": 15, "gate": "skip_if_disagree"} |  | 2,708.00 | 38 | 83 | 80 |
+
+CPCV paths (`h3/nested_cv/cpcv`, 11 rows): diff median 451.83, 5th pct 261.32, min 245.41, share > 0 1.00, control pct median 33.50 / 5th pct 30.90
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 72459d144473d7aa | 800 | 0.9615 | -267.32 | -512.73 | 245.41 | 62.10 | 0.8926 | 0.9703 | 6 | 0 |
+| 65fc8dcc43431760 | 814 | 0.9784 | -251.46 | -1,420.79 | 1,169.34 | 34.10 | 0.6117 | 0.9845 | 6 | 1 |
+| bbf0182ed8c9210c | 808 | 0.9712 | -263.72 | -715.55 | 451.83 | 33.50 | 0.8231 | 0.9753 | 6 | 2 |
+| 4fb4e501edf04378 | 806 | 0.9688 | -263.10 | -700.02 | 436.91 | 29.90 | 0.8186 | 0.9753 | 6 | 3 |
+| 21c9ac4e84e873bf | 808 | 0.9712 | -263.72 | -715.55 | 451.83 | 33.50 | 0.8286 | 0.9753 | 6 | 4 |
+| 2f3c4bf4873c5c15 | 808 | 0.9712 | -263.72 | -715.55 | 451.83 | 33.50 | 0.8066 | 0.9753 | 6 | 5 |
+| 2274c97c3859462d | 808 | 0.9712 | -263.72 | -715.55 | 451.83 | 32.40 | 0.8211 | 0.9753 | 6 | 6 |
+| b887cfe287985717 | 808 | 0.9712 | -263.72 | -715.55 | 451.83 | 32.00 | 0.8256 | 0.9753 | 6 | 7 |
+| 7cd2d5a4bd853f52 | 793 | 0.9531 | -196.62 | -1,906.16 | 1,709.53 | 81.20 | 0.2809 | 0.9889 | 9 | 8 |
+| 16b1e13f8d206b5c | 809 | 0.9724 | -269.09 | -546.33 | 277.24 | 33.30 | 0.8966 | 0.9753 | 5 | 9 |
+| ca632e129cbbec78 | 799 | 0.9603 | -213.40 | -1,810.88 | 1,597.48 | 53.50 | 0.3478 | 0.9803 | 8 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"v": 4, "N": 60, "M": 15, "gate": "skip_if_disagree"} x46; {"v": 4, "N": 20, "M": 15, "gate": "skip_if_disagree"} x11; {"v": 2, "N": 60, "M": 15, "gate": "skip_if_disagree"} x9
+
+Family (after every row of this study on this table, the post-hoc row included):
+
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | L0 | pre-registered | 55 | 55 | 2.24 | 0.5181 | 0.4411 | 0.5765 | 0.5765 | {"v": 3, "N": 20, "M": 30, "gate": "skip_if_none"} | 525.73 | [-2269.14, 2575.06] | 0.356 | 0.7825 | 451.83 | 261.32 | 1.00 | 33.50 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+
+
+### H3 family summary (all tables)
+
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | L1 | pre-registered | 55 | 55 | 2.49 | 0.6568 | 0.3895 | 0.155 | 0.172 | {"v": 2, "N": 20, "M": 30, "gate": "skip_if_none"} | 428.85 | [-1159.18, 581.14] | 0.6535 | 0.9965 | -200.09 | -598.43 | 0.273 | 0.7 | False | diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 5 min | L0 | pre-registered | 55 | 55 | 2.24 | 0.5181 | 0.4411 | 0.5765 | 0.5765 | {"v": 3, "N": 20, "M": 30, "gate": "skip_if_none"} | 525.73 | [-2269.14, 2575.06] | 0.356 | 0.7825 | 451.83 | 261.32 | 1.00 | 33.50 | False | diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+
+
+
+## T4. H4 - levels respected or broken
+
+### 5 min: the episode study (IS bars; `h4_5minute_episodes.parquet`, 63,009 episodes of 33,979 level instances: {'swing': 22992, 'room': 8090, 'prot': 2897})
+
+Verdicts (`h4_5minute_episode_verdicts.csv`):
+
+| kind | verdict | n | share |
+|---|---|---|---|
+| prot | broke | 515 | 0.4387 |
+| prot | held | 645 | 0.5494 |
+| prot | session_end | 14 | 0.0119 |
+| room | broke | 16,011 | 0.436 |
+| room | held | 19,025 | 0.5181 |
+| room | na | 561 | 0.0153 |
+| room | session_end | 1,123 | 0.0306 |
+| swing | broke | 11,388 | 0.4534 |
+| swing | held | 12,721 | 0.5065 |
+| swing | session_end | 1,006 | 0.0401 |
+
+P(broke given prior held episodes of the same level), episodes not after a break (`h4_5minute_p_break_by_prior_held.csv`):
+
+| kind | prior_held_bin | n | p_broke |
+|---|---|---|---|
+| prot | 0 | 1,160 | 0.444 |
+| room | 0 | 7,481 | 0.4342 |
+| room | 1 | 3,282 | 0.447 |
+| room | 2 | 1,366 | 0.4444 |
+| room | 3+ | 1,011 | 0.4797 |
+| swing | 0 | 15,448 | 0.4691 |
+| swing | 1 | 4,895 | 0.4547 |
+| swing | 2 | 1,579 | 0.4326 |
+| swing | 3+ | 673 | 0.4591 |
+
+Move after a confirmed break vs after a respect, in ATR (`h4_5minute_aftermath.csv`; `move` is signed in the break / bounce direction, `abs` is its magnitude, the baseline is every IS bar):
+
+| kind | verdict | n_bars | n | abs_mean | abs_median | abs_p75 | abs_p90 | abs_share_gt1 | abs_share_gt2 | move_mean | move_median | move_share_pos | move_share_gt1 | move_share_gt2 | mfe_median | beyond_median | beyond_share_pos |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| baseline_all_bars | any | 15 | 61,233 | 1.81 | 1.38 | 2.51 | 3.91 | 0.6173 | 0.3431 |  |  |  |  |  |  |  |  |
+| baseline_all_bars | any | 30 | 45,889 | 2.47 | 1.91 | 3.43 | 5.36 | 0.7159 | 0.4814 |  |  |  |  |  |  |  |  |
+| baseline_all_bars | any | 60 | 15,280 | 3.33 | 2.60 | 4.66 | 6.96 | 0.7916 | 0.5974 |  |  |  |  |  |  |  |  |
+| prot | broke | 15 | 409 | 2.00 | 1.57 | 2.71 | 4.22 | 0.6675 | 0.3839 | -0.037 | -0.043 | 0.4866 | 0.3374 | 0.1932 | 1.44 | 0.848 | 0.6284 |
+| prot | broke | 30 | 285 | 2.71 | 2.07 | 3.86 | 5.88 | 0.7439 | 0.5263 | -0.074 | 0.047 | 0.5088 | 0.3509 | 0.2737 | 1.83 | 0.871 | 0.6105 |
+| prot | broke | 60 | 110 | 3.79 | 2.91 | 5.75 | 7.21 | 0.8273 | 0.6727 | 0.062 | 0.512 | 0.5455 | 0.4455 | 0.3727 | 2.56 | 1.63 | 0.6364 |
+| prot | held | 15 | 502 | 1.89 | 1.35 | 2.69 | 4.08 | 0.6076 | 0.3705 | -0.075 | -0.014 | 0.494 | 0.2849 | 0.1713 | 1.40 |  |  |
+| prot | held | 30 | 366 | 2.58 | 2.01 | 3.69 | 5.59 | 0.7596 | 0.5027 | -0.19 | -0.117 | 0.4809 | 0.3661 | 0.2268 | 1.98 |  |  |
+| prot | held | 60 | 130 | 3.64 | 2.85 | 4.59 | 7.16 | 0.8769 | 0.7077 | -0.336 | -1.18 | 0.4 | 0.3538 | 0.3077 | 2.81 |  |  |
+| room | broke | 15 | 12,612 | 1.89 | 1.46 | 2.63 | 4.02 | 0.6417 | 0.3664 | 0.023 | -0.004 | 0.4975 | 0.3222 | 0.1848 | 1.44 | 1.05 | 0.6867 |
+| room | broke | 30 | 9,547 | 2.52 | 2.00 | 3.51 | 5.38 | 0.7347 | 0.4998 | 0.085 | 0.056 | 0.5073 | 0.3757 | 0.2598 | 1.98 | 1.15 | 0.651 |
+| room | broke | 60 | 3,970 | 3.45 | 2.66 | 4.87 | 7.14 | 0.8126 | 0.5955 | 0.197 | 0.159 | 0.5161 | 0.4295 | 0.3194 | 2.66 | 1.33 | 0.6348 |
+| room | held | 15 | 14,880 | 1.77 | 1.33 | 2.42 | 3.84 | 0.6068 | 0.3327 | -0.008 | -0.001 | 0.4987 | 0.3026 | 0.1659 | 1.40 |  |  |
+| room | held | 30 | 11,194 | 2.40 | 1.84 | 3.34 | 5.27 | 0.7081 | 0.4674 | 0.014 | 0.049 | 0.5053 | 0.3579 | 0.2359 | 1.90 |  |  |
+| room | held | 60 | 3,506 | 3.21 | 2.46 | 4.62 | 6.73 | 0.7898 | 0.5836 | 0.041 | 0.123 | 0.5106 | 0.4084 | 0.3012 | 2.49 |  |  |
+| swing | broke | 15 | 8,092 | 1.93 | 1.47 | 2.68 | 4.11 | 0.6455 | 0.3758 | 0.056 | -0.004 | 0.4983 | 0.3271 | 0.1956 | 1.49 | 1.03 | 0.6873 |
+| swing | broke | 30 | 5,197 | 2.64 | 2.05 | 3.71 | 5.71 | 0.7304 | 0.5116 | 0.127 | 0.135 | 0.5191 | 0.3829 | 0.2694 | 2.07 | 1.16 | 0.6552 |
+| swing | broke | 60 | 760 | 3.39 | 2.52 | 4.88 | 7.29 | 0.8066 | 0.5882 | 0.505 | 0.296 | 0.5395 | 0.4592 | 0.3526 | 2.64 | 1.48 | 0.6671 |
+| swing | held | 15 | 8,897 | 1.87 | 1.38 | 2.56 | 4.10 | 0.6173 | 0.3461 | -0.053 | -0.023 | 0.495 | 0.2984 | 0.1651 | 1.46 |  |  |
+| swing | held | 30 | 5,507 | 2.54 | 1.90 | 3.50 | 5.64 | 0.7129 | 0.4792 | -0.019 | 0.023 | 0.503 | 0.355 | 0.2375 | 1.94 |  |  |
+| swing | held | 60 | 576 | 3.13 | 2.33 | 4.36 | 6.55 | 0.7726 | 0.5833 | -0.051 | 0.119 | 0.5139 | 0.3837 | 0.2899 | 2.45 |  |  |
+
+Retests (held episodes) before the first break, per level instance that broke (`h4_5minute_retests_before_break.csv`):
+
+| kind | retests_bin | instances | instances_touched | share_of_touched_instances |
+|---|---|---|---|---|
+| prot | 0 | 515 | 1,174 | 0.4387 |
+| room | 0 | 3,192 | 7,459 | 0.4279 |
+| room | 1 | 1,427 | 7,459 | 0.1913 |
+| room | 2 | 582 | 7,459 | 0.078 |
+| room | 3+ | 467 | 7,459 | 0.0626 |
+| swing | 0 | 7,246 | 15,933 | 0.4548 |
+| swing | 1 | 2,226 | 15,933 | 0.1397 |
+| swing | 2 | 683 | 15,933 | 0.0429 |
+| swing | 3+ | 309 | 15,933 | 0.0194 |
+
+Held episodes followed by another touch of the same level instance (`h4_5minute_held_then_retested.csv`):
+
+| kind | n | share_retested |
+|---|---|---|
+| prot | 645 | 0 |
+| room | 19,025 | 0.7992 |
+| swing | 12,721 | 0.6069 |
+
+
+### 5 min / L1 (826 IS units)
+
+Foundation outcome by the last touch verdict and by the number of touch episodes in the hour before the SETUP (`h4_5minute_L1_by_touch.csv`):
+
+| variable | bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|---|
+| touch_prot_last | broke | 3 | 0.0036 | 2,048.26 | 4,408.97 | -2,328.55 | 0.3333 | 47.70 | 0.6667 | 2 |
+| touch_prot_last | held | 604 | 0.7312 | -685.62 | 186.24 | -2,068.93 | 0.2781 | 5.63 | 0.399 | 5 |
+| touch_prot_last | pending | 137 | 0.1659 | -777.24 | 352.07 | -2,033.52 | 0.2701 | 4.11 | 0.4307 | 6 |
+| touch_prot_last | none | 67 | 0.0811 | -1,048.93 | 571.90 | -2,570.17 | 0.3134 | 0.022 | 0.5075 | 8 |
+| touch_prot_last | na | 15 | 0.0182 | -2,706.37 | 814.64 | -3,035.50 | 0.1333 | -25.79 | 0.6667 | 6 |
+| touch_prot_n | 0 | 67 | 0.0811 | -1,048.93 | 571.90 | -2,570.17 | 0.3134 | 0.022 | 0.5075 | 8 |
+| touch_prot_n | 1 | 328 | 0.3971 | -391.52 | 272.25 | -2,021.95 | 0.3232 | 10.14 | 0.3902 | 3 |
+| touch_prot_n | 2 | 286 | 0.3462 | -1,054.90 | 230.37 | -2,094.30 | 0.2448 | 0.001 | 0.4161 | 6 |
+| touch_prot_n | 3+ | 130 | 0.1574 | -648.70 | 404.20 | -2,075.14 | 0.2308 | 5.99 | 0.4231 | 8 |
+| touch_prot_n | na | 15 | 0.0182 | -2,706.37 | 814.64 | -3,035.50 | 0.1333 | -25.79 | 0.6667 | 6 |
+| touch_room_last | broke | 149 | 0.1804 | -609.75 | 399.81 | -2,289.98 | 0.2886 | 6.84 | 0.4497 | 6 |
+| touch_room_last | held | 61 | 0.0738 | -1,393.89 | 442.13 | -2,218.87 | 0.1803 | -5.31 | 0.4918 | 7 |
+| touch_room_last | pending | 163 | 0.1973 | -100.76 | 377.42 | -1,890.22 | 0.2699 | 14.53 | 0.454 | 3 |
+| touch_room_last | none | 453 | 0.5484 | -955.90 | 205.14 | -2,200.88 | 0.2892 | 1.45 | 0.3863 | 10 |
+| touch_room_n | 0 | 453 | 0.5484 | -955.90 | 205.14 | -2,200.88 | 0.2892 | 1.45 | 0.3863 | 10 |
+| touch_room_n | 1 | 202 | 0.2446 | -607.12 | 346.54 | -2,226.79 | 0.2426 | 6.79 | 0.4901 | 4 |
+| touch_room_n | 2 | 111 | 0.1344 | -254.99 | 444.92 | -1,958.30 | 0.2973 | 12.20 | 0.4054 | 4 |
+| touch_room_n | 3+ | 60 | 0.0726 | -689.37 | 467.76 | -1,957.41 | 0.2667 | 5.64 | 0.45 | 5 |
+| touch_swing_last | broke | 448 | 0.5424 | -866.09 | 207.50 | -2,276.28 | 0.2835 | 2.78 | 0.3817 | 7 |
+| touch_swing_last | held | 169 | 0.2046 | -911.35 | 382.64 | -2,345.66 | 0.284 | 2.17 | 0.4793 | 9 |
+| touch_swing_last | pending | 201 | 0.2433 | -471.17 | 299.63 | -1,809.54 | 0.2438 | 8.95 | 0.4527 | 2 |
+| touch_swing_last | none | 8 | 0.0097 | 1,425.69 | 2,245.50 | 1,527.78 | 0.625 | 38.81 | 0.375 | 2 |
+| touch_swing_n | 0 | 8 | 0.0097 | 1,425.69 | 2,245.50 | 1,527.78 | 0.625 | 38.81 | 0.375 | 2 |
+| touch_swing_n | 1 | 215 | 0.2603 | -832.21 | 324.15 | -2,176.34 | 0.2744 | 3.33 | 0.414 | 8 |
+| touch_swing_n | 2 | 336 | 0.4068 | -851.84 | 243.70 | -2,249.40 | 0.2798 | 3.05 | 0.4435 | 6 |
+| touch_swing_n | 3+ | 267 | 0.3232 | -642.65 | 262.33 | -1,955.25 | 0.2659 | 6.25 | 0.3933 | 6 |
+
+The 9 gate cells (`h4_5minute_L1_grid.csv`):
+
+| level | skip_when_last | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| prot | broke | cf2a5f1dd3e82550 | 823 | 0.9964 | -767.28 | 2,048.26 | -2,815.53 | -3,033.13 | 41.60 | 0.2324 | 0.0034 | 0.6667 | 0.9902 | 0 | -1,157.24 | 2 | False |
+| prot | held | 6fd8306a0548d73b | 222 | 0.2688 | -951.40 | -685.62 | -265.78 | -206.45 | 47.70 | 0.4493 | 0.7303 | 0.7219 | 0.2549 | 0.8261 | -1,341.37 | 5 | False |
+| prot | pending | 0818dce9159abc40 | 689 | 0.8341 | -753.04 | -777.24 | 24.21 | 99.62 | 18.90 | 0.9555 | 0.1675 | 0.7299 | 0.8473 | 0.087 | -1,143.00 | 6 | False |
+| room | broke | 136f703118c8fefb | 677 | 0.8196 | -789.47 | -609.75 | -179.73 | -286.63 | 98.80 | 0.6737 | 0.1776 | 0.7114 | 0.7836 | 0.2609 | -1,179.44 | 6 | False |
+| room | held | 74d6b4f066d0481e | 765 | 0.9262 | -706.27 | -1,393.89 | 687.62 | 454.06 | 87.30 | 0.2629 | 0.0838 | 0.8197 | 0.956 | 0.0435 | -1,096.24 | 7 | False |
+| room | pending | 7b760716df543532 | 663 | 0.8027 | -918.40 | -100.76 | -817.64 | -616.02 | 0.2 | 0.0325 | 0.1993 | 0.7301 | 0.7599 | 0.3043 | -1,308.37 | 3 | False |
+| swing | broke | a551ed716f433a2b | 378 | 0.4576 | -627.83 | -866.09 | 238.26 | 234.20 | 43.10 | 0.4493 | 0.5377 | 0.7165 | 0.4776 | 0.4783 | -1,017.79 | 7 | False |
+| swing | held | 6929b817eddc2da3 | 657 | 0.7954 | -717.36 | -911.35 | 193.99 | 227.56 | 94.80 | 0.6152 | 0.2027 | 0.716 | 0.7812 | 0.1739 | -1,107.33 | 9 | False |
+| swing | pending | ed145b95e5cb7898 | 625 | 0.7567 | -848.99 | -471.17 | -377.82 | -388.85 | 7.00 | 0.2919 | 0.2546 | 0.7562 | 0.7638 | 0.3043 | -1,238.96 | 2 | False |
+
+**Nested-CV candidate** (family `h4/nested_cv`, the 12-block OOF mask):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 9e32a86bcfc8f5ce | 770 | 0.9322 | -715.46 | -1,328.94 | 613.48 | 381.35 | 83.80 | 0.3228 | 0.0771 | 0.8214 | 0.9563 | 0.0435 | -1,105.43 | 7 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|
+| 0 | {"level": "room", "skip_when_last": "held"} |  | 534.06 | 9 | 82 | 76 |
+| 1 | {"level": "room", "skip_when_last": "held"} |  | 801.76 | 9 | 83 | 78 |
+| 2 | {"level": "room", "skip_when_last": "held"} |  | 660.19 | 9 | 42 | 37 |
+| 3 | {"level": "room", "skip_when_last": "held"} |  | 742.16 | 9 | 76 | 70 |
+| 4 | {"level": "room", "skip_when_last": "held"} |  | 777.82 | 9 | 72 | 69 |
+| 5 | {"level": "room", "skip_when_last": "held"} |  | 778.43 | 9 | 73 | 67 |
+| 6 | {"level": "room", "skip_when_last": "held"} |  | 467.67 | 9 | 77 | 68 |
+| 7 | {"level": "room", "skip_when_last": "held"} |  | 622.48 | 9 | 51 | 47 |
+| 8 | {"level": "room", "skip_when_last": "held"} |  | 509.35 | 9 | 76 | 71 |
+| 9 | {"level": "room", "skip_when_last": "held"} |  | 738.33 | 9 | 80 | 76 |
+| 10 | {"level": "room", "skip_when_last": "held"} |  | 761.99 | 9 | 31 | 29 |
+| 11 | {"level": "prot", "skip_when_last": "broke"} |  | 1,552.78 | 9 | 83 | 82 |
+
+CPCV paths (`h4/nested_cv/cpcv`, 11 rows): diff median -2.08, 5th pct -1,774.85, min -2,815.53, share > 0 0.455, control pct median 71.80 / 5th pct 35.00
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| df980cc6bd2b4329 | 748 | 0.9056 | -791.60 | -425.71 | -365.90 | 58.20 | 0.4808 | 0.8781 | 6 | 0 |
+| fbdc923651e69b6a | 770 | 0.9322 | -715.46 | -1,328.94 | 613.48 | 83.40 | 0.3223 | 0.9563 | 7 | 1 |
+| 225960f31efd22ea | 751 | 0.9092 | -757.24 | -755.16 | -2.08 | 61.40 | 0.9945 | 0.9097 | 6 | 2 |
+| 9dc7a2d4369ff815 | 770 | 0.9322 | -715.46 | -1,328.94 | 613.48 | 84.00 | 0.3163 | 0.9563 | 7 | 3 |
+| 596770b84be354e8 | 770 | 0.9322 | -715.46 | -1,328.94 | 613.48 | 83.20 | 0.3208 | 0.9563 | 7 | 4 |
+| fab903e92fea6da7 | 735 | 0.8898 | -802.82 | -387.39 | -415.43 | 71.80 | 0.4208 | 0.8674 | 5 | 5 |
+| f2a9b71fb55c3496 | 695 | 0.8414 | -790.57 | -579.21 | -211.36 | 28.00 | 0.6242 | 0.8032 | 5 | 6 |
+| ce335f4f113b59d2 | 743 | 0.8995 | -830.82 | -96.66 | -734.17 | 49.80 | 0.1609 | 0.859 | 5 | 7 |
+| f4ba68fad4ff5ef6 | 770 | 0.9322 | -715.46 | -1,328.94 | 613.48 | 84.30 | 0.3063 | 0.9563 | 7 | 8 |
+| 6fc5554a2cff6d9e | 770 | 0.9322 | -715.46 | -1,328.94 | 613.48 | 83.00 | 0.3173 | 0.9563 | 7 | 9 |
+| 21c568e05512b5fc | 823 | 0.9964 | -767.28 | 2,048.26 | -2,815.53 | 42.00 | 0.2264 | 0.9902 | 2 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"level": "room", "skip_when_last": "held"} x50; {"level": "prot", "skip_when_last": "broke"} x11; {"level": "swing", "skip_when_last": "broke"} x3; {"level": "swing", "skip_when_last": "held"} x1; {"level": "room", "skip_when_last": "broke"} x1
+
+Family (after every row of this study on this table, the post-hoc row included):
+
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | L1 | pre-registered | 10 | 10 | 1.64 | 0.6501 | 0.5715 | 0.1705 | 0.1805 | {"level": "room", "skip_when_last": "broke"} | 100.53 | [-289.64, 1371.11] | 0.1165 | 0.8863 | -2.08 | -1,774.85 | 0.455 | 71.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+
+
+### 5 min / L0 (832 IS units)
+
+L0 robustness:
+
+| variable | bucket | n | share | net_mean | net_se | net_median | win_rate | pts_mean | stop_share | blocks_below_block_mean |
+|---|---|---|---|---|---|---|---|---|---|---|
+| touch_prot_last | broke | 3 | 0.0036 | 2,511.94 | 4,872.65 | -2,328.55 | 0.3333 | 54.83 | 0.6667 | 2 |
+| touch_prot_last | held | 609 | 0.732 | -205.82 | 428.06 | -2,462.60 | 0.2266 | 13.01 | 0.4943 | 4 |
+| touch_prot_last | pending | 138 | 0.1659 | -240.72 | 606.79 | -2,267.44 | 0.2464 | 12.36 | 0.529 | 8 |
+| touch_prot_last | none | 67 | 0.0805 | -306.38 | 1,654.98 | -3,263.92 | 0.1642 | 11.45 | 0.6269 | 10 |
+| touch_prot_last | na | 15 | 0.018 | -3,913.94 | 426.03 | -3,128.10 | 0 | -44.37 | 0.7333 | 7 |
+| touch_prot_n | 0 | 67 | 0.0805 | -306.38 | 1,654.98 | -3,263.92 | 0.1642 | 11.45 | 0.6269 | 10 |
+| touch_prot_n | 1 | 331 | 0.3978 | 234.29 | 606.09 | -2,462.60 | 0.2598 | 19.78 | 0.4562 | 3 |
+| touch_prot_n | 2 | 288 | 0.3462 | -594.66 | 564.47 | -2,441.99 | 0.2014 | 7.08 | 0.5347 | 7 |
+| touch_prot_n | 3+ | 131 | 0.1575 | -437.52 | 702.15 | -2,245.62 | 0.2214 | 9.24 | 0.542 | 7 |
+| touch_prot_n | na | 15 | 0.018 | -3,913.94 | 426.03 | -3,128.10 | 0 | -44.37 | 0.7333 | 7 |
+| touch_room_last | broke | 149 | 0.1791 | 1,147.61 | 1,125.34 | -2,605.73 | 0.2483 | 33.88 | 0.5034 | 4 |
+| touch_room_last | held | 61 | 0.0733 | -2,335.82 | 527.65 | -2,786.02 | 0.082 | -19.80 | 0.6066 | 10 |
+| touch_room_last | pending | 163 | 0.1959 | -31.44 | 753.47 | -2,242.15 | 0.227 | 15.59 | 0.5828 | 8 |
+| touch_room_last | none | 458 | 0.5505 | -547.53 | 452.08 | -2,609.92 | 0.2293 | 7.73 | 0.4825 | 8 |
+| touch_room_last | na | 1 | 0.0012 | -2,877.11 |  | -2,877.11 | 0 | -27.60 | 1.00 | 1 |
+| touch_room_n | 0 | 458 | 0.5505 | -547.53 | 452.08 | -2,609.92 | 0.2293 | 7.73 | 0.4825 | 8 |
+| touch_room_n | 1 | 203 | 0.244 | -207.25 | 739.01 | -2,502.73 | 0.1872 | 12.94 | 0.5813 | 7 |
+| touch_room_n | 2 | 111 | 0.1334 | 865.61 | 1,275.64 | -2,423.33 | 0.2523 | 29.44 | 0.5135 | 6 |
+| touch_room_n | 3+ | 60 | 0.0721 | -558.40 | 770.17 | -2,252.82 | 0.2167 | 7.66 | 0.55 | 9 |
+| touch_swing_last | broke | 452 | 0.5433 | -229.70 | 459.44 | -2,641.85 | 0.2257 | 12.57 | 0.4779 | 4 |
+| touch_swing_last | held | 171 | 0.2055 | 370.80 | 1,138.17 | -2,803.35 | 0.2105 | 21.90 | 0.5614 | 7 |
+| touch_swing_last | pending | 201 | 0.2416 | -1,015.92 | 385.91 | -2,179.99 | 0.209 | 0.571 | 0.5672 | 8 |
+| touch_swing_last | none | 8 | 0.0096 | 1,794.15 | 2,781.46 | 1,285.82 | 0.5 | 44.48 | 0.375 | 3 |
+| touch_swing_n | 0 | 8 | 0.0096 | 1,794.15 | 2,781.46 | 1,285.82 | 0.5 | 44.48 | 0.375 | 3 |
+| touch_swing_n | 1 | 218 | 0.262 | 226.78 | 939.23 | -2,603.64 | 0.2202 | 19.62 | 0.4954 | 6 |
+| touch_swing_n | 2 | 337 | 0.405 | -279.26 | 523.82 | -2,575.41 | 0.2285 | 11.86 | 0.5312 | 6 |
+| touch_swing_n | 3+ | 269 | 0.3233 | -743.28 | 439.79 | -2,458.97 | 0.2045 | 4.70 | 0.5167 | 8 |
+
+The 9 gate cells (`h4_5minute_L0_grid.csv`):
+
+| level | skip_when_last | id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks | go_raw |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| prot | broke | 4fc3902e61454f5e | 829 | 0.9964 | -286.85 | 2,511.94 | -2,798.79 | -3,578.69 | 8.80 | 0.4738 | 0.0031 | 0.6667 | 0.9938 | 0 | -676.81 | 2 | False |
+| prot | held | 096e34f1d9907f78 | 223 | 0.268 | -470.49 | -205.82 | -264.68 | -23.37 | 21.60 | 0.7371 | 0.7269 | 0.7734 | 0.2554 | 0.7895 | -860.46 | 4 | False |
+| prot | pending | 23ee5cd6705d3e7d | 694 | 0.8341 | -283.92 | -240.72 | -43.20 | -650.39 | 52.90 | 0.964 | 0.1605 | 0.7536 | 0.8547 | 0.1053 | -673.89 | 8 | False |
+| room | broke | f39f9f975ca1e7a3 | 683 | 0.8209 | -587.49 | 1,147.61 | -1,735.10 | -382.39 | 48.00 | 0.055 | 0.1728 | 0.7517 | 0.7178 | 0.3684 | -977.45 | 4 | False |
+| room | held | 6a4bd44ed294d96c | 771 | 0.9267 | -113.85 | -2,335.82 | 2,221.97 | 1,384.76 | 99.50 | 0.092 | 0.0864 | 0.918 | 0.9783 | 0 | -503.81 | 10 | False |
+| room | pending | 0e0b57a2d4b3fa4c | 669 | 0.8041 | -336.53 | -31.44 | -305.09 | -563.97 | 18.70 | 0.7431 | 0.1944 | 0.773 | 0.8098 | 0.1579 | -726.49 | 8 | False |
+| swing | broke | a513568feef6df11 | 380 | 0.4567 | -332.74 | -229.70 | -103.04 | -280.42 | 63.00 | 0.8901 | 0.5401 | 0.7743 | 0.4262 | 0.7368 | -722.70 | 4 | False |
+| swing | held | 7f3bdf6c8658015c | 661 | 0.7945 | -444.28 | 370.80 | -815.08 | 364.18 | 43.90 | 0.3663 | 0.2083 | 0.7895 | 0.7228 | 0.2105 | -834.24 | 7 | False |
+| swing | pending | bf1d6d3a3066cd94 | 631 | 0.7584 | -41.30 | -1,015.92 | 974.61 | 207.11 | 29.40 | 0.2414 | 0.2454 | 0.791 | 0.8678 | 0.0526 | -431.27 | 8 | False |
+
+**Nested-CV candidate** (family `h4/nested_cv`, the 12-block OOF mask):
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | diff_top1_removed | control_pct | perm_p | loser_recall | loser_precision | winner_recall_weighted | top_decile_winners_skipped | kept_mean_slip8 | sign_blocks |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| a329912797859321 | 771 | 0.9267 | -113.85 | -2,335.82 | 2,221.97 | 1,384.76 | 99.20 | 0.097 | 0.0864 | 0.918 | 0.9783 | 0 | -503.81 | 10 |
+
+Chosen cell per training fold:
+
+| block | chosen | thr | train_diff | eligible | test_n | test_kept |
+|---|---|---|---|---|---|---|
+| 0 | {"level": "room", "skip_when_last": "held"} |  | 2,149.54 | 9 | 83 | 77 |
+| 1 | {"level": "room", "skip_when_last": "held"} |  | 2,249.32 | 9 | 84 | 79 |
+| 2 | {"level": "room", "skip_when_last": "held"} |  | 1,809.63 | 9 | 42 | 37 |
+| 3 | {"level": "room", "skip_when_last": "held"} |  | 2,267.64 | 9 | 77 | 71 |
+| 4 | {"level": "room", "skip_when_last": "held"} |  | 2,357.45 | 9 | 72 | 69 |
+| 5 | {"level": "room", "skip_when_last": "held"} |  | 2,284.26 | 9 | 73 | 67 |
+| 6 | {"level": "room", "skip_when_last": "held"} |  | 2,141.69 | 9 | 78 | 69 |
+| 7 | {"level": "room", "skip_when_last": "held"} |  | 2,136.25 | 9 | 51 | 47 |
+| 8 | {"level": "room", "skip_when_last": "held"} |  | 1,943.50 | 9 | 76 | 71 |
+| 9 | {"level": "room", "skip_when_last": "held"} |  | 2,227.45 | 9 | 82 | 78 |
+| 10 | {"level": "room", "skip_when_last": "held"} |  | 2,148.57 | 9 | 31 | 29 |
+| 11 | {"level": "room", "skip_when_last": "held"} |  | 2,397.89 | 9 | 83 | 77 |
+
+CPCV paths (`h4/nested_cv/cpcv`, 11 rows): diff median 2,221.97, 5th pct 2,221.97, min 2,221.97, share > 0 1.00, control pct median 99.30 / 5th pct 99.20
+
+| id | kept_n | kept_share | kept_mean | skipped_mean | diff | control_pct | perm_p | winner_recall_weighted | sign_blocks | path |
+|---|---|---|---|---|---|---|---|---|---|---|
+| abdb0e569564599a | 771 | 0.9267 | -113.85 | -2,335.82 | 2,221.97 | 99.40 | 0.0785 | 0.9783 | 10 | 0 |
+| a900c700654bee22 | 771 | 0.9267 | -113.85 | -2,335.82 | 2,221.97 | 99.20 | 0.0795 | 0.9783 | 10 | 1 |
+| 9c41664356f80328 | 771 | 0.9267 | -113.85 | -2,335.82 | 2,221.97 | 99.30 | 0.083 | 0.9783 | 10 | 2 |
+| 6be4975682c1c16d | 771 | 0.9267 | -113.85 | -2,335.82 | 2,221.97 | 99.30 | 0.084 | 0.9783 | 10 | 3 |
+| f257c65f57b49bc6 | 771 | 0.9267 | -113.85 | -2,335.82 | 2,221.97 | 99.30 | 0.0935 | 0.9783 | 10 | 4 |
+| 108422a0b765f30f | 771 | 0.9267 | -113.85 | -2,335.82 | 2,221.97 | 99.50 | 0.0865 | 0.9783 | 10 | 5 |
+| 2bf581dd4f0c321a | 771 | 0.9267 | -113.85 | -2,335.82 | 2,221.97 | 99.30 | 0.083 | 0.9783 | 10 | 6 |
+| 301b8e004fb350fb | 771 | 0.9267 | -113.85 | -2,335.82 | 2,221.97 | 99.30 | 0.08 | 0.9783 | 10 | 7 |
+| 6550cd6bbfcf8ddd | 771 | 0.9267 | -113.85 | -2,335.82 | 2,221.97 | 99.10 | 0.097 | 0.9783 | 10 | 8 |
+| 7ce9ba79dc3fb4df | 771 | 0.9267 | -113.85 | -2,335.82 | 2,221.97 | 99.20 | 0.1084 | 0.9783 | 10 | 9 |
+| 796c425b52068499 | 771 | 0.9267 | -113.85 | -2,335.82 | 2,221.97 | 99.20 | 0.092 | 0.9783 | 10 | 10 |
+
+Cells chosen across the 66 CPCV training sets: {"level": "room", "skip_when_last": "held"} x66
+
+Family (after every row of this study on this table, the post-hoc row included):
+
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | L0 | pre-registered | 10 | 10 | 1.66 | 0.1556 | 0.5897 | 0.3625 | 0.3625 | {"level": "room", "skip_when_last": "held"} | 154.73 | [1238.07, 3148.44] | 0.001 | 0.3623 | 2,221.97 | 2,221.97 | 1.00 | 99.30 | False | kept_mean_slip8>0, dsr_p<0.1, spa_p<=0.10 |
+
+
+### H4 family summary (all tables)
+
+| tf | label | variant | candidates | ledger_rows | effective_trials | pbo_diff | pbo_kept_mean | spa_p | rc_p | spa_best | spa_best_mean_gain | nested_boot_diff_ci90 | nested_boot_p_diff_le0 | nested_dsr_p | cpcv_diff_median | cpcv_diff_p5 | cpcv_share_pos | cpcv_control_median | go_no_go | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 5 min | L1 | pre-registered | 10 | 10 | 1.64 | 0.6501 | 0.5715 | 0.1705 | 0.1805 | {"level": "room", "skip_when_last": "broke"} | 100.53 | [-289.64, 1371.11] | 0.1165 | 0.8863 | -2.08 | -1,774.85 | 0.455 | 71.80 | False | kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, spa_p<=0.10, boot_ci_excludes_0 |
+| 5 min | L0 | pre-registered | 10 | 10 | 1.66 | 0.1556 | 0.5897 | 0.3625 | 0.3625 | {"level": "room", "skip_when_last": "held"} | 154.73 | [1238.07, 3148.44] | 0.001 | 0.3623 | 2,221.97 | 2,221.97 | 1.00 | 99.30 | False | kept_mean_slip8>0, dsr_p<0.1, spa_p<=0.10 |
+

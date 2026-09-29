@@ -339,6 +339,39 @@ def pct_rank(v, xs):
     return round(100 * (float((xs < v).sum()) + 0.5 * float((xs == v).sum())) / len(xs), 1)
 
 
+# ---------------------------------------------------------------- the 3 session-block folds of learners A / B (judge 2)
+FOLDS3 = [list(range(0, 4)), list(range(4, 8)), list(range(8, 12))]
+
+
+def fold_masks(D, J, test_blocks, pool):
+    """(train trades, test trades) among `pool`: test = the harness blocks listed; a training trade is purged when its
+    extended trajectory [entry, J] intersects the test fold's bar range or its session is in the 3-session embargo after it."""
+    T = D.T
+    lo = min(T.block_range[b][0] for b in test_blocks); hi = max(T.block_range[b][1] for b in test_blocks)
+    embargo = T.block_embargo[max(test_blocks)]
+    te = pool & np.isin(D.block, test_blocks)
+    tr = pool & ~np.isin(D.block, test_blocks) & ~((D.entry <= hi) & (J >= lo)) & ~np.isin(D.session, list(embargo))
+    return tr, te
+
+
+def segments(trade, n):
+    """(starts, ends) of each trade's state rows (states are ordered by trade then bar)."""
+    return np.searchsorted(trade, np.arange(n), side="left"), np.searchsorted(trade, np.arange(n), side="right")
+
+
+def first_exit_policy(starts, ends, exit_flag, snet, bar, trades):
+    """Per trade in `trades`: exit at the first decision state (not the terminal one) whose exit_flag is set, else the terminal
+    fill. Returns (trade indices, net, exit bar, state row)."""
+    js = np.flatnonzero(trades)
+    net = np.empty(len(js)); xb = np.empty(len(js), dtype=int); rows = np.empty(len(js), dtype=int)
+    for a, j in enumerate(js):
+        s0, s1 = starts[j], ends[j]
+        m = np.flatnonzero(exit_flag[s0:s1 - 1])
+        r = s0 + m[0] if len(m) else s1 - 1
+        net[a] = snet[r]; xb[a] = bar[r]; rows[a] = r
+    return js, net, xb, rows
+
+
 # ---------------------------------------------------------------- statistics on per-trade nets
 def sign_flip_blocks(diff, block, n_blocks=H.N_BLOCKS):
     """Paired session-block sign-flip test of a per-trade difference: blocks = the harness's 12 IS blocks; the statistic is

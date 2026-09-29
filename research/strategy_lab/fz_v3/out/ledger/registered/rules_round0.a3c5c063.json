@@ -1,0 +1,375 @@
+{
+  "round": 0,
+  "blind": true,
+  "written_at": "2026-09-29T03:29:35+00:00",
+  "inputs_read": [
+    "research/strategy_lab/fz_v3/BRIEF.md (first paragraph: the user's words; H1-H5 text)",
+    "research/strategy_lab/fz_v3/out/data/README.md (feature dictionary: columns, definitions, look-ahead status)",
+    "research/strategy_lab/FZ.md sections 7, 8, 9 and 19 (what the card reads mean)"
+  ],
+  "author": "blind LLM hypothesis proposer (DESIGN_PANEL deep-sequence-llm-hypotheses, round 0)",
+  "rule_grammar": {
+    "if": "conjunction of at most 3 comparisons [column, op, value] on as-of columns of features.parquet",
+    "ops": [
+      ">=",
+      ">",
+      "<=",
+      "<",
+      "==",
+      "in"
+    ],
+    "then": "skip",
+    "atr_unit": "columns ending _atr are in units of atr14 at the SETUP bar",
+    "hour_convention": "1h = 60 bars on minute, 12 bars on 5minute; 3h = 180 / 36 bars"
+  },
+  "minute": [
+    {
+      "id": "r0_m1",
+      "if": [
+        [
+          "n_choch_since_bos",
+          ">=",
+          2
+        ],
+        [
+          "range_since_choch_atr",
+          "<=",
+          2.0
+        ]
+      ],
+      "then": "skip",
+      "reason": "\"if CHoCH and CHoCH and no breaks then it's sideways; trades in sideways are hurting\"",
+      "expected": "skipped SETUPs have lower mean Foundation net than kept ones; most skipped are stop_loss / small next_choch exits; few winners of size lost",
+      "reading": "Two or more CHoCHs since the last BOS and price has covered at most 2 ATR since the SETUP's own CHoCH: the market flips without breaking; skip."
+    },
+    {
+      "id": "r0_m2",
+      "if": [
+        [
+          "choch_run",
+          ">=",
+          3
+        ],
+        [
+          "n_bos_1h",
+          "==",
+          0
+        ]
+      ],
+      "then": "skip",
+      "reason": "\"CHoCH and CHoCH and no breaks\" - three flips in a row and nothing broke in the last hour",
+      "expected": "skipped set is concentrated in losers (fast reversals, next_choch exits); kept-vs-skipped expectancy difference positive",
+      "reading": "The last three engine events are all CHoCHs and there has been no BOS in the last 60 bars: a flip-flop with no follow-through; skip."
+    },
+    {
+      "id": "r0_m3",
+      "if": [
+        [
+          "alt_dir6",
+          ">=",
+          4
+        ],
+        [
+          "er_1h",
+          "<=",
+          0.3
+        ]
+      ],
+      "then": "skip",
+      "reason": "sideways: the last events keep changing direction and the last hour's closes went nowhere (\"trades in sideways are hurting\")",
+      "expected": "skipped SETUPs net negative on average; winners skipped are small (no room to run when the hour is inefficient)",
+      "reading": "Among the last six events direction changed at least four times and the Kaufman efficiency ratio of the last hour is 0.3 or less: chop; skip."
+    },
+    {
+      "id": "r0_m4",
+      "if": [
+        [
+          "fz_read",
+          "in",
+          [
+            "RECYCLE",
+            "THIN"
+          ]
+        ],
+        [
+          "room_ahead_dist_atr",
+          ">",
+          0
+        ],
+        [
+          "room_ahead_dist_atr",
+          "<=",
+          1.0
+        ]
+      ],
+      "then": "skip",
+      "reason": "\"else price retests, retests and respects\" - a SETUP inside a room, on a revisit that is not accepted, pointing at the room edge less than one ATR away",
+      "expected": "skipped trades mostly die inside the room (stop or next CHoCH before the edge breaks); large winners rarely start from a THIN / RECYCLE read at the edge",
+      "reading": "The card reads RECYCLE or THIN (a revisit of a known room without conviction) and the nearest room edge ahead is within 1 ATR: the entry is a bet on breaking a respected edge from inside; skip."
+    },
+    {
+      "id": "r0_m5",
+      "if": [
+        [
+          "hv3_dir_agree",
+          "==",
+          false
+        ],
+        [
+          "hv3_bars_since",
+          "<=",
+          60
+        ]
+      ],
+      "then": "skip",
+      "reason": "\"check how price reacts in visibly high volume ... if it breaks there will be a large move\" - a SETUP against the last visibly-high-volume bar fades that move",
+      "expected": "skipped SETUPs (fading the high-volume bar within the hour) lose more often than kept ones; kept SETUPs in agreement keep the large moves",
+      "reading": "Within the last 60 bars of this session a bar printed at least 3x the prior median volume in the opposite direction to the SETUP: the SETUP trades against the visibly high-volume move; skip."
+    },
+    {
+      "id": "r0_m6",
+      "if": [
+        [
+          "touch_swing_last",
+          "==",
+          "held"
+        ],
+        [
+          "swing_ahead_dist_atr",
+          ">",
+          0
+        ],
+        [
+          "swing_ahead_dist_atr",
+          "<=",
+          1.0
+        ]
+      ],
+      "then": "skip",
+      "reason": "\"Those levels will be respected ... price retests, retests and respects\" - the swing ahead was just tested and held",
+      "expected": "skipped SETUPs run into the held level and reverse (stop or next_choch); the winners lost are few because a level that just held rarely gives way on the very next approach",
+      "reading": "The last touch of a swing level in the past hour was verdict held, and the swing ahead in the SETUP's direction is within 1 ATR: the entry needs a level that just proved itself to fail; skip."
+    },
+    {
+      "id": "r0_m7",
+      "if": [
+        [
+          "hour",
+          "in",
+          [
+            12,
+            13
+          ]
+        ],
+        [
+          "n_choch_since_bos_today",
+          ">=",
+          2
+        ]
+      ],
+      "then": "skip",
+      "reason": "\"it's different for different time\" - the midday hours combined with today's own CHoCH-without-break count",
+      "expected": "the midday sideways SETUPs are net negative; kept midday SETUPs (after a BOS) keep the trend continuations",
+      "reading": "SETUP bar opens in the 12:xx or 13:xx hour and this session already has two or more CHoCHs since its last BOS: midday chop; skip."
+    },
+    {
+      "id": "r0_m8",
+      "if": [
+        [
+          "session_bar",
+          ">=",
+          60
+        ],
+        [
+          "n_bos_today",
+          "==",
+          0
+        ],
+        [
+          "sess_range_atr",
+          "<=",
+          2.5
+        ]
+      ],
+      "then": "skip",
+      "reason": "sideways day: an hour into the session nothing has broken and the day range is narrow (\"if ... no breaks then it's sideways\")",
+      "expected": "skipped SETUPs come from narrow, break-less sessions and average a loss; kept SETUPs from days that have broken keep the runners",
+      "reading": "At least 60 bars into the session, no BOS today and the session range so far is at most 2.5 ATR: a range day with no break; skip."
+    }
+  ],
+  "5minute": [
+    {
+      "id": "r0_f1",
+      "if": [
+        [
+          "n_choch_since_bos",
+          ">=",
+          2
+        ],
+        [
+          "range_3h_atr",
+          "<=",
+          4.0
+        ]
+      ],
+      "then": "skip",
+      "reason": "\"if CHoCH and CHoCH and no breaks then it's sideways\" - on 5 min two CHoCHs span hours, so the range of the last 3 hours is the width of the box",
+      "expected": "skipped SETUPs have lower mean net than kept; the skipped set is mostly next_choch / stop_loss exits inside the box",
+      "reading": "Two or more CHoCHs since the last BOS and the last 3 hours (36 bars) of this session span at most 4 ATR: sideways; skip."
+    },
+    {
+      "id": "r0_f2",
+      "if": [
+        [
+          "choch_run",
+          ">=",
+          3
+        ],
+        [
+          "n_bos_3h",
+          "==",
+          0
+        ]
+      ],
+      "then": "skip",
+      "reason": "\"CHoCH and CHoCH and no breaks\" - three flips in a row and no BOS in three hours",
+      "expected": "skipped set concentrated in losers; kept-vs-skipped expectancy positive",
+      "reading": "The last three events are all CHoCHs and there was no BOS in the last 36 bars: flip-flop with no follow-through; skip."
+    },
+    {
+      "id": "r0_f3",
+      "if": [
+        [
+          "alt_dir6",
+          ">=",
+          4
+        ],
+        [
+          "er_1h",
+          "<=",
+          0.35
+        ]
+      ],
+      "then": "skip",
+      "reason": "sideways: alternating event directions and an inefficient last hour (\"trades in sideways are hurting\")",
+      "expected": "skipped SETUPs net negative on average; small winners lost only",
+      "reading": "Direction changed at least four times in the last six events and the last hour's (12 bars) efficiency ratio is 0.35 or less: chop; skip."
+    },
+    {
+      "id": "r0_f4",
+      "if": [
+        [
+          "fz_read",
+          "in",
+          [
+            "RECYCLE",
+            "THIN"
+          ]
+        ],
+        [
+          "room_ahead_dist_atr",
+          ">",
+          0
+        ],
+        [
+          "room_ahead_dist_atr",
+          "<=",
+          1.0
+        ]
+      ],
+      "then": "skip",
+      "reason": "\"price retests, retests and respects\" - a revisit without acceptance, aimed at a room edge less than one ATR away",
+      "expected": "skipped trades die inside the room; large winners rarely start from a THIN / RECYCLE read at the edge",
+      "reading": "The card reads RECYCLE or THIN and the nearest room edge ahead is within 1 ATR: a bet on breaking a respected edge from inside; skip."
+    },
+    {
+      "id": "r0_f5",
+      "if": [
+        [
+          "hv3_dir_agree",
+          "==",
+          false
+        ],
+        [
+          "hv3_bars_since",
+          "<=",
+          12
+        ]
+      ],
+      "then": "skip",
+      "reason": "\"check how price reacts in visibly high volume ... if it breaks there will be a large move\" - a SETUP against the last visibly-high-volume 5-min bar within the hour fades it",
+      "expected": "skipped SETUPs (fading the high-volume bar) lose more often than kept ones; kept SETUPs in agreement keep the large moves",
+      "reading": "Within the last 12 bars of this session a bar printed at least 3x the prior median volume in the opposite direction to the SETUP; skip."
+    },
+    {
+      "id": "r0_f6",
+      "if": [
+        [
+          "touch_swing_last",
+          "==",
+          "held"
+        ],
+        [
+          "swing_ahead_dist_atr",
+          ">",
+          0
+        ],
+        [
+          "swing_ahead_dist_atr",
+          "<=",
+          1.0
+        ]
+      ],
+      "then": "skip",
+      "reason": "\"Those levels will be respected ... retests, retests and respects\" - the swing ahead was just tested and held",
+      "expected": "skipped SETUPs run into the held level and reverse; few winners lost",
+      "reading": "The last touch of a swing level in the past hour held, and the swing ahead in the SETUP's direction is within 1 ATR; skip."
+    },
+    {
+      "id": "r0_f7",
+      "if": [
+        [
+          "hour",
+          "in",
+          [
+            12,
+            13
+          ]
+        ],
+        [
+          "n_choch_since_bos_today",
+          ">=",
+          2
+        ]
+      ],
+      "then": "skip",
+      "reason": "\"it's different for different time\" - midday hours with today's own CHoCH-without-break count",
+      "expected": "midday sideways SETUPs are net negative; kept midday SETUPs after a BOS keep the continuations",
+      "reading": "SETUP bar opens at 12:xx or 13:xx and this session already has two or more CHoCHs since its last BOS; skip."
+    },
+    {
+      "id": "r0_f8",
+      "if": [
+        [
+          "session_bar",
+          ">=",
+          12
+        ],
+        [
+          "n_bos_today",
+          "==",
+          0
+        ],
+        [
+          "sess_range_atr",
+          "<=",
+          3.0
+        ]
+      ],
+      "then": "skip",
+      "reason": "sideways day: an hour in, nothing has broken and the day range is narrow (\"if ... no breaks then it's sideways\")",
+      "expected": "skipped SETUPs come from narrow, break-less sessions and average a loss; kept SETUPs from days that broke keep the runners",
+      "reading": "At least 12 bars (one hour) into the session, no BOS today and the session range so far is at most 3 ATR; skip."
+    }
+  ]
+}

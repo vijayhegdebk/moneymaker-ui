@@ -1,0 +1,43 @@
+[fit minute] IS sessions 1026 (full 1012, short 14), IS bars 383076, gaps 1025, GMM BIC {4: 3520657.951708788, 5: 2912397.592873381, 6: 2895928.602585261} -> K=6, 836.0s
+[04:23:35] real reference minute: {"frozen_st7_st8": [-19.71, 64.0, "249b8433a25f5b8a"], "choch2_skip": [-72.5, 1.6, "ace645aec2224464"], "sl_above_median_skip": [12.07, 99.0, "21f5c361c64d6fe8"]}
+[04:24:48] minute: 24 tapes (24 to build) in 933s
+[04:26:12] built minute session_0: 83.5s, peak rss 498.7 MB
+[04:26:19] built minute session_1: 90.3s, peak rss 473.4 MB
+[04:26:23] evaluated minute session_0: units 1101, setups/sess 4.5263, frozen_st7_st8 diff -139.28 pct 25.6 choch2_skip diff -263.67 pct 0.8 sl_above_median_skip diff 52.89 pct 89.2
+[04:26:33] evaluated minute session_1: units 1332, setups/sess 5.4453, frozen_st7_st8 diff 232.81 pct 86.8 choch2_skip diff -81.49 pct 15.8 sl_above_median_skip diff -20.36 pct 75.0
+[04:27:38] built minute session_3: 65.5s, peak rss 476.3 MB
+[04:27:55] built minute session_2: 92.2s, peak rss 465.4 MB
+[04:28:08] evaluated minute session_2: units 1130, setups/sess 4.664, frozen_st7_st8 diff 52.46 pct 40.9 choch2_skip diff -251.54 pct 0.4 sl_above_median_skip diff -25.46 pct 90.5
+[04:28:08] evaluated minute session_3: units 485, setups/sess 2.0, frozen_st7_st8 diff 595.08 pct 92.8 choch2_skip diff -315.34 pct 6.0 sl_above_median_skip diff -54.97 pct 54.1
+[04:29:05] built minute session_4: 79.9s, peak rss 479.8 MB
+[04:29:15] evaluated minute session_4: units 840, setups/sess 3.4332, frozen_st7_st8 diff 210.58 pct 66.2 choch2_skip diff -23.27 pct 38.0 sl_above_median_skip diff -256.58 pct 29.2
+[04:29:43] built minute session_5: 95.2s, peak rss 470.9 MB
+[04:29:58] evaluated minute session_5: units 1445, setups/sess 5.8988, frozen_st7_st8 diff 7.2 pct 72.2 choch2_skip diff 222.48 pct 31.6 sl_above_median_skip diff 116.35 pct 96.5
+[04:30:28] built minute session_6: 72.3s, peak rss 476.0 MB
+[04:30:37] evaluated minute session_6: units 962, setups/sess 3.9109, frozen_st7_st8 diff -147.04 pct 29.0 choch2_skip diff -46.06 pct 7.9 sl_above_median_skip diff 47.69 pct 91.8
+[04:31:14] built minute session_7: 75.6s, peak rss 473.4 MB
+[04:31:22] evaluated minute session_7: units 937, setups/sess 3.83, frozen_st7_st8 diff 101.52 pct 76.0 choch2_skip diff -76.19 pct 8.8 sl_above_median_skip diff -61.15 pct 71.0
+[04:31:28] built minute segment_0: 50.9s, peak rss 462.5 MB
+[04:31:34] evaluated minute segment_0: units 613, setups/sess 2.5182, frozen_st7_st8 diff -158.04 pct 61.6 choch2_skip diff -483.88 pct 2.5 sl_above_median_skip diff -25.61 pct 64.2
+[04:32:31] built minute segment_2: 57.0s, peak rss 466.9 MB
+[04:32:33] built minute segment_1: 71.5s, peak rss 476.7 MB
+[04:32:46] evaluated minute segment_1: units 1245, setups/sess 5.0729, frozen_st7_st8 diff 111.88 pct 95.8 choch2_skip diff 85.53 pct 29.3 sl_above_median_skip diff -96.8 pct 58.6
+[04:32:46] evaluated minute segment_2: units 951, setups/sess 3.8907, frozen_st7_st8 diff 295.83 pct 22.4 choch2_skip diff 33.8 pct 7.5 sl_above_median_skip diff 136.91 pct 84.0
+[04:33:27] built minute segment_3: 45.8s, peak rss 464.2 MB
+[04:33:31] evaluated minute segment_3: units 430, setups/sess 1.7611, frozen_st7_st8 diff -268.7 pct 36.6 choch2_skip diff -110.94 pct 8.2 sl_above_median_skip diff 100.04 pct 76.0
+[04:33:53] built minute segment_4: 67.7s, peak rss 480.4 MB
+[04:34:06] evaluated minute segment_4: units 1316, setups/sess 5.3927, frozen_st7_st8 diff 50.07 pct 69.3 choch2_skip diff -189.0 pct 5.4 sl_above_median_skip diff 115.88 pct 97.2
+[04:34:42] built minute segment_5: 71.3s, peak rss 519.3 MB
+[04:34:53] evaluated minute segment_5: units 1284, setups/sess 5.2632, frozen_st7_st8 diff 229.19 pct 94.7 choch2_skip diff -192.51 pct 5.8 sl_above_median_skip diff -127.44 pct 22.1
+[04:35:03] built minute segment_6: 57.6s, peak rss 476.5 MB
+[04:35:12] evaluated minute segment_6: units 1008, setups/sess 4.1134, frozen_st7_st8 diff -44.98 pct 50.5 choch2_skip diff 176.7 pct 39.8 sl_above_median_skip diff -139.96 pct 58.2
+[04:36:00] built minute segment_7: 67.4s, peak rss 470.2 MB
+[04:36:11] evaluated minute segment_7: units 1243, setups/sess 5.0972, frozen_st7_st8 diff -17.05 pct 50.5 choch2_skip diff -11.64 pct 14.1 sl_above_median_skip diff 103.76 pct 72.8
+[04:36:42] built minute gmm_0: 90.5s, peak rss 477.5 MB
+[04:36:56] evaluated minute gmm_0: units 1650, setups/sess 6.7854, frozen_st7_st8 diff -299.94 pct 0.1 choch2_skip diff 116.18 pct 53.2 sl_above_median_skip diff 44.79 pct 69.8
+[04:37:45] built minute gmm_1: 93.8s, peak rss 481.1 MB
+[04:38:01] evaluated minute gmm_1: units 1578, setups/sess 6.502, frozen_st7_st8 diff -155.08 pct 34.9 choch2_skip diff 286.72 pct 86.1 sl_above_median_skip diff -39.32 pct 76.0
+[04:38:25] built minute gmm_2: 89.0s, peak rss 485.2 MB
+[04:38:38] evaluated minute gmm_2: units 1403, setups/sess 5.7571, frozen_st7_st8 diff 37.28 pct 72.7 choch2_skip diff 51.25 pct 23.9 sl_above_median_skip diff 110.02 pct 96.2
+[04:39:27] built minute gmm_3: 85.7s, peak rss 482.4 MB
+[04:39:40] evaluated minute gmm_3: units 1244, setups/sess 5.1053, frozen_st7_st8 diff -162.34 pct 50.6 choch2_skip diff 4.62 pct 15.4 sl_above_median_skip diff -139.38 pct 41.3

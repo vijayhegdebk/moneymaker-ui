@@ -1,0 +1,16 @@
+h3_volume start Tue Sep 29 04:06:39 2026 ledger sha f2c2f7154dd30e85
+  minute: bar aftermath table 27 rows; hv counts IS {'v2N20': 58027, 'v2N60': 64554, 'v3N20': 26274, 'v3N60': 30472, 'v4N20': 14462, 'v4N60': 16878}
+  minute: truncation check {'setups_before_cut': [3807, 3807], 'differ': [], 'PASS': True, 'cut': 'trunc_20250630_120000'}
+== H3 minute_L1: IS units 4452
+  build cross-check hv2/hv3 (N=20): {'hv2_20': True, 'hv3_20': True}
+    cell 1/54 {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} kept 4152 diff 48.24 pct 20.8 p 0.7641
+    cell 21/54 {"M": 5, "N": 20, "gate": "take_only_agree", "v": 3} kept 1061 diff -81.02 pct 95.7 p 0.3668
+    cell 41/54 {"M": 15, "N": 20, "gate": "skip_if_none", "v": 4} kept 1462 diff -35.72 pct 99.9 p 0.6682
+    cell 54/54 {"M": 30, "N": 60, "gate": "take_only_agree", "v": 4} kept 1150 diff -112.84 pct 98.0 p 0.2134
+  nested-CV OOF: kept 3863 (0.8677) diff -171.85 pct 0.0 p 0.1414 blocks 1 id 21b31cbb10277775
+  CPCV 11 paths: diff median -156.04 p5 -298.24 min -309.93 share>0 0.091 control pct median 0.1 p5 0.0
+  family: 55 candidates, eff 1.66, PBO diff 0.7635 kept 0.8015, SPA p 0.0 best {'v': 2, 'N': 60, 'M': 30, 'gate': 'skip_if_none'}, boot [-324.62, -39.75], DSR p 1.0, go False
+== H3 minute_L0: IS units 4502
+  build cross-check hv2/hv3 (N=20): {'hv2_20': True, 'hv3_20': True}
+    cell 1/54 {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} kept 4190 diff -104.92 pct 27.4 p 0.7431
+    cell 21/54 {"M": 5, "N": 20, "gate": "take_only_agree", "v": 3} kept 1066 diff 17.47 pct 97.0 p 0.9235

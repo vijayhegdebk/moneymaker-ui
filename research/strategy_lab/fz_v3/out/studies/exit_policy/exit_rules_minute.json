@@ -1,0 +1,102 @@
+{
+ "tf": "minute",
+ "best_learner": "B",
+ "exit_rules": [
+  {
+   "if": {
+    "bars_held": [
+     "<=",
+     1.5
+    ],
+    "dd_from_mfe_R": [
+     "<=",
+     0.2595
+    ]
+   },
+   "then": "exit_all",
+   "support": 2780,
+   "exit_share": 0.785
+  },
+  {
+   "if": {
+    "bars_held": [
+     "<=",
+     1.5
+    ],
+    "dd_from_mfe_R": [
+     ">",
+     0.2595
+    ]
+   },
+   "then": "exit_all",
+   "support": 1610,
+   "exit_share": 0.995
+  },
+  {
+   "if": {
+    "bars_held": [
+     ">",
+     1.5
+    ],
+    "session_bar": [
+     ">",
+     355.5
+    ],
+    "dd_from_mfe_R": [
+     "<=",
+     0.1228
+    ]
+   },
+   "then": "exit_all",
+   "support": 1589,
+   "exit_share": 0.96
+  }
+ ],
+ "fields_per_bar": [
+  "bars_held",
+  "unreal_pts",
+  "unreal_R",
+  "unreal_atr",
+  "mfe_R",
+  "mae_R",
+  "dd_from_mfe_R",
+  "session_bar",
+  "bars_to_sqoff",
+  "atr14",
+  "vol_ratio20",
+  "read_LEAVE",
+  "read_PENDING",
+  "read_THIN",
+  "read_NEW",
+  "read_REJECT",
+  "read_ACCEPTED",
+  "read_FIRST_PRINT",
+  "read_RECYCLE",
+  "read_HUNT",
+  "room_ahead_atr",
+  "room_behind_atr",
+  "n_choch_since_bos",
+  "choch_against",
+  "lots_remaining"
+ ],
+ "shippable_form_learner_C": null,
+ "note": "a new key type (a per-bar rule evaluator): a user decision; learner C's keys {stop, scale_out, trail, square_off, time_stop_bars, exit_on_choch_against} are the shippable form",
+ "provenance": {
+  "source": "learned on IS 2021-10..2025-12",
+  "script": "05_evaluate.py",
+  "statistic": {
+   "best_learner": "B",
+   "best_learner_oof_mean": -908.8,
+   "visited_decision_states": 317981,
+   "exit_decisions": 314,
+   "fidelity_accuracy": 0.9822,
+   "fidelity_exit_recall": 0.9873,
+   "fidelity_exit_precision": 0.0518,
+   "distilled_policy_is_mean": -1075.16,
+   "distilled_policy_diff_vs_foundation": -65.55,
+   "distilled_policy_random_pct": 56.5,
+   "distilled_early_exit_share": 0.9861,
+   "rules_n": 3
+  }
+ }
+}

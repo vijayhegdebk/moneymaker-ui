@@ -1,0 +1,38 @@
+04:01:54 h3_volume start Tue Sep 29 04:01:54 2026 ledger sha 1249645889faabe9
+04:01:56   5minute: bar aftermath table 27 rows; hv counts IS {'v2N20': 10407, 'v2N60': 9180, 'v3N20': 4293, 'v3N60': 4028, 'v4N20': 2044, 'v4N60': 1926}
+04:01:57   5minute: truncation check {'setups_before_cut': [718, 718], 'differ': [], 'PASS': True, 'cut': 'trunc_20250630_120000'}
+04:01:57 == H3 5minute_L1: IS units 826
+04:01:57   build cross-check hv2/hv3 (N=20): {'hv2_20': True, 'hv3_20': True}
+04:01:59     cell 1/54 {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} kept 798 diff 403.38 pct 0.9 p 0.6317
+04:02:27     cell 21/54 {"M": 5, "N": 20, "gate": "take_only_agree", "v": 3} kept 152 diff -26.21 pct 99.8 p 0.951
+04:02:51     cell 41/54 {"M": 15, "N": 20, "gate": "skip_if_none", "v": 4} kept 140 diff 58.74 pct 100.0 p 0.8946
+04:03:04     cell 54/54 {"M": 30, "N": 60, "gate": "take_only_agree", "v": 4} kept 77 diff 77.97 pct 99.8 p 0.8861
+04:03:07   nested-CV OOF: kept 775 (0.9383) diff -200.09 pct 0.4 p 0.7566 blocks 6 id 8eaee251afffdbb3
+04:03:30   CPCV 11 paths: diff median -200.09 p5 -598.43 min -612.43 share>0 0.273 control pct median 0.7 p5 0.1
+04:03:32   family: 55 candidates, eff 2.49, PBO diff 0.6568 kept 0.3895, SPA p 0.155 best {'v': 2, 'N': 20, 'M': 30, 'gate': 'skip_if_none'}, boot [-1159.18, 581.14], DSR p 0.9965, go False
+04:03:32 == H3 5minute_L0: IS units 832
+04:03:32   build cross-check hv2/hv3 (N=20): {'hv2_20': True, 'hv3_20': True}
+04:03:34     cell 1/54 {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} kept 804 diff 37.84 pct 8.4 p 0.9845
+04:04:01     cell 21/54 {"M": 5, "N": 20, "gate": "take_only_agree", "v": 3} kept 155 diff 653.95 pct 98.7 p 0.4953
+04:04:25     cell 41/54 {"M": 15, "N": 20, "gate": "skip_if_none", "v": 4} kept 141 diff -338.81 pct 89.3 p 0.7356
+04:04:39     cell 54/54 {"M": 30, "N": 60, "gate": "take_only_agree", "v": 4} kept 80 diff 108.94 pct 95.4 p 0.9205
+04:04:41   nested-CV OOF: kept 808 (0.9712) diff 451.83 pct 34.9 p 0.8321 blocks 6 id 0b364a8b48bd9207
+04:05:05   CPCV 11 paths: diff median 451.83 p5 261.32 min 245.41 share>0 1.0 control pct median 33.5 p5 30.9
+04:05:07   family: 55 candidates, eff 2.24, PBO diff 0.5181 kept 0.4411, SPA p 0.5765 best {'v': 3, 'N': 20, 'M': 30, 'gate': 'skip_if_none'}, boot [-2269.14, 2575.06], DSR p 0.7825, go False
+04:05:07 h3 done in 192.7s; ledger sha 85861da833cab175
+04:06:39 h3_volume start Tue Sep 29 04:06:39 2026 ledger sha f2c2f7154dd30e85
+04:06:55   minute: bar aftermath table 27 rows; hv counts IS {'v2N20': 58027, 'v2N60': 64554, 'v3N20': 26274, 'v3N60': 30472, 'v4N20': 14462, 'v4N60': 16878}
+04:07:02   minute: truncation check {'setups_before_cut': [3807, 3807], 'differ': [], 'PASS': True, 'cut': 'trunc_20250630_120000'}
+04:07:03 == H3 minute_L1: IS units 4452
+04:07:03   build cross-check hv2/hv3 (N=20): {'hv2_20': True, 'hv3_20': True}
+04:07:29     cell 1/54 {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} kept 4152 diff 48.24 pct 20.8 p 0.7641
+04:16:48     cell 21/54 {"M": 5, "N": 20, "gate": "take_only_agree", "v": 3} kept 1061 diff -81.02 pct 95.7 p 0.3668
+04:25:00     cell 41/54 {"M": 15, "N": 20, "gate": "skip_if_none", "v": 4} kept 1462 diff -35.72 pct 99.9 p 0.6682
+04:30:20     cell 54/54 {"M": 30, "N": 60, "gate": "take_only_agree", "v": 4} kept 1150 diff -112.84 pct 98.0 p 0.2134
+04:30:49   nested-CV OOF: kept 3863 (0.8677) diff -171.85 pct 0.0 p 0.1414 blocks 1 id 21b31cbb10277775
+04:34:07   CPCV 11 paths: diff median -156.04 p5 -298.24 min -309.93 share>0 0.091 control pct median 0.1 p5 0.0
+04:34:11   family: 55 candidates, eff 1.66, PBO diff 0.7635 kept 0.8015, SPA p 0.0 best {'v': 2, 'N': 60, 'M': 30, 'gate': 'skip_if_none'}, boot [-324.62, -39.75], DSR p 1.0, go False
+04:34:11 == H3 minute_L0: IS units 4502
+04:34:11   build cross-check hv2/hv3 (N=20): {'hv2_20': True, 'hv3_20': True}
+04:34:27     cell 1/54 {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} kept 4190 diff -104.92 pct 27.4 p 0.7431
+04:39:21     cell 21/54 {"M": 5, "N": 20, "gate": "take_only_agree", "v": 3} kept 1066 diff 17.47 pct 97.0 p 0.9235

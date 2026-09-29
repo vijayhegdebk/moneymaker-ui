@@ -1,0 +1,22 @@
+h3_volume start Tue Sep 29 04:01:54 2026 ledger sha 1249645889faabe9
+  5minute: bar aftermath table 27 rows; hv counts IS {'v2N20': 10407, 'v2N60': 9180, 'v3N20': 4293, 'v3N60': 4028, 'v4N20': 2044, 'v4N60': 1926}
+  5minute: truncation check {'setups_before_cut': [718, 718], 'differ': [], 'PASS': True, 'cut': 'trunc_20250630_120000'}
+== H3 5minute_L1: IS units 826
+  build cross-check hv2/hv3 (N=20): {'hv2_20': True, 'hv3_20': True}
+    cell 1/54 {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} kept 798 diff 403.38 pct 0.9 p 0.6317
+    cell 21/54 {"M": 5, "N": 20, "gate": "take_only_agree", "v": 3} kept 152 diff -26.21 pct 99.8 p 0.951
+    cell 41/54 {"M": 15, "N": 20, "gate": "skip_if_none", "v": 4} kept 140 diff 58.74 pct 100.0 p 0.8946
+    cell 54/54 {"M": 30, "N": 60, "gate": "take_only_agree", "v": 4} kept 77 diff 77.97 pct 99.8 p 0.8861
+  nested-CV OOF: kept 775 (0.9383) diff -200.09 pct 0.4 p 0.7566 blocks 6 id 8eaee251afffdbb3
+  CPCV 11 paths: diff median -200.09 p5 -598.43 min -612.43 share>0 0.273 control pct median 0.7 p5 0.1
+  family: 55 candidates, eff 2.49, PBO diff 0.6568 kept 0.3895, SPA p 0.155 best {'v': 2, 'N': 20, 'M': 30, 'gate': 'skip_if_none'}, boot [-1159.18, 581.14], DSR p 0.9965, go False
+== H3 5minute_L0: IS units 832
+  build cross-check hv2/hv3 (N=20): {'hv2_20': True, 'hv3_20': True}
+    cell 1/54 {"M": 5, "N": 20, "gate": "skip_if_disagree", "v": 2} kept 804 diff 37.84 pct 8.4 p 0.9845
+    cell 21/54 {"M": 5, "N": 20, "gate": "take_only_agree", "v": 3} kept 155 diff 653.95 pct 98.7 p 0.4953
+    cell 41/54 {"M": 15, "N": 20, "gate": "skip_if_none", "v": 4} kept 141 diff -338.81 pct 89.3 p 0.7356
+    cell 54/54 {"M": 30, "N": 60, "gate": "take_only_agree", "v": 4} kept 80 diff 108.94 pct 95.4 p 0.9205
+  nested-CV OOF: kept 808 (0.9712) diff 451.83 pct 34.9 p 0.8321 blocks 6 id 0b364a8b48bd9207
+  CPCV 11 paths: diff median 451.83 p5 261.32 min 245.41 share>0 1.0 control pct median 33.5 p5 30.9
+  family: 55 candidates, eff 2.24, PBO diff 0.5181 kept 0.4411, SPA p 0.5765 best {'v': 3, 'N': 20, 'M': 30, 'gate': 'skip_if_none'}, boot [-2269.14, 2575.06], DSR p 0.7825, go False
+h3 done in 192.7s; ledger sha 85861da833cab175

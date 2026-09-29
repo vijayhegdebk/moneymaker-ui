@@ -1,0 +1,44 @@
+04:04:52 h4_levels start Tue Sep 29 04:04:52 2026 ledger sha 9098bd77bc384cde
+04:04:53   5minute: level instances {'swing': 22992, 'room': 8090, 'prot': 2897}
+04:04:57   5minute: 63009 episodes in 5s; verdicts {('prot', 'held'): 645, ('prot', 'broke'): 515, ('prot', 'session_end'): 14, ('room', 'held'): 19025, ('room', 'broke'): 16011, ('room', 'session_end'): 1123, ('room', 'na'): 561, ('swing', 'held'): 12721, ('swing', 'broke'): 11388, ('swing', 'session_end'): 1006}
+04:04:58 == H4 5minute_L1: IS units 826
+04:04:58   by touch_prot_last: broke: n 3 mean 2048.26 win 0.3333; held: n 604 mean -685.62 win 0.2781; pending: n 137 mean -777.24 win 0.2701; none: n 67 mean -1048.93 win 0.3134; na: n 15 mean -2706.37 win 0.1333
+04:04:58   by touch_room_last: broke: n 149 mean -609.75 win 0.2886; held: n 61 mean -1393.89 win 0.1803; pending: n 163 mean -100.76 win 0.2699; none: n 453 mean -955.9 win 0.2892
+04:04:58   by touch_swing_last: broke: n 448 mean -866.09 win 0.2835; held: n 169 mean -911.35 win 0.284; pending: n 201 mean -471.17 win 0.2438; none: n 8 mean 1425.69 win 0.625
+04:05:00     cell 1/9 {"level": "prot", "skip_when_last": "broke"} kept 823 diff -2815.53 pct 41.6 p 0.2324
+04:05:13     cell 9/9 {"level": "swing", "skip_when_last": "pending"} kept 625 diff -377.82 pct 7.0 p 0.2919
+04:05:15   nested-CV OOF: kept 770 (0.9322) diff 613.48 pct 83.8 p 0.3228 blocks 7 id 9e32a86bcfc8f5ce
+04:05:36   CPCV 11 paths: diff median -2.08 p5 -1774.85 min -2815.53 share>0 0.455 control pct median 71.8 p5 35.0
+04:05:37   family: 10 candidates, eff 1.64, PBO diff 0.6501 kept 0.5715, SPA p 0.1705 best {'level': 'room', 'skip_when_last': 'broke'}, boot [-289.64, 1371.11], DSR p 0.8863, go False
+04:05:37 == H4 5minute_L0: IS units 832
+04:05:37   by touch_prot_last: broke: n 3 mean 2511.94 win 0.3333; held: n 609 mean -205.82 win 0.2266; pending: n 138 mean -240.72 win 0.2464; none: n 67 mean -306.38 win 0.1642; na: n 15 mean -3913.94 win 0.0
+04:05:37   by touch_room_last: broke: n 149 mean 1147.61 win 0.2483; held: n 61 mean -2335.82 win 0.082; pending: n 163 mean -31.44 win 0.227; none: n 458 mean -547.53 win 0.2293; na: n 1 mean -2877.11 win 0.0
+04:05:37   by touch_swing_last: broke: n 452 mean -229.7 win 0.2257; held: n 171 mean 370.8 win 0.2105; pending: n 201 mean -1015.92 win 0.209; none: n 8 mean 1794.15 win 0.5
+04:05:39     cell 1/9 {"level": "prot", "skip_when_last": "broke"} kept 829 diff -2798.79 pct 8.8 p 0.4738
+04:05:52     cell 9/9 {"level": "swing", "skip_when_last": "pending"} kept 631 diff 974.61 pct 29.4 p 0.2414
+04:05:54   nested-CV OOF: kept 771 (0.9267) diff 2221.97 pct 99.2 p 0.097 blocks 10 id a329912797859321
+04:06:16   CPCV 11 paths: diff median 2221.97 p5 2221.97 min 2221.97 share>0 1.0 control pct median 99.3 p5 99.2
+04:06:17   family: 10 candidates, eff 1.66, PBO diff 0.1556 kept 0.5897, SPA p 0.3625 best {'level': 'room', 'skip_when_last': 'held'}, boot [1238.07, 3148.44], DSR p 0.3623, go False
+04:06:17 h4 done in 85.3s; ledger sha feb09769201de42e
+04:06:40 h4_levels start Tue Sep 29 04:06:40 2026 ledger sha f2c2f7154dd30e85
+04:06:53   minute: level instances {'swing': 113936, 'prot': 15645, 'room': 11640}
+04:09:09   minute: 248128 episodes in 144s; verdicts {('prot', 'broke'): 4646, ('prot', 'held'): 1867, ('prot', 'session_end'): 111, ('room', 'broke'): 49127, ('room', 'held'): 21895, ('room', 'session_end'): 1131, ('room', 'na'): 276, ('swing', 'broke'): 115620, ('swing', 'held'): 49985, ('swing', 'session_end'): 3470}
+04:09:18 == H4 minute_L1: IS units 4452
+04:09:18   by touch_prot_last: broke: n 21 mean -1094.83 win 0.0952; held: n 160 mean -733.14 win 0.2188; pending: n 4144 mean -1034.05 win 0.1523; none: n 2 mean -2878.48 win 0.0; na: n 125 mean -508.86 win 0.208
+04:09:18   by touch_room_last: broke: n 1882 mean -1013.88 win 0.1546; held: n 798 mean -1096.47 win 0.1604; pending: n 1031 mean -1009.83 win 0.1426; none: n 739 mean -903.06 win 0.1732; na: n 2 mean -1589.2 win 0.0
+04:09:18   by touch_swing_last: broke: n 2736 mean -991.6 win 0.17; held: n 5 mean 401.82 win 0.4; pending: n 1711 mean -1042.53 win 0.1327
+04:09:54     cell 1/9 {"level": "prot", "skip_when_last": "broke"} kept 4431 diff 85.62 pct 44.3 p 0.8861
+04:13:58     cell 9/9 {"level": "swing", "skip_when_last": "pending"} kept 2741 diff 53.47 pct 6.0 p 0.5157
+04:14:30   nested-CV OOF: kept 3758 (0.8441) diff -6.92 pct 3.1 p 0.9535 blocks 5 id 7e2a1c31f2dc16c3
+04:20:03   CPCV 11 paths: diff median -6.92 p5 -171.27 min -171.33 share>0 0.273 control pct median 2.1 p5 0.4
+04:20:08   family: 10 candidates, eff 1.59, PBO diff 0.4249 kept 0.081, SPA p 0.936 best {'level': 'swing', 'skip_when_last': 'broke'}, boot [-220.04, 187.58], DSR p 0.9987, go False
+04:20:09 == H4 minute_L0: IS units 4502
+04:20:09   by touch_prot_last: broke: n 21 mean -905.7 win 0.1429; held: n 166 mean -379.14 win 0.2169; pending: n 4187 mean -938.32 win 0.1486; none: n 2 mean -20902.24 win 0.0; na: n 126 mean -774.28 win 0.1825
+04:20:09   by touch_room_last: broke: n 1897 mean -867.24 win 0.1529; held: n 813 mean -1111.25 win 0.1599; pending: n 1049 mean -1096.06 win 0.1354; none: n 741 mean -605.32 win 0.1646; na: n 2 mean -1589.2 win 0.0
+04:20:09   by touch_swing_last: broke: n 2755 mean -954.43 win 0.1575; held: n 5 mean 663.32 win 0.4; pending: n 1742 mean -874.83 win 0.1424
+04:20:42     cell 1/9 {"level": "prot", "skip_when_last": "broke"} kept 4481 diff -16.21 pct 49.0 p 0.9815
+04:24:15     cell 9/9 {"level": "swing", "skip_when_last": "pending"} kept 2760 diff -76.66 pct 19.0 p 0.6367
+04:24:47   nested-CV OOF: kept 3588 (0.797) diff 29.1 pct 10.5 p 0.8821 blocks 6 id f761a518d322b977
+04:30:33   CPCV 11 paths: diff median 72.72 p5 -60.02 min -99.65 share>0 0.727 control pct median 24.1 p5 11.0
+04:30:37   family: 10 candidates, eff 1.71, PBO diff 0.6843 kept 0.5936, SPA p 0.9785 best {'level': 'room', 'skip_when_last': 'held'}, boot [-208.78, 256.9], DSR p 0.8465, go False
+04:30:37 h4 done in 1437.6s; ledger sha d348e70b02d1a7fa

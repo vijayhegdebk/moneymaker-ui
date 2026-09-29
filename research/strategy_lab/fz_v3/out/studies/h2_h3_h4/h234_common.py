@@ -125,26 +125,29 @@ def score_cells(T, cells, script, log, extra=None):
     return rows
 
 
-def select_in_fold(T, cells, tr, tag):
-    """The nested-CV choice inside one training fold: the eligible cell with the largest kept-vs-skipped diff on the training rows."""
+def select_in_fold(T, cells, tr, tag, min_skip_share=0.0):
+    """The nested-CV choice inside one training fold: the eligible cell with the largest kept-vs-skipped diff on the training rows.
+    min_skip_share > 0 is the post-hoc variant (declared after the primary runs): the cell must also skip at least that share."""
     floor_n = FLOOR_N[T.tf] * len(tr) / T.is_mask.sum()
     best = None; n_elig = 0
     for c in cells:
         thr = c.fit(T, tr)
         full = np.ones(T.n, dtype=bool); full[tr] = c.apply(T, tr, thr)
         m = H.metrics(T, full, tr, tag, controls=False)
-        if m["diff"] is None or m["kept_share"] < FLOOR_SHARE or m["kept_n"] < floor_n: continue
+        if m["diff"] is None or m["kept_share"] < FLOOR_SHARE or m["kept_n"] < floor_n or (1 - m["kept_share"]) < min_skip_share: continue
         n_elig += 1
         if best is None or m["diff"] > best["diff"]:
             best = dict(diff=m["diff"], cell=c, thr=thr, kept_share=m["kept_share"], kept_n=m["kept_n"], control=None)
     return best, n_elig
 
 
-def nested_cv(T, cells, study, script, log, cfg_extra=None):
+def nested_cv(T, cells, study, script, log, cfg_extra=None, min_skip_share=0.0, suffix=""):
     """The 12-block nested-CV candidate (one ledger row) and its 11 CPCV paths (11 ledger rows)."""
     keep = np.ones(T.n, dtype=bool); chosen = []
+    fam = f"{study}/nested_cv{suffix}"
+    if min_skip_share: cfg_extra = dict(cfg_extra or {}, min_skip_share=min_skip_share)
     for b, (tr, te) in enumerate(H.purged_splits(T)):
-        best, n_elig = select_in_fold(T, cells, tr, f"{study}|nested|{T.tf}|{T.label}|{b}")
+        best, n_elig = select_in_fold(T, cells, tr, f"{study}|nested{suffix}|{T.tf}|{T.label}|{b}", min_skip_share)
         if best is None:
             chosen.append(dict(block=b, cell=None, eligible=n_elig, train_n=int(len(tr)), test_n=int(len(te)))); continue
         keep[te] = best["cell"].apply(T, te, best["thr"])
@@ -152,18 +155,18 @@ def nested_cv(T, cells, study, script, log, cfg_extra=None):
                            train_kept_share=best["kept_share"], eligible=n_elig, train_n=int(len(tr)), test_n=int(len(te)), test_kept=int(keep[te].sum())))
     cfg = dict(selection="nested_cv_12_blocks", criterion="max train diff s.t. kept_share>=0.20 and kept_n>=floor*train/IS",
                chosen_per_block=[c["cell"] for c in chosen], **(cfg_extra or {}))
-    res = H.score(T, keep, f"{study}/nested_cv", cfg, script=script, note=json.dumps(chosen, default=str))
+    res = H.score(T, keep, fam, cfg, script=script, note=json.dumps(chosen, default=str))
     res["go_raw"] = H.go_no_go(res, T.tf)[0]
-    log(f"  nested-CV OOF: kept {res['kept_n']} ({res['kept_share']}) diff {res['diff']} pct {res['control_pct']} p {res['perm_p']} blocks {res['sign_blocks']} id {res['id']}")
+    log(f"  nested-CV{suffix} OOF: kept {res['kept_n']} ({res['kept_share']}) diff {res['diff']} pct {res['control_pct']} p {res['perm_p']} blocks {res['sign_blocks']} id {res['id']}")
     # CPCV: the same selection inside each of the 66 training sets
     oof = {}; cp_chosen = []
     for tr, te, (a, b) in H.cpcv_splits(T):
-        best, n_elig = select_in_fold(T, cells, tr, f"{study}|cpcv|{T.tf}|{T.label}|{a}{b}")
+        best, n_elig = select_in_fold(T, cells, tr, f"{study}|cpcv{suffix}|{T.tf}|{T.label}|{a}{b}", min_skip_share)
         dec = np.ones(len(te), dtype=bool) if best is None else best["cell"].apply(T, te, best["thr"])
         oof[(a, b)] = dec.astype(float)
         cp_chosen.append(dict(split=[a, b], cell=None if best is None else best["cell"].config, train_diff=None if best is None else best["diff"], eligible=n_elig))
     paths = H.cpcv_paths(T, oof)
-    dist, prow = H.score_paths(T, paths, f"{study}/nested_cv", dict(selection="nested_cv_cpcv", **(cfg_extra or {})), script=script, controls=True)
+    dist, prow = H.score_paths(T, paths, fam, dict(selection="nested_cv_cpcv", **(cfg_extra or {})), script=script, controls=True)
     log(f"  CPCV 11 paths: diff median {dist['diff_median']} p5 {dist['diff_p5']} min {dist['diff_min']} share>0 {dist['diff_share_positive']} control pct median {dist.get('control_pct_median')} p5 {dist.get('control_pct_p5')}")
     return res, chosen, dist, prow, cp_chosen
 

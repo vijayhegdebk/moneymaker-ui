@@ -1,0 +1,86 @@
+16:41:39 5minute: 1002 units, IS 826, active IS sessions 408, CRC block = last 200 active sessions -> 408 rows (from session 497, 2023-10-13 .. 2025-12-31); rows before the block 418
+16:41:39 == 5minute context/hgbc: probability learner of sub-family (I) (its finalist pt2 is a policy tree with no score); gate_family nested kept share 0.9262; OOF AUC 0.5136
+16:41:41   conformal alpha 0.05: kept 0.9383 cov 0.9476 (wtd 0.9892) diff 101.58 ctrl 0.0 slip8 -1140.75 id 5b19f07e3fff4ad6
+16:41:43   conformal alpha 0.1: kept 0.9019 cov 0.9039 (wtd 0.9077) diff -545.22 ctrl 1.6 slip8 -1200.48 id b80cdcc7605d8fb5
+16:41:45   conformal alpha 0.15: kept 0.8232 cov 0.8472 (wtd 0.8498) diff -88.72 ctrl 52.5 slip8 -1162.7 id 2d0e587363b4c3c9
+16:41:47   conformal alpha 0.2: kept 0.7869 cov 0.8035 (wtd 0.7698) diff -523.68 ctrl 44.0 slip8 -1258.6 id 9b5278ce21328fe0
+16:41:49   conformal alpha 0.3: kept 0.6816 cov 0.6987 (wtd 0.6569) diff -336.05 ctrl 50.5 slip8 -1254.01 id d9c5e0f1dabcaa35
+16:41:51   ACI gamma 0.005 alpha 0.05: kept 0.9516 cov 0.9651 alpha_T 0.0673 diff 215.86 ctrl 0.1 id 7d12d6ecc09dfd2b
+16:41:53   ACI gamma 0.005 alpha 0.1: kept 0.9128 cov 0.9039 alpha_T 0.1045 diff -888.11 ctrl 2.8 id 9a0705878aa63b66
+16:41:54   ACI gamma 0.005 alpha 0.15: kept 0.8293 cov 0.8472 alpha_T 0.1467 diff -89.93 ctrl 37.0 id 26c59ff049b70648
+16:41:56   ACI gamma 0.005 alpha 0.2: kept 0.7627 cov 0.7948 alpha_T 0.194 diff -30.28 ctrl 65.3 id 625b5ce652333ac0
+16:41:58   ACI gamma 0.005 alpha 0.3: kept 0.6671 cov 0.69 alpha_T 0.2885 diff -67.21 ctrl 22.3 id 11d478ceb6d7510e
+16:42:00   ACI gamma 0.01 alpha 0.05: kept 0.9492 cov 0.9607 alpha_T 0.0745 diff 178.23 ctrl 0.1 id ef582aef86e25a51
+16:42:02   ACI gamma 0.01 alpha 0.1: kept 0.9128 cov 0.9039 alpha_T 0.109 diff -1086.54 ctrl 0.0 id 84a90ef2f2108255
+16:42:04   ACI gamma 0.01 alpha 0.15: kept 0.8196 cov 0.8472 alpha_T 0.1435 diff -28.21 ctrl 47.0 id f72d5a8b7b6fcec6
+16:42:05   ACI gamma 0.01 alpha 0.2: kept 0.7591 cov 0.7904 alpha_T 0.178 diff -20.22 ctrl 69.0 id 66eca8117d699595
+16:42:07   ACI gamma 0.01 alpha 0.3: kept 0.655 cov 0.6812 alpha_T 0.257 diff -90.46 ctrl 32.8 id 990ee4ac1a85a40a
+16:42:07   coverage curve done; U_w argmax coverage {'w0.0': 0.1, 'w0.5': 0.95, 'w1.0': 0.95}; risk at c=0.5 [2088.64]
+16:42:08   CRC alpha 800.0: lambda 0.1 cert 605.34 realised pre-block 2723.78 kept 0.0811 diff -1290.42 ctrl 0.2 id 7b4c137696915466
+16:42:09   CRC alpha 1000.0: lambda 0.2 cert 950.32 realised pre-block 2280.25 kept 0.1949 diff -767.23 ctrl 1.4 id 53f9b6270baee739
+16:42:10   CRC alpha 1200.0: lambda 0.25 cert 1161.87 realised pre-block 2148.24 kept 0.2446 diff -925.61 ctrl 0.5 id 5280a2aa93ca87c4
+16:42:10   context/hgbc done (31s so far)
+16:42:10 == 5minute context/scorecard: the deployable scorecard of sub-family (I); gate_family nested kept share 0.9831; OOF AUC 0.481
+16:42:12   conformal alpha 0.05: kept 0.937 cov 0.9476 (wtd 0.9505) diff 435.56 ctrl 99.8 slip8 -1119.6 id f06ba77e637b3c42
+16:42:14   conformal alpha 0.1: kept 0.9019 cov 0.8996 (wtd 0.9046) diff 183.34 ctrl 99.8 slip8 -1129.04 id 153e362fd9eadc39
+16:42:16   conformal alpha 0.15: kept 0.8559 cov 0.8297 (wtd 0.8568) diff -74.34 ctrl 72.5 slip8 -1157.73 id 3c9460d8e5d96276
+16:42:18   conformal alpha 0.2: kept 0.8063 cov 0.786 (wtd 0.7963) diff -96.01 ctrl 91.8 slip8 -1165.62 id 436ec6a35392a535
+16:42:19   conformal alpha 0.3: kept 0.7228 cov 0.6987 (wtd 0.7473) diff 68.7 ctrl 64.8 slip8 -1127.97 id 58c8dd23f312496d
+16:42:21   ACI gamma 0.005 alpha 0.05: kept 0.954 cov 0.9563 alpha_T 0.0573 diff 82.3 ctrl 99.5 id 183462c51c17ebc8
+16:42:23   ACI gamma 0.005 alpha 0.1: kept 0.9165 cov 0.9258 alpha_T 0.1295 diff 353.01 ctrl 100.0 id a39d5ddc448b383f
+16:42:25   ACI gamma 0.005 alpha 0.15: kept 0.8741 cov 0.8646 alpha_T 0.1668 diff 117.74 ctrl 98.5 id 5d7fcde76c6ca919
+16:42:27   ACI gamma 0.005 alpha 0.2: kept 0.8414 cov 0.8341 alpha_T 0.239 diff 333.95 ctrl 98.5 id a803528dc0659027
+16:42:28   ACI gamma 0.005 alpha 0.3: kept 0.7554 cov 0.738 alpha_T 0.3435 diff 92.63 ctrl 82.5 id d2f469c6a836213d
+16:42:30   ACI gamma 0.01 alpha 0.05: kept 0.9588 cov 0.9563 alpha_T 0.0645 diff -185.98 ctrl 99.7 id 0c8b88db402f02a3
+16:42:32   ACI gamma 0.01 alpha 0.1: kept 0.9092 cov 0.917 alpha_T 0.139 diff 353.99 ctrl 99.7 id 65e59f5b062b6d7b
+16:42:34   ACI gamma 0.01 alpha 0.15: kept 0.8668 cov 0.8559 alpha_T 0.1635 diff 48.99 ctrl 97.3 id 85c377da0bcc68c1
+16:42:36   ACI gamma 0.01 alpha 0.2: kept 0.8196 cov 0.8079 alpha_T 0.218 diff 165.48 ctrl 93.5 id b2159527f8b58a9f
+16:42:38   ACI gamma 0.01 alpha 0.3: kept 0.7264 cov 0.7162 alpha_T 0.337 diff 244.36 ctrl 74.9 id 9324a7ea929bcb91
+16:42:38   coverage curve done; U_w argmax coverage {'w0.0': 0.1, 'w0.5': 0.15, 'w1.0': 0.95}; risk at c=0.5 [1995.7]
+16:42:39   CRC alpha 800.0: lambda 0.2 cert 724.06 realised pre-block 1527.02 kept 0.2143 diff 168.74 ctrl 92.9 id 24c4791c406a1e34
+16:42:40   CRC alpha 1000.0: lambda 0.3 cert 976.83 realised pre-block 1527.02 kept 0.2663 diff 133.84 ctrl 84.5 id cdd5fa5f712fddd9
+16:42:41   CRC alpha 1200.0: lambda 0.4 cert 1165.67 realised pre-block 1773.33 kept 0.391 diff 199.44 ctrl 82.0 id d81a3d5c7614cfa1
+16:42:41   context/scorecard done (62s so far)
+16:42:41 == 5minute h5_full/hgbc: gradient-boosting ceiling of sub-family (II) (reference); gate_family nested kept share 0.9564; OOF AUC 0.5036
+16:42:43   conformal alpha 0.05: kept 0.954 cov 0.9563 (wtd 0.9638) diff -2.18 ctrl 74.0 slip8 -1147.12 id 2f64d2c7eff61033
+16:42:45   conformal alpha 0.1: kept 0.9031 cov 0.9039 (wtd 0.9085) diff -113.49 ctrl 70.7 slip8 -1158.01 id 021febfc5d8f03f4
+16:42:47   conformal alpha 0.15: kept 0.8426 cov 0.8472 (wtd 0.859) diff 39.46 ctrl 78.0 slip8 -1140.81 id dbe1f985c6c453bb
+16:42:48   conformal alpha 0.2: kept 0.7845 cov 0.7991 (wtd 0.8074) diff 122.21 ctrl 91.7 slip8 -1120.68 id d2aaaa370fe56917
+16:42:50   conformal alpha 0.3: kept 0.6889 cov 0.6987 (wtd 0.7185) diff 176.19 ctrl 85.5 slip8 -1092.2 id 3ed31945502c4cdf
+16:42:52   ACI gamma 0.005 alpha 0.05: kept 0.9564 cov 0.9432 alpha_T 0.0423 diff -722.3 ctrl 67.7 id 9dd8441864a200f2
+16:42:54   ACI gamma 0.005 alpha 0.1: kept 0.9092 cov 0.8952 alpha_T 0.0945 diff -704.47 ctrl 21.6 id 56aebd9971dc85d8
+16:42:56   ACI gamma 0.005 alpha 0.15: kept 0.8608 cov 0.8646 alpha_T 0.1668 diff -92.09 ctrl 76.3 id 8cb4668653851bf0
+16:42:58   ACI gamma 0.005 alpha 0.2: kept 0.8099 cov 0.8166 alpha_T 0.219 diff 7.09 ctrl 83.8 id 97b3702938169048
+16:42:59   ACI gamma 0.005 alpha 0.3: kept 0.7022 cov 0.7118 alpha_T 0.3135 diff 336.01 ctrl 77.2 id 05eaa4e81736fe49
+16:43:02   ACI gamma 0.01 alpha 0.05: kept 0.9613 cov 0.9476 alpha_T 0.0445 diff -846.97 ctrl 60.2 id 40893fa4b0deb352
+16:43:03   ACI gamma 0.01 alpha 0.1: kept 0.9092 cov 0.8996 alpha_T 0.099 diff -635.16 ctrl 27.6 id 6474a3666a341dd9
+16:43:05   ACI gamma 0.01 alpha 0.15: kept 0.8571 cov 0.8603 alpha_T 0.1735 diff -89.48 ctrl 79.2 id 08e7bcc9dfb10d0d
+16:43:07   ACI gamma 0.01 alpha 0.2: kept 0.8039 cov 0.8122 alpha_T 0.228 diff 68.46 ctrl 70.3 id 312c12b279d09778
+16:43:09   ACI gamma 0.01 alpha 0.3: kept 0.7034 cov 0.7074 alpha_T 0.317 diff 344.86 ctrl 83.8 id 8a8053b6f020a249
+16:43:09   coverage curve done; U_w argmax coverage {'w0.0': 0.1, 'w0.5': 0.65, 'w1.0': 1.0}; risk at c=0.5 [2092.74]
+16:43:10   CRC alpha 800.0: lambda 0.2 cert 757.2 realised pre-block 2110.77 kept 0.2143 diff -423.13 ctrl 54.2 id cc9384222890c5f9
+16:43:12   CRC alpha 1000.0: lambda 0.3 cert 955.74 realised pre-block 2014.96 kept 0.3232 diff -295.93 ctrl 67.8 id 15e27ea4dd97c091
+16:43:13   CRC alpha 1200.0: lambda 0.4 cert 1157.23 realised pre-block 2000.16 kept 0.4334 diff 120.83 ctrl 91.3 id 569746c623a1c655
+16:43:13   h5_full/hgbc done (94s so far)
+16:43:13 == 5minute h5_full/scorecard: finalist of sub-family (II) (scorecard -> distilled rules; this is the scorecard OOF p); gate_family nested kept share 0.9976; OOF AUC 0.5077
+16:43:15   conformal alpha 0.05: kept 0.9165 cov 0.9389 (wtd 0.9089) diff 312.7 ctrl 83.5 slip8 -1120.9 id a67e800feba69177
+16:43:17   conformal alpha 0.1: kept 0.8668 cov 0.8996 (wtd 0.8742) diff 481.16 ctrl 82.8 slip8 -1082.94 id a28e09da4070d513
+16:43:18   conformal alpha 0.15: kept 0.8245 cov 0.8341 (wtd 0.8269) diff 175.55 ctrl 54.3 slip8 -1116.2 id 8cdf81e1f7c80444
+16:43:20   conformal alpha 0.2: kept 0.7615 cov 0.7686 (wtd 0.776) diff 91.39 ctrl 69.0 slip8 -1125.22 id 98f05c4fae402352
+16:43:22   conformal alpha 0.3: kept 0.6755 cov 0.6856 (wtd 0.7442) diff 300.42 ctrl 76.5 slip8 -1049.54 id 04f33f3a581135f5
+16:43:24   ACI gamma 0.005 alpha 0.05: kept 0.9383 cov 0.9476 alpha_T 0.0473 diff -36.42 ctrl 77.8 id b987b6c699da2bc0
+16:43:26   ACI gamma 0.005 alpha 0.1: kept 0.9104 cov 0.9258 alpha_T 0.1295 diff 251.75 ctrl 85.3 id 587a467c9ed2dea1
+16:43:28   ACI gamma 0.005 alpha 0.15: kept 0.8366 cov 0.8603 alpha_T 0.1618 diff 250.89 ctrl 31.4 id 67aababd029916fc
+16:43:29   ACI gamma 0.005 alpha 0.2: kept 0.7785 cov 0.7773 alpha_T 0.174 diff -120.12 ctrl 38.5 id 681ef105a125fe60
+16:43:31   ACI gamma 0.005 alpha 0.3: kept 0.6949 cov 0.6943 alpha_T 0.2935 diff 92.49 ctrl 71.2 id 560187649d32ac5a
+16:43:33   ACI gamma 0.01 alpha 0.05: kept 0.9443 cov 0.952 alpha_T 0.0545 diff -93.44 ctrl 78.8 id e8abcd06673091ec
+16:43:35   ACI gamma 0.01 alpha 0.1: kept 0.908 cov 0.9214 alpha_T 0.149 diff 242.38 ctrl 79.6 id b7b4c8f9625980de
+16:43:37   ACI gamma 0.01 alpha 0.15: kept 0.8305 cov 0.8603 alpha_T 0.1735 diff 321.93 ctrl 40.2 id 09bc46083ba6c272
+16:43:38   ACI gamma 0.01 alpha 0.2: kept 0.7639 cov 0.786 alpha_T 0.168 diff 231.4 ctrl 47.2 id ce9d45717c7fbdcb
+16:43:40   ACI gamma 0.01 alpha 0.3: kept 0.6864 cov 0.69 alpha_T 0.277 diff 124.64 ctrl 72.9 id f567d1541157bd50
+16:43:40   coverage curve done; U_w argmax coverage {'w0.0': 0.1, 'w0.5': 0.65, 'w1.0': 0.85}; risk at c=0.5 [2108.19]
+16:43:41   CRC alpha 800.0: lambda 0.1 cert 304.87 realised pre-block 1488.92 kept 0.063 diff -220.91 ctrl 51.9 id f5ac436f5e47be27
+16:43:41   CRC alpha 1000.0: lambda 0.1 cert 304.87 realised pre-block 1488.92 kept 0.063 diff -220.91 ctrl 52.2 id 31b746bf27296810
+16:43:42   CRC alpha 1200.0: lambda 0.1 cert 304.87 realised pre-block 1488.92 kept 0.063 diff -220.91 ctrl 52.4 id 7c7239506e10ad36
+16:43:42   h5_full/scorecard done (123s so far)
+16:43:47 5minute ALL DONE in 128s; family rows 144, PBO(diff) 0.6395, SPA p 0.066, eff trials 2.16

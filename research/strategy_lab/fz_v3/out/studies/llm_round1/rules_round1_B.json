@@ -1,0 +1,377 @@
+{
+ "round": 1,
+ "half_seen": "B",
+ "written_at": "2026-09-29T16:22:54+00:00",
+ "proposer": "DESIGN_PANEL deep-sequence-llm-hypotheses, round-1 proposer (half B seen, scored on half A)",
+ "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster): allowed_columns is empty on both timeframes, so every rule below is exploratory and uses only columns and thresholds printed in tables_minute_B.md / tables_5minute_B.md",
+ "inputs_read": [
+  "research/strategy_lab/fz_v3/BRIEF.md",
+  "research/strategy_lab/fz_v3/out/data/README.md",
+  "research/strategy_lab/fz_v3/out/features_ext/README.md",
+  "research/strategy_lab/fz_v3/out/features_shortlist/minute/shortlist.json",
+  "research/strategy_lab/fz_v3/out/features_shortlist/5minute/shortlist.json",
+  "research/strategy_lab/fz_v3/out/studies/llm_round1/tables_minute_B.md",
+  "research/strategy_lab/fz_v3/out/studies/llm_round1/tables_5minute_B.md"
+ ],
+ "base_rate_seen": {
+  "minute": {
+   "n": 2044,
+   "mean_net_inr": -1071,
+   "win_rate": 0.154
+  },
+  "5minute": {
+   "n": 398,
+   "mean_net_inr": -843,
+   "win_rate": 0.256
+  }
+ },
+ "minute": [
+  {
+   "id": "r1B_m1",
+   "if": [
+    [
+     "hour_bin",
+     "==",
+     "<09:25"
+    ],
+    [
+     "fz_read",
+     "!=",
+     "LEAVE"
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). 'It's different for different time': the opening minutes before 09:25 are the worst hour bin of the half (-1,839 vs -1,071 base) and the damage sits in the non-LEAVE reads (NEW -4,129 / 0.077, PENDING -1,758 / 0.118, THIN -2,742 / 0.000) while LEAVE before 09:25 (-920 / 0.229) is better than base, so LEAVE is kept to avoid skipping profitable ones.",
+   "cells": [
+    "one_way:hour_bin:<09:25",
+    "two_way:fz_readxhour_bin:NEW|<09:25",
+    "two_way:fz_readxhour_bin:PENDING|<09:25",
+    "two_way:fz_readxhour_bin:THIN|<09:25",
+    "two_way:fz_readxhour_bin:LEAVE|<09:25"
+   ]
+  },
+  {
+   "id": "r1B_m2",
+   "if": [
+    [
+     "hour_bin",
+     "==",
+     ">=15:20"
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). 'Bands exist to take me to profit not to loss': after 15:20 the L1 book has no room left before the 15:25 cut and the half shows 26 units with a 0.000 win rate (-1,182 mean); skipping them removes only losers.",
+   "cells": [
+    "one_way:hour_bin:>=15:20",
+    "two_way:fz_readxhour_bin:LEAVE|>=15:20",
+    "two_way:fz_readxhour_bin:PENDING|>=15:20"
+   ]
+  },
+  {
+   "id": "r1B_m3",
+   "if": [
+    [
+     "fz_read",
+     "==",
+     "FIRST_PRINT"
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). 'Price retests, retests and respects': FIRST_PRINT is the band's very first visit, nothing has been tested yet; the read has the lowest win rate of all reads (0.068, -1,351 mean) and is at or near zero winners in most hours (10: 0.000, 12: 0.000, 13: 0.000, 14: 0.050).",
+   "cells": [
+    "one_way:fz_read:FIRST_PRINT",
+    "two_way:fz_readxhour_bin:FIRST_PRINT|10",
+    "two_way:fz_readxhour_bin:FIRST_PRINT|12",
+    "two_way:fz_readxhour_bin:FIRST_PRINT|13",
+    "two_way:fz_readxhour_bin:FIRST_PRINT|14",
+    "two_way:fz_visit_nxfz_read:1|FIRST_PRINT"
+   ]
+  },
+  {
+   "id": "r1B_m4",
+   "if": [
+    [
+     "fz_read",
+     "==",
+     "ACCEPTED"
+    ],
+    [
+     "hour_bin",
+     "in",
+     [
+      "11",
+      "12",
+      "13"
+     ]
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). 'It should avoid only loss trades': an ACCEPTED read in the midday bins 11-13 has almost no winners (11: 0.100, 12: 0.000 on 19 units, 13: 0.105) and means of -1,034 / -1,572 / -1,308; the 14 bin (-368 / 0.250) is left in so the afternoon ACCEPTED winners are not thrown away.",
+   "cells": [
+    "one_way:fz_read:ACCEPTED",
+    "two_way:fz_readxhour_bin:ACCEPTED|11",
+    "two_way:fz_readxhour_bin:ACCEPTED|12",
+    "two_way:fz_readxhour_bin:ACCEPTED|13",
+    "two_way:fz_readxhour_bin:ACCEPTED|14"
+   ]
+  },
+  {
+   "id": "r1B_m5",
+   "if": [
+    [
+     "fz_read",
+     "==",
+     "LEAVE"
+    ],
+    [
+     "hour_bin",
+     "==",
+     "12"
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). 'It's different for different time': LEAVE is the best read of the half overall (-1,003 / 0.168 on 800 units) but in the 12 bin it collapses to -1,524 with a 0.073 win rate on 124 units, the worst large LEAVE cell; skipping only that hour keeps the LEAVE winners of 09 (-242 / 0.274) and 10 (-778 / 0.218).",
+   "cells": [
+    "two_way:fz_readxhour_bin:LEAVE|12",
+    "one_way:hour_bin:12",
+    "one_way:fz_read:LEAVE",
+    "two_way:fz_readxhour_bin:LEAVE|09"
+   ]
+  },
+  {
+   "id": "r1B_m6",
+   "if": [
+    [
+     "hv3_bars_since",
+     "<=",
+     0.0
+    ],
+    [
+     "hv3_dir_agree",
+     "==",
+     "True"
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). 'Check how price reacts in visibly high volume ... if it breaks there will be a large move, else price retests': when the SETUP bar itself is the visibly-high-volume bar (vol_ratio20 >= 3, 0 bars ago) and points the trade's way, the trade is entered before the reaction is known; that cell is the worst volume cell (-1,368 / 0.148 on 325 units) against -803 / 0.202 when no such bar exists and -608 for >= 61 bars after one.",
+   "cells": [
+    "two_way:hv3_dir_agreexhv3_bars_since:True|0 bars",
+    "one_way:hv3_bars_since:0 bars",
+    "one_way:hv3_bars_since:NA (no bar with vol_ratio20 >= 3 in the session so far)",
+    "two_way:hv3_dir_agreexhv3_bars_since:True|>=61 bars"
+   ]
+  },
+  {
+   "id": "r1B_m7",
+   "if": [
+    [
+     "n_choch_since_bos",
+     ">=",
+     2.0
+    ],
+    [
+     "dir",
+     "==",
+     "up"
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). The user's observation: 'if CHoCH and CHoCH and no breaks then it's sideways; trades in sideways are hurting'. On this half the support is weak on 1 min: the sideways buckets are only slightly below base and the down side is not worse (n=2 down -1,118 / 0.174, >=3 down -969), so the rule is restricted to up SETUPs where the cells are below base (2 up -1,198 / 0.171, >=3 up -1,229 / 0.147, >=5 overall -1,254). Written to test the user's hypothesis on half A, not because half B proves it.",
+   "cells": [
+    "one_way:n_choch_since_bos:2",
+    "one_way:n_choch_since_bos:>=5",
+    "two_way:n_choch_since_bosxdir:2|up",
+    "two_way:n_choch_since_bosxdir:>=3|up",
+    "two_way:n_choch_since_bosxdir:>=3|down"
+   ]
+  },
+  {
+   "id": "r1B_m8",
+   "if": [
+    [
+     "touch_room_bars_ago",
+     ">=",
+     38.0
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). 'Those levels will be respected ... price retests, retests and respects': when the last touch of the room edge is 38 or more minutes old the level is no longer in play at the entry, and that decile is the worst of the column (-1,422 / 0.114 on 175 units) against -614 / 0.176 for 28-38 bars and -675 / 0.231 for 15-20 bars.",
+   "cells": [
+    "one_way:touch_room_bars_ago:>= 38.0",
+    "one_way:touch_room_bars_ago:[28.0, 38.0)",
+    "one_way:touch_room_bars_ago:[15.0, 20.0)"
+   ]
+  }
+ ],
+ "5minute": [
+  {
+   "id": "r1B_f1",
+   "if": [
+    [
+     "fz_read",
+     "==",
+     "NEW"
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). 'Price retests, retests and respects': a NEW read is a band nobody has tested yet; it is the worst read of the half (-2,118 / 0.133 on 45 units, base -843 / 0.256) and negative in every hour cell (09 -4,301, 10 -1,932, 12 -1,015, 13 -1,590, 14 -2,041 / 0.000).",
+   "cells": [
+    "one_way:fz_read:NEW",
+    "two_way:fz_readxhour_bin:NEW|09",
+    "two_way:fz_readxhour_bin:NEW|10",
+    "two_way:fz_readxhour_bin:NEW|13",
+    "two_way:fz_readxhour_bin:NEW|14",
+    "two_way:fz_visit_nxfz_read:NA (no ref room)|NEW"
+   ]
+  },
+  {
+   "id": "r1B_f2",
+   "if": [
+    [
+     "n_choch_since_bos",
+     "==",
+     2.0
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). The user's observation, literally: 'if CHoCH and CHoCH and no breaks then it's sideways; trades in sideways are hurting'. Exactly two CHoCHs since the last BOS is the worst regime bucket on 5 min (-1,679 / 0.164 on 73 units) on both sides (down -1,727 / 0.151, up -1,639 / 0.175). The rule stops at 2 because 3 (-512) and >=5 (+710 / 0.320) do not support extending it, so it is a narrow test of the observation.",
+   "cells": [
+    "one_way:n_choch_since_bos:2",
+    "two_way:n_choch_since_bosxdir:2|down",
+    "two_way:n_choch_since_bosxdir:2|up",
+    "one_way:n_choch_since_bos:3",
+    "one_way:n_choch_since_bos:>=5"
+   ]
+  },
+  {
+   "id": "r1B_f3",
+   "if": [
+    [
+     "touch_room_last",
+     "==",
+     "held"
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). 'Those levels will be respected': when the last touch of the room edge in the past hour was verdict 'held', the level just proved it is respected and a SETUP here is trading into it; that level is the worst touch verdict (-1,761 / 0.167 on 30 units) while 'pending' (+473 / 0.311) is the only positive one.",
+   "cells": [
+    "one_way:touch_room_last:held",
+    "one_way:touch_room_last:pending",
+    "one_way:touch_room_last:none"
+   ]
+  },
+  {
+   "id": "r1B_f4",
+   "if": [
+    [
+     "hour_bin",
+     "in",
+     [
+      "<09:25",
+      "15"
+     ]
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). 'It's different for different time': the first minutes and the last hour are the two worst hour bins of the half (<09:25 -1,454 / 0.238 on 21; 15 -1,301 / 0.158 on 19) and even the otherwise best read LEAVE is deeply negative there (<09:25 -3,543 / 0.083; 15 -1,505 / 0.182).",
+   "cells": [
+    "one_way:hour_bin:<09:25",
+    "one_way:hour_bin:15",
+    "two_way:fz_readxhour_bin:LEAVE|<09:25",
+    "two_way:fz_readxhour_bin:LEAVE|15"
+   ]
+  },
+  {
+   "id": "r1B_f5",
+   "if": [
+    [
+     "fz_read",
+     "==",
+     "PENDING"
+    ],
+    [
+     "hour_bin",
+     "in",
+     [
+      "09",
+      "10",
+      "11",
+      "12"
+     ]
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). 'Check how price reacts ... else price retests': a PENDING read means the band has not shown its reaction yet; before 13:00 those trades are the worst PENDING cells (09 -3,090 / 0.143, 10 -1,528 / 0.167, 11 -2,630 / 0.100, 12 -1,658 / 0.214) while PENDING after 13:00 (-473 / 0.312, -525 / 0.200) is near or above base and is kept.",
+   "cells": [
+    "one_way:fz_read:PENDING",
+    "two_way:fz_readxhour_bin:PENDING|09",
+    "two_way:fz_readxhour_bin:PENDING|10",
+    "two_way:fz_readxhour_bin:PENDING|11",
+    "two_way:fz_readxhour_bin:PENDING|12",
+    "two_way:fz_readxhour_bin:PENDING|13"
+   ]
+  },
+  {
+   "id": "r1B_f6",
+   "if": [
+    [
+     "touch_prot_last",
+     "==",
+     "pending"
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). 'If it breaks there will be a large move, else price retests': when the protected level was touched in the last hour and its verdict is still open, the trade is placed before the level has answered; that cell is the worst protected-level verdict (-1,267 / 0.170 on 59 units) against 'none' (-95 / 0.406) and 'held' (-828 / 0.258).",
+   "cells": [
+    "one_way:touch_prot_last:pending",
+    "one_way:touch_prot_last:none",
+    "one_way:touch_prot_last:held"
+   ]
+  },
+  {
+   "id": "r1B_f7",
+   "if": [
+    [
+     "fz_gate",
+     "==",
+     "BLOCK"
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). 'Bands exist to take me to profit not to loss': the frozen ST8 band gate's own BLOCK verdict marks the worst gate cell (-1,268 / 0.236 on 110 units) against TAKE (-386 / 0.304); written so the cross-fit measures whether the existing band BLOCK skips losers more than winners, as the brief's H1 asks.",
+   "cells": [
+    "one_way:fz_gate:BLOCK",
+    "one_way:fz_gate:TAKE",
+    "one_way:fz_gate:WATCH"
+   ]
+  },
+  {
+   "id": "r1B_f8",
+   "if": [
+    [
+     "fz_visit_n",
+     "==",
+     2.0
+    ],
+    [
+     "fz_read",
+     "==",
+     "PENDING"
+    ]
+   ],
+   "then": "skip",
+   "reason": "Exploratory (empty shortlist). 'Price retests, retests and respects': a second visit that is still PENDING is a band that has been revisited without giving a read; it is the worst visit x read cell (-2,320 / 0.136 on 22 units) while the second visit with a LEAVE read is positive (+220 / 0.400). Overlaps r1B_f5 in part; kept as the time-free version of the same idea.",
+   "cells": [
+    "two_way:fz_visit_nxfz_read:2|PENDING",
+    "two_way:fz_visit_nxfz_read:2|LEAVE",
+    "one_way:fz_visit_n:2"
+   ]
+  }
+ ],
+ "not_used_and_why": [
+  "ffd_close_dstar (both tf): flagged as a price-level / calendar-time proxy in the table caveats; a rule on it would be a level rule",
+  "days_to_expiry (5minute): flagged as a drifted calendar column; its deciles are not monotone",
+  "n_events_asof, sl and every interaction pair containing them: REFUSED as calendar-time proxies",
+  "room_ahead_dist_atr x room_behind_dist_atr, card_vol_ratio x room_behind_dist_atr, touch_prot_bars_ago x ffd_close_dstar, room_ahead_dist_atr x n_rooms_alive / fz_take_why=nan / ffd_close_dstar: no labelled two-way cell was shown for these pairs, so no cell could motivate a threshold"
+ ]
+}

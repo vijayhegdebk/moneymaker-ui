@@ -62,7 +62,7 @@ def main():
         L.append("### Comparators (family `online_comparator/*`)\n")
         L.append("| comparator | ledger id | kept n | kept share | kept mean | skipped mean | diff | kept PF | control pct | perm p | sign blocks |\n|---|---|---|---|---|---|---|---|---|---|---|")
         for name, c in comps.items():
-            L.append(f"| {name} | `{c['id']}` | {c['kept_n']} | {f(c['kept_share'], 4)} | {f(c['kept_mean'])} | {f(c['skipped_mean'])} | {f(c['diff'])} | {f(c['kept_pf'], 3)} | {f(c['control_pct'], 1)} | {f(c['perm_p'], 4)} | {f(c['sign_blocks'])} |")
+            L.append(f"| {name}{' (' + OUTSIDE + ')' if 'h5_full' in name else ''} | `{c['id']}` | {c['kept_n']} | {f(c['kept_share'], 4)} | {f(c['kept_mean'])} | {f(c['skipped_mean'])} | {f(c['diff'])} | {f(c['kept_pf'], 3)} | {f(c['control_pct'], 1)} | {f(c['perm_p'], 4)} | {f(c['sign_blocks'])} |")
         L.append("")
         L.append("### Finalists: the best path by walk-forward kept PF per (design, learner)\n")
         L.append(HDR)

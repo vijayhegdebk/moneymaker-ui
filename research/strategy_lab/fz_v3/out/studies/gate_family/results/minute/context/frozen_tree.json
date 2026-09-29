@@ -1,0 +1,460 @@
+{
+ "bag4": {
+  "rules": [
+   {
+    "if": [
+     [
+      "hour_bin",
+      "==",
+      "11"
+     ],
+     [
+      "dir",
+      "==",
+      "down"
+     ]
+    ],
+    "then": "skip"
+   }
+  ],
+  "n_rules": 1,
+  "dropped_inexpressible": 0,
+  "id": "20becbd2d2957334",
+  "row": {
+   "id": "20becbd2d2957334",
+   "family": "gate_family/context/bag4/frozen_tree",
+   "tf": "minute",
+   "label": "L1",
+   "split": "IS",
+   "config": {
+    "sub": "context",
+    "model": "bag4",
+    "stage": "frozen_tree",
+    "label": "L1",
+    "vocabulary": "inside the frozen vocabulary (context columns)",
+    "rules": [
+     {
+      "if": [
+       [
+        "hour_bin",
+        "==",
+        "11"
+       ],
+       [
+        "dir",
+        "==",
+        "down"
+       ]
+      ],
+      "then": "skip"
+     }
+    ]
+   },
+   "script": "finalize.py",
+   "script_sha": "4dab5394d2be59f0",
+   "at": "2026-09-29T16:10:46",
+   "note": "sub-family I (context: hour_bin one-hot + dir; inside the frozen vocabulary); the depth-3 tree distilled from the pooled OOF decisions (selection on pooled OOF, one trial)",
+   "n": 4452,
+   "kept_n": 4124,
+   "skipped_n": 328,
+   "kept_share": 0.9263,
+   "kept_net": -4064556.01,
+   "skipped_net": -430216.78,
+   "kept_mean": -985.59,
+   "skipped_mean": -1311.64,
+   "all_mean": -1009.61,
+   "kept_win_rate": 0.161,
+   "skipped_win_rate": 0.0915,
+   "kept_pf": 0.34,
+   "kept_t": -23.38,
+   "diff": 326.05,
+   "diff_top1_removed": 134.95,
+   "kept_mean_slip3": -725.61,
+   "kept_mean_slip8": -1375.55,
+   "loser_recall": 0.0793,
+   "loser_precision": 0.9085,
+   "winner_recall": 0.9568,
+   "winner_recall_weighted": 0.9763,
+   "top_decile_winners_skipped": 0.0,
+   "kept_sessions": 577,
+   "sign_blocks": 12,
+   "perm_p": 0.0255,
+   "control_pct": 86.4,
+   "control_p_beat": 0.1364,
+   "control_p50": -4099067.93
+  },
+  "fidelity": {
+   "agreement": 0.9692,
+   "skip_precision": 1.0,
+   "skip_recall": 0.7054,
+   "model_skip_share": 0.1044,
+   "rule_skip_share": 0.0737
+  },
+  "features": [
+   "dir",
+   "hour_bin"
+  ],
+  "seconds": 8.0
+ },
+ "hgbc": {
+  "rules": [
+   {
+    "if": [
+     [
+      "hour_bin",
+      "!=",
+      "11"
+     ],
+     [
+      "hour_bin",
+      "==",
+      "15"
+     ],
+     [
+      "dir",
+      "==",
+      "down"
+     ]
+    ],
+    "then": "skip"
+   },
+   {
+    "if": [
+     [
+      "hour_bin",
+      "==",
+      "11"
+     ],
+     [
+      "dir",
+      "==",
+      "down"
+     ]
+    ],
+    "then": "skip"
+   }
+  ],
+  "n_rules": 2,
+  "dropped_inexpressible": 0,
+  "id": "afd754b8cc67c0d6",
+  "row": {
+   "id": "afd754b8cc67c0d6",
+   "family": "gate_family/context/hgbc/frozen_tree",
+   "tf": "minute",
+   "label": "L1",
+   "split": "IS",
+   "config": {
+    "sub": "context",
+    "model": "hgbc",
+    "stage": "frozen_tree",
+    "label": "L1",
+    "vocabulary": "inside the frozen vocabulary (context columns)",
+    "rules": [
+     {
+      "if": [
+       [
+        "hour_bin",
+        "!=",
+        "11"
+       ],
+       [
+        "hour_bin",
+        "==",
+        "15"
+       ],
+       [
+        "dir",
+        "==",
+        "down"
+       ]
+      ],
+      "then": "skip"
+     },
+     {
+      "if": [
+       [
+        "hour_bin",
+        "==",
+        "11"
+       ],
+       [
+        "dir",
+        "==",
+        "down"
+       ]
+      ],
+      "then": "skip"
+     }
+    ]
+   },
+   "script": "finalize.py",
+   "script_sha": "4dab5394d2be59f0",
+   "at": "2026-09-29T16:10:52",
+   "note": "sub-family I (context: hour_bin one-hot + dir; inside the frozen vocabulary); the depth-3 tree distilled from the pooled OOF decisions (selection on pooled OOF, one trial)",
+   "n": 4452,
+   "kept_n": 3993,
+   "skipped_n": 459,
+   "kept_share": 0.8969,
+   "kept_net": -3912447.15,
+   "skipped_net": -582325.64,
+   "kept_mean": -979.83,
+   "skipped_mean": -1268.68,
+   "all_mean": -1009.61,
+   "kept_win_rate": 0.1613,
+   "skipped_win_rate": 0.1089,
+   "kept_pf": 0.347,
+   "kept_t": -22.56,
+   "diff": 288.86,
+   "diff_top1_removed": 91.48,
+   "kept_mean_slip3": -719.85,
+   "kept_mean_slip8": -1369.79,
+   "loser_recall": 0.1088,
+   "loser_precision": 0.8911,
+   "winner_recall": 0.928,
+   "winner_recall_weighted": 0.9711,
+   "top_decile_winners_skipped": 0.0,
+   "kept_sessions": 574,
+   "sign_blocks": 11,
+   "perm_p": 0.025,
+   "control_pct": 57.9,
+   "control_p_beat": 0.4218,
+   "control_p50": -3919315.66
+  },
+  "fidelity": {
+   "agreement": 0.9526,
+   "skip_precision": 1.0,
+   "skip_recall": 0.6851,
+   "model_skip_share": 0.1505,
+   "rule_skip_share": 0.1031
+  },
+  "features": [
+   "dir",
+   "hour_bin"
+  ],
+  "seconds": 6.5
+ },
+ "hgbr": {
+  "rules": [
+   {
+    "if": [
+     [
+      "hour_bin",
+      "==",
+      "11"
+     ],
+     [
+      "dir",
+      "==",
+      "down"
+     ]
+    ],
+    "then": "skip"
+   }
+  ],
+  "n_rules": 1,
+  "dropped_inexpressible": 0,
+  "id": "890ef76be2db79b5",
+  "row": {
+   "id": "890ef76be2db79b5",
+   "family": "gate_family/context/hgbr/frozen_tree",
+   "tf": "minute",
+   "label": "L1",
+   "split": "IS",
+   "config": {
+    "sub": "context",
+    "model": "hgbr",
+    "stage": "frozen_tree",
+    "label": "L1",
+    "vocabulary": "inside the frozen vocabulary (context columns)",
+    "rules": [
+     {
+      "if": [
+       [
+        "hour_bin",
+        "==",
+        "11"
+       ],
+       [
+        "dir",
+        "==",
+        "down"
+       ]
+      ],
+      "then": "skip"
+     }
+    ]
+   },
+   "script": "finalize.py",
+   "script_sha": "4dab5394d2be59f0",
+   "at": "2026-09-29T16:10:59",
+   "note": "sub-family I (context: hour_bin one-hot + dir; inside the frozen vocabulary); the depth-3 tree distilled from the pooled OOF decisions (selection on pooled OOF, one trial)",
+   "n": 4452,
+   "kept_n": 4124,
+   "skipped_n": 328,
+   "kept_share": 0.9263,
+   "kept_net": -4064556.01,
+   "skipped_net": -430216.78,
+   "kept_mean": -985.59,
+   "skipped_mean": -1311.64,
+   "all_mean": -1009.61,
+   "kept_win_rate": 0.161,
+   "skipped_win_rate": 0.0915,
+   "kept_pf": 0.34,
+   "kept_t": -23.38,
+   "diff": 326.05,
+   "diff_top1_removed": 134.95,
+   "kept_mean_slip3": -725.61,
+   "kept_mean_slip8": -1375.55,
+   "loser_recall": 0.0793,
+   "loser_precision": 0.9085,
+   "winner_recall": 0.9568,
+   "winner_recall_weighted": 0.9763,
+   "top_decile_winners_skipped": 0.0,
+   "kept_sessions": 577,
+   "sign_blocks": 12,
+   "perm_p": 0.033,
+   "control_pct": 86.2,
+   "control_p_beat": 0.1389,
+   "control_p50": -4098987.19
+  },
+  "fidelity": {
+   "agreement": 0.9558,
+   "skip_precision": 0.5488,
+   "skip_recall": 0.786,
+   "model_skip_share": 0.0514,
+   "rule_skip_share": 0.0737
+  },
+  "features": [
+   "dir",
+   "hour_bin"
+  ],
+  "seconds": 6.7
+ },
+ "scorecard": {
+  "rules": [
+   {
+    "if": [
+     [
+      "hour_bin",
+      "==",
+      "15"
+     ],
+     [
+      "dir",
+      "!=",
+      "down"
+     ]
+    ],
+    "then": "skip"
+   },
+   {
+    "if": [
+     [
+      "hour_bin",
+      "==",
+      "15"
+     ],
+     [
+      "dir",
+      "==",
+      "down"
+     ]
+    ],
+    "then": "skip"
+   }
+  ],
+  "n_rules": 2,
+  "dropped_inexpressible": 0,
+  "id": "002f1a3f4a5d314b",
+  "row": {
+   "id": "002f1a3f4a5d314b",
+   "family": "gate_family/context/scorecard/frozen_tree",
+   "tf": "minute",
+   "label": "L1",
+   "split": "IS",
+   "config": {
+    "sub": "context",
+    "model": "scorecard",
+    "stage": "frozen_tree",
+    "label": "L1",
+    "vocabulary": "inside the frozen vocabulary (context columns)",
+    "rules": [
+     {
+      "if": [
+       [
+        "hour_bin",
+        "==",
+        "15"
+       ],
+       [
+        "dir",
+        "!=",
+        "down"
+       ]
+      ],
+      "then": "skip"
+     },
+     {
+      "if": [
+       [
+        "hour_bin",
+        "==",
+        "15"
+       ],
+       [
+        "dir",
+        "==",
+        "down"
+       ]
+      ],
+      "then": "skip"
+     }
+    ]
+   },
+   "script": "finalize.py",
+   "script_sha": "4dab5394d2be59f0",
+   "at": "2026-09-29T16:11:06",
+   "note": "sub-family I (context: hour_bin one-hot + dir; inside the frozen vocabulary); the depth-3 tree distilled from the pooled OOF decisions (selection on pooled OOF, one trial)",
+   "n": 4452,
+   "kept_n": 4194,
+   "skipped_n": 258,
+   "kept_share": 0.942,
+   "kept_net": -4215293.3,
+   "skipped_net": -279479.49,
+   "kept_mean": -1005.08,
+   "skipped_mean": -1083.25,
+   "all_mean": -1009.61,
+   "kept_win_rate": 0.1552,
+   "skipped_win_rate": 0.1667,
+   "kept_pf": 0.333,
+   "kept_t": -24.16,
+   "diff": 78.18,
+   "diff_top1_removed": -109.91,
+   "kept_mean_slip3": -745.1,
+   "kept_mean_slip8": -1395.04,
+   "loser_recall": 0.0572,
+   "loser_precision": 0.8333,
+   "winner_recall": 0.938,
+   "winner_recall_weighted": 0.9817,
+   "top_decile_winners_skipped": 0.0,
+   "kept_sessions": 572,
+   "sign_blocks": 7,
+   "perm_p": 0.6432,
+   "control_pct": 0.0,
+   "control_p_beat": 1.0,
+   "control_p50": -4149468.38
+  },
+  "fidelity": {
+   "agreement": 0.9497,
+   "skip_precision": 0.6783,
+   "skip_recall": 0.5538,
+   "model_skip_share": 0.071,
+   "rule_skip_share": 0.058
+  },
+  "features": [
+   "dir",
+   "hour_bin"
+  ],
+  "seconds": 6.7
+ }
+}

@@ -8,3 +8,32 @@
 [15:37:43 +    7.8s rss  292.2 MB] === 5minute
 [15:37:51 +   15.7s rss  325.8 MB] 5minute family: 532 rows (480 L1), PBO(diff) 0.5225, SPA p 0.0565 (unstud 0.01), eff trials 1.22, 7.2s
 [15:37:53 +   17.5s rss  337.9 MB] FINDINGS.md and findings.json written; null_result=True; candidates=[]
+[16:10:29 +    0.0s rss  205.0 MB] === minute
+[16:10:38 +    8.7s rss  240.0 MB] minute family: 426 rows (382 L1), PBO(diff) 0.4038, SPA p 0.936 (unstud 0.598), eff trials 1.25, 8.0s
+[16:10:46 +   16.7s rss  353.4 MB]   minute/context/bag4 frozen tree (1 rules): id 20becbd2d2957334 kept 0.9263 diff 326.05 ctrl 86.4 fidelity 0.9692
+[16:10:52 +   23.2s rss  353.7 MB]   minute/context/hgbc frozen tree (2 rules): id afd754b8cc67c0d6 kept 0.8969 diff 288.86 ctrl 57.9 fidelity 0.9526
+[16:10:59 +   29.9s rss  353.8 MB]   minute/context/hgbr frozen tree (1 rules): id 890ef76be2db79b5 kept 0.9263 diff 326.05 ctrl 86.2 fidelity 0.9558
+[16:11:06 +   36.6s rss  353.8 MB]   minute/context/scorecard frozen tree (2 rules): id 002f1a3f4a5d314b kept 0.942 diff 78.18 ctrl 0.0 fidelity 0.9497
+[16:11:23 +   53.5s rss  440.0 MB]   minute/h5_full/hgbc frozen tree (0 rules): id 388b1956193f1036 kept 1.0 diff None ctrl None fidelity 0.94
+[16:11:23 +   53.6s rss  440.0 MB]   minute/h5_full/scorecard frozen tree (0 rules): id 32e5fe72aff5a8b4 kept 1.0 diff None ctrl None fidelity 0.9571
+[16:11:24 +   54.4s rss  440.9 MB] === 5minute
+[16:11:34 +   65.1s rss  446.7 MB] 5minute family: 532 rows (480 L1), PBO(diff) 0.5225, SPA p 0.0565 (unstud 0.01), eff trials 1.22, 10.2s
+[16:11:34 +   65.3s rss  446.2 MB]   5minute/context/bag4 frozen tree (0 rules): id 49a9d70fe60e7784 kept 1.0 diff None ctrl None fidelity 0.9915
+[16:11:36 +   67.3s rss  446.2 MB]   5minute/context/hgbc frozen tree (1 rules): id 26444b3a839b0082 kept 0.9455 diff 352.01 ctrl 0.1 fidelity 0.9613
+[16:11:38 +   69.1s rss  446.2 MB]   5minute/context/hgbr frozen tree (1 rules): id ed712f0b2779e567 kept 0.9274 diff 900.83 ctrl 99.5 fidelity 0.9274
+[16:11:38 +   69.1s rss  446.2 MB]   5minute/context/scorecard frozen tree (0 rules): id c52d4a10f8f0a023 kept 1.0 diff None ctrl None fidelity 0.9831
+[16:11:38 +   69.1s rss  446.2 MB]   5minute/context/scorecard_linear frozen tree (0 rules): id 4237d141544e8939 kept 1.0 diff None ctrl None fidelity 0.9576
+[16:12:04 +   94.5s rss  402.8 MB]   5minute/h5_full/hgbc frozen tree (0 rules): id 07240d0d78f54be4 kept 1.0 diff None ctrl None fidelity 0.9564
+[16:12:04 +   94.6s rss  402.8 MB]   5minute/h5_full/scorecard frozen tree (0 rules): id 7034a64b97c327fa kept 1.0 diff None ctrl None fidelity 0.9976
+[16:12:04 +   94.6s rss  402.8 MB]   5minute/h5_full/scorecard_linear frozen tree (0 rules): id 2e4238cfeff43365 kept 1.0 diff None ctrl None fidelity 1.0
+[16:12:05 +   95.6s rss  409.5 MB] FINDINGS.md and findings.json written; null_result=True; candidates=[]
+[16:14:12 +    0.0s rss  205.0 MB] === minute
+[16:14:21 +    8.7s rss  240.2 MB] minute family: 432 rows (388 L1), PBO(diff) 0.4045, SPA p 0.936 (unstud 0.598), eff trials 1.25, 8.2s
+[16:14:26 +   14.4s rss  378.9 MB] === 5minute
+[16:14:39 +   26.7s rss  408.1 MB] 5minute family: 540 rows (488 L1), PBO(diff) 0.517, SPA p 0.0565 (unstud 0.01), eff trials 1.22, 11.6s
+[16:14:48 +   35.8s rss  368.4 MB] FINDINGS.md and findings.json written; null_result=True; candidates=[]
+[16:15:26 +    0.0s rss  204.8 MB] === minute
+[16:15:36 +   10.2s rss  240.1 MB] minute family: 432 rows (388 L1), PBO(diff) 0.4045, SPA p 0.936 (unstud 0.598), eff trials 1.25, 9.6s
+[16:15:42 +   16.1s rss  373.9 MB] === 5minute
+[16:15:55 +   28.6s rss  403.2 MB] 5minute family: 540 rows (488 L1), PBO(diff) 0.517, SPA p 0.0565 (unstud 0.01), eff trials 1.22, 12.1s
+[16:16:04 +   38.0s rss  354.7 MB] FINDINGS.md and findings.json written; null_result=True; candidates=[]

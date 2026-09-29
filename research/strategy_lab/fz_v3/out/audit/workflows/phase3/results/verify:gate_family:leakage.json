@@ -1,0 +1,9 @@
+{
+ "agentId": "a09cca30a8483f610",
+ "label": "verify:gate_family:leakage",
+ "phase": "Verify",
+ "result": null,
+ "key": "v2:cec5a8562f352b78248fd9fc70c294ba60cd7281af758162fa5b021b5af593e1",
+ "transcript": "audit/workflows/phase3/agent-a09cca30a8483f610.jsonl",
+ "meta": "audit/workflows/phase3/agent-a09cca30a8483f610.meta.json"
+}

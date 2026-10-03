@@ -44,7 +44,8 @@ def hour_direction(b):
         while p < len(ev) and ev[p][0] <= idx[r]:
             cur = ev[p][1]; p += 1
         known[r] = cur
-    return known, hb, res["sw"]
+    sw1h = sorted((int(hb.last_i.iat[s["conf"]]), s["k"], float(s["p"])) for s in res["sw"])
+    return known, hb, sw1h
 
 
 # ---------------------------------------------------------------- trade mechanics (lab conventions)
@@ -71,9 +72,15 @@ def run_leg(O, H, L, C, first_bar_of_session, i, entry, side, stop, end):
 _CACHE = {}
 
 
-def build(b, trades, swings, variant, dir_override=None):
-    """One cycle per session. dir_override: {date: side} replaces the 1-hour direction (direction control)."""
-    d1h, _, _ = hour_direction(b) if dir_override is None else (None, None, None)
+def build(b, trades, swings, variant, dir_override=None, stop_mode="1m"):
+    """One cycle per session. dir_override: {date: side} replaces the 1-hour direction (direction control).
+    stop_mode "1m": the 1-minute stop of PREREG.md; "1h" (Amendment 1, user 2026-10-03: "SL is of 1 hour and risk is 1R"):
+    the latest confirmed 1-HOUR swing against the trade (long: last 1-hour swing low, short: last 1-hour swing high)."""
+    key1h = ("1h", id(b), len(b))
+    if key1h not in _CACHE: _CACHE[key1h] = hour_direction(b)
+    d1h, _, sw1h = _CACHE[key1h]
+    idx_all = b.i.to_numpy()
+    h_lo = np.array([(k, p) for k, kind, p in sw1h if kind == "L"]); h_hi = np.array([(k, p) for k, kind, p in sw1h if kind == "H"])
     t, D = b.t.to_numpy(), b.date.astype(str).to_numpy()
     O, H, L, C = (b[k].to_numpy() for k in ("open", "high", "low", "close"))
     sb = b.session_bar.to_numpy()
@@ -102,8 +109,13 @@ def build(b, trades, swings, variant, dir_override=None):
             if t[i][11:16] >= CFG["square_off"] or first_bar[i]: continue
             want = dir_override[day] if dir_override is not None else d1h[i]
             if want == 0: continue
-            if variant == "E1":
-                if sdir != want: continue
+            if variant == "E1" and sdir != want: continue
+            if stop_mode == "1h":
+                arr = h_lo if want > 0 else h_hi
+                k = np.searchsorted(arr[:, 0], idx_all[i], side="right") - 1
+                if k < 0: continue
+                stop = float(arr[k, 1])
+            elif variant == "E1":
                 stop = sl
             else:
                 arr = swL if want > 0 else swH
@@ -111,16 +123,18 @@ def build(b, trades, swings, variant, dir_override=None):
                 if k < 0: break
                 stop = float(arr[k, 1])
             side, e = want, C[i]
-            if (side > 0 and stop >= e) or (side < 0 and stop <= e): break      # stop on the wrong side: no trade that day
+            if (side > 0 and stop >= e) or (side < 0 and stop <= e):
+                if stop_mode == "1h" and variant == "E1": continue             # 1-hour stop above a long entry: wait for the next agreeing SETUP
+                break                                                           # stop on the wrong side: no trade that day
             end = min(cut.get(day, i), last_k[K[i]])
             j, px, why = run_leg(O, H, L, C, first_bar, i, e, side, stop, end)
             rows.append(dict(day=day, leg="first", side=side, entry_i=i, entry_time=t[i], entry_px=e, stop=stop, R=abs(e - stop),
-                             exit_i=j, exit_time=t[j], exit_px=px, exit_reason=why, gross_pts=(px - e) * side, net=price(e, px, side)))
+                             exit_i=j, exit_time=t[j], exit_px=px, exit_reason=why, gross_pts=(px - e) * side, r_mult=(px - e) * side / abs(e - stop), net=price(e, px, side)))
             if why == "stop" and t[j][11:16] < CFG["square_off"] and j < end:
                 R = abs(e - stop); s2 = -side; e2 = px; st2 = e2 - s2 * R
                 j2, px2, why2 = run_leg(O, H, L, C, first_bar, j, e2, s2, st2, end)
                 rows.append(dict(day=day, leg="reverse", side=s2, entry_i=j, entry_time=t[j], entry_px=e2, stop=st2, R=R,
-                                 exit_i=j2, exit_time=t[j2], exit_px=px2, exit_reason=why2, gross_pts=(px2 - e2) * s2, net=price(e2, px2, s2)))
+                                 exit_i=j2, exit_time=t[j2], exit_px=px2, exit_reason=why2, gross_pts=(px2 - e2) * s2, r_mult=(px2 - e2) * s2 / R, net=price(e2, px2, s2)))
             break                                                               # one cycle per day
     return pd.DataFrame(rows)
 
@@ -133,7 +147,8 @@ def stats(tr):
     return dict(n=int(len(x)), net_total=round(float(x.sum())), net_mean=round(float(x.mean()), 1),
                 t_stat=round(float(x.mean() / (x.std(ddof=1) / math.sqrt(len(x)))), 2) if len(x) > 1 else None,
                 win_rate=round(float((x > 0).mean()), 3), profit_factor=round(float(w / l), 3) if l > 0 else None,
-                gross_pts_mean=round(float(tr.gross_pts.mean()), 2), worst_week=round(float(wk.min())), positive_weeks=round(float((wk > 0).mean()), 3),
+                gross_pts_mean=round(float(tr.gross_pts.mean()), 2), r_mean=round(float(tr.r_mult.mean()), 3) if "r_mult" in tr else None,
+                stop_pts_median=round(float(tr.R.median()), 1), worst_week=round(float(wk.min())), positive_weeks=round(float((wk > 0).mean()), 3),
                 exits={k: int(v) for k, v in tr.exit_reason.value_counts().items()})
 
 
@@ -149,12 +164,13 @@ def summarise(tr):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--trunc", action="store_true"); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("--trunc", action="store_true"); ap.add_argument("--stop", default="1m", choices=["1m", "1h"])
+    a = ap.parse_args(); SM = a.stop; sfx = "" if SM == "1m" else "_1h"
     if a.trunc:
         bf, tf_, sf = load(DATA); bt, tt, st = load(TRUNC)
         out = {}
         for v in ("E1", "E2"):
-            full = build(bf, tf_, sf, v); part = build(bt, tt, st, v)
+            full = build(bf, tf_, sf, v, stop_mode=SM); part = build(bt, tt, st, v, stop_mode=SM)
             f = full[full.entry_time <= CUT].reset_index(drop=True)
             p = part[part.entry_time <= CUT].reset_index(drop=True)
             # trades still open at the cut end differently on the truncated bars: compare entries and directions
@@ -163,26 +179,23 @@ def main():
             out[v] = dict(entries_before_cut=int(len(f)), truncated=int(len(p)), entries_identical=bool(same),
                           closed_trades_identical=bool(closed.equals(pc)))
             print(v, out[v], flush=True)
-        json.dump(out, open(os.path.join(HERE, "trunc_check.json"), "w"), indent=1)
+        json.dump(out, open(os.path.join(HERE, f"trunc_check{sfx}.json"), "w"), indent=1)
         return
     b, trades, swings = load(DATA)
     d1h, hb, sw = hour_direction(b)
-    res = dict(prereg="PREREG.md", config=CFG, hour_bars=int(len(hb)), hour_swings=int(len(sw)),
+    res = dict(prereg="PREREG.md", stop_mode=SM, config=CFG, hour_bars=int(len(hb)), hour_swings=int(len(sw)),
                share_up=round(float((d1h > 0).mean()), 3), variants={})
     rng = np.random.default_rng(CFG["seed"])
     days = sorted(set(b.date.astype(str)))
     for v in ("E1", "E2"):
-        tr = build(b, trades, swings, v)
-        tr.to_csv(os.path.join(HERE, f"trades_{v}.csv"), index=False)
+        tr = build(b, trades, swings, v, stop_mode=SM)
+        tr.to_csv(os.path.join(HERE, f"trades_{v}{sfx}.csv"), index=False)
         S = summarise(tr)
         # direction control: random first-trade direction per day, reverse logic as usual
         ctrl = {"IS": [], "2026": []}
         for _ in range(CFG["draws"]):
             over = {d: int(x) for d, x in zip(days, rng.choice([-1, 1], len(days)))}
-            r = build(b, trades, swings, v, dir_override=over) if v == "E2" else None
-            if v == "E1":
-                # E1 needs a SETUP in the drawn direction: same machinery with the 1-hour direction replaced
-                r = build(b, trades, swings, v, dir_override=over)
+            r = build(b, trades, swings, v, dir_override=over, stop_mode=SM)   # E1: a SETUP in the drawn direction
             for win, m in (("IS", r.entry_time < OOS_FROM), ("2026", r.entry_time >= OOS_FROM)):
                 s = r[m]; ctrl[win].append(s.net.sum() / max(s.day.nunique(), 1))
         for win in ("IS", "2026"):
@@ -191,7 +204,7 @@ def main():
                                                mean=round(float(arr.mean()), 1), p95=round(float(np.quantile(arr, 0.95)), 1))
         res["variants"][v] = S
         print(v, json.dumps(S), flush=True)
-        json.dump(res, open(os.path.join(HERE, "results.json"), "w"), indent=1, default=str)
+        json.dump(res, open(os.path.join(HERE, f"results{sfx}.json"), "w"), indent=1, default=str)
     print("written results.json")
 
 

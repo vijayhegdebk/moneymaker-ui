@@ -35,3 +35,12 @@ Pass: the day-cycle book's net mean > 0 in both windows and at or above the 95th
 
 The whole pipeline (1-hour bars, 1-hour swings, direction, entries) is rerun on 1-minute bars cut at 2025-06-30 12:00;
 every trade entered before the cut must be identical.
+
+## Amendment 1 (2026-10-03, after the first results; user: "Yes, SL is of 1 hour and risk is 1R")
+
+Only the stop changes. The first trade's stop is the latest confirmed **1-hour** swing against the trade (long: the last
+1-hour swing low, short: the last 1-hour swing high), known from the close of its confirmation hour. R = entry to that stop.
+Target 2R and the 15:25 exit as before; the reverse trade starts at the stop price with the same 1R risk on the other side.
+For E1, a SETUP whose 1-hour stop is on the wrong side of the entry is passed over for the next agreeing SETUP of the day;
+for E2 the day is skipped. Results also in R multiples (`r_mean`). Files: `results_1h.json`, `trades_<E1|E2>_1h.csv`,
+`trunc_check_1h.json`, `run_1h.log`. The 1-minute-stop run is unchanged and reproduces bit for bit.

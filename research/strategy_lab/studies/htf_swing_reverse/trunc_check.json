@@ -1,0 +1,14 @@
+{
+ "E1": {
+  "entries_before_cut": 708,
+  "truncated": 708,
+  "entries_identical": true,
+  "closed_trades_identical": true
+ },
+ "E2": {
+  "entries_before_cut": 1085,
+  "truncated": 1085,
+  "entries_identical": true,
+  "closed_trades_identical": true
+ }
+}

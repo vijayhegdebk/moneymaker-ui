@@ -457,6 +457,18 @@ Ids are `S<n>` so they never collide with `GAPS.md` numbering.
 | Priority | _Open — study complete 2026-09-29; no build; user decisions pending._ |
 
 ---
+### S53. 1-hour swing direction → one 1-minute trade → one reverse if it is stopped out: loses in both windows; the 1-hour direction is no better than a coin flip
+
+| | |
+|---|---|
+| Where | [`research/strategy_lab/studies/htf_swing_reverse/`](../research/strategy_lab/studies/htf_swing_reverse/) (`PREREG.md`, `htf_swing_reverse.py`, `REPORT.md`, `results.json`, `trades_E1.csv`, `trades_E2.csv`). No strategy file. Filed 2026-10-03. |
+| Why | User (2026-10-03): "Check for 1 hour swing, do one trade in that direction in 1 min, if failed do one reverse trade." Chosen in the build, not by the user: 1-hour bars from 09:15 built from the 1-minute futures; "1-hour swing" = `engine.run`'s swing detector (Strategy 1 settings) on them, direction = the current leg (after a swing low up, after a swing high down); one cycle per session; entry E1 = the first Strategy 1 SETUP of the day agreeing with the 1-hour direction (its own stop), E2 = the 09:20 close with the latest 1-minute swing as stop; exits stop / 2R / 15:25; "failed" = stopped out; the reverse starts at the stop price with the same risk; lot 65, 5 pts slippage, `ZERODHA_NFO_FUT`. |
+| Impact | **Measured** (2021-10..2025-12 / 2026-01..09-25). E1: −1,438 / −2,947 INR per day (523 / 95 days), −902 / −1,772 per trade, first trade stopped 60% / 66%, reverse trades −756 / −1,575 per trade, direction-control percentile 14.5 / 74.3. E2: −1,305 / −2,320 per day (792 / 123 days), −830 / −1,502 per trade, reverse −749 / −1,751, direction control 38.7 / 48.7. Gross +2 to +4 pts per trade in 2021-25 and negative in 2026 against about 16 pts of cost. Look-ahead truncation check identical. No variant passes the pre-registered rule. **Unquantified**: other readings of "1-hour swing" (the engine's CHoCH trend, a 4-ATR zigzag on 1 hour) and a wider first-trade stop; each would be a new run. |
+| Fix sketch | Nothing changes in any strategy. Candidates, each a new pre-registered run: the 1-hour swing point as the first trade's stop; holding the first trade past 15:25 when it agrees with the 1-hour leg (S47); the 1-hour direction as a filter on 5-minute entries. |
+| Effort | **S** per variant (the run takes about 10 minutes). |
+| Priority | _Open — filed 2026-10-03; null as specified._ |
+
+---
 ### S52. "Levels Likely to Break" (Zeiierman, TradingView) rebuilt and backtested: breaks of matched double tops / bottoms do not pay the cost of a trade
 
 | | |

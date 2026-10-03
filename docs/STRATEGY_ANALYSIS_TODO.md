@@ -457,6 +457,18 @@ Ids are `S<n>` so they never collide with `GAPS.md` numbering.
 | Priority | _Open — study complete 2026-09-29; no build; user decisions pending._ |
 
 ---
+### S52. "Levels Likely to Break" (Zeiierman, TradingView) rebuilt and backtested: breaks of matched double tops / bottoms do not pay the cost of a trade
+
+| | |
+|---|---|
+| Where | [`research/strategy_lab/studies/levels_break/`](../research/strategy_lab/studies/levels_break/) (`PREREG.md`, `levels_break.py`, `REPORT.md`, `results.json`, trades and signals CSVs). No strategy file. Filed 2026-10-03. |
+| Why | User (2026-10-03) asked to take input from https://www.tradingview.com/script/S0JjlgsE-Levels-Likely-to-Break-Zeiierman/ and backtest it. The script page and the author's site are blocked by the cloud environment's proxy, so the Pine source was not read; the level rule was rebuilt from the published description (two same-side confirmed pivots within a volatility-adjusted tolerance). Chosen in the build, not by the user: pivot length 5 / 5, tolerance 0.25 × ATR14, level life 3 sessions, the "pressure" filter (a retest and a least-squares squeeze of the last 10 bars into the level), the trade rule (first close through the level, stop 1 ATR beyond the level, target 2R, square-off 15:25), near-month futures, lot 65, 5 pts slippage, `ZERODHA_NFO_FUT` charges. One amendment after the 5-minute numbers were seen, to the timing control only (the first version leaked the day's direction). |
+| Impact | **Measured** (net INR per trade, IS 2021-10..2025-12 / 2026-01..09-25). 5 min every break −828 / −900 (717 / 121 trades, gross +3.5 / +3.3 pts), after pressure −693 / −670 (434 / 78, gross +5.6 / +6.8 pts), timing-control percentile 96.9–99.2 in sample, 74.5–85.4 in 2026; 1 min every break −1,089 / −1,286 (4,680 / 780, gross −0.5 / −2.6 pts), after pressure −1,088 / −1,241, both controls below the 10th percentile (breaks are fake-outs on 1 minute). Cost about 1,056 INR (about 16 pts) per trade. No variant passes the pre-registered rule (net > 0 in both windows and ≥ 95th percentile of both controls). Look-ahead truncation check identical on both timeframes. **Unquantified**: how far the original script's real settings and pressure score differ from this reconstruction; the real Pine source would measure it. |
+| Fix sketch | Nothing changes in any strategy. Candidates, each a new pre-registered run: the original Pine source; 15-minute / hourly bars; holding past 15:25 (S47); the 5-minute filtered break as a confirmation inside an existing entry rather than a stand-alone signal. |
+| Effort | **S** per variant (the run takes about 15 minutes). |
+| Priority | _Open — filed 2026-10-03; null as a stand-alone intraday signal._ |
+
+---
 ### S51. Lab Strategies 19–24 (learner, `rl_v1`): what is out of sample and what is not, and the build choices behind the learner
 
 | | |

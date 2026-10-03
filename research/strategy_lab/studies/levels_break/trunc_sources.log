@@ -1,0 +1,6 @@
+pivot 5minute {'signals_before_cut': 872, 'truncated': 872, 'identical': True}
+pivot minute {'signals_before_cut': 5737, 'truncated': 5737, 'identical': True}
+atr4 5minute {'signals_before_cut': 35, 'truncated': 35, 'identical': True}
+atr4 minute {'signals_before_cut': 332, 'truncated': 332, 'identical': True}
+atr4_life10 5minute {'signals_before_cut': 42, 'truncated': 42, 'identical': True}
+atr4_life10 minute {'signals_before_cut': 370, 'truncated': 370, 'identical': True}

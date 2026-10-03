@@ -64,6 +64,51 @@ which reveals where price went later that day, so it flattered the random trades
 the other-session version before the 1-minute run; the trade rule never changed (`PREREG.md`, Amendment 1; old numbers in
 `run_v1.log`).
 
+## Second run: the levels built from our own swings (PREREG.md, Amendment 2)
+
+User, 2026-10-03: the levels have to come from "our swing high low or 4 ATR swings". Only the swing source changed; the
+tolerance, level life, break, pressure filter, trades, costs, controls and pass rule are the ones above
+(`results_sources.json`, `run_sources.log`, `trades_<source>_<tf>_<A|B>.csv`, `signals_<source>_<tf>.csv`).
+
+- **engine** = our Foundation engine's swings (`engine.run`, the swing detector Strategies 1-12 use), from their confirmation bar.
+- **atr4** = "4 ATR swings" read as an ATR zigzag: a swing is confirmed when a bar closes 4 x ATR14 beyond the extreme since
+  the last opposite swing. No such swing exists anywhere in the code base, so this reading is an assumption.
+- **atr4_life10** = sensitivity only, `atr4` with a 10-session level life (the 3-session life leaves too few levels).
+
+| net INR per trade (trades) | 5 min IS | 5 min 2026 | 1 min IS | 1 min 2026 |
+|---|---|---|---|---|
+| pivot (first run), every break | -828 (717) | -900 (121) | -1,089 (4,680) | -1,286 (780) |
+| **engine swings**, every break | -918 (2,175) | -1,157 (317) | -1,090 (11,666) | -1,199 (1,776) |
+| **engine swings**, after pressure | -938 (1,503) | -1,116 (235) | -1,070 (8,299) | -1,182 (1,327) |
+| **4 ATR swings**, every break | -1,659 (28) | none (0) | -934 (303) | -1,105 (51) |
+| **4 ATR swings**, after pressure | -1,323 (16) | none (0) | -919 (164) | -960 (33) |
+| 4 ATR, 10-session life, every break | -1,718 (34) | +2,700 (1) | -931 (337) | -1,103 (58) |
+
+| gross points per trade, IS / 2026 · timing-control percentile IS / 2026 | 5 min | 1 min |
+|---|---|---|
+| engine swings, every break | +2.1 / -0.7 · 97.7 / 44.2 | -0.6 / -1.3 · 0.2 / 2.9 |
+| engine swings, after pressure | +1.8 / -0.0 · 90.0 / 55.0 | -0.2 / -1.0 · 13.0 / 7.0 |
+| 4 ATR swings, every break | -9.5 / - · 11.8 / - | +1.9 / +0.2 · 88.9 / 59.3 |
+| 4 ATR swings, after pressure | -4.4 / - · 36.2 / - | +2.1 / +2.4 · 87.4 / 74.1 |
+
+How many levels each source makes (5 min / 1 min): our engine marks 26,561 / 130,819 swings, which pair into 4,815 /
+27,296 broken levels; the 4-ATR zigzag marks 1,901 / 9,737 swings and only 38 / 429 broken levels.
+
+**Reading.**
+- **Our engine's swings make it worse, not better.** They are small and frequent, so they produce three times more levels
+  than the generic pivots, and those levels carry less move: on 5 minutes +2 gross points in sample and nothing in 2026;
+  on 1 minute the breaks are fake-outs, below both controls (0-13th percentile).
+- **The 4 ATR swings are cleaner on 1 minute but still far short.** Breaks of a level made by two 4-ATR swing highs (or
+  lows) move about +2 points, beat random timing at the 87th-89th percentile in sample (not 95), and lose about 920-1,100
+  INR per trade. On 5 minutes the zigzag makes too few double tops / bottoms to judge (16-34 trades in five years, none in
+  2026), and those few lost.
+- No source passes the pre-registered rule; none has a positive mean in any window with enough trades to read.
+- Look-ahead check identical for `atr4` and `atr4_life10` on both timeframes (`trunc_check_sources.json`); the engine's
+  swings were checked by the fz_v3 build.
+- One mismatch to keep in mind: the stop stays 1 ATR beyond the level for every source, which is tight relative to a
+  4-ATR swing. A stop scaled to the swing (for example beyond the last opposite 4-ATR swing) is a different trade rule and
+  would be a new run.
+
 ## If you want to take it further
 
 Each of these is a new pre-registered run, not a tweak of this one: the real Pine source if you can paste it (the biggest

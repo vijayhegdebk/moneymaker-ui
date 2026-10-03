@@ -27,29 +27,84 @@ def load(tf, upto=None):
     return b
 
 
-# ---------------------------------------------------------------- the indicator (causal: a pivot is used from bar k+R)
-def levels_and_breaks(b, tf, cfg=CFG):
-    L, R, tol = cfg["pivot_left"], cfg["pivot_right"], cfg["tol_atr"]
+# ---------------------------------------------------------------- swing sources (each causal: a swing is usable from its confirmation bar)
+SOURCES = ("pivot", "engine", "atr4")
+ZIGZAG_ATR = 4.0      # "4 ATR swings": a swing is confirmed once price CLOSES 4 x ATR14 beyond the extreme since the last swing
+
+
+def swings_pivot(b, cfg=CFG):
+    """Generic L/R pivots (the first run's reconstruction): bar k is a pivot high if its high is above the L bars before and at
+    least the R bars after; confirmed at k+R. Returns {conf_bar: [(side, bar, price), ...]}."""
+    L, R = cfg["pivot_left"], cfg["pivot_right"]
+    H, Lo, K = b.high.to_numpy(), b.low.to_numpy(), b.contract.to_numpy()
+    out = {}
+    for j in range(len(b)):
+        k = j - R
+        if k - L < 0 or K[k - L] != K[j]: continue
+        for side, arr in ((+1, H), (-1, Lo)):
+            v, before, after = arr[k], arr[k - L:k], arr[k + 1:j + 1]
+            if (side > 0 and v > before.max() and v >= after.max()) or (side < 0 and v < before.min() and v <= after.min()):
+                out.setdefault(j, []).append((side, k, v))
+    return out
+
+
+def swings_engine(b, tf, upto=None):
+    """Our Foundation engine's swings (engine.run's Pine-port detector, Strategy 1 rules on 1 min / Strategy 2 on 5 min), as
+    built in fz_v3/out/data/<tf>/swings.parquet: alternating H / L; a swing high is confirmed when a later bar breaks the low
+    of the high's bar (conf_bar). Swings whose bar and confirmation lie in different contracts are dropped."""
+    sw = pd.read_parquet(os.path.join(LAB, "fz_v3", "out", "data", tf, "swings.parquet"))
+    K = b.contract.to_numpy(); n = len(b); out = {}
+    for r in sw.itertuples():
+        if r.conf_bar >= n or r.bar >= n or K[r.bar] != K[r.conf_bar]: continue
+        out.setdefault(int(r.conf_bar), []).append((+1 if r.kind == "H" else -1, int(r.bar), float(r.price)))
+    return out
+
+
+def swings_atr(b, mult=ZIGZAG_ATR):
+    """ATR zigzag: track the highest high since the last confirmed swing low; when a bar CLOSES at least mult x ATR14(that bar)
+    below it, that high is a swing high, confirmed on this bar; then track the lowest low after it, mirror. Resets at a
+    contract change. Causal by construction."""
+    H, Lo, C, A, K = b.high.to_numpy(), b.low.to_numpy(), b.close.to_numpy(), b.atr14.to_numpy(), b.contract.to_numpy()
+    out = {}; mode = 0; hi = lo = None; hib = lob = None
+    for j in range(len(b)):
+        if j == 0 or K[j] != K[j - 1]:
+            mode = 0; hi, hib, lo, lob = H[j], j, Lo[j], j; continue
+        if np.isnan(A[j]): continue
+        if mode >= 0 and H[j] >= hi: hi, hib = H[j], j
+        if mode <= 0 and Lo[j] <= lo: lo, lob = Lo[j], j
+        if mode >= 0 and C[j] <= hi - mult * A[j] and hib < j:
+            out.setdefault(j, []).append((+1, hib, hi)); mode = -1; lo, lob = Lo[j], j
+        elif mode <= 0 and C[j] >= lo + mult * A[j] and lob < j:
+            out.setdefault(j, []).append((-1, lob, lo)); mode = 1; hi, hib = H[j], j
+    return out
+
+
+def get_swings(b, tf, source):
+    if source == "pivot": return swings_pivot(b)
+    if source == "engine": return swings_engine(b, tf)
+    if source == "atr4": return swings_atr(b)
+    raise ValueError(source)
+
+
+# ---------------------------------------------------------------- the indicator: two matching same-side swings make a level
+def levels_and_breaks(b, tf, cfg=CFG, source="pivot"):
+    tol = cfg["tol_atr"]
     life = cfg["life_sessions"] * BARS_PER_SESSION[tf]
     H, Lo, C = b.high.to_numpy(), b.low.to_numpy(), b.close.to_numpy()
     A = b.atr14.to_numpy(); K = b.contract.to_numpy()
     n = len(b)
-    cand = {+1: [], -1: []}          # side -> list of (pivot bar, price)   (+1 = high / resistance, -1 = low / support)
+    SW = get_swings(b, tf, source)
+    cand = {+1: [], -1: []}          # side -> list of (swing bar, price)   (+1 = high / resistance, -1 = low / support)
     active = []                      # dicts: side, level, formed, p1, p2, retests
     sig = []
     for j in range(n):
         # contract change: everything resets (a level of the old contract is not a price on the new one)
         if j > 0 and K[j] != K[j - 1]:
             cand = {+1: [], -1: []}; active = []
-        # 1) confirm the pivot at k = j - R (needs L bars before and R bars after, all of the same contract)
-        k = j - R
-        if k - L >= 0 and K[k - L] == K[j] and not np.isnan(A[j]):
-            for side, arr in ((+1, H), (-1, Lo)):
-                v = arr[k]
-                before, after = arr[k - L:k], arr[k + 1:j + 1]
-                is_piv = (v > before.max() and v >= after.max()) if side > 0 else (v < before.min() and v <= after.min())
-                if not is_piv: continue
-                # drop candidates that expired or were closed through since they formed
+        # 1) swings confirmed on bar j: match against a live same-side candidate within tol x ATR14
+        if not np.isnan(A[j]):
+            for side, k, v in SW.get(j, []):
+                if K[k] != K[j]: continue
                 keep = []
                 for (pk, pv) in cand[side]:
                     if j - pk > life: continue
@@ -213,38 +268,50 @@ def controls(b, tr, cut, cfg=CFG):
                 timing_control=dict(pct=pct(tim_means), mean=round(float(tim_means.mean()), 1), p95=round(float(np.quantile(tim_means, 0.95)), 1)))
 
 
+RUNS = [("pivot", {}), ("engine", {}), ("atr4", {}), ("atr4_life10", {"life_sessions": 10})]   # (name, cfg overrides)
+
+
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--trunc", action="store_true"); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("--trunc", action="store_true"); ap.add_argument("--runs", default=",".join(r[0] for r in RUNS))
+    a = ap.parse_args(); want = a.runs.split(",")
     if a.trunc:
         out = {}
-        for tf in ("5minute", "minute"):
-            full = levels_and_breaks(load(tf), tf); part = levels_and_breaks(load(tf, CUT), tf)
-            f = full[full.t <= CUT].reset_index(drop=True)
-            same = f.equals(part.reset_index(drop=True))
-            out[tf] = dict(signals_before_cut=int(len(f)), truncated=int(len(part)), identical=bool(same))
-            print(tf, out[tf], flush=True)
-        json.dump(out, open(os.path.join(HERE, "trunc_check.json"), "w"), indent=1)
+        for name, over in RUNS:
+            if name not in want or name.startswith("engine"): continue      # engine swings: causality verified by the fz_v3 build (QUALITY.md)
+            src = name.split("_")[0]; cfg = dict(CFG, **over)
+            for tf in ("5minute", "minute"):
+                full = levels_and_breaks(load(tf), tf, cfg, src); part = levels_and_breaks(load(tf, CUT), tf, cfg, src)
+                f = full[full.t <= CUT].reset_index(drop=True) if len(full) else full
+                same = (len(f) == 0 and len(part) == 0) or f.equals(part.reset_index(drop=True))
+                out[f"{name}/{tf}"] = dict(signals_before_cut=int(len(f)), truncated=int(len(part)), identical=bool(same))
+                print(name, tf, out[f"{name}/{tf}"], flush=True)
+        json.dump(out, open(os.path.join(HERE, "trunc_check_sources.json"), "w"), indent=1)
         return
-    res = dict(config=CFG, prereg="PREREG.md", timeframes={})
-    for tf in ("5minute", "minute"):
-        b = load(tf); cut = session_cutoffs(b, CFG["square_off"])
-        sig = levels_and_breaks(b, tf)
-        sig.to_csv(os.path.join(HERE, f"signals_{tf}.csv"), index=False)
-        R = dict(levels_broken=int(len(sig)), with_pressure=int(sig.pressure.sum()) if len(sig) else 0, variants={})
-        for v in ("A", "B"):
-            tr = run_trades(b, sig, cut, v)
-            tr.to_csv(os.path.join(HERE, f"trades_{tf}_{v}.csv"), index=False)
-            V = {}
-            for win, m in (("IS", tr.entry_time < OOS_FROM), ("2026", tr.entry_time >= OOS_FROM)):
-                sub = tr[m].reset_index(drop=True)
-                V[win] = dict(stats=stats(sub), **controls(b, sub, cut))
-                print(tf, v, win, json.dumps(V[win]), flush=True)
-            for side in ("LONG", "SHORT"):
-                V[f"IS_{side}"] = stats(tr[(tr.entry_time < OOS_FROM) & (tr.side == side)])
-            R["variants"][v] = V
-        res["timeframes"][tf] = R
-    json.dump(res, open(os.path.join(HERE, "results.json"), "w"), indent=1, default=str)
-    print("written results.json")
+    path = os.path.join(HERE, os.environ.get("LB_RESULTS", "results_sources.json"))
+    res = json.load(open(path)) if os.path.exists(path) else dict(prereg="PREREG.md (Amendment 2)", runs={})
+    for name, over in RUNS:
+        if name not in want: continue
+        src = name.split("_")[0]; cfg = dict(CFG, **over)
+        res["runs"][name] = dict(source=src, cfg_overrides=over, timeframes={})
+        for tf in ("5minute", "minute"):
+            b = load(tf); cut = session_cutoffs(b, cfg["square_off"])
+            sw = get_swings(b, tf, src)
+            sig = levels_and_breaks(b, tf, cfg, src)
+            sig.to_csv(os.path.join(HERE, f"signals_{name}_{tf}.csv"), index=False)
+            R = dict(swings=int(sum(len(v) for v in sw.values())), levels_broken=int(len(sig)),
+                     with_pressure=int(sig.pressure.sum()) if len(sig) else 0, variants={})
+            for v in ("A", "B"):
+                tr = run_trades(b, sig, cut, v, cfg) if len(sig) else pd.DataFrame(columns=["entry_time", "net", "side"])
+                tr.to_csv(os.path.join(HERE, f"trades_{name}_{tf}_{v}.csv"), index=False)
+                V = {}
+                for win, m in (("IS", tr.entry_time < OOS_FROM), ("2026", tr.entry_time >= OOS_FROM)):
+                    sub = tr[m].reset_index(drop=True)
+                    V[win] = dict(stats=stats(sub), **(controls(b, sub, cut, cfg) if len(sub) >= 5 else {}))
+                    print(name, tf, v, win, json.dumps(V[win]), flush=True)
+                R["variants"][v] = V
+            res["runs"][name]["timeframes"][tf] = R
+            json.dump(res, open(path, "w"), indent=1, default=str)
+    print("written results_sources.json")
 
 
 if __name__ == "__main__":

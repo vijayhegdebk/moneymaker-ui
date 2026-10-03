@@ -73,3 +73,19 @@ day's move: on 5 minutes the random trades averaged +11.1 gross points against +
 biased, not informative. Replaced by: the same time of day (session bar), the same side, the same stop in ATR units, in a
 randomly drawn **other session of the same window** (1,000 seeded draws). The direction control (same bars, random side)
 had no such leak and is unchanged. The first version's 5-minute numbers are kept in `run_v1.log` for the record.
+
+## Amendment 2 (2026-10-03): the levels built from our own swings (user: "these have to be incorporated within our swing high low or 4 ATR swings")
+
+Written after the first run's results were seen; nothing else is tuned. The only change is the source of the swings that
+the level rule pairs; the tolerance (0.25 x ATR14), level life (3 sessions), break, pressure filter, trade rule, costs,
+controls and pass rule are exactly as above.
+
+| run | swing source |
+|---|---|
+| `pivot` | the generic 5 / 5 pivots of the first run (reference; reproduces its 1,186 / 5-minute signals bit for bit) |
+| `engine` | our Foundation engine's swings (`engine.run`, Strategy 1 rules on 1 minute, Strategy 2 on 5 minutes; `fz_v3/out/data/<tf>/swings.parquet`), used from their confirmation bar |
+| `atr4` | "4 ATR swings", read as the ATR zigzag: a swing high is confirmed when a bar closes at least 4 x ATR14 below the highest high since the last swing low (mirror for lows). No such swing exists in the code base (searched the lab, the Java app, every branch and the history), so this reading is an assumption |
+| `atr4_life10` | sensitivity only: `atr4` with a 10-session candidate / level life, because the 4-ATR zigzag gives under two swings a session and the 3-session life leaves 38 broken levels in five years on 5 minutes. Labelled as a sensitivity, not a candidate |
+
+Look-ahead: `pivot` and `atr4` are re-checked on the truncated bars (`trunc_check_sources.json`); the engine's swings were
+checked by the fz_v3 build's truncation diff (`fz_v3/out/QUALITY.md`, swings as of the cut identical).

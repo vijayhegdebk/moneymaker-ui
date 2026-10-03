@@ -1,0 +1,10 @@
+kind,retests_bin,instances,instances_touched,share_of_touched_instances
+prot,0,4554,6624,0.6875
+room,0,6635,10052,0.6601
+room,1,1247,10052,0.1241
+room,2,501,10052,0.0498
+room,3+,308,10052,0.0306
+swing,0,64423,96486,0.6677
+swing,1,9228,96486,0.0956
+swing,2,3522,96486,0.0365
+swing,3+,2171,96486,0.0225

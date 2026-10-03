@@ -1,0 +1,24 @@
+{
+ "study": "operating_point_sizing",
+ "step": "sizing (conditional)",
+ "checked_at": "2026-09-29T16:45:06",
+ "candidates_folder_exists": false,
+ "gate_family_null_result": true,
+ "gate_family_candidates": [],
+ "timeframes": {
+  "minute": {
+   "candidate_files": [],
+   "gate_family_candidate": null,
+   "verdict": "not run: no gate passed",
+   "size_block": null,
+   "detail": "No candidate JSON for this timeframe in OUT/candidates/ (the folder does not exist) and gate_family's candidate is null: the finalists fail harness.go_no_go (minute: 6 items incl. control_pct 21.9, PBO 0.40, SPA p 0.94, kept mean at 8 pts slippage -1,378, the segment-tape p95; 5minute: 11 items, CPCV p5 -434). Both judges: sizing multiplies an edge that is not shown to exist (raw Kelly at a 16-28% win rate is negative); it runs only after a gate passes with CPCV 5th-percentile kept expectancy > 0. Nothing fitted; no Platt map, payoff table, lot bins, lot-aware control or ledger row was produced. The design's default verdict stands: lots = 1 or skip."
+  },
+  "5minute": {
+   "candidate_files": [],
+   "gate_family_candidate": null,
+   "verdict": "not run: no gate passed",
+   "size_block": null,
+   "detail": "No candidate JSON for this timeframe in OUT/candidates/ (the folder does not exist) and gate_family's candidate is null: the finalists fail harness.go_no_go (minute: 6 items incl. control_pct 21.9, PBO 0.40, SPA p 0.94, kept mean at 8 pts slippage -1,378, the segment-tape p95; 5minute: 11 items, CPCV p5 -434). Both judges: sizing multiplies an edge that is not shown to exist (raw Kelly at a 16-28% win rate is negative); it runs only after a gate passes with CPCV 5th-percentile kept expectancy > 0. Nothing fitted; no Platt map, payoff table, lot bins, lot-aware control or ledger row was produced. The design's default verdict stands: lots = 1 or skip."
+  }
+ }
+}

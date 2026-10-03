@@ -1,0 +1,1 @@
+{"agentType":"workflow-subagent","description":"repair:closeout","workflowPhase":"Repair","spawnDepth":1,"requestShape":"foreground","requestNonInteractive":true}

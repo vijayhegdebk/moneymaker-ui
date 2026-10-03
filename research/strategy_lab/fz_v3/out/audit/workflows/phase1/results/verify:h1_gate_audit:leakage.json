@@ -1,0 +1,51 @@
+{
+ "agentId": "a60acc94d12d03442",
+ "label": "verify:h1_gate_audit:leakage",
+ "phase": "Verify",
+ "result": {
+  "refuted": false,
+  "severity": "minor",
+  "issues": [
+   {
+    "what": "Family SPA numbers on both 5-minute tables are stale relative to the current harness.spa (commit 8682b2b, which excludes near-degenerate candidates from the studentised family, landed after the study ran 03:37-03:42). Recomputed read-only with the same seed/tag: 5m/L1 spa_p 0.134 -> 0.604 (3 candidates excluded: skip_only:BLOCK:clock 5, hunt_fade 14, open_pierce 17 active sessions vs min_active 20; best moves from open_pierce to not_block, t 0.458; unstudentised p 0.24); 5m/L0 spa_p 0.5195 -> 0.373 (best -> skip_only:BLOCK:new). 1-minute values unchanged (0.0355 / 0.183, no exclusions), but the new unstudentised statistic (0.01 on 1m/L1 for not_block, 0.0315 on 1m/L0 for not_block_asof) is unreported. Null verdict unaffected.",
+    "where": "studies/h1_gate_audit/FINDINGS.md section 7 table (SPA p, SPA best columns) and findings.json timeframes.*.family.spa_p / spa_best; h1_family_posthoc.json spa dicts lack the 'excluded_from_studentised' / 'spa_p_unstudentised' keys the current harness.spa returns",
+    "evidence": "git log harness.py: 8682b2b (SPA min_active) after e1c9d45; ledger rows 'at' 03:37:01-03:42:09. H.spa(load_vectors(ids), tag='h1|5minute_L1|posthoc') -> {'spa_p': 0.604, 'best': 3, 'excluded_from_studentised': 3, 'spa_p_unstudentised': 0.24} vs reported 0.134 / best 7; 'h1|5minute_L0|posthoc' -> 0.373 / best 6 vs 0.5195 / best 7; 1m tags reproduce 0.0355 and 0.183 exactly (same seed).",
+    "fix": "Recompute the family stage with the current harness (load_vectors + H.spa/H.pbo/H.effective_trials; no new score() calls, so no duplicate ledger rows), update FINDINGS section 7 and findings.json family.spa_p / spa_best on the 5-minute tables, add the unstudentised p beside the studentised one, and note the harness revision date."
+   },
+   {
+    "what": "Late-runner count in the prose is wrong: '238 of the 268 big winners are held more than 60 bars' should be 223 (131 in 121-375 + 92 in 61-120; no >375 rows). The companion figures ('gate keeps 36', '1.62M of the 1.77M') are correct. The study agent's summary key_numbers repeats '238 of 268'.",
+    "where": "studies/h1_gate_audit/FINDINGS.md section 6 paragraph after the second table, and section 8 (1 min verdict, 'held 61-375 bars'); findings.json verdict.minute",
+    "evidence": "h1_summary.json results['minute/L1'].big_winners.by_hold: ('121-375', n 131, kept 24), ('61-120', n 92, kept 12), ('31-60', 34), ('16-30', 10), ('6-15', 1) -> held > 60 bars = 223, kept 36, net 1,616,633",
+    "fix": "Replace 238 with 223 in FINDINGS section 6 and findings.json; keep 36 / 1.62M."
+   },
+   {
+    "what": "Overstatement: 'Half of the skipped big-winner net on 1 min sits in two clocks' (before 09:25 and the 14:00 bin). The two clocks carry 539,304 of 1,478,374 INR = 36.5%.",
+    "where": "studies/h1_gate_audit/FINDINGS.md section 6, sentence beginning 'Half of the skipped big-winner net'",
+    "evidence": "h1_summary.json big_winners.by_hour for minute/L1: '<09:25' net_skipped 242,281 + '14' net_skipped 297,023 = 539,304; skipped_net 1,478,374.0 -> 0.365",
+    "fix": "Write 'about a third (36%)' instead of 'half'."
+   },
+   {
+    "what": "Section 2 says the h1/frozen rows reproduce pre_registration.json 'on every statistic' and that only the control percentile moves with the tag seed; the permutation p moves as well (0.8466 -> 0.8551, 0.5607 -> 0.5502, 0.2364 -> 0.2504, 0.999 -> 1.0) for the same reason.",
+    "where": "studies/h1_gate_audit/FINDINGS.md section 2",
+    "evidence": "results/pre_registration.json frozen_gate.perm_p vs ledger rows 127543888f5570fe / d0f4d52bff2714d9 / daaf09471b73ca51 / c08a962be699735d perm_p (also h1_gate_audit.log lines 3, 16, 29, 42)",
+    "fix": "State that both the control percentile and the permutation p are tag-seeded and move by these amounts; all other statistics are identical."
+   },
+   {
+    "what": "Family membership is understated by one ledger trial per table: the four h1/fz_book rows (labels L1_fzpos / L0_fzpos, same keep mask, FZ-book net) are in the ledger but excluded from the family PBO/SPA/effective-trials by the label filter, while FINDINGS lists h1/fz_book among the ledger families and says '10 candidates per table'. Defensible (same mask under another net; effective trials ~1.5) but not stated.",
+    "where": "studies/h1_gate_audit/h1_gate_audit.py line 254 (read_ledger('h1', tf=tf, label=label)) and h1_posthoc.py line 27; FINDINGS.md section 7 / findings.json ledger_families",
+    "evidence": "ledger: 44 h1 rows = 40 + 4; per (tf,label) 10 rows on L1/L0 plus 1 row under L1_fzpos / L0_fzpos; h1_family_posthoc.json candidates 10",
+    "fix": "Add one sentence to section 7 / caveats: the fz_book rows are ledger trials of the same keep mask under the FZ-book net and are excluded from the family statistics by label; the family is 10 (+1 fz_book) per table."
+   },
+   {
+    "what": "The 13 group tables and 8 two-way tables carry per-group kept_mean, skipped_mean and kept_minus_skipped (kept-vs-skipped arithmetic computed outside harness.score), and the prose reads them (e.g. kept beats skipped only in the 09 / 11 / 13 hour bins; the 5m refused-leave branch at -32 / -114 / +170 vs -838). This is the decomposition BRIEF H1 asks for and no rule was chosen on it, so it is a caveat, not a defect, but those ~100 cells are looks that any downstream study deriving a rule from them (hour-conditioned gate, refused-leave-branch rule) must count as trials.",
+    "where": "studies/h1_gate_audit/h1_gate_audit.py group_table() lines 114-124 and two_way(); FINDINGS.md section 5 and caveats",
+    "evidence": "h1_minute_L1_by_hour_bin.csv column kept_minus_skipped (635.98, -279.14, 454.96, -147.75, 107.96, -479.14, ...); STUDY_AGENT_BRIEF.md: 'No private kept-vs-skipped arithmetic anywhere'",
+    "fix": "Add to caveats that the group-table kept-vs-skipped cells were viewed and must be carried as trials by any study that turns one of them into a rule (name the two obvious ones: hour-bin conditioning and the 5m refused-leave branch)."
+   }
+  ],
+  "verified": "Read-only reproduction (no harness.score call; ledger/trials.jsonl byte-identical before and after, cmp verified). (1) Provenance: h1_gate_audit.py sha 1684715a158b4ff4 and h1_posthoc.py sha 191b2aa2ee4997f4 equal the ledger's script_sha; one run (log start count 1, 138.6 s; run.log identical to h1_gate_audit.log); 44 h1 ledger rows (40 + 4), no duplicate ids, all split IS; zero OOS rows in the whole ledger (1,762 rows). (2) Frozen-gate statistics recomputed with H.metrics on all four tables from features.parquet: kept_mean, skipped_mean, diff, loser_recall, loser_precision, winner_recall_weighted, top_decile_winners_skipped, kept_pf, sign_blocks all equal findings.json to the cent; kept n 745 / 745 / 325 / 325; base loser rates 0.8441 / 0.8481 / 0.7228 / 0.7788 and lifts 1.003 / 1.003 / 0.997 / 0.993 as reported; loser recall = skip share x lift as expected. (3) Bridge: the identities gross_inr + 650 = pts x 65, cost_inr = charges_inr + 650, net = pts x 65 - cost hold on every IS row of all four tables; Foundation net, avoided price move, avoided costs, REENTER delta, FZ-book net and cost share of gain (1.0409 / 1.1637 / 1.9821 / 5.9164) reproduced exactly and the bridge closes; skipped rows' aggregate pts positive on all four tables (2,328 / 8,493 / 3,366 / 6,033). (4) Big winners: 268/225/1,478,374 and 111/94 (1m L1), 294/250 and 146/121 (1m L0), 148/95/654,319 and 73/48 (5m L1), 128/82 and 90/54 (5m L0) reproduced. (5) Gate columns: fz_gate and fz_block_reason are in Table.asof_columns(); fzpost_outcome_gate and fz_traded are not; the post-column variants (frozen, not_block, skip_only:*) are labelled diagnostic / comparator in the config (uses_post_column) and in FINDINGS, and no candidate config was written; not_block_asof (fz_gate != BLOCK) is as-of and its go_no_go correctly fails kept_mean_slip8 (-1379.07) and sign_blocks (6/12) on 1m/L1, and diff/control on 5m. As-of vs outcome gate differ on 11 rows (1m, BLOCK->REENTER, fzpost_fill_delay_bars = 1 on all 11) and 96 rows (5m, WATCH->REENTER, delay 1 on all 96); rows with FZ net != label net 11 / 94; TAKE rows changed 0. The five skip_only keys equal the full set of block keys containing ':' on every table (none missed). (6) OOS discipline: no 2026 date in any big-winner CSV (max 2025-12-31); no 'OOS' token in TABLES.md or h1_summary.json; crosscheck reads only fz_v3/built/study/h1_1m_IS_by_*.csv and h1_1m_big_winners_skipped_IS.csv (no OOS file exists in that folder). (7) Family: PBO(diff) 0.5823 / 0.9298 / 0.5457 / 0.7238 and effective trials 1.54 / 1.72 / 1.62 / 1.68 recomputed identically from the ledger vectors; SPA on the 1-minute tables reproduces 0.0355 / 0.183 with the study's tag. (8) Prose vs CSV: by-read kept shares (ACCEPTED 0.553, FIRST_PRINT 0.488, LEAVE 0.308, NEW 0.026 mean -831, RECYCLE mean -539), by-hour kept-minus-skipped (+636 / -279 / +455 / -148 / +108 / -479), <09:25 189 rows / 3 kept / mean -843 / 25% winners / 28 big all skipped, BLOCK:clock 55 rows 0 winners, 5m take_why leave branch (leave_vol_fail 113 at -114, leave_into_recycle 98 at -32, leave_gap_quiet 12 at +170), 5m block-key table, big-winner kept shares 43/268 = 0.160 and 53/148 = 0.358 all match. (9) Design compliance: L1 primary with L0 robustness; active-session vectors (578 / 408) per the judges' fix; no threshold search, so the splitter is rightly unused and declared; no features_ext written by this study; pre-registered go/no-go applied to every variant and none passes. Not checked: the fz_report random_control / permutation_p internals beyond confirming the module writes no files."
+ },
+ "key": "v2:ea1d4f7fb22380bf3361c4826589976658e07e97eba6affaa8729a4e11df8eb7",
+ "transcript": "audit/workflows/phase1/agent-a60acc94d12d03442.jsonl",
+ "meta": "audit/workflows/phase1/agent-a60acc94d12d03442.meta.json"
+}

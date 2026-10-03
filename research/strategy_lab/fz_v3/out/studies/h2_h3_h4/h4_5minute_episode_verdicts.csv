@@ -1,0 +1,11 @@
+kind,verdict,n,cut_break_n,share
+prot,broke,509,0,0.4336
+prot,held,645,0,0.5494
+prot,session_end,20,6,0.017
+room,broke,15730,0,0.4284
+room,held,19025,0,0.5181
+room,na,561,0,0.0153
+room,session_end,1404,281,0.0382
+swing,broke,11155,0,0.4442
+swing,held,12721,0,0.5065
+swing,session_end,1239,233,0.0493

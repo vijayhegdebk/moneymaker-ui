@@ -1,0 +1,12 @@
+{
+ "5minute": {
+  "signals_before_cut": 872,
+  "truncated": 872,
+  "identical": true
+ },
+ "minute": {
+  "signals_before_cut": 5737,
+  "truncated": 5737,
+  "identical": true
+ }
+}

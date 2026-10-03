@@ -1,0 +1,45 @@
+{
+ "tf": "5minute",
+ "best_learner": "B",
+ "exit_rules": [],
+ "fields_per_bar": [
+  "bars_held",
+  "unreal_pts",
+  "unreal_R",
+  "unreal_atr",
+  "mfe_R",
+  "mae_R",
+  "dd_from_mfe_R",
+  "session_bar",
+  "bars_to_sqoff",
+  "atr14",
+  "vol_ratio20",
+  "read_LEAVE",
+  "read_PENDING",
+  "read_THIN",
+  "read_NEW",
+  "read_REJECT",
+  "read_ACCEPTED",
+  "read_FIRST_PRINT",
+  "read_RECYCLE",
+  "read_HUNT",
+  "room_ahead_atr",
+  "room_behind_atr",
+  "n_choch_since_bos",
+  "choch_against",
+  "lots_remaining"
+ ],
+ "shippable_form_learner_C": null,
+ "note": "a new key type (a per-bar rule evaluator): a user decision; learner C's keys {stop, scale_out, trail, square_off, time_stop_bars, exit_on_choch_against} are the shippable form",
+ "provenance": {
+  "source": "learned on IS 2021-10..2025-12",
+  "script": "05_evaluate.py",
+  "statistic": {
+   "best_learner": "B",
+   "best_learner_oof_mean": -777.31,
+   "visited_decision_states": 17298,
+   "exit_decisions": 0,
+   "note": "the best learner exits early on fewer than 20 visited states: nothing to distil (the policy is 'hold to the stop / 15:25')"
+  }
+ }
+}

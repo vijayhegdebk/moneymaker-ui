@@ -1,0 +1,4 @@
+minute: 4452 trades, 331993 states, 327541 decision states x 2 actions = 655082 regression rows per fit, rss 902 MB
+{"fold": 0, "test_blocks": [0, 1, 2, 3], "train_trades": 2746, "test_trades": 1677, "purged": 29, "test_states": 118209, "test_mean": -969.21, "test_fnd_mean": -941.9, "exit_early_share": 0.2815, "exit_flag_share": 0.0415, "q_exit_fit_mae": 120.2, "seconds": 3078.2, "rss_mb": 989}
+{"fold": 1, "test_blocks": [4, 5, 6, 7], "train_trades": 3031, "test_trades": 1421, "purged": 0, "test_states": 106085, "test_mean": -1010.4, "test_fnd_mean": -970.6, "exit_early_share": 0.3174, "exit_flag_share": 0.0695, "q_exit_fit_mae": 211.52, "seconds": 4408.9, "rss_mb": 999}
+{"fold": 2, "test_blocks": [8, 9, 10, 11], "train_trades": 3098, "test_trades": 1354, "purged": 0, "test_states": 107699, "test_mean": -935.3, "test_fnd_mean": -1134.41, "exit_early_share": 0.3257, "exit_flag_share": 0.023, "q_exit_fit_mae": 118.78, "seconds": 2199.4, "rss_mb": 1000}

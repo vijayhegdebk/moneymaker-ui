@@ -1,0 +1,85 @@
+{
+ "tf": "5minute",
+ "rules": {
+  "break_mode": "touch",
+  "choch_mode": "touch",
+  "avwap_weight": "volume",
+  "sl_rule": "choch_candle"
+ },
+ "pool": "IS full sessions (75 bars)",
+ "sessions": 1016,
+ "runs": {
+  "real_order": {
+   "sessions": 1016,
+   "choch": 1187,
+   "bos": 5547,
+   "setups": 801,
+   "swings": 22868,
+   "choch_per_session": 1.1683,
+   "bos_per_session": 5.4596,
+   "setups_per_session": 0.7884
+  },
+  "real_order_x2_price": {
+   "sessions": 1016,
+   "choch": 1187,
+   "bos": 5547,
+   "setups": 801,
+   "swings": 22868,
+   "choch_per_session": 1.1683,
+   "bos_per_session": 5.4596,
+   "setups_per_session": 0.7884
+  },
+  "real_order_rebased_real_gaps": {
+   "sessions": 1016,
+   "choch": 1187,
+   "bos": 5547,
+   "setups": 801,
+   "swings": 22868,
+   "choch_per_session": 1.1683,
+   "bos_per_session": 5.4596,
+   "setups_per_session": 0.7884
+  },
+  "real_order_random_gaps": {
+   "sessions": 1016,
+   "choch": 1399,
+   "bos": 5499,
+   "setups": 927,
+   "swings": 22798,
+   "choch_per_session": 1.377,
+   "bos_per_session": 5.4124,
+   "setups_per_session": 0.9124
+  },
+  "shuffled_sessions_real_gap_sequence": {
+   "sessions": 1016,
+   "choch": 1390,
+   "bos": 5429,
+   "setups": 924,
+   "swings": 22786,
+   "choch_per_session": 1.3681,
+   "bos_per_session": 5.3435,
+   "setups_per_session": 0.9094
+  },
+  "shuffled_sessions_zero_gaps": {
+   "sessions": 1016,
+   "choch": 1396,
+   "bos": 5535,
+   "setups": 937,
+   "swings": 22639,
+   "choch_per_session": 1.374,
+   "bos_per_session": 5.4478,
+   "setups_per_session": 0.9222
+  },
+  "real_order_zero_gaps": {
+   "sessions": 1016,
+   "choch": 1767,
+   "bos": 5445,
+   "setups": 1150,
+   "swings": 22566,
+   "choch_per_session": 1.7392,
+   "bos_per_session": 5.3593,
+   "setups_per_session": 1.1319
+  }
+ },
+ "scale_free": true,
+ "seconds": 192.4
+}

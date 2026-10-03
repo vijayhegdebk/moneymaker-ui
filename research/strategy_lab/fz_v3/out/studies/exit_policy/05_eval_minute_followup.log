@@ -1,0 +1,353 @@
+                                                          policy  mean_per_lot  diff_vs_foundation  random_pct  regret_vs_oracle_free  signflip_blocks_p1      boot_diff_ci90
+0                 Foundation L1 exit (stop / next CHoCH / 15:25)      -1009.61                0.00        97.0                3569.61                 NaN                 NaN
+1  ST9 R-ladder (3 lots, stop 50, 1R/2R, trail 3R lag 1) per lot      -1010.71               -1.10        97.0                3570.71              0.3286      [-66.95, 63.6]
+2                                         C nested-CV pick (OOF)       -923.04               86.57       100.0                3483.03              0.0149      [22.1, 151.74]
+3                                     C in-sample best (a trial)       -904.77              104.84       100.0                3464.77              0.0125     [36.72, 172.77]
+4                                    B hindsight imitation (OOF)       -908.80              100.80       100.0                3468.80              0.0129     [32.95, 167.98]
+5                               A FQI pessimistic ensemble (OOF)       -972.05               37.56        99.8                3532.05              0.2034     [-26.69, 99.52]
+6       hindsight oracle, best close exit, no stop (upper bound)       2560.00             3569.61       100.0                   0.00              0.0002  [3289.45, 3881.03]
+7             hindsight oracle on the Foundation-stop trajectory       1357.95             2367.55       100.0                1202.05              0.0002  [2186.03, 2544.05]
+8                       random exit (2,000 draws): mean of means      -1078.86              -69.25        50.0                3638.86                 NaN                 NaN
+{
+ "spa_family_C": {
+  "family": "learner C grid, 1568 variants (the pre-registered family of 02_c_select.py)",
+  "harness_sha": "0fe3d75a0bd6e78d",
+  "tag": "exit|minute",
+  "candidates": 1568,
+  "sessions": 578,
+  "draws": 2000,
+  "min_active_sessions": 28,
+  "excluded_from_studentised": 0,
+  "best_unstudentised": 392,
+  "best_mean_gain_unstudentised": 87.83,
+  "rc_p_unstudentised": 0.6845,
+  "spa_p_unstudentised": 0.5405,
+  "best": 785,
+  "best_mean_gain": 82.84,
+  "best_t": 1.683,
+  "best_active_sessions": 578,
+  "rc_p": 0.501,
+  "spa_p": 0.396,
+  "best_keys": {
+   "index": 785,
+   "id": "d8a15b106b41458f",
+   "family": "exit_policy/C",
+   "keys": {
+    "stop": 75,
+    "scale": "none",
+    "trail": "none",
+    "time_stop": null,
+    "choch": true
+   },
+   "active_sessions": 578,
+   "mean_gain": 82.84,
+   "t_studentised": 1.683,
+   "diff_vs_foundation": -13.27
+  },
+  "best_keys_unstudentised": {
+   "index": 392,
+   "id": "c6ed4681f81828d7",
+   "family": "exit_policy/C",
+   "keys": {
+    "stop": 50,
+    "scale": "none",
+    "trail": "none",
+    "time_stop": null,
+    "choch": false
+   },
+   "active_sessions": 578,
+   "mean_gain": 87.83,
+   "t_studentised": 1.019,
+   "diff_vs_foundation": 50.06
+  }
+ },
+ "excluded": [],
+ "spa_all_trials": {
+  "family": "every exit trial of the timeframe: 1572 rows (C variants + C nested pick + C in-sample best + learners B and A); comparators and CPCV paths excluded",
+  "harness_sha": "0fe3d75a0bd6e78d",
+  "tag": "exit|all|minute",
+  "candidates": 1572,
+  "sessions": 578,
+  "draws": 2000,
+  "min_active_sessions": 28,
+  "excluded_from_studentised": 0,
+  "best_unstudentised": 392,
+  "best_mean_gain_unstudentised": 87.83,
+  "rc_p_unstudentised": 0.695,
+  "spa_p_unstudentised": 0.538,
+  "best": 785,
+  "best_mean_gain": 82.84,
+  "best_t": 1.683,
+  "best_active_sessions": 578,
+  "rc_p": 0.5075,
+  "spa_p": 0.3965,
+  "best_keys": {
+   "index": 785,
+   "id": "d8a15b106b41458f",
+   "family": "exit_policy/C",
+   "keys": {
+    "stop": 75,
+    "scale": "none",
+    "trail": "none",
+    "time_stop": null,
+    "choch": true
+   },
+   "active_sessions": 578,
+   "mean_gain": 82.84,
+   "t_studentised": 1.683,
+   "diff_vs_foundation": -13.27
+  },
+  "best_keys_unstudentised": {
+   "index": 392,
+   "id": "c6ed4681f81828d7",
+   "family": "exit_policy/C",
+   "keys": {
+    "stop": 50,
+    "scale": "none",
+    "trail": "none",
+    "time_stop": null,
+    "choch": false
+   },
+   "active_sessions": 578,
+   "mean_gain": 87.83,
+   "t_studentised": 1.019,
+   "diff_vs_foundation": 50.06
+  }
+ }
+}
+{
+ "distillation": {
+  "best_learner": "B",
+  "best_learner_oof_mean": -908.8,
+  "visited_decision_states": 317981,
+  "exit_decisions": 314,
+  "fidelity_accuracy": 0.9822,
+  "fidelity_exit_recall": 0.9873,
+  "fidelity_exit_precision": 0.0518,
+  "distilled_policy_is_mean": -1075.16,
+  "distilled_policy_diff_vs_foundation": -65.55,
+  "distilled_policy_random_pct": 56.5,
+  "distilled_early_exit_share": 0.9861,
+  "rules_n": 3
+ },
+ "rules": [
+  {
+   "if": {
+    "bars_held": [
+     "<=",
+     1.5
+    ],
+    "dd_from_mfe_R": [
+     "<=",
+     0.2595
+    ]
+   },
+   "then": "exit_all",
+   "support": 2780,
+   "exit_share": 0.785
+  },
+  {
+   "if": {
+    "bars_held": [
+     "<=",
+     1.5
+    ],
+    "dd_from_mfe_R": [
+     ">",
+     0.2595
+    ]
+   },
+   "then": "exit_all",
+   "support": 1610,
+   "exit_share": 0.995
+  },
+  {
+   "if": {
+    "bars_held": [
+     ">",
+     1.5
+    ],
+    "session_bar": [
+     ">",
+     355.5
+    ],
+    "dd_from_mfe_R": [
+     "<=",
+     0.1228
+    ]
+   },
+   "then": "exit_all",
+   "support": 1589,
+   "exit_share": 0.96
+  }
+ ],
+ "gate": {
+  "C_nested": {
+   "harness_id": "ac28bea0c7c26c6f",
+   "ledger_row": "existing row reused (scored 2026-09-29T04:29:19)",
+   "kept_n": 745,
+   "kept_mean": -1007.56,
+   "skipped_mean": -906.05,
+   "diff": -101.51,
+   "control_pct": 47.2,
+   "perm_p": 0.4808,
+   "sign_blocks": 6,
+   "kept_mean_slip8": -1397.52,
+   "winner_recall_weighted": 0.1667,
+   "gate_rows": {
+    "n": 745,
+    "foundation_mean": -1026.02,
+    "exit_mean": -1007.56,
+    "diff": 18.46,
+    "signflip_blocks": {
+     "stat": 76.69,
+     "blocks": 12,
+     "p_one_sided": 0.2639,
+     "p_two_sided": 0.5278,
+     "blocks_positive": 7
+    },
+    "signflip_sessions": {
+     "stat_per_session": 34.91,
+     "sessions": 394,
+     "p_one_sided": 0.42,
+     "p_two_sided": 0.872,
+     "sessions_positive": 155,
+     "sessions_negative": 239
+    },
+    "boot": {
+     "draws": 2000,
+     "ci": 0.9,
+     "diff_ci": [
+      -131.98,
+      182.55
+     ],
+     "kept_mean_ci": [
+      -1228.66,
+      -752.54
+     ],
+     "diff_p_le0": 0.408,
+     "diff_point": 18.46
+    },
+    "book_net_foundation": -764386.22,
+    "book_net_exit": -750630.5
+   },
+   "non_gate_rows": {
+    "n": 3707,
+    "foundation_mean": -1006.31,
+    "exit_mean": -906.05
+   }
+  },
+  "B": {
+   "harness_id": "aee3ef4df479e783",
+   "ledger_row": "existing row reused (scored 2026-09-29T04:29:26)",
+   "kept_n": 745,
+   "kept_mean": -1003.52,
+   "skipped_mean": -889.77,
+   "diff": -113.75,
+   "control_pct": 37.6,
+   "perm_p": 0.4473,
+   "sign_blocks": 6,
+   "kept_mean_slip8": -1393.48,
+   "winner_recall_weighted": 0.1635,
+   "gate_rows": {
+    "n": 745,
+    "foundation_mean": -1026.02,
+    "exit_mean": -1003.52,
+    "diff": 22.5,
+    "signflip_blocks": {
+     "stat": 78.6,
+     "blocks": 12,
+     "p_one_sided": 0.2544,
+     "p_two_sided": 0.5088,
+     "blocks_positive": 7
+    },
+    "signflip_sessions": {
+     "stat_per_session": 42.55,
+     "sessions": 394,
+     "p_one_sided": 0.408,
+     "p_two_sided": 0.8285,
+     "sessions_positive": 157,
+     "sessions_negative": 237
+    },
+    "boot": {
+     "draws": 2000,
+     "ci": 0.9,
+     "diff_ci": [
+      -135.29,
+      184.67
+     ],
+     "kept_mean_ci": [
+      -1228.57,
+      -758.91
+     ],
+     "diff_p_le0": 0.441,
+     "diff_point": 22.5
+    },
+    "book_net_foundation": -764386.22,
+    "book_net_exit": -747620.79
+   },
+   "non_gate_rows": {
+    "n": 3707,
+    "foundation_mean": -1006.31,
+    "exit_mean": -889.77
+   }
+  },
+  "A": {
+   "harness_id": "d8498e6c63bb83d2",
+   "ledger_row": "new row, note=followup",
+   "kept_n": 745,
+   "kept_mean": -1077.61,
+   "skipped_mean": -950.83,
+   "diff": -126.78,
+   "control_pct": 18.3,
+   "perm_p": 0.2309,
+   "sign_blocks": 4,
+   "kept_mean_slip8": -1467.58,
+   "winner_recall_weighted": 0.1633,
+   "gate_rows": {
+    "n": 745,
+    "foundation_mean": -1026.02,
+    "exit_mean": -1077.61,
+    "diff": -51.59,
+    "signflip_blocks": {
+     "stat": 1.78,
+     "blocks": 12,
+     "p_one_sided": 0.4924,
+     "p_two_sided": 0.9849,
+     "blocks_positive": 5
+    },
+    "signflip_sessions": {
+     "stat_per_session": -97.55,
+     "sessions": 394,
+     "p_one_sided": 0.7075,
+     "p_two_sided": 0.5915,
+     "sessions_positive": 167,
+     "sessions_negative": 227
+    },
+    "boot": {
+     "draws": 2000,
+     "ci": 0.9,
+     "diff_ci": [
+      -171.72,
+      77.15
+     ],
+     "kept_mean_ci": [
+      -1244.95,
+      -895.1
+     ],
+     "diff_p_le0": 0.752,
+     "diff_point": -51.59
+    },
+    "book_net_foundation": -764386.22,
+    "book_net_exit": -802821.02
+   },
+   "non_gate_rows": {
+    "n": 3707,
+    "foundation_mean": -1006.31,
+    "exit_mean": -950.83
+   }
+  }
+ },
+ "eff_gain": 1.44,
+ "distinct": 957
+}

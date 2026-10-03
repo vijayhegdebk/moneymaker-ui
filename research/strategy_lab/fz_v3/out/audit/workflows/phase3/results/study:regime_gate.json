@@ -1,0 +1,31 @@
+{
+ "agentId": "a8e73b6b37a3982e4",
+ "label": "study:regime_gate",
+ "phase": "Studies",
+ "result": {
+  "study": "regime_gate",
+  "completed": true,
+  "null_result": true,
+  "candidates": "none. Resume: the study folder was already complete (regime_gate.log ends normally at 244.1 s, 89 ledger rows, FINDINGS.md + findings.json written 13:21 UTC; no process running; nothing rerun per STUDY_AGENT_BRIEF 'Resuming'). Shortlist state: features_shortlist/5minute/shortlist.json still n_shortlisted 0 of 39 (sha 4747257f...; registrations.jsonl lines 4/6 only, no newer shortlist line) -> EMPTY-SHORTLIST RULE applied; every ledger row and table labelled 'outside the frozen shortlist (importance rule failed for every cluster)'. Gating question: H2 counts and state posteriors are one cluster only IN PART (cluster 3 = n_choch_since_bos holds gmm3_p0, gmm4_p1, hmm3_p0, hmm3_map_run, hmm4_p2, hmm4_map_run, jump4_state; other posteriors in clusters 0 / 5; jump3_state + jump3_run form their own cluster 25); no state column shortlisted -> the conditional 5-minute run was executed, jump3 added because its cluster-25 SFI gate was the importance family's SPA-best row (4535288bcf0f1148: +827, ctrl 100, perm p 0.078, 8/12), counted in the family. No model passes harness.go_no_go on its nested OOF row (or its fixed rule); only jump4 beats the matched H2 cell on the pooled diff and it fails 7 items (kept_mean_slip8, sign_blocks 7/12, cpcv_p5 -351.99, pbo 0.3194, dsr_p 0.965, boot CI [-47.92, 931.56], session-tape same-sign 0.35). No candidates/ JSON written; no fz key offered (a 40-60-number HMM key would be a user decision in any case).",
+  "key_numbers": "5minute L1 IS, 826 units (mean -757.05, win 0.277). Family regime_gate: 89 ledger rows (25 grid, 5 nested OOF, 55 CPCV paths, 4 distilled), PBO(diff) 0.3194, PBO(kept mean) 0.1768, SPA studentised p 0.0015 (best row jump4 cell eae12cb14cca03b5, gain 358.93/session, t 5.17 over 136 sessions; within-session first-SETUP effect per section 7b), effective trials 1.80, DSR n_trials 89; ledger sha before 9e7241f03ba435dd / after 48625a58eac73cde. Nested OOF (12 purged folds; chop+tau in training folds) diff / ctrl pct / perm p / sign blocks / CPCV median / CPCV p5 / boot 90% CI: hmm3 f04d658f0f2cd264 -509.09 / 0.9 / 0.100 / 4 / -482.50 / -703.28 / [-1007.46,-7.24]; hmm4 0af965c7aa190f00 -910.40 / 6.7 / 0.009 / 3 / -559.62 / -883.41 / [-1426.06,-362.50]; gmm4 760b31266f2a2979 -108.90 / 11.2 / 0.743 / 7 / -130.68 / -298.33 / [-657.61,405.70]; jump4 9d7f9977cc402b7a +453.10 / 100.0 / 0.155 / 7 / +203.49 / -351.99 / [-47.92,931.56] (top-1%-removed 614.62, kept mean slip8 -970.93, DSR p 0.965, kept share 0.6114); jump3 16d86a30133971e4 -731.58 / 0.4 / 0.028 / 2 / -615.15 / -689.87 / [-1106.23,-360.51]. Chop pick unstable across folds: hmm3 0/1, hmm4 1/2/3, gmm4 1/2, jump3 0/1/2; jump4 state 1 in all 12 (hard state, tau degenerate). Fixed rules (all-IS trials): hmm3 s0 tau0.7 262.27 (ctrl 12.7); hmm4 s1 tau0.9 1128.16 (22 skipped, ctrl 77.5); gmm4 s1 tau0.5 484.42 (ctrl 1.6); jump4 s1 453.10 (ctrl 100); jump3 s1 55.44 (ctrl 21.9). Matched H2: n_choch_since_bos>=2 cdd9b4281b0e451c kept 0.686 diff 257.83 ctrl 45.9 (today-scope k=2: 0.7312 / 630.08) -> beaten only by jump4 (all), by none (today). Null tapes (frozen models refit, verified vs ext_features.parquet: max |posterior diff| 6.7e-9 / 1.6e-9 / 0 / 0 / 0; 20 tapes/generator): jump4 453.10 > gmm p95 389.70 and segment p95 431.20 but session same-sign 0.35 -> fail; hmm4 (1001.22 / 1117.09 / 0.75) and gmm4 (282.19 / 353.91 / 0.85) fixed rules pass tapes but nested rows negative; hmm3 (291.92 / 437.59) and jump3 (591.83 / 614.21) below both p95. Distillation (depth-3 tree, 234 base as-of cols minus sl / n_events_asof): OOF fidelity hmm3 0.914, hmm4 0.963 (below majority baseline 0.973: never skips), gmm4 0.869, jump4 0.820 (not expressible compactly), jump3 0.903; distilled OOF gates 56df6406dda24d86 (+300.36, ctrl 8.1), d381c2c0921ed6cf (-12.13), 18d0cf5ba5b1f542 (+12.85), b4642aef127b8d07 (-657.35). jump3 claim: the SFI +827 row is not reproduced by the state-only nested gate (OOF -731.58, 0/11 paths positive).",
+  "problems": "None new. Pre-existing caveats recorded in FINDINGS section 14: all columns outside the frozen (empty) shortlist; 5 minutes only; state models frozen on the first IS half so posteriors inside that window are label-free in-sample; jump tau grid degenerate; no minimum-support guard on the chop state (design as written); CPCV path rows carry the vocabulary label only in config.vocabulary (score_paths passes no note). The two adversarial refuters (verify:regime_gate:leakage / arithmetic) are separate workflow agents whose earlier results were lost in the second cut-off (audit result null); they are to be re-run by the workflow, not by this study agent.",
+  "files": [
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/FINDINGS.md",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/findings.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/rg_lib.py",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/regime_gate.py",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/diagnostics.py",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/write_findings.py",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/regime_gate.log",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/results.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/grid.csv",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/nested_folds.csv",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/cpcv_paths.csv",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/state_tables_is.csv",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/tape_diffs.csv"
+  ]
+ },
+ "key": "v2:73ec59648ee62877d486952870b3a8f8584a5e49df76a6c2826c1e904715b4bd",
+ "transcript": "audit/workflows/phase3/agent-a8e73b6b37a3982e4.jsonl",
+ "meta": "audit/workflows/phase3/agent-a8e73b6b37a3982e4.meta.json"
+}

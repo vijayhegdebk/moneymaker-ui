@@ -1,0 +1,68 @@
+[
+{
+"name": "hour_bin=09",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "09"
+},
+{
+"name": "hour_bin=10",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "10"
+},
+{
+"name": "hour_bin=11",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "11"
+},
+{
+"name": "hour_bin=12",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "12"
+},
+{
+"name": "hour_bin=13",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "13"
+},
+{
+"name": "hour_bin=14",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "14"
+},
+{
+"name": "hour_bin=15",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "15"
+},
+{
+"name": "hour_bin=<09:25",
+"source": "hour_bin",
+"kind": "onehot",
+"level": "<09:25"
+},
+{
+"name": "hour_bin=>=15:20",
+"source": "hour_bin",
+"kind": "onehot",
+"level": ">=15:20"
+},
+{
+"name": "dir=down",
+"source": "dir",
+"kind": "onehot",
+"level": "down"
+},
+{
+"name": "dir=up",
+"source": "dir",
+"kind": "onehot",
+"level": "up"
+}
+]

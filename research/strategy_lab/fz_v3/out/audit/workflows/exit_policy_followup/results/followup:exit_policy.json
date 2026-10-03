@@ -1,0 +1,36 @@
+{
+ "agentId": "affacd33b0caa9890",
+ "label": "followup:exit_policy",
+ "phase": "Follow-up",
+ "result": {
+  "study": "exit_policy",
+  "completed": true,
+  "null_result": true,
+  "candidates": "none \u2014 pass rule fails on both timeframes for the learner C nested pick, learner B and learner A (FQI); the null result stands (no exit policy rescues the book)",
+  "key_numbers": "{\"learner_A_minute_FQI\": {\"ledger_id\": \"25190ffebaf1dc07\", \"oof_mean\": -972.05, \"foundation\": -1009.61, \"diff\": 37.56, \"t\": 1.01, \"random_pct\": 99.8, \"early_exit_share\": 0.3064, \"folds_test_vs_foundation\": {\"0\": [-969.21, -941.9, -27.31], \"1\": [-1010.4, -970.6, -39.8], \"2\": [-935.3, -1134.41, 199.11]}, \"q_fit_mae\": [120.2, 211.52, 118.78], \"early_exit_per_fold\": [0.2815, 0.3174, 0.3257], \"boot_ci90_diff\": [-26.69, 99.52], \"diff_top1_gains_removed\": -51.5, \"signflip_blocks_p1\": 0.2034, \"blocks_positive\": 7, \"vs_B\": -908.8, \"vs_C_nested\": -923.04, \"pass_rule\": \"FAIL (signflip, blocks, boot CI, top1, SPA; CPCV n/a for 3-fold learners)\", \"hurts\": \"below Foundation in 2 of 3 folds; pooled +37.56 not significant\"}, \"learner_A_5minute_FQI\": {\"ledger_id\": \"142df5863c0422ba\", \"oof_mean\": -902.39, \"foundation\": -757.05, \"diff\": -145.34, \"t\": -1.37, \"random_pct\": 62.7, \"boot_ci90_diff\": [-301.88, -1.01], \"folds_below_foundation\": 3, \"hurts\": true}, \"spa_current_harness_sha_0fe3d75a0bd6e78d\": {\"minute_C_family_1568\": {\"studentised_spa_p\": 0.396, \"rc_p\": 0.501, \"unstudentised_spa_p\": 0.5405, \"rc_p_unstudentised\": 0.6845, \"min_active_sessions\": 28, \"excluded\": 0, \"old_studentised_spa_p\": 0.396}, \"5minute_C_family_1568\": {\"studentised_spa_p\": 0.4965, \"rc_p\": 0.5175, \"unstudentised_spa_p\": 0.1505, \"rc_p_unstudentised\": 0.2465, \"min_active_sessions\": 20, \"excluded\": 0, \"old_studentised_spa_p\": 0.4965}, \"all_trials_1572\": {\"minute\": [0.3965, 0.538], \"5minute\": [0.4825, 0.1505]}, \"excluded_candidates\": \"none on either timeframe: every grid variant's selection gain is non-zero in every active session (no variant applies the next-CHoCH exit), so the studentised numbers are unchanged; the revision adds the unstudentised p\"}, \"gate_x_exit_A\": {\"minute\": {\"harness_id\": \"d8498e6c63bb83d2\", \"kept_mean\": -1077.61, \"diff\": -126.78, \"control_pct\": 18.3}, \"5minute\": {\"harness_id\": \"244ab07b9f1c0f15\", \"kept_mean\": -862.61, \"diff\": 65.58, \"control_pct\": 8.3}}, \"5minute_eval_first_run\": {\"C_nested_top1_gains_removed\": -204.16, \"effective_trials_gain\": 2.28, \"distinct_gain_vectors\": 720, \"B_distillation\": \"0 early-exit decisions, nothing to distil\"}, \"ledgers\": {\"exit_ledger_rows\": 3174, \"exit_ledger_appended\": 0, \"harness_new_rows_note_followup\": [\"d8498e6c63bb83d2\", \"c848ec6556660c33\", \"9761a89581b47c91\", \"244ab07b9f1c0f15\"], \"harness_rows_reused\": [\"ac28bea0c7c26c6f\", \"aee3ef4df479e783\"], \"duplicate_ids\": 0}, \"pass_rule_verdict\": {\"minute\": {\"C_nested\": \"no candidate (top1 -67.49, SPA 0.396)\", \"B\": \"no candidate\", \"A\": \"no candidate\"}, \"5minute\": {\"C_nested\": \"no candidate\", \"B\": \"no candidate\", \"A\": \"no candidate\"}}}",
+  "files": [
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/exit_policy/FINDINGS.md",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/exit_policy/findings.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/exit_policy/05_evaluate.py",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/exit_policy/06_findings.py",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/exit_policy/eval_minute.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/exit_policy/eval_table_minute.csv",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/exit_policy/eval_5minute.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/exit_policy/eval_table_5minute.csv",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/exit_policy/exit_rules_5minute.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/exit_policy/05_eval_minute_followup.log",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/exit_policy/05_eval_5minute.log",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/exit_policy/06_findings_followup.log",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/exit_policy/a_result_minute.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/ledger/trials.jsonl",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/ledger/vectors/d8498e6c63bb83d2_IS.npz",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/ledger/vectors/c848ec6556660c33_IS.npz",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/ledger/vectors/9761a89581b47c91_IS.npz",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/ledger/vectors/244ab07b9f1c0f15_IS.npz"
+  ],
+  "problems": "(1) The refuter's premise that a near-benchmark variant inflated the studentised SPA does not hold for this family: with the current harness.spa (sha 0fe3d75a0bd6e78d, same 1,568 variants, same bootstrap tag) zero candidates are excluded on either timeframe and the studentised p / RC p / best variant are identical to the old numbers; only the unstudentised p is new (1m 0.5405, 5m 0.1505). Stated plainly in FINDINGS section 3 and 10. (2) FINDINGS also said \"5minute: not finished\" for learner A and 05_evaluate.py had never been run for 5minute (no eval_5minute.json), leaving section 9 PRELIMINARY; I ran 05_evaluate.py 5minute (a finalize step, ~1.5 min; no learner or grid rerun) so both timeframes are folded the same way \u2014 this is one step beyond the two named items, done under the \"both timeframes\" rule and disclosed in section 10. (3) 04_a_minute.log lacks its final summary line (lost to the 06:24 inode incident); a_result_minute.json and the exit-ledger row are complete, so nothing was rerun. (4) c_select_<tf>.json's spa block (finished stage output) was not edited; eval_<tf>.json spa_family supersedes it and findings.json / FINDINGS carry the new block (old kept only as spa_superseded_02_c_select). (5) Harness ledger: gate x exit rows already present for minute were reused by id (no duplicate rows), 4 new rows carry note=followup; the exit ledger was not appended to. (6) The worktree also shows modified files under studies/importance and studies/rocket_ceiling and ledger/registrations.jsonl from concurrent agents \u2014 not touched here. (7) A stale bash monitor loop (pid 14333, from an earlier agent) still polls for \"04_a_fqi.py minute\" because pgrep matches its own command line; harmless, left running. (8) Nothing committed (brief)."
+ },
+ "key": "v2:19a99621054b3921e081d38447cca0209383ad16adf73083cbced2b2ceb6b283",
+ "transcript": "audit/workflows/exit_policy_followup/agent-affacd33b0caa9890.jsonl",
+ "meta": "audit/workflows/exit_policy_followup/agent-affacd33b0caa9890.meta.json"
+}

@@ -1,0 +1,10 @@
+[05:23:43] 5minute: IS units 826 (early 412, late 414), design (1002, 236)
+[05:23:43] 5minute: time proxies (|rho| >= 0.9 with session_idx): [('n_events_asof', 1.0), ('sl', 0.928)]
+[05:23:46] minute: IS units 4452 (early 2268, late 2184), design (5266, 244)
+[05:23:47] minute: time proxies (|rho| >= 0.9 with session_idx): [('n_events_asof', 1.0), ('sl', 0.936)]
+[05:50:46] 5minute A_all_asof: OOF AUC 0.9031 (permuted p50 0.4909, p95 0.5418) in 1623s
+[06:08:05] minute A_all_asof: OOF AUC 0.9961 (permuted p50 0.4961, p95 0.5111) in 2658s
+[06:13:45] 5minute B_without_time_proxies: OOF AUC 0.9472 (permuted p50 0.4930, p95 0.5255) in 1378s
+[06:13:51] 5minute top-10 drifted (B): atr_bps (lower in IS-late, shift -0.51 sd), atr14 (higher in IS-late, shift +0.30 sd), range_3h_pts (higher in IS-late, shift +0.27 sd), n_rooms_alive (higher in IS-late, shift +0.02 sd), hv3_ratio (higher in IS-late, shift +0.12 sd), sess_cumvol_ratio20s (higher in IS-late, shift +0.18 sd), days_to_expiry (higher in IS-late, shift +0.18 sd), sess_vol_vs_prev_sess (higher in IS-late, shift +0.16 sd), choch_bar_range_atr (lower in IS-late, shift -0.06 sd), hv2_ratio (higher in IS-late, shift +0.19 sd)
+[06:13:51] drift_5minute.json written
+[06:38:44] minute B_without_time_proxies: OOF AUC 0.9733 (permuted p50 0.4985, p95 0.5239) in 1839s

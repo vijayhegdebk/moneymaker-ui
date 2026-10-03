@@ -1,0 +1,11 @@
+[16:14:12 +    0.0s rss  205.0 MB] === minute
+/usr/local/lib/python3.11/dist-packages/numpy/lib/_function_base_impl.py:3023: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/usr/local/lib/python3.11/dist-packages/numpy/lib/_function_base_impl.py:3024: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[None, :]
+[16:14:21 +    8.7s rss  240.2 MB] minute family: 432 rows (388 L1), PBO(diff) 0.4045, SPA p 0.936 (unstud 0.598), eff trials 1.25, 8.2s
+[16:14:26 +   14.4s rss  378.9 MB] === 5minute
+[16:14:39 +   26.7s rss  408.1 MB] 5minute family: 540 rows (488 L1), PBO(diff) 0.517, SPA p 0.0565 (unstud 0.01), eff trials 1.22, 11.6s
+/usr/local/lib/python3.11/dist-packages/numpy/lib/_nanfunctions_impl.py:1573: RuntimeWarning: All-NaN slice encountered
+  return _nanquantile_unchecked(
+[16:14:48 +   35.8s rss  368.4 MB] FINDINGS.md and findings.json written; null_result=True; candidates=[]

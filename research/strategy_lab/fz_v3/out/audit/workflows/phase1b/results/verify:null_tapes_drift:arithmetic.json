@@ -1,0 +1,45 @@
+{
+ "agentId": "af6dd0a604185cc01",
+ "label": "verify:null_tapes_drift:arithmetic",
+ "phase": "Verify",
+ "result": {
+  "refuted": false,
+  "severity": "minor",
+  "issues": [
+   {
+    "what": "The segment-bootstrap tape is called a 'memory-free null' alongside GMM-Markov, but a 30-bar block is 2.5 hours on the 5-minute tape and retains most of the SETUP's own structure and outcome path; attributions of 'engine mechanics, not market memory' are clean only for the GMM tapes. Conservative for the pass rule (a candidate must beat both p95s), so no false-pass risk, but the label overstates.",
+    "where": "OUT/studies/null_tapes_drift/FINDINGS.md lines 10 ('the two memory-free nulls (GMM-Markov and segment)'), 84, 226; gen_tapes.py lines 11-13",
+    "evidence": "Recomputed on the real IS L1 units: 5minute bars_since_choch p50 2 (98.9% <= 30 bars), bars_since_bos p50 9 (87.3% <= 30), 53.5% of L1 trades have their whole SETUP->exit path inside a clock-aligned 30-bar block (79.3% exit within 30 bars); minute: 99.8% / 88.4% / 43.3%. Reality table confirms the segment tape matches real |r| autocorr at lags 1-5 (0.22 vs 0.234) where GMM dies by lag 3.",
+    "fix": "In FINDINGS section 1/4b/7 call the segment tape 'short-memory null (<= 30 bars = 2.5 h on 5 min, 30 min on 1 min)' and rest the 'not market memory' reading on the GMM tapes; keep the pass rule as is (it is the stricter of the two)."
+   },
+   {
+    "what": "The pass-rule component 'session-bootstrap diffs carry the real sign in >= 75% of tapes' is presented as pre-registered (DESIGN_PANEL (c) + Judge 1) but does not appear in DESIGN_PANEL.md or BRIEF.md; it is the study's own addition. It is an extra requirement (stricter), so it cannot produce a false pass.",
+    "where": "FINDINGS.md line 226; tapes.py docstring lines 19-23 ('at least 15 of 20 tapes'); run_tapes.py lines 89-93 (how_to_compare)",
+    "evidence": "grep of fz_v3/*.md for '75%', '15 of 20', 'same sign', 'stability read' matches only the study's own files; DESIGN_PANEL.md line 376 says only 'report the kept-vs-skipped difference on (i) (stability)' and the go/no-go 'real-tape difference above the null-tape 95th percentile'.",
+    "fix": "Label the 75% session-bootstrap sign criterion as the study's fixed choice (not pre-registered) in FINDINGS section 7 and findings.json.how_to_evaluate_candidate."
+   },
+   {
+    "what": "Caveat on INR scaling with the tape's price level is stated in one direction ('a high-level tape widens the null in INR ... conservative') but the 1-minute tapes sit BELOW the real average level, so their INR null is narrower (anti-conservative by ~13-16%); the caveat also omits that the minute null is built from 1-year tapes (~1,000-1,400 units) while the real minute statistic uses 4,452 units, which is the main reason it is wider (~2x sd), not the 8-tape count alone.",
+    "where": "FINDINGS.md lines 230 and 235 (caveats 1 and 6)",
+    "evidence": "Recomputed mean close over all bars: real IS 20,877; minute tapes p50 gmm 17,576 / segment 18,138 / session 18,230; 5minute tapes p50 21,949 / 21,560 / 22,400 (so the caveat holds for 5 min only). Units per minute tape p50 1,436 / 1,126 / 1,032 (null_distributions.json) vs real n 4,452 (ledger 249b8433a25f5b8a).",
+    "fix": "Split caveat 1 by timeframe (5 min: slightly higher level, conservative; 1 min: lower level, narrower INR null) and add the 1-year-vs-5-year sample-size mismatch to caveat 6 as the dominant, conservative source of width."
+   },
+   {
+    "what": "The 'chance level' for the drift AUC is a row-wise label permutation; for a temporally contiguous label (11 of 12 blocks single-class) this is the exchangeable-rows null, which any long-memory feature beats, so 'well above chance' is correct but the formal null is weak. The substantive reading (level/volatility regime drift, AUC 0.95/0.97) does not depend on it, and the design asked only for AUC + SHAP.",
+    "where": "FINDINGS.md lines 12, 153-157; drift.py lines 10-12, 46-56",
+    "evidence": "Recomputed: only block 5 contains both early and late rows (block sizes 5minute [82,83,42,76,72,73,77,51,76,80,31,83]); perm p95 0.5255/0.5239 reproduce from the stored perm_aucs (5minute p95 0.5417 vs reported 0.5418 is 4-dp rounding of the stored list).",
+    "fix": "State in section 6 that the permutation null is the exchangeable-rows chance level, not a block-preserving null, and read the AUC as a drift magnitude, not a p-value."
+   },
+   {
+    "what": "The brief's per-study deliverable 'the family's PBO / SPA / effective trial count' is not stated for ledger family null_tapes_drift/real_ref (three pre-registered comparator gates per timeframe, no search). Acceptable since nothing was searched, but FINDINGS should say 'not applicable: no search, 3 fixed comparators' explicitly.",
+    "where": "FINDINGS.md sections 3 and 9; findings.json ledger_families",
+    "evidence": "H.read_ledger('null_tapes_drift') returns exactly 6 rows (3 gates x 2 tf), all with config.gate fixed in tapes.MECHANICAL_GATES; no other family written by the study.",
+    "fix": "Add one line to section 9: 'PBO / SPA / effective trials: not applicable (no search; 6 pre-registered comparator rows)'."
+   }
+  ],
+  "verified": "Reproduced from the output files with fresh Python (nothing modified): (1) null_distributions.json and findings.json: every field for all 18 tf x generator x gate cells (p5/p50/p95/mean/min/max, share>0, control pct p50/p95/share>=95, kept share, units, real diff, real percentile, same-sign share, real_above_tape_p95) recomputed from tape_results.csv (252 rows, no duplicates, 20/20/20 and 8/8/8 tapes) with zero mismatches; real_above_tape_p95 = 0 of 18 as reported. (2) Reality tables (16 statistics x 6 generator cells) and poor-null flags recomputed from reality_check.csv: zero mismatches. (3) The six real-reference gates recomputed from OUT/data via harness.load + tapes.mechanical_masks + harness.metrics: diff -365.62 / 257.83 / 33.65 (5m) and -19.71 / -72.50 / 12.07 (1m), kept_n, kept_share, top1-removed, recalls, sign blocks, slip8 all identical to ledger rows 9f4e08a75d0ab931, c994cebf43aa41d5, 71caa03d48830f17, 249b8433a25f5b8a, ace645aec2224464, 21f5c361c64d6fe8; the six vectors exist; ledger script_sha 6d3f02eea570d458 equals the current run_tapes.py sha. (4) Drift: n early/late 412/414 and 2268/2184 recomputed; time proxies n_events_asof rho 1.00, sl 0.93/0.94 recomputed with the next |rho| at 0.41 (clean cut); perm p50/p95/max reproduce from the stored lists (minute exact; 5minute p95 within 1e-4 rounding); A-B = -0.0441 / +0.0228; top5_sources match the top-5 rows; drift_<tf>_features.csv row counts equal variant-B columns (234 / 242); drift.json equals the merge of drift_5minute.json + drift_minute.json and findings.json.drift equals drift.json; drift_run2.log and drift_run3 logs show two independent runs giving identical AUCs 0.9031 / 0.9472 and identical permutation quantiles (deterministic). (5) Tapes: features.parquet on tapes has the same 261-column set as the real table; every tape row and session is split IS; 1026 sessions (2021-10-01..2025-12-31) on 5m and 247 (2024-12-05..2025-12-31) on 1m; 60 + 24 folders; run_5minute.log and run_minute.log show 60/60 and 24/24 built and evaluated, no failures, normal end; build-cost table (SETUPs, seconds, peak RSS p50/min/max) reproduced from every tape's meta.json; engine_scale_check.json: x2 price gives identical counts (scale-free True). (6) No OOS label or feature read beyond harness.design's one-hot level set; tape numbers do not enter the ledger; no candidate proposed; null result stated; controls (session-matched random control percentile, permutation p) reported beside every gate on the real tape and as distributions on the tapes."
+ },
+ "key": "v2:9dab65a7c9af51030147037926123375229089080ea8dd33ff91636eeae9020d",
+ "transcript": "audit/workflows/phase1b/agent-af6dd0a604185cc01.jsonl",
+ "meta": "audit/workflows/phase1b/agent-af6dd0a604185cc01.meta.json"
+}

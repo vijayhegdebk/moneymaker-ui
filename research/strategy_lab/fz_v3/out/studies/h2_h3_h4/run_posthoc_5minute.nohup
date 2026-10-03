@@ -1,0 +1,32 @@
+posthoc_minskip start Tue Sep 29 05:28:27 2026 ledger sha 50a1325d523ee69e min_skip_share 0.1 tf 5minute labels L1,L0 studies h2,h3,h4 note 'repair'
+== h2 5minute_L1: 201 cells
+  nested-CV_minskip OOF: kept 733 (0.8874) diff 1030.84 pct 83.9 p 0.0405 blocks 11 id 12e06107b9d902d0
+  CPCV 11 paths: diff median 657.62 p5 534.55 min 460.56 share>0 1.0 control pct median 76.4 p5 37.0
+  family (incl. this row): 203 candidates, eff 1.44, PBO diff 0.3293 kept 0.5333, SPA p 0.0065 best {'rule': 'range', 'W': '3h', 'q': 0.1}, boot [507.19, 1545.12], DSR p 0.9893, go False
+  pre-registered row 74e1239d4204941d over the completed family: 203 candidates, PBO diff 0.3293, SPA p 0.0065, DSR p 0.9958, go False
+== h3 5minute_L1: 54 cells
+  nested-CV_minskip OOF: kept 217 (0.2627) diff -169.61 pct 100.0 p 0.6322 blocks 6 id 66fc292ca65c4459
+  CPCV 11 paths: diff median -256.78 p5 -607.75 min -667.59 share>0 0.091 control pct median 99.8 p5 92.5
+  family (incl. this row): 56 candidates, eff 2.49, PBO diff 0.6604 kept 0.3937, SPA p 0.0 best {'v': 2, 'N': 20, 'M': 30, 'gate': 'skip_if_none'}, boot [-581.27, 220.65], DSR p 0.9991, go False
+  pre-registered row 8eaee251afffdbb3 over the completed family: 56 candidates, PBO diff 0.6604, SPA p 0.0, DSR p 0.9967, go False
+== h4 5minute_L1: 9 cells
+  nested-CV_minskip OOF: kept 466 (0.5642) diff -414.67 pct 21.9 p 0.1934 blocks 4 id 2d6bb302b6a0f498
+  CPCV 11 paths: diff median -414.67 p5 -598.34 min -601.66 share>0 0.0 control pct median 23.2 p5 4.8
+  family (incl. this row): 11 candidates, eff 1.71, PBO diff 0.6033 kept 0.4748, SPA p 0.1945 best {'level': 'room', 'skip_when_last': 'broke'}, boot [-826.4, -4.94], DSR p 0.9985, go False
+  pre-registered row 9e32a86bcfc8f5ce over the completed family: 11 candidates, PBO diff 0.6033, SPA p 0.18, DSR p 0.9052, go False
+== h2 5minute_L0: 201 cells
+  nested-CV_minskip OOF: kept 701 (0.8425) diff 1899.37 pct 75.2 p 0.045 blocks 11 id eb4bb3599cbc7eb8
+  CPCV 11 paths: diff median 1796.97 p5 1047.07 min 1033.11 share>0 1.0 control pct median 70.1 p5 16.1
+  family (incl. this row): 203 candidates, eff 1.43, PBO diff 0.3043 kept 0.5855, SPA p 0.1185 best {'rule': 'range', 'W': '3h', 'q': 0.2}, boot [1241.99, 2603.36], DSR p 0.6506, go False
+  pre-registered row c04a0d2a19d216fd over the completed family: 203 candidates, PBO diff 0.3043, SPA p 0.1175, DSR p 0.7785, go False
+== h3 5minute_L0: 54 cells
+  nested-CV_minskip OOF: kept 730 (0.8774) diff 1562.03 pct 84.8 p 0.1384 blocks 11 id 5ae936fe9f54e8d0
+  CPCV 11 paths: diff median 560.97 p5 -851.32 min -881.34 share>0 0.545 control pct median 78.2 p5 63.2
+  family (incl. this row): 56 candidates, eff 2.23, PBO diff 0.5312 kept 0.4472, SPA p 0.2455 best {'v': 3, 'N': 20, 'M': 30, 'gate': 'skip_if_none'}, boot [890.97, 2277.53], DSR p 0.6848, go False
+  pre-registered row 0b364a8b48bd9207 over the completed family: 56 candidates, PBO diff 0.5312, SPA p 0.2535, DSR p 0.7838, go False
+== h4 5minute_L0: 9 cells
+  nested-CV_minskip OOF: kept 631 (0.7584) diff 974.61 pct 28.1 p 0.2324 blocks 8 id ad152e5988a98e60
+  CPCV 11 paths: diff median 974.61 p5 -922.4 min -1035.58 share>0 0.818 control pct median 28.9 p5 0.1
+  family (incl. this row): 11 candidates, eff 1.6, PBO diff 0.1556 kept 0.5897, SPA p 0.277 best {'level': 'room', 'skip_when_last': 'held'}, boot [220.72, 1751.01], DSR p 0.545, go False
+  pre-registered row a329912797859321 over the completed family: 11 candidates, PBO diff 0.1556, SPA p 0.2645, DSR p 0.3585, go False
+posthoc done in 1461.8s; ledger sha 1cfa1ba9a7b6e668

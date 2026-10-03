@@ -1,0 +1,5 @@
+[05:38:08 rss 193.0 MB] === importance 5minute stage=finalize dry=True trees=20 bag_jobs=1 xgb_jobs=1 ===
+[05:38:10 rss 233.7 MB] 5minute: design 236 + ext 61 -> dropped nan>40% 38, const 4, binary 2nd level 6, duplicates 28; + 17 missing indicators = 238 features
+[05:38:11 rss 232.6 MB] clustering: 238 features, silhouette best k=39 (0.1502), clusters formed 39, 0.7s
+[05:38:11 rss 233.2 MB] === finalize done 5minute; eligible clusters 0 of 39 ===
+dry_stages done 2026-09-29T05:38:19+00:00

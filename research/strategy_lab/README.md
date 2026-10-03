@@ -42,6 +42,8 @@ swings (Pine port) → protected level → CHoCH / BOS → AVWAP pair from previ
 | `ST21` / `ST22` | Strategy 21 / 22 | 1 min / 5 min | touch | **learner** | the same, reward = R multiple |
 | `ST23` / `ST24` | Strategy 23 / 24 | 1 min / 5 min | touch | **learner** | the same, reward = net with losses weighted 1.5x (profit-factor oriented) |
 
+Numbers 13–14 are reserved for FZ v3 (S49); the 2026-09-29 cloud study ([`fz_v3/out/REPORT.md`](fz_v3/out/REPORT.md), studies under `fz_v3/out/studies/`) found nothing that survived its pre-registered go / no-go on either timeframe, so no `strategy_13.json` / `strategy_14.json` exists and the FZ sleeve stays a card.
+
 Each file holds one strategy: `code`, `name`, `description`, design `timeframe`, `warmup_days`, `rules`
 (`break_mode`, `choch_mode`, `avwap_weight`, `sl_rule`, `entry_rule`, `exit_rule`), `lot_size`, `capital`, per-type charges and
 slippage (`types`), option settings (`options`: expiry types, strike choices / default, ATR period), how positions are held

@@ -1,0 +1,15 @@
+[03:43:08] minute: 443826 bars, 5326 setups, fit window 182557 bars / 489 sessions (bars 0..182556)
+[03:43:13] FFD close: d*(fit) = 0.2, d*(IS) = 0.3, window 497 bars
+[03:43:15] FFD vol: d*(fit) = 0.1, d*(IS) = 0.1, window 503 bars
+[03:43:18] BSADF done (2.7s)
+[03:43:35] BOCPD ret done
+[03:43:51] BOCPD rng done
+[03:43:52] regime vector built; n_choch_since_bos mismatches vs the base table: 0
+[03:43:59] GMM K=3 fitted (12 it)
+[03:44:15] GMM K=4 fitted (10 it)
+[03:44:32] HMM K=3 fitted (71 it, converged True); filter check {'max_abs_diff_last_bar_posterior': 8.359979375427429e-14, 'loglik_diff': 2.0463630789890885e-11}
+[03:44:55] HMM K=4 fitted (59 it, converged True); filter check {'max_abs_diff_last_bar_posterior': 0.0, 'loglik_diff': 9.549694368615746e-12}
+[03:45:01] jump model K=3: lambda* = 16
+[03:45:08] jump model K=4: lambda* = 32
+[03:49:06] novelty done (238.2s)
+[03:49:06] wrote (5326, 62) to ../../features_ext/minute in 358.6s

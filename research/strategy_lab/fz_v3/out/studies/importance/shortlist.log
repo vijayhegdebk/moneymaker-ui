@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/shortlist.py", line 18, in <module>
+    R = {tf: json.load(open(_src(tf, "results_{tf}.json"))) for tf in TFS}
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/shortlist.py", line 18, in <dictcomp>
+    R = {tf: json.load(open(_src(tf, "results_{tf}.json"))) for tf in TFS}
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/results_minute.json'
+run_all done 2026-09-29T06:15:43+00:00
+=== real run 2026-09-29T11:31:31+00:00 ===
+minute: registered /home/user/money-maker/research/strategy_lab/fz_v3/out/features_shortlist/minute/shortlist.json sha256 66f6e004bd93e47c55ca219785a9a30f36d618cbbbd215cfcbad5a44412b5bdb
+5minute: registered /home/user/money-maker/research/strategy_lab/fz_v3/out/features_shortlist/5minute/shortlist.json sha256 4747257f41ecb40f1b3c27ea35cc50868d7c6b91f84f61ab7666911aef019dc9
+FINDINGS.md and findings.json written; {'minute': 0, '5minute': 0} FFD not adopted (clustered MDA <= 1 std on minute, 5minute)
+=== regenerate docs 2026-09-29T11:33:02+00:00 ===
+minute: already registered; not rewriting /home/user/money-maker/research/strategy_lab/fz_v3/out/features_shortlist/minute/shortlist.json
+5minute: already registered; not rewriting /home/user/money-maker/research/strategy_lab/fz_v3/out/features_shortlist/5minute/shortlist.json
+FINDINGS.md and findings.json written; {'minute': 0, '5minute': 0} FFD not adopted (clustered MDA <= 1 std on minute, 5minute)
+=== repair round 2026-09-29T12:11:17+00:00 ===
+  File "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/shortlist.py", line 226
+    (', '.join(f'{f['n_te']} test rows, tau {f['tau']}, kept {f['kept_share']}' for f in fdef))
+                     ^^^^
+SyntaxError: f-string: f-string: unmatched '['
+minute: already registered; not rewriting /home/user/money-maker/research/strategy_lab/fz_v3/out/features_shortlist/minute/shortlist.json
+5minute: already registered; not rewriting /home/user/money-maker/research/strategy_lab/fz_v3/out/features_shortlist/5minute/shortlist.json
+FINDINGS.md and findings.json written; {'minute': 0, '5minute': 0} FFD not adopted (clustered MDA <= 1 std on minute, 5minute)

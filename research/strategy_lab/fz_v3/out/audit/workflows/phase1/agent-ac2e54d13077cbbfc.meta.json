@@ -1,0 +1,1 @@
+{"agentType":"workflow-subagent","description":"repair:llm_round0","workflowPhase":"Repair","spawnDepth":1,"requestShape":"foreground","requestNonInteractive":true}

@@ -1,0 +1,5 @@
+5minute: 826 trades, 18124 states, 17298 decision states x 2 actions = 34596 regression rows per fit, rss 474 MB
+{"fold": 0, "test_blocks": [0, 1, 2, 3], "train_trades": 535, "test_trades": 283, "purged": 8, "test_states": 6264, "test_mean": -655.89, "test_fnd_mean": -475.16, "exit_early_share": 0.576, "exit_flag_share": 0.1285, "q_exit_fit_mae": 155.1, "seconds": 300.7, "rss_mb": 490}
+{"fold": 1, "test_blocks": [4, 5, 6, 7], "train_trades": 553, "test_trades": 273, "purged": 0, "test_states": 5712, "test_mean": -1184.61, "test_fnd_mean": -1018.09, "exit_early_share": 0.5275, "exit_flag_share": 0.1322, "q_exit_fit_mae": 116.41, "seconds": 290.2, "rss_mb": 499}
+{"fold": 2, "test_blocks": [8, 9, 10, 11], "train_trades": 556, "test_trades": 270, "purged": 0, "test_states": 6148, "test_mean": -875.4, "test_fnd_mean": -788.58, "exit_early_share": 0.6407, "exit_flag_share": 0.195, "q_exit_fit_mae": 142.66, "seconds": 305.9, "rss_mb": 499}
+5minute: learner A OOF mean -902.39 (Foundation -757.05, diff -145.34), random pct 62.7, regret free 3703.86, sign-flip blocks p1 0.9597; 902.1s, rss 510 MB

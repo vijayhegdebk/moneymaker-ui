@@ -1,0 +1,21 @@
+feature_a,feature_b,mean_abs_interaction,n_paths_with_both,split_a_gain_weighted_median,split_b_gain_weighted_median,split_a_common,split_b_common
+room_ahead_dist_atr,n_rooms_alive,0.052708,746,0.7548,8.0,"[0.7394, 0.7617, 0.7664]","[7.0, 8.0, 10.0]"
+room_behind_dist_atr,room_ahead_dist_atr,0.040988,1509,0.7312,0.5646,"[3.4141, 3.3514, 3.4717]","[4.1739, 0.0284, 0.1638]"
+room_ahead_dist_atr,days_to_expiry,0.03984,973,0.5124,12.0,"[0.0284, 0.3419, 4.1739]","[27.0, 8.0, 29.0]"
+room_behind_dist_atr,days_to_expiry,0.032939,655,0.2798,10.0,"[0.2798, 0.2764, 0.1888]","[9.0, 29.0, 10.0]"
+n_rooms_alive,dow,0.027953,180,10.0,3.0,"[10.0, 11.0, 7.0]","[3.0, 1.0, 4.0]"
+room_ahead_dist_atr,gap_pts,0.02565,901,0.6068,-11.9,"[4.1739, 0.7394, 0.1638]","[-254.7, -16.3, 2.3]"
+room_ahead_dist_atr,dow,0.023923,410,0.7617,3.0,"[0.0284, 0.0815, 0.0374]","[3.0, 2.0, 1.0]"
+room_behind_dist_atr,card_out_side=nan,0.022927,212,0.3945,1.0,"[0.2981, 3.4141, 0.2764]",[1.0]
+room_behind_dist_atr,gap_pts,0.022349,811,0.8612,29.6,"[3.4141, 3.4717, 0.3582]","[96.3, 2.3, -16.3]"
+fz_gate=BLOCK,room_ahead_dist_atr,0.021939,174,1.0,0.1618,[1.0],"[0.1638, 0.0998, 0.1618]"
+gap_pts,dow,0.021628,253,-16.3,3.0,"[-16.3, -86.7, 75.75]","[3.0, 1.0, 2.0]"
+card_read=LEAVE,gap_pts,0.019694,133,1.0,57.0,[1.0],"[96.3, 57.0, -16.3]"
+card_out_side=nan,room_ahead_dist_atr,0.019376,153,1.0,0.5454,[1.0],"[1.0774, 1.0809, 0.4486]"
+room_behind_dist_atr,dow,0.019317,280,0.501,3.0,"[0.3582, 3.4141, 3.3514]","[3.0, 1.0, 2.0]"
+room_behind_dist_atr,n_rooms_alive,0.018914,624,0.5134,10.0,"[3.4141, 3.4717, 3.3514]","[7.0, 10.0, 11.0]"
+card_out_side=nan,days_to_expiry,0.016393,196,1.0,6.0,[1.0],"[6.0, 2.0, 30.0]"
+room_ahead_dist_atr,touch_room_n,0.015868,133,0.7617,1.0,"[0.7617, 4.1739, 0.3054]","[1.0, 2.0, 3.0]"
+room_ahead_dist_atr,fz_take_why=leave_vol_fail,0.015753,141,0.1638,1.0,"[0.1638, 0.0789, 0.0374]",[1.0]
+n_rooms_alive,gap_pts,0.014626,428,9.0,-1.5,"[7.0, 10.0, 11.0]","[-254.7, 96.3, 6.3]"
+card_read=LEAVE,days_to_expiry,0.013446,179,1.0,29.0,[1.0],"[29.0, 27.0, 21.0]"

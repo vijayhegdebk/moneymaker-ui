@@ -1,0 +1,3 @@
+zone_kind,n,kept,kept_share,net,mean,win_rate,winners,pts,big,big_skipped,huge,huge_skipped,kept_net,skipped_net,kept_mean,skipped_mean,kept_win_rate,skipped_win_rate,kept_minus_skipped
+B,497,148,0.2978,-250341.33,-503.7,0.2072,103,4169.3,71,55,48,36,-169037.7,-81303.63,-1142.15,-232.96,0.1892,0.2149,-909.19
+none,335,177,0.5284,20079.17,59.94,0.2418,81,5726.95,57,27,42,18,78947.13,-58867.96,446.03,-372.58,0.2316,0.2532,818.61

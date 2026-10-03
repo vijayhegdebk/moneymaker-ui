@@ -1,0 +1,32 @@
+=== score_round0.py 2026-09-29T05:09:16 (repair round) ===
+appended correcting registration line
+[minute] L1 units 5266 (IS 4452), L0 5326 (IS 4502); 8 round-0 rules
+[minute] support (label-free): r0_m1 903, r0_m2 43, r0_m3 920, r0_m4 347, r0_m5 1437, r0_m6 1, r0_m7 571, r0_m8 0; union 2607; no-op comparisons 2
+[minute] r0_m1  skipped   903 kept  3549 diff -5.37 ctrl 6.1 perm_p 0.9605 loserR 0.2062 winR(w) 0.8383 topdec_skipped 0.1714 | L0 diff -81.14 ctrl 11.8
+[minute] r0_m2  skipped    43 kept  4409 diff 24.12 ctrl 48.9 perm_p 0.9525 loserR 0.0104 winR(w) 0.9906 topdec_skipped 0.0143 | L0 diff 230.77 ctrl 45.6
+[minute] r0_m3  skipped   920 kept  3532 diff -2.85 ctrl 0.0 perm_p 0.9745 loserR 0.2076 winR(w) 0.8359 topdec_skipped 0.1286 | L0 diff -41.55 ctrl 0.3
+[minute] r0_m4  skipped   347 kept  4105 diff -95.55 ctrl 28.9 perm_p 0.5222 loserR 0.0812 winR(w) 0.9136 topdec_skipped 0.1143 | L0 diff -87.12 ctrl 53.9
+[minute] r0_m5  skipped  1437 kept  3015 diff 20.92 ctrl 0.0 perm_p 0.8041 loserR 0.3238 winR(w) 0.7442 topdec_skipped 0.2 | L0 diff 241.99 ctrl 38.9
+[minute] r0_m6  skipped     1 kept  4451 diff 725.46 ctrl 65.5 perm_p 0.5752 loserR 0.0003 winR(w) 1.0 topdec_skipped 0.0 | L0 diff 813.25 ctrl 83.0  << UNTESTABLE (no IS support)
+[minute] r0_m7  skipped   571 kept  3881 diff 18.89 ctrl 0.9 perm_p 0.8751 loserR 0.1315 winR(w) 0.9069 topdec_skipped 0.0714 | L0 diff -41.9 ctrl 28.9
+[minute] r0_m8  skipped     0 kept  4452 diff None ctrl None perm_p None loserR None winR(w) None topdec_skipped None | L0 diff None ctrl None  << UNTESTABLE (no IS support)
+[minute] union  skipped 2607 kept 1845 diff 41.24 ctrl 0.0 perm_p 0.6032 loserR 0.5918 winR(w) 0.5164 | L0 diff 108.29 ctrl 0.7
+[minute] max-T: best |t| 0.622 (rule r0_m4), family-wise p 0.991, null 95th pct of max|t| 3.14; PBO(diff) 0.9758 PBO(kept_mean) 0.7681; SPA p 0.9895 (RC p 0.997); effective trials 1.19
+[minute] go/no-go: r0_m1 fail, r0_m2 fail, r0_m3 fail, r0_m4 fail, r0_m5 fail, r0_m6 fail, r0_m7 fail, r0_m8 fail, union fail
+[5minute] L1 units 1002 (IS 826), L0 1012 (IS 832); 8 round-0 rules
+[5minute] support (label-free): r0_f1 57, r0_f2 55, r0_f3 78, r0_f4 53, r0_f5 53, r0_f6 37, r0_f7 91, r0_f8 1; union 302; no-op comparisons 2
+[5minute] r0_f1  skipped    57 kept   769 diff -848.05 ctrl 100.0 perm_p 0.1689 loserR 0.0653 winR(w) 0.8897 topdec_skipped 0.1739 | L0 diff -565.0 ctrl 99.3
+[5minute] r0_f2  skipped    55 kept   771 diff -1212.61 ctrl 0.0 perm_p 0.0625 loserR 0.0603 winR(w) 0.8985 topdec_skipped 0.1304 | L0 diff -1703.8 ctrl 0.1
+[5minute] r0_f3  skipped    78 kept   748 diff -107.12 ctrl 0.3 perm_p 0.8481 loserR 0.0972 winR(w) 0.9251 topdec_skipped 0.0435 | L0 diff 174.57 ctrl 31.0
+[5minute] r0_f4  skipped    53 kept   773 diff -775.99 ctrl 49.7 perm_p 0.2229 loserR 0.062 winR(w) 0.9235 topdec_skipped 0.0435 | L0 diff -1542.62 ctrl 29.4
+[5minute] r0_f5  skipped    53 kept   773 diff -550.45 ctrl 0.1 perm_p 0.3963 loserR 0.0603 winR(w) 0.9316 topdec_skipped 0.0435 | L0 diff -251.45 ctrl 15.2
+[5minute] r0_f6  skipped    37 kept   789 diff 227.61 ctrl 29.7 perm_p 0.7616 loserR 0.0452 winR(w) 0.9716 topdec_skipped 0.0 | L0 diff 161.21 ctrl 34.5
+[5minute] r0_f7  skipped    91 kept   735 diff 121.72 ctrl 4.7 perm_p 0.8146 loserR 0.124 winR(w) 0.9018 topdec_skipped 0.1304 | L0 diff 611.59 ctrl 52.5
+[5minute] r0_f8  skipped     1 kept   825 diff 2897.9 ctrl 87.6 perm_p 0.3633 loserR 0.0017 winR(w) 1.0 topdec_skipped 0.0 | L0 diff 3378.74 ctrl 87.7  << UNTESTABLE (no IS support)
+[5minute] union  skipped 302 kept 524 diff -322.28 ctrl 0.8 perm_p 0.3213 loserR 0.3635 winR(w) 0.6332 | L0 diff -156.33 ctrl 14.3
+[5minute] max-T: best |t| 1.709 (rule r0_f2), family-wise p 0.5092, null 95th pct of max|t| 3.131; PBO(diff) 0.6875 PBO(kept_mean) 0.343; SPA p 0.045 (RC p 0.0745); effective trials 1.22
+[5minute] go/no-go: r0_f1 fail, r0_f2 fail, r0_f3 fail, r0_f4 fail, r0_f5 fail, r0_f6 fail, r0_f7 fail, r0_f8 fail, union fail
+Holm over the 16 rules of round 0: min adjusted p 1.0000
+[minute] combination: no rule qualifies
+[5minute] combination: no rule qualifies
+null_result True; ledger rows {'round0': 36, 'combo': 0}; ledger sha b6e2cad5bfe0265a -> 9bdec2367d24308b; done in 240.6 s

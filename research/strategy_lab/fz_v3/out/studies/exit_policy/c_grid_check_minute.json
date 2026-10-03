@@ -1,0 +1,10 @@
+{
+ "variant": 1176,
+ "l1_stop_or_cap_exits": 1724,
+ "net_matches_l1_within_0_005": true,
+ "exit_bar_matches_l1": true,
+ "l1_next_choch_exits": 2728,
+ "variant_later_than_choch_on_those": true,
+ "seconds": 48.9,
+ "rss_mb": 961
+}

@@ -1,0 +1,375 @@
+{
+ "kind": "feature_shortlist",
+ "tf": "minute",
+ "label": "L1",
+ "is_window": "2021-10-01..2025-12-31",
+ "frozen_at": "2026-09-29T11:31:30",
+ "study": "importance",
+ "script": "studies/importance/run_importance.py + shortlist.py",
+ "rule": {
+  "mda": "cluster mean permutation drop in OOF weighted log-loss > its std across the 12 purged folds (5 joint permutations per fold)",
+  "stability": "top-8 in >= 2 of 2 periods",
+  "cap": 8,
+  "model": {
+   "model": "bagging_dt",
+   "depth": 4,
+   "trees": 20,
+   "min_weight_fraction_leaf": 0.05,
+   "features": 238,
+   "weights": "|net| winsorised at train p99, class_weight balanced",
+   "tau": "train-fold OOB: max kept mean s.t. weighted winner recall >= 0.90"
+  }
+ },
+ "n_clusters_total": 39,
+ "n_clusters_mda_pass": 0,
+ "n_clusters_stability_pass": 2,
+ "n_clusters_eligible": 0,
+ "n_shortlisted": 0,
+ "clusters": [],
+ "allowed_columns": [],
+ "interaction_pairs_top5": [
+  {
+   "feature_a": "room_ahead_dist_atr",
+   "feature_b": "n_rooms_alive",
+   "mean_abs_interaction": 0.052708,
+   "n_paths_with_both": 746,
+   "split_a_gain_weighted_median": 0.7548,
+   "split_b_gain_weighted_median": 8.0,
+   "split_a_common": [
+    0.7394,
+    0.7617,
+    0.7664
+   ],
+   "split_b_common": [
+    7.0,
+    8.0,
+    10.0
+   ]
+  },
+  {
+   "feature_a": "room_behind_dist_atr",
+   "feature_b": "room_ahead_dist_atr",
+   "mean_abs_interaction": 0.040988,
+   "n_paths_with_both": 1509,
+   "split_a_gain_weighted_median": 0.7312,
+   "split_b_gain_weighted_median": 0.5646,
+   "split_a_common": [
+    3.4141,
+    3.3514,
+    3.4717
+   ],
+   "split_b_common": [
+    4.1739,
+    0.0284,
+    0.1638
+   ]
+  },
+  {
+   "feature_a": "room_ahead_dist_atr",
+   "feature_b": "days_to_expiry",
+   "mean_abs_interaction": 0.03984,
+   "n_paths_with_both": 973,
+   "split_a_gain_weighted_median": 0.5124,
+   "split_b_gain_weighted_median": 12.0,
+   "split_a_common": [
+    0.0284,
+    0.3419,
+    4.1739
+   ],
+   "split_b_common": [
+    27.0,
+    8.0,
+    29.0
+   ]
+  },
+  {
+   "feature_a": "room_behind_dist_atr",
+   "feature_b": "days_to_expiry",
+   "mean_abs_interaction": 0.032939,
+   "n_paths_with_both": 655,
+   "split_a_gain_weighted_median": 0.2798,
+   "split_b_gain_weighted_median": 10.0,
+   "split_a_common": [
+    0.2798,
+    0.2764,
+    0.1888
+   ],
+   "split_b_common": [
+    9.0,
+    29.0,
+    10.0
+   ]
+  },
+  {
+   "feature_a": "n_rooms_alive",
+   "feature_b": "dow",
+   "mean_abs_interaction": 0.027953,
+   "n_paths_with_both": 180,
+   "split_a_gain_weighted_median": 10.0,
+   "split_b_gain_weighted_median": 3.0,
+   "split_a_common": [
+    10.0,
+    11.0,
+    7.0
+   ],
+   "split_b_common": [
+    3.0,
+    1.0,
+    4.0
+   ]
+  }
+ ],
+ "interaction_rule": "the gate studies may use depth-2/3 conjunctions only over these 5 pairs (both features must be allowed columns); the split points are xgboost path split points, gain-weighted medians over the 12 fold boosters",
+ "interaction_pairs_within_allowed": [],
+ "ffd_verdict": {
+  "verdict": "FFD not adopted (clustered MDA <= 1 std on minute, 5minute)",
+  "mda_pass_by_tf": {
+   "minute": false,
+   "5minute": false
+  },
+  "ffd_clusters_by_tf": {
+   "minute": {
+    "0": {
+     "members": [
+      "sl_dist_pts",
+      "sl_dist_atr",
+      "atr14",
+      "atr_bps",
+      "range_1h_pts",
+      "range_1h_atr",
+      "range_since_choch_atr",
+      "bar_range_pts",
+      "bar_range_atr",
+      "er_1h",
+      "bars_since_prev_choch",
+      "vol_ratio20",
+      "vol_ratio60",
+      "vol_max_ratio20_5",
+      "vol_max_ratio20_15",
+      "hv2_dir_agree",
+      "hv2_ratio",
+      "vol_ratio20_at_choch",
+      "vol_max_ratio20_choch_to_k",
+      "dist_prot_dir_atr",
+      "dist_choch_lvl_atr",
+      "choch_bar_range_atr",
+      "move_since_choch_pts",
+      "ffd_vol_dstar",
+      "ffd_vol_dstar_z60",
+      "bsadf_close",
+      "csw_max_abs",
+      "csw_max_exceed",
+      "bocpd_ret_h60_p10",
+      "bocpd_ret_h240_p10",
+      "rv_absret",
+      "rv_body_frac",
+      "rv_logvol_rel20",
+      "gmm3_p2",
+      "gmm3_map",
+      "gmm4_p3",
+      "gmm4_map",
+      "hmm3_p2",
+      "hmm3_map",
+      "hmm4_map",
+      "jump4_run",
+      "win_sign_agree10",
+      "win_range_slope"
+     ],
+     "mda_ll_mean": -0.0149981619490493,
+     "mda_ll_std": 0.0212198757083551,
+     "mda_ll_pass": false,
+     "stab_pass": false,
+     "mixed_with_non_ffd": true
+    },
+    "4": {
+     "members": [
+      "bar_body_pts",
+      "close_pos_in_bar",
+      "close_vs_sess_open_pts",
+      "pos_in_session_range",
+      "ret_1h_pts",
+      "hv2_dir=up",
+      "hv3_dir=up",
+      "dist_sl_atr",
+      "swing_near_kind=H",
+      "room_edge_kind=hi",
+      "card_read=PENDING",
+      "card_out_side=up",
+      "card_last_reject_dir=down",
+      "fz_watch_kind=WATCH_EDGE",
+      "ffd_close_dstar_z60",
+      "rv_ret36_atr"
+     ],
+     "mda_ll_mean": -0.0007409127271712,
+     "mda_ll_std": 0.0101435133890179,
+     "mda_ll_pass": false,
+     "stab_pass": false,
+     "mixed_with_non_ffd": true
+    },
+    "21": {
+     "members": [
+      "sl",
+      "n_events_asof",
+      "ffd_close_dstar"
+     ],
+     "mda_ll_mean": -0.0004304737042109,
+     "mda_ll_std": 0.0015402112922925,
+     "mda_ll_pass": false,
+     "stab_pass": false,
+     "mixed_with_non_ffd": true
+    }
+   },
+   "5minute": {
+    "0": {
+     "members": [
+      "sl_dist_pts",
+      "sl_dist_atr",
+      "atr14",
+      "atr_bps",
+      "range_1h_pts",
+      "range_1h_atr",
+      "range_since_choch_atr",
+      "bar_range_pts",
+      "bar_range_atr",
+      "er_1h",
+      "bars_since_prev_choch",
+      "vol_ratio20",
+      "vol_ratio60",
+      "vol_max_ratio20_5",
+      "vol_max_ratio20_15",
+      "hv2_dir_agree",
+      "hv2_ratio",
+      "vol_ratio20_at_choch",
+      "vol_max_ratio20_choch_to_k",
+      "dist_prot_dir_atr",
+      "dist_choch_lvl_atr",
+      "choch_bar_range_atr",
+      "move_since_choch_pts",
+      "ffd_vol_dstar",
+      "ffd_vol_dstar_z60",
+      "bsadf_close",
+      "csw_max_abs",
+      "csw_max_exceed",
+      "bocpd_ret_h60_p10",
+      "bocpd_ret_h240_p10",
+      "rv_absret",
+      "rv_body_frac",
+      "rv_logvol_rel20",
+      "gmm3_p2",
+      "gmm3_map",
+      "gmm4_p3",
+      "gmm4_map",
+      "hmm3_p2",
+      "hmm3_map",
+      "hmm4_map",
+      "jump4_run",
+      "win_sign_agree10",
+      "win_range_slope"
+     ],
+     "mda_ll_mean": -0.0149981619490493,
+     "mda_ll_std": 0.0212198757083551,
+     "mda_ll_pass": false,
+     "stab_pass": false,
+     "mixed_with_non_ffd": true
+    },
+    "4": {
+     "members": [
+      "bar_body_pts",
+      "close_pos_in_bar",
+      "close_vs_sess_open_pts",
+      "pos_in_session_range",
+      "ret_1h_pts",
+      "hv2_dir=up",
+      "hv3_dir=up",
+      "dist_sl_atr",
+      "swing_near_kind=H",
+      "room_edge_kind=hi",
+      "card_read=PENDING",
+      "card_out_side=up",
+      "card_last_reject_dir=down",
+      "fz_watch_kind=WATCH_EDGE",
+      "ffd_close_dstar_z60",
+      "rv_ret36_atr"
+     ],
+     "mda_ll_mean": -0.0007409127271712,
+     "mda_ll_std": 0.0101435133890179,
+     "mda_ll_pass": false,
+     "stab_pass": false,
+     "mixed_with_non_ffd": true
+    },
+    "21": {
+     "members": [
+      "sl",
+      "n_events_asof",
+      "ffd_close_dstar"
+     ],
+     "mda_ll_mean": -0.0004304737042109,
+     "mda_ll_std": 0.0015402112922925,
+     "mda_ll_pass": false,
+     "stab_pass": false,
+     "mixed_with_non_ffd": true
+    }
+   }
+  },
+  "ffd_keys_if_adopted": null
+ },
+ "h2_vs_state_models": {
+  "h2_clusters": {
+   "n_choch_since_bos": 3,
+   "n_choch_since_bos_today": 3,
+   "alt_dir6": 3,
+   "alt_kind6": 5
+  },
+  "state_clusters": {
+   "gmm3_p0": 3,
+   "gmm3_p1": 5,
+   "gmm3_p2": 0,
+   "gmm3_map": 0,
+   "gmm4_p0": 5,
+   "gmm4_p1": 3,
+   "gmm4_p2": 5,
+   "gmm4_p3": 0,
+   "gmm4_map": 0,
+   "hmm3_p0": 3,
+   "hmm3_p1": 5,
+   "hmm3_p2": 0,
+   "hmm3_map": 0,
+   "hmm3_map_run": 3,
+   "hmm4_p0": 5,
+   "hmm4_p1": 5,
+   "hmm4_p2": 3,
+   "hmm4_p3": 5,
+   "hmm4_map": 0,
+   "hmm4_map_run": 3,
+   "jump3_state": 25,
+   "jump3_run": 25,
+   "jump4_state": 3,
+   "jump4_run": 0
+  },
+  "shared": {
+   "3": [
+    "n_choch_since_bos",
+    "n_choch_since_bos_today",
+    "alt_dir6",
+    "gmm3_p0",
+    "gmm4_p1",
+    "hmm3_p0",
+    "hmm3_map_run",
+    "hmm4_p2",
+    "hmm4_map_run",
+    "jump4_state"
+   ],
+   "5": [
+    "alt_kind6",
+    "gmm3_p1",
+    "gmm4_p0",
+    "gmm4_p2",
+    "hmm3_p1",
+    "hmm4_p0",
+    "hmm4_p1",
+    "hmm4_p3"
+   ]
+  }
+ },
+ "ledger_family_rows": null
+}

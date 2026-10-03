@@ -1,0 +1,13 @@
+# Audit rule (user, 2026-09-29): every agent artefact is committed. Only bit-for-bit regenerable bulk is left out, and
+# out/audit/AUDIT.md names each item with the command that rebuilds it.
+out/data/*/bars.parquet
+out/data/*/fz_card.parquet
+out/data/*/swings.parquet
+out/data/*/events.parquet
+out/data/*/fz_visits.parquet
+out/data/*/trunc_*/*.parquet
+out/studies/null_tapes_drift/tapes/
+__pycache__/
+
+# the root .gitignore ignores build/ folders; the FZ v3 build scripts are code, not artefacts
+!out/build/

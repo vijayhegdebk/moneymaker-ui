@@ -1,0 +1,72 @@
+03:59:28 h2_regime start Tue Sep 29 03:59:28 2026 ledger sha 1ee15dc04860b284
+03:59:28 == H2 5minute_L1: IS units 826 mean -757.05 win 0.2772
+03:59:28   by n_choch_since_bos: 0: n 235 mean -717.44 win 0.2766; 1: n 332 mean -647.02 win 0.3072; 2: n 143 mean -1439.43 win 0.2028; 3: n 54 mean -335.79 win 0.3333; 4+: n 62 mean -289.43 win 0.2419
+03:59:28   grid: 201 cells
+03:59:29     cell 1/201 {"kc": 2, "rule": "choch", "scope": "all"} kept 567 diff 257.83 pct 45.9 p 0.4613
+04:00:02     cell 21/201 {"W": "since_choch", "q": 0.5, "rule": "range"} kept 413 diff 43.71 pct 0.6 p 0.8946
+04:00:32     cell 41/201 {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "all"} kept 698 diff 183.21 pct 99.5 p 0.6777
+04:01:03     cell 61/201 {"W": "1h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} kept 717 diff 450.33 pct 4.5 p 0.3178
+04:01:35     cell 81/201 {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} kept 689 diff 495.16 pct 6.5 p 0.2459
+04:02:08     cell 101/201 {"W": "3h", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "all"} kept 767 diff -623.14 pct 85.5 p 0.2984
+04:02:41     cell 121/201 {"W": "1h", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "today"} kept 785 diff -340.96 pct 4.3 p 0.6437
+04:03:13     cell 141/201 {"W": "since_choch", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "today"} kept 768 diff 197.75 pct 3.3 p 0.7451
+04:03:46     cell 161/201 {"W": "3h", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "all"} kept 795 diff -591.73 pct 87.4 p 0.4713
+04:04:18     cell 181/201 {"W": "1h", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "today"} kept 802 diff -449.19 pct 6.2 p 0.6382
+04:04:50     cell 201/201 {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "today"} kept 797 diff -338.03 pct 3.9 p 0.7111
+04:04:56   nested-CV OOF: kept 824 (0.9976) diff 3991.66 pct 94.3 p 0.1339 blocks 2 id 74e1239d4204941d
+04:05:36   CPCV 11 paths: diff median 3991.66 p5 3444.78 min 2897.9 share>0 1.0 control pct median 87.8 p5 74.5
+04:05:40   family: 202 candidates, eff 1.44, PBO diff 0.3293 kept 0.5333, SPA p 0.076 best {'rule': 'range', 'W': '3h', 'q': 0.1}, boot [2816.25, 5189.35], DSR p 0.9957, go False
+04:05:40 == H2 5minute_L0: IS units 832 mean -276.76 win 0.2212
+04:05:40   by n_choch_since_bos: 0: n 237 mean -273.07 win 0.211; 1: n 334 mean 230.07 win 0.2425; 2: n 144 mean -2017.8 win 0.1597; 3: n 55 mean 310.45 win 0.2909; 4+: n 62 mean 501.6 win 0.2258
+04:05:40   grid: 201 cells
+04:05:42     cell 1/201 {"kc": 2, "rule": "choch", "scope": "all"} kept 571 diff 949.94 pct 81.2 p 0.2114
+04:06:15     cell 21/201 {"W": "since_choch", "q": 0.5, "rule": "range"} kept 415 diff -117.5 pct 26.8 p 0.8731
+04:06:40 h2_regime start Tue Sep 29 04:06:40 2026 ledger sha f2c2f7154dd30e85
+04:06:43 == H2 minute_L1: IS units 4452 mean -1009.61 win 0.1559
+04:06:44   by n_choch_since_bos: 0: n 1169 mean -1089.61 win 0.1377; 1: n 1739 mean -997.87 win 0.1576; 2: n 823 mean -1029.94 win 0.1738; 3: n 372 mean -837.12 win 0.1559; 4+: n 349 mean -936.01 win 0.1662
+04:06:44   grid: 201 cells
+04:06:46     cell 41/201 {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "all"} kept 703 diff 725.86 pct 95.0 p 0.4583
+04:07:05     cell 1/201 {"kc": 2, "rule": "choch", "scope": "all"} kept 2908 diff -72.5 pct 1.4 p 0.3723
+04:07:27     cell 61/201 {"W": "1h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} kept 722 diff 1367.54 pct 56.2 p 0.1799
+04:08:15     cell 81/201 {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} kept 694 diff 2273.61 pct 83.5 p 0.0205
+04:09:08     cell 101/201 {"W": "3h", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "all"} kept 772 diff -897.04 pct 80.7 p 0.4893
+04:10:08     cell 121/201 {"W": "1h", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "today"} kept 790 diff 68.53 pct 45.9 p 0.966
+04:11:07     cell 141/201 {"W": "since_choch", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "today"} kept 773 diff 1236.4 pct 52.2 p 0.3633
+04:12:10     cell 161/201 {"W": "3h", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "all"} kept 801 diff -174.56 pct 91.5 p 0.9165
+04:13:11     cell 181/201 {"W": "1h", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "today"} kept 808 diff -718.72 pct 20.9 p 0.7286
+04:14:03     cell 201/201 {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "today"} kept 803 diff 555.76 pct 25.4 p 0.7811
+04:14:12   nested-CV OOF: kept 830 (0.9976) diff 4473.04 pct 93.8 p 0.2124 blocks 2 id c04a0d2a19d216fd
+04:15:12   CPCV 11 paths: diff median 4473.04 p5 732.98 min -27.99 share>0 0.909 control pct median 75.4 p5 42.2
+04:15:17   family: 202 candidates, eff 1.44, PBO diff 0.3043 kept 0.5855, SPA p 0.124 best {'rule': 'range', 'W': '3h', 'q': 0.2}, boot [3078.04, 5879.24], DSR p 0.7772, go False
+04:15:17 h2 done in 949.4s; ledger sha 2dcc9f4e3d600f9d
+04:16:53     cell 21/201 {"W": "since_choch", "q": 0.5, "rule": "range"} kept 2227 diff 71.0 pct 7.3 p 0.3673
+04:25:52     cell 41/201 {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "all"} kept 3713 diff -159.61 pct 31.8 p 0.1314
+04:33:08     cell 61/201 {"W": "1h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} kept 3708 diff -120.37 pct 0.1 p 0.2539
+04:38:11     cell 81/201 {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} kept 3540 diff 3.16 pct 7.4 p 0.978
+04:43:39     cell 101/201 {"W": "3h", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "all"} kept 4097 diff -161.78 pct 2.4 p 0.2669
+04:48:22     cell 121/201 {"W": "1h", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "today"} kept 4084 diff -180.98 pct 0.0 p 0.1959
+04:52:08     cell 141/201 {"W": "since_choch", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "today"} kept 4018 diff -47.74 pct 0.1 p 0.7421
+04:54:51     cell 161/201 {"W": "3h", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "all"} kept 4282 diff -2.65 pct 3.3 p 0.991
+04:57:35     cell 181/201 {"W": "1h", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "today"} kept 4263 diff -181.95 pct 0.1 p 0.3438
+05:00:56     cell 201/201 {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "today"} kept 4251 diff -68.31 pct 0.4 p 0.7271
+05:01:18   nested-CV OOF: kept 4307 (0.9674) diff -226.81 pct 1.1 p 0.3148 blocks 6 id 96a71fa0c77cbd57
+05:04:12   CPCV 11 paths: diff median -198.78 p5 -417.49 min -451.17 share>0 0.182 control pct median 1.9 p5 0.7
+05:04:20   family: 202 candidates, eff 1.35, PBO diff 0.3564 kept 0.5611, SPA p 0.1255 best {'rule': 'range', 'W': '3h', 'q': 0.2}, boot [-582.49, 91.16], DSR p 1.0, go False
+05:04:21 == H2 minute_L0: IS units 4502 mean -921.83 win 0.1519
+05:04:21   by n_choch_since_bos: 0: n 1191 mean -983.73 win 0.1444; 1: n 1752 mean -914.66 win 0.1553; 2: n 830 mean -927.02 win 0.1554; 3: n 377 mean -633.07 win 0.1485; 4+: n 352 mean -1045.13 win 0.1562
+05:04:21   grid: 201 cells
+05:04:30     cell 1/201 {"kc": 2, "rule": "choch", "scope": "all"} kept 2943 diff -60.0 pct 16.5 p 0.7166
+05:07:37     cell 21/201 {"W": "since_choch", "q": 0.5, "rule": "range"} kept 2251 diff -49.87 pct 7.2 p 0.7456
+05:10:45     cell 41/201 {"W": "3h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "all"} kept 3751 diff -6.56 pct 71.2 p 0.976
+05:14:07     cell 61/201 {"W": "1h", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} kept 3752 diff -60.31 pct 12.6 p 0.7816
+05:17:09     cell 81/201 {"W": "since_choch", "combine": "AND", "kc": 2, "q": 0.5, "rule": "both", "scope": "today"} kept 3579 diff -62.78 pct 14.8 p 0.7581
+05:20:37     cell 101/201 {"W": "3h", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "all"} kept 4143 diff -73.69 pct 22.1 p 0.8006
+05:24:17     cell 121/201 {"W": "1h", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "today"} kept 4132 diff -339.22 pct 0.5 p 0.2254
+05:28:59     cell 141/201 {"W": "since_choch", "combine": "AND", "kc": 3, "q": 0.5, "rule": "both", "scope": "today"} kept 4063 diff -124.12 pct 1.9 p 0.6397
+05:33:36     cell 161/201 {"W": "3h", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "all"} kept 4329 diff 117.01 pct 30.6 p 0.7806
+05:39:08     cell 181/201 {"W": "1h", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "today"} kept 4313 diff -105.82 pct 1.3 p 0.7816
+05:44:02     cell 201/201 {"W": "since_choch", "combine": "AND", "kc": 4, "q": 0.5, "rule": "both", "scope": "today"} kept 4299 diff 257.33 pct 29.0 p 0.4908
+05:44:35   nested-CV OOF: kept 4416 (0.9809) diff 5.32 pct 8.1 p 0.9905 blocks 6 id 7b38016c4d64bed5
+05:49:05   CPCV 11 paths: diff median -64.34 p5 -258.39 min -374.27 share>0 0.364 control pct median 8.0 p5 1.4
+05:49:15   family: 202 candidates, eff 1.55, PBO diff 0.466 kept 0.8678, SPA p 0.207 best {'rule': 'range', 'W': '3h', 'q': 0.3}, boot [-532.13, 591.07], DSR p 0.9997, go False
+05:49:15 h2 done in 6155.6s; ledger sha d190c476f99b18a0

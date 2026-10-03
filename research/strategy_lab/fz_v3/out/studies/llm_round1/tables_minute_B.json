@@ -1,0 +1,7632 @@
+{
+ "study": "llm_round1",
+ "step": 1,
+ "kind": "labelled_tables",
+ "tf": "minute",
+ "half": "B",
+ "blocks": [
+  6,
+  7,
+  8,
+  9,
+  10,
+  11
+ ],
+ "label": "L1",
+ "split": "IS",
+ "strategy": "Strategy 1 rules + ST7 card",
+ "n_rows": 2044,
+ "n_sessions": 254,
+ "date_first": "2023-11-07",
+ "date_last": "2025-12-31",
+ "base": {
+  "n": 2044,
+  "mean_net": -1070.6,
+  "win_rate": 0.1536,
+  "labelled": true,
+  "share": 1.0
+ },
+ "shortlist_state": {
+  "sha256": "66f6e004bd93e47c55ca219785a9a30f36d618cbbbd215cfcbad5a44412b5bdb",
+  "n_shortlisted": 0,
+  "allowed_columns": [],
+  "rule": "EMPTY-SHORTLIST RULE applied"
+ },
+ "vocabulary": [
+  {
+   "column": "hour_bin",
+   "kind": "level",
+   "provenance": "always included (design: hour_bin, fz_read, dir)",
+   "label": "design",
+   "cluster": null,
+   "mda_rank": null,
+   "representative": null,
+   "swap": null,
+   "caveats": [],
+   "bins": [
+    {
+     "kind": "level",
+     "level": "09",
+     "label": "09",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    },
+    {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    },
+    {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    },
+    {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    },
+    {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    },
+    {
+     "kind": "level",
+     "level": "15",
+     "label": "15",
+     "i": 6
+    },
+    {
+     "kind": "level",
+     "level": "<09:25",
+     "label": "<09:25",
+     "i": 7
+    },
+    {
+     "kind": "level",
+     "level": ">=15:20",
+     "label": ">=15:20",
+     "i": 8
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "<09:25",
+    ">=15:20"
+   ],
+   "na_rows": 0
+  },
+  {
+   "column": "fz_read",
+   "kind": "level",
+   "provenance": "always included (design: hour_bin, fz_read, dir)",
+   "label": "design",
+   "cluster": null,
+   "mda_rank": null,
+   "representative": null,
+   "swap": null,
+   "caveats": [],
+   "bins": [
+    {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    },
+    {
+     "kind": "level",
+     "level": "HUNT",
+     "label": "HUNT",
+     "i": 2
+    },
+    {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    },
+    {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    },
+    {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    },
+    {
+     "kind": "level",
+     "level": "RECYCLE",
+     "label": "RECYCLE",
+     "i": 6
+    },
+    {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    },
+    {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [
+    "ACCEPTED",
+    "FIRST_PRINT",
+    "HUNT",
+    "LEAVE",
+    "NEW",
+    "PENDING",
+    "RECYCLE",
+    "REJECT",
+    "THIN"
+   ],
+   "na_rows": 0
+  },
+  {
+   "column": "dir",
+   "kind": "level",
+   "provenance": "always included (design: hour_bin, fz_read, dir)",
+   "label": "design",
+   "cluster": null,
+   "mda_rank": null,
+   "representative": null,
+   "swap": null,
+   "caveats": [],
+   "bins": [
+    {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [
+    "down",
+    "up"
+   ],
+   "na_rows": 0
+  },
+  {
+   "cluster": 7,
+   "mda_rank": 1,
+   "representative": "card_read=PENDING",
+   "n_members": 13,
+   "mda_ll_mean": 0.0002954765813348,
+   "mda_ll_std": 0.0005925596409732,
+   "members": [
+    "room_ahead_dist_atr",
+    "touch_room_last=broke",
+    "card_this_bars",
+    "card_read=PENDING",
+    "card_out_run",
+    "card_out_side=down",
+    "fz_take_why=nan",
+    "fz_entered_read=nan",
+    "fz_watch_kind=WATCH_EDGE",
+    "fz_pos_in_band_dir",
+    "fz_dist_band_edge_behind",
+    "card_vol_ratio",
+    "room_ahead_dist_atr__na"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 7, log-loss MDA rank 1 of 38 (MDA mean 0.00030, std 0.00059; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": "room_ahead_dist_atr",
+   "kind": "decile",
+   "swap": "representative `card_read=PENDING` not shown (`card_read=PENDING`: source column `fz_read` already shown (`card_read` == `fz_read` on every IS row)); shown through the highest-MDI admissible member `room_ahead_dist_atr` (MDI 0.00847) -> column `room_ahead_dist_atr`",
+   "caveats": [],
+   "via_member": "room_ahead_dist_atr",
+   "bins": [
+    {
+     "kind": "range",
+     "lo": null,
+     "hi": 0.171,
+     "hi_inclusive": false,
+     "label": "< 0.171",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 0.171,
+     "hi": 0.3559,
+     "hi_inclusive": false,
+     "label": "[0.171, 0.3559)",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 0.3559,
+     "hi": 0.5496,
+     "hi_inclusive": false,
+     "label": "[0.3559, 0.5496)",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 0.5496,
+     "hi": 0.7863,
+     "hi_inclusive": false,
+     "label": "[0.5496, 0.7863)",
+     "i": 3
+    },
+    {
+     "kind": "range",
+     "lo": 0.7863,
+     "hi": 1.0181,
+     "hi_inclusive": false,
+     "label": "[0.7863, 1.0181)",
+     "i": 4
+    },
+    {
+     "kind": "range",
+     "lo": 1.0181,
+     "hi": 1.3011,
+     "hi_inclusive": false,
+     "label": "[1.0181, 1.3011)",
+     "i": 5
+    },
+    {
+     "kind": "range",
+     "lo": 1.3011,
+     "hi": 1.7067,
+     "hi_inclusive": false,
+     "label": "[1.3011, 1.7067)",
+     "i": 6
+    },
+    {
+     "kind": "range",
+     "lo": 1.7067,
+     "hi": 2.2388,
+     "hi_inclusive": false,
+     "label": "[1.7067, 2.2388)",
+     "i": 7
+    },
+    {
+     "kind": "range",
+     "lo": 2.2388,
+     "hi": 3.605,
+     "hi_inclusive": false,
+     "label": "[2.2388, 3.605)",
+     "i": 8
+    },
+    {
+     "kind": "range",
+     "lo": 3.605,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 3.605",
+     "i": 9
+    },
+    {
+     "kind": "na",
+     "label": "NA",
+     "i": 10
+    }
+   ],
+   "allowed_thresholds": [
+    0.171,
+    0.3559,
+    0.5496,
+    0.7863,
+    1.0181,
+    1.3011,
+    1.7067,
+    2.2388,
+    3.605
+   ],
+   "levels": [],
+   "na_rows": 184
+  },
+  {
+   "cluster": 11,
+   "mda_rank": 2,
+   "representative": "card_read=ACCEPTED",
+   "n_members": 7,
+   "mda_ll_mean": 0.0001571424197611,
+   "mda_ll_std": 0.0004822593416138,
+   "members": [
+    "room_edge_dist_dir_atr",
+    "touch_room_last=held",
+    "touch_room_bars_ago",
+    "card_read=ACCEPTED",
+    "fz_level_in_band",
+    "fz_branch=defend",
+    "fz_take_why=accepted_no_defend"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 11, log-loss MDA rank 2 of 38 (MDA mean 0.00016, std 0.00048; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": "touch_room_bars_ago",
+   "kind": "decile",
+   "swap": "representative `card_read=ACCEPTED` not shown (`card_read=ACCEPTED`: source column `fz_read` already shown (`card_read` == `fz_read` on every IS row)); shown through the highest-MDI admissible member `touch_room_bars_ago` (MDI 0.00578) -> column `touch_room_bars_ago`",
+   "caveats": [],
+   "via_member": "touch_room_bars_ago",
+   "bins": [
+    {
+     "kind": "range",
+     "lo": null,
+     "hi": 1.0,
+     "hi_inclusive": false,
+     "label": "< 1.0",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 1.0,
+     "hi": 3.0,
+     "hi_inclusive": false,
+     "label": "[1.0, 3.0)",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 3.0,
+     "hi": 10.0,
+     "hi_inclusive": false,
+     "label": "[3.0, 10.0)",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 10.0,
+     "hi": 15.0,
+     "hi_inclusive": false,
+     "label": "[10.0, 15.0)",
+     "i": 3
+    },
+    {
+     "kind": "range",
+     "lo": 15.0,
+     "hi": 20.0,
+     "hi_inclusive": false,
+     "label": "[15.0, 20.0)",
+     "i": 4
+    },
+    {
+     "kind": "range",
+     "lo": 20.0,
+     "hi": 28.0,
+     "hi_inclusive": false,
+     "label": "[20.0, 28.0)",
+     "i": 5
+    },
+    {
+     "kind": "range",
+     "lo": 28.0,
+     "hi": 38.0,
+     "hi_inclusive": false,
+     "label": "[28.0, 38.0)",
+     "i": 6
+    },
+    {
+     "kind": "range",
+     "lo": 38.0,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 38.0",
+     "i": 7
+    },
+    {
+     "kind": "na",
+     "label": "NA",
+     "i": 8
+    }
+   ],
+   "allowed_thresholds": [
+    1.0,
+    3.0,
+    10.0,
+    15.0,
+    20.0,
+    28.0,
+    38.0
+   ],
+   "levels": [],
+   "na_rows": 330
+  },
+  {
+   "cluster": 13,
+   "mda_rank": 3,
+   "representative": "card_read=FIRST_PRINT",
+   "n_members": 4,
+   "mda_ll_mean": 7.594474656865504e-05,
+   "mda_ll_std": 0.0001133029651943,
+   "members": [
+    "card_first_bars",
+    "card_read=FIRST_PRINT",
+    "fz_branch=first_print",
+    "fz_take_why=first_print_against"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 13, log-loss MDA rank 3 of 38 (MDA mean 0.00008, std 0.00011; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": "card_first_bars",
+   "kind": "decile",
+   "swap": "representative `card_read=FIRST_PRINT` not shown (`card_read=FIRST_PRINT`: source column `fz_read` already shown (`card_read` == `fz_read` on every IS row)); shown through the highest-MDI admissible member `card_first_bars` (MDI 0.00359) -> column `card_first_bars`",
+   "caveats": [],
+   "via_member": "card_first_bars",
+   "bins": [
+    {
+     "kind": "range",
+     "lo": null,
+     "hi": 10.0,
+     "hi_inclusive": false,
+     "label": "< 10.0",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 10.0,
+     "hi": 11.0,
+     "hi_inclusive": false,
+     "label": "[10.0, 11.0)",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 11.0,
+     "hi": 12.0,
+     "hi_inclusive": false,
+     "label": "[11.0, 12.0)",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 12.0,
+     "hi": 13.0,
+     "hi_inclusive": false,
+     "label": "[12.0, 13.0)",
+     "i": 3
+    },
+    {
+     "kind": "range",
+     "lo": 13.0,
+     "hi": 14.0,
+     "hi_inclusive": false,
+     "label": "[13.0, 14.0)",
+     "i": 4
+    },
+    {
+     "kind": "range",
+     "lo": 14.0,
+     "hi": 16.0,
+     "hi_inclusive": false,
+     "label": "[14.0, 16.0)",
+     "i": 5
+    },
+    {
+     "kind": "range",
+     "lo": 16.0,
+     "hi": 18.0,
+     "hi_inclusive": false,
+     "label": "[16.0, 18.0)",
+     "i": 6
+    },
+    {
+     "kind": "range",
+     "lo": 18.0,
+     "hi": 21.0,
+     "hi_inclusive": false,
+     "label": "[18.0, 21.0)",
+     "i": 7
+    },
+    {
+     "kind": "range",
+     "lo": 21.0,
+     "hi": 27.0,
+     "hi_inclusive": false,
+     "label": "[21.0, 27.0)",
+     "i": 8
+    },
+    {
+     "kind": "range",
+     "lo": 27.0,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 27.0",
+     "i": 9
+    },
+    {
+     "kind": "na",
+     "label": "NA",
+     "i": 10
+    }
+   ],
+   "allowed_thresholds": [
+    10.0,
+    11.0,
+    12.0,
+    13.0,
+    14.0,
+    16.0,
+    18.0,
+    21.0,
+    27.0
+   ],
+   "levels": [],
+   "na_rows": 535
+  },
+  {
+   "cluster": 15,
+   "mda_rank": 4,
+   "representative": "n_events_asof",
+   "n_members": 3,
+   "mda_ll_mean": 1.876366707147156e-05,
+   "mda_ll_std": 5.18583104415435e-05,
+   "members": [
+    "sl",
+    "n_events_asof",
+    "ffd_close_dstar"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 15, log-loss MDA rank 4 of 38 (MDA mean 0.00002, std 0.00005; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": "ffd_close_dstar",
+   "kind": "decile",
+   "swap": "representative `n_events_asof` not shown (`n_events_asof`: calendar-time proxy (drift.json time_proxies), refused; `sl`: calendar-time proxy (drift.json time_proxies), refused); shown through the highest-MDI admissible member `ffd_close_dstar` (MDI 0.00483) -> column `ffd_close_dstar`",
+   "caveats": [
+    "extended as-of column (features_ext): not a features.parquet column; a rule on it needs a new per-bar routine in the lab (a user decision, never assumed)",
+    "FFD of the log close at d* = 0.2 keeps most of the price level: the importance study calls it a calendar-time proxy and did not adopt FFD (MDA <= 1 std on both timeframes); a rule on it is a level rule and must hold inside every period"
+   ],
+   "via_member": "ffd_close_dstar",
+   "bins": [
+    {
+     "kind": "range",
+     "lo": null,
+     "hi": 2.4785,
+     "hi_inclusive": false,
+     "label": "< 2.4785",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 2.4785,
+     "hi": 2.4828,
+     "hi_inclusive": false,
+     "label": "[2.4785, 2.4828)",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 2.4828,
+     "hi": 2.4864,
+     "hi_inclusive": false,
+     "label": "[2.4828, 2.4864)",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 2.4864,
+     "hi": 2.4923,
+     "hi_inclusive": false,
+     "label": "[2.4864, 2.4923)",
+     "i": 3
+    },
+    {
+     "kind": "range",
+     "lo": 2.4923,
+     "hi": 2.4993,
+     "hi_inclusive": false,
+     "label": "[2.4923, 2.4993)",
+     "i": 4
+    },
+    {
+     "kind": "range",
+     "lo": 2.4993,
+     "hi": 2.5095,
+     "hi_inclusive": false,
+     "label": "[2.4993, 2.5095)",
+     "i": 5
+    },
+    {
+     "kind": "range",
+     "lo": 2.5095,
+     "hi": 2.5122,
+     "hi_inclusive": false,
+     "label": "[2.5095, 2.5122)",
+     "i": 6
+    },
+    {
+     "kind": "range",
+     "lo": 2.5122,
+     "hi": 2.5148,
+     "hi_inclusive": false,
+     "label": "[2.5122, 2.5148)",
+     "i": 7
+    },
+    {
+     "kind": "range",
+     "lo": 2.5148,
+     "hi": 2.522,
+     "hi_inclusive": false,
+     "label": "[2.5148, 2.522)",
+     "i": 8
+    },
+    {
+     "kind": "range",
+     "lo": 2.522,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 2.522",
+     "i": 9
+    },
+    {
+     "kind": "na",
+     "label": "NA",
+     "i": 10
+    }
+   ],
+   "allowed_thresholds": [
+    2.4785,
+    2.4828,
+    2.4864,
+    2.4923,
+    2.4993,
+    2.5095,
+    2.5122,
+    2.5148,
+    2.522
+   ],
+   "levels": [],
+   "na_rows": 0
+  },
+  {
+   "cluster": 9,
+   "mda_rank": 5,
+   "representative": "card_last_reject_dir=nan",
+   "n_members": 9,
+   "mda_ll_mean": 1.404133687892088e-05,
+   "mda_ll_std": 0.0002505435136658,
+   "members": [
+    "room_behind_dist_atr",
+    "card_read=NEW",
+    "card_last_hunt_dir=nan",
+    "card_last_reject_dir=nan",
+    "fz_gate=BLOCK",
+    "fz_block_reason=new",
+    "room_behind_dist_atr__na",
+    "card_visit_n__na",
+    "card_bars_since_reject__na"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 9, log-loss MDA rank 5 of 38 (MDA mean 0.00001, std 0.00025; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": "card_last_reject_dir",
+   "kind": "level",
+   "swap": "representative `card_last_reject_dir=nan` is a one-hot level: its source column `card_last_reject_dir` is shown by level",
+   "caveats": [],
+   "via_member": "card_last_reject_dir=nan",
+   "bins": [
+    {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    },
+    {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [
+    "down",
+    "up"
+   ],
+   "na_rows": 677
+  },
+  {
+   "cluster": 8,
+   "mda_rank": 6,
+   "representative": "last_bos_dir=none",
+   "n_members": 9,
+   "mda_ll_mean": 0.0,
+   "mda_ll_std": 0.0,
+   "members": [
+    "last_bos_dir=none",
+    "gap_pts__na",
+    "bars_since_bos__na",
+    "bars_since_prev_choch__na",
+    "sess_cumvol_ratio20s__na",
+    "ffd_close_dstar__na",
+    "bsadf_close__na",
+    "bocpd_ret_h60_since_reset__na",
+    "nn_dist_prefix_long__na"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 8, log-loss MDA rank 6 of 38 (MDA mean 0.00000, std 0.00000; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": "last_bos_dir",
+   "kind": "level",
+   "swap": "representative `last_bos_dir=none` is a one-hot level: its source column `last_bos_dir` is shown by level",
+   "caveats": [],
+   "via_member": "last_bos_dir=none",
+   "bins": [
+    {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [
+    "down",
+    "up"
+   ],
+   "na_rows": 0
+  },
+  {
+   "cluster": 37,
+   "mda_rank": 7,
+   "representative": "touch_swing_last=held",
+   "n_members": 1,
+   "mda_ll_mean": 0.0,
+   "mda_ll_std": 0.0,
+   "members": [
+    "touch_swing_last=held"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 37, log-loss MDA rank 7 of 38 (MDA mean 0.00000, std 0.00000; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": "touch_swing_last",
+   "kind": "level",
+   "swap": "representative `touch_swing_last=held` is a one-hot level: its source column `touch_swing_last` is shown by level",
+   "caveats": [],
+   "via_member": "touch_swing_last=held",
+   "bins": [
+    {
+     "kind": "level",
+     "level": "broke",
+     "label": "broke",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "held",
+     "label": "held",
+     "i": 1
+    },
+    {
+     "kind": "level",
+     "level": "pending",
+     "label": "pending",
+     "i": 2
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [
+    "broke",
+    "held",
+    "pending"
+   ],
+   "na_rows": 0
+  },
+  {
+   "cluster": 33,
+   "mda_rank": 8,
+   "representative": "hour_bin=>=15:20",
+   "n_members": 1,
+   "mda_ll_mean": 0.0,
+   "mda_ll_std": 0.0,
+   "members": [
+    "hour_bin=>=15:20"
+   ],
+   "provenance": "outside the frozen shortlist: importance cluster 33, log-loss MDA rank 8 of 38 (MDA mean 0.00000, std 0.00000; the cluster does NOT pass the shortlist rule)",
+   "label": "outside the frozen shortlist",
+   "column": null,
+   "kind": null,
+   "swap": "`hour_bin=>=15:20`: source column `hour_bin` already shown",
+   "covered_by": [
+    "`hour_bin=>=15:20`: source column `hour_bin` already shown"
+   ],
+   "caveats": [
+    "no admissible member: the cluster is covered by tables already shown; zero own cells"
+   ]
+  },
+  {
+   "column": "n_choch_since_bos",
+   "kind": "nchoch",
+   "provenance": "outside the frozen shortlist: a column of the design's two-way tables (not in any top-8 cluster)",
+   "label": "outside the frozen shortlist",
+   "cluster": null,
+   "mda_rank": null,
+   "representative": null,
+   "swap": null,
+   "caveats": [],
+   "bins": [
+    {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 3
+    },
+    {
+     "kind": "range",
+     "lo": 4,
+     "hi": 4,
+     "hi_inclusive": true,
+     "label": "4",
+     "i": 4
+    },
+    {
+     "kind": "range",
+     "lo": 5,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=5",
+     "i": 5
+    }
+   ],
+   "allowed_thresholds": [
+    0.0,
+    1.0,
+    2.0,
+    3.0,
+    4.0,
+    5.0
+   ],
+   "levels": [],
+   "na_rows": 0
+  },
+  {
+   "column": "hv3_dir_agree",
+   "kind": "level",
+   "provenance": "outside the frozen shortlist: a column of the design's two-way tables (not in any top-8 cluster)",
+   "label": "outside the frozen shortlist",
+   "cluster": null,
+   "mda_rank": null,
+   "representative": null,
+   "swap": null,
+   "caveats": [],
+   "bins": [
+    {
+     "kind": "level",
+     "level": "False",
+     "label": "False",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    },
+    {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    }
+   ],
+   "allowed_thresholds": [],
+   "levels": [
+    "False",
+    "True"
+   ],
+   "na_rows": 307
+  },
+  {
+   "column": "hv3_bars_since",
+   "kind": "hv3b",
+   "provenance": "outside the frozen shortlist: a column of the design's two-way tables (not in any top-8 cluster)",
+   "label": "outside the frozen shortlist",
+   "cluster": null,
+   "mda_rank": null,
+   "representative": null,
+   "swap": null,
+   "caveats": [],
+   "bins": [
+    {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0 bars",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 1,
+     "hi": 5,
+     "hi_inclusive": true,
+     "label": "1-5 bars",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 6,
+     "hi": 15,
+     "hi_inclusive": true,
+     "label": "6-15 bars",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 16,
+     "hi": 60,
+     "hi_inclusive": true,
+     "label": "16-60 bars",
+     "i": 3
+    },
+    {
+     "kind": "range",
+     "lo": 61,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=61 bars",
+     "i": 4
+    },
+    {
+     "kind": "na",
+     "label": "NA (no bar with vol_ratio20 >= 3 in the session so far)",
+     "i": 5
+    }
+   ],
+   "allowed_thresholds": [
+    0.0,
+    1.0,
+    5.0,
+    6.0,
+    15.0,
+    16.0,
+    60.0,
+    61.0
+   ],
+   "levels": [],
+   "na_rows": 307
+  },
+  {
+   "column": "fz_visit_n",
+   "kind": "visit",
+   "provenance": "outside the frozen shortlist: a column of the design's two-way tables (not in any top-8 cluster)",
+   "label": "outside the frozen shortlist",
+   "cluster": null,
+   "mda_rank": null,
+   "representative": null,
+   "swap": null,
+   "caveats": [],
+   "bins": [
+    {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    },
+    {
+     "kind": "na",
+     "label": "NA (no ref room)",
+     "i": 4
+    }
+   ],
+   "allowed_thresholds": [
+    1.0,
+    2.0,
+    3.0,
+    4.0
+   ],
+   "levels": [],
+   "na_rows": 535
+  }
+ ],
+ "one_way": {
+  "hour_bin": [
+   {
+    "bin": {
+     "kind": "level",
+     "level": "09",
+     "label": "09",
+     "i": 0
+    },
+    "n": 172,
+    "mean_net": -525.05,
+    "win_rate": 0.25,
+    "labelled": true,
+    "share": 0.0841
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    },
+    "n": 285,
+    "mean_net": -847.86,
+    "win_rate": 0.1719,
+    "labelled": true,
+    "share": 0.1394
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    },
+    "n": 321,
+    "mean_net": -1135.73,
+    "win_rate": 0.1464,
+    "labelled": true,
+    "share": 0.157
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    },
+    "n": 333,
+    "mean_net": -1220.9,
+    "win_rate": 0.1141,
+    "labelled": true,
+    "share": 0.1629
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    },
+    "n": 343,
+    "mean_net": -1114.78,
+    "win_rate": 0.137,
+    "labelled": true,
+    "share": 0.1678
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    },
+    "n": 365,
+    "mean_net": -1046.32,
+    "win_rate": 0.1616,
+    "labelled": true,
+    "share": 0.1786
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "15",
+     "label": "15",
+     "i": 6
+    },
+    "n": 108,
+    "mean_net": -1137.87,
+    "win_rate": 0.1574,
+    "labelled": true,
+    "share": 0.0528
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "<09:25",
+     "label": "<09:25",
+     "i": 7
+    },
+    "n": 91,
+    "mean_net": -1838.68,
+    "win_rate": 0.1538,
+    "labelled": true,
+    "share": 0.0445
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": ">=15:20",
+     "label": ">=15:20",
+     "i": 8
+    },
+    "n": 26,
+    "mean_net": -1182.44,
+    "win_rate": 0.0,
+    "labelled": true,
+    "share": 0.0127
+   }
+  ],
+  "fz_read": [
+   {
+    "bin": {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    },
+    "n": 70,
+    "mean_net": -1106.54,
+    "win_rate": 0.1,
+    "labelled": true,
+    "share": 0.0342
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    },
+    "n": 59,
+    "mean_net": -1351.43,
+    "win_rate": 0.0678,
+    "labelled": true,
+    "share": 0.0289
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "HUNT",
+     "label": "HUNT",
+     "i": 2
+    },
+    "n": 1,
+    "mean_net": null,
+    "win_rate": null,
+    "labelled": false,
+    "share": 0.0005
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    },
+    "n": 800,
+    "mean_net": -1002.52,
+    "win_rate": 0.1675,
+    "labelled": true,
+    "share": 0.3914
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    },
+    "n": 144,
+    "mean_net": -903.98,
+    "win_rate": 0.1319,
+    "labelled": true,
+    "share": 0.0705
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    },
+    "n": 622,
+    "mean_net": -1188.46,
+    "win_rate": 0.1672,
+    "labelled": true,
+    "share": 0.3043
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "RECYCLE",
+     "label": "RECYCLE",
+     "i": 6
+    },
+    "n": 39,
+    "mean_net": -689.68,
+    "win_rate": 0.1538,
+    "labelled": true,
+    "share": 0.0191
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    },
+    "n": 66,
+    "mean_net": -1087.92,
+    "win_rate": 0.1364,
+    "labelled": true,
+    "share": 0.0323
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    },
+    "n": 243,
+    "mean_net": -1065.31,
+    "win_rate": 0.1276,
+    "labelled": true,
+    "share": 0.1189
+   }
+  ],
+  "dir": [
+   {
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    },
+    "n": 1008,
+    "mean_net": -1091.49,
+    "win_rate": 0.1448,
+    "labelled": true,
+    "share": 0.4932
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    },
+    "n": 1036,
+    "mean_net": -1050.28,
+    "win_rate": 0.1622,
+    "labelled": true,
+    "share": 0.5068
+   }
+  ],
+  "room_ahead_dist_atr": [
+   {
+    "bin": {
+     "kind": "range",
+     "lo": null,
+     "hi": 0.171,
+     "hi_inclusive": false,
+     "label": "< 0.171",
+     "i": 0
+    },
+    "n": 186,
+    "mean_net": -1178.9,
+    "win_rate": 0.1559,
+    "labelled": true,
+    "share": 0.091
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 0.171,
+     "hi": 0.3559,
+     "hi_inclusive": false,
+     "label": "[0.171, 0.3559)",
+     "i": 1
+    },
+    "n": 186,
+    "mean_net": -890.36,
+    "win_rate": 0.1613,
+    "labelled": true,
+    "share": 0.091
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 0.3559,
+     "hi": 0.5496,
+     "hi_inclusive": false,
+     "label": "[0.3559, 0.5496)",
+     "i": 2
+    },
+    "n": 186,
+    "mean_net": -963.23,
+    "win_rate": 0.1935,
+    "labelled": true,
+    "share": 0.091
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 0.5496,
+     "hi": 0.7863,
+     "hi_inclusive": false,
+     "label": "[0.5496, 0.7863)",
+     "i": 3
+    },
+    "n": 186,
+    "mean_net": -1111.88,
+    "win_rate": 0.1237,
+    "labelled": true,
+    "share": 0.091
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 0.7863,
+     "hi": 1.0181,
+     "hi_inclusive": false,
+     "label": "[0.7863, 1.0181)",
+     "i": 4
+    },
+    "n": 186,
+    "mean_net": -919.5,
+    "win_rate": 0.1935,
+    "labelled": true,
+    "share": 0.091
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 1.0181,
+     "hi": 1.3011,
+     "hi_inclusive": false,
+     "label": "[1.0181, 1.3011)",
+     "i": 5
+    },
+    "n": 186,
+    "mean_net": -1200.26,
+    "win_rate": 0.1398,
+    "labelled": true,
+    "share": 0.091
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 1.3011,
+     "hi": 1.7067,
+     "hi_inclusive": false,
+     "label": "[1.3011, 1.7067)",
+     "i": 6
+    },
+    "n": 186,
+    "mean_net": -917.98,
+    "win_rate": 0.1183,
+    "labelled": true,
+    "share": 0.091
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 1.7067,
+     "hi": 2.2388,
+     "hi_inclusive": false,
+     "label": "[1.7067, 2.2388)",
+     "i": 7
+    },
+    "n": 186,
+    "mean_net": -1260.66,
+    "win_rate": 0.1022,
+    "labelled": true,
+    "share": 0.091
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.2388,
+     "hi": 3.605,
+     "hi_inclusive": false,
+     "label": "[2.2388, 3.605)",
+     "i": 8
+    },
+    "n": 186,
+    "mean_net": -856.88,
+    "win_rate": 0.1882,
+    "labelled": true,
+    "share": 0.091
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 3.605,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 3.605",
+     "i": 9
+    },
+    "n": 186,
+    "mean_net": -1296.39,
+    "win_rate": 0.1398,
+    "labelled": true,
+    "share": 0.091
+   },
+   {
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 10
+    },
+    "n": 184,
+    "mean_net": -1181.76,
+    "win_rate": 0.1739,
+    "labelled": true,
+    "share": 0.09
+   }
+  ],
+  "touch_room_bars_ago": [
+   {
+    "bin": {
+     "kind": "range",
+     "lo": null,
+     "hi": 1.0,
+     "hi_inclusive": false,
+     "label": "< 1.0",
+     "i": 0
+    },
+    "n": 0,
+    "mean_net": null,
+    "win_rate": null,
+    "labelled": false,
+    "share": 0.0
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 1.0,
+     "hi": 3.0,
+     "hi_inclusive": false,
+     "label": "[1.0, 3.0)",
+     "i": 1
+    },
+    "n": 649,
+    "mean_net": -1065.64,
+    "win_rate": 0.1541,
+    "labelled": true,
+    "share": 0.3175
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 3.0,
+     "hi": 10.0,
+     "hi_inclusive": false,
+     "label": "[3.0, 10.0)",
+     "i": 2
+    },
+    "n": 196,
+    "mean_net": -1164.24,
+    "win_rate": 0.1276,
+    "labelled": true,
+    "share": 0.0959
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 10.0,
+     "hi": 15.0,
+     "hi_inclusive": false,
+     "label": "[10.0, 15.0)",
+     "i": 3
+    },
+    "n": 172,
+    "mean_net": -1319.62,
+    "win_rate": 0.1221,
+    "labelled": true,
+    "share": 0.0841
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 15.0,
+     "hi": 20.0,
+     "hi_inclusive": false,
+     "label": "[15.0, 20.0)",
+     "i": 4
+    },
+    "n": 160,
+    "mean_net": -675.18,
+    "win_rate": 0.2313,
+    "labelled": true,
+    "share": 0.0783
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 20.0,
+     "hi": 28.0,
+     "hi_inclusive": false,
+     "label": "[20.0, 28.0)",
+     "i": 5
+    },
+    "n": 192,
+    "mean_net": -1182.66,
+    "win_rate": 0.1458,
+    "labelled": true,
+    "share": 0.0939
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 28.0,
+     "hi": 38.0,
+     "hi_inclusive": false,
+     "label": "[28.0, 38.0)",
+     "i": 6
+    },
+    "n": 170,
+    "mean_net": -614.38,
+    "win_rate": 0.1765,
+    "labelled": true,
+    "share": 0.0832
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 38.0,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 38.0",
+     "i": 7
+    },
+    "n": 175,
+    "mean_net": -1422.47,
+    "win_rate": 0.1143,
+    "labelled": true,
+    "share": 0.0856
+   },
+   {
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 8
+    },
+    "n": 330,
+    "mean_net": -1069.9,
+    "win_rate": 0.1606,
+    "labelled": true,
+    "share": 0.1614
+   }
+  ],
+  "card_first_bars": [
+   {
+    "bin": {
+     "kind": "range",
+     "lo": null,
+     "hi": 10.0,
+     "hi_inclusive": false,
+     "label": "< 10.0",
+     "i": 0
+    },
+    "n": 0,
+    "mean_net": null,
+    "win_rate": null,
+    "labelled": false,
+    "share": 0.0
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 10.0,
+     "hi": 11.0,
+     "hi_inclusive": false,
+     "label": "[10.0, 11.0)",
+     "i": 1
+    },
+    "n": 241,
+    "mean_net": -1097.89,
+    "win_rate": 0.1452,
+    "labelled": true,
+    "share": 0.1179
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 11.0,
+     "hi": 12.0,
+     "hi_inclusive": false,
+     "label": "[11.0, 12.0)",
+     "i": 2
+    },
+    "n": 181,
+    "mean_net": -1486.83,
+    "win_rate": 0.116,
+    "labelled": true,
+    "share": 0.0886
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 12.0,
+     "hi": 13.0,
+     "hi_inclusive": false,
+     "label": "[12.0, 13.0)",
+     "i": 3
+    },
+    "n": 154,
+    "mean_net": -1007.5,
+    "win_rate": 0.1558,
+    "labelled": true,
+    "share": 0.0753
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 13.0,
+     "hi": 14.0,
+     "hi_inclusive": false,
+     "label": "[13.0, 14.0)",
+     "i": 4
+    },
+    "n": 119,
+    "mean_net": -920.62,
+    "win_rate": 0.2017,
+    "labelled": true,
+    "share": 0.0582
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 14.0,
+     "hi": 16.0,
+     "hi_inclusive": false,
+     "label": "[14.0, 16.0)",
+     "i": 5
+    },
+    "n": 166,
+    "mean_net": -1130.1,
+    "win_rate": 0.1566,
+    "labelled": true,
+    "share": 0.0812
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 16.0,
+     "hi": 18.0,
+     "hi_inclusive": false,
+     "label": "[16.0, 18.0)",
+     "i": 6
+    },
+    "n": 161,
+    "mean_net": -1093.04,
+    "win_rate": 0.1491,
+    "labelled": true,
+    "share": 0.0788
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 18.0,
+     "hi": 21.0,
+     "hi_inclusive": false,
+     "label": "[18.0, 21.0)",
+     "i": 7
+    },
+    "n": 157,
+    "mean_net": -1202.28,
+    "win_rate": 0.1465,
+    "labelled": true,
+    "share": 0.0768
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 21.0,
+     "hi": 27.0,
+     "hi_inclusive": false,
+     "label": "[21.0, 27.0)",
+     "i": 8
+    },
+    "n": 171,
+    "mean_net": -1125.16,
+    "win_rate": 0.1696,
+    "labelled": true,
+    "share": 0.0837
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 27.0,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 27.0",
+     "i": 9
+    },
+    "n": 159,
+    "mean_net": -981.83,
+    "win_rate": 0.1447,
+    "labelled": true,
+    "share": 0.0778
+   },
+   {
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 10
+    },
+    "n": 535,
+    "mean_net": -914.1,
+    "win_rate": 0.1589,
+    "labelled": true,
+    "share": 0.2617
+   }
+  ],
+  "ffd_close_dstar": [
+   {
+    "bin": {
+     "kind": "range",
+     "lo": null,
+     "hi": 2.4785,
+     "hi_inclusive": false,
+     "label": "< 2.4785",
+     "i": 0
+    },
+    "n": 206,
+    "mean_net": -829.24,
+    "win_rate": 0.1408,
+    "labelled": true,
+    "share": 0.1008
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.4785,
+     "hi": 2.4828,
+     "hi_inclusive": false,
+     "label": "[2.4785, 2.4828)",
+     "i": 1
+    },
+    "n": 203,
+    "mean_net": -1160.53,
+    "win_rate": 0.1527,
+    "labelled": true,
+    "share": 0.0993
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.4828,
+     "hi": 2.4864,
+     "hi_inclusive": false,
+     "label": "[2.4828, 2.4864)",
+     "i": 2
+    },
+    "n": 204,
+    "mean_net": -622.76,
+    "win_rate": 0.1863,
+    "labelled": true,
+    "share": 0.0998
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.4864,
+     "hi": 2.4923,
+     "hi_inclusive": false,
+     "label": "[2.4864, 2.4923)",
+     "i": 3
+    },
+    "n": 207,
+    "mean_net": -1285.08,
+    "win_rate": 0.1353,
+    "labelled": true,
+    "share": 0.1013
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.4923,
+     "hi": 2.4993,
+     "hi_inclusive": false,
+     "label": "[2.4923, 2.4993)",
+     "i": 4
+    },
+    "n": 202,
+    "mean_net": -1199.61,
+    "win_rate": 0.1634,
+    "labelled": true,
+    "share": 0.0988
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.4993,
+     "hi": 2.5095,
+     "hi_inclusive": false,
+     "label": "[2.4993, 2.5095)",
+     "i": 5
+    },
+    "n": 203,
+    "mean_net": -850.01,
+    "win_rate": 0.1773,
+    "labelled": true,
+    "share": 0.0993
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.5095,
+     "hi": 2.5122,
+     "hi_inclusive": false,
+     "label": "[2.5095, 2.5122)",
+     "i": 6
+    },
+    "n": 208,
+    "mean_net": -1410.03,
+    "win_rate": 0.1154,
+    "labelled": true,
+    "share": 0.1018
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.5122,
+     "hi": 2.5148,
+     "hi_inclusive": false,
+     "label": "[2.5122, 2.5148)",
+     "i": 7
+    },
+    "n": 203,
+    "mean_net": -1329.63,
+    "win_rate": 0.1034,
+    "labelled": true,
+    "share": 0.0993
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.5148,
+     "hi": 2.522,
+     "hi_inclusive": false,
+     "label": "[2.5148, 2.522)",
+     "i": 8
+    },
+    "n": 202,
+    "mean_net": -1197.91,
+    "win_rate": 0.1584,
+    "labelled": true,
+    "share": 0.0988
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2.522,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 2.522",
+     "i": 9
+    },
+    "n": 206,
+    "mean_net": -819.35,
+    "win_rate": 0.2039,
+    "labelled": true,
+    "share": 0.1008
+   },
+   {
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 10
+    },
+    "n": 0,
+    "mean_net": null,
+    "win_rate": null,
+    "labelled": false,
+    "share": 0.0
+   }
+  ],
+  "card_last_reject_dir": [
+   {
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    },
+    "n": 668,
+    "mean_net": -1113.36,
+    "win_rate": 0.1572,
+    "labelled": true,
+    "share": 0.3268
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    },
+    "n": 699,
+    "mean_net": -1168.79,
+    "win_rate": 0.1416,
+    "labelled": true,
+    "share": 0.342
+   },
+   {
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    },
+    "n": 677,
+    "mean_net": -927.02,
+    "win_rate": 0.1625,
+    "labelled": true,
+    "share": 0.3312
+   }
+  ],
+  "last_bos_dir": [
+   {
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    },
+    "n": 963,
+    "mean_net": -1102.24,
+    "win_rate": 0.1578,
+    "labelled": true,
+    "share": 0.4711
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    },
+    "n": 1081,
+    "mean_net": -1042.42,
+    "win_rate": 0.1499,
+    "labelled": true,
+    "share": 0.5289
+   }
+  ],
+  "touch_swing_last": [
+   {
+    "bin": {
+     "kind": "level",
+     "level": "broke",
+     "label": "broke",
+     "i": 0
+    },
+    "n": 1215,
+    "mean_net": -1070.93,
+    "win_rate": 0.172,
+    "labelled": true,
+    "share": 0.5944
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "held",
+     "label": "held",
+     "i": 1
+    },
+    "n": 4,
+    "mean_net": null,
+    "win_rate": null,
+    "labelled": false,
+    "share": 0.002
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "pending",
+     "label": "pending",
+     "i": 2
+    },
+    "n": 825,
+    "mean_net": -1082.09,
+    "win_rate": 0.1248,
+    "labelled": true,
+    "share": 0.4036
+   }
+  ],
+  "n_choch_since_bos": [
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0",
+     "i": 0
+    },
+    "n": 533,
+    "mean_net": -1064.36,
+    "win_rate": 0.137,
+    "labelled": true,
+    "share": 0.2608
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 1
+    },
+    "n": 805,
+    "mean_net": -1018.14,
+    "win_rate": 0.154,
+    "labelled": true,
+    "share": 0.3938
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 2
+    },
+    "n": 388,
+    "mean_net": -1157.5,
+    "win_rate": 0.1727,
+    "labelled": true,
+    "share": 0.1898
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 3
+    },
+    "n": 173,
+    "mean_net": -1078.61,
+    "win_rate": 0.1503,
+    "labelled": true,
+    "share": 0.0846
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": 4,
+     "hi_inclusive": true,
+     "label": "4",
+     "i": 4
+    },
+    "n": 73,
+    "mean_net": -1033.31,
+    "win_rate": 0.1507,
+    "labelled": true,
+    "share": 0.0357
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 5,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=5",
+     "i": 5
+    },
+    "n": 72,
+    "mean_net": -1253.58,
+    "win_rate": 0.1806,
+    "labelled": true,
+    "share": 0.0352
+   }
+  ],
+  "hv3_dir_agree": [
+   {
+    "bin": {
+     "kind": "level",
+     "level": "False",
+     "label": "False",
+     "i": 0
+    },
+    "n": 720,
+    "mean_net": -1063.74,
+    "win_rate": 0.1444,
+    "labelled": true,
+    "share": 0.3523
+   },
+   {
+    "bin": {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    },
+    "n": 1017,
+    "mean_net": -1156.38,
+    "win_rate": 0.1455,
+    "labelled": true,
+    "share": 0.4976
+   },
+   {
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    },
+    "n": 307,
+    "mean_net": -802.55,
+    "win_rate": 0.202,
+    "labelled": true,
+    "share": 0.1502
+   }
+  ],
+  "hv3_bars_since": [
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0 bars",
+     "i": 0
+    },
+    "n": 330,
+    "mean_net": -1359.48,
+    "win_rate": 0.1485,
+    "labelled": true,
+    "share": 0.1614
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 5,
+     "hi_inclusive": true,
+     "label": "1-5 bars",
+     "i": 1
+    },
+    "n": 242,
+    "mean_net": -1136.48,
+    "win_rate": 0.1529,
+    "labelled": true,
+    "share": 0.1184
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 6,
+     "hi": 15,
+     "hi_inclusive": true,
+     "label": "6-15 bars",
+     "i": 2
+    },
+    "n": 458,
+    "mean_net": -1095.84,
+    "win_rate": 0.1463,
+    "labelled": true,
+    "share": 0.2241
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 16,
+     "hi": 60,
+     "hi_inclusive": true,
+     "label": "16-60 bars",
+     "i": 3
+    },
+    "n": 646,
+    "mean_net": -1043.34,
+    "win_rate": 0.1378,
+    "labelled": true,
+    "share": 0.316
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 61,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=61 bars",
+     "i": 4
+    },
+    "n": 61,
+    "mean_net": -694.7,
+    "win_rate": 0.1639,
+    "labelled": true,
+    "share": 0.0298
+   },
+   {
+    "bin": {
+     "kind": "na",
+     "label": "NA (no bar with vol_ratio20 >= 3 in the session so far)",
+     "i": 5
+    },
+    "n": 307,
+    "mean_net": -802.55,
+    "win_rate": 0.202,
+    "labelled": true,
+    "share": 0.1502
+   }
+  ],
+  "fz_visit_n": [
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 0
+    },
+    "n": 321,
+    "mean_net": -1204.84,
+    "win_rate": 0.1558,
+    "labelled": true,
+    "share": 0.157
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    },
+    "n": 272,
+    "mean_net": -1017.47,
+    "win_rate": 0.1507,
+    "labelled": true,
+    "share": 0.1331
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    },
+    "n": 213,
+    "mean_net": -1130.4,
+    "win_rate": 0.1408,
+    "labelled": true,
+    "share": 0.1042
+   },
+   {
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    },
+    "n": 703,
+    "mean_net": -1130.84,
+    "win_rate": 0.1536,
+    "labelled": true,
+    "share": 0.3439
+   },
+   {
+    "bin": {
+     "kind": "na",
+     "label": "NA (no ref room)",
+     "i": 4
+    },
+    "n": 535,
+    "mean_net": -914.1,
+    "win_rate": 0.1589,
+    "labelled": true,
+    "share": 0.2617
+   }
+  ]
+ },
+ "two_way": {
+  "fz_readxhour_bin": {
+   "row_column": "fz_read",
+   "col_column": "hour_bin",
+   "row_bins": [
+    {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    },
+    {
+     "kind": "level",
+     "level": "HUNT",
+     "label": "HUNT",
+     "i": 2
+    },
+    {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    },
+    {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    },
+    {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    },
+    {
+     "kind": "level",
+     "level": "RECYCLE",
+     "label": "RECYCLE",
+     "i": 6
+    },
+    {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    },
+    {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   ],
+   "col_bins": [
+    {
+     "kind": "level",
+     "level": "09",
+     "label": "09",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    },
+    {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    },
+    {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    },
+    {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    },
+    {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    },
+    {
+     "kind": "level",
+     "level": "15",
+     "label": "15",
+     "i": 6
+    },
+    {
+     "kind": "level",
+     "level": "<09:25",
+     "label": "<09:25",
+     "i": 7
+    },
+    {
+     "kind": "level",
+     "level": ">=15:20",
+     "label": ">=15:20",
+     "i": 8
+    }
+   ],
+   "grid": [
+    [
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 2,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 10,
+      "mean_net": -1033.91,
+      "win_rate": 0.1,
+      "labelled": true
+     },
+     {
+      "n": 19,
+      "mean_net": -1571.54,
+      "win_rate": 0.0,
+      "labelled": true
+     },
+     {
+      "n": 19,
+      "mean_net": -1308.24,
+      "win_rate": 0.1053,
+      "labelled": true
+     },
+     {
+      "n": 12,
+      "mean_net": -368.38,
+      "win_rate": 0.25,
+      "labelled": true
+     },
+     {
+      "n": 3,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 3,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 5,
+      "mean_net": -676.14,
+      "win_rate": 0.2,
+      "labelled": true
+     },
+     {
+      "n": 11,
+      "mean_net": -1877.62,
+      "win_rate": 0.0,
+      "labelled": true
+     },
+     {
+      "n": 7,
+      "mean_net": -655.76,
+      "win_rate": 0.2857,
+      "labelled": true
+     },
+     {
+      "n": 7,
+      "mean_net": -1380.99,
+      "win_rate": 0.0,
+      "labelled": true
+     },
+     {
+      "n": 5,
+      "mean_net": -1311.48,
+      "win_rate": 0.0,
+      "labelled": true
+     },
+     {
+      "n": 20,
+      "mean_net": -1549.22,
+      "win_rate": 0.05,
+      "labelled": true
+     },
+     {
+      "n": 2,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 95,
+      "mean_net": -242.44,
+      "win_rate": 0.2737,
+      "labelled": true
+     },
+     {
+      "n": 119,
+      "mean_net": -777.66,
+      "win_rate": 0.2185,
+      "labelled": true
+     },
+     {
+      "n": 117,
+      "mean_net": -957.3,
+      "win_rate": 0.1282,
+      "labelled": true
+     },
+     {
+      "n": 124,
+      "mean_net": -1523.93,
+      "win_rate": 0.0726,
+      "labelled": true
+     },
+     {
+      "n": 109,
+      "mean_net": -1187.64,
+      "win_rate": 0.1651,
+      "labelled": true
+     },
+     {
+      "n": 152,
+      "mean_net": -1054.17,
+      "win_rate": 0.1711,
+      "labelled": true
+     },
+     {
+      "n": 40,
+      "mean_net": -1304.14,
+      "win_rate": 0.15,
+      "labelled": true
+     },
+     {
+      "n": 35,
+      "mean_net": -920.41,
+      "win_rate": 0.2286,
+      "labelled": true
+     },
+     {
+      "n": 9,
+      "mean_net": -1267.38,
+      "win_rate": 0.0,
+      "labelled": true
+     }
+    ],
+    [
+     {
+      "n": 7,
+      "mean_net": -1740.5,
+      "win_rate": 0.1429,
+      "labelled": true
+     },
+     {
+      "n": 24,
+      "mean_net": 1562.37,
+      "win_rate": 0.1667,
+      "labelled": true
+     },
+     {
+      "n": 17,
+      "mean_net": -1831.89,
+      "win_rate": 0.0,
+      "labelled": true
+     },
+     {
+      "n": 26,
+      "mean_net": -1349.5,
+      "win_rate": 0.1154,
+      "labelled": true
+     },
+     {
+      "n": 24,
+      "mean_net": -1148.15,
+      "win_rate": 0.125,
+      "labelled": true
+     },
+     {
+      "n": 22,
+      "mean_net": 123.23,
+      "win_rate": 0.2727,
+      "labelled": true
+     },
+     {
+      "n": 8,
+      "mean_net": -868.29,
+      "win_rate": 0.125,
+      "labelled": true
+     },
+     {
+      "n": 13,
+      "mean_net": -4129.38,
+      "win_rate": 0.0769,
+      "labelled": true
+     },
+     {
+      "n": 3,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 48,
+      "mean_net": -1263.99,
+      "win_rate": 0.1875,
+      "labelled": true
+     },
+     {
+      "n": 103,
+      "mean_net": -1204.89,
+      "win_rate": 0.165,
+      "labelled": true
+     },
+     {
+      "n": 100,
+      "mean_net": -1229.13,
+      "win_rate": 0.19,
+      "labelled": true
+     },
+     {
+      "n": 98,
+      "mean_net": -1077.88,
+      "win_rate": 0.1633,
+      "labelled": true
+     },
+     {
+      "n": 105,
+      "mean_net": -1114.63,
+      "win_rate": 0.1429,
+      "labelled": true
+     },
+     {
+      "n": 95,
+      "mean_net": -1206.5,
+      "win_rate": 0.1579,
+      "labelled": true
+     },
+     {
+      "n": 34,
+      "mean_net": -861.53,
+      "win_rate": 0.2647,
+      "labelled": true
+     },
+     {
+      "n": 34,
+      "mean_net": -1758.42,
+      "win_rate": 0.1176,
+      "labelled": true
+     },
+     {
+      "n": 5,
+      "mean_net": -1033.3,
+      "win_rate": 0.0,
+      "labelled": true
+     }
+    ],
+    [
+     {
+      "n": 4,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 2,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 6,
+      "mean_net": -643.94,
+      "win_rate": 0.1667,
+      "labelled": true
+     },
+     {
+      "n": 3,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 15,
+      "mean_net": 117.0,
+      "win_rate": 0.2,
+      "labelled": true
+     },
+     {
+      "n": 5,
+      "mean_net": -308.22,
+      "win_rate": 0.2,
+      "labelled": true
+     },
+     {
+      "n": 3,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 2,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 5,
+      "mean_net": -1424.14,
+      "win_rate": 0.0,
+      "labelled": true
+     },
+     {
+      "n": 9,
+      "mean_net": -1320.91,
+      "win_rate": 0.1111,
+      "labelled": true
+     },
+     {
+      "n": 16,
+      "mean_net": -495.42,
+      "win_rate": 0.1875,
+      "labelled": true
+     },
+     {
+      "n": 9,
+      "mean_net": -575.81,
+      "win_rate": 0.2222,
+      "labelled": true
+     },
+     {
+      "n": 16,
+      "mean_net": -1559.94,
+      "win_rate": 0.0625,
+      "labelled": true
+     },
+     {
+      "n": 6,
+      "mean_net": -1107.05,
+      "win_rate": 0.1667,
+      "labelled": true
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 2,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 10,
+      "mean_net": 1382.94,
+      "win_rate": 0.4,
+      "labelled": true
+     },
+     {
+      "n": 19,
+      "mean_net": -1441.88,
+      "win_rate": 0.1053,
+      "labelled": true
+     },
+     {
+      "n": 55,
+      "mean_net": -1233.27,
+      "win_rate": 0.1455,
+      "labelled": true
+     },
+     {
+      "n": 40,
+      "mean_net": -607.43,
+      "win_rate": 0.175,
+      "labelled": true
+     },
+     {
+      "n": 56,
+      "mean_net": -1274.13,
+      "win_rate": 0.0714,
+      "labelled": true
+     },
+     {
+      "n": 43,
+      "mean_net": -1113.05,
+      "win_rate": 0.1395,
+      "labelled": true
+     },
+     {
+      "n": 12,
+      "mean_net": -1390.0,
+      "win_rate": 0.0,
+      "labelled": true
+     },
+     {
+      "n": 5,
+      "mean_net": -2742.08,
+      "win_rate": 0.0,
+      "labelled": true
+     },
+     {
+      "n": 3,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ]
+   ]
+  },
+  "n_choch_since_bosxdir": {
+   "row_column": "n_choch_since_bos",
+   "col_column": "dir",
+   "row_bins": [
+    {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 3,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=3",
+     "i": 3
+    }
+   ],
+   "col_bins": [
+    {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   ],
+   "grid": [
+    [
+     {
+      "n": 248,
+      "mean_net": -1268.42,
+      "win_rate": 0.125,
+      "labelled": true
+     },
+     {
+      "n": 285,
+      "mean_net": -886.79,
+      "win_rate": 0.1474,
+      "labelled": true
+     }
+    ],
+    [
+     {
+      "n": 417,
+      "mean_net": -1017.58,
+      "win_rate": 0.1343,
+      "labelled": true
+     },
+     {
+      "n": 388,
+      "mean_net": -1018.75,
+      "win_rate": 0.1753,
+      "labelled": true
+     }
+    ],
+    [
+     {
+      "n": 195,
+      "mean_net": -1117.76,
+      "win_rate": 0.1744,
+      "labelled": true
+     },
+     {
+      "n": 193,
+      "mean_net": -1197.64,
+      "win_rate": 0.171,
+      "labelled": true
+     }
+    ],
+    [
+     {
+      "n": 148,
+      "mean_net": -968.64,
+      "win_rate": 0.1689,
+      "labelled": true
+     },
+     {
+      "n": 170,
+      "mean_net": -1229.0,
+      "win_rate": 0.1471,
+      "labelled": true
+     }
+    ]
+   ]
+  },
+  "hv3_dir_agreexhv3_bars_since": {
+   "row_column": "hv3_dir_agree",
+   "col_column": "hv3_bars_since",
+   "row_bins": [
+    {
+     "kind": "level",
+     "level": "False",
+     "label": "False",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    },
+    {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    }
+   ],
+   "col_bins": [
+    {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0 bars",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 1,
+     "hi": 5,
+     "hi_inclusive": true,
+     "label": "1-5 bars",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 6,
+     "hi": 15,
+     "hi_inclusive": true,
+     "label": "6-15 bars",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 16,
+     "hi": 60,
+     "hi_inclusive": true,
+     "label": "16-60 bars",
+     "i": 3
+    },
+    {
+     "kind": "range",
+     "lo": 61,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=61 bars",
+     "i": 4
+    },
+    {
+     "kind": "na",
+     "label": "NA (no bar with vol_ratio20 >= 3 in the session so far)",
+     "i": 5
+    }
+   ],
+   "grid": [
+    [
+     {
+      "n": 5,
+      "mean_net": -832.74,
+      "win_rate": 0.2,
+      "labelled": true
+     },
+     {
+      "n": 98,
+      "mean_net": -1075.69,
+      "win_rate": 0.1633,
+      "labelled": true
+     },
+     {
+      "n": 233,
+      "mean_net": -1172.5,
+      "win_rate": 0.1288,
+      "labelled": true
+     },
+     {
+      "n": 356,
+      "mean_net": -1013.47,
+      "win_rate": 0.1461,
+      "labelled": true
+     },
+     {
+      "n": 28,
+      "mean_net": -797.19,
+      "win_rate": 0.1786,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 325,
+      "mean_net": -1367.58,
+      "win_rate": 0.1477,
+      "labelled": true
+     },
+     {
+      "n": 144,
+      "mean_net": -1177.85,
+      "win_rate": 0.1458,
+      "labelled": true
+     },
+     {
+      "n": 225,
+      "mean_net": -1016.46,
+      "win_rate": 0.1644,
+      "labelled": true
+     },
+     {
+      "n": 290,
+      "mean_net": -1080.01,
+      "win_rate": 0.1276,
+      "labelled": true
+     },
+     {
+      "n": 33,
+      "mean_net": -607.75,
+      "win_rate": 0.1515,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 307,
+      "mean_net": -802.55,
+      "win_rate": 0.202,
+      "labelled": true
+     }
+    ]
+   ]
+  },
+  "fz_visit_nxfz_read": {
+   "row_column": "fz_visit_n",
+   "col_column": "fz_read",
+   "row_bins": [
+    {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 0
+    },
+    {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    },
+    {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    },
+    {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    },
+    {
+     "kind": "na",
+     "label": "NA (no ref room)",
+     "i": 4
+    }
+   ],
+   "col_bins": [
+    {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    },
+    {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    },
+    {
+     "kind": "level",
+     "level": "HUNT",
+     "label": "HUNT",
+     "i": 2
+    },
+    {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    },
+    {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    },
+    {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    },
+    {
+     "kind": "level",
+     "level": "RECYCLE",
+     "label": "RECYCLE",
+     "i": 6
+    },
+    {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    },
+    {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   ],
+   "grid": [
+    [
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 59,
+      "mean_net": -1351.43,
+      "win_rate": 0.0678,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 34,
+      "mean_net": -1668.19,
+      "win_rate": 0.1176,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 224,
+      "mean_net": -1152.23,
+      "win_rate": 0.1786,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 4,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ],
+    [
+     {
+      "n": 20,
+      "mean_net": -990.04,
+      "win_rate": 0.1,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 83,
+      "mean_net": -797.29,
+      "win_rate": 0.1928,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 97,
+      "mean_net": -1228.0,
+      "win_rate": 0.134,
+      "labelled": true
+     },
+     {
+      "n": 9,
+      "mean_net": -1279.38,
+      "win_rate": 0.1111,
+      "labelled": true
+     },
+     {
+      "n": 10,
+      "mean_net": -1360.59,
+      "win_rate": 0.1,
+      "labelled": true
+     },
+     {
+      "n": 53,
+      "mean_net": -878.13,
+      "win_rate": 0.1509,
+      "labelled": true
+     }
+    ],
+    [
+     {
+      "n": 16,
+      "mean_net": -1593.55,
+      "win_rate": 0.0,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 56,
+      "mean_net": -650.93,
+      "win_rate": 0.1964,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 77,
+      "mean_net": -1122.73,
+      "win_rate": 0.1558,
+      "labelled": true
+     },
+     {
+      "n": 7,
+      "mean_net": -1701.74,
+      "win_rate": 0.0,
+      "labelled": true
+     },
+     {
+      "n": 9,
+      "mean_net": -1284.34,
+      "win_rate": 0.1111,
+      "labelled": true
+     },
+     {
+      "n": 48,
+      "mean_net": -1435.51,
+      "win_rate": 0.125,
+      "labelled": true
+     }
+    ],
+    [
+     {
+      "n": 34,
+      "mean_net": -945.9,
+      "win_rate": 0.1471,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 1,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 236,
+      "mean_net": -1202.56,
+      "win_rate": 0.1568,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 224,
+      "mean_net": -1230.15,
+      "win_rate": 0.1741,
+      "labelled": true
+     },
+     {
+      "n": 23,
+      "mean_net": -150.91,
+      "win_rate": 0.2174,
+      "labelled": true
+     },
+     {
+      "n": 43,
+      "mean_net": -1265.99,
+      "win_rate": 0.1163,
+      "labelled": true
+     },
+     {
+      "n": 142,
+      "mean_net": -1010.04,
+      "win_rate": 0.1197,
+      "labelled": true
+     }
+    ],
+    [
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 391,
+      "mean_net": -917.83,
+      "win_rate": 0.1688,
+      "labelled": true
+     },
+     {
+      "n": 144,
+      "mean_net": -903.98,
+      "win_rate": 0.1319,
+      "labelled": true
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     },
+     {
+      "n": 0,
+      "mean_net": null,
+      "win_rate": null,
+      "labelled": false
+     }
+    ]
+   ]
+  }
+ },
+ "cells": [
+  {
+   "table": "base",
+   "a": null,
+   "b": null,
+   "n": 2044,
+   "mean_net": -1070.6,
+   "win_rate": 0.1536
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "09",
+     "label": "09",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 172,
+   "mean_net": -525.05,
+   "win_rate": 0.25
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 285,
+   "mean_net": -847.86,
+   "win_rate": 0.1719
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 321,
+   "mean_net": -1135.73,
+   "win_rate": 0.1464
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 333,
+   "mean_net": -1220.9,
+   "win_rate": 0.1141
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 343,
+   "mean_net": -1114.78,
+   "win_rate": 0.137
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    }
+   },
+   "b": null,
+   "n": 365,
+   "mean_net": -1046.32,
+   "win_rate": 0.1616
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "15",
+     "label": "15",
+     "i": 6
+    }
+   },
+   "b": null,
+   "n": 108,
+   "mean_net": -1137.87,
+   "win_rate": 0.1574
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "<09:25",
+     "label": "<09:25",
+     "i": 7
+    }
+   },
+   "b": null,
+   "n": 91,
+   "mean_net": -1838.68,
+   "win_rate": 0.1538
+  },
+  {
+   "table": "one_way:hour_bin",
+   "a": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": ">=15:20",
+     "label": ">=15:20",
+     "i": 8
+    }
+   },
+   "b": null,
+   "n": 26,
+   "mean_net": -1182.44,
+   "win_rate": 0.0
+  },
+  {
+   "table": "one_way:fz_read",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 70,
+   "mean_net": -1106.54,
+   "win_rate": 0.1
+  },
+  {
+   "table": "one_way:fz_read",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 59,
+   "mean_net": -1351.43,
+   "win_rate": 0.0678
+  },
+  {
+   "table": "one_way:fz_read",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 800,
+   "mean_net": -1002.52,
+   "win_rate": 0.1675
+  },
+  {
+   "table": "one_way:fz_read",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 144,
+   "mean_net": -903.98,
+   "win_rate": 0.1319
+  },
+  {
+   "table": "one_way:fz_read",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": null,
+   "n": 622,
+   "mean_net": -1188.46,
+   "win_rate": 0.1672
+  },
+  {
+   "table": "one_way:fz_read",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "RECYCLE",
+     "label": "RECYCLE",
+     "i": 6
+    }
+   },
+   "b": null,
+   "n": 39,
+   "mean_net": -689.68,
+   "win_rate": 0.1538
+  },
+  {
+   "table": "one_way:fz_read",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    }
+   },
+   "b": null,
+   "n": 66,
+   "mean_net": -1087.92,
+   "win_rate": 0.1364
+  },
+  {
+   "table": "one_way:fz_read",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "b": null,
+   "n": 243,
+   "mean_net": -1065.31,
+   "win_rate": 0.1276
+  },
+  {
+   "table": "one_way:dir",
+   "a": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 1008,
+   "mean_net": -1091.49,
+   "win_rate": 0.1448
+  },
+  {
+   "table": "one_way:dir",
+   "a": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 1036,
+   "mean_net": -1050.28,
+   "win_rate": 0.1622
+  },
+  {
+   "table": "one_way:room_ahead_dist_atr",
+   "a": {
+    "column": "room_ahead_dist_atr",
+    "bin": {
+     "kind": "range",
+     "lo": null,
+     "hi": 0.171,
+     "hi_inclusive": false,
+     "label": "< 0.171",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 186,
+   "mean_net": -1178.9,
+   "win_rate": 0.1559
+  },
+  {
+   "table": "one_way:room_ahead_dist_atr",
+   "a": {
+    "column": "room_ahead_dist_atr",
+    "bin": {
+     "kind": "range",
+     "lo": 0.171,
+     "hi": 0.3559,
+     "hi_inclusive": false,
+     "label": "[0.171, 0.3559)",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 186,
+   "mean_net": -890.36,
+   "win_rate": 0.1613
+  },
+  {
+   "table": "one_way:room_ahead_dist_atr",
+   "a": {
+    "column": "room_ahead_dist_atr",
+    "bin": {
+     "kind": "range",
+     "lo": 0.3559,
+     "hi": 0.5496,
+     "hi_inclusive": false,
+     "label": "[0.3559, 0.5496)",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 186,
+   "mean_net": -963.23,
+   "win_rate": 0.1935
+  },
+  {
+   "table": "one_way:room_ahead_dist_atr",
+   "a": {
+    "column": "room_ahead_dist_atr",
+    "bin": {
+     "kind": "range",
+     "lo": 0.5496,
+     "hi": 0.7863,
+     "hi_inclusive": false,
+     "label": "[0.5496, 0.7863)",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 186,
+   "mean_net": -1111.88,
+   "win_rate": 0.1237
+  },
+  {
+   "table": "one_way:room_ahead_dist_atr",
+   "a": {
+    "column": "room_ahead_dist_atr",
+    "bin": {
+     "kind": "range",
+     "lo": 0.7863,
+     "hi": 1.0181,
+     "hi_inclusive": false,
+     "label": "[0.7863, 1.0181)",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 186,
+   "mean_net": -919.5,
+   "win_rate": 0.1935
+  },
+  {
+   "table": "one_way:room_ahead_dist_atr",
+   "a": {
+    "column": "room_ahead_dist_atr",
+    "bin": {
+     "kind": "range",
+     "lo": 1.0181,
+     "hi": 1.3011,
+     "hi_inclusive": false,
+     "label": "[1.0181, 1.3011)",
+     "i": 5
+    }
+   },
+   "b": null,
+   "n": 186,
+   "mean_net": -1200.26,
+   "win_rate": 0.1398
+  },
+  {
+   "table": "one_way:room_ahead_dist_atr",
+   "a": {
+    "column": "room_ahead_dist_atr",
+    "bin": {
+     "kind": "range",
+     "lo": 1.3011,
+     "hi": 1.7067,
+     "hi_inclusive": false,
+     "label": "[1.3011, 1.7067)",
+     "i": 6
+    }
+   },
+   "b": null,
+   "n": 186,
+   "mean_net": -917.98,
+   "win_rate": 0.1183
+  },
+  {
+   "table": "one_way:room_ahead_dist_atr",
+   "a": {
+    "column": "room_ahead_dist_atr",
+    "bin": {
+     "kind": "range",
+     "lo": 1.7067,
+     "hi": 2.2388,
+     "hi_inclusive": false,
+     "label": "[1.7067, 2.2388)",
+     "i": 7
+    }
+   },
+   "b": null,
+   "n": 186,
+   "mean_net": -1260.66,
+   "win_rate": 0.1022
+  },
+  {
+   "table": "one_way:room_ahead_dist_atr",
+   "a": {
+    "column": "room_ahead_dist_atr",
+    "bin": {
+     "kind": "range",
+     "lo": 2.2388,
+     "hi": 3.605,
+     "hi_inclusive": false,
+     "label": "[2.2388, 3.605)",
+     "i": 8
+    }
+   },
+   "b": null,
+   "n": 186,
+   "mean_net": -856.88,
+   "win_rate": 0.1882
+  },
+  {
+   "table": "one_way:room_ahead_dist_atr",
+   "a": {
+    "column": "room_ahead_dist_atr",
+    "bin": {
+     "kind": "range",
+     "lo": 3.605,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 3.605",
+     "i": 9
+    }
+   },
+   "b": null,
+   "n": 186,
+   "mean_net": -1296.39,
+   "win_rate": 0.1398
+  },
+  {
+   "table": "one_way:room_ahead_dist_atr",
+   "a": {
+    "column": "room_ahead_dist_atr",
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 10
+    }
+   },
+   "b": null,
+   "n": 184,
+   "mean_net": -1181.76,
+   "win_rate": 0.1739
+  },
+  {
+   "table": "one_way:touch_room_bars_ago",
+   "a": {
+    "column": "touch_room_bars_ago",
+    "bin": {
+     "kind": "range",
+     "lo": 1.0,
+     "hi": 3.0,
+     "hi_inclusive": false,
+     "label": "[1.0, 3.0)",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 649,
+   "mean_net": -1065.64,
+   "win_rate": 0.1541
+  },
+  {
+   "table": "one_way:touch_room_bars_ago",
+   "a": {
+    "column": "touch_room_bars_ago",
+    "bin": {
+     "kind": "range",
+     "lo": 3.0,
+     "hi": 10.0,
+     "hi_inclusive": false,
+     "label": "[3.0, 10.0)",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 196,
+   "mean_net": -1164.24,
+   "win_rate": 0.1276
+  },
+  {
+   "table": "one_way:touch_room_bars_ago",
+   "a": {
+    "column": "touch_room_bars_ago",
+    "bin": {
+     "kind": "range",
+     "lo": 10.0,
+     "hi": 15.0,
+     "hi_inclusive": false,
+     "label": "[10.0, 15.0)",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 172,
+   "mean_net": -1319.62,
+   "win_rate": 0.1221
+  },
+  {
+   "table": "one_way:touch_room_bars_ago",
+   "a": {
+    "column": "touch_room_bars_ago",
+    "bin": {
+     "kind": "range",
+     "lo": 15.0,
+     "hi": 20.0,
+     "hi_inclusive": false,
+     "label": "[15.0, 20.0)",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 160,
+   "mean_net": -675.18,
+   "win_rate": 0.2313
+  },
+  {
+   "table": "one_way:touch_room_bars_ago",
+   "a": {
+    "column": "touch_room_bars_ago",
+    "bin": {
+     "kind": "range",
+     "lo": 20.0,
+     "hi": 28.0,
+     "hi_inclusive": false,
+     "label": "[20.0, 28.0)",
+     "i": 5
+    }
+   },
+   "b": null,
+   "n": 192,
+   "mean_net": -1182.66,
+   "win_rate": 0.1458
+  },
+  {
+   "table": "one_way:touch_room_bars_ago",
+   "a": {
+    "column": "touch_room_bars_ago",
+    "bin": {
+     "kind": "range",
+     "lo": 28.0,
+     "hi": 38.0,
+     "hi_inclusive": false,
+     "label": "[28.0, 38.0)",
+     "i": 6
+    }
+   },
+   "b": null,
+   "n": 170,
+   "mean_net": -614.38,
+   "win_rate": 0.1765
+  },
+  {
+   "table": "one_way:touch_room_bars_ago",
+   "a": {
+    "column": "touch_room_bars_ago",
+    "bin": {
+     "kind": "range",
+     "lo": 38.0,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 38.0",
+     "i": 7
+    }
+   },
+   "b": null,
+   "n": 175,
+   "mean_net": -1422.47,
+   "win_rate": 0.1143
+  },
+  {
+   "table": "one_way:touch_room_bars_ago",
+   "a": {
+    "column": "touch_room_bars_ago",
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 8
+    }
+   },
+   "b": null,
+   "n": 330,
+   "mean_net": -1069.9,
+   "win_rate": 0.1606
+  },
+  {
+   "table": "one_way:card_first_bars",
+   "a": {
+    "column": "card_first_bars",
+    "bin": {
+     "kind": "range",
+     "lo": 10.0,
+     "hi": 11.0,
+     "hi_inclusive": false,
+     "label": "[10.0, 11.0)",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 241,
+   "mean_net": -1097.89,
+   "win_rate": 0.1452
+  },
+  {
+   "table": "one_way:card_first_bars",
+   "a": {
+    "column": "card_first_bars",
+    "bin": {
+     "kind": "range",
+     "lo": 11.0,
+     "hi": 12.0,
+     "hi_inclusive": false,
+     "label": "[11.0, 12.0)",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 181,
+   "mean_net": -1486.83,
+   "win_rate": 0.116
+  },
+  {
+   "table": "one_way:card_first_bars",
+   "a": {
+    "column": "card_first_bars",
+    "bin": {
+     "kind": "range",
+     "lo": 12.0,
+     "hi": 13.0,
+     "hi_inclusive": false,
+     "label": "[12.0, 13.0)",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 154,
+   "mean_net": -1007.5,
+   "win_rate": 0.1558
+  },
+  {
+   "table": "one_way:card_first_bars",
+   "a": {
+    "column": "card_first_bars",
+    "bin": {
+     "kind": "range",
+     "lo": 13.0,
+     "hi": 14.0,
+     "hi_inclusive": false,
+     "label": "[13.0, 14.0)",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 119,
+   "mean_net": -920.62,
+   "win_rate": 0.2017
+  },
+  {
+   "table": "one_way:card_first_bars",
+   "a": {
+    "column": "card_first_bars",
+    "bin": {
+     "kind": "range",
+     "lo": 14.0,
+     "hi": 16.0,
+     "hi_inclusive": false,
+     "label": "[14.0, 16.0)",
+     "i": 5
+    }
+   },
+   "b": null,
+   "n": 166,
+   "mean_net": -1130.1,
+   "win_rate": 0.1566
+  },
+  {
+   "table": "one_way:card_first_bars",
+   "a": {
+    "column": "card_first_bars",
+    "bin": {
+     "kind": "range",
+     "lo": 16.0,
+     "hi": 18.0,
+     "hi_inclusive": false,
+     "label": "[16.0, 18.0)",
+     "i": 6
+    }
+   },
+   "b": null,
+   "n": 161,
+   "mean_net": -1093.04,
+   "win_rate": 0.1491
+  },
+  {
+   "table": "one_way:card_first_bars",
+   "a": {
+    "column": "card_first_bars",
+    "bin": {
+     "kind": "range",
+     "lo": 18.0,
+     "hi": 21.0,
+     "hi_inclusive": false,
+     "label": "[18.0, 21.0)",
+     "i": 7
+    }
+   },
+   "b": null,
+   "n": 157,
+   "mean_net": -1202.28,
+   "win_rate": 0.1465
+  },
+  {
+   "table": "one_way:card_first_bars",
+   "a": {
+    "column": "card_first_bars",
+    "bin": {
+     "kind": "range",
+     "lo": 21.0,
+     "hi": 27.0,
+     "hi_inclusive": false,
+     "label": "[21.0, 27.0)",
+     "i": 8
+    }
+   },
+   "b": null,
+   "n": 171,
+   "mean_net": -1125.16,
+   "win_rate": 0.1696
+  },
+  {
+   "table": "one_way:card_first_bars",
+   "a": {
+    "column": "card_first_bars",
+    "bin": {
+     "kind": "range",
+     "lo": 27.0,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 27.0",
+     "i": 9
+    }
+   },
+   "b": null,
+   "n": 159,
+   "mean_net": -981.83,
+   "win_rate": 0.1447
+  },
+  {
+   "table": "one_way:card_first_bars",
+   "a": {
+    "column": "card_first_bars",
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 10
+    }
+   },
+   "b": null,
+   "n": 535,
+   "mean_net": -914.1,
+   "win_rate": 0.1589
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": null,
+     "hi": 2.4785,
+     "hi_inclusive": false,
+     "label": "< 2.4785",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 206,
+   "mean_net": -829.24,
+   "win_rate": 0.1408
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.4785,
+     "hi": 2.4828,
+     "hi_inclusive": false,
+     "label": "[2.4785, 2.4828)",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 203,
+   "mean_net": -1160.53,
+   "win_rate": 0.1527
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.4828,
+     "hi": 2.4864,
+     "hi_inclusive": false,
+     "label": "[2.4828, 2.4864)",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 204,
+   "mean_net": -622.76,
+   "win_rate": 0.1863
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.4864,
+     "hi": 2.4923,
+     "hi_inclusive": false,
+     "label": "[2.4864, 2.4923)",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 207,
+   "mean_net": -1285.08,
+   "win_rate": 0.1353
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.4923,
+     "hi": 2.4993,
+     "hi_inclusive": false,
+     "label": "[2.4923, 2.4993)",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 202,
+   "mean_net": -1199.61,
+   "win_rate": 0.1634
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.4993,
+     "hi": 2.5095,
+     "hi_inclusive": false,
+     "label": "[2.4993, 2.5095)",
+     "i": 5
+    }
+   },
+   "b": null,
+   "n": 203,
+   "mean_net": -850.01,
+   "win_rate": 0.1773
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.5095,
+     "hi": 2.5122,
+     "hi_inclusive": false,
+     "label": "[2.5095, 2.5122)",
+     "i": 6
+    }
+   },
+   "b": null,
+   "n": 208,
+   "mean_net": -1410.03,
+   "win_rate": 0.1154
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.5122,
+     "hi": 2.5148,
+     "hi_inclusive": false,
+     "label": "[2.5122, 2.5148)",
+     "i": 7
+    }
+   },
+   "b": null,
+   "n": 203,
+   "mean_net": -1329.63,
+   "win_rate": 0.1034
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.5148,
+     "hi": 2.522,
+     "hi_inclusive": false,
+     "label": "[2.5148, 2.522)",
+     "i": 8
+    }
+   },
+   "b": null,
+   "n": 202,
+   "mean_net": -1197.91,
+   "win_rate": 0.1584
+  },
+  {
+   "table": "one_way:ffd_close_dstar",
+   "a": {
+    "column": "ffd_close_dstar",
+    "bin": {
+     "kind": "range",
+     "lo": 2.522,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">= 2.522",
+     "i": 9
+    }
+   },
+   "b": null,
+   "n": 206,
+   "mean_net": -819.35,
+   "win_rate": 0.2039
+  },
+  {
+   "table": "one_way:card_last_reject_dir",
+   "a": {
+    "column": "card_last_reject_dir",
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 668,
+   "mean_net": -1113.36,
+   "win_rate": 0.1572
+  },
+  {
+   "table": "one_way:card_last_reject_dir",
+   "a": {
+    "column": "card_last_reject_dir",
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 699,
+   "mean_net": -1168.79,
+   "win_rate": 0.1416
+  },
+  {
+   "table": "one_way:card_last_reject_dir",
+   "a": {
+    "column": "card_last_reject_dir",
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 677,
+   "mean_net": -927.02,
+   "win_rate": 0.1625
+  },
+  {
+   "table": "one_way:last_bos_dir",
+   "a": {
+    "column": "last_bos_dir",
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 963,
+   "mean_net": -1102.24,
+   "win_rate": 0.1578
+  },
+  {
+   "table": "one_way:last_bos_dir",
+   "a": {
+    "column": "last_bos_dir",
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 1081,
+   "mean_net": -1042.42,
+   "win_rate": 0.1499
+  },
+  {
+   "table": "one_way:touch_swing_last",
+   "a": {
+    "column": "touch_swing_last",
+    "bin": {
+     "kind": "level",
+     "level": "broke",
+     "label": "broke",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 1215,
+   "mean_net": -1070.93,
+   "win_rate": 0.172
+  },
+  {
+   "table": "one_way:touch_swing_last",
+   "a": {
+    "column": "touch_swing_last",
+    "bin": {
+     "kind": "level",
+     "level": "pending",
+     "label": "pending",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 825,
+   "mean_net": -1082.09,
+   "win_rate": 0.1248
+  },
+  {
+   "table": "one_way:n_choch_since_bos",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 533,
+   "mean_net": -1064.36,
+   "win_rate": 0.137
+  },
+  {
+   "table": "one_way:n_choch_since_bos",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 805,
+   "mean_net": -1018.14,
+   "win_rate": 0.154
+  },
+  {
+   "table": "one_way:n_choch_since_bos",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 388,
+   "mean_net": -1157.5,
+   "win_rate": 0.1727
+  },
+  {
+   "table": "one_way:n_choch_since_bos",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 173,
+   "mean_net": -1078.61,
+   "win_rate": 0.1503
+  },
+  {
+   "table": "one_way:n_choch_since_bos",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": 4,
+     "hi_inclusive": true,
+     "label": "4",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 73,
+   "mean_net": -1033.31,
+   "win_rate": 0.1507
+  },
+  {
+   "table": "one_way:n_choch_since_bos",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 5,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=5",
+     "i": 5
+    }
+   },
+   "b": null,
+   "n": 72,
+   "mean_net": -1253.58,
+   "win_rate": 0.1806
+  },
+  {
+   "table": "one_way:hv3_dir_agree",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "False",
+     "label": "False",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 720,
+   "mean_net": -1063.74,
+   "win_rate": 0.1444
+  },
+  {
+   "table": "one_way:hv3_dir_agree",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 1017,
+   "mean_net": -1156.38,
+   "win_rate": 0.1455
+  },
+  {
+   "table": "one_way:hv3_dir_agree",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 307,
+   "mean_net": -802.55,
+   "win_rate": 0.202
+  },
+  {
+   "table": "one_way:hv3_bars_since",
+   "a": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0 bars",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 330,
+   "mean_net": -1359.48,
+   "win_rate": 0.1485
+  },
+  {
+   "table": "one_way:hv3_bars_since",
+   "a": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 5,
+     "hi_inclusive": true,
+     "label": "1-5 bars",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 242,
+   "mean_net": -1136.48,
+   "win_rate": 0.1529
+  },
+  {
+   "table": "one_way:hv3_bars_since",
+   "a": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 6,
+     "hi": 15,
+     "hi_inclusive": true,
+     "label": "6-15 bars",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 458,
+   "mean_net": -1095.84,
+   "win_rate": 0.1463
+  },
+  {
+   "table": "one_way:hv3_bars_since",
+   "a": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 16,
+     "hi": 60,
+     "hi_inclusive": true,
+     "label": "16-60 bars",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 646,
+   "mean_net": -1043.34,
+   "win_rate": 0.1378
+  },
+  {
+   "table": "one_way:hv3_bars_since",
+   "a": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 61,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=61 bars",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 61,
+   "mean_net": -694.7,
+   "win_rate": 0.1639
+  },
+  {
+   "table": "one_way:hv3_bars_since",
+   "a": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "na",
+     "label": "NA (no bar with vol_ratio20 >= 3 in the session so far)",
+     "i": 5
+    }
+   },
+   "b": null,
+   "n": 307,
+   "mean_net": -802.55,
+   "win_rate": 0.202
+  },
+  {
+   "table": "one_way:fz_visit_n",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 0
+    }
+   },
+   "b": null,
+   "n": 321,
+   "mean_net": -1204.84,
+   "win_rate": 0.1558
+  },
+  {
+   "table": "one_way:fz_visit_n",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    }
+   },
+   "b": null,
+   "n": 272,
+   "mean_net": -1017.47,
+   "win_rate": 0.1507
+  },
+  {
+   "table": "one_way:fz_visit_n",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    }
+   },
+   "b": null,
+   "n": 213,
+   "mean_net": -1130.4,
+   "win_rate": 0.1408
+  },
+  {
+   "table": "one_way:fz_visit_n",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    }
+   },
+   "b": null,
+   "n": 703,
+   "mean_net": -1130.84,
+   "win_rate": 0.1536
+  },
+  {
+   "table": "one_way:fz_visit_n",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "na",
+     "label": "NA (no ref room)",
+     "i": 4
+    }
+   },
+   "b": null,
+   "n": 535,
+   "mean_net": -914.1,
+   "win_rate": 0.1589
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    }
+   },
+   "n": 10,
+   "mean_net": -1033.91,
+   "win_rate": 0.1
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    }
+   },
+   "n": 19,
+   "mean_net": -1571.54,
+   "win_rate": 0.0
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    }
+   },
+   "n": 19,
+   "mean_net": -1308.24,
+   "win_rate": 0.1053
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    }
+   },
+   "n": 12,
+   "mean_net": -368.38,
+   "win_rate": 0.25
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "09",
+     "label": "09",
+     "i": 0
+    }
+   },
+   "n": 5,
+   "mean_net": -676.14,
+   "win_rate": 0.2
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    }
+   },
+   "n": 11,
+   "mean_net": -1877.62,
+   "win_rate": 0.0
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    }
+   },
+   "n": 7,
+   "mean_net": -655.76,
+   "win_rate": 0.2857
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    }
+   },
+   "n": 7,
+   "mean_net": -1380.99,
+   "win_rate": 0.0
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    }
+   },
+   "n": 5,
+   "mean_net": -1311.48,
+   "win_rate": 0.0
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    }
+   },
+   "n": 20,
+   "mean_net": -1549.22,
+   "win_rate": 0.05
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "09",
+     "label": "09",
+     "i": 0
+    }
+   },
+   "n": 95,
+   "mean_net": -242.44,
+   "win_rate": 0.2737
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    }
+   },
+   "n": 119,
+   "mean_net": -777.66,
+   "win_rate": 0.2185
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    }
+   },
+   "n": 117,
+   "mean_net": -957.3,
+   "win_rate": 0.1282
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    }
+   },
+   "n": 124,
+   "mean_net": -1523.93,
+   "win_rate": 0.0726
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    }
+   },
+   "n": 109,
+   "mean_net": -1187.64,
+   "win_rate": 0.1651
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    }
+   },
+   "n": 152,
+   "mean_net": -1054.17,
+   "win_rate": 0.1711
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "15",
+     "label": "15",
+     "i": 6
+    }
+   },
+   "n": 40,
+   "mean_net": -1304.14,
+   "win_rate": 0.15
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "<09:25",
+     "label": "<09:25",
+     "i": 7
+    }
+   },
+   "n": 35,
+   "mean_net": -920.41,
+   "win_rate": 0.2286
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": ">=15:20",
+     "label": ">=15:20",
+     "i": 8
+    }
+   },
+   "n": 9,
+   "mean_net": -1267.38,
+   "win_rate": 0.0
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "09",
+     "label": "09",
+     "i": 0
+    }
+   },
+   "n": 7,
+   "mean_net": -1740.5,
+   "win_rate": 0.1429
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    }
+   },
+   "n": 24,
+   "mean_net": 1562.37,
+   "win_rate": 0.1667
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    }
+   },
+   "n": 17,
+   "mean_net": -1831.89,
+   "win_rate": 0.0
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    }
+   },
+   "n": 26,
+   "mean_net": -1349.5,
+   "win_rate": 0.1154
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    }
+   },
+   "n": 24,
+   "mean_net": -1148.15,
+   "win_rate": 0.125
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    }
+   },
+   "n": 22,
+   "mean_net": 123.23,
+   "win_rate": 0.2727
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "15",
+     "label": "15",
+     "i": 6
+    }
+   },
+   "n": 8,
+   "mean_net": -868.29,
+   "win_rate": 0.125
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "<09:25",
+     "label": "<09:25",
+     "i": 7
+    }
+   },
+   "n": 13,
+   "mean_net": -4129.38,
+   "win_rate": 0.0769
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "09",
+     "label": "09",
+     "i": 0
+    }
+   },
+   "n": 48,
+   "mean_net": -1263.99,
+   "win_rate": 0.1875
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    }
+   },
+   "n": 103,
+   "mean_net": -1204.89,
+   "win_rate": 0.165
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    }
+   },
+   "n": 100,
+   "mean_net": -1229.13,
+   "win_rate": 0.19
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    }
+   },
+   "n": 98,
+   "mean_net": -1077.88,
+   "win_rate": 0.1633
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    }
+   },
+   "n": 105,
+   "mean_net": -1114.63,
+   "win_rate": 0.1429
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    }
+   },
+   "n": 95,
+   "mean_net": -1206.5,
+   "win_rate": 0.1579
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "15",
+     "label": "15",
+     "i": 6
+    }
+   },
+   "n": 34,
+   "mean_net": -861.53,
+   "win_rate": 0.2647
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "<09:25",
+     "label": "<09:25",
+     "i": 7
+    }
+   },
+   "n": 34,
+   "mean_net": -1758.42,
+   "win_rate": 0.1176
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": ">=15:20",
+     "label": ">=15:20",
+     "i": 8
+    }
+   },
+   "n": 5,
+   "mean_net": -1033.3,
+   "win_rate": 0.0
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "RECYCLE",
+     "label": "RECYCLE",
+     "i": 6
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    }
+   },
+   "n": 6,
+   "mean_net": -643.94,
+   "win_rate": 0.1667
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "RECYCLE",
+     "label": "RECYCLE",
+     "i": 6
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    }
+   },
+   "n": 15,
+   "mean_net": 117.0,
+   "win_rate": 0.2
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "RECYCLE",
+     "label": "RECYCLE",
+     "i": 6
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    }
+   },
+   "n": 5,
+   "mean_net": -308.22,
+   "win_rate": 0.2
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    }
+   },
+   "n": 5,
+   "mean_net": -1424.14,
+   "win_rate": 0.0
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    }
+   },
+   "n": 9,
+   "mean_net": -1320.91,
+   "win_rate": 0.1111
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    }
+   },
+   "n": 16,
+   "mean_net": -495.42,
+   "win_rate": 0.1875
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    }
+   },
+   "n": 9,
+   "mean_net": -575.81,
+   "win_rate": 0.2222
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    }
+   },
+   "n": 16,
+   "mean_net": -1559.94,
+   "win_rate": 0.0625
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "15",
+     "label": "15",
+     "i": 6
+    }
+   },
+   "n": 6,
+   "mean_net": -1107.05,
+   "win_rate": 0.1667
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "09",
+     "label": "09",
+     "i": 0
+    }
+   },
+   "n": 10,
+   "mean_net": 1382.94,
+   "win_rate": 0.4
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "10",
+     "label": "10",
+     "i": 1
+    }
+   },
+   "n": 19,
+   "mean_net": -1441.88,
+   "win_rate": 0.1053
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "11",
+     "label": "11",
+     "i": 2
+    }
+   },
+   "n": 55,
+   "mean_net": -1233.27,
+   "win_rate": 0.1455
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "12",
+     "label": "12",
+     "i": 3
+    }
+   },
+   "n": 40,
+   "mean_net": -607.43,
+   "win_rate": 0.175
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "13",
+     "label": "13",
+     "i": 4
+    }
+   },
+   "n": 56,
+   "mean_net": -1274.13,
+   "win_rate": 0.0714
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "14",
+     "label": "14",
+     "i": 5
+    }
+   },
+   "n": 43,
+   "mean_net": -1113.05,
+   "win_rate": 0.1395
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "15",
+     "label": "15",
+     "i": 6
+    }
+   },
+   "n": 12,
+   "mean_net": -1390.0,
+   "win_rate": 0.0
+  },
+  {
+   "table": "two_way:fz_readxhour_bin",
+   "a": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "b": {
+    "column": "hour_bin",
+    "bin": {
+     "kind": "level",
+     "level": "<09:25",
+     "label": "<09:25",
+     "i": 7
+    }
+   },
+   "n": 5,
+   "mean_net": -2742.08,
+   "win_rate": 0.0
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    }
+   },
+   "n": 248,
+   "mean_net": -1268.42,
+   "win_rate": 0.125
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   },
+   "n": 285,
+   "mean_net": -886.79,
+   "win_rate": 0.1474
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    }
+   },
+   "n": 417,
+   "mean_net": -1017.58,
+   "win_rate": 0.1343
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   },
+   "n": 388,
+   "mean_net": -1018.75,
+   "win_rate": 0.1753
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 2
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    }
+   },
+   "n": 195,
+   "mean_net": -1117.76,
+   "win_rate": 0.1744
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 2
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   },
+   "n": 193,
+   "mean_net": -1197.64,
+   "win_rate": 0.171
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=3",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "down",
+     "label": "down",
+     "i": 0
+    }
+   },
+   "n": 148,
+   "mean_net": -968.64,
+   "win_rate": 0.1689
+  },
+  {
+   "table": "two_way:n_choch_since_bosxdir",
+   "a": {
+    "column": "n_choch_since_bos",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=3",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "dir",
+    "bin": {
+     "kind": "level",
+     "level": "up",
+     "label": "up",
+     "i": 1
+    }
+   },
+   "n": 170,
+   "mean_net": -1229.0,
+   "win_rate": 0.1471
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "False",
+     "label": "False",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0 bars",
+     "i": 0
+    }
+   },
+   "n": 5,
+   "mean_net": -832.74,
+   "win_rate": 0.2
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "False",
+     "label": "False",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 5,
+     "hi_inclusive": true,
+     "label": "1-5 bars",
+     "i": 1
+    }
+   },
+   "n": 98,
+   "mean_net": -1075.69,
+   "win_rate": 0.1633
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "False",
+     "label": "False",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 6,
+     "hi": 15,
+     "hi_inclusive": true,
+     "label": "6-15 bars",
+     "i": 2
+    }
+   },
+   "n": 233,
+   "mean_net": -1172.5,
+   "win_rate": 0.1288
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "False",
+     "label": "False",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 16,
+     "hi": 60,
+     "hi_inclusive": true,
+     "label": "16-60 bars",
+     "i": 3
+    }
+   },
+   "n": 356,
+   "mean_net": -1013.47,
+   "win_rate": 0.1461
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "False",
+     "label": "False",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 61,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=61 bars",
+     "i": 4
+    }
+   },
+   "n": 28,
+   "mean_net": -797.19,
+   "win_rate": 0.1786
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 0,
+     "hi": 0,
+     "hi_inclusive": true,
+     "label": "0 bars",
+     "i": 0
+    }
+   },
+   "n": 325,
+   "mean_net": -1367.58,
+   "win_rate": 0.1477
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 5,
+     "hi_inclusive": true,
+     "label": "1-5 bars",
+     "i": 1
+    }
+   },
+   "n": 144,
+   "mean_net": -1177.85,
+   "win_rate": 0.1458
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 6,
+     "hi": 15,
+     "hi_inclusive": true,
+     "label": "6-15 bars",
+     "i": 2
+    }
+   },
+   "n": 225,
+   "mean_net": -1016.46,
+   "win_rate": 0.1644
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 16,
+     "hi": 60,
+     "hi_inclusive": true,
+     "label": "16-60 bars",
+     "i": 3
+    }
+   },
+   "n": 290,
+   "mean_net": -1080.01,
+   "win_rate": 0.1276
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "level",
+     "level": "True",
+     "label": "True",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "range",
+     "lo": 61,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=61 bars",
+     "i": 4
+    }
+   },
+   "n": 33,
+   "mean_net": -607.75,
+   "win_rate": 0.1515
+  },
+  {
+   "table": "two_way:hv3_dir_agreexhv3_bars_since",
+   "a": {
+    "column": "hv3_dir_agree",
+    "bin": {
+     "kind": "na",
+     "label": "NA",
+     "i": 2
+    }
+   },
+   "b": {
+    "column": "hv3_bars_since",
+    "bin": {
+     "kind": "na",
+     "label": "NA (no bar with vol_ratio20 >= 3 in the session so far)",
+     "i": 5
+    }
+   },
+   "n": 307,
+   "mean_net": -802.55,
+   "win_rate": 0.202
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "FIRST_PRINT",
+     "label": "FIRST_PRINT",
+     "i": 1
+    }
+   },
+   "n": 59,
+   "mean_net": -1351.43,
+   "win_rate": 0.0678
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "n": 34,
+   "mean_net": -1668.19,
+   "win_rate": 0.1176
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 1,
+     "hi": 1,
+     "hi_inclusive": true,
+     "label": "1",
+     "i": 0
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "n": 224,
+   "mean_net": -1152.23,
+   "win_rate": 0.1786
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    }
+   },
+   "n": 20,
+   "mean_net": -990.04,
+   "win_rate": 0.1
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "n": 83,
+   "mean_net": -797.29,
+   "win_rate": 0.1928
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "n": 97,
+   "mean_net": -1228.0,
+   "win_rate": 0.134
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "RECYCLE",
+     "label": "RECYCLE",
+     "i": 6
+    }
+   },
+   "n": 9,
+   "mean_net": -1279.38,
+   "win_rate": 0.1111
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    }
+   },
+   "n": 10,
+   "mean_net": -1360.59,
+   "win_rate": 0.1
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 2,
+     "hi": 2,
+     "hi_inclusive": true,
+     "label": "2",
+     "i": 1
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "n": 53,
+   "mean_net": -878.13,
+   "win_rate": 0.1509
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    }
+   },
+   "n": 16,
+   "mean_net": -1593.55,
+   "win_rate": 0.0
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "n": 56,
+   "mean_net": -650.93,
+   "win_rate": 0.1964
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "n": 77,
+   "mean_net": -1122.73,
+   "win_rate": 0.1558
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "RECYCLE",
+     "label": "RECYCLE",
+     "i": 6
+    }
+   },
+   "n": 7,
+   "mean_net": -1701.74,
+   "win_rate": 0.0
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    }
+   },
+   "n": 9,
+   "mean_net": -1284.34,
+   "win_rate": 0.1111
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 3,
+     "hi": 3,
+     "hi_inclusive": true,
+     "label": "3",
+     "i": 2
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "n": 48,
+   "mean_net": -1435.51,
+   "win_rate": 0.125
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "ACCEPTED",
+     "label": "ACCEPTED",
+     "i": 0
+    }
+   },
+   "n": 34,
+   "mean_net": -945.9,
+   "win_rate": 0.1471
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "n": 236,
+   "mean_net": -1202.56,
+   "win_rate": 0.1568
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "PENDING",
+     "label": "PENDING",
+     "i": 5
+    }
+   },
+   "n": 224,
+   "mean_net": -1230.15,
+   "win_rate": 0.1741
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "RECYCLE",
+     "label": "RECYCLE",
+     "i": 6
+    }
+   },
+   "n": 23,
+   "mean_net": -150.91,
+   "win_rate": 0.2174
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "REJECT",
+     "label": "REJECT",
+     "i": 7
+    }
+   },
+   "n": 43,
+   "mean_net": -1265.99,
+   "win_rate": 0.1163
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "range",
+     "lo": 4,
+     "hi": null,
+     "hi_inclusive": true,
+     "label": ">=4",
+     "i": 3
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "THIN",
+     "label": "THIN",
+     "i": 8
+    }
+   },
+   "n": 142,
+   "mean_net": -1010.04,
+   "win_rate": 0.1197
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "na",
+     "label": "NA (no ref room)",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "LEAVE",
+     "label": "LEAVE",
+     "i": 3
+    }
+   },
+   "n": 391,
+   "mean_net": -917.83,
+   "win_rate": 0.1688
+  },
+  {
+   "table": "two_way:fz_visit_nxfz_read",
+   "a": {
+    "column": "fz_visit_n",
+    "bin": {
+     "kind": "na",
+     "label": "NA (no ref room)",
+     "i": 4
+    }
+   },
+   "b": {
+    "column": "fz_read",
+    "bin": {
+     "kind": "level",
+     "level": "NEW",
+     "label": "NEW",
+     "i": 4
+    }
+   },
+   "n": 144,
+   "mean_net": -903.98,
+   "win_rate": 0.1319
+  }
+ ],
+ "written_at": "2026-09-29T12:36:07",
+ "n_cells_labelled": 181,
+ "n_cells_suppressed": 23,
+ "n_cells_empty": 39,
+ "n_columns_shown": 14,
+ "n_two_way_tables": 4,
+ "interaction_pairs": [
+  {
+   "feature_a": "sl",
+   "feature_b": "ffd_close_dstar",
+   "source_a": "sl",
+   "source_b": "ffd_close_dstar",
+   "split_a": [
+    24640.0,
+    24655.0,
+    24661.0
+   ],
+   "split_b": [
+    2.4046,
+    2.4166,
+    2.5029,
+    2.5142
+   ],
+   "refused": true,
+   "refused_why": "calendar-time proxy (drift.json time_proxies)"
+  },
+  {
+   "feature_a": "sl",
+   "feature_b": "n_events_asof",
+   "source_a": "sl",
+   "source_b": "n_events_asof",
+   "split_a": [
+    18146.0,
+    24640.0,
+    24651.1992,
+    26025.8008
+   ],
+   "split_b": [
+    18033.0,
+    23656.0,
+    28203.0,
+    32889.0
+   ],
+   "refused": true,
+   "refused_why": "calendar-time proxy (drift.json time_proxies)"
+  },
+  {
+   "feature_a": "card_this_bars",
+   "feature_b": "sl",
+   "source_a": "card_this_bars",
+   "source_b": "sl",
+   "split_a": [
+    3.0,
+    6.0,
+    11.0
+   ],
+   "split_b": [
+    18127.8496,
+    24661.0,
+    26025.0
+   ],
+   "refused": true,
+   "refused_why": "calendar-time proxy (drift.json time_proxies)"
+  },
+  {
+   "feature_a": "room_ahead_dist_atr",
+   "feature_b": "room_behind_dist_atr",
+   "source_a": "room_ahead_dist_atr",
+   "source_b": "room_behind_dist_atr",
+   "split_a": [
+    0.0125,
+    0.9548,
+    14.4066,
+    17.8071
+   ],
+   "split_b": [
+    0.18,
+    0.5243,
+    0.6324,
+    9.3641
+   ],
+   "refused": false,
+   "refused_why": null
+  },
+  {
+   "feature_a": "card_vol_ratio",
+   "feature_b": "room_behind_dist_atr",
+   "source_a": "card_vol_ratio",
+   "source_b": "room_behind_dist_atr",
+   "split_a": [
+    0.0289,
+    0.0493,
+    0.0691
+   ],
+   "split_b": [
+    0.006,
+    0.1561,
+    0.18
+   ],
+   "refused": false,
+   "refused_why": null
+  }
+ ],
+ "duplicates": {
+  "card_read": "fz_read"
+ },
+ "definitions": "llm_round1: definitions shared by step 1 (tables.py, the labelled summary tables) and step 3 (scorer.py).\nDESIGN_PANEL deep-sequence-llm-hypotheses with Judge 1's cross-fitting and Judge 2's family-size rule; STUDY_AGENT_BRIEF rules.\nEverything here was fixed before any labelled number of this study was looked at.\n\nUnit / label / split   harness.load(tf) (label L1, the 15:25 book); IS rows only (SETUP date <= 2025-12-31). OOS rows are never read\n                       (only the harness's own row counts).\nHalves                 A = harness blocks 0-5, B = blocks 6-11 (Table.block of the IS rows; the 12 contiguous IS session blocks of the\n                       harness splitter). A proposer sees the tables of ONE half; its rules are scored on the OTHER half (cross-fitted).\nVocabulary             the frozen shortlist (features_shortlist/<tf>/shortlist.json) is EMPTY on both timeframes (n_shortlisted = 0,\n                       allowed_columns = [], sha registered 2026-09-29T11:31:33, no newer shortlist line), so the EMPTY-SHORTLIST RULE\n                       applies: hour_bin, fz_read, dir (always) plus, as an exploratory vocabulary labelled \"outside the frozen\n                       shortlist\", the representative of each of the top-8 clusters by log-loss MDA rank per timeframe\n                       (studies/importance/importance_clusters_<tf>.csv, column mda_rank) and the columns of the design's four two-way\n                       tables (fz_read x hour_bin, n_choch_since_bos x dir, hv3_dir_agree x hv3_bars_since bucket, fz_visit_n x fz_read).\nSwap rule              a cluster is shown through its representative's SOURCE column (a one-hot `col=level` -> `col` by level; a missing\n                       indicator `col__na` -> `col` as an NA indicator). When that source column is (a) always included, (b) an exact\n                       duplicate of an always-included column on every IS row (card_read == fz_read), (c) a calendar-time proxy\n                       (drift.json time_proxies: n_events_asof, sl) or (d) already shown for a higher-ranked cluster, the cluster is shown\n                       through its highest-MDI member (importance_features_<tf>.csv mdi_mean) whose source column is not excluded by\n                       (a)-(d); a single-member cluster with no admissible member is recorded as covered, with zero own cells. Every\n                       swap is stated in the file header.\nBins                   text / boolean columns and integer columns with <= 12 distinct IS values: one row per level (+ NA when present);\n                       other numeric columns: deciles of the HALF's own rows (np.nanquantile 0.1 .. 0.9, duplicate edges dropped,\n                       bins [e_i, e_{i+1}), the first open below, the last open above) + an NA row. Fixed buckets: n_choch_since_bos\n                       0 / 1 / 2 / 3 / 4 / >=5 (one-way) and 0 / 1 / 2 / >=3 (two-way); hv3_bars_since 0 / 1-5 / 6-15 / 16-60 / >60\n                       bars on minute and 0 / 1 / 2-3 / 4-12 / >12 on 5minute (the same clock: 5 / 15 / 60 minutes) + NA;\n                       fz_visit_n 1 / 2 / 3 / >=4 + NA (no ref room).\nCell                   one row of a one-way table or one populated cell of a two-way table: count, mean L1 net (INR per trade), win\n                       rate. A cell with fewer than MIN_CELL_N = 5 units shows its count only (mean and win rate suppressed: no raw\n                       rows) and is NOT a labelled cell. The half's base row (all rows) is one labelled cell.\nFamily size            labelled cells shown in tables_<tf>_<half>.json + rules proposed (round 0 and round 1): the max-T family of the\n                       scorer (every labelled cell is a candidate skip set the proposer could have chosen).\nRule grammar           {\"id\", \"if\": [[column, op, value], ...] (<= 3 comparisons), \"then\": \"skip\", \"reason\", \"cells\"}; ops >=, >, <=,\n                       <, ==, !=, in, not_in (the null-tape checker's tapes._cmp grammar); a None / NaN in a rule column makes the\n                       comparison False (a skip rule never fires on an undefined value). Refused: a label column, a harness.NOT_FEATURES\n                       column, a time proxy, depth > 3, a column absent from the table. Flagged (scored, but ineligible for the\n                       combination): a column outside the vocabulary shown to the proposer, a numeric threshold that is not a table\n                       edge / level / listed interaction split point of that column.\n"
+}

@@ -1,0 +1,116 @@
+{
+ "study": "h1_gate_audit",
+ "question": "BRIEF H1: what do the frozen ST7 (1 min) / ST8 (5 min) gates skip vs keep by Foundation outcome; is the frozen gate a loser filter; where are the big winners skipped",
+ "split": "IS only (SETUP date <= 2025-12-31)",
+ "labels": {"primary": "L1 (15:25 intraday book)", "robustness": "L0 (engine uncut trade)"},
+ "kept_definition": "T.F.fz_traded (a TAKE, or a REENTER whose R5 was the SETUP); post-SETUP comparator, never a feature",
+ "timeframes": {
+  "minute": {
+   "L1": {
+    "n_is": 4452, "kept_n": 745, "kept_share": 0.1673, "base_loser_rate": 0.8441, "all_mean": -1009.61, "mean_cost": 1047.54,
+    "frozen": {"id": "127543888f5570fe", "kept_mean": -1026.02, "skipped_mean": -1006.31, "diff": -19.71, "diff_top1_removed": -8.44, "control_pct": 64.7, "perm_p": 0.8551,
+               "loser_recall": 0.8353, "loser_precision": 0.8468, "lift": 1.003, "winner_recall": 0.1816, "winner_recall_weighted": 0.1734, "winners_net_thrown_away": 0.8266,
+               "top_decile_winners_skipped": 0.8429, "kept_pf": 0.327, "kept_mean_slip8": -1415.99, "sign_blocks": 6, "go_no_go": false},
+    "variants": {
+     "take_only": {"id": "4325428b222de52f", "kept_n": 605, "diff": 21.0, "control_pct": 66.9, "perm_p": 0.8536, "lift": 1.003, "winner_recall_weighted": 0.1605, "kept_mean_slip8": -1381.42},
+     "take_or_reenter_at_setup": {"id": "b0b89957ada19605", "kept_n": 734, "diff": -15.35, "control_pct": 65.3, "perm_p": 0.8906, "lift": 1.003, "winner_recall_weighted": 0.1733},
+     "not_block": {"id": "0d1bbb98d600860c", "kept_n": 2996, "diff": 59.59, "control_pct": 99.3, "perm_p": 0.4888, "lift": 1.009, "winner_recall_weighted": 0.6638, "kept_mean": -990.12, "kept_mean_slip8": -1380.08, "sign_blocks": 6, "uses_post_column": true},
+     "not_block_asof": {"id": "cb1c6c5d7876cae6", "kept_n": 2985, "diff": 62.23, "control_pct": 99.5, "perm_p": 0.4723, "kept_mean": -989.1, "kept_mean_slip8": -1379.07, "sign_blocks": 6, "post_hoc": true},
+     "skip_only:BLOCK:clock": {"id": "f22c5d17af5e555b", "diff": 64.16, "control_pct": 2.6, "perm_p": 0.8586, "loser_precision": 1.0},
+     "skip_only:BLOCK:hunt_fade": {"id": "40451f8101be314c", "diff": 165.78, "control_pct": 47.8, "perm_p": 0.3333},
+     "skip_only:BLOCK:new": {"id": "6ffb55302debfae1", "diff": 52.5, "control_pct": 93.4, "perm_p": 0.5577},
+     "skip_only:BLOCK:open_pierce": {"id": "bcdd12dd001a1cbd", "diff": -476.8, "control_pct": 100.0, "perm_p": 0.1689, "skipped_mean": -538.48},
+     "skip_only:WATCH:leave_into_recycle": {"id": "ece4919a1486a7aa", "diff": -86.01, "control_pct": 7.5, "perm_p": 0.6042}
+    },
+    "fz_book": {"id": "f4ade6c2d1bc063f", "kept_mean": -1027.81, "selection_only_kept_mean": -1026.02, "reenter_rows_changed": 11},
+    "bridge": {"foundation_is_net": -4494772.79, "avoided_price_move": -151339.5, "avoided_costs": 3881726.07, "reenter_exit_delta": -1332.02, "fz_book_net": -765718.24,
+               "gain_over_foundation": 3729054.55, "cost_avoidance_share_of_gain": 1.0409, "selection_share_of_gain": -0.0409, "closes": true},
+    "big_winners": {"n": 268, "net": 1771850.44, "share_of_winners_net": 0.8277, "skipped_n": 225, "skipped_net": 1478374.0, "huge_n": 111, "huge_skipped": 94,
+                    "median_bars_held_big": 119.0, "eod_exit_share_big": 0.7127,
+                    "skipped_by_block_key": {"WATCH": 118, "BLOCK:new": 66, "WATCH:leave_into_recycle": 20, "BLOCK:open_pierce": 11, "BLOCK:hunt_fade": 10},
+                    "skipped_by_hour": {"14": 58, "10": 38, "13": 34, "<09:25": 28, "12": 27, "09": 22, "11": 15, "15": 3},
+                    "skipped_by_hold_bucket": {"121-375": 107, "61-120": 80, "31-60": 29, "16-30": 9}},
+    "family": {"candidates": 10, "effective_trials": 1.54, "pbo_diff": 0.5823, "pbo_kept_mean": 0.7804, "spa_p": 0.0355, "spa_best": "not_block",
+               "frozen_boot_diff_ci90": [-183.18, 142.36], "frozen_boot_p_diff_le0": 0.585, "frozen_dsr_p": 1.0}
+   },
+   "L0": {
+    "n_is": 4502, "kept_n": 745, "base_loser_rate": 0.8481,
+    "frozen": {"id": "d0f4d52bff2714d9", "kept_mean": -1029.88, "skipped_mean": -900.41, "diff": -129.48, "control_pct": 50.0, "perm_p": 0.5502, "loser_recall": 0.8368, "loser_precision": 0.8504, "lift": 1.003,
+               "winner_recall_weighted": 0.1609, "top_decile_winners_skipped": 0.8261, "kept_pf": 0.411, "sign_blocks": 4, "go_no_go": false},
+    "fz_book": {"id": "223c25cc0ace7394", "kept_mean": -1031.67},
+    "bridge": {"foundation_is_net": -4150085.95, "avoided_price_move": -552058.0, "avoided_costs": 3934880.17, "reenter_exit_delta": -1332.02, "fz_book_net": -768595.8, "cost_avoidance_share_of_gain": 1.1637},
+    "big_winners": {"n": 294, "skipped_n": 250, "skipped_net": 2536017.13, "huge_n": 146, "huge_skipped": 121},
+    "family": {"candidates": 10, "effective_trials": 1.72, "pbo_diff": 0.9298, "spa_p": 0.183}
+   }
+  },
+  "5minute": {
+   "L1": {
+    "n_is": 826, "kept_n": 325, "kept_share": 0.3935, "base_loser_rate": 0.7228, "all_mean": -757.05, "mean_cost": 1049.86,
+    "frozen": {"id": "daaf09471b73ca51", "kept_mean": -978.81, "skipped_mean": -613.2, "diff": -365.62, "diff_top1_removed": -304.01, "control_pct": 11.6, "perm_p": 0.2504,
+               "loser_recall": 0.6047, "loser_precision": 0.7206, "lift": 0.997, "winner_recall": 0.3886, "winner_recall_weighted": 0.3689, "winners_net_thrown_away": 0.6311,
+               "top_decile_winners_skipped": 0.5652, "kept_pf": 0.563, "kept_mean_slip8": -1368.78, "sign_blocks": 3, "go_no_go": false},
+    "variants": {
+     "take_only": {"id": "ccbf6f37cc8a2977", "kept_n": 228, "diff": -164.63, "control_pct": 18.0, "perm_p": 0.6302, "lift": 0.999, "winner_recall_weighted": 0.2914},
+     "take_or_reenter_at_setup": {"id": "011fdac4f903ee79", "kept_n": 229, "diff": -148.05, "control_pct": 19.8, "perm_p": 0.6752},
+     "not_block": {"id": "f91cb4af52b1e52c", "kept_n": 613, "diff": -144.77, "control_pct": 87.0, "perm_p": 0.6987, "uses_post_column": true},
+     "not_block_asof": {"id": "2fb21a08ab1608ea", "kept_n": 613, "diff": -144.77, "control_pct": 87.5, "perm_p": 0.6937, "post_hoc": true, "rows_differing_from_not_block": 0},
+     "skip_only:BLOCK:clock": {"id": "4f4bac1aa89ba8c6", "diff": 386.51, "control_pct": 0.1, "perm_p": 0.8601},
+     "skip_only:BLOCK:hunt_fade": {"id": "4988ed3569672d4f", "diff": -601.12, "control_pct": 5.8, "perm_p": 0.5792, "skipped_mean": -169.03},
+     "skip_only:BLOCK:new": {"id": "64d727bb357dcb0b", "diff": 35.91, "control_pct": 61.0, "perm_p": 0.9285},
+     "skip_only:BLOCK:open_pierce": {"id": "08047b56862edf0c", "diff": -631.19, "control_pct": 100.0, "perm_p": 0.4428, "skipped_mean": -149.55},
+     "skip_only:WATCH:leave_into_recycle": {"id": "f963132b4c147368", "diff": -822.24, "control_pct": 0.1, "perm_p": 0.088, "skipped_mean": -32.37, "note": "the family's nearest thing to a signal; it points against the frozen rule (the refused rows are the better ones)"}
+    },
+    "fz_book": {"id": "9b0f6458034da26c", "kept_mean": -1107.52, "selection_only_kept_mean": -978.81, "reenter_rows_changed": 94, "reenter_exit_delta_per_reenter": -431.24},
+    "bridge": {"foundation_is_net": -625325.16, "avoided_price_move": -218799.75, "avoided_costs": 526011.1, "reenter_exit_delta": -41829.97, "fz_book_net": -359943.78,
+               "gain_over_foundation": 265381.38, "cost_avoidance_share_of_gain": 1.9821, "selection_share_of_gain": -0.9821, "closes": true},
+    "big_winners": {"n": 148, "net": 1029787.08, "share_of_winners_net": 0.9286, "skipped_n": 95, "skipped_net": 654319.33, "huge_n": 73, "huge_skipped": 48,
+                    "median_bars_held_big": 40.0, "eod_exit_share_big": 0.9392,
+                    "skipped_by_block_key": {"BLOCK:new": 35, "WATCH": 25, "WATCH:leave_into_recycle": 21, "BLOCK:open_pierce": 9, "BLOCK:hunt_fade": 5},
+                    "skipped_by_hour": {"10": 19, "13": 17, "09": 14, "<09:25": 14, "14": 13, "12": 10, "11": 8},
+                    "skipped_by_hold_bucket": {"61-120": 40, "31-60": 22, "16-30": 21, "6-15": 12}},
+    "family": {"candidates": 10, "effective_trials": 1.62, "pbo_diff": 0.5457, "pbo_kept_mean": 0.7557, "spa_p": 0.134, "spa_best": "skip_only:BLOCK:open_pierce",
+               "frozen_boot_diff_ci90": [-954.18, 162.78], "frozen_boot_p_diff_le0": 0.8625, "frozen_dsr_p": 1.0}
+   },
+   "L0": {
+    "n_is": 832, "kept_n": 325, "base_loser_rate": 0.7788,
+    "frozen": {"id": "c08a962be699735d", "kept_mean": -277.2, "skipped_mean": -276.47, "diff": -0.73, "control_pct": 28.1, "perm_p": 1.0, "loser_recall": 0.6049, "loser_precision": 0.7732, "lift": 0.993,
+               "winner_recall_weighted": 0.3971, "top_decile_winners_skipped": 0.5263, "kept_pf": 0.898, "sign_blocks": 4, "go_no_go": false},
+    "take_only": {"id": "2ad039c7d19cf22d", "kept_mean": 126.3, "diff": 555.21, "control_pct": 28.9, "perm_p": 0.4768, "kept_pf": 1.046, "note": "not distinguishable from random selection"},
+    "fz_book": {"id": "e556a56ededbbbf4", "kept_mean": -431.67},
+    "bridge": {"foundation_is_net": -230262.16, "avoided_price_move": -392128.75, "avoided_costs": 532300.34, "reenter_exit_delta": -50200.69, "fz_book_net": -140291.26, "cost_avoidance_share_of_gain": 5.9164},
+    "big_winners": {"n": 128, "skipped_n": 82, "skipped_net": 1168410.9, "huge_n": 90, "huge_skipped": 54},
+    "family": {"candidates": 10, "effective_trials": 1.68, "pbo_diff": 0.7238, "spa_p": 0.5195}
+   }
+  }
+ },
+ "verdict": {
+  "minute": "Not a loser filter: skip-pile precision 0.847 vs base loser rate 0.844 (lift 1.003), recall 0.835 = skip share 0.833; throws away 82.7% of winners' net and 84% of the pts>=50 winners; kept-vs-skipped diff -19.7 (64.7th pct, p 0.86); 104% of its gain over Foundation is cost avoidance. Late runners = eod-cut trades held 61-375 bars, before 09:25 (28/28 skipped) and in the 14:00 bin (58/62 skipped).",
+  "5minute": "Not a loser filter: precision 0.721 vs base 0.723 (lift 0.997), recall 0.605 = skip share 0.607; throws away 63.1% of winners' net, 95/148 big winners; keeps the worse side (kept -979 vs skipped -613, 11.6th pct, p 0.25) and its own book is worse still (-1,108) through REENTER exits; 198% of its gain is cost avoidance. The refused leave branch (leave_into_recycle -32, leave_vol_fail -114, leave_gap_quiet +170 per trade) holds the winners it refuses. Late runners = morning entries held to 15:25 (61-120 bars, 40/52 skipped) and pre-09:25 SETUPs (14/15 skipped)."
+ },
+ "candidates": [],
+ "null_result": true,
+ "ledger_families": ["h1/frozen", "h1/take_only", "h1/take_or_reenter_at_setup", "h1/not_block", "h1/skip_only", "h1/fz_book", "h1/not_block_asof"],
+ "ledger_sha_after": {"audit": "33170f8df9f5d50e", "posthoc": "1ee15dc04860b284"},
+ "crosscheck_local_1m_L0": {"tables_compared": 16, "all_agree": true, "big_winners_skipped_same_250_setups": true, "pts_sum": 43050.4, "note": "only IS files under fz_v3/built/study were read"},
+ "caveats": [
+  "Group tables and the big-winner audit are descriptive decompositions of the frozen ledger row; no rule was chosen on them.",
+  "block_key, not_block and skip_only:* use the post-SETUP outcome gate (11 IS rows differ from the as-of gate on 1 min, 96 WATCH->REENTER rows on 5 min); not_block's as-of translation was scored post-hoc and counted in the family.",
+  "The FZ-book rows (h1/fz_book) keep the label's exit bar in with_label; the splitter is not used in this study.",
+  "Control percentile (session-matched) and pooled diff can disagree in sign for near-complete keeps; both are reported, neither alone is the criterion.",
+  "L0 on 1 min runs to 70 sessions; L0 columns are robustness only. 5 min L0 skip_only:BLOCK:clock (perm p 0.008) is an uncut-label artefact (5 post-15:20 SETUPs held for sessions).",
+  "lift is derived: ledger loser_precision over the IS base loser rate."
+ ],
+ "falsifiers": [
+  "a frozen-gate ledger row with diff > 0 and control percentile >= 95 on either label",
+  "skip-pile precision above the base loser rate by more than sampling error (+-0.012 on 1 min, +-0.04 on 5 min)",
+  "a positive avoided price move (skipped rows losing before costs) on any table",
+  "a big-winner kept share above the gate's own kept share",
+  "a different fz_traded set on a rebuild"
+ ],
+ "files": [
+  "studies/h1_gate_audit/h1_gate_audit.py", "studies/h1_gate_audit/h1_posthoc.py", "studies/h1_gate_audit/h1_gate_audit.log", "studies/h1_gate_audit/run.log", "studies/h1_gate_audit/h1_posthoc.log",
+  "studies/h1_gate_audit/h1_summary.json", "studies/h1_gate_audit/h1_family_posthoc.json", "studies/h1_gate_audit/TABLES.md", "studies/h1_gate_audit/FINDINGS.md", "studies/h1_gate_audit/findings.json",
+  "studies/h1_gate_audit/h1_<tf>_<label>_variants.csv", "studies/h1_gate_audit/h1_<tf>_<label>_by_<group>.csv (13 groups)", "studies/h1_gate_audit/h1_<tf>_<label>_x_<a>_<b>.csv (8 two-way tables)",
+  "studies/h1_gate_audit/h1_<tf>_<label>_big_winners_all.csv", "studies/h1_gate_audit/h1_<tf>_<label>_big_winners_skipped.csv"
+ ]
+}

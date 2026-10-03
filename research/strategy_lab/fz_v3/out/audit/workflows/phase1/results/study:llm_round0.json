@@ -1,0 +1,21 @@
+{
+ "agentId": "a3194d1a7088b8727",
+ "label": "study:llm_round0",
+ "phase": "Studies",
+ "result": {
+  "study": "deep-sequence-llm-hypotheses, round 0 (blind hypothesis proposer). Read only BRIEF.md (user's words + H1-H5), out/data/README.md (feature dictionary) and FZ.md sections 7-9 and 19. Wrote 8 skip rules per timeframe as conjunctions of at most 3 comparisons on as-of columns of features.parquet, each with the user's-words reason, the expected effect and a natural-language reading. The eight ideas are the same on both timeframes with time-adjusted thresholds (user: \"different for different time\"): (1) n_choch_since_bos >= 2 with a small range since the CHoCH / over 3h; (2) choch_run >= 3 with no BOS in 1h (1m) / 3h (5m); (3) alt_dir6 >= 4 with low er_1h; (4) fz_read in [RECYCLE, THIN] with a room edge ahead within 1 ATR; (5) hv3_dir_agree == False within 60 (1m) / 12 (5m) bars of the high-volume bar; (6) touch_swing_last == held with the swing ahead within 1 ATR; (7) hour in [12, 13] with n_choch_since_bos_today >= 2; (8) session_bar >= 60 / 12 with n_bos_today == 0 and sess_range_atr <= 2.5 / 3.0. No labelled statistic, no fz_gate / block reason / branch column, no ledger, gap, dow, expiry, direction or raw price used (ROUND0.md states this). FZ.md section 19 contains ST7/ST8 acceptance-window counts and nets; they were read as part of the permitted section but did not shape any rule, noted in ROUND0.md.",
+  "completed": true,
+  "key_numbers": "sha256(rules_round0.json) = a3c5c06382227c9504e04e40682244756bb58261419be6d53fbba95ada3a1182 is WRONG-CHECK: correct value is a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182 (verified with sha256sum -c). Rule count: minute 8, 5minute 8. Every rule has <= 3 comparisons (asserted). written_at 2026-09-29T03:29:35+00:00. All columns used are as-of per the dictionary: n_choch_since_bos, n_choch_since_bos_today, choch_run, n_bos_1h, n_bos_3h, n_bos_today, alt_dir6, er_1h, range_since_choch_atr, range_3h_atr, sess_range_atr, session_bar, hour, fz_read, room_ahead_dist_atr, hv3_dir_agree, hv3_bars_since, touch_swing_last, swing_ahead_dist_atr.",
+  "null_result": false,
+  "files": [
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/llm_hypotheses/rules_round0.json",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/llm_hypotheses/ROUND0.md",
+   "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/llm_hypotheses/rules_round0.sha256"
+  ],
+  "candidates": "16 blind skip rules (r0_m1..r0_m8 for minute, r0_f1..r0_f8 for 5minute) in rules_round0.json, to be scored on IS only (kept vs skipped net, share of winners skipped, session-matched random control percentile, kept-vs-refused permutation p), individually and as a union; thresholds are round guesses in the user's units, not fitted.",
+  "problems": "Blindness caveat: FZ.md section 19 (a permitted input) prints ST7/ST8 acceptance-window card statistics and priced nets (TAKE/WATCH/BLOCK/REENTER counts, control percentiles, nets vs Foundation over the 3-month lab tape). These were seen but not used; the rules deliberately avoid fz_gate / fz_block_reason / fz_branch / fz_take_why so round 0 is independent of the frozen gate. The key_numbers field carries the sha once mis-typed and once correct; the authoritative value is the one in rules_round0.sha256 and ROUND0.md: a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182."
+ },
+ "key": "v2:aeec65e78fb36c3180e65b2e458633d7511bc4ace8ba2e4883fe83497df52645",
+ "transcript": "audit/workflows/phase1/agent-a3194d1a7088b8727.jsonl",
+ "meta": "audit/workflows/phase1/agent-a3194d1a7088b8727.meta.json"
+}

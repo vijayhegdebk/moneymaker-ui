@@ -1,0 +1,57 @@
+this is the oracle bar' 0.8921, sign-flip blocks p1 0.5745, sessions p1 0.6685. Ledger id `89209a10789d61cc`. 257.9 s, RSS 508 MB.
+
+| fold | train / test trades (purged) | p* | inner value at p* / never-exit / Foundation | test mean | test Foundation | test AUC | early exits |
+|---|---|---|---|---|---|---|---|
+| 0 | 535 / 283 (8) | 0.942 | -892.84 / -908.14 / -890.79 | -493.55 | -475.16 | 0.8967 | 0.0 |
+| 1 | 553 / 273 (0) | never exit | -647.46 / -647.46 / -628.19 | -1040.36 | -1018.09 | 0.8784 | 0.0 |
+| 2 | 556 / 270 (0) | 0.9583 | -754.34 / -762.04 / -741.74 | -808.77 | -788.58 | 0.9011 | 0.0 |
+
+## 5. Learner A — fitted Q-iteration, pessimistic ensemble (`a_result_*.json`, `a_oof_*.npz`)
+
+**minute**: not run: the condition for the 1-minute FQI (learner B or C cutting the regret vs the oracle on IS CV, i.e. beating the Foundation exit OOF) was not met.
+**5minute**: not finished (see the log).
+## 6. Evaluation on IS CV — net per trade per lot on the same entries, all cut at 15:25 (`eval_table_*.csv`)
+
+### minute
+
+| policy | mean_per_lot | diff_vs_foundation | random_pct | regret_vs_oracle_free | regret_vs_oracle_floor | win_rate | pf | sign_blocks | signflip_blocks_p1 | signflip_sessions_p1 | boot_diff_ci90 | diff_top1_gains_removed | bars_held_mean |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Foundation L1 exit (stop / next CHoCH / 15:25) | -1009.61 | 0.0 | 97.0 | 3569.61 | 2367.55 | 0.1559 | 0.323 | 0.0 |  |  |  |  | 33.1 |
+| ST9 R-ladder (3 lots, stop 50, 1R/2R, trail 3R lag 1) per lot | -1010.71 | -1.1 | 97.0 | 3570.71 | 2368.65 | 0.3504 | 0.498 | 8.0 | 0.3286 | 0.5015 | [-66.95, 63.6] | -90.32 | 114.6 |
+| C nested-CV pick (OOF) | -923.04 | 86.57 | 100.0 | 3483.03 | 2280.98 | 0.219 | 0.499 | 10.0 | 0.0149 | 0.039 | [22.1, 151.74] | -67.49 | 71.4 |
+| C in-sample best (a trial) | -904.77 | 104.84 | 100.0 | 3464.77 | 2262.72 | 0.2156 | 0.515 | 10.0 | 0.0125 | 0.0195 | [36.72, 172.77] | -51.21 | 74.6 |
+| B hindsight imitation (OOF) | -908.8 | 100.8 | 100.0 | 3468.8 | 2266.75 | 0.2098 | 0.508 | 10.0 | 0.0129 | 0.018 | [32.95, 167.98] | -54.75 | 72.4 |
+| hindsight oracle, best close exit, no stop (upper bound) | 2560.0 | 3569.61 | 100.0 | 0.0 | -1202.05 | 0.7013 | 12.139 | 12.0 | 0.0002 | 0.0 | [3289.45, 3881.03] | 3351.64 | 87.6 |
+| hindsight oracle on the Foundation-stop trajectory | 1357.95 | 2367.55 | 100.0 | 1202.05 | 0.0 | 0.4843 | 3.834 | 12.0 | 0.0002 | 0.0 | [2186.03, 2544.05] | 2191.29 | 44.2 |
+| random exit (2,000 draws): mean of means | -1078.86 | -69.25 | 50.0 | 3638.86 | 2436.8 |  |  |  |  |  |  |  |  |
+
+
+The per-trade difference is slippage-invariant for the 1-lot policies (one round trip per lot each); at 8 pts per side every per-lot mean above moves by -390 INR (`mean_slip8` in the CSV).
+
+## 7. Distillation (`exit_rules_*.json`)
+
+**minute**: best learner by OOF mean = **B** (-908.8); visited decision states 317981, early-exit decisions 314. Depth-3 tree fidelity: accuracy 0.9822, exit recall 0.9873, exit precision 0.0518; the distilled policy replayed on IS (in sample for the tree): mean -1075.16, diff vs Foundation -65.55, random pct 56.5, early exits 0.9861; 3 exit rules.
+
+- `{"bars_held": ["<=", 1.5], "dd_from_mfe_R": ["<=", 0.2595]}` -> exit_all (support 2780 states, exit share 0.785)
+- `{"bars_held": ["<=", 1.5], "dd_from_mfe_R": [">", 0.2595]}` -> exit_all (support 1610 states, exit share 0.995)
+- `{"bars_held": [">", 1.5], "session_bar": [">", 355.5], "dd_from_mfe_R": ["<=", 0.1228]}` -> exit_all (support 1589 states, exit share 0.96)
+
+The `exit_rules` list is a new key type (a per-bar rule evaluator the lab does not have): a user decision. Learner C's keys `{stop, scale_out, trail, square_off, time_stop_bars, exit_on_choch_against}` are the shippable form; `stop: foundation_sl` combined with targets / trail is also not an existing key (today `exit: "strategy"` gives the Foundation stop with the next-CHoCH exit, `exit: "position"` a fixed-points stop).
+
+## 8. Multiplication with the frozen ST7/ST8 gate (`harness.score` rows, family `exit_policy/gate_x_exit`)
+
+**minute** frozen gate under the L1 exit (harness id `f8ea66553101dc24`): kept 745, kept mean -1026.02, skipped mean -1006.31, diff -19.71, control pct 62.6.
+
+| exit applied | harness id | kept n | kept mean | skipped mean | diff | control pct | perm p | sign blocks | gate rows: Foundation -> exit mean (diff) | gate-row sign-flip blocks p1 | gate-row bootstrap CI | book net Foundation -> exit |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| C_nested | `ac28bea0c7c26c6f` | 745 | -1007.56 | -906.05 | -101.51 | 47.2 | 0.4808 | 6 | -1026.02 -> -1007.56 (18.46) | 0.2639 (7/12) | [-131.98, 182.55] | -764386.22 -> -750630.5 |
+| B | `aee3ef4df479e783` | 745 | -1003.52 | -889.77 | -113.75 | 37.6 | 0.4473 | 6 | -1026.02 -> -1003.52 (22.5) | 0.2544 (7/12) | [-135.29, 184.67] | -764386.22 -> -747620.79 |
+
+## 9. Pass rule, candidates, verdict
+
+**STATUS: PRELIMINARY** — pending on minute, 5minute: minute: learner A; 5minute: 05_evaluate.py (eval table, distillation, gate x exit), learner A. Learner C (grid, nested CV, CPCV, multiplicity), the yardsticks and the parity checks are final. Re-run `05_evaluate.py <tf>` when the learners finish, then `06_findings.py`.
+
+**minute** — learner C nested pick: nested_diff>0: pass (86.57), cpcv_p5_diff>0: pass (54.17), random_pct>=95: pass (100.0), signflip_blocks_p1<=0.05: pass (0.0149), blocks_positive>=8/12: pass (10), boot_ci90_excludes_0: pass ([25.24, 151.11]), diff_top1_gains_removed>0: FAIL (-67.49), pbo<=0.2: pass (0.0866), spa_p<=0.10: FAIL (0.396). **no candidate**.
+
+**5minute** — learner C nested pick: nested_diff>0: FAIL (-61.31), cpcv_p5_diff>0: FAIL (-65.24), random_pct>=95: FAIL (88.3), signflip_blocks_p1<=0.05: FAIL (0.7454), blocks_positive>=8/12: FAIL (5), boot_ci90_excludes_0: FAIL ([-182.92, 53.4]), diff_top1_gains_removed>0: FAIL (pending (05_evaluate.py not run yet)), pbo<=0.2: pass (0.1426), spa_p<=0.10: FAIL (0.4965). **no candidate**.
+

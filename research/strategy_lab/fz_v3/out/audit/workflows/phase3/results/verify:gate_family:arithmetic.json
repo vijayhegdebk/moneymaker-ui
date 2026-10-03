@@ -1,0 +1,39 @@
+{
+ "agentId": "a53099bef0eb0c65a",
+ "label": "verify:gate_family:arithmetic",
+ "phase": "Verify",
+ "result": {
+  "refuted": false,
+  "severity": "minor",
+  "issues": [
+   {
+    "what": "The 5-minute h5_full finalist's 'CPCV p5 +53.58' (the only positive CPCV 5th percentile on 5 min, cited in the result paragraph and passing the item cpcv_p5_diff>0) is an artefact of NaN-dropping: 5 of the 11 paths skipped nothing (diff undefined) and of the 6 evaluable paths one is negative (-79.5); np.nanquantile over 6 values interpolates to +53.58. That number also drove the finalist choice (max CPCV p5) for the sub-family.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/gate_family/FINDINGS.md lines 7, 906, 1023, 1030, 1041 (ledger family gate_family/h5_full/scorecard/distill_rules/cpcv, c_search=bisect); harness.score_paths (harness.py:328-331) is the source of the nanquantile",
+    "evidence": "Ledger path diffs for that family: [nan, nan, nan, nan, 452.81, 786.89, -79.5, 2697.09, 2621.2, 866.32, nan]; nanquantile(.,0.05)=53.58 while diff_share_positive=0.455; results/5minute/h5_full/scorecard.pkl cpcv.distill.rules.path_diffs shows the same.",
+    "fix": "State the number of evaluable paths beside every CPCV p5 and treat a path with an undefined diff as a fail (or report p5 over evaluable paths only with n given); in section 0 replace 'positive CPCV 5th percentile (+54)' with 'not evaluable: 5/11 paths skip nothing'. Does not change the null result (the form fails 9 other items)."
+   },
+   {
+    "what": "The result paragraph's summary ranges for sub-family (I) on 1 min overstate the weaker learner: '9-11 of 12 blocks positive', 'every CPCV path positive (5th percentile +131 to +160)', 'a bootstrap 90% CI above zero' and 'control percentile 12-57' do not hold for hgbr (OOF sign blocks 7; CPCV p5 22.75 learner / 14.95 distilled rules with 9/11 paths positive; distilled-rules CI [-226.15, 390.81]) nor for the bag4 / hgbr frozen forms cited in the same sentence (control pct 86.2-86.4), while the '+245' diff upper bound is taken from hgbr.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/gate_family/FINDINGS.md line 7 (also finalize.py line 579), against the tables at lines 143, 195-197, 209-214, 315-316",
+    "evidence": "Rows cd52214f7daee5ac (hgbr OOF: diff 244.71, sign 7, ctrl 56.4), 0cf6289283799682 (hgbr distilled rules: CI [-226.15, 390.81], sign 1), CPCV family gate_family/context/hgbr/distill_rules/cpcv share>0 0.818; frozen rows 20becbd2d2957334 / 890ef76be2db79b5 ctrl 86.4 / 86.2.",
+    "fix": "Restrict the ranges to bag4 and hgbc (or quote hgbr's own numbers), and give the frozen forms' control percentiles (86) beside the nested ones (12-57). Wording only; the null verdict is unaffected."
+   },
+   {
+    "what": "The time-decay c=0.5 sensitivity was run and scored (one ledger row per model, 8 rows across both timeframes) although Judge 2's binding fix keeps that variant only if the regime-breaks study finds a break inside IS, and the study itself states no break was found.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/gate_family/gf_lib.py docstring lines 29-32 and run_gf.py lines 196-200; DESIGN_PANEL.md line 236 (Judge 2)",
+    "evidence": "FINDINGS.md sensitivity tables (rows 180ca8e6a8aef97b, 9226f7aba02c4baf, 264150583dbbc366, 32fdbf3942dbc4b0, 4a8a074c495b58e7, a47403af1a596c57, 150cdcb63ae63acf, 2b35a23b5c097597, 7c04a820ecdf73b5, 0fd7996e6f84842e, 672be58674c08cfd, 04728e67c94b4b9d, 9cc34afbfe3e801b, a82b74c70ccf2977) with controls off, counted in the family.",
+    "fix": "Note the deviation in the caveats (the extra rows only make PBO / SPA more conservative); do not remove ledger rows."
+   },
+   {
+    "what": "Two small count mis-statements: the agent summary says '16 frozen_tree rows added by finalize', but finalize added 14 (6 on minute, 8 on 5 min: family sizes 426->432 and 532->540); the other 2 frozen_tree rows are run_gf's dt3 trees. Also the go/no-go 'items failed' counts of the non-finalist forms (e.g. '6 / 14') include the never-evaluated null_tape item, and two items (dsr_p on the kept book's own per-session Sharpe, kept_mean_slip8) are structurally unpassable for any gate on a book whose kept mean is about -1,000 INR; the FINDINGS applies them as written but does not say so.",
+    "where": "finalize.log (16:10-16:12 frozen tree lines) and FINDINGS.md lines 311-322, 538 (rows by family); harness.py go_no_go lines 587-621; finalize.py dsr_for line 75",
+    "evidence": "finalize.log lists 6 + 8 frozen-tree ledger ids; rows_by_family shows gate_family/h5_full/dt3/frozen_tree = 1 on each timeframe from run_gf. Every DSR p in the finalist tables is 1.0 because the kept per-session mean is negative for every gate (SR < 0).",
+    "fix": "Correct '16' to '14 (+2 dt3 frozen trees from run_gf)'; add one caveat line that dsr_p<0.1 and kept_mean_slip8>0 test the kept book's own expectancy and cannot pass unless a gate turns the book positive, and that the non-finalist 'items failed' counts include the not-run null-tape item."
+   }
+  ],
+  "verified": "Re-run from the ledger and output files (no file modified): gate_family rows minute 432 (388 L1) and 5minute 540 (488 L1), 0 duplicate ids, labels L0/L2x1/L2x2/L3 11/13 rows each; PBO(diff) 0.4045 / 0.517, SPA p 0.936 (unstud 0.598) / 0.0565 (unstud 0.01), effective trials 1.25 / 1.22 reproduce exactly from the per-session vectors; CPCV distributions reproduce (hgbc distilled tree 11 paths median 199.36 p5 159.75 all >0; bag4 tree 206.26/152.97; pt2 5m -45.08/-433.92 share 0.364). Headline ledger rows exist with the quoted numbers (d753e432605450f5 kept 3951/0.8875 diff 189.88 top1 17.86 ctrl 21.9 sign 9 slip8 -1378.21; afd754b8cc67c0d6 kept 0.8969 diff 288.86 ctrl 57.9; 2aae111dbdd37a49; 2d8274db7c53c831; cbc8df04b485a517; d14eb10f08c1c59e). The frozen finalist rule list replayed with tapes.rule_mask on the real IS table gives kept 0.8969 / diff 288.86 / sign 11; tapes.null_tape_check on the 24 certificate tapes reproduces gmm p95 70.14 (pct 100), segment p50/p95 233.87/562.14 (pct 87.5), session same-sign 0.875 -> FAIL. Hour x dir cell means confirm the 11h-down cell (-1311.6, n 328) is the worst cell and below the pooled mean in all 12 blocks. Importance ceiling ids/numbers (7359bf6294568ac8 AUC 0.5935 CPCV -18.66/-114.95; 1a12e823ea7cf4c7 AUC 0.4974, kept 0.9915, diff 817.94, CPCV 259.06/-314.33) and drift top-5 sources match their findings.json / drift.json; script shas match FINDINGS; findings.json null_result=true, candidates=[], no OUT/candidates/ directory; shortlist JSONs n_shortlisted=0 with no newer registration line. Code review: tau chosen inside training folds (inner purged CV / OOB / Platt), distillation fit to the learner's training-fold decisions, CondBank thresholds from training rows, rule masks via tapes.rule_mask, go_no_go called with every argument and applied as written on the nested OOF row with the frozen form's columns and null tape; L1 uniqueness 1.0 logged in every run log; no model failures in the logs; the 5-min SPA best (t 3.762) is the hgbr L2x1-trained robustness row scored on L1 (diff 32.9), a family statistic that does not name a candidate."
+ },
+ "key": "v2:e5dd6e0bed90abdcb4b19a429c4a09f5afb26d325dce8976793890d4416b467d",
+ "transcript": "audit/workflows/phase3/agent-a53099bef0eb0c65a.jsonl",
+ "meta": "audit/workflows/phase3/agent-a53099bef0eb0c65a.meta.json"
+}

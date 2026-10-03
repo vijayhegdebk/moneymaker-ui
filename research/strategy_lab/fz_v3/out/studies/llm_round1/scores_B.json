@@ -1,0 +1,4654 @@
+{
+ "stage": "score",
+ "half_seen": "B",
+ "scored_on": "A",
+ "rules_file": "studies/llm_round1/rules_round1_B.json",
+ "rules_sha256": "a65f06b9226ceda2a2eab9d81a3f1a942522d44e4474a5ca43a8dcbb1de9a18d",
+ "registration": {
+  "kind": "pre_registration",
+  "what": "LLM hypotheses round 1 half B",
+  "file": "studies/llm_round1/rules_round1_B.json",
+  "sha256": "a65f06b9226ceda2a2eab9d81a3f1a942522d44e4474a5ca43a8dcbb1de9a18d",
+  "written_at": "2026-09-29T16:22:54+00:00",
+  "half_seen": "B",
+  "scored_on": "A",
+  "tables": {
+   "minute": {
+    "file": "studies/llm_round1/tables_minute_B.json",
+    "sha256": "8b596e329bc0af017439668daf73f7f7689a1c58884f5b5869e5d82832e5190b",
+    "n_cells_labelled": 181,
+    "n_rules_round1": 8
+   },
+   "5minute": {
+    "file": "studies/llm_round1/tables_5minute_B.json",
+    "sha256": "3c74db45331e13dce70e86dcfacea17266c907dd6826897676e24d23e70f50f5",
+    "n_cells_labelled": 118,
+    "n_rules_round1": 8
+   }
+  },
+  "n_rules": {
+   "minute": 8,
+   "5minute": 8
+  },
+  "family_size_maxt": {
+   "minute": 197,
+   "5minute": 134
+  },
+  "note": "cross-fitted (Judge 1): rules written from tables_<tf>_B.md only, scored on half A (harness blocks 0-5); the max-T family per timeframe = the labelled cells of the seen tables + the round-1 rules of this half + the 8 round-0 rules (Judge 2); EMPTY-SHORTLIST RULE: every rule is exploratory, 'outside the frozen shortlist'. Registered before any ledger row of family llm_round1/B.",
+  "registered_at": "2026-09-29T17:10:27",
+  "ledger_sha_at_registration": "a03c3dc0277bb5ab",
+  "ledger_rows_of_family_at_registration": 0
+ },
+ "scored_at": "2026-09-29T17:10:27",
+ "ledger_sha_before": "a03c3dc0277bb5ab",
+ "timeframes": {
+  "minute": {
+   "tables_file": "studies/llm_round1/tables_minute_B.json",
+   "tables_sha256": "8b596e329bc0af017439668daf73f7f7689a1c58884f5b5869e5d82832e5190b",
+   "n_rows_scored": 2408,
+   "n_sessions_scored": 324,
+   "all_mean_L1": -957.84,
+   "rules": [
+    {
+     "id": "r1B_m1",
+     "rule": [
+      [
+       "hour_bin",
+       "==",
+       "<09:25"
+      ],
+      [
+       "fz_read",
+       "!=",
+       "LEAVE"
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). 'It's different for different time': the opening minutes before 09:25 are the worst hour bin of the half (-1,839 vs -1,071 base) and the damage sits in the non-LEAVE reads (NEW -4,129 / 0.077, PENDING -1,758 / 0.118, THIN -2,742 / 0.000) while LEAVE before 09:25 (-920 / 0.229) is better than base, so LEAVE is kept to avoid skipping profitable ones.",
+     "cells_cited": [
+      "one_way:hour_bin:<09:25",
+      "two_way:fz_readxhour_bin:NEW|<09:25",
+      "two_way:fz_readxhour_bin:PENDING|<09:25",
+      "two_way:fz_readxhour_bin:THIN|<09:25",
+      "two_way:fz_readxhour_bin:LEAVE|<09:25"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "hour_bin",
+       "fz_read"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "a6e37c1d1033559b",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m1",
+       "if": [
+        [
+         "hour_bin",
+         "==",
+         "<09:25"
+        ],
+        [
+         "fz_read",
+         "!=",
+         "LEAVE"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:10:30",
+      "note": null,
+      "n": 2408,
+      "kept_n": 2356,
+      "skipped_n": 52,
+      "kept_share": 0.9784,
+      "kept_net": -2324085.55,
+      "skipped_net": 17618.77,
+      "kept_mean": -986.45,
+      "skipped_mean": 338.82,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.1537,
+      "skipped_win_rate": 0.3462,
+      "kept_pf": 0.298,
+      "kept_t": -21.41,
+      "diff": -1325.28,
+      "diff_top1_removed": -349.36,
+      "kept_mean_slip3": -726.48,
+      "kept_mean_slip8": -1376.42,
+      "loser_recall": 0.0168,
+      "loser_precision": 0.6538,
+      "winner_recall": 0.9526,
+      "winner_recall_weighted": 0.9016,
+      "top_decile_winners_skipped": 0.1579,
+      "kept_sessions": 311,
+      "sign_blocks": 2,
+      "perm_p": 0.002,
+      "control_pct": 100.0,
+      "control_p_beat": 0.0005,
+      "control_p50": -2376783.92
+     },
+     "L0": {
+      "id": "19410cb34d57fc26",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m1",
+       "if": [
+        [
+         "hour_bin",
+         "==",
+         "<09:25"
+        ],
+        [
+         "fz_read",
+         "!=",
+         "LEAVE"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:10:34",
+      "note": null,
+      "n": 2430,
+      "kept_n": 2378,
+      "skipped_n": 52,
+      "kept_share": 0.9786,
+      "kept_net": -2216201.79,
+      "skipped_net": 14824.56,
+      "kept_mean": -931.96,
+      "skipped_mean": 285.09,
+      "all_mean": -905.92,
+      "kept_win_rate": 0.1476,
+      "skipped_win_rate": 0.3269,
+      "kept_pf": 0.413,
+      "kept_t": -10.48,
+      "diff": -1217.05,
+      "diff_top1_removed": -10.42,
+      "kept_mean_slip3": -671.98,
+      "kept_mean_slip8": -1321.93,
+      "loser_recall": 0.017,
+      "loser_precision": 0.6731,
+      "winner_recall": 0.9538,
+      "winner_recall_weighted": 0.9286,
+      "top_decile_winners_skipped": 0.1081,
+      "kept_sessions": 313,
+      "sign_blocks": 3,
+      "perm_p": 0.059,
+      "control_pct": 100.0,
+      "control_p_beat": 0.0005,
+      "control_p50": -2275938.29
+     },
+     "blocks": {
+      "b00": -7319.61,
+      "b01": -360.44,
+      "b02": -1436.25,
+      "b03": 212.19,
+      "b04": -669.95,
+      "b05": 272.85,
+      "blocks_defined": 6,
+      "blocks_positive": 2,
+      "block_diff_min": -7319.61
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -2922.88,
+       37.47
+      ],
+      "kept_mean_ci": [
+       -1044.2,
+       -926.59
+      ],
+      "diff_p_le0": 0.944,
+      "diff_point": -1325.28
+     },
+     "drift": [],
+     "maxt_t": -4.025,
+     "maxt_fw_p": 0.1449,
+     "holm_p_family": 0.394,
+     "dsr": {
+      "sr": -0.0375,
+      "sr0": 0.1483,
+      "dsr": 0.0012,
+      "p": 0.9988,
+      "T": 311,
+      "n_trials": 197,
+      "skew": 4.158,
+      "kurt": 23.215
+     }
+    },
+    {
+     "id": "r1B_m2",
+     "rule": [
+      [
+       "hour_bin",
+       "==",
+       ">=15:20"
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). 'Bands exist to take me to profit not to loss': after 15:20 the L1 book has no room left before the 15:25 cut and the half shows 26 units with a 0.000 win rate (-1,182 mean); skipping them removes only losers.",
+     "cells_cited": [
+      "one_way:hour_bin:>=15:20",
+      "two_way:fz_readxhour_bin:LEAVE|>=15:20",
+      "two_way:fz_readxhour_bin:PENDING|>=15:20"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "hour_bin"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "6b0de2d11705c8c5",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m2",
+       "if": [
+        [
+         "hour_bin",
+         "==",
+         ">=15:20"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:10:38",
+      "note": null,
+      "n": 2408,
+      "kept_n": 2379,
+      "skipped_n": 29,
+      "kept_share": 0.988,
+      "kept_net": -2278196.75,
+      "skipped_net": -28270.03,
+      "kept_mean": -957.63,
+      "skipped_mean": -974.83,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.1597,
+      "skipped_win_rate": 0.0,
+      "kept_pf": 0.324,
+      "kept_t": -19.77,
+      "diff": 17.2,
+      "diff_top1_removed": -139.6,
+      "kept_mean_slip3": -697.65,
+      "kept_mean_slip8": -1347.59,
+      "loser_recall": 0.0143,
+      "loser_precision": 1.0,
+      "winner_recall": 1.0,
+      "winner_recall_weighted": 1.0,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 323,
+      "sign_blocks": 3,
+      "perm_p": 0.9625,
+      "control_pct": 3.0,
+      "control_p_beat": 0.97,
+      "control_p50": -2268098.68
+     },
+     "L0": {
+      "id": "bc5ba08ccc541990",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m2",
+       "if": [
+        [
+         "hour_bin",
+         "==",
+         ">=15:20"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:10:42",
+      "note": null,
+      "n": 2430,
+      "kept_n": 2379,
+      "skipped_n": 51,
+      "kept_share": 0.979,
+      "kept_net": -2139139.39,
+      "skipped_net": -62237.84,
+      "kept_mean": -899.18,
+      "skipped_mean": -1220.35,
+      "all_mean": -905.92,
+      "kept_win_rate": 0.1475,
+      "skipped_win_rate": 0.3333,
+      "kept_pf": 0.425,
+      "kept_t": -10.02,
+      "diff": 321.17,
+      "diff_top1_removed": 324.6,
+      "kept_mean_slip3": -639.2,
+      "kept_mean_slip8": -1289.14,
+      "loser_recall": 0.0165,
+      "loser_precision": 0.6667,
+      "winner_recall": 0.9538,
+      "winner_recall_weighted": 0.9447,
+      "top_decile_winners_skipped": 0.0811,
+      "kept_sessions": 323,
+      "sign_blocks": 4,
+      "perm_p": 0.5847,
+      "control_pct": 14.8,
+      "control_p_beat": 0.8526,
+      "control_p50": -2120981.57
+     },
+     "blocks": {
+      "b00": 80.86,
+      "b01": 338.74,
+      "b02": -200.42,
+      "b03": -52.8,
+      "b04": 175.76,
+      "b05": -22.55,
+      "blocks_defined": 6,
+      "blocks_positive": 3,
+      "block_diff_min": -200.42
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -90.78,
+       127.55
+      ],
+      "kept_mean_ci": [
+       -1017.76,
+       -891.46
+      ],
+      "diff_p_le0": 0.3885,
+      "diff_point": 17.2
+     },
+     "drift": [],
+     "maxt_t": 0.039,
+     "maxt_fw_p": 1.0,
+     "holm_p_family": 1.0,
+     "dsr": {
+      "sr": 0.0396,
+      "sr0": 0.1483,
+      "dsr": 0.0182,
+      "p": 0.9818,
+      "T": 323,
+      "n_trials": 197,
+      "skew": 3.487,
+      "kurt": 16.593
+     }
+    },
+    {
+     "id": "r1B_m3",
+     "rule": [
+      [
+       "fz_read",
+       "==",
+       "FIRST_PRINT"
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). 'Price retests, retests and respects': FIRST_PRINT is the band's very first visit, nothing has been tested yet; the read has the lowest win rate of all reads (0.068, -1,351 mean) and is at or near zero winners in most hours (10: 0.000, 12: 0.000, 13: 0.000, 14: 0.050).",
+     "cells_cited": [
+      "one_way:fz_read:FIRST_PRINT",
+      "two_way:fz_readxhour_bin:FIRST_PRINT|10",
+      "two_way:fz_readxhour_bin:FIRST_PRINT|12",
+      "two_way:fz_readxhour_bin:FIRST_PRINT|13",
+      "two_way:fz_readxhour_bin:FIRST_PRINT|14",
+      "two_way:fz_visit_nxfz_read:1|FIRST_PRINT"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "fz_read"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "89e097218440cfff",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m3",
+       "if": [
+        [
+         "fz_read",
+         "==",
+         "FIRST_PRINT"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:10:45",
+      "note": null,
+      "n": 2408,
+      "kept_n": 2346,
+      "skipped_n": 62,
+      "kept_share": 0.9743,
+      "kept_net": -2242547.2,
+      "skipped_net": -63919.58,
+      "kept_mean": -955.9,
+      "skipped_mean": -1030.96,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.1577,
+      "skipped_win_rate": 0.1613,
+      "kept_pf": 0.325,
+      "kept_t": -19.54,
+      "diff": 75.06,
+      "diff_top1_removed": -83.95,
+      "kept_mean_slip3": -695.93,
+      "kept_mean_slip8": -1345.87,
+      "loser_recall": 0.0256,
+      "loser_precision": 0.8387,
+      "winner_recall": 0.9737,
+      "winner_recall_weighted": 0.9866,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 324,
+      "sign_blocks": 3,
+      "perm_p": 0.8056,
+      "control_pct": 15.9,
+      "control_p_beat": 0.8406,
+      "control_p50": -2231481.58
+     },
+     "L0": {
+      "id": "885f20dada2526dc",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m3",
+       "if": [
+        [
+         "fz_read",
+         "==",
+         "FIRST_PRINT"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:10:49",
+      "note": null,
+      "n": 2430,
+      "kept_n": 2366,
+      "skipped_n": 64,
+      "kept_share": 0.9737,
+      "kept_net": -2122327.62,
+      "skipped_net": -79049.61,
+      "kept_mean": -897.01,
+      "skipped_mean": -1235.15,
+      "all_mean": -905.92,
+      "kept_win_rate": 0.1517,
+      "skipped_win_rate": 0.1406,
+      "kept_pf": 0.438,
+      "kept_t": -9.79,
+      "diff": 338.14,
+      "diff_top1_removed": -6.79,
+      "kept_mean_slip3": -637.03,
+      "kept_mean_slip8": -1286.98,
+      "loser_recall": 0.0267,
+      "loser_precision": 0.8594,
+      "winner_recall": 0.9755,
+      "winner_recall_weighted": 0.9857,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 325,
+      "sign_blocks": 4,
+      "perm_p": 0.5242,
+      "control_pct": 49.2,
+      "control_p_beat": 0.5082,
+      "control_p50": -2121802.4
+     },
+     "blocks": {
+      "b00": -404.07,
+      "b01": 517.44,
+      "b02": 616.16,
+      "b03": 487.51,
+      "b04": -488.2,
+      "b05": -560.68,
+      "blocks_defined": 6,
+      "blocks_positive": 3,
+      "block_diff_min": -560.68
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -259.3,
+       381.07
+      ],
+      "kept_mean_ci": [
+       -1019.33,
+       -887.35
+      ],
+      "diff_p_le0": 0.3355,
+      "diff_point": 75.06
+     },
+     "drift": [],
+     "maxt_t": 0.248,
+     "maxt_fw_p": 1.0,
+     "holm_p_family": 1.0,
+     "dsr": {
+      "sr": 0.0381,
+      "sr0": 0.1483,
+      "dsr": 0.017,
+      "p": 0.983,
+      "T": 324,
+      "n_trials": 197,
+      "skew": 3.487,
+      "kurt": 16.612
+     }
+    },
+    {
+     "id": "r1B_m4",
+     "rule": [
+      [
+       "fz_read",
+       "==",
+       "ACCEPTED"
+      ],
+      [
+       "hour_bin",
+       "in",
+       [
+        "11",
+        "12",
+        "13"
+       ]
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). 'It should avoid only loss trades': an ACCEPTED read in the midday bins 11-13 has almost no winners (11: 0.100, 12: 0.000 on 19 units, 13: 0.105) and means of -1,034 / -1,572 / -1,308; the 14 bin (-368 / 0.250) is left in so the afternoon ACCEPTED winners are not thrown away.",
+     "cells_cited": [
+      "one_way:fz_read:ACCEPTED",
+      "two_way:fz_readxhour_bin:ACCEPTED|11",
+      "two_way:fz_readxhour_bin:ACCEPTED|12",
+      "two_way:fz_readxhour_bin:ACCEPTED|13",
+      "two_way:fz_readxhour_bin:ACCEPTED|14"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "fz_read",
+       "hour_bin"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "e900342e50104684",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m4",
+       "if": [
+        [
+         "fz_read",
+         "==",
+         "ACCEPTED"
+        ],
+        [
+         "hour_bin",
+         "in",
+         [
+          "11",
+          "12",
+          "13"
+         ]
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:10:53",
+      "note": null,
+      "n": 2408,
+      "kept_n": 2362,
+      "skipped_n": 46,
+      "kept_share": 0.9809,
+      "kept_net": -2251261.23,
+      "skipped_net": -55205.55,
+      "kept_mean": -953.12,
+      "skipped_mean": -1200.12,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.1588,
+      "skipped_win_rate": 0.1087,
+      "kept_pf": 0.326,
+      "kept_t": -19.57,
+      "diff": 247.0,
+      "diff_top1_removed": 89.11,
+      "kept_mean_slip3": -693.14,
+      "kept_mean_slip8": -1343.08,
+      "loser_recall": 0.0202,
+      "loser_precision": 0.8913,
+      "winner_recall": 0.9868,
+      "winner_recall_weighted": 0.9955,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 324,
+      "sign_blocks": 4,
+      "perm_p": 0.4793,
+      "control_pct": 34.9,
+      "control_p_beat": 0.6512,
+      "control_p50": -2247893.56
+     },
+     "L0": {
+      "id": "a41990fbf76b74e2",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m4",
+       "if": [
+        [
+         "fz_read",
+         "==",
+         "ACCEPTED"
+        ],
+        [
+         "hour_bin",
+         "in",
+         [
+          "11",
+          "12",
+          "13"
+         ]
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:10:56",
+      "note": null,
+      "n": 2430,
+      "kept_n": 2384,
+      "skipped_n": 46,
+      "kept_share": 0.9811,
+      "kept_net": -2146171.68,
+      "skipped_net": -55205.55,
+      "kept_mean": -900.24,
+      "skipped_mean": -1200.12,
+      "all_mean": -905.92,
+      "kept_win_rate": 0.1523,
+      "skipped_win_rate": 0.1087,
+      "kept_pf": 0.438,
+      "kept_t": -9.85,
+      "diff": 299.88,
+      "diff_top1_removed": -42.46,
+      "kept_mean_slip3": -640.26,
+      "kept_mean_slip8": -1290.2,
+      "loser_recall": 0.0199,
+      "loser_precision": 0.8913,
+      "winner_recall": 0.9864,
+      "winner_recall_weighted": 0.9971,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 325,
+      "sign_blocks": 5,
+      "perm_p": 0.6217,
+      "control_pct": 67.5,
+      "control_p_beat": 0.3248,
+      "control_p50": -2157651.46
+     },
+     "blocks": {
+      "b00": 589.26,
+      "b01": 801.48,
+      "b02": 490.85,
+      "b03": 113.87,
+      "b04": -56.46,
+      "b05": -299.48,
+      "blocks_defined": 6,
+      "blocks_positive": 4,
+      "block_diff_min": -299.48
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       32.38,
+       476.3
+      ],
+      "kept_mean_ci": [
+       -1015.25,
+       -881.4
+      ],
+      "diff_p_le0": 0.0325,
+      "diff_point": 247.0
+     },
+     "drift": [],
+     "maxt_t": 0.706,
+     "maxt_fw_p": 1.0,
+     "holm_p_family": 1.0,
+     "dsr": {
+      "sr": 0.0392,
+      "sr0": 0.1483,
+      "dsr": 0.0177,
+      "p": 0.9823,
+      "T": 324,
+      "n_trials": 197,
+      "skew": 3.494,
+      "kurt": 16.65
+     }
+    },
+    {
+     "id": "r1B_m5",
+     "rule": [
+      [
+       "fz_read",
+       "==",
+       "LEAVE"
+      ],
+      [
+       "hour_bin",
+       "==",
+       "12"
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). 'It's different for different time': LEAVE is the best read of the half overall (-1,003 / 0.168 on 800 units) but in the 12 bin it collapses to -1,524 with a 0.073 win rate on 124 units, the worst large LEAVE cell; skipping only that hour keeps the LEAVE winners of 09 (-242 / 0.274) and 10 (-778 / 0.218).",
+     "cells_cited": [
+      "two_way:fz_readxhour_bin:LEAVE|12",
+      "one_way:hour_bin:12",
+      "one_way:fz_read:LEAVE",
+      "two_way:fz_readxhour_bin:LEAVE|09"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "fz_read",
+       "hour_bin"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "31e444ec72e0ecec",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m5",
+       "if": [
+        [
+         "fz_read",
+         "==",
+         "LEAVE"
+        ],
+        [
+         "hour_bin",
+         "==",
+         "12"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:00",
+      "note": null,
+      "n": 2408,
+      "kept_n": 2257,
+      "skipped_n": 151,
+      "kept_share": 0.9373,
+      "kept_net": -2142747.4,
+      "skipped_net": -163719.38,
+      "kept_mean": -949.38,
+      "skipped_mean": -1084.23,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.1577,
+      "skipped_win_rate": 0.1589,
+      "kept_pf": 0.328,
+      "kept_t": -18.95,
+      "diff": 134.86,
+      "diff_top1_removed": 50.7,
+      "kept_mean_slip3": -689.4,
+      "kept_mean_slip8": -1339.34,
+      "loser_recall": 0.0626,
+      "loser_precision": 0.8411,
+      "winner_recall": 0.9368,
+      "winner_recall_weighted": 0.9558,
+      "top_decile_winners_skipped": 0.0526,
+      "kept_sessions": 324,
+      "sign_blocks": 4,
+      "perm_p": 0.5017,
+      "control_pct": 34.7,
+      "control_p_beat": 0.6532,
+      "control_p50": -2133047.6
+     },
+     "L0": {
+      "id": "24399a48fce69f54",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m5",
+       "if": [
+        [
+         "fz_read",
+         "==",
+         "LEAVE"
+        ],
+        [
+         "hour_bin",
+         "==",
+         "12"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:03",
+      "note": null,
+      "n": 2430,
+      "kept_n": 2279,
+      "skipped_n": 151,
+      "kept_share": 0.9379,
+      "kept_net": -2037587.37,
+      "skipped_net": -163789.86,
+      "kept_mean": -894.07,
+      "skipped_mean": -1084.7,
+      "all_mean": -905.92,
+      "kept_win_rate": 0.1509,
+      "skipped_win_rate": 0.1589,
+      "kept_pf": 0.444,
+      "kept_t": -9.39,
+      "diff": 190.63,
+      "diff_top1_removed": -167.59,
+      "kept_mean_slip3": -634.09,
+      "kept_mean_slip8": -1284.04,
+      "loser_recall": 0.0616,
+      "loser_precision": 0.8411,
+      "winner_recall": 0.9348,
+      "winner_recall_weighted": 0.9712,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 325,
+      "sign_blocks": 5,
+      "perm_p": 0.5807,
+      "control_pct": 46.5,
+      "control_p_beat": 0.5352,
+      "control_p50": -2034171.06
+     },
+     "blocks": {
+      "b00": -35.05,
+      "b01": 5.14,
+      "b02": 268.75,
+      "b03": 540.75,
+      "b04": -380.58,
+      "b05": 462.96,
+      "blocks_defined": 6,
+      "blocks_positive": 4,
+      "block_diff_min": -380.58
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -65.92,
+       333.29
+      ],
+      "kept_mean_ci": [
+       -1010.71,
+       -883.13
+      ],
+      "diff_p_le0": 0.139,
+      "diff_point": 134.86
+     },
+     "drift": [],
+     "maxt_t": 0.683,
+     "maxt_fw_p": 1.0,
+     "holm_p_family": 1.0,
+     "dsr": {
+      "sr": 0.0378,
+      "sr0": 0.1483,
+      "dsr": 0.0168,
+      "p": 0.9832,
+      "T": 324,
+      "n_trials": 197,
+      "skew": 3.489,
+      "kurt": 16.616
+     }
+    },
+    {
+     "id": "r1B_m6",
+     "rule": [
+      [
+       "hv3_bars_since",
+       "<=",
+       0.0
+      ],
+      [
+       "hv3_dir_agree",
+       "==",
+       "True"
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). 'Check how price reacts in visibly high volume ... if it breaks there will be a large move, else price retests': when the SETUP bar itself is the visibly-high-volume bar (vol_ratio20 >= 3, 0 bars ago) and points the trade's way, the trade is entered before the reaction is known; that cell is the worst volume cell (-1,368 / 0.148 on 325 units) against -803 / 0.202 when no such bar exists and -608 for >= 61 bars after one.",
+     "cells_cited": [
+      "two_way:hv3_dir_agreexhv3_bars_since:True|0 bars",
+      "one_way:hv3_bars_since:0 bars",
+      "one_way:hv3_bars_since:NA (no bar with vol_ratio20 >= 3 in the session so far)",
+      "two_way:hv3_dir_agreexhv3_bars_since:True|>=61 bars"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "hv3_bars_since",
+       "hv3_dir_agree"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "0ff091e7372de925",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m6",
+       "if": [
+        [
+         "hv3_bars_since",
+         "<=",
+         0.0
+        ],
+        [
+         "hv3_dir_agree",
+         "==",
+         "True"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:07",
+      "note": null,
+      "n": 2408,
+      "kept_n": 1970,
+      "skipped_n": 438,
+      "kept_share": 0.8181,
+      "kept_net": -1910462.16,
+      "skipped_net": -396004.62,
+      "kept_mean": -969.78,
+      "skipped_mean": -904.12,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.1518,
+      "skipped_win_rate": 0.1849,
+      "kept_pf": 0.311,
+      "kept_t": -18.71,
+      "diff": -65.66,
+      "diff_top1_removed": -107.7,
+      "kept_mean_slip3": -709.8,
+      "kept_mean_slip8": -1359.74,
+      "loser_recall": 0.176,
+      "loser_precision": 0.8151,
+      "winner_recall": 0.7868,
+      "winner_recall_weighted": 0.7871,
+      "top_decile_winners_skipped": 0.1579,
+      "kept_sessions": 314,
+      "sign_blocks": 2,
+      "perm_p": 0.5962,
+      "control_pct": 1.1,
+      "control_p_beat": 0.9885,
+      "control_p50": -1832818.91
+     },
+     "L0": {
+      "id": "1061775c0e6a9e10",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m6",
+       "if": [
+        [
+         "hv3_bars_since",
+         "<=",
+         0.0
+        ],
+        [
+         "hv3_dir_agree",
+         "==",
+         "True"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:11",
+      "note": null,
+      "n": 2430,
+      "kept_n": 1992,
+      "skipped_n": 438,
+      "kept_share": 0.8198,
+      "kept_net": -1907617.97,
+      "skipped_net": -293759.26,
+      "kept_mean": -957.64,
+      "skipped_mean": -670.68,
+      "all_mean": -905.92,
+      "kept_win_rate": 0.1461,
+      "skipped_win_rate": 0.1758,
+      "kept_pf": 0.393,
+      "kept_t": -10.65,
+      "diff": -286.96,
+      "diff_top1_removed": 91.81,
+      "kept_mean_slip3": -697.66,
+      "kept_mean_slip8": -1347.6,
+      "loser_recall": 0.1751,
+      "loser_precision": 0.8242,
+      "winner_recall": 0.7908,
+      "winner_recall_weighted": 0.7374,
+      "top_decile_winners_skipped": 0.2432,
+      "kept_sessions": 315,
+      "sign_blocks": 3,
+      "perm_p": 0.2089,
+      "control_pct": 2.4,
+      "control_p_beat": 0.976,
+      "control_p50": -1761257.88
+     },
+     "blocks": {
+      "b00": 781.62,
+      "b01": -409.73,
+      "b02": -76.47,
+      "b03": -295.96,
+      "b04": 87.65,
+      "b05": -427.84,
+      "blocks_defined": 6,
+      "blocks_positive": 2,
+      "block_diff_min": -427.84
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -293.32,
+       169.71
+      ],
+      "kept_mean_ci": [
+       -1050.21,
+       -884.67
+      ],
+      "diff_p_le0": 0.6845,
+      "diff_point": -65.66
+     },
+     "drift": [],
+     "maxt_t": -0.529,
+     "maxt_fw_p": 1.0,
+     "holm_p_family": 1.0,
+     "dsr": {
+      "sr": 0.0081,
+      "sr0": 0.1483,
+      "dsr": 0.006,
+      "p": 0.994,
+      "T": 314,
+      "n_trials": 197,
+      "skew": 3.423,
+      "kurt": 16.092
+     }
+    },
+    {
+     "id": "r1B_m7",
+     "rule": [
+      [
+       "n_choch_since_bos",
+       ">=",
+       2.0
+      ],
+      [
+       "dir",
+       "==",
+       "up"
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). The user's observation: 'if CHoCH and CHoCH and no breaks then it's sideways; trades in sideways are hurting'. On this half the support is weak on 1 min: the sideways buckets are only slightly below base and the down side is not worse (n=2 down -1,118 / 0.174, >=3 down -969), so the rule is restricted to up SETUPs where the cells are below base (2 up -1,198 / 0.171, >=3 up -1,229 / 0.147, >=5 overall -1,254). Written to test the user's hypothesis on half A, not because half B proves it.",
+     "cells_cited": [
+      "one_way:n_choch_since_bos:2",
+      "one_way:n_choch_since_bos:>=5",
+      "two_way:n_choch_since_bosxdir:2|up",
+      "two_way:n_choch_since_bosxdir:>=3|up",
+      "two_way:n_choch_since_bosxdir:>=3|down"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "n_choch_since_bos",
+       "dir"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "9b8b193661cf7c71",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m7",
+       "if": [
+        [
+         "n_choch_since_bos",
+         ">=",
+         2.0
+        ],
+        [
+         "dir",
+         "==",
+         "up"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:14",
+      "note": null,
+      "n": 2408,
+      "kept_n": 1989,
+      "skipped_n": 419,
+      "kept_share": 0.826,
+      "kept_net": -1965896.18,
+      "skipped_net": -340570.6,
+      "kept_mean": -988.38,
+      "skipped_mean": -812.82,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.1543,
+      "skipped_win_rate": 0.1742,
+      "kept_pf": 0.306,
+      "kept_t": -19.18,
+      "diff": -175.57,
+      "diff_top1_removed": -64.29,
+      "kept_mean_slip3": -728.41,
+      "kept_mean_slip8": -1378.35,
+      "loser_recall": 0.1706,
+      "loser_precision": 0.8258,
+      "winner_recall": 0.8079,
+      "winner_recall_weighted": 0.7938,
+      "top_decile_winners_skipped": 0.1842,
+      "kept_sessions": 316,
+      "sign_blocks": 2,
+      "perm_p": 0.1594,
+      "control_pct": 4.5,
+      "control_p_beat": 0.9555,
+      "control_p50": -1901635.67
+     },
+     "L0": {
+      "id": "a45b886b9c722212",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m7",
+       "if": [
+        [
+         "n_choch_since_bos",
+         ">=",
+         2.0
+        ],
+        [
+         "dir",
+         "==",
+         "up"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:18",
+      "note": null,
+      "n": 2430,
+      "kept_n": 2010,
+      "skipped_n": 420,
+      "kept_share": 0.8272,
+      "kept_net": -1954115.88,
+      "skipped_net": -247261.35,
+      "kept_mean": -972.2,
+      "skipped_mean": -588.72,
+      "all_mean": -905.92,
+      "kept_win_rate": 0.1527,
+      "skipped_win_rate": 0.1452,
+      "kept_pf": 0.391,
+      "kept_t": -11.47,
+      "diff": -383.48,
+      "diff_top1_removed": 1.67,
+      "kept_mean_slip3": -712.22,
+      "kept_mean_slip8": -1362.16,
+      "loser_recall": 0.1741,
+      "loser_precision": 0.8548,
+      "winner_recall": 0.8342,
+      "winner_recall_weighted": 0.7468,
+      "top_decile_winners_skipped": 0.2432,
+      "kept_sessions": 317,
+      "sign_blocks": 2,
+      "perm_p": 0.1029,
+      "control_pct": 2.8,
+      "control_p_beat": 0.972,
+      "control_p50": -1808167.48
+     },
+     "blocks": {
+      "b00": -742.54,
+      "b01": -246.54,
+      "b02": -138.39,
+      "b03": 107.85,
+      "b04": -161.73,
+      "b05": 111.56,
+      "blocks_defined": 6,
+      "blocks_positive": 2,
+      "block_diff_min": -742.54
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -388.47,
+       20.79
+      ],
+      "kept_mean_ci": [
+       -1057.28,
+       -911.07
+      ],
+      "diff_p_le0": 0.9215,
+      "diff_point": -175.57
+     },
+     "drift": [],
+     "maxt_t": -1.391,
+     "maxt_fw_p": 1.0,
+     "holm_p_family": 1.0,
+     "dsr": {
+      "sr": -0.026,
+      "sr0": 0.1483,
+      "dsr": 0.0015,
+      "p": 0.9985,
+      "T": 316,
+      "n_trials": 197,
+      "skew": 3.306,
+      "kurt": 16.581
+     }
+    },
+    {
+     "id": "r1B_m8",
+     "rule": [
+      [
+       "touch_room_bars_ago",
+       ">=",
+       38.0
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). 'Those levels will be respected ... price retests, retests and respects': when the last touch of the room edge is 38 or more minutes old the level is no longer in play at the entry, and that decile is the worst of the column (-1,422 / 0.114 on 175 units) against -614 / 0.176 for 28-38 bars and -675 / 0.231 for 15-20 bars.",
+     "cells_cited": [
+      "one_way:touch_room_bars_ago:>= 38.0",
+      "one_way:touch_room_bars_ago:[28.0, 38.0)",
+      "one_way:touch_room_bars_ago:[15.0, 20.0)"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "touch_room_bars_ago"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "68f4cc8c1e02dfdb",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m8",
+       "if": [
+        [
+         "touch_room_bars_ago",
+         ">=",
+         38.0
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:22",
+      "note": null,
+      "n": 2408,
+      "kept_n": 2197,
+      "skipped_n": 211,
+      "kept_share": 0.9124,
+      "kept_net": -2130341.87,
+      "skipped_net": -176124.91,
+      "kept_mean": -969.66,
+      "skipped_mean": -834.72,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.1575,
+      "skipped_win_rate": 0.1611,
+      "kept_pf": 0.313,
+      "kept_t": -19.76,
+      "diff": -134.94,
+      "diff_top1_removed": -50.45,
+      "kept_mean_slip3": -709.68,
+      "kept_mean_slip8": -1359.62,
+      "loser_recall": 0.0873,
+      "loser_precision": 0.8389,
+      "winner_recall": 0.9105,
+      "winner_recall_weighted": 0.8863,
+      "top_decile_winners_skipped": 0.1053,
+      "kept_sessions": 320,
+      "sign_blocks": 3,
+      "perm_p": 0.4278,
+      "control_pct": 18.8,
+      "control_p_beat": 0.8121,
+      "control_p50": -2108332.16
+     },
+     "L0": {
+      "id": "cb89251992797125",
+      "family": "llm_round1/B",
+      "tf": "minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_m8",
+       "if": [
+        [
+         "touch_room_bars_ago",
+         ">=",
+         38.0
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "8b596e329bc0af01",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:26",
+      "note": null,
+      "n": 2430,
+      "kept_n": 2216,
+      "skipped_n": 214,
+      "kept_share": 0.9119,
+      "kept_net": -2071592.0,
+      "skipped_net": -129785.23,
+      "kept_mean": -934.83,
+      "skipped_mean": -606.47,
+      "all_mean": -905.92,
+      "kept_win_rate": 0.1516,
+      "skipped_win_rate": 0.1495,
+      "kept_pf": 0.418,
+      "kept_t": -9.97,
+      "diff": -328.36,
+      "diff_top1_removed": -114.57,
+      "kept_mean_slip3": -674.86,
+      "kept_mean_slip8": -1324.8,
+      "loser_recall": 0.0883,
+      "loser_precision": 0.8505,
+      "winner_recall": 0.913,
+      "winner_recall_weighted": 0.886,
+      "top_decile_winners_skipped": 0.1351,
+      "kept_sessions": 321,
+      "sign_blocks": 3,
+      "perm_p": 0.3028,
+      "control_pct": 42.1,
+      "control_p_beat": 0.5787,
+      "control_p50": -2061588.88
+     },
+     "blocks": {
+      "b00": 43.64,
+      "b01": 164.94,
+      "b02": 291.39,
+      "b03": -535.59,
+      "b04": -363.12,
+      "b05": -112.19,
+      "blocks_defined": 6,
+      "blocks_positive": 3,
+      "block_diff_min": -535.59
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -418.99,
+       135.6
+      ],
+      "kept_mean_ci": [
+       -1038.06,
+       -897.3
+      ],
+      "diff_p_le0": 0.785,
+      "diff_point": -134.94
+     },
+     "drift": [],
+     "maxt_t": -0.797,
+     "maxt_fw_p": 1.0,
+     "holm_p_family": 1.0,
+     "dsr": {
+      "sr": 0.016,
+      "sr0": 0.1483,
+      "dsr": 0.0075,
+      "p": 0.9925,
+      "T": 320,
+      "n_trials": 197,
+      "skew": 3.636,
+      "kurt": 18.031
+     }
+    }
+   ],
+   "union": {
+    "L1": {
+     "id": "3f7e85e910c63d1e",
+     "family": "llm_round1/B",
+     "tf": "minute",
+     "label": "L1",
+     "split": "IS",
+     "config": {
+      "round": 1,
+      "proposed_on": "B",
+      "scored_on": "A",
+      "rule": "union_round1",
+      "members": [
+       "r1B_m1",
+       "r1B_m2",
+       "r1B_m3",
+       "r1B_m4",
+       "r1B_m5",
+       "r1B_m6",
+       "r1B_m7",
+       "r1B_m8"
+      ],
+      "then": "skip",
+      "rules_sha256": "a65f06b9226ceda2",
+      "tables_sha256": "8b596e329bc0af01"
+     },
+     "script": "scorer.py",
+     "script_sha": "ddd88b066edf575d",
+     "at": "2026-09-29T17:11:29",
+     "note": null,
+     "n": 2408,
+     "kept_n": 1274,
+     "skipped_n": 1134,
+     "kept_share": 0.5291,
+     "kept_net": -1317722.95,
+     "skipped_net": -988743.83,
+     "kept_mean": -1034.32,
+     "skipped_mean": -871.91,
+     "all_mean": -957.84,
+     "kept_win_rate": 0.1444,
+     "skipped_win_rate": 0.1728,
+     "kept_pf": 0.27,
+     "kept_t": -17.34,
+     "diff": -162.41,
+     "diff_top1_removed": -100.52,
+     "kept_mean_slip3": -774.34,
+     "kept_mean_slip8": -1424.28,
+     "loser_recall": 0.4625,
+     "loser_precision": 0.8272,
+     "winner_recall": 0.4842,
+     "winner_recall_weighted": 0.4457,
+     "top_decile_winners_skipped": 0.5526,
+     "kept_sessions": 285,
+     "sign_blocks": 1,
+     "perm_p": 0.0975,
+     "control_pct": 4.2,
+     "control_p_beat": 0.9575,
+     "control_p50": -1247019.17
+    },
+    "blocks": {
+     "b00": -320.68,
+     "b01": -285.64,
+     "b02": 102.47,
+     "b03": -106.68,
+     "b04": -221.42,
+     "b05": -160.99,
+     "blocks_defined": 6,
+     "blocks_positive": 1,
+     "block_diff_min": -320.68
+    },
+    "boot": {
+     "draws": 2000,
+     "ci": 0.9,
+     "diff_ci": [
+      -286.89,
+      -24.89
+     ],
+     "kept_mean_ci": [
+      -1117.02,
+      -945.77
+     ],
+     "diff_p_le0": 0.9735,
+     "diff_point": -162.41
+    }
+   },
+   "round0": [
+    {
+     "id": "r0_m1",
+     "rule": [
+      [
+       "n_choch_since_bos",
+       ">=",
+       2
+      ],
+      [
+       "range_since_choch_atr",
+       "<=",
+       2.0
+      ]
+     ],
+     "L1": {
+      "id": "1485dc5d83c14d34",
+      "family": "llm_round1/B/round0",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_m1",
+       "if": [
+        [
+         "n_choch_since_bos",
+         ">=",
+         2
+        ],
+        [
+         "range_since_choch_atr",
+         "<=",
+         2.0
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:32",
+      "note": null,
+      "n": 2408,
+      "kept_n": 1945,
+      "skipped_n": 463,
+      "kept_share": 0.8077,
+      "kept_net": -1889079.37,
+      "skipped_net": -417387.41,
+      "kept_mean": -971.25,
+      "skipped_mean": -901.48,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.162,
+      "skipped_win_rate": 0.1404,
+      "kept_pf": 0.319,
+      "kept_t": -18.27,
+      "diff": -69.76,
+      "diff_top1_removed": 38.5,
+      "kept_mean_slip3": -711.27,
+      "kept_mean_slip8": -1361.21,
+      "loser_recall": 0.1963,
+      "loser_precision": 0.8596,
+      "winner_recall": 0.8289,
+      "winner_recall_weighted": 0.8106,
+      "top_decile_winners_skipped": 0.2105,
+      "kept_sessions": 322,
+      "sign_blocks": 2,
+      "perm_p": 0.5677,
+      "control_pct": 2.5,
+      "control_p_beat": 0.9745,
+      "control_p50": -1819729.71
+     }
+    },
+    {
+     "id": "r0_m2",
+     "rule": [
+      [
+       "choch_run",
+       ">=",
+       3
+      ],
+      [
+       "n_bos_1h",
+       "==",
+       0
+      ]
+     ],
+     "L1": {
+      "id": "cf5fde85c9d3e5e5",
+      "family": "llm_round1/B/round0",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_m2",
+       "if": [
+        [
+         "choch_run",
+         ">=",
+         3
+        ],
+        [
+         "n_bos_1h",
+         "==",
+         0
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:36",
+      "note": null,
+      "n": 2408,
+      "kept_n": 2377,
+      "skipped_n": 31,
+      "kept_share": 0.9871,
+      "kept_net": -2278021.96,
+      "skipped_net": -28444.82,
+      "kept_mean": -958.36,
+      "skipped_mean": -917.57,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.1586,
+      "skipped_win_rate": 0.0968,
+      "kept_pf": 0.321,
+      "kept_t": -19.96,
+      "diff": -40.79,
+      "diff_top1_removed": 293.13,
+      "kept_mean_slip3": -698.38,
+      "kept_mean_slip8": -1348.33,
+      "loser_recall": 0.0138,
+      "loser_precision": 0.9032,
+      "winner_recall": 0.9921,
+      "winner_recall_weighted": 0.9847,
+      "top_decile_winners_skipped": 0.0263,
+      "kept_sessions": 324,
+      "sign_blocks": 4,
+      "perm_p": 0.9275,
+      "control_pct": 53.5,
+      "control_p_beat": 0.4648,
+      "control_p50": -2279168.57
+     }
+    },
+    {
+     "id": "r0_m3",
+     "rule": [
+      [
+       "alt_dir6",
+       ">=",
+       4
+      ],
+      [
+       "er_1h",
+       "<=",
+       0.3
+      ]
+     ],
+     "L1": {
+      "id": "b71da929fd20d0fc",
+      "family": "llm_round1/B/round0",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_m3",
+       "if": [
+        [
+         "alt_dir6",
+         ">=",
+         4
+        ],
+        [
+         "er_1h",
+         "<=",
+         0.3
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:39",
+      "note": null,
+      "n": 2408,
+      "kept_n": 1910,
+      "skipped_n": 498,
+      "kept_share": 0.7932,
+      "kept_net": -1860014.54,
+      "skipped_net": -446452.24,
+      "kept_mean": -973.83,
+      "skipped_mean": -896.49,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.1581,
+      "skipped_win_rate": 0.1566,
+      "kept_pf": 0.319,
+      "kept_t": -17.96,
+      "diff": -77.34,
+      "diff_top1_removed": -57.12,
+      "kept_mean_slip3": -713.85,
+      "kept_mean_slip8": -1363.79,
+      "loser_recall": 0.2071,
+      "loser_precision": 0.8434,
+      "winner_recall": 0.7947,
+      "winner_recall_weighted": 0.7966,
+      "top_decile_winners_skipped": 0.1579,
+      "kept_sessions": 324,
+      "sign_blocks": 3,
+      "perm_p": 0.5257,
+      "control_pct": 0.0,
+      "control_p_beat": 1.0,
+      "control_p50": -1709090.0
+     }
+    },
+    {
+     "id": "r0_m4",
+     "rule": [
+      [
+       "fz_read",
+       "in",
+       [
+        "RECYCLE",
+        "THIN"
+       ]
+      ],
+      [
+       "room_ahead_dist_atr",
+       ">",
+       0
+      ],
+      [
+       "room_ahead_dist_atr",
+       "<=",
+       1.0
+      ]
+     ],
+     "L1": {
+      "id": "46c5a9216b7a7271",
+      "family": "llm_round1/B/round0",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_m4",
+       "if": [
+        [
+         "fz_read",
+         "in",
+         [
+          "RECYCLE",
+          "THIN"
+         ]
+        ],
+        [
+         "room_ahead_dist_atr",
+         ">",
+         0
+        ],
+        [
+         "room_ahead_dist_atr",
+         "<=",
+         1.0
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:43",
+      "note": null,
+      "n": 2408,
+      "kept_n": 2227,
+      "skipped_n": 181,
+      "kept_share": 0.9248,
+      "kept_net": -2134690.94,
+      "skipped_net": -171775.84,
+      "kept_mean": -958.55,
+      "skipped_mean": -949.04,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.1634,
+      "skipped_win_rate": 0.0884,
+      "kept_pf": 0.32,
+      "kept_t": -19.48,
+      "diff": -9.51,
+      "diff_top1_removed": 118.2,
+      "kept_mean_slip3": -698.57,
+      "kept_mean_slip8": -1348.51,
+      "loser_recall": 0.0814,
+      "loser_precision": 0.9116,
+      "winner_recall": 0.9579,
+      "winner_recall_weighted": 0.9193,
+      "top_decile_winners_skipped": 0.0789,
+      "kept_sessions": 321,
+      "sign_blocks": 4,
+      "perm_p": 0.9565,
+      "control_pct": 77.0,
+      "control_p_beat": 0.2299,
+      "control_p50": -2150388.29
+     }
+    },
+    {
+     "id": "r0_m5",
+     "rule": [
+      [
+       "hv3_dir_agree",
+       "==",
+       false
+      ],
+      [
+       "hv3_bars_since",
+       "<=",
+       60
+      ]
+     ],
+     "L1": {
+      "id": "1ff56308d0a09217",
+      "family": "llm_round1/B/round0",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_m5",
+       "if": [
+        [
+         "hv3_dir_agree",
+         "==",
+         false
+        ],
+        [
+         "hv3_bars_since",
+         "<=",
+         60
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:47",
+      "note": null,
+      "n": 2408,
+      "kept_n": 1663,
+      "skipped_n": 745,
+      "kept_share": 0.6906,
+      "kept_net": -1578865.86,
+      "skipped_net": -727600.92,
+      "kept_mean": -949.41,
+      "skipped_mean": -976.65,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.1557,
+      "skipped_win_rate": 0.1624,
+      "kept_pf": 0.342,
+      "kept_t": -15.53,
+      "diff": 27.24,
+      "diff_top1_removed": -74.05,
+      "kept_mean_slip3": -689.43,
+      "kept_mean_slip8": -1339.37,
+      "loser_recall": 0.3077,
+      "loser_precision": 0.8376,
+      "winner_recall": 0.6816,
+      "winner_recall_weighted": 0.75,
+      "top_decile_winners_skipped": 0.1316,
+      "kept_sessions": 321,
+      "sign_blocks": 2,
+      "perm_p": 0.7781,
+      "control_pct": 2.2,
+      "control_p_beat": 0.978,
+      "control_p50": -1504334.41
+     }
+    },
+    {
+     "id": "r0_m6",
+     "rule": [
+      [
+       "touch_swing_last",
+       "==",
+       "held"
+      ],
+      [
+       "swing_ahead_dist_atr",
+       ">",
+       0
+      ],
+      [
+       "swing_ahead_dist_atr",
+       "<=",
+       1.0
+      ]
+     ],
+     "L1": {
+      "id": "8095b3e9670478b9",
+      "family": "llm_round1/B/round0",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_m6",
+       "if": [
+        [
+         "touch_swing_last",
+         "==",
+         "held"
+        ],
+        [
+         "swing_ahead_dist_atr",
+         ">",
+         0
+        ],
+        [
+         "swing_ahead_dist_atr",
+         "<=",
+         1.0
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:47",
+      "note": null,
+      "n": 2408,
+      "kept_n": 2408,
+      "skipped_n": 0,
+      "kept_share": 1.0,
+      "kept_net": -2306466.78,
+      "skipped_net": 0.0,
+      "kept_mean": -957.84,
+      "skipped_mean": null,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.1578,
+      "skipped_win_rate": null,
+      "kept_pf": 0.322,
+      "kept_t": -20.01,
+      "diff": null,
+      "diff_top1_removed": null,
+      "kept_mean_slip3": null,
+      "kept_mean_slip8": null,
+      "loser_recall": null,
+      "loser_precision": null,
+      "winner_recall": null,
+      "winner_recall_weighted": null,
+      "top_decile_winners_skipped": null,
+      "kept_sessions": 324,
+      "sign_blocks": null,
+      "perm_p": null,
+      "control_pct": null,
+      "control_p_beat": null
+     }
+    },
+    {
+     "id": "r0_m7",
+     "rule": [
+      [
+       "hour",
+       "in",
+       [
+        12,
+        13
+       ]
+      ],
+      [
+       "n_choch_since_bos_today",
+       ">=",
+       2
+      ]
+     ],
+     "L1": {
+      "id": "d8d06918e4c9d14e",
+      "family": "llm_round1/B/round0",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_m7",
+       "if": [
+        [
+         "hour",
+         "in",
+         [
+          12,
+          13
+         ]
+        ],
+        [
+         "n_choch_since_bos_today",
+         ">=",
+         2
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:50",
+      "note": null,
+      "n": 2408,
+      "kept_n": 2099,
+      "skipped_n": 309,
+      "kept_share": 0.8717,
+      "kept_net": -2034087.44,
+      "skipped_net": -272379.34,
+      "kept_mean": -969.07,
+      "skipped_mean": -881.49,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.1601,
+      "skipped_win_rate": 0.1424,
+      "kept_pf": 0.321,
+      "kept_t": -18.7,
+      "diff": -87.59,
+      "diff_top1_removed": -77.77,
+      "kept_mean_slip3": -709.1,
+      "kept_mean_slip8": -1359.04,
+      "loser_recall": 0.1307,
+      "loser_precision": 0.8576,
+      "winner_recall": 0.8842,
+      "winner_recall_weighted": 0.878,
+      "top_decile_winners_skipped": 0.1053,
+      "kept_sessions": 323,
+      "sign_blocks": 3,
+      "perm_p": 0.5297,
+      "control_pct": 0.5,
+      "control_p_beat": 0.995,
+      "control_p50": -1957471.43
+     }
+    },
+    {
+     "id": "r0_m8",
+     "rule": [
+      [
+       "session_bar",
+       ">=",
+       60
+      ],
+      [
+       "n_bos_today",
+       "==",
+       0
+      ],
+      [
+       "sess_range_atr",
+       "<=",
+       2.5
+      ]
+     ],
+     "L1": {
+      "id": "20ae3f57dc61c9dd",
+      "family": "llm_round1/B/round0",
+      "tf": "minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_m8",
+       "if": [
+        [
+         "session_bar",
+         ">=",
+         60
+        ],
+        [
+         "n_bos_today",
+         "==",
+         0
+        ],
+        [
+         "sess_range_atr",
+         "<=",
+         2.5
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:50",
+      "note": null,
+      "n": 2408,
+      "kept_n": 2408,
+      "skipped_n": 0,
+      "kept_share": 1.0,
+      "kept_net": -2306466.78,
+      "skipped_net": 0.0,
+      "kept_mean": -957.84,
+      "skipped_mean": null,
+      "all_mean": -957.84,
+      "kept_win_rate": 0.1578,
+      "skipped_win_rate": null,
+      "kept_pf": 0.322,
+      "kept_t": -20.01,
+      "diff": null,
+      "diff_top1_removed": null,
+      "kept_mean_slip3": null,
+      "kept_mean_slip8": null,
+      "loser_recall": null,
+      "loser_precision": null,
+      "winner_recall": null,
+      "winner_recall_weighted": null,
+      "top_decile_winners_skipped": null,
+      "kept_sessions": 324,
+      "sign_blocks": null,
+      "perm_p": null,
+      "control_pct": null,
+      "control_p_beat": null
+     }
+    }
+   ],
+   "max_t": {
+    "draws": 2000,
+    "statistic": "kept-vs-skipped mean difference over the pooled sd of the scored rows x sqrt(1/n_kept + 1/n_skipped) (permutation-invariant denominator); net permuted across the scored half's rows",
+    "family_masks": 196,
+    "family_testable": 185,
+    "rule_t": [
+     -4.025,
+     0.039,
+     0.248,
+     0.706,
+     0.683,
+     -0.529,
+     -1.391,
+     -0.797
+    ],
+    "rule_welch_t": [
+     -1.816,
+     0.209,
+     0.42,
+     1.647,
+     0.865,
+     -0.495,
+     -1.292,
+     -0.677
+    ],
+    "rule_fw_p": [
+     0.1449,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "null_max_abs_t_p95": 4.673,
+    "null_max_abs_t_p99": 5.766,
+    "best_family_member": 7,
+    "best_family_abs_t": 4.473,
+    "best_family_fw_p": 0.0655,
+    "n_cells_labelled": 181,
+    "n_cells_with_skip_set": 180,
+    "n_rules_round1": 8,
+    "n_rules_round1_scored": 8,
+    "n_rules_round0": 8,
+    "family_size": 197,
+    "best_family_member_name": "one_way:hour_bin:<09:25"
+   },
+   "family": {
+    "vectors": 17,
+    "pbo_diff": {
+     "candidates": 17,
+     "partitions": 12870,
+     "statistic": "diff",
+     "pbo": 0.5449,
+     "oos_best_below_zero": 0.6221,
+     "degradation_slope": -1.7625,
+     "is_best_mean": 388.83,
+     "oos_best_mean": -350.83
+    },
+    "pbo_kept_mean": {
+     "candidates": 17,
+     "partitions": 12870,
+     "statistic": "kept_mean",
+     "pbo": 0.7406,
+     "oos_best_below_zero": 1.0,
+     "degradation_slope": -0.9492,
+     "is_best_mean": -932.11,
+     "oos_best_mean": -980.83
+    },
+    "spa": {
+     "candidates": 17,
+     "sessions": 324,
+     "draws": 2000,
+     "min_active_sessions": 16,
+     "excluded_from_studentised": 2,
+     "best_unstudentised": 0,
+     "best_mean_gain_unstudentised": 43.68,
+     "rc_p_unstudentised": 0.7075,
+     "spa_p_unstudentised": 0.6925,
+     "best": 0,
+     "best_mean_gain": 43.68,
+     "best_t": 2.439,
+     "best_active_sessions": 38,
+     "rc_p": 0.4435,
+     "spa_p": 0.4365
+    },
+    "effective_trials": 1.14
+   },
+   "sharpe_var_family": 0.002884406207206326,
+   "runtime_s": 85.4
+  },
+  "5minute": {
+   "tables_file": "studies/llm_round1/tables_5minute_B.json",
+   "tables_sha256": "3c74db45331e13dce70e86dcfacea17266c907dd6826897676e24d23e70f50f5",
+   "n_rows_scored": 428,
+   "n_sessions_scored": 214,
+   "all_mean_L1": -677.17,
+   "rules": [
+    {
+     "id": "r1B_f1",
+     "rule": [
+      [
+       "fz_read",
+       "==",
+       "NEW"
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). 'Price retests, retests and respects': a NEW read is a band nobody has tested yet; it is the worst read of the half (-2,118 / 0.133 on 45 units, base -843 / 0.256) and negative in every hour cell (09 -4,301, 10 -1,932, 12 -1,015, 13 -1,590, 14 -2,041 / 0.000).",
+     "cells_cited": [
+      "one_way:fz_read:NEW",
+      "two_way:fz_readxhour_bin:NEW|09",
+      "two_way:fz_readxhour_bin:NEW|10",
+      "two_way:fz_readxhour_bin:NEW|13",
+      "two_way:fz_readxhour_bin:NEW|14",
+      "two_way:fz_visit_nxfz_read:NA (no ref room)|NEW"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "fz_read"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "eaf53fdc0790c410",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f1",
+       "if": [
+        [
+         "fz_read",
+         "==",
+         "NEW"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:53",
+      "note": null,
+      "n": 428,
+      "kept_n": 389,
+      "skipped_n": 39,
+      "kept_share": 0.9089,
+      "kept_net": -273091.05,
+      "skipped_net": -16737.29,
+      "kept_mean": -702.03,
+      "skipped_mean": -429.16,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.2879,
+      "skipped_win_rate": 0.3846,
+      "kept_pf": 0.628,
+      "kept_t": -3.43,
+      "diff": -272.87,
+      "diff_top1_removed": 492.46,
+      "kept_mean_slip3": -442.06,
+      "kept_mean_slip8": -1092.0,
+      "loser_recall": 0.0797,
+      "loser_precision": 0.6154,
+      "winner_recall": 0.8819,
+      "winner_recall_weighted": 0.8722,
+      "top_decile_winners_skipped": 0.1538,
+      "kept_sessions": 206,
+      "sign_blocks": 2,
+      "perm_p": 0.6847,
+      "control_pct": 66.5,
+      "control_p_beat": 0.3348,
+      "control_p50": -278033.2
+     },
+     "L0": {
+      "id": "43887459e30d37d3",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f1",
+       "if": [
+        [
+         "fz_read",
+         "==",
+         "NEW"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:54",
+      "note": null,
+      "n": 431,
+      "kept_n": 392,
+      "skipped_n": 39,
+      "kept_share": 0.9095,
+      "kept_net": -119689.58,
+      "skipped_net": -250.53,
+      "kept_mean": -305.33,
+      "skipped_mean": -6.42,
+      "all_mean": -278.28,
+      "kept_win_rate": 0.2194,
+      "skipped_win_rate": 0.3333,
+      "kept_pf": 0.882,
+      "kept_t": -0.61,
+      "diff": -298.91,
+      "diff_top1_removed": -1155.03,
+      "kept_mean_slip3": -45.35,
+      "kept_mean_slip8": -695.3,
+      "loser_recall": 0.0783,
+      "loser_precision": 0.6667,
+      "winner_recall": 0.8687,
+      "winner_recall_weighted": 0.9024,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 206,
+      "sign_blocks": 2,
+      "perm_p": 0.8616,
+      "control_pct": 45.5,
+      "control_p_beat": 0.5447,
+      "control_p50": -116866.99
+     },
+     "blocks": {
+      "b00": -4535.51,
+      "b01": 2908.78,
+      "b02": 2980.8,
+      "b03": -746.96,
+      "b04": -2022.15,
+      "b05": -2391.53,
+      "blocks_defined": 6,
+      "blocks_positive": 2,
+      "block_diff_min": -4535.51
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -2154.3,
+       1474.96
+      ],
+      "kept_mean_ci": [
+       -1004.38,
+       -330.0
+      ],
+      "diff_p_le0": 0.6085,
+      "diff_point": -272.87
+     },
+     "drift": [],
+     "maxt_t": -0.39,
+     "maxt_fw_p": 1.0,
+     "holm_p_family": 1.0,
+     "dsr": {
+      "sr": 0.0073,
+      "sr0": 0.1257,
+      "dsr": 0.0438,
+      "p": 0.9562,
+      "T": 206,
+      "n_trials": 134,
+      "skew": 2.068,
+      "kurt": 8.896
+     }
+    },
+    {
+     "id": "r1B_f2",
+     "rule": [
+      [
+       "n_choch_since_bos",
+       "==",
+       2.0
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). The user's observation, literally: 'if CHoCH and CHoCH and no breaks then it's sideways; trades in sideways are hurting'. Exactly two CHoCHs since the last BOS is the worst regime bucket on 5 min (-1,679 / 0.164 on 73 units) on both sides (down -1,727 / 0.151, up -1,639 / 0.175). The rule stops at 2 because 3 (-512) and >=5 (+710 / 0.320) do not support extending it, so it is a narrow test of the observation.",
+     "cells_cited": [
+      "one_way:n_choch_since_bos:2",
+      "two_way:n_choch_since_bosxdir:2|down",
+      "two_way:n_choch_since_bosxdir:2|up",
+      "one_way:n_choch_since_bos:3",
+      "one_way:n_choch_since_bos:>=5"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "n_choch_since_bos"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "065cf63cc2e5c415",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f2",
+       "if": [
+        [
+         "n_choch_since_bos",
+         "==",
+         2.0
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:55",
+      "note": null,
+      "n": 428,
+      "kept_n": 358,
+      "skipped_n": 70,
+      "kept_share": 0.8364,
+      "kept_net": -206548.11,
+      "skipped_net": -83280.23,
+      "kept_mean": -576.95,
+      "skipped_mean": -1189.72,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.3073,
+      "skipped_win_rate": 0.2429,
+      "kept_pf": 0.683,
+      "kept_t": -2.65,
+      "diff": 612.77,
+      "diff_top1_removed": 337.7,
+      "kept_mean_slip3": -316.97,
+      "kept_mean_slip8": -966.92,
+      "loser_recall": 0.1761,
+      "loser_precision": 0.7571,
+      "winner_recall": 0.8661,
+      "winner_recall_weighted": 0.8413,
+      "top_decile_winners_skipped": 0.2308,
+      "kept_sessions": 201,
+      "sign_blocks": 4,
+      "perm_p": 0.2629,
+      "control_pct": 82.0,
+      "control_p_beat": 0.1804,
+      "control_p50": -227407.46
+     },
+     "L0": {
+      "id": "36e7232a1753bf5b",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f2",
+       "if": [
+        [
+         "n_choch_since_bos",
+         "==",
+         2.0
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:56",
+      "note": null,
+      "n": 431,
+      "kept_n": 361,
+      "skipped_n": 70,
+      "kept_share": 0.8376,
+      "kept_net": 30254.2,
+      "skipped_net": -150194.31,
+      "kept_mean": 83.81,
+      "skipped_mean": -2145.63,
+      "all_mean": -278.28,
+      "kept_win_rate": 0.2382,
+      "skipped_win_rate": 0.1857,
+      "kept_pf": 1.034,
+      "kept_t": 0.16,
+      "diff": 2229.44,
+      "diff_top1_removed": 1304.24,
+      "kept_mean_slip3": 343.78,
+      "kept_mean_slip8": -306.16,
+      "loser_recall": 0.1717,
+      "loser_precision": 0.8143,
+      "winner_recall": 0.8687,
+      "winner_recall_weighted": 0.9281,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 201,
+      "sign_blocks": 6,
+      "perm_p": 0.0795,
+      "control_pct": 80.2,
+      "control_p_beat": 0.1979,
+      "control_p50": 6150.98
+     },
+     "blocks": {
+      "b00": 1432.25,
+      "b01": -296.79,
+      "b02": -1550.4,
+      "b03": 2295.82,
+      "b04": 582.15,
+      "b05": 997.74,
+      "blocks_defined": 6,
+      "blocks_positive": 4,
+      "block_diff_min": -1550.4
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -125.24,
+       1367.44
+      ],
+      "kept_mean_ci": [
+       -847.38,
+       -275.1
+      ],
+      "diff_p_le0": 0.09,
+      "diff_point": 612.77
+     },
+     "drift": [],
+     "maxt_t": 1.125,
+     "maxt_fw_p": 1.0,
+     "holm_p_family": 1.0,
+     "dsr": {
+      "sr": 0.0334,
+      "sr0": 0.1257,
+      "dsr": 0.0884,
+      "p": 0.9116,
+      "T": 201,
+      "n_trials": 134,
+      "skew": 2.031,
+      "kurt": 8.645
+     }
+    },
+    {
+     "id": "r1B_f3",
+     "rule": [
+      [
+       "touch_room_last",
+       "==",
+       "held"
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). 'Those levels will be respected': when the last touch of the room edge in the past hour was verdict 'held', the level just proved it is respected and a SETUP here is trading into it; that level is the worst touch verdict (-1,761 / 0.167 on 30 units) while 'pending' (+473 / 0.311) is the only positive one.",
+     "cells_cited": [
+      "one_way:touch_room_last:held",
+      "one_way:touch_room_last:pending",
+      "one_way:touch_room_last:none"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "touch_room_last"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "5d6cb8947fafba79",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f3",
+       "if": [
+        [
+         "touch_room_last",
+         "==",
+         "held"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:57",
+      "note": null,
+      "n": 428,
+      "kept_n": 397,
+      "skipped_n": 31,
+      "kept_share": 0.9276,
+      "kept_net": -257616.18,
+      "skipped_net": -32212.16,
+      "kept_mean": -648.91,
+      "skipped_mean": -1039.1,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.3048,
+      "skipped_win_rate": 0.1935,
+      "kept_pf": 0.66,
+      "kept_t": -3.08,
+      "diff": 390.19,
+      "diff_top1_removed": 141.57,
+      "kept_mean_slip3": -388.93,
+      "kept_mean_slip8": -1038.87,
+      "loser_recall": 0.0831,
+      "loser_precision": 0.8065,
+      "winner_recall": 0.9528,
+      "winner_recall_weighted": 0.9445,
+      "top_decile_winners_skipped": 0.0769,
+      "kept_sessions": 212,
+      "sign_blocks": 3,
+      "perm_p": 0.6297,
+      "control_pct": 61.8,
+      "control_p_beat": 0.3828,
+      "control_p50": -262514.13
+     },
+     "L0": {
+      "id": "8bebd0d93a2a4b54",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f3",
+       "if": [
+        [
+         "touch_room_last",
+         "==",
+         "held"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:58",
+      "note": null,
+      "n": 431,
+      "kept_n": 400,
+      "skipped_n": 31,
+      "kept_share": 0.9281,
+      "kept_net": -44864.72,
+      "skipped_net": -75075.39,
+      "kept_mean": -112.16,
+      "skipped_mean": -2421.79,
+      "all_mean": -278.28,
+      "kept_win_rate": 0.2425,
+      "skipped_win_rate": 0.0645,
+      "kept_pf": 0.956,
+      "kept_t": -0.22,
+      "diff": 2309.62,
+      "diff_top1_removed": 1473.29,
+      "kept_mean_slip3": 147.81,
+      "kept_mean_slip8": -502.13,
+      "loser_recall": 0.0873,
+      "loser_precision": 0.9355,
+      "winner_recall": 0.9798,
+      "winner_recall_weighted": 0.9838,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 212,
+      "sign_blocks": 5,
+      "perm_p": 0.1709,
+      "control_pct": 95.2,
+      "control_p_beat": 0.049,
+      "control_p50": -89948.09
+     },
+     "blocks": {
+      "b00": 1995.79,
+      "b01": -662.61,
+      "b02": 1269.86,
+      "b03": 298.89,
+      "b04": -839.35,
+      "b05": -180.43,
+      "blocks_defined": 6,
+      "blocks_positive": 3,
+      "block_diff_min": -839.35
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -604.74,
+       1342.89
+      ],
+      "kept_mean_ci": [
+       -926.69,
+       -374.95
+      ],
+      "diff_p_le0": 0.247,
+      "diff_point": 390.19
+     },
+     "drift": [],
+     "maxt_t": 0.502,
+     "maxt_fw_p": 1.0,
+     "holm_p_family": 1.0,
+     "dsr": {
+      "sr": 0.0318,
+      "sr0": 0.1257,
+      "dsr": 0.0795,
+      "p": 0.9205,
+      "T": 212,
+      "n_trials": 134,
+      "skew": 1.979,
+      "kurt": 8.29
+     }
+    },
+    {
+     "id": "r1B_f4",
+     "rule": [
+      [
+       "hour_bin",
+       "in",
+       [
+        "<09:25",
+        "15"
+       ]
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). 'It's different for different time': the first minutes and the last hour are the two worst hour bins of the half (<09:25 -1,454 / 0.238 on 21; 15 -1,301 / 0.158 on 19) and even the otherwise best read LEAVE is deeply negative there (<09:25 -3,543 / 0.083; 15 -1,505 / 0.182).",
+     "cells_cited": [
+      "one_way:hour_bin:<09:25",
+      "one_way:hour_bin:15",
+      "two_way:fz_readxhour_bin:LEAVE|<09:25",
+      "two_way:fz_readxhour_bin:LEAVE|15"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "hour_bin"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "9cefdef775d05cc0",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f4",
+       "if": [
+        [
+         "hour_bin",
+         "in",
+         [
+          "<09:25",
+          "15"
+         ]
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:11:59",
+      "note": null,
+      "n": 428,
+      "kept_n": 373,
+      "skipped_n": 55,
+      "kept_share": 0.8715,
+      "kept_net": -302405.38,
+      "skipped_net": 12577.04,
+      "kept_mean": -810.74,
+      "skipped_mean": 228.67,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.2922,
+      "skipped_win_rate": 0.3273,
+      "kept_pf": 0.583,
+      "kept_t": -4.04,
+      "diff": -1039.41,
+      "diff_top1_removed": -487.37,
+      "kept_mean_slip3": -550.76,
+      "kept_mean_slip8": -1200.7,
+      "loser_recall": 0.1229,
+      "loser_precision": 0.6727,
+      "winner_recall": 0.8583,
+      "winner_recall_weighted": 0.7994,
+      "top_decile_winners_skipped": 0.3846,
+      "kept_sessions": 193,
+      "sign_blocks": 2,
+      "perm_p": 0.0885,
+      "control_pct": 93.1,
+      "control_p_beat": 0.0695,
+      "control_p50": -325098.36
+     },
+     "L0": {
+      "id": "c5bbac750240d651",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f4",
+       "if": [
+        [
+         "hour_bin",
+         "in",
+         [
+          "<09:25",
+          "15"
+         ]
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:00",
+      "note": null,
+      "n": 431,
+      "kept_n": 376,
+      "skipped_n": 55,
+      "kept_share": 0.8724,
+      "kept_net": -105138.41,
+      "skipped_net": -14801.7,
+      "kept_mean": -279.62,
+      "skipped_mean": -269.12,
+      "all_mean": -278.28,
+      "kept_win_rate": 0.2074,
+      "skipped_win_rate": 0.3818,
+      "kept_pf": 0.89,
+      "kept_t": -0.54,
+      "diff": -10.5,
+      "diff_top1_removed": -903.2,
+      "kept_mean_slip3": -19.65,
+      "kept_mean_slip8": -669.59,
+      "loser_recall": 0.1024,
+      "loser_precision": 0.6182,
+      "winner_recall": 0.7879,
+      "winner_recall_weighted": 0.8565,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 194,
+      "sign_blocks": 4,
+      "perm_p": 0.993,
+      "control_pct": 19.9,
+      "control_p_beat": 0.8016,
+      "control_p50": -89147.15
+     },
+     "blocks": {
+      "b00": -4763.66,
+      "b01": -410.45,
+      "b02": -2349.37,
+      "b03": 1426.2,
+      "b04": -1030.46,
+      "b05": 799.73,
+      "blocks_defined": 6,
+      "blocks_positive": 2,
+      "block_diff_min": -4763.66
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -2468.77,
+       238.8
+      ],
+      "kept_mean_ci": [
+       -1029.37,
+       -580.35
+      ],
+      "diff_p_le0": 0.897,
+      "diff_point": -1039.41
+     },
+     "drift": [],
+     "maxt_t": -1.727,
+     "maxt_fw_p": 0.999,
+     "holm_p_family": 1.0,
+     "dsr": {
+      "sr": -0.0419,
+      "sr0": 0.1257,
+      "dsr": 0.0127,
+      "p": 0.9873,
+      "T": 193,
+      "n_trials": 134,
+      "skew": 1.8,
+      "kurt": 8.497
+     }
+    },
+    {
+     "id": "r1B_f5",
+     "rule": [
+      [
+       "fz_read",
+       "==",
+       "PENDING"
+      ],
+      [
+       "hour_bin",
+       "in",
+       [
+        "09",
+        "10",
+        "11",
+        "12"
+       ]
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). 'Check how price reacts ... else price retests': a PENDING read means the band has not shown its reaction yet; before 13:00 those trades are the worst PENDING cells (09 -3,090 / 0.143, 10 -1,528 / 0.167, 11 -2,630 / 0.100, 12 -1,658 / 0.214) while PENDING after 13:00 (-473 / 0.312, -525 / 0.200) is near or above base and is kept.",
+     "cells_cited": [
+      "one_way:fz_read:PENDING",
+      "two_way:fz_readxhour_bin:PENDING|09",
+      "two_way:fz_readxhour_bin:PENDING|10",
+      "two_way:fz_readxhour_bin:PENDING|11",
+      "two_way:fz_readxhour_bin:PENDING|12",
+      "two_way:fz_readxhour_bin:PENDING|13"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "fz_read",
+       "hour_bin"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "d7f6099c80b81aaf",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f5",
+       "if": [
+        [
+         "fz_read",
+         "==",
+         "PENDING"
+        ],
+        [
+         "hour_bin",
+         "in",
+         [
+          "09",
+          "10",
+          "11",
+          "12"
+         ]
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:01",
+      "note": null,
+      "n": 428,
+      "kept_n": 375,
+      "skipped_n": 53,
+      "kept_share": 0.8762,
+      "kept_net": -213715.86,
+      "skipped_net": -76112.48,
+      "kept_mean": -569.91,
+      "skipped_mean": -1436.08,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.3067,
+      "skipped_win_rate": 0.2264,
+      "kept_pf": 0.697,
+      "kept_t": -2.57,
+      "diff": 866.18,
+      "diff_top1_removed": 603.84,
+      "kept_mean_slip3": -309.93,
+      "kept_mean_slip8": -959.87,
+      "loser_recall": 0.1362,
+      "loser_precision": 0.7736,
+      "winner_recall": 0.9055,
+      "winner_recall_weighted": 0.9268,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 203,
+      "sign_blocks": 4,
+      "perm_p": 0.1629,
+      "control_pct": 91.5,
+      "control_p_beat": 0.086,
+      "control_p50": -237265.09
+     },
+     "L0": {
+      "id": "c205461d811ca709",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f5",
+       "if": [
+        [
+         "fz_read",
+         "==",
+         "PENDING"
+        ],
+        [
+         "hour_bin",
+         "in",
+         [
+          "09",
+          "10",
+          "11",
+          "12"
+         ]
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:02",
+      "note": null,
+      "n": 431,
+      "kept_n": 378,
+      "skipped_n": 53,
+      "kept_share": 0.877,
+      "kept_net": -20011.12,
+      "skipped_net": -99928.99,
+      "kept_mean": -52.94,
+      "skipped_mean": -1885.45,
+      "all_mean": -278.28,
+      "kept_win_rate": 0.2381,
+      "skipped_win_rate": 0.1698,
+      "kept_pf": 0.979,
+      "kept_t": -0.1,
+      "diff": 1832.51,
+      "diff_top1_removed": 947.64,
+      "kept_mean_slip3": 207.04,
+      "kept_mean_slip8": -442.9,
+      "loser_recall": 0.1325,
+      "loser_precision": 0.8302,
+      "winner_recall": 0.9091,
+      "winner_recall_weighted": 0.9602,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 203,
+      "sign_blocks": 4,
+      "perm_p": 0.2004,
+      "control_pct": 66.5,
+      "control_p_beat": 0.3358,
+      "control_p50": -32541.35
+     },
+     "blocks": {
+      "b00": 2596.79,
+      "b01": 2345.8,
+      "b02": 1577.43,
+      "b03": -138.84,
+      "b04": 130.24,
+      "b05": -490.96,
+      "blocks_defined": 6,
+      "blocks_positive": 4,
+      "block_diff_min": -490.96
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       30.13,
+       1817.49
+      ],
+      "kept_mean_ci": [
+       -898.94,
+       -204.46
+      ],
+      "diff_p_le0": 0.0465,
+      "diff_point": 866.18
+     },
+     "drift": [],
+     "maxt_t": 1.417,
+     "maxt_fw_p": 1.0,
+     "holm_p_family": 1.0,
+     "dsr": {
+      "sr": 0.0426,
+      "sr0": 0.1257,
+      "dsr": 0.1088,
+      "p": 0.8912,
+      "T": 203,
+      "n_trials": 134,
+      "skew": 2.016,
+      "kurt": 8.326
+     }
+    },
+    {
+     "id": "r1B_f6",
+     "rule": [
+      [
+       "touch_prot_last",
+       "==",
+       "pending"
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). 'If it breaks there will be a large move, else price retests': when the protected level was touched in the last hour and its verdict is still open, the trade is placed before the level has answered; that cell is the worst protected-level verdict (-1,267 / 0.170 on 59 units) against 'none' (-95 / 0.406) and 'held' (-828 / 0.258).",
+     "cells_cited": [
+      "one_way:touch_prot_last:pending",
+      "one_way:touch_prot_last:none",
+      "one_way:touch_prot_last:held"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "touch_prot_last"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "d7e8f342fa877b00",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f6",
+       "if": [
+        [
+         "touch_prot_last",
+         "==",
+         "pending"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:03",
+      "note": null,
+      "n": 428,
+      "kept_n": 350,
+      "skipped_n": 78,
+      "kept_share": 0.8178,
+      "kept_net": -258098.25,
+      "skipped_net": -31730.09,
+      "kept_mean": -737.42,
+      "skipped_mean": -406.8,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.2857,
+      "skipped_win_rate": 0.3462,
+      "kept_pf": 0.625,
+      "kept_t": -3.21,
+      "diff": -330.63,
+      "diff_top1_removed": -614.4,
+      "kept_mean_slip3": -477.45,
+      "kept_mean_slip8": -1127.39,
+      "loser_recall": 0.1694,
+      "loser_precision": 0.6538,
+      "winner_recall": 0.7874,
+      "winner_recall_weighted": 0.8109,
+      "top_decile_winners_skipped": 0.0769,
+      "kept_sessions": 195,
+      "sign_blocks": 2,
+      "perm_p": 0.5432,
+      "control_pct": 10.7,
+      "control_p_beat": 0.8936,
+      "control_p50": -237566.77
+     },
+     "L0": {
+      "id": "1df7c71314e0d392",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f6",
+       "if": [
+        [
+         "touch_prot_last",
+         "==",
+         "pending"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:04",
+      "note": null,
+      "n": 431,
+      "kept_n": 352,
+      "skipped_n": 79,
+      "kept_share": 0.8167,
+      "kept_net": -147929.2,
+      "skipped_net": 27989.09,
+      "kept_mean": -420.25,
+      "skipped_mean": 354.29,
+      "all_mean": -278.28,
+      "kept_win_rate": 0.2102,
+      "skipped_win_rate": 0.3165,
+      "kept_pf": 0.843,
+      "kept_t": -0.78,
+      "diff": -774.55,
+      "diff_top1_removed": -1731.01,
+      "kept_mean_slip3": -160.28,
+      "kept_mean_slip8": -810.22,
+      "loser_recall": 0.1627,
+      "loser_precision": 0.6835,
+      "winner_recall": 0.7475,
+      "winner_recall_weighted": 0.802,
+      "top_decile_winners_skipped": 0.2,
+      "kept_sessions": 196,
+      "sign_blocks": 3,
+      "perm_p": 0.5232,
+      "control_pct": 38.5,
+      "control_p_beat": 0.6147,
+      "control_p50": -128533.03
+     },
+     "blocks": {
+      "b00": -2321.46,
+      "b01": 1429.09,
+      "b02": -2551.25,
+      "b03": -1345.65,
+      "b04": -866.46,
+      "b05": 1181.72,
+      "blocks_defined": 6,
+      "blocks_positive": 2,
+      "block_diff_min": -2551.25
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -1130.62,
+       466.07
+      ],
+      "kept_mean_ci": [
+       -991.86,
+       -401.96
+      ],
+      "diff_p_le0": 0.7635,
+      "diff_point": -330.63
+     },
+     "drift": [],
+     "maxt_t": -0.634,
+     "maxt_fw_p": 1.0,
+     "holm_p_family": 1.0,
+     "dsr": {
+      "sr": -0.0094,
+      "sr0": 0.1257,
+      "dsr": 0.0313,
+      "p": 0.9687,
+      "T": 195,
+      "n_trials": 134,
+      "skew": 2.142,
+      "kurt": 9.132
+     }
+    },
+    {
+     "id": "r1B_f7",
+     "rule": [
+      [
+       "fz_gate",
+       "==",
+       "BLOCK"
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). 'Bands exist to take me to profit not to loss': the frozen ST8 band gate's own BLOCK verdict marks the worst gate cell (-1,268 / 0.236 on 110 units) against TAKE (-386 / 0.304); written so the cross-fit measures whether the existing band BLOCK skips losers more than winners, as the brief's H1 asks.",
+     "cells_cited": [
+      "one_way:fz_gate:BLOCK",
+      "one_way:fz_gate:TAKE",
+      "one_way:fz_gate:WATCH"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "fz_gate"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "de41f9ab8006384b",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f7",
+       "if": [
+        [
+         "fz_gate",
+         "==",
+         "BLOCK"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:05",
+      "note": null,
+      "n": 428,
+      "kept_n": 325,
+      "skipped_n": 103,
+      "kept_share": 0.7593,
+      "kept_net": -290926.15,
+      "skipped_net": 1097.81,
+      "kept_mean": -895.16,
+      "skipped_mean": 10.66,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.2708,
+      "skipped_win_rate": 0.3786,
+      "kept_pf": 0.531,
+      "kept_t": -4.32,
+      "diff": -905.82,
+      "diff_top1_removed": -508.48,
+      "kept_mean_slip3": -635.18,
+      "kept_mean_slip8": -1285.12,
+      "loser_recall": 0.2126,
+      "loser_precision": 0.6214,
+      "winner_recall": 0.6929,
+      "winner_recall_weighted": 0.6225,
+      "top_decile_winners_skipped": 0.4615,
+      "kept_sessions": 177,
+      "sign_blocks": 1,
+      "perm_p": 0.062,
+      "control_pct": 83.8,
+      "control_p_beat": 0.1619,
+      "control_p50": -309492.63
+     },
+     "L0": {
+      "id": "570887830c46dda3",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f7",
+       "if": [
+        [
+         "fz_gate",
+         "==",
+         "BLOCK"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:06",
+      "note": null,
+      "n": 431,
+      "kept_n": 325,
+      "skipped_n": 106,
+      "kept_share": 0.7541,
+      "kept_net": -127482.31,
+      "skipped_net": 7542.2,
+      "kept_mean": -392.25,
+      "skipped_mean": 71.15,
+      "all_mean": -278.28,
+      "kept_win_rate": 0.2092,
+      "skipped_win_rate": 0.2925,
+      "kept_pf": 0.845,
+      "kept_t": -0.74,
+      "diff": -463.41,
+      "diff_top1_removed": -79.35,
+      "kept_mean_slip3": -132.28,
+      "kept_mean_slip8": -782.22,
+      "loser_recall": 0.2259,
+      "loser_precision": 0.7075,
+      "winner_recall": 0.6869,
+      "winner_recall_weighted": 0.7007,
+      "top_decile_winners_skipped": 0.2,
+      "kept_sessions": 177,
+      "sign_blocks": 2,
+      "perm_p": 0.6957,
+      "control_pct": 81.7,
+      "control_p_beat": 0.1839,
+      "control_p50": -175093.77
+     },
+     "blocks": {
+      "b00": -2767.86,
+      "b01": 112.63,
+      "b02": -432.72,
+      "b03": -44.92,
+      "b04": -1401.92,
+      "b05": -320.83,
+      "blocks_defined": 6,
+      "blocks_positive": 1,
+      "block_diff_min": -2767.86
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -1924.71,
+       81.05
+      ],
+      "kept_mean_ci": [
+       -1148.22,
+       -598.31
+      ],
+      "diff_p_le0": 0.9335,
+      "diff_point": -905.82
+     },
+     "drift": [],
+     "maxt_t": -1.923,
+     "maxt_fw_p": 0.9905,
+     "holm_p_family": 1.0,
+     "dsr": {
+      "sr": -0.1228,
+      "sr0": 0.1257,
+      "dsr": 0.0019,
+      "p": 0.9981,
+      "T": 177,
+      "n_trials": 134,
+      "skew": 2.186,
+      "kurt": 10.648
+     }
+    },
+    {
+     "id": "r1B_f8",
+     "rule": [
+      [
+       "fz_visit_n",
+       "==",
+       2.0
+      ],
+      [
+       "fz_read",
+       "==",
+       "PENDING"
+      ]
+     ],
+     "reason": "Exploratory (empty shortlist). 'Price retests, retests and respects': a second visit that is still PENDING is a band that has been revisited without giving a read; it is the worst visit x read cell (-2,320 / 0.136 on 22 units) while the second visit with a LEAVE read is positive (+220 / 0.400). Overlaps r1B_f5 in part; kept as the time-free version of the same idea.",
+     "cells_cited": [
+      "two_way:fz_visit_nxfz_read:2|PENDING",
+      "two_way:fz_visit_nxfz_read:2|LEAVE",
+      "one_way:fz_visit_n:2"
+     ],
+     "check": {
+      "refused": null,
+      "flags": [],
+      "columns": [
+       "fz_visit_n",
+       "fz_read"
+      ]
+     },
+     "refused": false,
+     "protocol_clean": true,
+     "untestable": false,
+     "L1": {
+      "id": "c3ab2a20872e1683",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f8",
+       "if": [
+        [
+         "fz_visit_n",
+         "==",
+         2.0
+        ],
+        [
+         "fz_read",
+         "==",
+         "PENDING"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:07",
+      "note": null,
+      "n": 428,
+      "kept_n": 403,
+      "skipped_n": 25,
+      "kept_share": 0.9416,
+      "kept_net": -269395.18,
+      "skipped_net": -20433.16,
+      "kept_mean": -668.47,
+      "skipped_mean": -817.33,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.2953,
+      "skipped_win_rate": 0.32,
+      "kept_pf": 0.651,
+      "kept_t": -3.21,
+      "diff": 148.85,
+      "diff_top1_removed": -96.27,
+      "kept_mean_slip3": -408.5,
+      "kept_mean_slip8": -1058.44,
+      "loser_recall": 0.0565,
+      "loser_precision": 0.68,
+      "winner_recall": 0.937,
+      "winner_recall_weighted": 0.9485,
+      "top_decile_winners_skipped": 0.0769,
+      "kept_sessions": 211,
+      "sign_blocks": 4,
+      "perm_p": 0.8751,
+      "control_pct": 29.8,
+      "control_p_beat": 0.7021,
+      "control_p50": -260955.85
+     },
+     "L0": {
+      "id": "6a8d5e89d0a378f0",
+      "family": "llm_round1/B",
+      "tf": "5minute",
+      "label": "L0",
+      "split": "IS",
+      "config": {
+       "round": 1,
+       "proposed_on": "B",
+       "scored_on": "A",
+       "rule": "r1B_f8",
+       "if": [
+        [
+         "fz_visit_n",
+         "==",
+         2.0
+        ],
+        [
+         "fz_read",
+         "==",
+         "PENDING"
+        ]
+       ],
+       "then": "skip",
+       "rules_sha256": "a65f06b9226ceda2",
+       "tables_sha256": "3c74db45331e13dc",
+       "label_note": "L0 robustness"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:08",
+      "note": null,
+      "n": 431,
+      "kept_n": 406,
+      "skipped_n": 25,
+      "kept_share": 0.942,
+      "kept_net": -44725.82,
+      "skipped_net": -75214.29,
+      "kept_mean": -110.16,
+      "skipped_mean": -3008.57,
+      "all_mean": -278.28,
+      "kept_win_rate": 0.2365,
+      "skipped_win_rate": 0.12,
+      "kept_pf": 0.956,
+      "kept_t": -0.23,
+      "diff": 2898.41,
+      "diff_top1_removed": 2074.61,
+      "kept_mean_slip3": 149.81,
+      "kept_mean_slip8": -500.13,
+      "loser_recall": 0.0663,
+      "loser_precision": 0.88,
+      "winner_recall": 0.9697,
+      "winner_recall_weighted": 0.9849,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 211,
+      "sign_blocks": 6,
+      "perm_p": 0.1224,
+      "control_pct": 58.0,
+      "control_p_beat": 0.4198,
+      "control_p50": -47478.9
+     },
+     "blocks": {
+      "b00": -1853.75,
+      "b01": 1120.98,
+      "b02": 63.39,
+      "b03": 2756.5,
+      "b04": 1522.12,
+      "b05": -856.76,
+      "blocks_defined": 6,
+      "blocks_positive": 4,
+      "block_diff_min": -1853.75
+     },
+     "boot": {
+      "draws": 2000,
+      "ci": 0.9,
+      "diff_ci": [
+       -1181.73,
+       1390.13
+      ],
+      "kept_mean_ci": [
+       -963.61,
+       -346.75
+      ],
+      "diff_p_le0": 0.3825,
+      "diff_point": 148.85
+     },
+     "drift": [],
+     "maxt_t": 0.173,
+     "maxt_fw_p": 1.0,
+     "holm_p_family": 1.0,
+     "dsr": {
+      "sr": 0.0211,
+      "sr0": 0.1257,
+      "dsr": 0.061,
+      "p": 0.939,
+      "T": 211,
+      "n_trials": 134,
+      "skew": 1.883,
+      "kurt": 8.313
+     }
+    }
+   ],
+   "union": {
+    "L1": {
+     "id": "a604066a11ff9dd8",
+     "family": "llm_round1/B",
+     "tf": "5minute",
+     "label": "L1",
+     "split": "IS",
+     "config": {
+      "round": 1,
+      "proposed_on": "B",
+      "scored_on": "A",
+      "rule": "union_round1",
+      "members": [
+       "r1B_f1",
+       "r1B_f2",
+       "r1B_f3",
+       "r1B_f4",
+       "r1B_f5",
+       "r1B_f6",
+       "r1B_f7",
+       "r1B_f8"
+      ],
+      "then": "skip",
+      "rules_sha256": "a65f06b9226ceda2",
+      "tables_sha256": "3c74db45331e13dc"
+     },
+     "script": "scorer.py",
+     "script_sha": "ddd88b066edf575d",
+     "at": "2026-09-29T17:12:09",
+     "note": null,
+     "n": 428,
+     "kept_n": 159,
+     "skipped_n": 269,
+     "kept_share": 0.3715,
+     "kept_net": -109930.78,
+     "skipped_net": -179897.56,
+     "kept_mean": -691.39,
+     "skipped_mean": -668.76,
+     "all_mean": -677.17,
+     "kept_win_rate": 0.2893,
+     "skipped_win_rate": 0.3011,
+     "kept_pf": 0.628,
+     "kept_t": -2.12,
+     "diff": -22.62,
+     "diff_top1_removed": -86.55,
+     "kept_mean_slip3": -431.41,
+     "kept_mean_slip8": -1081.35,
+     "loser_recall": 0.6246,
+     "loser_precision": 0.6989,
+     "winner_recall": 0.3622,
+     "winner_recall_weighted": 0.3509,
+     "top_decile_winners_skipped": 0.6923,
+     "kept_sessions": 117,
+     "sign_blocks": 4,
+     "perm_p": 0.9525,
+     "control_pct": 75.5,
+     "control_p_beat": 0.2454,
+     "control_p50": -126047.32
+    },
+    "blocks": {
+     "b00": -743.73,
+     "b01": 1052.67,
+     "b02": 95.19,
+     "b03": 248.83,
+     "b04": -1090.37,
+     "b05": 431.82,
+     "blocks_defined": 6,
+     "blocks_positive": 4,
+     "block_diff_min": -1090.37
+    },
+    "boot": {
+     "draws": 2000,
+     "ci": 0.9,
+     "diff_ci": [
+      -659.76,
+      659.77
+     ],
+     "kept_mean_ci": [
+      -1158.46,
+      -147.93
+     ],
+     "diff_p_le0": 0.5425,
+     "diff_point": -22.62
+    }
+   },
+   "round0": [
+    {
+     "id": "r0_f1",
+     "rule": [
+      [
+       "n_choch_since_bos",
+       ">=",
+       2
+      ],
+      [
+       "range_3h_atr",
+       "<=",
+       4.0
+      ]
+     ],
+     "L1": {
+      "id": "b73369b876e56a3c",
+      "family": "llm_round1/B/round0",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_f1",
+       "if": [
+        [
+         "n_choch_since_bos",
+         ">=",
+         2
+        ],
+        [
+         "range_3h_atr",
+         "<=",
+         4.0
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:10",
+      "note": null,
+      "n": 428,
+      "kept_n": 401,
+      "skipped_n": 27,
+      "kept_share": 0.9369,
+      "kept_net": -305545.51,
+      "skipped_net": 15717.17,
+      "kept_mean": -761.96,
+      "skipped_mean": 582.12,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.2893,
+      "skipped_win_rate": 0.4074,
+      "kept_pf": 0.602,
+      "kept_t": -3.84,
+      "diff": -1344.08,
+      "diff_top1_removed": -809.13,
+      "kept_mean_slip3": -501.98,
+      "kept_mean_slip8": -1151.92,
+      "loser_recall": 0.0532,
+      "loser_precision": 0.5926,
+      "winner_recall": 0.9134,
+      "winner_recall_weighted": 0.8733,
+      "top_decile_winners_skipped": 0.2308,
+      "kept_sessions": 203,
+      "sign_blocks": 1,
+      "perm_p": 0.0995,
+      "control_pct": 99.3,
+      "control_p_beat": 0.0075,
+      "control_p50": -330950.52
+     }
+    },
+    {
+     "id": "r0_f2",
+     "rule": [
+      [
+       "choch_run",
+       ">=",
+       3
+      ],
+      [
+       "n_bos_3h",
+       "==",
+       0
+      ]
+     ],
+     "L1": {
+      "id": "62b7fc0ffd1f1dd6",
+      "family": "llm_round1/B/round0",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_f2",
+       "if": [
+        [
+         "choch_run",
+         ">=",
+         3
+        ],
+        [
+         "n_bos_3h",
+         "==",
+         0
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:11",
+      "note": null,
+      "n": 428,
+      "kept_n": 404,
+      "skipped_n": 24,
+      "kept_share": 0.9439,
+      "kept_net": -297569.27,
+      "skipped_net": 7740.93,
+      "kept_mean": -736.56,
+      "skipped_mean": 322.54,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.2921,
+      "skipped_win_rate": 0.375,
+      "kept_pf": 0.62,
+      "kept_t": -3.61,
+      "diff": -1059.1,
+      "diff_top1_removed": -415.84,
+      "kept_mean_slip3": -476.58,
+      "kept_mean_slip8": -1126.52,
+      "loser_recall": 0.0498,
+      "loser_precision": 0.625,
+      "winner_recall": 0.9291,
+      "winner_recall_weighted": 0.9173,
+      "top_decile_winners_skipped": 0.0769,
+      "kept_sessions": 211,
+      "sign_blocks": 2,
+      "perm_p": 0.2214,
+      "control_pct": 0.3,
+      "control_p_beat": 0.997,
+      "control_p50": -273267.3
+     }
+    },
+    {
+     "id": "r0_f3",
+     "rule": [
+      [
+       "alt_dir6",
+       ">=",
+       4
+      ],
+      [
+       "er_1h",
+       "<=",
+       0.35
+      ]
+     ],
+     "L1": {
+      "id": "3bd2a58afe20b8f4",
+      "family": "llm_round1/B/round0",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_f3",
+       "if": [
+        [
+         "alt_dir6",
+         ">=",
+         4
+        ],
+        [
+         "er_1h",
+         "<=",
+         0.35
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:12",
+      "note": null,
+      "n": 428,
+      "kept_n": 394,
+      "skipped_n": 34,
+      "kept_share": 0.9206,
+      "kept_net": -255560.89,
+      "skipped_net": -34267.45,
+      "kept_mean": -648.63,
+      "skipped_mean": -1007.87,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.3071,
+      "skipped_win_rate": 0.1765,
+      "kept_pf": 0.663,
+      "kept_t": -3.03,
+      "diff": 359.23,
+      "diff_top1_removed": 108.7,
+      "kept_mean_slip3": -388.66,
+      "kept_mean_slip8": -1038.6,
+      "loser_recall": 0.093,
+      "loser_precision": 0.8235,
+      "winner_recall": 0.9528,
+      "winner_recall_weighted": 0.9489,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 211,
+      "sign_blocks": 3,
+      "perm_p": 0.6332,
+      "control_pct": 9.8,
+      "control_p_beat": 0.902,
+      "control_p50": -240102.84
+     }
+    },
+    {
+     "id": "r0_f4",
+     "rule": [
+      [
+       "fz_read",
+       "in",
+       [
+        "RECYCLE",
+        "THIN"
+       ]
+      ],
+      [
+       "room_ahead_dist_atr",
+       ">",
+       0
+      ],
+      [
+       "room_ahead_dist_atr",
+       "<=",
+       1.0
+      ]
+     ],
+     "L1": {
+      "id": "1bb6db09f46a5220",
+      "family": "llm_round1/B/round0",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_f4",
+       "if": [
+        [
+         "fz_read",
+         "in",
+         [
+          "RECYCLE",
+          "THIN"
+         ]
+        ],
+        [
+         "room_ahead_dist_atr",
+         ">",
+         0
+        ],
+        [
+         "room_ahead_dist_atr",
+         "<=",
+         1.0
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:13",
+      "note": null,
+      "n": 428,
+      "kept_n": 398,
+      "skipped_n": 30,
+      "kept_share": 0.9299,
+      "kept_net": -299311.64,
+      "skipped_net": 9483.3,
+      "kept_mean": -752.04,
+      "skipped_mean": 316.11,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.2915,
+      "skipped_win_rate": 0.3667,
+      "kept_pf": 0.615,
+      "kept_t": -3.65,
+      "diff": -1068.15,
+      "diff_top1_removed": -553.97,
+      "kept_mean_slip3": -492.06,
+      "kept_mean_slip8": -1142.0,
+      "loser_recall": 0.0631,
+      "loser_precision": 0.6333,
+      "winner_recall": 0.9134,
+      "winner_recall_weighted": 0.9032,
+      "top_decile_winners_skipped": 0.0769,
+      "kept_sessions": 206,
+      "sign_blocks": 1,
+      "perm_p": 0.1659,
+      "control_pct": 11.3,
+      "control_p_beat": 0.8866,
+      "control_p50": -280947.81
+     }
+    },
+    {
+     "id": "r0_f5",
+     "rule": [
+      [
+       "hv3_dir_agree",
+       "==",
+       false
+      ],
+      [
+       "hv3_bars_since",
+       "<=",
+       12
+      ]
+     ],
+     "L1": {
+      "id": "97e525a4b046e078",
+      "family": "llm_round1/B/round0",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_f5",
+       "if": [
+        [
+         "hv3_dir_agree",
+         "==",
+         false
+        ],
+        [
+         "hv3_bars_since",
+         "<=",
+         12
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:14",
+      "note": null,
+      "n": 428,
+      "kept_n": 402,
+      "skipped_n": 26,
+      "kept_share": 0.9393,
+      "kept_net": -287658.15,
+      "skipped_net": -2170.19,
+      "kept_mean": -715.57,
+      "skipped_mean": -83.47,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.2935,
+      "skipped_win_rate": 0.3462,
+      "kept_pf": 0.631,
+      "kept_t": -3.48,
+      "diff": -632.1,
+      "diff_top1_removed": 13.66,
+      "kept_mean_slip3": -455.59,
+      "kept_mean_slip8": -1105.53,
+      "loser_recall": 0.0565,
+      "loser_precision": 0.6538,
+      "winner_recall": 0.9291,
+      "winner_recall_weighted": 0.9298,
+      "top_decile_winners_skipped": 0.0769,
+      "kept_sessions": 211,
+      "sign_blocks": 2,
+      "perm_p": 0.4613,
+      "control_pct": 0.8,
+      "control_p_beat": 0.9915,
+      "control_p50": -248204.13
+     }
+    },
+    {
+     "id": "r0_f6",
+     "rule": [
+      [
+       "touch_swing_last",
+       "==",
+       "held"
+      ],
+      [
+       "swing_ahead_dist_atr",
+       ">",
+       0
+      ],
+      [
+       "swing_ahead_dist_atr",
+       "<=",
+       1.0
+      ]
+     ],
+     "L1": {
+      "id": "77f5e8aa5923604e",
+      "family": "llm_round1/B/round0",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_f6",
+       "if": [
+        [
+         "touch_swing_last",
+         "==",
+         "held"
+        ],
+        [
+         "swing_ahead_dist_atr",
+         ">",
+         0
+        ],
+        [
+         "swing_ahead_dist_atr",
+         "<=",
+         1.0
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:15",
+      "note": null,
+      "n": 428,
+      "kept_n": 409,
+      "skipped_n": 19,
+      "kept_share": 0.9556,
+      "kept_net": -272059.16,
+      "skipped_net": -17769.18,
+      "kept_mean": -665.18,
+      "skipped_mean": -935.22,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.2983,
+      "skipped_win_rate": 0.2632,
+      "kept_pf": 0.655,
+      "kept_t": -3.18,
+      "diff": 270.04,
+      "diff_top1_removed": 28.6,
+      "kept_mean_slip3": -405.2,
+      "kept_mean_slip8": -1055.15,
+      "loser_recall": 0.0465,
+      "loser_precision": 0.7368,
+      "winner_recall": 0.9606,
+      "winner_recall_weighted": 0.9764,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 210,
+      "sign_blocks": 4,
+      "perm_p": 0.7756,
+      "control_pct": 4.7,
+      "control_p_beat": 0.9535,
+      "control_p50": -260864.41
+     }
+    },
+    {
+     "id": "r0_f7",
+     "rule": [
+      [
+       "hour",
+       "in",
+       [
+        12,
+        13
+       ]
+      ],
+      [
+       "n_choch_since_bos_today",
+       ">=",
+       2
+      ]
+     ],
+     "L1": {
+      "id": "fbbe19e589805ccc",
+      "family": "llm_round1/B/round0",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_f7",
+       "if": [
+        [
+         "hour",
+         "in",
+         [
+          12,
+          13
+         ]
+        ],
+        [
+         "n_choch_since_bos_today",
+         ">=",
+         2
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:16",
+      "note": null,
+      "n": 428,
+      "kept_n": 375,
+      "skipped_n": 53,
+      "kept_share": 0.8762,
+      "kept_net": -239097.57,
+      "skipped_net": -50730.77,
+      "kept_mean": -637.59,
+      "skipped_mean": -957.18,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.312,
+      "skipped_win_rate": 0.1887,
+      "kept_pf": 0.664,
+      "kept_t": -2.93,
+      "diff": 319.59,
+      "diff_top1_removed": 56.34,
+      "kept_mean_slip3": -377.62,
+      "kept_mean_slip8": -1027.56,
+      "loser_recall": 0.1429,
+      "loser_precision": 0.8113,
+      "winner_recall": 0.9213,
+      "winner_recall_weighted": 0.8922,
+      "top_decile_winners_skipped": 0.1538,
+      "kept_sessions": 209,
+      "sign_blocks": 3,
+      "perm_p": 0.6167,
+      "control_pct": 14.0,
+      "control_p_beat": 0.8601,
+      "control_p50": -216418.57
+     }
+    },
+    {
+     "id": "r0_f8",
+     "rule": [
+      [
+       "session_bar",
+       ">=",
+       12
+      ],
+      [
+       "n_bos_today",
+       "==",
+       0
+      ],
+      [
+       "sess_range_atr",
+       "<=",
+       3.0
+      ]
+     ],
+     "L1": {
+      "id": "4fba89aee8f57a38",
+      "family": "llm_round1/B/round0",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "round": 0,
+       "rule": "r0_f8",
+       "if": [
+        [
+         "session_bar",
+         ">=",
+         12
+        ],
+        [
+         "n_bos_today",
+         "==",
+         0
+        ],
+        [
+         "sess_range_atr",
+         "<=",
+         3.0
+        ]
+       ],
+       "then": "skip",
+       "scored_on": "A",
+       "sha256_rules": "a3c5c06382227c95"
+      },
+      "script": "scorer.py",
+      "script_sha": "ddd88b066edf575d",
+      "at": "2026-09-29T17:12:16",
+      "note": null,
+      "n": 428,
+      "kept_n": 428,
+      "skipped_n": 0,
+      "kept_share": 1.0,
+      "kept_net": -289828.34,
+      "skipped_net": 0.0,
+      "kept_mean": -677.17,
+      "skipped_mean": null,
+      "all_mean": -677.17,
+      "kept_win_rate": 0.2967,
+      "skipped_win_rate": null,
+      "kept_pf": 0.646,
+      "kept_t": -3.36,
+      "diff": null,
+      "diff_top1_removed": null,
+      "kept_mean_slip3": null,
+      "kept_mean_slip8": null,
+      "loser_recall": null,
+      "loser_precision": null,
+      "winner_recall": null,
+      "winner_recall_weighted": null,
+      "top_decile_winners_skipped": null,
+      "kept_sessions": 214,
+      "sign_blocks": null,
+      "perm_p": null,
+      "control_pct": null,
+      "control_p_beat": null
+     }
+    }
+   ],
+   "max_t": {
+    "draws": 2000,
+    "statistic": "kept-vs-skipped mean difference over the pooled sd of the scored rows x sqrt(1/n_kept + 1/n_skipped) (permutation-invariant denominator); net permuted across the scored half's rows",
+    "family_masks": 133,
+    "family_testable": 123,
+    "rule_t": [
+     -0.39,
+     1.125,
+     0.502,
+     -1.727,
+     1.417,
+     -0.634,
+     -1.923,
+     0.173
+    ],
+    "rule_welch_t": [
+     -0.308,
+     1.072,
+     0.553,
+     -1.303,
+     1.844,
+     -0.716,
+     -1.62,
+     0.184
+    ],
+    "rule_fw_p": [
+     1.0,
+     1.0,
+     1.0,
+     0.999,
+     1.0,
+     1.0,
+     0.9905,
+     1.0
+    ],
+    "null_max_abs_t_p95": 3.862,
+    "null_max_abs_t_p99": 4.601,
+    "best_family_member": 76,
+    "best_family_abs_t": 2.644,
+    "best_family_fw_p": 0.6222,
+    "n_cells_labelled": 118,
+    "n_cells_with_skip_set": 117,
+    "n_rules_round1": 8,
+    "n_rules_round1_scored": 8,
+    "n_rules_round0": 8,
+    "family_size": 134,
+    "best_family_member_name": "two_way:fz_readxhour_bin:LEAVE|<09:25"
+   },
+   "family": {
+    "vectors": 17,
+    "pbo_diff": {
+     "candidates": 17,
+     "partitions": 12870,
+     "statistic": "diff",
+     "pbo": 0.4267,
+     "oos_best_below_zero": 0.5512,
+     "degradation_slope": -0.6662,
+     "is_best_mean": 1231.49,
+     "oos_best_mean": -305.17
+    },
+    "pbo_kept_mean": {
+     "candidates": 17,
+     "partitions": 12870,
+     "statistic": "kept_mean",
+     "pbo": 0.3958,
+     "oos_best_below_zero": 1.0,
+     "degradation_slope": -1.0161,
+     "is_best_mean": -495.32,
+     "oos_best_mean": -736.63
+    },
+    "spa": {
+     "candidates": 17,
+     "sessions": 214,
+     "draws": 2000,
+     "min_active_sessions": 10,
+     "excluded_from_studentised": 1,
+     "best_unstudentised": 9,
+     "best_mean_gain_unstudentised": 92.0,
+     "rc_p_unstudentised": 0.376,
+     "spa_p_unstudentised": 0.375,
+     "best": 9,
+     "best_mean_gain": 92.0,
+     "best_t": 2.264,
+     "best_active_sessions": 15,
+     "rc_p": 0.2995,
+     "spa_p": 0.219
+    },
+    "effective_trials": 1.34
+   },
+   "sharpe_var_family": 0.0022815020623608152,
+   "runtime_s": 24.8
+  }
+ },
+ "ledger_sha_after": "2253e804fdfa3ab9"
+}

@@ -1,0 +1,207 @@
+minute: random control mean of means -1078.9 (p5 -1136.0, p95 -1017.5); oracle free 2560.0, oracle floor 1357.9, Foundation -1009.6
+minute: 1568 variants ledgered in 19s; in-sample best {'stop': 'foundation', 'scale': 'none', 'trail': 'none', 'time_stop': None, 'choch': False} mean per lot -904.8 (Foundation -1009.6); variants above Foundation: 226
+minute: multiplicity in 58s: pbo 0.0866, spa_p 0.396, rc_p 0.501, effective trials 1.39
+{
+ "foundation": {
+  "id": "bcb2196e8a4ef06e",
+  "mean": -1009.61,
+  "random_pct": 97.0,
+  "regret_free": 3569.61,
+  "regret_floor": 2367.55
+ },
+ "st9": {
+  "id": "a6704de9ee766d4d",
+  "mean": -1010.71,
+  "mean_per_position": -3032.12,
+  "diff": -1.1,
+  "t": -0.02,
+  "random_pct": 97.0,
+  "regret_vs_oracle_free": 3570.71,
+  "sign_blocks": 8,
+  "win_rate": 0.3504,
+  "pf": 0.498
+ },
+ "best_is": {
+  "id": "ce308cc899cb9655",
+  "keys": {
+   "stop": "foundation",
+   "scale": "none",
+   "trail": "none",
+   "time_stop": null,
+   "choch": false
+  },
+  "mean": -904.77,
+  "diff": 104.84,
+  "t": 2.59,
+  "random_pct": 100.0,
+  "regret_vs_oracle_free": 3464.77,
+  "sign_blocks": 10,
+  "win_rate": 0.2156,
+  "pf": 0.515,
+  "variants_above_foundation": 226
+ },
+ "random_control": {
+  "draws": 2000,
+  "mean": -1078.86,
+  "p5": -1135.97,
+  "p50": -1080.5,
+  "p95": -1017.54,
+  "foundation_pct": 97.0
+ },
+ "cpcv": {
+  "paths": 11,
+  "diff_median": 80.19,
+  "diff_p5": 54.17,
+  "diff_min": 47.06,
+  "diff_share_positive": 1.0,
+  "mean_median": -929.41,
+  "distinct_picks": 3,
+  "picks": [
+   {
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": false
+    },
+    "n_splits": 44
+   },
+   {
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "2_2",
+     "time_stop": null,
+     "choch": false
+    },
+    "n_splits": 20
+   },
+   {
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "3_2",
+     "time_stop": 120,
+     "choch": false
+    },
+    "n_splits": 2
+   }
+  ],
+  "per_path": [
+   {
+    "path": 0,
+    "mean": -931.02,
+    "diff": 78.59,
+    "random_pct": 100.0,
+    "sign_blocks": 10
+   },
+   {
+    "path": 1,
+    "mean": -904.77,
+    "diff": 104.84,
+    "random_pct": 100.0,
+    "sign_blocks": 10
+   },
+   {
+    "path": 2,
+    "mean": -923.04,
+    "diff": 86.57,
+    "random_pct": 100.0,
+    "sign_blocks": 10
+   },
+   {
+    "path": 3,
+    "mean": -923.04,
+    "diff": 86.57,
+    "random_pct": 100.0,
+    "sign_blocks": 10
+   },
+   {
+    "path": 4,
+    "mean": -942.45,
+    "diff": 67.16,
+    "random_pct": 100.0,
+    "sign_blocks": 8
+   },
+   {
+    "path": 5,
+    "mean": -948.34,
+    "diff": 61.27,
+    "random_pct": 100.0,
+    "sign_blocks": 8
+   },
+   {
+    "path": 6,
+    "mean": -937.74,
+    "diff": 71.87,
+    "random_pct": 100.0,
+    "sign_blocks": 8
+   },
+   {
+    "path": 7,
+    "mean": -927.46,
+    "diff": 82.15,
+    "random_pct": 100.0,
+    "sign_blocks": 10
+   },
+   {
+    "path": 8,
+    "mean": -904.77,
+    "diff": 104.84,
+    "random_pct": 100.0,
+    "sign_blocks": 10
+   },
+   {
+    "path": 9,
+    "mean": -929.41,
+    "diff": 80.19,
+    "random_pct": 100.0,
+    "sign_blocks": 8
+   },
+   {
+    "path": 10,
+    "mean": -962.54,
+    "diff": 47.06,
+    "random_pct": 100.0,
+    "sign_blocks": 6
+   }
+  ]
+ },
+ "pbo": {
+  "candidates": 1568,
+  "partitions": 12870,
+  "statistic": "diff",
+  "pbo": 0.0866,
+  "oos_best_below_zero": 0.1806,
+  "degradation_slope": -0.9354,
+  "is_best_mean": 121.39,
+  "oos_best_mean": 52.36
+ },
+ "spa": {
+  "candidates": 1568,
+  "sessions": 578,
+  "best": 785,
+  "best_mean_gain": 82.84,
+  "best_t": 1.683,
+  "rc_p": 0.501,
+  "spa_p": 0.396,
+  "draws": 2000
+ },
+ "effective_trials": 1.39,
+ "bootstrap_nested": {
+  "draws": 2000,
+  "ci": 0.9,
+  "diff_ci": [
+   25.24,
+   151.11
+  ],
+  "kept_mean_ci": [
+   -996.51,
+   -843.2
+  ],
+  "diff_p_le0": 0.0105,
+  "diff_point": 86.57
+ }
+}
+minute: nested pick mean -923.04 diff 86.57 random pct 100.0; sign-flip blocks p1 0.0149; done in 81s

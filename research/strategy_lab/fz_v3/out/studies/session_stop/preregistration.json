@@ -1,0 +1,59 @@
+{
+ "study": "session_stop",
+ "design": "DESIGN_PANEL decision-making-6 with both judges' fixes",
+ "label": "L1",
+ "split": "IS",
+ "primary_tf": "minute",
+ "secondary_tf": "5minute (reported as underpowered: median 2 SETUPs per active session)",
+ "tests": [
+  "spearman_today_net",
+  "stops>=1",
+  "stops>=2",
+  "stops>=3",
+  "net<=-2000",
+  "net<=-4000",
+  "net<=-6000"
+ ],
+ "k_tests": [
+  1,
+  2,
+  3
+ ],
+ "l_tests": [
+  -2000.0,
+  -4000.0,
+  -6000.0
+ ],
+ "null_primary": "N1: outcomes permuted within session x hour_bin cells, positions fixed, ledger recomputed from the permuted sequence",
+ "null_secondary": "N2: outcomes permuted within sessions",
+ "draws": 2000,
+ "two_sided": true,
+ "alpha": 0.05,
+ "p_definition": "doubled tail against the permutation distribution: p = min(1, 2 min(p_lo, p_hi)), p_lo = (1 + #{stat* <= stat}) / (1 + draws), p_hi likewise for >=; the naive (1 + #{|stat*| >= |stat|}) / (1 + draws) is reported as p_abs_ref only (the N1 distribution is off centre: the ledger grows with the clock)",
+ "p_definition_history": "the doubled-tail form replaced the naive form after a 50-draw timing probe on 1 min / L1 (before any full run); no other definition changed",
+ "multiplicity": "Holm over the 7 tests per null per timeframe",
+ "decision": "branch B iff min Holm p under N1 (L1) < 0.05 on that timeframe; else no key, no ledger row",
+ "seed": "numpy default_rng(int(sha1('fz|session_stop|<tf>|<label>|<null>')[:16], 16) % 2**32)",
+ "robustness": "the 7 tests on L0 (reported only)",
+ "grid": {
+  "max_stops_today": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "max_loss_today_inr": [
+   -2000.0,
+   -4000.0,
+   -6000.0,
+   null
+  ],
+  "rearm_after_win": [
+   false,
+   true
+  ]
+ },
+ "rule": "absorbing: skip once the ledger at the bar has >= k stops or running-min net <= L; rearm variant re-arms at the next SETUP after a skipped SETUP's paper trade wins, counters reset",
+ "fold_selection": "max diff among cells with kept_share >= 0.2; tie -> larger kept share",
+ "registered_at": "2026-09-29T04:06:57"
+}

@@ -1,0 +1,45 @@
+{
+ "agentId": "a5fbf1af249c0b529",
+ "label": "verify:regime_gate:leakage",
+ "phase": "Verify",
+ "result": {
+  "refuted": false,
+  "severity": "minor",
+  "issues": [
+   {
+    "what": "Both judges' conditions and the importance study's own pre-commitment were not honoured as gates: importance FINDINGS (5minute, 'Do the H2 CHoCH counts and the state-model posteriors share a cluster?') states 'no HMM gate is run later for those states' in cluster 3, yet the chop states actually gated are exactly those posteriors (hmm3 chop 0 = hmm3_p0, gmm4 chop 1 = gmm4_p1, jump4_state, hmm4 fold picks of state 2 = hmm4_p2, all cluster 3); Judge 2 required the HMM/jump models be fitted/gated only if the GMM state beats n_choch_since_bos at matched skip fraction on CV (gmm4 nested OOF -108.90 vs H2 k=2 +257.83: it does not) and said to emit posteriors as features 'rather than running an own tau grid'. The study ran all five models and the full tau grid anyway (89 ledger rows).",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/FINDINGS.md section 0 and 'What this study is'; /home/user/money-maker/research/strategy_lab/fz_v3/out/studies/importance/FINDINGS.md line 517 (5minute cluster verdict); /home/user/money-maker/research/strategy_lab/fz_v3/DESIGN_PANEL.md lines 102-104",
+    "evidence": "shortlist.json h2_vs_state_models.shared['3'] contains hmm3_p0, gmm4_p1, hmm4_p2, jump4_state; results.json fixed_rule: hmm3 chop 0, gmm4 chop 1, jump4 chop 1; nested gmm4 diff -108.90 (ledger 760b31266f2a2979) < H2 cdd9b4281b0e451c 257.83. PROGRESS.md line 80 shows the phase-3 launch did authorise 'regime_gate on 5m with jump3 added', so this is a program-level deviation, disclosed in section 0, not a hidden one.",
+    "fix": "None needed for the verdict (the extra trials only enlarge the counted family and the result is null). Record in FINDINGS section 0 that Judge 2's GMM-first condition was not met and the run proceeded under the phase-3 launch instruction, so the 89 rows are counted program-wide as trials that the design would not have run."
+   },
+   {
+    "what": "harness.go_no_go for the NESTED OOF rows was fed the FIXED rule's null-tape checks (checks_fixed), so section 11 reports the three null_tape items as 'ok' for the hmm4 and gmm4 nested rows although those rows' own diffs (-910.40 / -108.90) fail all three (results.json checks_nested for hmm4: gmm_p95 False, segment_p95 False, session_same_sign 0.25 False). The table's labels do not match what was computed for that row.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/regime_gate.py lines 262-264 (nt_arg = nt['checks_fixed'] passed to both go_no_go calls); FINDINGS.md section 11 hmm4/gmm4 nested columns (lines 447-449, 468-470)",
+    "evidence": "Reproduced: results.json go_no_go.hmm4.nested.checks null_tape items = [True, 1001.22], [True, 1117.09], [True, 0.75]; results.json null_tapes.per_model.hmm4.checks_nested = [False, 1001.22], [False, 1117.09], [False, 0.25]. Verdict unaffected: each nested row fails at least 9 other items and the fixed rules fail on other items too.",
+    "fix": "In section 11 either label the null_tape rows as 'fixed rule replayed' for both columns or pass checks_nested for the nested row; the definition in section 1 ('null tapes: the fixed rule replayed') already makes the fixed-rule reading the intended one, so a caption fix suffices."
+   },
+   {
+    "what": "The refit verification reads OOS rows' features: verify_refit compares posteriors at all 1012 SETUPs of features.parquet (1002 L1 units incl. the OOS ones plus 10 non-L1) and fit_frozen_models computes Z over every bar of the tape (OOS bars included), against the brief's rule 'never read the OOS rows' labels or features for any purpose but a row count'. No label is read and no scored number depends on it.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/regime_gate.py lines 216-217 (setup_all from features.parquet without an IS filter); rg_lib.py lines 197-203, 253-261",
+    "evidence": "regime_gate.log line 55: 'refit verification vs ext_features.parquet at 1012 SETUPs' while T.n = 1002 and IS = 826; the study's own header claims 'Never reads an OOS label or feature'.",
+    "fix": "Restrict setup_all to IS SETUPs (or state in FINDINGS that the verification touched OOS feature rows, label-free, with no effect on any ledger number)."
+   },
+   {
+    "what": "The 'distilled OOF gates' (family regime_gate/<model>/distilled) are not fully out-of-fold: the tree is refit per purged fold, but its target (the fixed rule's skip decision) uses the chop state and tau chosen on ALL IS labels. Disclosed by the definition in section 1 and irrelevant to the verdict (all four rows fail: ctrl 8.1 / 22.1 / 6.2 / 13.4).",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/out/studies/regime_gate/regime_gate.py lines 162-171; rg_lib.py distil() lines 297-332",
+    "evidence": "y = R.skip_mask(P[m], fixed[m]['chop'], fixed[m]['tau']) where fixed[m] came from chop_state/choose_tau over is_idx (all IS rows).",
+    "fix": "Call them 'OOF-fitted distillations of the in-sample fixed rule' in sections 10 and 14; no rerun needed."
+   },
+   {
+    "what": "The design's leakage control 'all model parameters and z-scoring statistics are estimated on IS training-fold bars only, refit per fold' was not followed: the study uses the frozen ext_features models (fit window 2021-10..2023-09, first IS half), so posteriors for SETUPs inside that window are label-free in-sample and the training folds' models see test-fold bars. Unsupervised, disclosed in caveat 3; cannot rescue a null.",
+    "where": "/home/user/money-maker/research/strategy_lab/fz_v3/DESIGN_PANEL.md line 92 (leakage_controls) vs FINDINGS.md section 14 caveat 3 and features_ext/README.md 'fit window'",
+    "evidence": "rg_lib.py FIT_FROM/FIT_TO = 2021-10-01..2023-09-30; posteriors read from features_ext/5minute/ext_features.parquet for all IS rows.",
+    "fix": "None for the verdict; keep the caveat."
+   }
+  ],
+  "verified": "Re-ran the cheap checks off-ledger (harness.metrics with controls off, no ledger writes, no study file modified): all 25 grid cells (kept_n, diff, diff_top1_removed, kept_mean_slip8, sign_blocks) match results.json/grid.csv; the five fixed rules (hmm3 s0 tau0.7, hmm4 s1 tau0.9, gmm4 s1 tau0.5, jump4 s1, jump3 s1) reproduce; all five nested OOF rows reproduce exactly (fold chop/tau sequences, kept 479/595/574/505/534, diff -509.09/-910.40/-108.90/+453.10/-731.58, sign blocks 4/3/7/7/2); CPCV distributions for jump4 (median 203.49, p5 -351.99, min -543.70) and hmm3 (-482.50/-703.28/-751.58) reproduce; IS book 826 units, mean -757.05, win 0.2772, 229 winners, 408 active sessions. Section 7b diagnostics (jump4 chop share by hour 0.792/0.683/.../0.159, rank0 0.583, rank2 0.105) reproduce. Null-tape same-sign shares recomputed from the log's per-tape diffs: jump4 7/20 = 0.35, hmm4 15/20 = 0.75. Ledger: exactly 89 regime_gate rows (25 grid + 5 nested + 55 cpcv + 4 distilled), all 5minute/L1/IS, all with 'outside the frozen shortlist' in config (34 also in note), script_sha 18739ece526ccfe6 equals the current regime_gate.py; no SMOKE rows in the ledger. Comparator rows cdd9b4281b0e451c (H2 k=2 all: kept 0.6864, diff 257.83, ctrl 45.9) and 4535288bcf0f1148 (importance/sfi cluster 25, diff 827.0, ctrl 100, perm 0.078, 8 blocks) exist as cited; k=2 is the closest kept share for every model. Shortlist state confirmed: 5minute n_shortlisted 0 of 39, sha 4747257f..., registrations.jsonl has no newer shortlist line, so the EMPTY-SHORTLIST RULE applied correctly. Splits: purged_splits/cpcv_splits return IS-only disjoint train/test; chop and tau are read from training rows only; no fnd_/l1_/fwd_/fzpos_/fzpost_/fz_traded column is read by any gate; posterior columns are as-of and the truncation check shows them identical. Family stats (PBO 0.3194, SPA p 0.0015 best row index 15 = jump4 tau0.5, t 5.17, 136 active sessions, eff trials 1.80) read from results.json are consistent with FINDINGS/findings.json, which write_findings.py derives from results.json without computation. The null result stands: no model passes go_no_go, jump4's within-session pass (control 100 / SPA) is explained by its first-SETUP composition and fails the between-session items."
+ },
+ "key": "v2:0e6900e40b452cc2e3f815a2da7d9d44d027b6480668e09adf0129ae02c052b5",
+ "transcript": "audit/workflows/phase3/agent-a5fbf1af249c0b529.jsonl",
+ "meta": "audit/workflows/phase3/agent-a5fbf1af249c0b529.meta.json"
+}

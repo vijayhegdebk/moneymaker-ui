@@ -1,0 +1,494 @@
+{
+ "tf": "minute",
+ "l1_choch_facts": {
+  "next_choch_exits": 2728,
+  "exit_px_equals_close_of_exit_bar_share": 1.0,
+  "exit_bar_equals_first_choch_against_share": 0.9971,
+  "l1_net_inr_decimals_gt_2": 0,
+  "grid_nets_decimals_gt_2": 6980526,
+  "grid_cells": 6980736
+ },
+ "family_C": {
+  "as_coded": {
+   "family": "learner C grid, 1568 variants (the pre-registered family of 02_c_select.py)",
+   "vector_precision": "as stored in vectors/*.npz (variant net unrounded, label 2 dp)",
+   "harness_sha": "0fe3d75a0bd6e78d",
+   "tag": "exit|minute",
+   "candidates": 1568,
+   "sessions": 578,
+   "draws": 2000,
+   "min_active_sessions": 28,
+   "excluded_from_studentised": 0,
+   "best_unstudentised": 392,
+   "best_mean_gain_unstudentised": 87.83,
+   "rc_p_unstudentised": 0.6845,
+   "spa_p_unstudentised": 0.5405,
+   "best": 785,
+   "best_mean_gain": 82.84,
+   "best_t": 1.683,
+   "best_active_sessions": 578,
+   "rc_p": 0.501,
+   "spa_p": 0.396,
+   "best_keys": {
+    "index": 785,
+    "id": "d8a15b106b41458f",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 75,
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": true
+    },
+    "active_sessions": 578,
+    "active_sessions_gt_0_01": 438,
+    "active_sessions_gt_0_5": 435,
+    "mean_gain": 82.84,
+    "t_studentised": 1.683,
+    "diff_vs_foundation": -13.27
+   },
+   "best_keys_unstudentised": {
+    "index": 392,
+    "id": "c6ed4681f81828d7",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 50,
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": false
+    },
+    "active_sessions": 578,
+    "active_sessions_gt_0_01": 517,
+    "active_sessions_gt_0_5": 516,
+    "mean_gain": 87.83,
+    "t_studentised": 1.019,
+    "diff_vs_foundation": 50.06
+   },
+   "excluded_candidates": []
+  },
+  "repaired": {
+   "family": "learner C grid, 1568 variants (the pre-registered family of 02_c_select.py)",
+   "vector_precision": "per-trade nets rounded to 2 dp before the session sums (the label's precision)",
+   "harness_sha": "0fe3d75a0bd6e78d",
+   "tag": "exit|minute",
+   "candidates": 1568,
+   "sessions": 578,
+   "draws": 2000,
+   "min_active_sessions": 28,
+   "excluded_from_studentised": 1,
+   "best_unstudentised": 392,
+   "best_mean_gain_unstudentised": 87.83,
+   "rc_p_unstudentised": 0.6845,
+   "spa_p_unstudentised": 0.5405,
+   "best": 785,
+   "best_mean_gain": 82.84,
+   "best_t": 1.683,
+   "best_active_sessions": 438,
+   "rc_p": 0.448,
+   "spa_p": 0.322,
+   "best_keys": {
+    "index": 785,
+    "id": "d8a15b106b41458f",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 75,
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": true
+    },
+    "active_sessions": 438,
+    "active_sessions_gt_0_01": 438,
+    "active_sessions_gt_0_5": 435,
+    "mean_gain": 82.84,
+    "t_studentised": 1.683,
+    "diff_vs_foundation": -13.27
+   },
+   "best_keys_unstudentised": {
+    "index": 392,
+    "id": "c6ed4681f81828d7",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 50,
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": false
+    },
+    "active_sessions": 517,
+    "active_sessions_gt_0_01": 517,
+    "active_sessions_gt_0_5": 516,
+    "mean_gain": 87.83,
+    "t_studentised": 1.019,
+    "diff_vs_foundation": 50.06
+   },
+   "excluded_candidates": [
+    {
+     "index": 1177,
+     "id": "0c142743f6d7b0bd",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": "foundation",
+      "scale": "none",
+      "trail": "none",
+      "time_stop": null,
+      "choch": true
+     },
+     "active_sessions": 7,
+     "active_sessions_gt_0_01": 7,
+     "active_sessions_gt_0_5": 7,
+     "mean_gain": -0.52,
+     "t_studentised": -1.917,
+     "diff_vs_foundation": -0.84
+    }
+   ]
+  },
+  "tolerance_check": {
+   "rule": "candidates with fewer than min_active sessions of |gain| > 0.01 INR removed from the list (both statistics)",
+   "tolerance_inr": 0.01,
+   "min_active_sessions": 28,
+   "excluded": 1,
+   "excluded_indices": [
+    1177
+   ],
+   "candidates": 1567,
+   "spa_p": 0.322,
+   "rc_p": 0.448,
+   "best_index": 785,
+   "best_mean_gain": 82.84,
+   "best_t": 1.683,
+   "spa_p_unstudentised": 0.5405,
+   "rc_p_unstudentised": 0.6845,
+   "best_index_unstudentised": 392
+  },
+  "near_duplicates": [
+   {
+    "index": 1177,
+    "id": "0c142743f6d7b0bd",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": true
+    },
+    "trades_differing_from_L1_gt_0_005": 8,
+    "trades": 4452,
+    "max_abs_diff_on_agreeing_trades": 0.005,
+    "mean_diff_on_differing_trades": -465.13,
+    "exit_bar_equals_L1_share": 0.9982,
+    "sessions_active_gt_1e_9": 578,
+    "sessions_active_gt_0_01": 7,
+    "sessions_active_gt_0_5": 7,
+    "sessions_active_after_2dp": 7,
+    "max_abs_gain_as_coded": 85.5839,
+    "mean_gain_as_coded": -0.5169,
+    "t_studentised_as_coded": -1.916,
+    "null_argmax_draws_as_coded": 396,
+    "null_draws": 2000,
+    "excluded_by_repaired_rule": true,
+    "excluded_by_tolerance_check": true
+   }
+  ],
+  "vector_mapping_verified": true,
+  "null_argmax_top5_as_coded": [
+   {
+    "index": 1177,
+    "draws": 396,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": true
+    }
+   },
+   {
+    "index": 1208,
+    "draws": 138,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "3_2",
+     "time_stop": null,
+     "choch": false
+    }
+   },
+   {
+    "index": 1216,
+    "draws": 108,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "4_1",
+     "time_stop": null,
+     "choch": false
+    }
+   },
+   {
+    "index": 1176,
+    "draws": 108,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": false
+    }
+   },
+   {
+    "index": 1192,
+    "draws": 84,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "2_2",
+     "time_stop": null,
+     "choch": false
+    }
+   }
+  ]
+ },
+ "all_trials": {
+  "as_coded": {
+   "family": "every exit trial of the timeframe: 1572 rows (C variants + C nested pick + C in-sample best + learners B and A); comparators and CPCV paths excluded",
+   "vector_precision": "as stored in vectors/*.npz (variant net unrounded, label 2 dp)",
+   "harness_sha": "0fe3d75a0bd6e78d",
+   "tag": "exit|all|minute",
+   "candidates": 1572,
+   "sessions": 578,
+   "draws": 2000,
+   "min_active_sessions": 28,
+   "excluded_from_studentised": 0,
+   "best_unstudentised": 392,
+   "best_mean_gain_unstudentised": 87.83,
+   "rc_p_unstudentised": 0.695,
+   "spa_p_unstudentised": 0.538,
+   "best": 785,
+   "best_mean_gain": 82.84,
+   "best_t": 1.683,
+   "best_active_sessions": 578,
+   "rc_p": 0.5075,
+   "spa_p": 0.3965,
+   "best_keys": {
+    "index": 785,
+    "id": "d8a15b106b41458f",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 75,
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": true
+    },
+    "active_sessions": 578,
+    "active_sessions_gt_0_01": 438,
+    "active_sessions_gt_0_5": 435,
+    "mean_gain": 82.84,
+    "t_studentised": 1.683,
+    "diff_vs_foundation": -13.27
+   },
+   "best_keys_unstudentised": {
+    "index": 392,
+    "id": "c6ed4681f81828d7",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 50,
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": false
+    },
+    "active_sessions": 578,
+    "active_sessions_gt_0_01": 517,
+    "active_sessions_gt_0_5": 516,
+    "mean_gain": 87.83,
+    "t_studentised": 1.019,
+    "diff_vs_foundation": 50.06
+   },
+   "excluded_candidates": []
+  },
+  "repaired": {
+   "family": "every exit trial of the timeframe: 1572 rows (C variants + C nested pick + C in-sample best + learners B and A); comparators and CPCV paths excluded",
+   "vector_precision": "per-trade nets rounded to 2 dp before the session sums (the label's precision)",
+   "harness_sha": "0fe3d75a0bd6e78d",
+   "tag": "exit|all|minute",
+   "candidates": 1572,
+   "sessions": 578,
+   "draws": 2000,
+   "min_active_sessions": 28,
+   "excluded_from_studentised": 1,
+   "best_unstudentised": 392,
+   "best_mean_gain_unstudentised": 87.83,
+   "rc_p_unstudentised": 0.695,
+   "spa_p_unstudentised": 0.538,
+   "best": 785,
+   "best_mean_gain": 82.84,
+   "best_t": 1.683,
+   "best_active_sessions": 438,
+   "rc_p": 0.447,
+   "spa_p": 0.314,
+   "best_keys": {
+    "index": 785,
+    "id": "d8a15b106b41458f",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 75,
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": true
+    },
+    "active_sessions": 438,
+    "active_sessions_gt_0_01": 438,
+    "active_sessions_gt_0_5": 435,
+    "mean_gain": 82.84,
+    "t_studentised": 1.683,
+    "diff_vs_foundation": -13.27
+   },
+   "best_keys_unstudentised": {
+    "index": 392,
+    "id": "c6ed4681f81828d7",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": 50,
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": false
+    },
+    "active_sessions": 517,
+    "active_sessions_gt_0_01": 517,
+    "active_sessions_gt_0_5": 516,
+    "mean_gain": 87.83,
+    "t_studentised": 1.019,
+    "diff_vs_foundation": 50.06
+   },
+   "excluded_candidates": [
+    {
+     "index": 1177,
+     "id": "0c142743f6d7b0bd",
+     "family": "exit_policy/C",
+     "keys": {
+      "stop": "foundation",
+      "scale": "none",
+      "trail": "none",
+      "time_stop": null,
+      "choch": true
+     },
+     "active_sessions": 7,
+     "active_sessions_gt_0_01": 7,
+     "active_sessions_gt_0_5": 7,
+     "mean_gain": -0.52,
+     "t_studentised": -1.917,
+     "diff_vs_foundation": -0.84
+    }
+   ]
+  },
+  "tolerance_check": {
+   "rule": "candidates with fewer than min_active sessions of |gain| > 0.01 INR removed from the list (both statistics)",
+   "tolerance_inr": 0.01,
+   "min_active_sessions": 28,
+   "excluded": 1,
+   "excluded_indices": [
+    1177
+   ],
+   "candidates": 1571,
+   "spa_p": 0.314,
+   "rc_p": 0.447,
+   "best_index": 785,
+   "best_mean_gain": 82.84,
+   "best_t": 1.683,
+   "spa_p_unstudentised": 0.538,
+   "rc_p_unstudentised": 0.695,
+   "best_index_unstudentised": 392
+  },
+  "near_duplicates": [
+   {
+    "index": 1177,
+    "id": "0c142743f6d7b0bd",
+    "family": "exit_policy/C",
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": true
+    },
+    "trades_differing_from_L1_gt_0_005": 8,
+    "trades": 4452,
+    "max_abs_diff_on_agreeing_trades": 0.005,
+    "mean_diff_on_differing_trades": -465.13,
+    "exit_bar_equals_L1_share": 0.9982,
+    "sessions_active_gt_1e_9": 578,
+    "sessions_active_gt_0_01": 7,
+    "sessions_active_gt_0_5": 7,
+    "sessions_active_after_2dp": 7,
+    "max_abs_gain_as_coded": 85.5839,
+    "mean_gain_as_coded": -0.5169,
+    "t_studentised_as_coded": -1.916,
+    "null_argmax_draws_as_coded": 394,
+    "null_draws": 2000,
+    "excluded_by_repaired_rule": true,
+    "excluded_by_tolerance_check": true
+   }
+  ],
+  "vector_mapping_verified": true,
+  "null_argmax_top5_as_coded": [
+   {
+    "index": 1177,
+    "draws": 394,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "none",
+     "time_stop": null,
+     "choch": true
+    }
+   },
+   {
+    "index": 1208,
+    "draws": 119,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "3_2",
+     "time_stop": null,
+     "choch": false
+    }
+   },
+   {
+    "index": 1216,
+    "draws": 102,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "4_1",
+     "time_stop": null,
+     "choch": false
+    }
+   },
+   {
+    "index": 1192,
+    "draws": 77,
+    "keys": {
+     "stop": "foundation",
+     "scale": "none",
+     "trail": "2_2",
+     "time_stop": null,
+     "choch": false
+    }
+   },
+   {
+    "index": 1568,
+    "draws": 75,
+    "keys": {
+     "selection": "argmax mean net per lot on the training fold of harness.purged_splits",
+     "folds": 12
+    }
+   }
+  ]
+ }
+}

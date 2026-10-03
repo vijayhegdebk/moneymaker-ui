@@ -1,0 +1,5 @@
+5m n_jobs 1 0.7 s
+5m n_jobs 2 14.1 s
+5m n_jobs 4 177.9 s
+1m n_jobs 1 1.8 s
+1m n_jobs 4 241.8 s

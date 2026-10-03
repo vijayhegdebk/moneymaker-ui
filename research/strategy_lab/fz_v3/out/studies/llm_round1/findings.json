@@ -1,0 +1,4193 @@
+{
+ "study": "llm_round1",
+ "design": "DESIGN_PANEL deep-sequence-llm-hypotheses, round 1 (Judge 1 cross-fitted halves; Judge 2 family = cells shown + rules proposed, harness splitter)",
+ "label": "L1",
+ "split": "IS",
+ "halves": {
+  "A": {
+   "blocks": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  "B": {
+   "blocks": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ]
+  }
+ },
+ "shortlist_state": {
+  "minute": {
+   "n_shortlisted": 0,
+   "sha256": "66f6e004bd93e47c55ca219785a9a30f36d618cbbbd215cfcbad5a44412b5bdb"
+  },
+  "5minute": {
+   "n_shortlisted": 0,
+   "sha256": "4747257f41ecb40f1b3c27ea35cc50868d7c6b91f84f61ab7666911aef019dc9"
+  }
+ },
+ "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+ "registration": [
+  {
+   "kind": "pre_registration",
+   "what": "LLM hypotheses round 1 labelled tables half A",
+   "sha256": "eb2659777007ee01ed3f2373096bda0a2b5bb8ab1ad3dda5f20295eaf5d557b9",
+   "files": {
+    "minute": {
+     "file": "studies/llm_round1/tables_minute_A.json",
+     "sha256": "a621b26c727a3e73fe60473607f433729cdbdcd2ae0e71c9c117544f5a607c8d",
+     "md": "studies/llm_round1/tables_minute_A.md",
+     "sha256_md": "a464f17ceb0de965cf79f1a71ff9d8e61befef394f0e8d2a3794a77092add21d",
+     "n_cells_labelled": 184
+    },
+    "5minute": {
+     "file": "studies/llm_round1/tables_5minute_A.json",
+     "sha256": "ea40281dd540f6c95723e9f87078d71e2d9abb4d2486886fff28e119b0972219",
+     "md": "studies/llm_round1/tables_5minute_A.md",
+     "sha256_md": "54006119bde415d4bf564d321c3c0629f2fa0a2d53346e6855eaf63d1549dc39",
+     "n_cells_labelled": 122
+    }
+   },
+   "blocks": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "n_cells_labelled_total": 306,
+   "registered_at": "2026-09-29T12:36:07",
+   "note": "Judge 1 / Judge 2 fixes: tables of half A (harness blocks 0-5) shown to the round-1 proposer of half A only; its rules are scored on half B; the family size for the max-T = these labelled cells + every rule proposed (round 0 and round 1). EMPTY-SHORTLIST RULE: the frozen shortlist is empty on both timeframes, so the vocabulary is hour_bin / fz_read / dir plus the top-8 MDA clusters' representatives and the two-way columns, all labelled 'outside the frozen shortlist'.",
+   "ledger_sha_at_registration": "5bcee0a7bee8937f",
+   "llm_round1_ledger_rows_at_registration": 0
+  },
+  {
+   "kind": "pre_registration",
+   "what": "LLM hypotheses round 1 labelled tables half B",
+   "sha256": "3d00a5c1b408d9c34eb2dbd641f5534c8462f9019d02a1f1770508c5b31c9c3a",
+   "files": {
+    "minute": {
+     "file": "studies/llm_round1/tables_minute_B.json",
+     "sha256": "8b596e329bc0af017439668daf73f7f7689a1c58884f5b5869e5d82832e5190b",
+     "md": "studies/llm_round1/tables_minute_B.md",
+     "sha256_md": "d111f2c9536cabe53aeffcdbca077b401f34351d6b922b436fcdb54fb1b844cb",
+     "n_cells_labelled": 181
+    },
+    "5minute": {
+     "file": "studies/llm_round1/tables_5minute_B.json",
+     "sha256": "3c74db45331e13dce70e86dcfacea17266c907dd6826897676e24d23e70f50f5",
+     "md": "studies/llm_round1/tables_5minute_B.md",
+     "sha256_md": "8772243c36b50db7b6c0c57cfe9767df2b30b0252a06f4dddba32c540c40c884",
+     "n_cells_labelled": 118
+    }
+   },
+   "blocks": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "n_cells_labelled_total": 299,
+   "registered_at": "2026-09-29T12:36:07",
+   "note": "Judge 1 / Judge 2 fixes: tables of half B (harness blocks 6-11) shown to the round-1 proposer of half B only; its rules are scored on half A; the family size for the max-T = these labelled cells + every rule proposed (round 0 and round 1). EMPTY-SHORTLIST RULE: the frozen shortlist is empty on both timeframes, so the vocabulary is hour_bin / fz_read / dir plus the top-8 MDA clusters' representatives and the two-way columns, all labelled 'outside the frozen shortlist'.",
+   "ledger_sha_at_registration": "5bcee0a7bee8937f",
+   "llm_round1_ledger_rows_at_registration": 0
+  },
+  {
+   "kind": "pre_registration",
+   "what": "LLM hypotheses round 1 half A",
+   "file": "studies/llm_round1/rules_round1_A.json",
+   "sha256": "b9d335bc05bd42eb0d508c16a6cb08fee08fc0ba333846f44d4fa2dcfa7f29bc",
+   "written_at": "2026-09-29T16:20:02+00:00",
+   "half_seen": "A",
+   "scored_on": "B",
+   "tables": {
+    "minute": {
+     "file": "studies/llm_round1/tables_minute_A.json",
+     "sha256": "a621b26c727a3e73fe60473607f433729cdbdcd2ae0e71c9c117544f5a607c8d",
+     "n_cells_labelled": 184,
+     "n_rules_round1": 8
+    },
+    "5minute": {
+     "file": "studies/llm_round1/tables_5minute_A.json",
+     "sha256": "ea40281dd540f6c95723e9f87078d71e2d9abb4d2486886fff28e119b0972219",
+     "n_cells_labelled": 122,
+     "n_rules_round1": 8
+    }
+   },
+   "n_rules": {
+    "minute": 8,
+    "5minute": 8
+   },
+   "family_size_maxt": {
+    "minute": 200,
+    "5minute": 138
+   },
+   "note": "cross-fitted (Judge 1): rules written from tables_<tf>_A.md only, scored on half B (harness blocks 6-11); the max-T family per timeframe = the labelled cells of the seen tables + the round-1 rules of this half + the 8 round-0 rules (Judge 2); EMPTY-SHORTLIST RULE: every rule is exploratory, 'outside the frozen shortlist'. Registered before any ledger row of family llm_round1/A.",
+   "registered_at": "2026-09-29T17:08:47",
+   "ledger_sha_at_registration": "39263cc8a1e76151",
+   "ledger_rows_of_family_at_registration": 0
+  },
+  {
+   "kind": "pre_registration",
+   "what": "LLM hypotheses round 1 half B",
+   "file": "studies/llm_round1/rules_round1_B.json",
+   "sha256": "a65f06b9226ceda2a2eab9d81a3f1a942522d44e4474a5ca43a8dcbb1de9a18d",
+   "written_at": "2026-09-29T16:22:54+00:00",
+   "half_seen": "B",
+   "scored_on": "A",
+   "tables": {
+    "minute": {
+     "file": "studies/llm_round1/tables_minute_B.json",
+     "sha256": "8b596e329bc0af017439668daf73f7f7689a1c58884f5b5869e5d82832e5190b",
+     "n_cells_labelled": 181,
+     "n_rules_round1": 8
+    },
+    "5minute": {
+     "file": "studies/llm_round1/tables_5minute_B.json",
+     "sha256": "3c74db45331e13dce70e86dcfacea17266c907dd6826897676e24d23e70f50f5",
+     "n_cells_labelled": 118,
+     "n_rules_round1": 8
+    }
+   },
+   "n_rules": {
+    "minute": 8,
+    "5minute": 8
+   },
+   "family_size_maxt": {
+    "minute": 197,
+    "5minute": 134
+   },
+   "note": "cross-fitted (Judge 1): rules written from tables_<tf>_B.md only, scored on half A (harness blocks 0-5); the max-T family per timeframe = the labelled cells of the seen tables + the round-1 rules of this half + the 8 round-0 rules (Judge 2); EMPTY-SHORTLIST RULE: every rule is exploratory, 'outside the frozen shortlist'. Registered before any ledger row of family llm_round1/B.",
+   "registered_at": "2026-09-29T17:10:27",
+   "ledger_sha_at_registration": "a03c3dc0277bb5ab",
+   "ledger_rows_of_family_at_registration": 0
+  }
+ ],
+ "holm": {
+  "m": 48,
+  "raw_p": [
+   0.965,
+   0.6757,
+   0.4088,
+   0.9515,
+   0.6812,
+   0.3063,
+   0.6227,
+   0.8381,
+   0.2319,
+   0.2704,
+   0.6297,
+   0.1064,
+   0.5872,
+   0.2734,
+   0.7496,
+   0.7361,
+   0.002,
+   0.9625,
+   0.8056,
+   0.4793,
+   0.5017,
+   0.5962,
+   0.1594,
+   0.4278,
+   0.6847,
+   0.2629,
+   0.6297,
+   0.0885,
+   0.1629,
+   0.5432,
+   0.062,
+   0.8751
+  ],
+  "holm_p": [
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   0.096,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ],
+  "rules": [
+   "A:minute:r1A_m1",
+   "A:minute:r1A_m2",
+   "A:minute:r1A_m3",
+   "A:minute:r1A_m4",
+   "A:minute:r1A_m5",
+   "A:minute:r1A_m6",
+   "A:minute:r1A_m7",
+   "A:minute:r1A_m8",
+   "A:5minute:r1A_f1",
+   "A:5minute:r1A_f2",
+   "A:5minute:r1A_f3",
+   "A:5minute:r1A_f4",
+   "A:5minute:r1A_f5",
+   "A:5minute:r1A_f6",
+   "A:5minute:r1A_f7",
+   "A:5minute:r1A_f8",
+   "B:minute:r1B_m1",
+   "B:minute:r1B_m2",
+   "B:minute:r1B_m3",
+   "B:minute:r1B_m4",
+   "B:minute:r1B_m5",
+   "B:minute:r1B_m6",
+   "B:minute:r1B_m7",
+   "B:minute:r1B_m8",
+   "B:5minute:r1B_f1",
+   "B:5minute:r1B_f2",
+   "B:5minute:r1B_f3",
+   "B:5minute:r1B_f4",
+   "B:5minute:r1B_f5",
+   "B:5minute:r1B_f6",
+   "B:5minute:r1B_f7",
+   "B:5minute:r1B_f8"
+  ]
+ },
+ "eligibility_rule": "protocol-clean and, on the other half: diff > 0, control pct >= 95.0, max-T family-wise p < 0.05 (family = labelled cells shown + rules proposed), Holm p over the rules of the round (m = 48) < 0.05",
+ "greedy_rule": "eligible rules in order of diff; add while the marginal diff >= 200.0 INR/trade and the |net|-weighted winner recall does not fall; every step a ledger row",
+ "timeframes": {
+  "minute": {
+   "directions": {
+    "A": {
+     "scored_on": "B",
+     "tables_file": "studies/llm_round1/tables_minute_A.json",
+     "tables_sha256": "a621b26c727a3e73fe60473607f433729cdbdcd2ae0e71c9c117544f5a607c8d",
+     "n_rows_scored": 2044,
+     "n_sessions_scored": 254,
+     "all_mean_L1": -1070.6,
+     "rules": [
+      {
+       "id": "r1A_m1",
+       "rule": [
+        [
+         "fz_read",
+         "in",
+         [
+          "THIN",
+          "REJECT",
+          "ACCEPTED"
+         ]
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "9486f9ece0a6d7d0",
+       "ledger_id_L0": "eda78031ab1a6b53",
+       "kept_n": 1665,
+       "skipped_n": 379,
+       "kept_share": 0.8146,
+       "kept_mean": -1069.17,
+       "skipped_mean": -1076.86,
+       "diff": 7.69,
+       "diff_top1_removed": -52.31,
+       "perm_p": 0.965,
+       "control_pct": 5.4,
+       "loser_recall": 0.1919,
+       "loser_precision": 0.876,
+       "winner_recall_weighted": 0.8737,
+       "top_decile_winners_skipped": 0.1562,
+       "kept_mean_slip8": -1459.14,
+       "sign_blocks": 4,
+       "L0_diff": 116.91,
+       "L0_control_pct": 23.1,
+       "maxt_z": 0.046,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -228.75,
+        222.44
+       ],
+       "blocks": {
+        "b06": -277.64,
+        "b07": 102.48,
+        "b08": 504.42,
+        "b09": 119.08,
+        "b10": 186.0,
+        "b11": -38.51,
+        "blocks_defined": 6,
+        "blocks_positive": 4,
+        "block_diff_min": -277.64
+       },
+       "dsr": {
+        "sr": -0.0181,
+        "sr0": 0.1492,
+        "dsr": 0.0051,
+        "p": 0.9949,
+        "T": 252,
+        "n_trials": 200,
+        "skew": 3.519,
+        "kurt": 17.397
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1A_m2",
+       "rule": [
+        [
+         "hour_bin",
+         "==",
+         "11"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "99ee767ffbfcb0bc",
+       "ledger_id_L0": "66b2e82adb34dbc5",
+       "kept_n": 1723,
+       "skipped_n": 321,
+       "kept_share": 0.843,
+       "kept_mean": -1058.47,
+       "skipped_mean": -1135.73,
+       "diff": 77.27,
+       "diff_top1_removed": 100.91,
+       "perm_p": 0.6757,
+       "control_pct": 24.4,
+       "loser_recall": 0.1584,
+       "loser_precision": 0.8536,
+       "winner_recall_weighted": 0.8814,
+       "top_decile_winners_skipped": 0.125,
+       "kept_mean_slip8": -1448.43,
+       "sign_blocks": 2,
+       "L0_diff": 184.75,
+       "L0_control_pct": 35.6,
+       "maxt_z": 0.434,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -206.71,
+        351.34
+       ],
+       "blocks": {
+        "b06": 615.89,
+        "b07": 103.94,
+        "b08": -100.91,
+        "b09": -91.69,
+        "b10": -16.68,
+        "b11": -175.37,
+        "blocks_defined": 6,
+        "blocks_positive": 2,
+        "block_diff_min": -175.37
+       },
+       "dsr": {
+        "sr": -0.0192,
+        "sr0": 0.1492,
+        "dsr": 0.0049,
+        "p": 0.9951,
+        "T": 253,
+        "n_trials": 200,
+        "skew": 3.616,
+        "kurt": 18.23
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1A_m3",
+       "rule": [
+        [
+         "hour_bin",
+         "in",
+         [
+          "11",
+          "12"
+         ]
+        ],
+        [
+         "fz_read",
+         "in",
+         [
+          "NEW",
+          "FIRST_PRINT",
+          "RECYCLE"
+         ]
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "04c389cc8c5f4f69",
+       "ledger_id_L0": "2c0a1db143043f00",
+       "kept_n": 1978,
+       "skipped_n": 66,
+       "kept_share": 0.9677,
+       "kept_mean": -1061.09,
+       "skipped_mean": -1355.66,
+       "diff": 294.57,
+       "diff_top1_removed": 83.02,
+       "perm_p": 0.4088,
+       "control_pct": 75.0,
+       "loser_recall": 0.0347,
+       "loser_precision": 0.9091,
+       "winner_recall_weighted": 0.9954,
+       "top_decile_winners_skipped": 0.0,
+       "kept_mean_slip8": -1451.05,
+       "sign_blocks": 5,
+       "L0_diff": 428.82,
+       "L0_control_pct": 73.8,
+       "maxt_z": 0.804,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        12.98,
+        628.29
+       ],
+       "blocks": {
+        "b06": 9.04,
+        "b07": 716.0,
+        "b08": 1189.93,
+        "b09": 350.51,
+        "b10": 229.38,
+        "b11": -80.95,
+        "blocks_defined": 6,
+        "blocks_positive": 5,
+        "block_diff_min": -80.95
+       },
+       "dsr": {
+        "sr": 0.0142,
+        "sr0": 0.1492,
+        "dsr": 0.0139,
+        "p": 0.9861,
+        "T": 254,
+        "n_trials": 200,
+        "skew": 3.41,
+        "kurt": 16.224
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1A_m4",
+       "rule": [
+        [
+         "n_choch_since_bos",
+         "==",
+         0
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "180567a92a79568f",
+       "ledger_id_L0": "3a192482c62bacaf",
+       "kept_n": 1511,
+       "skipped_n": 533,
+       "kept_share": 0.7392,
+       "kept_mean": -1072.8,
+       "skipped_mean": -1064.36,
+       "diff": -8.44,
+       "diff_top1_removed": 25.43,
+       "perm_p": 0.9515,
+       "control_pct": 74.2,
+       "loser_recall": 0.2659,
+       "loser_precision": 0.863,
+       "winner_recall_weighted": 0.7236,
+       "top_decile_winners_skipped": 0.3125,
+       "kept_mean_slip8": -1462.77,
+       "sign_blocks": 3,
+       "L0_diff": -24.75,
+       "L0_control_pct": 48.9,
+       "maxt_z": -0.057,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -242.31,
+        215.37
+       ],
+       "blocks": {
+        "b06": 194.57,
+        "b07": -440.68,
+        "b08": -260.65,
+        "b09": 192.19,
+        "b10": 449.19,
+        "b11": -212.05,
+        "blocks_defined": 6,
+        "blocks_positive": 3,
+        "block_diff_min": -440.68
+       },
+       "dsr": {
+        "sr": -0.0537,
+        "sr0": 0.1492,
+        "dsr": 0.0024,
+        "p": 0.9976,
+        "T": 242,
+        "n_trials": 200,
+        "skew": 4.165,
+        "kurt": 27.069
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1A_m5",
+       "rule": [
+        [
+         "hv3_dir_agree",
+         "==",
+         true
+        ],
+        [
+         "hv3_bars_since",
+         ">=",
+         6
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "02900b275f97e097",
+       "ledger_id_L0": "08644bd1dd07bb2d",
+       "kept_n": 1496,
+       "skipped_n": 548,
+       "kept_share": 0.7319,
+       "kept_mean": -1087.13,
+       "skipped_mean": -1025.47,
+       "diff": -61.66,
+       "diff_top1_removed": -213.94,
+       "perm_p": 0.6812,
+       "control_pct": 1.9,
+       "loser_recall": 0.2711,
+       "loser_precision": 0.8558,
+       "winner_recall_weighted": 0.7747,
+       "top_decile_winners_skipped": 0.1875,
+       "kept_mean_slip8": -1477.09,
+       "sign_blocks": 3,
+       "L0_diff": -77.39,
+       "L0_control_pct": 5.1,
+       "maxt_z": -0.421,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -274.94,
+        173.78
+       ],
+       "blocks": {
+        "b06": -180.89,
+        "b07": 389.11,
+        "b08": 167.5,
+        "b09": -165.02,
+        "b10": 13.93,
+        "b11": -178.0,
+        "blocks_defined": 6,
+        "blocks_positive": 3,
+        "block_diff_min": -180.89
+       },
+       "dsr": {
+        "sr": -0.036,
+        "sr0": 0.1492,
+        "dsr": 0.003,
+        "p": 0.997,
+        "T": 251,
+        "n_trials": 200,
+        "skew": 3.533,
+        "kurt": 17.255
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1A_m6",
+       "rule": [
+        [
+         "fz_visit_n",
+         "==",
+         3
+        ],
+        [
+         "fz_read",
+         "!=",
+         "LEAVE"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "01ded11f8cec3b97",
+       "ledger_id_L0": "15e3adf63885bad0",
+       "kept_n": 1887,
+       "skipped_n": 157,
+       "kept_share": 0.9232,
+       "kept_mean": -1051.4,
+       "skipped_mean": -1301.42,
+       "diff": 250.02,
+       "diff_top1_removed": 28.27,
+       "perm_p": 0.3063,
+       "control_pct": 78.0,
+       "loser_recall": 0.0798,
+       "loser_precision": 0.879,
+       "winner_recall_weighted": 0.9625,
+       "top_decile_winners_skipped": 0.0,
+       "kept_mean_slip8": -1441.36,
+       "sign_blocks": 6,
+       "L0_diff": 470.46,
+       "L0_control_pct": 96.3,
+       "maxt_z": 1.027,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        97.44,
+        408.17
+       ],
+       "blocks": {
+        "b06": 338.95,
+        "b07": 713.36,
+        "b08": 128.37,
+        "b09": 177.19,
+        "b10": 476.42,
+        "b11": 98.8,
+        "blocks_defined": 6,
+        "blocks_positive": 6,
+        "block_diff_min": 98.8
+       },
+       "dsr": {
+        "sr": 0.0136,
+        "sr0": 0.1492,
+        "dsr": 0.0138,
+        "p": 0.9862,
+        "T": 253,
+        "n_trials": 200,
+        "skew": 3.353,
+        "kurt": 15.74
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1A_m7",
+       "rule": [
+        [
+         "room_ahead_dist_atr",
+         ">=",
+         1.4782
+        ],
+        [
+         "room_ahead_dist_atr",
+         "<",
+         2.4394
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "d67b003cf69acea7",
+       "ledger_id_L0": "cc4933849de90a9c",
+       "kept_n": 1730,
+       "skipped_n": 314,
+       "kept_share": 0.8464,
+       "kept_mean": -1057.38,
+       "skipped_mean": -1143.41,
+       "diff": 86.02,
+       "diff_top1_removed": -9.35,
+       "perm_p": 0.6227,
+       "control_pct": 76.0,
+       "loser_recall": 0.1595,
+       "loser_precision": 0.879,
+       "winner_recall_weighted": 0.8882,
+       "top_decile_winners_skipped": 0.0938,
+       "kept_mean_slip8": -1447.35,
+       "sign_blocks": 4,
+       "L0_diff": 281.11,
+       "L0_control_pct": 71.5,
+       "maxt_z": 0.479,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -208.18,
+        357.28
+       ],
+       "blocks": {
+        "b06": 374.09,
+        "b07": -211.76,
+        "b08": 146.07,
+        "b09": -247.03,
+        "b10": 607.61,
+        "b11": 97.18,
+        "blocks_defined": 6,
+        "blocks_positive": 4,
+        "block_diff_min": -247.03
+       },
+       "dsr": {
+        "sr": -0.0383,
+        "sr0": 0.1492,
+        "dsr": 0.0027,
+        "p": 0.9973,
+        "T": 250,
+        "n_trials": 200,
+        "skew": 3.264,
+        "kurt": 14.882
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1A_m8",
+       "rule": [
+        [
+         "hour_bin",
+         "==",
+         ">=15:20"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "2e465ec9d9a8062c",
+       "ledger_id_L0": "c4d46b4946a46fbf",
+       "kept_n": 2018,
+       "skipped_n": 26,
+       "kept_share": 0.9873,
+       "kept_mean": -1069.16,
+       "skipped_mean": -1182.44,
+       "diff": 113.28,
+       "diff_top1_removed": -94.11,
+       "perm_p": 0.8381,
+       "control_pct": 18.1,
+       "loser_recall": 0.015,
+       "loser_precision": 1.0,
+       "winner_recall_weighted": 1.0,
+       "top_decile_winners_skipped": 0.0,
+       "kept_mean_slip8": -1459.12,
+       "sign_blocks": 6,
+       "L0_diff": 51.9,
+       "L0_control_pct": 9.2,
+       "maxt_z": 0.196,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        10.43,
+        220.06
+       ],
+       "blocks": {
+        "b06": 131.95,
+        "b07": 290.37,
+        "b08": 321.02,
+        "b09": 3.6,
+        "b10": 61.03,
+        "b11": 139.4,
+        "blocks_defined": 6,
+        "blocks_positive": 6,
+        "block_diff_min": 3.6
+       },
+       "dsr": {
+        "sr": 0.0069,
+        "sr0": 0.1492,
+        "dsr": 0.011,
+        "p": 0.989,
+        "T": 254,
+        "n_trials": 200,
+        "skew": 3.45,
+        "kurt": 16.512
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      }
+     ],
+     "union": {
+      "ledger_id": "de1662598749599e",
+      "kept_n": 629,
+      "skipped_n": 1415,
+      "diff": -25.71,
+      "diff_top1_removed": -52.6,
+      "perm_p": 0.8551,
+      "control_pct": 17.2,
+      "winner_recall_weighted": 0.36,
+      "sign_blocks": 3,
+      "boot_diff_ci": [
+       -207.42,
+       182.73
+      ]
+     },
+     "round0": [
+      {
+       "id": "r0_m1",
+       "full_is_ledger_id": "1c3b030ae6d8d040",
+       "half_ledger_id": "6c69cb72a07bf021",
+       "diff": 56.08,
+       "control_pct": 33.1,
+       "perm_p": 0.7376
+      },
+      {
+       "id": "r0_m2",
+       "full_is_ledger_id": "6bc2dafc5db55758",
+       "half_ledger_id": "2366c457a4ba3176",
+       "diff": 263.92,
+       "control_pct": 42.4,
+       "perm_p": 0.7241
+      },
+      {
+       "id": "r0_m3",
+       "full_is_ledger_id": "6a0004c624ff8136",
+       "half_ledger_id": "705d36b9224ec3e2",
+       "diff": 85.15,
+       "control_pct": 0.7,
+       "perm_p": 0.5747
+      },
+      {
+       "id": "r0_m4",
+       "full_is_ledger_id": "44c18f849dbe54a5",
+       "half_ledger_id": "8e73cec17b092c01",
+       "diff": -194.95,
+       "control_pct": 10.1,
+       "perm_p": 0.4073
+      },
+      {
+       "id": "r0_m5",
+       "full_is_ledger_id": "b9e8b3ca7cfe53b0",
+       "half_ledger_id": "ed25a34d119ff559",
+       "diff": 5.93,
+       "control_pct": 0.1,
+       "perm_p": 0.9635
+      },
+      {
+       "id": "r0_m6",
+       "full_is_ledger_id": "7e2e3b02928d00c0",
+       "half_ledger_id": "a565ae714ff947e1",
+       "diff": 664.63,
+       "control_pct": 75.2,
+       "perm_p": 0.6537
+      },
+      {
+       "id": "r0_m7",
+       "full_is_ledger_id": "eb1806faee8fe097",
+       "half_ledger_id": "ef922129dbaab7ed",
+       "diff": 144.52,
+       "control_pct": 25.4,
+       "perm_p": 0.4423
+      },
+      {
+       "id": "r0_m8",
+       "full_is_ledger_id": "5645244e4b0400db",
+       "half_ledger_id": "4a862af1a78b0cf6",
+       "diff": null,
+       "control_pct": null,
+       "perm_p": null
+      }
+     ],
+     "max_t": {
+      "draws": 2000,
+      "statistic": "kept-vs-skipped mean difference over the pooled sd of the scored rows x sqrt(1/n_kept + 1/n_skipped) (permutation-invariant denominator); net permuted across the scored half's rows",
+      "family_masks": 199,
+      "family_testable": 188,
+      "null_max_abs_t_p95": 5.756,
+      "null_max_abs_t_p99": 7.269,
+      "best_family_member": 106,
+      "best_family_abs_t": 4.429,
+      "best_family_fw_p": 0.1959,
+      "n_cells_labelled": 184,
+      "n_cells_with_skip_set": 183,
+      "n_rules_round1": 8,
+      "n_rules_round1_scored": 8,
+      "n_rules_round0": 8,
+      "family_size": 200,
+      "best_family_member_name": "two_way:fz_readxhour_bin:NEW|10"
+     },
+     "family": {
+      "vectors": 17,
+      "pbo_diff": {
+       "candidates": 17,
+       "partitions": 12870,
+       "statistic": "diff",
+       "pbo": 0.701,
+       "oos_best_below_zero": 0.5435,
+       "degradation_slope": -0.2228,
+       "is_best_mean": 685.21,
+       "oos_best_mean": -157.69
+      },
+      "pbo_kept_mean": {
+       "candidates": 17,
+       "partitions": 12870,
+       "statistic": "kept_mean",
+       "pbo": 0.9424,
+       "oos_best_below_zero": 1.0,
+       "degradation_slope": -1.048,
+       "is_best_mean": -1009.85,
+       "oos_best_mean": -1118.51
+      },
+      "spa": {
+       "candidates": 17,
+       "sessions": 254,
+       "draws": 2000,
+       "min_active_sessions": 12,
+       "excluded_from_studentised": 3,
+       "best_unstudentised": 3,
+       "best_mean_gain_unstudentised": 55.23,
+       "rc_p_unstudentised": 0.724,
+       "spa_p_unstudentised": 0.663,
+       "best": 2,
+       "best_mean_gain": 24.1,
+       "best_t": 1.441,
+       "best_active_sessions": 47,
+       "rc_p": 0.783,
+       "spa_p": 0.7465
+      },
+      "effective_trials": 1.19
+     },
+     "outer_eligible": [],
+     "L": [],
+     "greedy_steps": []
+    },
+    "B": {
+     "scored_on": "A",
+     "tables_file": "studies/llm_round1/tables_minute_B.json",
+     "tables_sha256": "8b596e329bc0af017439668daf73f7f7689a1c58884f5b5869e5d82832e5190b",
+     "n_rows_scored": 2408,
+     "n_sessions_scored": 324,
+     "all_mean_L1": -957.84,
+     "rules": [
+      {
+       "id": "r1B_m1",
+       "rule": [
+        [
+         "hour_bin",
+         "==",
+         "<09:25"
+        ],
+        [
+         "fz_read",
+         "!=",
+         "LEAVE"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "a6e37c1d1033559b",
+       "ledger_id_L0": "19410cb34d57fc26",
+       "kept_n": 2356,
+       "skipped_n": 52,
+       "kept_share": 0.9784,
+       "kept_mean": -986.45,
+       "skipped_mean": 338.82,
+       "diff": -1325.28,
+       "diff_top1_removed": -349.36,
+       "perm_p": 0.002,
+       "control_pct": 100.0,
+       "loser_recall": 0.0168,
+       "loser_precision": 0.6538,
+       "winner_recall_weighted": 0.9016,
+       "top_decile_winners_skipped": 0.1579,
+       "kept_mean_slip8": -1376.42,
+       "sign_blocks": 2,
+       "L0_diff": -1217.05,
+       "L0_control_pct": 100.0,
+       "maxt_z": -4.025,
+       "maxt_fw_p": 0.1449,
+       "holm_p_round": 0.096,
+       "holm_p_family": 0.394,
+       "boot_diff_ci": [
+        -2922.88,
+        37.47
+       ],
+       "blocks": {
+        "b00": -7319.61,
+        "b01": -360.44,
+        "b02": -1436.25,
+        "b03": 212.19,
+        "b04": -669.95,
+        "b05": 272.85,
+        "blocks_defined": 6,
+        "blocks_positive": 2,
+        "block_diff_min": -7319.61
+       },
+       "dsr": {
+        "sr": -0.0375,
+        "sr0": 0.1483,
+        "dsr": 0.0012,
+        "p": 0.9988,
+        "T": 311,
+        "n_trials": 197,
+        "skew": 4.158,
+        "kurt": 23.215
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1B_m2",
+       "rule": [
+        [
+         "hour_bin",
+         "==",
+         ">=15:20"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "6b0de2d11705c8c5",
+       "ledger_id_L0": "bc5ba08ccc541990",
+       "kept_n": 2379,
+       "skipped_n": 29,
+       "kept_share": 0.988,
+       "kept_mean": -957.63,
+       "skipped_mean": -974.83,
+       "diff": 17.2,
+       "diff_top1_removed": -139.6,
+       "perm_p": 0.9625,
+       "control_pct": 3.0,
+       "loser_recall": 0.0143,
+       "loser_precision": 1.0,
+       "winner_recall_weighted": 1.0,
+       "top_decile_winners_skipped": 0.0,
+       "kept_mean_slip8": -1347.59,
+       "sign_blocks": 3,
+       "L0_diff": 321.17,
+       "L0_control_pct": 14.8,
+       "maxt_z": 0.039,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -90.78,
+        127.55
+       ],
+       "blocks": {
+        "b00": 80.86,
+        "b01": 338.74,
+        "b02": -200.42,
+        "b03": -52.8,
+        "b04": 175.76,
+        "b05": -22.55,
+        "blocks_defined": 6,
+        "blocks_positive": 3,
+        "block_diff_min": -200.42
+       },
+       "dsr": {
+        "sr": 0.0396,
+        "sr0": 0.1483,
+        "dsr": 0.0182,
+        "p": 0.9818,
+        "T": 323,
+        "n_trials": 197,
+        "skew": 3.487,
+        "kurt": 16.593
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1B_m3",
+       "rule": [
+        [
+         "fz_read",
+         "==",
+         "FIRST_PRINT"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "89e097218440cfff",
+       "ledger_id_L0": "885f20dada2526dc",
+       "kept_n": 2346,
+       "skipped_n": 62,
+       "kept_share": 0.9743,
+       "kept_mean": -955.9,
+       "skipped_mean": -1030.96,
+       "diff": 75.06,
+       "diff_top1_removed": -83.95,
+       "perm_p": 0.8056,
+       "control_pct": 15.9,
+       "loser_recall": 0.0256,
+       "loser_precision": 0.8387,
+       "winner_recall_weighted": 0.9866,
+       "top_decile_winners_skipped": 0.0,
+       "kept_mean_slip8": -1345.87,
+       "sign_blocks": 3,
+       "L0_diff": 338.14,
+       "L0_control_pct": 49.2,
+       "maxt_z": 0.248,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -259.3,
+        381.07
+       ],
+       "blocks": {
+        "b00": -404.07,
+        "b01": 517.44,
+        "b02": 616.16,
+        "b03": 487.51,
+        "b04": -488.2,
+        "b05": -560.68,
+        "blocks_defined": 6,
+        "blocks_positive": 3,
+        "block_diff_min": -560.68
+       },
+       "dsr": {
+        "sr": 0.0381,
+        "sr0": 0.1483,
+        "dsr": 0.017,
+        "p": 0.983,
+        "T": 324,
+        "n_trials": 197,
+        "skew": 3.487,
+        "kurt": 16.612
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1B_m4",
+       "rule": [
+        [
+         "fz_read",
+         "==",
+         "ACCEPTED"
+        ],
+        [
+         "hour_bin",
+         "in",
+         [
+          "11",
+          "12",
+          "13"
+         ]
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "e900342e50104684",
+       "ledger_id_L0": "a41990fbf76b74e2",
+       "kept_n": 2362,
+       "skipped_n": 46,
+       "kept_share": 0.9809,
+       "kept_mean": -953.12,
+       "skipped_mean": -1200.12,
+       "diff": 247.0,
+       "diff_top1_removed": 89.11,
+       "perm_p": 0.4793,
+       "control_pct": 34.9,
+       "loser_recall": 0.0202,
+       "loser_precision": 0.8913,
+       "winner_recall_weighted": 0.9955,
+       "top_decile_winners_skipped": 0.0,
+       "kept_mean_slip8": -1343.08,
+       "sign_blocks": 4,
+       "L0_diff": 299.88,
+       "L0_control_pct": 67.5,
+       "maxt_z": 0.706,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        32.38,
+        476.3
+       ],
+       "blocks": {
+        "b00": 589.26,
+        "b01": 801.48,
+        "b02": 490.85,
+        "b03": 113.87,
+        "b04": -56.46,
+        "b05": -299.48,
+        "blocks_defined": 6,
+        "blocks_positive": 4,
+        "block_diff_min": -299.48
+       },
+       "dsr": {
+        "sr": 0.0392,
+        "sr0": 0.1483,
+        "dsr": 0.0177,
+        "p": 0.9823,
+        "T": 324,
+        "n_trials": 197,
+        "skew": 3.494,
+        "kurt": 16.65
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1B_m5",
+       "rule": [
+        [
+         "fz_read",
+         "==",
+         "LEAVE"
+        ],
+        [
+         "hour_bin",
+         "==",
+         "12"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "31e444ec72e0ecec",
+       "ledger_id_L0": "24399a48fce69f54",
+       "kept_n": 2257,
+       "skipped_n": 151,
+       "kept_share": 0.9373,
+       "kept_mean": -949.38,
+       "skipped_mean": -1084.23,
+       "diff": 134.86,
+       "diff_top1_removed": 50.7,
+       "perm_p": 0.5017,
+       "control_pct": 34.7,
+       "loser_recall": 0.0626,
+       "loser_precision": 0.8411,
+       "winner_recall_weighted": 0.9558,
+       "top_decile_winners_skipped": 0.0526,
+       "kept_mean_slip8": -1339.34,
+       "sign_blocks": 4,
+       "L0_diff": 190.63,
+       "L0_control_pct": 46.5,
+       "maxt_z": 0.683,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -65.92,
+        333.29
+       ],
+       "blocks": {
+        "b00": -35.05,
+        "b01": 5.14,
+        "b02": 268.75,
+        "b03": 540.75,
+        "b04": -380.58,
+        "b05": 462.96,
+        "blocks_defined": 6,
+        "blocks_positive": 4,
+        "block_diff_min": -380.58
+       },
+       "dsr": {
+        "sr": 0.0378,
+        "sr0": 0.1483,
+        "dsr": 0.0168,
+        "p": 0.9832,
+        "T": 324,
+        "n_trials": 197,
+        "skew": 3.489,
+        "kurt": 16.616
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1B_m6",
+       "rule": [
+        [
+         "hv3_bars_since",
+         "<=",
+         0.0
+        ],
+        [
+         "hv3_dir_agree",
+         "==",
+         "True"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "0ff091e7372de925",
+       "ledger_id_L0": "1061775c0e6a9e10",
+       "kept_n": 1970,
+       "skipped_n": 438,
+       "kept_share": 0.8181,
+       "kept_mean": -969.78,
+       "skipped_mean": -904.12,
+       "diff": -65.66,
+       "diff_top1_removed": -107.7,
+       "perm_p": 0.5962,
+       "control_pct": 1.1,
+       "loser_recall": 0.176,
+       "loser_precision": 0.8151,
+       "winner_recall_weighted": 0.7871,
+       "top_decile_winners_skipped": 0.1579,
+       "kept_mean_slip8": -1359.74,
+       "sign_blocks": 2,
+       "L0_diff": -286.96,
+       "L0_control_pct": 2.4,
+       "maxt_z": -0.529,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -293.32,
+        169.71
+       ],
+       "blocks": {
+        "b00": 781.62,
+        "b01": -409.73,
+        "b02": -76.47,
+        "b03": -295.96,
+        "b04": 87.65,
+        "b05": -427.84,
+        "blocks_defined": 6,
+        "blocks_positive": 2,
+        "block_diff_min": -427.84
+       },
+       "dsr": {
+        "sr": 0.0081,
+        "sr0": 0.1483,
+        "dsr": 0.006,
+        "p": 0.994,
+        "T": 314,
+        "n_trials": 197,
+        "skew": 3.423,
+        "kurt": 16.092
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1B_m7",
+       "rule": [
+        [
+         "n_choch_since_bos",
+         ">=",
+         2.0
+        ],
+        [
+         "dir",
+         "==",
+         "up"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "9b8b193661cf7c71",
+       "ledger_id_L0": "a45b886b9c722212",
+       "kept_n": 1989,
+       "skipped_n": 419,
+       "kept_share": 0.826,
+       "kept_mean": -988.38,
+       "skipped_mean": -812.82,
+       "diff": -175.57,
+       "diff_top1_removed": -64.29,
+       "perm_p": 0.1594,
+       "control_pct": 4.5,
+       "loser_recall": 0.1706,
+       "loser_precision": 0.8258,
+       "winner_recall_weighted": 0.7938,
+       "top_decile_winners_skipped": 0.1842,
+       "kept_mean_slip8": -1378.35,
+       "sign_blocks": 2,
+       "L0_diff": -383.48,
+       "L0_control_pct": 2.8,
+       "maxt_z": -1.391,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -388.47,
+        20.79
+       ],
+       "blocks": {
+        "b00": -742.54,
+        "b01": -246.54,
+        "b02": -138.39,
+        "b03": 107.85,
+        "b04": -161.73,
+        "b05": 111.56,
+        "blocks_defined": 6,
+        "blocks_positive": 2,
+        "block_diff_min": -742.54
+       },
+       "dsr": {
+        "sr": -0.026,
+        "sr0": 0.1483,
+        "dsr": 0.0015,
+        "p": 0.9985,
+        "T": 316,
+        "n_trials": 197,
+        "skew": 3.306,
+        "kurt": 16.581
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1B_m8",
+       "rule": [
+        [
+         "touch_room_bars_ago",
+         ">=",
+         38.0
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "68f4cc8c1e02dfdb",
+       "ledger_id_L0": "cb89251992797125",
+       "kept_n": 2197,
+       "skipped_n": 211,
+       "kept_share": 0.9124,
+       "kept_mean": -969.66,
+       "skipped_mean": -834.72,
+       "diff": -134.94,
+       "diff_top1_removed": -50.45,
+       "perm_p": 0.4278,
+       "control_pct": 18.8,
+       "loser_recall": 0.0873,
+       "loser_precision": 0.8389,
+       "winner_recall_weighted": 0.8863,
+       "top_decile_winners_skipped": 0.1053,
+       "kept_mean_slip8": -1359.62,
+       "sign_blocks": 3,
+       "L0_diff": -328.36,
+       "L0_control_pct": 42.1,
+       "maxt_z": -0.797,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -418.99,
+        135.6
+       ],
+       "blocks": {
+        "b00": 43.64,
+        "b01": 164.94,
+        "b02": 291.39,
+        "b03": -535.59,
+        "b04": -363.12,
+        "b05": -112.19,
+        "blocks_defined": 6,
+        "blocks_positive": 3,
+        "block_diff_min": -535.59
+       },
+       "dsr": {
+        "sr": 0.016,
+        "sr0": 0.1483,
+        "dsr": 0.0075,
+        "p": 0.9925,
+        "T": 320,
+        "n_trials": 197,
+        "skew": 3.636,
+        "kurt": 18.031
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      }
+     ],
+     "union": {
+      "ledger_id": "3f7e85e910c63d1e",
+      "kept_n": 1274,
+      "skipped_n": 1134,
+      "diff": -162.41,
+      "diff_top1_removed": -100.52,
+      "perm_p": 0.0975,
+      "control_pct": 4.2,
+      "winner_recall_weighted": 0.4457,
+      "sign_blocks": 1,
+      "boot_diff_ci": [
+       -286.89,
+       -24.89
+      ]
+     },
+     "round0": [
+      {
+       "id": "r0_m1",
+       "full_is_ledger_id": "1c3b030ae6d8d040",
+       "half_ledger_id": "1485dc5d83c14d34",
+       "diff": -69.76,
+       "control_pct": 2.5,
+       "perm_p": 0.5677
+      },
+      {
+       "id": "r0_m2",
+       "full_is_ledger_id": "6bc2dafc5db55758",
+       "half_ledger_id": "cf5fde85c9d3e5e5",
+       "diff": -40.79,
+       "control_pct": 53.5,
+       "perm_p": 0.9275
+      },
+      {
+       "id": "r0_m3",
+       "full_is_ledger_id": "6a0004c624ff8136",
+       "half_ledger_id": "b71da929fd20d0fc",
+       "diff": -77.34,
+       "control_pct": 0.0,
+       "perm_p": 0.5257
+      },
+      {
+       "id": "r0_m4",
+       "full_is_ledger_id": "44c18f849dbe54a5",
+       "half_ledger_id": "46c5a9216b7a7271",
+       "diff": -9.51,
+       "control_pct": 77.0,
+       "perm_p": 0.9565
+      },
+      {
+       "id": "r0_m5",
+       "full_is_ledger_id": "b9e8b3ca7cfe53b0",
+       "half_ledger_id": "1ff56308d0a09217",
+       "diff": 27.24,
+       "control_pct": 2.2,
+       "perm_p": 0.7781
+      },
+      {
+       "id": "r0_m6",
+       "full_is_ledger_id": "7e2e3b02928d00c0",
+       "half_ledger_id": "8095b3e9670478b9",
+       "diff": null,
+       "control_pct": null,
+       "perm_p": null
+      },
+      {
+       "id": "r0_m7",
+       "full_is_ledger_id": "eb1806faee8fe097",
+       "half_ledger_id": "d8d06918e4c9d14e",
+       "diff": -87.59,
+       "control_pct": 0.5,
+       "perm_p": 0.5297
+      },
+      {
+       "id": "r0_m8",
+       "full_is_ledger_id": "5645244e4b0400db",
+       "half_ledger_id": "20ae3f57dc61c9dd",
+       "diff": null,
+       "control_pct": null,
+       "perm_p": null
+      }
+     ],
+     "max_t": {
+      "draws": 2000,
+      "statistic": "kept-vs-skipped mean difference over the pooled sd of the scored rows x sqrt(1/n_kept + 1/n_skipped) (permutation-invariant denominator); net permuted across the scored half's rows",
+      "family_masks": 196,
+      "family_testable": 185,
+      "null_max_abs_t_p95": 4.673,
+      "null_max_abs_t_p99": 5.766,
+      "best_family_member": 7,
+      "best_family_abs_t": 4.473,
+      "best_family_fw_p": 0.0655,
+      "n_cells_labelled": 181,
+      "n_cells_with_skip_set": 180,
+      "n_rules_round1": 8,
+      "n_rules_round1_scored": 8,
+      "n_rules_round0": 8,
+      "family_size": 197,
+      "best_family_member_name": "one_way:hour_bin:<09:25"
+     },
+     "family": {
+      "vectors": 17,
+      "pbo_diff": {
+       "candidates": 17,
+       "partitions": 12870,
+       "statistic": "diff",
+       "pbo": 0.5449,
+       "oos_best_below_zero": 0.6221,
+       "degradation_slope": -1.7625,
+       "is_best_mean": 388.83,
+       "oos_best_mean": -350.83
+      },
+      "pbo_kept_mean": {
+       "candidates": 17,
+       "partitions": 12870,
+       "statistic": "kept_mean",
+       "pbo": 0.7406,
+       "oos_best_below_zero": 1.0,
+       "degradation_slope": -0.9492,
+       "is_best_mean": -932.11,
+       "oos_best_mean": -980.83
+      },
+      "spa": {
+       "candidates": 17,
+       "sessions": 324,
+       "draws": 2000,
+       "min_active_sessions": 16,
+       "excluded_from_studentised": 2,
+       "best_unstudentised": 0,
+       "best_mean_gain_unstudentised": 43.68,
+       "rc_p_unstudentised": 0.7075,
+       "spa_p_unstudentised": 0.6925,
+       "best": 0,
+       "best_mean_gain": 43.68,
+       "best_t": 2.439,
+       "best_active_sessions": 38,
+       "rc_p": 0.4435,
+       "spa_p": 0.4365
+      },
+      "effective_trials": 1.14
+     },
+     "outer_eligible": [],
+     "L": [],
+     "greedy_steps": []
+    }
+   },
+   "crossfit_rows": {
+    "oof12": {
+     "ledger_id": "188e8939ee98df0e",
+     "kept_n": 4452,
+     "skipped_n": 0,
+     "kept_share": 1.0,
+     "diff": null,
+     "diff_top1_removed": null,
+     "perm_p": null,
+     "control_pct": null,
+     "loser_recall": null,
+     "winner_recall_weighted": null,
+     "top_decile_winners_skipped": null,
+     "kept_mean_slip8": null,
+     "sign_blocks": null
+    }
+   },
+   "oof12_selection": {
+    "b00": {
+     "proposer": "B",
+     "chosen": [],
+     "n_sel_rows": 1990,
+     "eligible": []
+    },
+    "b01": {
+     "proposer": "B",
+     "chosen": [],
+     "n_sel_rows": 2014,
+     "eligible": []
+    },
+    "b02": {
+     "proposer": "B",
+     "chosen": [],
+     "n_sel_rows": 2004,
+     "eligible": []
+    },
+    "b03": {
+     "proposer": "B",
+     "chosen": [],
+     "n_sel_rows": 1870,
+     "eligible": []
+    },
+    "b04": {
+     "proposer": "B",
+     "chosen": [],
+     "n_sel_rows": 2018,
+     "eligible": []
+    },
+    "b05": {
+     "proposer": "B",
+     "chosen": [],
+     "n_sel_rows": 2067,
+     "eligible": []
+    },
+    "b06": {
+     "proposer": "A",
+     "chosen": [],
+     "n_sel_rows": 1604,
+     "eligible": []
+    },
+    "b07": {
+     "proposer": "A",
+     "chosen": [],
+     "n_sel_rows": 1778,
+     "eligible": []
+    },
+    "b08": {
+     "proposer": "A",
+     "chosen": [],
+     "n_sel_rows": 1874,
+     "eligible": []
+    },
+    "b09": {
+     "proposer": "A",
+     "chosen": [],
+     "n_sel_rows": 1545,
+     "eligible": []
+    },
+    "b10": {
+     "proposer": "A",
+     "chosen": [],
+     "n_sel_rows": 1851,
+     "eligible": []
+    },
+    "b11": {
+     "proposer": "A",
+     "chosen": [],
+     "n_sel_rows": 1532,
+     "eligible": []
+    }
+   },
+   "cpcv": {
+    "paths": 11,
+    "diff_median": null,
+    "diff_p5": null,
+    "diff_min": null,
+    "diff_share_positive": 0.0,
+    "kept_share_median": 1.0,
+    "control_pct_median": null,
+    "control_pct_p5": null
+   },
+   "cpcv_blocks_with_selection": 0,
+   "cpcv_selection": {
+    "0-1": {
+     "0": [],
+     "1": []
+    },
+    "0-2": {
+     "0": [],
+     "2": []
+    },
+    "0-3": {
+     "0": [],
+     "3": []
+    },
+    "0-4": {
+     "0": [],
+     "4": []
+    },
+    "0-5": {
+     "0": [],
+     "5": []
+    },
+    "0-6": {
+     "0": [],
+     "6": []
+    },
+    "0-7": {
+     "0": [],
+     "7": []
+    },
+    "0-8": {
+     "0": [],
+     "8": []
+    },
+    "0-9": {
+     "0": [],
+     "9": []
+    },
+    "0-10": {
+     "0": [],
+     "10": []
+    },
+    "0-11": {
+     "0": [],
+     "11": []
+    },
+    "1-2": {
+     "1": [],
+     "2": []
+    },
+    "1-3": {
+     "1": [],
+     "3": []
+    },
+    "1-4": {
+     "1": [],
+     "4": []
+    },
+    "1-5": {
+     "1": [],
+     "5": []
+    },
+    "1-6": {
+     "1": [],
+     "6": []
+    },
+    "1-7": {
+     "1": [],
+     "7": []
+    },
+    "1-8": {
+     "1": [],
+     "8": []
+    },
+    "1-9": {
+     "1": [],
+     "9": []
+    },
+    "1-10": {
+     "1": [],
+     "10": []
+    },
+    "1-11": {
+     "1": [],
+     "11": []
+    },
+    "2-3": {
+     "2": [],
+     "3": []
+    },
+    "2-4": {
+     "2": [],
+     "4": []
+    },
+    "2-5": {
+     "2": [],
+     "5": []
+    },
+    "2-6": {
+     "2": [],
+     "6": []
+    },
+    "2-7": {
+     "2": [],
+     "7": []
+    },
+    "2-8": {
+     "2": [],
+     "8": []
+    },
+    "2-9": {
+     "2": [],
+     "9": []
+    },
+    "2-10": {
+     "2": [],
+     "10": []
+    },
+    "2-11": {
+     "2": [],
+     "11": []
+    },
+    "3-4": {
+     "3": [],
+     "4": []
+    },
+    "3-5": {
+     "3": [],
+     "5": []
+    },
+    "3-6": {
+     "3": [],
+     "6": []
+    },
+    "3-7": {
+     "3": [],
+     "7": []
+    },
+    "3-8": {
+     "3": [],
+     "8": []
+    },
+    "3-9": {
+     "3": [],
+     "9": []
+    },
+    "3-10": {
+     "3": [],
+     "10": []
+    },
+    "3-11": {
+     "3": [],
+     "11": []
+    },
+    "4-5": {
+     "4": [],
+     "5": []
+    },
+    "4-6": {
+     "4": [],
+     "6": []
+    },
+    "4-7": {
+     "4": [],
+     "7": []
+    },
+    "4-8": {
+     "4": [],
+     "8": []
+    },
+    "4-9": {
+     "4": [],
+     "9": []
+    },
+    "4-10": {
+     "4": [],
+     "10": []
+    },
+    "4-11": {
+     "4": [],
+     "11": []
+    },
+    "5-6": {
+     "5": [],
+     "6": []
+    },
+    "5-7": {
+     "5": [],
+     "7": []
+    },
+    "5-8": {
+     "5": [],
+     "8": []
+    },
+    "5-9": {
+     "5": [],
+     "9": []
+    },
+    "5-10": {
+     "5": [],
+     "10": []
+    },
+    "5-11": {
+     "5": [],
+     "11": []
+    },
+    "6-7": {
+     "6": [],
+     "7": []
+    },
+    "6-8": {
+     "6": [],
+     "8": []
+    },
+    "6-9": {
+     "6": [],
+     "9": []
+    },
+    "6-10": {
+     "6": [],
+     "10": []
+    },
+    "6-11": {
+     "6": [],
+     "11": []
+    },
+    "7-8": {
+     "7": [],
+     "8": []
+    },
+    "7-9": {
+     "7": [],
+     "9": []
+    },
+    "7-10": {
+     "7": [],
+     "10": []
+    },
+    "7-11": {
+     "7": [],
+     "11": []
+    },
+    "8-9": {
+     "8": [],
+     "9": []
+    },
+    "8-10": {
+     "8": [],
+     "10": []
+    },
+    "8-11": {
+     "8": [],
+     "11": []
+    },
+    "9-10": {
+     "9": [],
+     "10": []
+    },
+    "9-11": {
+     "9": [],
+     "11": []
+    },
+    "10-11": {
+     "10": [],
+     "11": []
+    }
+   },
+   "crossfit_family": {
+    "vectors": 12,
+    "pbo_diff": {
+     "candidates": 12,
+     "partitions": 12870,
+     "statistic": "diff",
+     "pbo": 1.0,
+     "oos_best_below_zero": null,
+     "degradation_slope": null,
+     "is_best_mean": null,
+     "oos_best_mean": null
+    },
+    "pbo_kept_mean": {
+     "candidates": 12,
+     "partitions": 12870,
+     "statistic": "kept_mean",
+     "pbo": 1.0,
+     "oos_best_below_zero": 1.0,
+     "degradation_slope": -0.9989,
+     "is_best_mean": -1009.09,
+     "oos_best_mean": -1009.09
+    },
+    "spa": {
+     "candidates": 12,
+     "sessions": 578,
+     "draws": 2000,
+     "min_active_sessions": 28,
+     "excluded_from_studentised": 12,
+     "best_unstudentised": 0,
+     "best_mean_gain_unstudentised": 0.0,
+     "rc_p_unstudentised": 1.0,
+     "spa_p_unstudentised": 1.0,
+     "best": null,
+     "best_mean_gain": null,
+     "best_t": null,
+     "best_active_sessions": null,
+     "rc_p": null,
+     "spa_p": null
+    },
+    "effective_trials": 1.0
+   },
+   "go_no_go": {
+    "passed": false,
+    "checks": {
+     "kept_share>=20%": [
+      true,
+      1.0
+     ],
+     "kept_n>=300": [
+      true,
+      4452
+     ],
+     "diff>0": [
+      false,
+      null
+     ],
+     "diff_top1_removed>0": [
+      false,
+      null
+     ],
+     "kept_mean_slip8>0": [
+      false,
+      null
+     ],
+     "sign_blocks>=8/12": [
+      false,
+      null
+     ],
+     "control_pct>=95": [
+      false,
+      null
+     ],
+     "cpcv_p5_diff>0": [
+      false,
+      null
+     ],
+     "pbo<=0.2": [
+      false,
+      1.0
+     ],
+     "dsr_p<0.1": [
+      false,
+      0.9933
+     ],
+     "boot_ci_excludes_0": [
+      false,
+      [
+       NaN,
+       NaN
+      ]
+     ],
+     "null_tape:evaluated": [
+      false,
+      "no rule list (nothing to check)"
+     ],
+     "no_time_proxy_columns": [
+      true,
+      []
+     ]
+    },
+    "dsr": {
+     "sr": 0.0253,
+     "sr0": 0.1238,
+     "dsr": 0.0067,
+     "p": 0.9933,
+     "T": 578,
+     "n_trials": 389,
+     "skew": 3.477,
+     "kurt": 16.62
+    },
+    "note": "no fixed crossed list (no rule chosen in either direction); go/no-go read on the oof12 row",
+    "columns": []
+   },
+   "family_size_total": 389,
+   "rules_out": []
+  },
+  "5minute": {
+   "directions": {
+    "A": {
+     "scored_on": "B",
+     "tables_file": "studies/llm_round1/tables_5minute_A.json",
+     "tables_sha256": "ea40281dd540f6c95723e9f87078d71e2d9abb4d2486886fff28e119b0972219",
+     "n_rows_scored": 398,
+     "n_sessions_scored": 194,
+     "all_mean_L1": -842.96,
+     "rules": [
+      {
+       "id": "r1A_f1",
+       "rule": [
+        [
+         "fz_gate",
+         "==",
+         "TAKE"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "1a67dc2d1859b4aa",
+       "ledger_id_L0": "4979f5020a7dc9b3",
+       "kept_n": 286,
+       "skipped_n": 112,
+       "kept_share": 0.7186,
+       "kept_mean": -1021.88,
+       "skipped_mean": -386.07,
+       "diff": -635.81,
+       "diff_top1_removed": -417.92,
+       "perm_p": 0.2319,
+       "control_pct": 49.6,
+       "loser_recall": 0.2635,
+       "loser_precision": 0.6964,
+       "winner_recall_weighted": 0.6004,
+       "top_decile_winners_skipped": 0.5455,
+       "kept_mean_slip8": -1411.84,
+       "sign_blocks": 2,
+       "L0_diff": -1218.69,
+       "L0_control_pct": 38.1,
+       "maxt_z": -1.177,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -1423.61,
+        87.81
+       ],
+       "blocks": {
+        "b06": -2112.08,
+        "b07": 872.03,
+        "b08": -1188.36,
+        "b09": -926.52,
+        "b10": 1552.36,
+        "b11": -167.26,
+        "blocks_defined": 6,
+        "blocks_positive": 2,
+        "block_diff_min": -2112.08
+       },
+       "dsr": {
+        "sr": -0.1205,
+        "sr0": 0.1618,
+        "dsr": 0.0004,
+        "p": 0.9996,
+        "T": 161,
+        "n_trials": 138,
+        "skew": 0.86,
+        "kurt": 9.788
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1A_f2",
+       "rule": [
+        [
+         "fz_read",
+         "==",
+         "PENDING"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "532bd54b69c6ba44",
+       "ledger_id_L0": "26d3d924ef445a2a",
+       "kept_n": 310,
+       "skipped_n": 88,
+       "kept_share": 0.7789,
+       "kept_mean": -702.99,
+       "skipped_mean": -1336.02,
+       "diff": 633.03,
+       "diff_top1_removed": 637.39,
+       "perm_p": 0.2704,
+       "control_pct": 87.9,
+       "loser_recall": 0.2331,
+       "loser_precision": 0.7841,
+       "winner_recall_weighted": 0.8598,
+       "top_decile_winners_skipped": 0.0909,
+       "kept_mean_slip8": -1092.96,
+       "sign_blocks": 5,
+       "L0_diff": 1165.49,
+       "L0_control_pct": 76.8,
+       "maxt_z": 1.082,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -108.36,
+        1376.36
+       ],
+       "blocks": {
+        "b06": 905.38,
+        "b07": 77.8,
+        "b08": 56.06,
+        "b09": 1200.04,
+        "b10": -28.8,
+        "b11": 1037.06,
+        "blocks_defined": 6,
+        "blocks_positive": 5,
+        "block_diff_min": -28.8
+       },
+       "dsr": {
+        "sr": 0.0143,
+        "sr0": 0.1618,
+        "dsr": 0.0268,
+        "p": 0.9732,
+        "T": 170,
+        "n_trials": 138,
+        "skew": 1.004,
+        "kurt": 6.95
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1A_f3",
+       "rule": [
+        [
+         "hour_bin",
+         "in",
+         [
+          "11",
+          "12"
+         ]
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "933b1a9ab1418dba",
+       "ledger_id_L0": "dba0e94740d8894f",
+       "kept_n": 291,
+       "skipped_n": 107,
+       "kept_share": 0.7312,
+       "kept_mean": -912.58,
+       "skipped_mean": -653.62,
+       "diff": -258.96,
+       "diff_top1_removed": -285.01,
+       "perm_p": 0.6297,
+       "control_pct": 20.4,
+       "loser_recall": 0.2736,
+       "loser_precision": 0.757,
+       "winner_recall_weighted": 0.7035,
+       "top_decile_winners_skipped": 0.3636,
+       "kept_mean_slip8": -1302.54,
+       "sign_blocks": 3,
+       "L0_diff": 360.68,
+       "L0_control_pct": 23.3,
+       "maxt_z": -0.473,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -1114.69,
+        657.05
+       ],
+       "blocks": {
+        "b06": 1131.21,
+        "b07": 1182.31,
+        "b08": -2129.58,
+        "b09": 10.07,
+        "b10": -1790.5,
+        "b11": -342.65,
+        "blocks_defined": 6,
+        "blocks_positive": 3,
+        "block_diff_min": -2129.58
+       },
+       "dsr": {
+        "sr": -0.0359,
+        "sr0": 0.1618,
+        "dsr": 0.0056,
+        "p": 0.9944,
+        "T": 172,
+        "n_trials": 138,
+        "skew": 1.088,
+        "kurt": 7.533
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1A_f4",
+       "rule": [
+        [
+         "n_choch_since_bos",
+         "==",
+         2
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "b17b23f2469ad58b",
+       "ledger_id_L0": "a4b4a511faddc675",
+       "kept_n": 325,
+       "skipped_n": 73,
+       "kept_share": 0.8166,
+       "kept_mean": -655.19,
+       "skipped_mean": -1678.89,
+       "diff": 1023.69,
+       "diff_top1_removed": 780.46,
+       "perm_p": 0.1064,
+       "control_pct": 70.1,
+       "loser_recall": 0.2061,
+       "loser_precision": 0.8356,
+       "winner_recall_weighted": 0.8952,
+       "top_decile_winners_skipped": 0.0909,
+       "kept_mean_slip8": -1045.16,
+       "sign_blocks": 4,
+       "L0_diff": 1988.77,
+       "L0_control_pct": 94.3,
+       "maxt_z": 1.632,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        215.03,
+        1940.85
+       ],
+       "blocks": {
+        "b06": 1454.3,
+        "b07": -622.55,
+        "b08": -82.55,
+        "b09": 2296.47,
+        "b10": 723.69,
+        "b11": 1588.87,
+        "blocks_defined": 6,
+        "blocks_positive": 4,
+        "block_diff_min": -622.55
+       },
+       "dsr": {
+        "sr": 0.0156,
+        "sr0": 0.1618,
+        "dsr": 0.0238,
+        "p": 0.9762,
+        "T": 182,
+        "n_trials": 138,
+        "skew": 0.898,
+        "kurt": 7.538
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1A_f5",
+       "rule": [
+        [
+         "hv3_dir_agree",
+         "==",
+         true
+        ],
+        [
+         "hv3_bars_since",
+         ">=",
+         2
+        ],
+        [
+         "hv3_bars_since",
+         "<",
+         13
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "4f2674ed8b5dd26d",
+       "ledger_id_L0": "11c71db9c84c8835",
+       "kept_n": 366,
+       "skipped_n": 32,
+       "kept_share": 0.9196,
+       "kept_mean": -803.15,
+       "skipped_mean": -1298.24,
+       "diff": 495.08,
+       "diff_top1_removed": 277.77,
+       "perm_p": 0.5872,
+       "control_pct": 10.9,
+       "loser_recall": 0.0777,
+       "loser_precision": 0.7188,
+       "winner_recall_weighted": 0.9569,
+       "top_decile_winners_skipped": 0.0,
+       "kept_mean_slip8": -1193.12,
+       "sign_blocks": 4,
+       "L0_diff": 1249.09,
+       "L0_control_pct": 48.9,
+       "maxt_z": 0.554,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -310.27,
+        1232.54
+       ],
+       "blocks": {
+        "b06": 1296.45,
+        "b07": 1109.56,
+        "b08": 1457.46,
+        "b09": 404.02,
+        "b10": -2911.95,
+        "b11": -747.62,
+        "blocks_defined": 6,
+        "blocks_positive": 4,
+        "block_diff_min": -2911.95
+       },
+       "dsr": {
+        "sr": 0.0193,
+        "sr0": 0.1618,
+        "dsr": 0.0255,
+        "p": 0.9745,
+        "T": 185,
+        "n_trials": 138,
+        "skew": 0.962,
+        "kurt": 7.056
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1A_f6",
+       "rule": [
+        [
+         "touch_room_last",
+         "==",
+         "held"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "53560fc1a3ef67e7",
+       "ledger_id_L0": "765a38ff7dbec3b9",
+       "kept_n": 368,
+       "skipped_n": 30,
+       "kept_share": 0.9246,
+       "kept_mean": -768.16,
+       "skipped_mean": -1760.51,
+       "diff": 992.35,
+       "diff_top1_removed": 776.61,
+       "perm_p": 0.2734,
+       "control_pct": 88.2,
+       "loser_recall": 0.0845,
+       "loser_precision": 0.8333,
+       "winner_recall_weighted": 0.9665,
+       "top_decile_winners_skipped": 0.0,
+       "kept_mean_slip8": -1158.12,
+       "sign_blocks": 4,
+       "L0_diff": 2131.32,
+       "L0_control_pct": 95.3,
+       "maxt_z": 1.079,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -120.42,
+        1913.86
+       ],
+       "blocks": {
+        "b06": 1751.37,
+        "b07": 1605.38,
+        "b08": 2478.85,
+        "b09": 286.37,
+        "b10": -1448.73,
+        "b11": -331.74,
+        "blocks_defined": 6,
+        "blocks_positive": 4,
+        "block_diff_min": -1448.73
+       },
+       "dsr": {
+        "sr": 0.0214,
+        "sr0": 0.1618,
+        "dsr": 0.0255,
+        "p": 0.9745,
+        "T": 190,
+        "n_trials": 138,
+        "skew": 1.051,
+        "kurt": 7.197
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1A_f7",
+       "rule": [
+        [
+         "touch_prot_last",
+         "in",
+         [
+          "none",
+          "na"
+         ]
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "da8191d05262d10a",
+       "ledger_id_L0": "88dfc79caea501a0",
+       "kept_n": 362,
+       "skipped_n": 36,
+       "kept_share": 0.9095,
+       "kept_mean": -867.29,
+       "skipped_mean": -598.22,
+       "diff": -269.07,
+       "diff_top1_removed": -489.53,
+       "perm_p": 0.7496,
+       "control_pct": 55.9,
+       "loser_recall": 0.0777,
+       "loser_precision": 0.6389,
+       "winner_recall_weighted": 0.8901,
+       "top_decile_winners_skipped": 0.0909,
+       "kept_mean_slip8": -1257.26,
+       "sign_blocks": 2,
+       "L0_diff": -2493.64,
+       "L0_control_pct": 88.2,
+       "maxt_z": -0.318,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -1717.5,
+        948.67
+       ],
+       "blocks": {
+        "b06": 2421.32,
+        "b07": -183.54,
+        "b08": -1414.64,
+        "b09": -971.64,
+        "b10": 1232.26,
+        "b11": -1860.94,
+        "blocks_defined": 6,
+        "blocks_positive": 2,
+        "block_diff_min": -1860.94
+       },
+       "dsr": {
+        "sr": -0.0222,
+        "sr0": 0.1618,
+        "dsr": 0.0079,
+        "p": 0.9921,
+        "T": 177,
+        "n_trials": 138,
+        "skew": 1.04,
+        "kurt": 7.898
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1A_f8",
+       "rule": [
+        [
+         "fz_visit_n",
+         "==",
+         3
+        ],
+        [
+         "fz_read",
+         "in",
+         [
+          "LEAVE",
+          "PENDING"
+         ]
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "534f94d8adbd8276",
+       "ledger_id_L0": "afa208761160af8c",
+       "kept_n": 373,
+       "skipped_n": 25,
+       "kept_share": 0.9372,
+       "kept_mean": -864.52,
+       "skipped_mean": -521.24,
+       "diff": -343.28,
+       "diff_top1_removed": -557.14,
+       "perm_p": 0.7361,
+       "control_pct": 8.5,
+       "loser_recall": 0.0608,
+       "loser_precision": 0.72,
+       "winner_recall_weighted": 0.9499,
+       "top_decile_winners_skipped": 0.0,
+       "kept_mean_slip8": -1254.48,
+       "sign_blocks": 4,
+       "L0_diff": 1086.55,
+       "L0_control_pct": 53.1,
+       "maxt_z": -0.343,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -1473.35,
+        679.08
+       ],
+       "blocks": {
+        "b06": 1162.15,
+        "b07": 1431.87,
+        "b08": 149.34,
+        "b09": -1590.92,
+        "b10": 349.78,
+        "b11": -1273.29,
+        "blocks_defined": 6,
+        "blocks_positive": 4,
+        "block_diff_min": -1590.92
+       },
+       "dsr": {
+        "sr": 0.0077,
+        "sr0": 0.1618,
+        "dsr": 0.017,
+        "p": 0.983,
+        "T": 189,
+        "n_trials": 138,
+        "skew": 1.059,
+        "kurt": 7.415
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      }
+     ],
+     "union": {
+      "ledger_id": "a904c96c914f0712",
+      "kept_n": 94,
+      "skipped_n": 304,
+      "diff": -609.22,
+      "diff_top1_removed": -657.24,
+      "perm_p": 0.2894,
+      "control_pct": 17.6,
+      "winner_recall_weighted": 0.1948,
+      "sign_blocks": 0,
+      "boot_diff_ci": [
+       -1306.71,
+       109.16
+      ]
+     },
+     "round0": [
+      {
+       "id": "r0_f1",
+       "full_is_ledger_id": "3b66a4e1aa363c21",
+       "half_ledger_id": "dbeedf6c80c4d6de",
+       "diff": -411.8,
+       "control_pct": 97.2,
+       "perm_p": 0.6577
+      },
+      {
+       "id": "r0_f2",
+       "full_is_ledger_id": "d9bdb49fd0899705",
+       "half_ledger_id": "26fcb4cfb7b55e0d",
+       "diff": -1364.52,
+       "control_pct": 0.1,
+       "perm_p": 0.1299
+      },
+      {
+       "id": "r0_f3",
+       "full_is_ledger_id": "d1995f0e96e190f4",
+       "half_ledger_id": "5dd8f278f7b4f153",
+       "diff": -507.82,
+       "control_pct": 0.3,
+       "perm_p": 0.5182
+      },
+      {
+       "id": "r0_f4",
+       "full_is_ledger_id": "82b3a4bb1a3d7cb8",
+       "half_ledger_id": "a531609e781d283c",
+       "diff": -381.59,
+       "control_pct": 87.0,
+       "perm_p": 0.7191
+      },
+      {
+       "id": "r0_f5",
+       "full_is_ledger_id": "d92c44d6adc501ac",
+       "half_ledger_id": "806be1a25e1851b3",
+       "diff": -481.09,
+       "control_pct": 0.9,
+       "perm_p": 0.6252
+      },
+      {
+       "id": "r0_f6",
+       "full_is_ledger_id": "71acfc38786c1cdf",
+       "half_ledger_id": "0bdd90882fc7efbc",
+       "diff": 181.12,
+       "control_pct": 56.8,
+       "perm_p": 0.8776
+      },
+      {
+       "id": "r0_f7",
+       "full_is_ledger_id": "d62b114016d51dcb",
+       "half_ledger_id": "c22b7ac28608b506",
+       "diff": -116.82,
+       "control_pct": 8.9,
+       "perm_p": 0.8831
+      },
+      {
+       "id": "r0_f8",
+       "full_is_ledger_id": "af6b26dbc455e8f7",
+       "half_ledger_id": "3aed47e0e991f16c",
+       "diff": 2815.56,
+       "control_pct": 87.5,
+       "perm_p": 0.4223
+      }
+     ],
+     "max_t": {
+      "draws": 2000,
+      "statistic": "kept-vs-skipped mean difference over the pooled sd of the scored rows x sqrt(1/n_kept + 1/n_skipped) (permutation-invariant denominator); net permuted across the scored half's rows",
+      "family_masks": 137,
+      "family_testable": 126,
+      "null_max_abs_t_p95": 3.869,
+      "null_max_abs_t_p99": 4.532,
+      "best_family_member": 22,
+      "best_family_abs_t": 2.617,
+      "best_family_fw_p": 0.6607,
+      "n_cells_labelled": 122,
+      "n_cells_with_skip_set": 121,
+      "n_rules_round1": 8,
+      "n_rules_round1_scored": 8,
+      "n_rules_round0": 8,
+      "family_size": 138,
+      "best_family_member_name": "one_way:card_leave_kind:normal"
+     },
+     "family": {
+      "vectors": 17,
+      "pbo_diff": {
+       "candidates": 17,
+       "partitions": 12870,
+       "statistic": "diff",
+       "pbo": 0.6615,
+       "oos_best_below_zero": 0.351,
+       "degradation_slope": -0.4973,
+       "is_best_mean": 1321.46,
+       "oos_best_mean": -30.31
+      },
+      "pbo_kept_mean": {
+       "candidates": 17,
+       "partitions": 12870,
+       "statistic": "kept_mean",
+       "pbo": 0.1601,
+       "oos_best_below_zero": 0.9997,
+       "degradation_slope": -0.8421,
+       "is_best_mean": -614.69,
+       "oos_best_mean": -798.84
+      },
+      "spa": {
+       "candidates": 17,
+       "sessions": 194,
+       "draws": 2000,
+       "min_active_sessions": 10,
+       "excluded_from_studentised": 1,
+       "best_unstudentised": 9,
+       "best_mean_gain_unstudentised": 121.92,
+       "rc_p_unstudentised": 0.3905,
+       "spa_p_unstudentised": 0.3905,
+       "best": 9,
+       "best_mean_gain": 121.92,
+       "best_t": 1.546,
+       "best_active_sessions": 18,
+       "rc_p": 0.4715,
+       "spa_p": 0.404
+      },
+      "effective_trials": 1.32
+     },
+     "outer_eligible": [],
+     "L": [],
+     "greedy_steps": []
+    },
+    "B": {
+     "scored_on": "A",
+     "tables_file": "studies/llm_round1/tables_5minute_B.json",
+     "tables_sha256": "3c74db45331e13dce70e86dcfacea17266c907dd6826897676e24d23e70f50f5",
+     "n_rows_scored": 428,
+     "n_sessions_scored": 214,
+     "all_mean_L1": -677.17,
+     "rules": [
+      {
+       "id": "r1B_f1",
+       "rule": [
+        [
+         "fz_read",
+         "==",
+         "NEW"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "eaf53fdc0790c410",
+       "ledger_id_L0": "43887459e30d37d3",
+       "kept_n": 389,
+       "skipped_n": 39,
+       "kept_share": 0.9089,
+       "kept_mean": -702.03,
+       "skipped_mean": -429.16,
+       "diff": -272.87,
+       "diff_top1_removed": 492.46,
+       "perm_p": 0.6847,
+       "control_pct": 66.5,
+       "loser_recall": 0.0797,
+       "loser_precision": 0.6154,
+       "winner_recall_weighted": 0.8722,
+       "top_decile_winners_skipped": 0.1538,
+       "kept_mean_slip8": -1092.0,
+       "sign_blocks": 2,
+       "L0_diff": -298.91,
+       "L0_control_pct": 45.5,
+       "maxt_z": -0.39,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -2154.3,
+        1474.96
+       ],
+       "blocks": {
+        "b00": -4535.51,
+        "b01": 2908.78,
+        "b02": 2980.8,
+        "b03": -746.96,
+        "b04": -2022.15,
+        "b05": -2391.53,
+        "blocks_defined": 6,
+        "blocks_positive": 2,
+        "block_diff_min": -4535.51
+       },
+       "dsr": {
+        "sr": 0.0073,
+        "sr0": 0.1257,
+        "dsr": 0.0438,
+        "p": 0.9562,
+        "T": 206,
+        "n_trials": 134,
+        "skew": 2.068,
+        "kurt": 8.896
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1B_f2",
+       "rule": [
+        [
+         "n_choch_since_bos",
+         "==",
+         2.0
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "065cf63cc2e5c415",
+       "ledger_id_L0": "36e7232a1753bf5b",
+       "kept_n": 358,
+       "skipped_n": 70,
+       "kept_share": 0.8364,
+       "kept_mean": -576.95,
+       "skipped_mean": -1189.72,
+       "diff": 612.77,
+       "diff_top1_removed": 337.7,
+       "perm_p": 0.2629,
+       "control_pct": 82.0,
+       "loser_recall": 0.1761,
+       "loser_precision": 0.7571,
+       "winner_recall_weighted": 0.8413,
+       "top_decile_winners_skipped": 0.2308,
+       "kept_mean_slip8": -966.92,
+       "sign_blocks": 4,
+       "L0_diff": 2229.44,
+       "L0_control_pct": 80.2,
+       "maxt_z": 1.125,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -125.24,
+        1367.44
+       ],
+       "blocks": {
+        "b00": 1432.25,
+        "b01": -296.79,
+        "b02": -1550.4,
+        "b03": 2295.82,
+        "b04": 582.15,
+        "b05": 997.74,
+        "blocks_defined": 6,
+        "blocks_positive": 4,
+        "block_diff_min": -1550.4
+       },
+       "dsr": {
+        "sr": 0.0334,
+        "sr0": 0.1257,
+        "dsr": 0.0884,
+        "p": 0.9116,
+        "T": 201,
+        "n_trials": 134,
+        "skew": 2.031,
+        "kurt": 8.645
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1B_f3",
+       "rule": [
+        [
+         "touch_room_last",
+         "==",
+         "held"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "5d6cb8947fafba79",
+       "ledger_id_L0": "8bebd0d93a2a4b54",
+       "kept_n": 397,
+       "skipped_n": 31,
+       "kept_share": 0.9276,
+       "kept_mean": -648.91,
+       "skipped_mean": -1039.1,
+       "diff": 390.19,
+       "diff_top1_removed": 141.57,
+       "perm_p": 0.6297,
+       "control_pct": 61.8,
+       "loser_recall": 0.0831,
+       "loser_precision": 0.8065,
+       "winner_recall_weighted": 0.9445,
+       "top_decile_winners_skipped": 0.0769,
+       "kept_mean_slip8": -1038.87,
+       "sign_blocks": 3,
+       "L0_diff": 2309.62,
+       "L0_control_pct": 95.2,
+       "maxt_z": 0.502,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -604.74,
+        1342.89
+       ],
+       "blocks": {
+        "b00": 1995.79,
+        "b01": -662.61,
+        "b02": 1269.86,
+        "b03": 298.89,
+        "b04": -839.35,
+        "b05": -180.43,
+        "blocks_defined": 6,
+        "blocks_positive": 3,
+        "block_diff_min": -839.35
+       },
+       "dsr": {
+        "sr": 0.0318,
+        "sr0": 0.1257,
+        "dsr": 0.0795,
+        "p": 0.9205,
+        "T": 212,
+        "n_trials": 134,
+        "skew": 1.979,
+        "kurt": 8.29
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1B_f4",
+       "rule": [
+        [
+         "hour_bin",
+         "in",
+         [
+          "<09:25",
+          "15"
+         ]
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "9cefdef775d05cc0",
+       "ledger_id_L0": "c5bbac750240d651",
+       "kept_n": 373,
+       "skipped_n": 55,
+       "kept_share": 0.8715,
+       "kept_mean": -810.74,
+       "skipped_mean": 228.67,
+       "diff": -1039.41,
+       "diff_top1_removed": -487.37,
+       "perm_p": 0.0885,
+       "control_pct": 93.1,
+       "loser_recall": 0.1229,
+       "loser_precision": 0.6727,
+       "winner_recall_weighted": 0.7994,
+       "top_decile_winners_skipped": 0.3846,
+       "kept_mean_slip8": -1200.7,
+       "sign_blocks": 2,
+       "L0_diff": -10.5,
+       "L0_control_pct": 19.9,
+       "maxt_z": -1.727,
+       "maxt_fw_p": 0.999,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -2468.77,
+        238.8
+       ],
+       "blocks": {
+        "b00": -4763.66,
+        "b01": -410.45,
+        "b02": -2349.37,
+        "b03": 1426.2,
+        "b04": -1030.46,
+        "b05": 799.73,
+        "blocks_defined": 6,
+        "blocks_positive": 2,
+        "block_diff_min": -4763.66
+       },
+       "dsr": {
+        "sr": -0.0419,
+        "sr0": 0.1257,
+        "dsr": 0.0127,
+        "p": 0.9873,
+        "T": 193,
+        "n_trials": 134,
+        "skew": 1.8,
+        "kurt": 8.497
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1B_f5",
+       "rule": [
+        [
+         "fz_read",
+         "==",
+         "PENDING"
+        ],
+        [
+         "hour_bin",
+         "in",
+         [
+          "09",
+          "10",
+          "11",
+          "12"
+         ]
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "d7f6099c80b81aaf",
+       "ledger_id_L0": "c205461d811ca709",
+       "kept_n": 375,
+       "skipped_n": 53,
+       "kept_share": 0.8762,
+       "kept_mean": -569.91,
+       "skipped_mean": -1436.08,
+       "diff": 866.18,
+       "diff_top1_removed": 603.84,
+       "perm_p": 0.1629,
+       "control_pct": 91.5,
+       "loser_recall": 0.1362,
+       "loser_precision": 0.7736,
+       "winner_recall_weighted": 0.9268,
+       "top_decile_winners_skipped": 0.0,
+       "kept_mean_slip8": -959.87,
+       "sign_blocks": 4,
+       "L0_diff": 1832.51,
+       "L0_control_pct": 66.5,
+       "maxt_z": 1.417,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        30.13,
+        1817.49
+       ],
+       "blocks": {
+        "b00": 2596.79,
+        "b01": 2345.8,
+        "b02": 1577.43,
+        "b03": -138.84,
+        "b04": 130.24,
+        "b05": -490.96,
+        "blocks_defined": 6,
+        "blocks_positive": 4,
+        "block_diff_min": -490.96
+       },
+       "dsr": {
+        "sr": 0.0426,
+        "sr0": 0.1257,
+        "dsr": 0.1088,
+        "p": 0.8912,
+        "T": 203,
+        "n_trials": 134,
+        "skew": 2.016,
+        "kurt": 8.326
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1B_f6",
+       "rule": [
+        [
+         "touch_prot_last",
+         "==",
+         "pending"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "d7e8f342fa877b00",
+       "ledger_id_L0": "1df7c71314e0d392",
+       "kept_n": 350,
+       "skipped_n": 78,
+       "kept_share": 0.8178,
+       "kept_mean": -737.42,
+       "skipped_mean": -406.8,
+       "diff": -330.63,
+       "diff_top1_removed": -614.4,
+       "perm_p": 0.5432,
+       "control_pct": 10.7,
+       "loser_recall": 0.1694,
+       "loser_precision": 0.6538,
+       "winner_recall_weighted": 0.8109,
+       "top_decile_winners_skipped": 0.0769,
+       "kept_mean_slip8": -1127.39,
+       "sign_blocks": 2,
+       "L0_diff": -774.55,
+       "L0_control_pct": 38.5,
+       "maxt_z": -0.634,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -1130.62,
+        466.07
+       ],
+       "blocks": {
+        "b00": -2321.46,
+        "b01": 1429.09,
+        "b02": -2551.25,
+        "b03": -1345.65,
+        "b04": -866.46,
+        "b05": 1181.72,
+        "blocks_defined": 6,
+        "blocks_positive": 2,
+        "block_diff_min": -2551.25
+       },
+       "dsr": {
+        "sr": -0.0094,
+        "sr0": 0.1257,
+        "dsr": 0.0313,
+        "p": 0.9687,
+        "T": 195,
+        "n_trials": 134,
+        "skew": 2.142,
+        "kurt": 9.132
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1B_f7",
+       "rule": [
+        [
+         "fz_gate",
+         "==",
+         "BLOCK"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "de41f9ab8006384b",
+       "ledger_id_L0": "570887830c46dda3",
+       "kept_n": 325,
+       "skipped_n": 103,
+       "kept_share": 0.7593,
+       "kept_mean": -895.16,
+       "skipped_mean": 10.66,
+       "diff": -905.82,
+       "diff_top1_removed": -508.48,
+       "perm_p": 0.062,
+       "control_pct": 83.8,
+       "loser_recall": 0.2126,
+       "loser_precision": 0.6214,
+       "winner_recall_weighted": 0.6225,
+       "top_decile_winners_skipped": 0.4615,
+       "kept_mean_slip8": -1285.12,
+       "sign_blocks": 1,
+       "L0_diff": -463.41,
+       "L0_control_pct": 81.7,
+       "maxt_z": -1.923,
+       "maxt_fw_p": 0.9905,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -1924.71,
+        81.05
+       ],
+       "blocks": {
+        "b00": -2767.86,
+        "b01": 112.63,
+        "b02": -432.72,
+        "b03": -44.92,
+        "b04": -1401.92,
+        "b05": -320.83,
+        "blocks_defined": 6,
+        "blocks_positive": 1,
+        "block_diff_min": -2767.86
+       },
+       "dsr": {
+        "sr": -0.1228,
+        "sr0": 0.1257,
+        "dsr": 0.0019,
+        "p": 0.9981,
+        "T": 177,
+        "n_trials": 134,
+        "skew": 2.186,
+        "kurt": 10.648
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      },
+      {
+       "id": "r1B_f8",
+       "rule": [
+        [
+         "fz_visit_n",
+         "==",
+         2.0
+        ],
+        [
+         "fz_read",
+         "==",
+         "PENDING"
+        ]
+       ],
+       "refused": false,
+       "refused_why": null,
+       "flags": [],
+       "protocol_clean": true,
+       "untestable": false,
+       "ledger_id": "c3ab2a20872e1683",
+       "ledger_id_L0": "6a8d5e89d0a378f0",
+       "kept_n": 403,
+       "skipped_n": 25,
+       "kept_share": 0.9416,
+       "kept_mean": -668.47,
+       "skipped_mean": -817.33,
+       "diff": 148.85,
+       "diff_top1_removed": -96.27,
+       "perm_p": 0.8751,
+       "control_pct": 29.8,
+       "loser_recall": 0.0565,
+       "loser_precision": 0.68,
+       "winner_recall_weighted": 0.9485,
+       "top_decile_winners_skipped": 0.0769,
+       "kept_mean_slip8": -1058.44,
+       "sign_blocks": 4,
+       "L0_diff": 2898.41,
+       "L0_control_pct": 58.0,
+       "maxt_z": 0.173,
+       "maxt_fw_p": 1.0,
+       "holm_p_round": 1.0,
+       "holm_p_family": 1.0,
+       "boot_diff_ci": [
+        -1181.73,
+        1390.13
+       ],
+       "blocks": {
+        "b00": -1853.75,
+        "b01": 1120.98,
+        "b02": 63.39,
+        "b03": 2756.5,
+        "b04": 1522.12,
+        "b05": -856.76,
+        "blocks_defined": 6,
+        "blocks_positive": 4,
+        "block_diff_min": -1853.75
+       },
+       "dsr": {
+        "sr": 0.0211,
+        "sr0": 0.1257,
+        "dsr": 0.061,
+        "p": 0.939,
+        "T": 211,
+        "n_trials": 134,
+        "skew": 1.883,
+        "kurt": 8.313
+       },
+       "drift": [],
+       "vocabulary": "outside the frozen shortlist (importance rule failed for every cluster)",
+       "passed_go_no_go": false
+      }
+     ],
+     "union": {
+      "ledger_id": "a604066a11ff9dd8",
+      "kept_n": 159,
+      "skipped_n": 269,
+      "diff": -22.62,
+      "diff_top1_removed": -86.55,
+      "perm_p": 0.9525,
+      "control_pct": 75.5,
+      "winner_recall_weighted": 0.3509,
+      "sign_blocks": 4,
+      "boot_diff_ci": [
+       -659.76,
+       659.77
+      ]
+     },
+     "round0": [
+      {
+       "id": "r0_f1",
+       "full_is_ledger_id": "3b66a4e1aa363c21",
+       "half_ledger_id": "b73369b876e56a3c",
+       "diff": -1344.08,
+       "control_pct": 99.3,
+       "perm_p": 0.0995
+      },
+      {
+       "id": "r0_f2",
+       "full_is_ledger_id": "d9bdb49fd0899705",
+       "half_ledger_id": "62b7fc0ffd1f1dd6",
+       "diff": -1059.1,
+       "control_pct": 0.3,
+       "perm_p": 0.2214
+      },
+      {
+       "id": "r0_f3",
+       "full_is_ledger_id": "d1995f0e96e190f4",
+       "half_ledger_id": "3bd2a58afe20b8f4",
+       "diff": 359.23,
+       "control_pct": 9.8,
+       "perm_p": 0.6332
+      },
+      {
+       "id": "r0_f4",
+       "full_is_ledger_id": "82b3a4bb1a3d7cb8",
+       "half_ledger_id": "1bb6db09f46a5220",
+       "diff": -1068.15,
+       "control_pct": 11.3,
+       "perm_p": 0.1659
+      },
+      {
+       "id": "r0_f5",
+       "full_is_ledger_id": "d92c44d6adc501ac",
+       "half_ledger_id": "97e525a4b046e078",
+       "diff": -632.1,
+       "control_pct": 0.8,
+       "perm_p": 0.4613
+      },
+      {
+       "id": "r0_f6",
+       "full_is_ledger_id": "71acfc38786c1cdf",
+       "half_ledger_id": "77f5e8aa5923604e",
+       "diff": 270.04,
+       "control_pct": 4.7,
+       "perm_p": 0.7756
+      },
+      {
+       "id": "r0_f7",
+       "full_is_ledger_id": "d62b114016d51dcb",
+       "half_ledger_id": "fbbe19e589805ccc",
+       "diff": 319.59,
+       "control_pct": 14.0,
+       "perm_p": 0.6167
+      },
+      {
+       "id": "r0_f8",
+       "full_is_ledger_id": "af6b26dbc455e8f7",
+       "half_ledger_id": "4fba89aee8f57a38",
+       "diff": null,
+       "control_pct": null,
+       "perm_p": null
+      }
+     ],
+     "max_t": {
+      "draws": 2000,
+      "statistic": "kept-vs-skipped mean difference over the pooled sd of the scored rows x sqrt(1/n_kept + 1/n_skipped) (permutation-invariant denominator); net permuted across the scored half's rows",
+      "family_masks": 133,
+      "family_testable": 123,
+      "null_max_abs_t_p95": 3.862,
+      "null_max_abs_t_p99": 4.601,
+      "best_family_member": 76,
+      "best_family_abs_t": 2.644,
+      "best_family_fw_p": 0.6222,
+      "n_cells_labelled": 118,
+      "n_cells_with_skip_set": 117,
+      "n_rules_round1": 8,
+      "n_rules_round1_scored": 8,
+      "n_rules_round0": 8,
+      "family_size": 134,
+      "best_family_member_name": "two_way:fz_readxhour_bin:LEAVE|<09:25"
+     },
+     "family": {
+      "vectors": 17,
+      "pbo_diff": {
+       "candidates": 17,
+       "partitions": 12870,
+       "statistic": "diff",
+       "pbo": 0.4267,
+       "oos_best_below_zero": 0.5512,
+       "degradation_slope": -0.6662,
+       "is_best_mean": 1231.49,
+       "oos_best_mean": -305.17
+      },
+      "pbo_kept_mean": {
+       "candidates": 17,
+       "partitions": 12870,
+       "statistic": "kept_mean",
+       "pbo": 0.3958,
+       "oos_best_below_zero": 1.0,
+       "degradation_slope": -1.0161,
+       "is_best_mean": -495.32,
+       "oos_best_mean": -736.63
+      },
+      "spa": {
+       "candidates": 17,
+       "sessions": 214,
+       "draws": 2000,
+       "min_active_sessions": 10,
+       "excluded_from_studentised": 1,
+       "best_unstudentised": 9,
+       "best_mean_gain_unstudentised": 92.0,
+       "rc_p_unstudentised": 0.376,
+       "spa_p_unstudentised": 0.375,
+       "best": 9,
+       "best_mean_gain": 92.0,
+       "best_t": 2.264,
+       "best_active_sessions": 15,
+       "rc_p": 0.2995,
+       "spa_p": 0.219
+      },
+      "effective_trials": 1.34
+     },
+     "outer_eligible": [],
+     "L": [],
+     "greedy_steps": []
+    }
+   },
+   "crossfit_rows": {
+    "oof12": {
+     "ledger_id": "592d42e2a466698e",
+     "kept_n": 826,
+     "skipped_n": 0,
+     "kept_share": 1.0,
+     "diff": null,
+     "diff_top1_removed": null,
+     "perm_p": null,
+     "control_pct": null,
+     "loser_recall": null,
+     "winner_recall_weighted": null,
+     "top_decile_winners_skipped": null,
+     "kept_mean_slip8": null,
+     "sign_blocks": null
+    }
+   },
+   "oof12_selection": {
+    "b00": {
+     "proposer": "B",
+     "chosen": [],
+     "n_sel_rows": 343,
+     "eligible": []
+    },
+    "b01": {
+     "proposer": "B",
+     "chosen": [],
+     "n_sel_rows": 343,
+     "eligible": []
+    },
+    "b02": {
+     "proposer": "B",
+     "chosen": [],
+     "n_sel_rows": 386,
+     "eligible": []
+    },
+    "b03": {
+     "proposer": "B",
+     "chosen": [],
+     "n_sel_rows": 344,
+     "eligible": []
+    },
+    "b04": {
+     "proposer": "B",
+     "chosen": [],
+     "n_sel_rows": 356,
+     "eligible": []
+    },
+    "b05": {
+     "proposer": "B",
+     "chosen": [],
+     "n_sel_rows": 355,
+     "eligible": []
+    },
+    "b06": {
+     "proposer": "A",
+     "chosen": [],
+     "n_sel_rows": 317,
+     "eligible": []
+    },
+    "b07": {
+     "proposer": "A",
+     "chosen": [],
+     "n_sel_rows": 347,
+     "eligible": []
+    },
+    "b08": {
+     "proposer": "A",
+     "chosen": [],
+     "n_sel_rows": 319,
+     "eligible": []
+    },
+    "b09": {
+     "proposer": "A",
+     "chosen": [],
+     "n_sel_rows": 318,
+     "eligible": []
+    },
+    "b10": {
+     "proposer": "A",
+     "chosen": [],
+     "n_sel_rows": 366,
+     "eligible": []
+    },
+    "b11": {
+     "proposer": "A",
+     "chosen": [],
+     "n_sel_rows": 315,
+     "eligible": []
+    }
+   },
+   "cpcv": {
+    "paths": 11,
+    "diff_median": null,
+    "diff_p5": null,
+    "diff_min": null,
+    "diff_share_positive": 0.0,
+    "kept_share_median": 1.0,
+    "control_pct_median": null,
+    "control_pct_p5": null
+   },
+   "cpcv_blocks_with_selection": 0,
+   "cpcv_selection": {
+    "0-1": {
+     "0": [],
+     "1": []
+    },
+    "0-2": {
+     "0": [],
+     "2": []
+    },
+    "0-3": {
+     "0": [],
+     "3": []
+    },
+    "0-4": {
+     "0": [],
+     "4": []
+    },
+    "0-5": {
+     "0": [],
+     "5": []
+    },
+    "0-6": {
+     "0": [],
+     "6": []
+    },
+    "0-7": {
+     "0": [],
+     "7": []
+    },
+    "0-8": {
+     "0": [],
+     "8": []
+    },
+    "0-9": {
+     "0": [],
+     "9": []
+    },
+    "0-10": {
+     "0": [],
+     "10": []
+    },
+    "0-11": {
+     "0": [],
+     "11": []
+    },
+    "1-2": {
+     "1": [],
+     "2": []
+    },
+    "1-3": {
+     "1": [],
+     "3": []
+    },
+    "1-4": {
+     "1": [],
+     "4": []
+    },
+    "1-5": {
+     "1": [],
+     "5": []
+    },
+    "1-6": {
+     "1": [],
+     "6": []
+    },
+    "1-7": {
+     "1": [],
+     "7": []
+    },
+    "1-8": {
+     "1": [],
+     "8": []
+    },
+    "1-9": {
+     "1": [],
+     "9": []
+    },
+    "1-10": {
+     "1": [],
+     "10": []
+    },
+    "1-11": {
+     "1": [],
+     "11": []
+    },
+    "2-3": {
+     "2": [],
+     "3": []
+    },
+    "2-4": {
+     "2": [],
+     "4": []
+    },
+    "2-5": {
+     "2": [],
+     "5": []
+    },
+    "2-6": {
+     "2": [],
+     "6": []
+    },
+    "2-7": {
+     "2": [],
+     "7": []
+    },
+    "2-8": {
+     "2": [],
+     "8": []
+    },
+    "2-9": {
+     "2": [],
+     "9": []
+    },
+    "2-10": {
+     "2": [],
+     "10": []
+    },
+    "2-11": {
+     "2": [],
+     "11": []
+    },
+    "3-4": {
+     "3": [],
+     "4": []
+    },
+    "3-5": {
+     "3": [],
+     "5": []
+    },
+    "3-6": {
+     "3": [],
+     "6": []
+    },
+    "3-7": {
+     "3": [],
+     "7": []
+    },
+    "3-8": {
+     "3": [],
+     "8": []
+    },
+    "3-9": {
+     "3": [],
+     "9": []
+    },
+    "3-10": {
+     "3": [],
+     "10": []
+    },
+    "3-11": {
+     "3": [],
+     "11": []
+    },
+    "4-5": {
+     "4": [],
+     "5": []
+    },
+    "4-6": {
+     "4": [],
+     "6": []
+    },
+    "4-7": {
+     "4": [],
+     "7": []
+    },
+    "4-8": {
+     "4": [],
+     "8": []
+    },
+    "4-9": {
+     "4": [],
+     "9": []
+    },
+    "4-10": {
+     "4": [],
+     "10": []
+    },
+    "4-11": {
+     "4": [],
+     "11": []
+    },
+    "5-6": {
+     "5": [],
+     "6": []
+    },
+    "5-7": {
+     "5": [],
+     "7": []
+    },
+    "5-8": {
+     "5": [],
+     "8": []
+    },
+    "5-9": {
+     "5": [],
+     "9": []
+    },
+    "5-10": {
+     "5": [],
+     "10": []
+    },
+    "5-11": {
+     "5": [],
+     "11": []
+    },
+    "6-7": {
+     "6": [],
+     "7": []
+    },
+    "6-8": {
+     "6": [],
+     "8": []
+    },
+    "6-9": {
+     "6": [],
+     "9": []
+    },
+    "6-10": {
+     "6": [],
+     "10": []
+    },
+    "6-11": {
+     "6": [],
+     "11": []
+    },
+    "7-8": {
+     "7": [],
+     "8": []
+    },
+    "7-9": {
+     "7": [],
+     "9": []
+    },
+    "7-10": {
+     "7": [],
+     "10": []
+    },
+    "7-11": {
+     "7": [],
+     "11": []
+    },
+    "8-9": {
+     "8": [],
+     "9": []
+    },
+    "8-10": {
+     "8": [],
+     "10": []
+    },
+    "8-11": {
+     "8": [],
+     "11": []
+    },
+    "9-10": {
+     "9": [],
+     "10": []
+    },
+    "9-11": {
+     "9": [],
+     "11": []
+    },
+    "10-11": {
+     "10": [],
+     "11": []
+    }
+   },
+   "crossfit_family": {
+    "vectors": 12,
+    "pbo_diff": {
+     "candidates": 12,
+     "partitions": 12870,
+     "statistic": "diff",
+     "pbo": 1.0,
+     "oos_best_below_zero": null,
+     "degradation_slope": null,
+     "is_best_mean": null,
+     "oos_best_mean": null
+    },
+    "pbo_kept_mean": {
+     "candidates": 12,
+     "partitions": 12870,
+     "statistic": "kept_mean",
+     "pbo": 1.0,
+     "oos_best_below_zero": 1.0,
+     "degradation_slope": -0.9988,
+     "is_best_mean": -756.07,
+     "oos_best_mean": -756.07
+    },
+    "spa": {
+     "candidates": 12,
+     "sessions": 408,
+     "draws": 2000,
+     "min_active_sessions": 20,
+     "excluded_from_studentised": 12,
+     "best_unstudentised": 0,
+     "best_mean_gain_unstudentised": 0.0,
+     "rc_p_unstudentised": 1.0,
+     "spa_p_unstudentised": 1.0,
+     "best": null,
+     "best_mean_gain": null,
+     "best_t": null,
+     "best_active_sessions": null,
+     "rc_p": null,
+     "spa_p": null
+    },
+    "effective_trials": 1.0
+   },
+   "go_no_go": {
+    "passed": false,
+    "checks": {
+     "kept_share>=20%": [
+      true,
+      1.0
+     ],
+     "kept_n>=80": [
+      true,
+      826
+     ],
+     "diff>0": [
+      false,
+      null
+     ],
+     "diff_top1_removed>0": [
+      false,
+      null
+     ],
+     "kept_mean_slip8>0": [
+      false,
+      null
+     ],
+     "sign_blocks>=8/12": [
+      false,
+      null
+     ],
+     "control_pct>=95": [
+      false,
+      null
+     ],
+     "cpcv_p5_diff>0": [
+      false,
+      null
+     ],
+     "pbo<=0.2": [
+      false,
+      1.0
+     ],
+     "dsr_p<0.1": [
+      false,
+      0.9915
+     ],
+     "boot_ci_excludes_0": [
+      false,
+      [
+       NaN,
+       NaN
+      ]
+     ],
+     "null_tape:evaluated": [
+      false,
+      "no rule list (nothing to check)"
+     ],
+     "no_time_proxy_columns": [
+      true,
+      []
+     ]
+    },
+    "dsr": {
+     "sr": 0.0251,
+     "sr0": 0.1413,
+     "dsr": 0.0085,
+     "p": 0.9915,
+     "T": 408,
+     "n_trials": 264,
+     "skew": 1.447,
+     "kurt": 8.119
+    },
+    "note": "no fixed crossed list (no rule chosen in either direction); go/no-go read on the oof12 row",
+    "columns": []
+   },
+   "family_size_total": 264,
+   "rules_out": []
+  }
+ },
+ "candidates": [],
+ "candidates_passing": 0,
+ "null_result": true,
+ "null_result_source": "harness.go_no_go on the fixed crossed list (or the oof12 row when no rule was eligible), with the CPCV, null-tape and declared-columns items",
+ "headline": "**Null result.** Both round-1 rule files were registered (sha256 + byte-identical copy under `ledger/registered/`) before any ledger row of family `llm_round1` existed, and every rule was scored on the half whose tables its proposer never saw (A -> B, B -> A), through `harness.score` on a sub-table of that half.\n\n**minute**: direction A -> B: 8 rules (0 refused, 0 untestable, 0 flagged), 6 with diff > 0, best max-T family-wise p 1.0000 (`r1A_m3`: diff 294.57, control pct 75.0, perm p 0.4088, Holm p over the round 1.0000, ledger `04c389cc8c5f4f69`), highest control percentile 78.0, eligible none, L_A = []; direction B -> A: 8 rules (0 refused, 0 untestable, 0 flagged), 4 with diff > 0, best max-T family-wise p 0.1449 (`r1B_m1`: diff -1,325.28, control pct 100.0, perm p 0.0020, Holm p over the round 0.0960, ledger `a6e37c1d1033559b`), highest control percentile 100.0, eligible none, L_B = []. Cross-fit: no rule was eligible in either direction, so the fixed crossed list is empty (no ledger row: keep everything); nested 12-block OOF `188e8939ee98df0e`: kept 4452 / skipped 0, diff n/a, control pct n/a; nested CPCV (66 splits, 11 paths, family `llm_round1/crossfit/cpcv`): 0 of 132 test blocks had a non-empty selection, diff median n/a, p5 n/a, share > 0 0.000. `harness.go_no_go` on the oof12 row: **fail** (10 of 13 items fail: diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, boot_ci_excludes_0, null_tape:evaluated).\n\n**5minute**: direction A -> B: 8 rules (0 refused, 0 untestable, 0 flagged), 4 with diff > 0, best max-T family-wise p 1.0000 (`r1A_f4`: diff 1,023.69, control pct 70.1, perm p 0.1064, Holm p over the round 1.0000, ledger `b17b23f2469ad58b`), highest control percentile 88.2, eligible none, L_A = []; direction B -> A: 8 rules (0 refused, 0 untestable, 0 flagged), 4 with diff > 0, best max-T family-wise p 0.9905 (`r1B_f7`: diff -905.82, control pct 83.8, perm p 0.0620, Holm p over the round 1.0000, ledger `de41f9ab8006384b`), highest control percentile 93.1, eligible none, L_B = []. Cross-fit: no rule was eligible in either direction, so the fixed crossed list is empty (no ledger row: keep everything); nested 12-block OOF `592d42e2a466698e`: kept 826 / skipped 0, diff n/a, control pct n/a; nested CPCV (66 splits, 11 paths, family `llm_round1/crossfit/cpcv`): 0 of 132 test blocks had a non-empty selection, diff median n/a, p5 n/a, share > 0 0.000. `harness.go_no_go` on the oof12 row: **fail** (10 of 13 items fail: diff>0, diff_top1_removed>0, kept_mean_slip8>0, sign_blocks>=8/12, control_pct>=95, cpcv_p5_diff>0, pbo<=0.2, dsr_p<0.1, boot_ci_excludes_0, null_tape:evaluated).\n\nWhat this settles: a table-informed proposer, shown the cell means of one half, does not write a skip rule that survives on the other half under the family of every cell it saw; the round-0 (blind) result of `studies/llm_hypotheses/` stands, and the frozen ST7/ST8 gate remains the only gate in `candidates/` consideration for this study (none from here).",
+ "ledger_families": [
+  "llm_round1/A",
+  "llm_round1/A/round0",
+  "llm_round1/A/drift_refit",
+  "llm_round1/A_combo",
+  "llm_round1/B",
+  "llm_round1/B/round0",
+  "llm_round1/B/drift_refit",
+  "llm_round1/B_combo",
+  "llm_round1/crossfit",
+  "llm_round1/crossfit/cpcv"
+ ],
+ "ledger_rows": {
+  "llm_round1": 124,
+  "llm_round1/A": 50,
+  "llm_round1/B": 50,
+  "llm_round1/crossfit": 24
+ },
+ "ledger_sha_before": "2253e804fdfa3ab9",
+ "ledger_sha_after": "92dc548b205f174f",
+ "runtime_s": 1496.5,
+ "round0_reference": {
+  "folder": "studies/llm_hypotheses",
+  "rules_sha256": "a3c5c06382227c9504e08e40682244756bb58261419be6d53fbba95ada3a1182",
+  "full_is_ledger_ids": {
+   "r0_m1": "1c3b030ae6d8d040",
+   "r0_m2": "6bc2dafc5db55758",
+   "r0_m3": "6a0004c624ff8136",
+   "r0_m4": "44c18f849dbe54a5",
+   "r0_m5": "b9e8b3ca7cfe53b0",
+   "r0_m6": "7e2e3b02928d00c0",
+   "r0_m7": "eb1806faee8fe097",
+   "r0_m8": "5645244e4b0400db",
+   "r0_f1": "3b66a4e1aa363c21",
+   "r0_f2": "d9bdb49fd0899705",
+   "r0_f3": "d1995f0e96e190f4",
+   "r0_f4": "82b3a4bb1a3d7cb8",
+   "r0_f5": "d92c44d6adc501ac",
+   "r0_f6": "71acfc38786c1cdf",
+   "r0_f7": "d62b114016d51dcb",
+   "r0_f8": "af6b26dbc455e8f7"
+  },
+  "null_result": true
+ },
+ "prior_studies_not_rerun": [
+  "h1_gate_audit",
+  "h2_h3_h4",
+  "session_stop",
+  "exit_policy",
+  "null_tapes_drift",
+  "importance"
+ ],
+ "caveats": [
+  "Every column used is outside the frozen shortlist (importance rule failed for every cluster); the vocabulary of the tables was an exploratory choice (top-8 MDA clusters, swaps stated) and any survivor would need the user's acceptance of that vocabulary.",
+  "The ledger rows of `llm_round1/*` carry the exploratory label only through the registration lines and the rules files, not in each row's `config` (schema fixed at step 1; the ledger is append-only).",
+  "The proposers are Claude agents; their `reason` texts cite the seen half's cells and the user's words. Blindness to the scoring half is their `inputs_read` self-report plus the ordering of the artefacts, not a verifiable data-ordering fact (the other half's tables existed on disk from 12:36 UTC).",
+  "The proposers read `features_ext/README.md`, `data/README.md` and both shortlist JSONs beside their half's tables; none of those carries a labelled number of the scoring half.",
+  "The cells of the seen half are rebuilt on the scored half with the SEEN half's decile edges, so a decile cell on the other half is not a decile there; the family therefore counts the proposer's choice set, not equal-sized cells.",
+  "The 5-minute halves hold 398 / 428 L1 units; rules firing on 40-100 units have 90% bootstrap CIs of the diff several hundred INR wide (see the tables): the 5-minute verdicts are underpowered, as every 5-minute study of the program has been.",
+  "Holm at m = family size (`holm_p_family` in `scores_<half>.json`) is degenerate (permutation p floor 1/2001 x m > 0.05 for m > 100) and is reported for the record only; the max-T with the cells in the family is the eligibility criterion.",
+  "The nested CPCV re-runs the eligibility and greedy steps on the training rows of each test block's half with `harness.metrics` (no ledger row per inner fit); only the 11 path rows and the oof12 row are ledger rows, as the design says.",
+  "Round-0 full-IS numbers are cited from `studies/llm_hypotheses/findings.json` and not re-scored; the per-half re-scores of the round-0 rules are new ledger rows (`llm_round1/<half>/round0`), needed for the family on each half."
+ ],
+ "falsifiers": [
+  "a round-1 rule (unchanged sha) whose other-half ledger row has diff > 0, control pct >= 95, max-T fw p < 0.05 (cells in the family) and Holm p (round) < 0.05, and whose fixed crossed list passes every harness.go_no_go item",
+  "a rebuilt L1 table on which the per-half re-scores change sign for the eligible set",
+  "a user decision re-opening the vocabulary: a new round, new sha, multiplicity carried forward"
+ ],
+ "files": [
+  "studies/llm_round1/FINDINGS.md",
+  "studies/llm_round1/NOTES.md",
+  "studies/llm_round1/findings.json",
+  "studies/llm_round1/r1_common.py",
+  "studies/llm_round1/results_round1.json",
+  "studies/llm_round1/rules_round1_A.json",
+  "studies/llm_round1/rules_round1_B.json",
+  "studies/llm_round1/run_all.nohup",
+  "studies/llm_round1/scorer.log",
+  "studies/llm_round1/scorer.py",
+  "studies/llm_round1/scores_5minute.csv",
+  "studies/llm_round1/scores_A.json",
+  "studies/llm_round1/scores_B.json",
+  "studies/llm_round1/scores_minute.csv",
+  "studies/llm_round1/tables.log",
+  "studies/llm_round1/tables.py",
+  "studies/llm_round1/tables_5minute_A.json",
+  "studies/llm_round1/tables_5minute_A.md",
+  "studies/llm_round1/tables_5minute_B.json",
+  "studies/llm_round1/tables_5minute_B.md",
+  "studies/llm_round1/tables_minute_A.json",
+  "studies/llm_round1/tables_minute_A.md",
+  "studies/llm_round1/tables_minute_B.json",
+  "studies/llm_round1/tables_minute_B.md",
+  "studies/llm_round1/tables_summary.json",
+  "studies/llm_round1/write_findings.py",
+  "studies/llm_round1/smoke_logs/smoke_relax_1_no_selection.log",
+  "studies/llm_round1/smoke_logs/smoke_relax_2_selection_path.log",
+  "studies/llm_round1/smoke_logs/smoke_strict_1.log"
+ ],
+ "written_at": "2026-09-29T17:38:29"
+}

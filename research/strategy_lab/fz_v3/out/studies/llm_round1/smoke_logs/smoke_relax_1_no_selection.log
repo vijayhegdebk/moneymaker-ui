@@ -1,0 +1,85 @@
+# SMOKE TEST LOG (relax_1_no_selection): synthetic rules, ledger redirected to the session scratchpad, controls / max-T 100 draws. NOTHING HERE IS A FINDING; no ledger row of the program exists for any mask below; the proposers and the step-3 agent do not read this file.
+=== SMOKE TEST 2026-09-29T12:49:47: ledger redirected to /tmp/claude-0/-home-user-money-maker/0a664a96-cf80-54bc-be94-bfb16658dea9/scratchpad/r1_smoke_relax/ledger; controls 100 draws, max-T 100 draws; synthetic rules; relaxed eligibility True; NOTHING HERE IS A FINDING ===
+registration half A: sha256 e49a3a9862861b0d932d9c0917dcec638ca9c9685b18cf83698d899337e3c7c7 appended; copy /tmp/claude-0/-home-user-money-maker/0a664a96-cf80-54bc-be94-bfb16658dea9/scratchpad/r1_smoke_relax/ledger/registered/rules_round1_A.e49a3a98.json
+[A->B minute] 5 round-1 rules, 184 labelled cells seen, family size 197; scoring rows 2044 (2023-11-07..2025-12-31)
+[A->B minute] sA_minute_1    skipped   120 kept  1924 diff -146.34 top1off -238.07 ctrl 4.0 perm_p 0.6139 loserR 0.0584 winR(w) 0.9595 | L0 diff 45.64 ctrl 24.0
+[A->B minute] sA_minute_2    skipped   363 kept  1681 diff 172.33 top1off -76.8 ctrl 37.0 perm_p 0.3861 loserR 0.1763 winR(w) 0.893 | L0 diff -195.94 ctrl 15.0
+[A->B minute] sA_minute_3: REFUSED (n_events_asof is a calendar-time proxy (drift.json time_proxies): a calendar rule, refused); counted in the family, no ledger row
+[A->B minute] sA_minute_4    skipped   103 kept  1941 diff -7.06 top1off -222.79 ctrl 7.0 perm_p 0.9604 loserR 0.0497 winR(w) 0.9706 | L0 diff 514.02 ctrl 47.0
+[A->B minute] sA_minute_5    skipped   135 kept  1909 diff 171.32 top1off 115.92 ctrl 79.0 perm_p 0.5149 loserR 0.0665 winR(w) 0.932 | L0 diff 242.4 ctrl 65.0 flags ['threshold not a table edge / listed split point: room_ahead_dist_atr < 0.1234']
+[A->B minute] union: skipped 632 kept 1412 diff 124.62 ctrl 20.0 perm_p 0.3366
+[A->B minute] round-0 on half B: r0_m1 56.08, r0_m2 263.92, r0_m3 85.15, r0_m4 -194.95, r0_m5 5.93, r0_m6 664.63, r0_m7 144.52, r0_m8 None
+[A->B minute] max-T: family 195 masks (184 testable) of size 197; null p95 of max|t| 5.756; best member two_way:fz_readxhour_bin:NEW|10 |t| 4.429 fw p 0.1964; rules: sA_minute_1 t -0.531 fw_p 1.0, sA_minute_2 t 1.016 fw_p 1.0, sA_minute_3 t None fw_p 1.0, sA_minute_4 t -0.024 fw_p 1.0, sA_minute_5 t 0.657 fw_p 1.0
+[A->B minute] family: PBO(diff) 0.8235 SPA p 0.969 (unstud. 0.8685) eff. trials 1.11; 5 s
+[A->B 5minute] 5 round-1 rules, 122 labelled cells seen, family size 135; scoring rows 398 (2023-11-07..2025-12-31)
+[A->B 5minute] sA_5minute_1   skipped     7 kept   391 diff -147.47 top1off -351.19 ctrl 45.0 perm_p 0.9505 loserR 0.0203 winR(w) 0.9837 | L0 diff 2650.89 ctrl 70.0
+[A->B 5minute] sA_5minute_2   skipped    69 kept   329 diff 158.33 top1off -83.88 ctrl 35.0 perm_p 0.7921 loserR 0.1858 winR(w) 0.8545 | L0 diff 1036.48 ctrl 86.0
+[A->B 5minute] sA_5minute_3: REFUSED (n_events_asof is a calendar-time proxy (drift.json time_proxies): a calendar rule, refused); counted in the family, no ledger row
+[A->B 5minute] sA_5minute_4   skipped     4 kept   394 diff 732.35 top1off 530.3 ctrl 19.0 perm_p 0.8218 loserR 0.0101 winR(w) 0.9985 | L0 diff 2101.87 ctrl 31.5
+[A->B 5minute] sA_5minute_5   skipped    49 kept   349 diff 603.5 top1off 847.2 ctrl 51.0 perm_p 0.3861 loserR 0.125 winR(w) 0.916 | L0 diff 1656.55 ctrl 65.0 flags ['threshold not a table edge / listed split point: room_ahead_dist_atr < 0.1234']
+[A->B 5minute] union: skipped 119 kept 279 diff 166.2 ctrl 32.0 perm_p 0.802
+[A->B 5minute] round-0 on half B: r0_f1 -411.8, r0_f2 -1364.52, r0_f3 -507.82, r0_f4 -381.59, r0_f5 -481.09, r0_f6 181.12, r0_f7 -116.82, r0_f8 2815.56
+[A->B 5minute] max-T: family 133 masks (122 testable) of size 135; null p95 of max|t| 3.885; best member one_way:card_leave_kind:normal |t| 2.617 fw p 0.6687; rules: sA_5minute_1 t -0.08 fw_p 1.0, sA_5minute_2 t 0.247 fw_p 1.0, sA_5minute_3 t None fw_p 1.0, sA_5minute_4 t 0.301 fw_p 1.0, sA_5minute_5 t 0.817 fw_p 1.0
+[A->B 5minute] family: PBO(diff) 0.8983 SPA p 0.2705 (unstud. 0.2535) eff. trials 1.14; 2 s
+scores_A.json written; ledger None -> 2a0e4f336de60bf9
+registration half B: sha256 890d092d4017d7a2e5765f524eb83764ede457b52bdaf08a8a9be5d33dc473ae appended; copy /tmp/claude-0/-home-user-money-maker/0a664a96-cf80-54bc-be94-bfb16658dea9/scratchpad/r1_smoke_relax/ledger/registered/rules_round1_B.890d092d.json
+[B->A minute] 5 round-1 rules, 181 labelled cells seen, family size 194; scoring rows 2408 (2021-10-01..2023-11-06)
+[B->A minute] sB_minute_1    skipped   146 kept  2262 diff 375.7 top1off 210.95 ctrl 93.0 perm_p 0.0495 loserR 0.0685 winR(w) 0.9823 | L0 diff 454.37 ctrl 94.0
+[B->A minute] sB_minute_2    skipped   419 kept  1989 diff -175.57 top1off -64.29 ctrl 4.0 perm_p 0.1485 loserR 0.1706 winR(w) 0.7938 | L0 diff -383.48 ctrl 0.0
+[B->A minute] sB_minute_3: REFUSED (n_events_asof is a calendar-time proxy (drift.json time_proxies): a calendar rule, refused); counted in the family, no ledger row
+[B->A minute] sB_minute_4    skipped    81 kept  2327 diff -39.21 top1off 99.42 ctrl 62.0 perm_p 0.8614 loserR 0.034 winR(w) 0.963 | L0 diff 509.84 ctrl 97.0
+[B->A minute] sB_minute_5    skipped   124 kept  2284 diff 278.75 top1off 214.37 ctrl 66.0 perm_p 0.198 loserR 0.0533 winR(w) 0.9586 | L0 diff 687.46 ctrl 66.0 flags ['threshold not a table edge / listed split point: room_ahead_dist_atr < 0.1234']
+[B->A minute] union: skipped 694 kept 1714 diff 28.4 ctrl 38.0 perm_p 0.8218
+[B->A minute] round-0 on half A: r0_m1 -69.76, r0_m2 -40.79, r0_m3 -77.34, r0_m4 -9.51, r0_m5 27.24, r0_m6 None, r0_m7 -87.59, r0_m8 None
+[B->A minute] max-T: family 192 masks (181 testable) of size 194; null p95 of max|t| 4.673; best member one_way:hour_bin:<09:25 |t| 4.473 fw p 0.0655; rules: sB_minute_1 t 1.873 fw_p 0.999, sB_minute_2 t -1.391 fw_p 1.0, sB_minute_3 t None fw_p 1.0, sB_minute_4 t -0.148 fw_p 1.0, sB_minute_5 t 1.287 fw_p 1.0
+[B->A minute] family: PBO(diff) 0.3201 SPA p 0.621 (unstud. 0.847) eff. trials 1.11; 6 s
+[B->A 5minute] 5 round-1 rules, 118 labelled cells seen, family size 131; scoring rows 428 (2021-10-01..2023-11-06)
+[B->A 5minute] sB_5minute_1   skipped     7 kept   421 diff 1057.38 top1off 822.97 ctrl 56.0 perm_p 0.505 loserR 0.0199 winR(w) 0.9969 | L0 diff 1208.81 ctrl 70.0
+[B->A 5minute] sB_5minute_2   skipped    65 kept   363 diff 180.9 top1off 284.64 ctrl 54.0 perm_p 0.7426 loserR 0.1628 winR(w) 0.8609 | L0 diff 353.63 ctrl 17.0
+[B->A 5minute] sB_5minute_3: REFUSED (n_events_asof is a calendar-time proxy (drift.json time_proxies): a calendar rule, refused); counted in the family, no ledger row
+[B->A 5minute] sB_5minute_4   skipped     3 kept   425 diff 2420.23 top1off 2188.05 ctrl 84.0 perm_p 0.2079 loserR 0.01 winR(w) 1.0 | L0 diff 2821.79 ctrl 70.0
+[B->A 5minute] sB_5minute_5   skipped    53 kept   375 diff -966.14 top1off 39.55 ctrl 34.0 perm_p 0.099 loserR 0.1196 winR(w) 0.7911 | L0 diff 1125.0 ctrl 92.0 flags ['threshold not a table edge / listed split point: room_ahead_dist_atr < 0.1234']
+[B->A 5minute] union: skipped 120 kept 308 diff -295.89 ctrl 47.0 perm_p 0.5446
+[B->A 5minute] round-0 on half A: r0_f1 -1344.08, r0_f2 -1059.1, r0_f3 359.23, r0_f4 -1068.15, r0_f5 -632.1, r0_f6 270.04, r0_f7 319.59, r0_f8 None
+[B->A 5minute] max-T: family 129 masks (119 testable) of size 131; null p95 of max|t| 3.902; best member two_way:fz_readxhour_bin:LEAVE|<09:25 |t| 2.644 fw p 0.6347; rules: sB_5minute_1 t 0.666 fw_p 1.0, sB_5minute_2 t 0.322 fw_p 1.0, sB_5minute_3 t None fw_p 1.0, sB_5minute_4 t 1.003 fw_p 1.0, sB_5minute_5 t -1.58 fw_p 1.0
+[B->A 5minute] family: PBO(diff) 0.2973 SPA p 0.1775 (unstud. 0.203) eff. trials 1.2; 2 s
+scores_B.json written; ledger 2a0e4f336de60bf9 -> 9644466feeb56d55
+combine: Holm over the rules of the round: 20 round-1 rules + 16 round-0 = m 36; min adjusted p 1.0
+[combine minute] direction A->B: eligible [] -> L_A = []
+[combine minute] direction B->A: eligible [] -> L_B = []
+[crossfit minute] no rule chosen in either direction: the fixed crossed list is empty (no ledger row; keep everything)
+[crossfit minute] oof12 block 0: rules of B selected on 1990 training rows of half A -> chosen []
+[crossfit minute] oof12 block 1: rules of B selected on 2014 training rows of half A -> chosen []
+[crossfit minute] oof12 block 2: rules of B selected on 2004 training rows of half A -> chosen []
+[crossfit minute] oof12 block 3: rules of B selected on 1870 training rows of half A -> chosen []
+[crossfit minute] oof12 block 4: rules of B selected on 2018 training rows of half A -> chosen []
+[crossfit minute] oof12 block 5: rules of B selected on 2067 training rows of half A -> chosen []
+[crossfit minute] oof12 block 6: rules of A selected on 1604 training rows of half B -> chosen []
+[crossfit minute] oof12 block 7: rules of A selected on 1778 training rows of half B -> chosen []
+[crossfit minute] oof12 block 8: rules of A selected on 1874 training rows of half B -> chosen []
+[crossfit minute] oof12 block 9: rules of A selected on 1545 training rows of half B -> chosen []
+[crossfit minute] oof12 block 10: rules of A selected on 1851 training rows of half B -> chosen []
+[crossfit minute] oof12 block 11: rules of A selected on 1532 training rows of half B -> chosen []
+[crossfit minute] oof12: kept 4452 skipped 0 diff None ctrl None perm_p None sign_blocks None
+[crossfit minute] CPCV: 66 splits, blocks with a non-empty selection 0 of 132; diff median None p5 None share>0 0.0 kept share median 1.0 ctrl median None
+[crossfit minute] go/no-go on oof12: fail
+[combine 5minute] direction A->B: eligible [] -> L_A = []
+[combine 5minute] direction B->A: eligible [] -> L_B = []
+[crossfit 5minute] no rule chosen in either direction: the fixed crossed list is empty (no ledger row; keep everything)
+[crossfit 5minute] oof12 block 0: rules of B selected on 343 training rows of half A -> chosen []
+[crossfit 5minute] oof12 block 1: rules of B selected on 343 training rows of half A -> chosen []
+[crossfit 5minute] oof12 block 2: rules of B selected on 386 training rows of half A -> chosen []
+[crossfit 5minute] oof12 block 3: rules of B selected on 344 training rows of half A -> chosen []
+[crossfit 5minute] oof12 block 4: rules of B selected on 356 training rows of half A -> chosen []
+[crossfit 5minute] oof12 block 5: rules of B selected on 355 training rows of half A -> chosen []
+[crossfit 5minute] oof12 block 6: rules of A selected on 317 training rows of half B -> chosen []
+[crossfit 5minute] oof12 block 7: rules of A selected on 347 training rows of half B -> chosen []
+[crossfit 5minute] oof12 block 8: rules of A selected on 319 training rows of half B -> chosen []
+[crossfit 5minute] oof12 block 9: rules of A selected on 318 training rows of half B -> chosen []
+[crossfit 5minute] oof12 block 10: rules of A selected on 366 training rows of half B -> chosen []
+[crossfit 5minute] oof12 block 11: rules of A selected on 315 training rows of half B -> chosen []
+[crossfit 5minute] oof12: kept 826 skipped 0 diff None ctrl None perm_p None sign_blocks None
+[crossfit 5minute] CPCV: 66 splits, blocks with a non-empty selection 0 of 132; diff median None p5 None share>0 0.0 kept share median 1.0 ctrl median None
+[crossfit 5minute] go/no-go on oof12: fail
+combine done in 45.5 s; null_result True; ledger 9644466feeb56d55 -> 5274f4d8ff087e4d
+smoke test done; outputs in /tmp/claude-0/-home-user-money-maker/0a664a96-cf80-54bc-be94-bfb16658dea9/scratchpad/r1_smoke_relax; the real ledger /home/user/money-maker/research/strategy_lab/fz_v3/out/ledger was not touched

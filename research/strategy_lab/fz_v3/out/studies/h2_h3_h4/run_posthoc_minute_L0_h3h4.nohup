@@ -1,0 +1,12 @@
+posthoc_minskip start Tue Sep 29 05:28:28 2026 ledger sha 50a1325d523ee69e min_skip_share 0.1 tf minute labels L0 studies h3,h4 note 'repair'
+== h3 minute_L0: 54 cells
+  nested-CV_minskip OOF: kept 3742 (0.8312) diff 13.41 pct 22.6 p 0.948 blocks 7 id 3ffcfd594800fc39
+  CPCV 11 paths: diff median -82.14 p5 -266.27 min -320.77 share>0 0.455 control pct median 26.9 p5 6.0
+  family (incl. this row): 56 candidates, eff 1.97, PBO diff 0.1069 kept 0.7353, SPA p 0.056 best {'v': 2, 'N': 60, 'M': 30, 'gate': 'skip_if_none'}, boot [-231.75, 254.08], DSR p 1.0, go False
+  pre-registered row 4aa13f8ee89c96a3 over the completed family: 56 candidates, PBO diff 0.1069, SPA p 0.068, DSR p 1.0, go False
+== h4 minute_L0: 9 cells
+  nested-CV_minskip OOF: kept 3588 (0.797) diff 29.1 pct 9.9 p 0.8806 blocks 6 id 714dbc6de3114519
+  CPCV 11 paths: diff median 73.4 p5 -57.42 min -94.44 share>0 0.727 control pct median 24.4 p5 9.2
+  family (incl. this row): 11 candidates, eff 1.64, PBO diff 0.6442 kept 0.5913, SPA p 0.9395 best {'level': 'room', 'skip_when_last': 'held'}, boot [-201.53, 247.53], DSR p 0.8419, go False
+  pre-registered row f761a518d322b977 over the completed family: 11 candidates, PBO diff 0.6442, SPA p 0.9485, DSR p 0.8419, go False
+posthoc done in 1312.1s; ledger sha f58a5fb526cd1348

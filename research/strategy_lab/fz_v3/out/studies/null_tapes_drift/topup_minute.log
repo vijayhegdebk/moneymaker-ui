@@ -1,0 +1,17 @@
+[fit minute] IS sessions 1026 (full 1012, short 14), IS bars 383076, gaps 1025, GMM BIC {4: 3520657.951708788, 5: 2912397.592873381, 6: 2895928.602585261} -> K=6, 502.3s
+[12:14:09] generator refit reproduces the first build's GMM (BIC per K identical, K = 6): True
+[12:14:09] minute: 24 tapes (0 to build) in 502s
+[12:14:09] top-up round 1 minute session: healthy 7 / 8 built (lock-out rate 0.12), need 1, generating 2 tapes k = 8..9
+[12:14:11] top-up round 1 minute segment: healthy 7 / 8 built (lock-out rate 0.12), need 1, generating 2 tapes k = 8..9
+[12:14:39] built minute session_8: 26.6s, peak rss 471.4 MB
+[12:14:42] evaluated minute session_8: units 762, setups/sess 3.1296, healthy False (dead share 0.3077, longest frozen run 76 sessions), frozen_st7_st8 diff 152.63 pct 42.6 choch2_skip diff -49.81 pct 14.4 sl_above_median_skip diff -260.6 pct 24.9
+[12:15:09] built minute session_9: 27.1s, peak rss 461.7 MB
+[12:15:14] evaluated minute session_9: units 1092, setups/sess 4.4575, healthy True (dead share 0.0, longest frozen run 31 sessions), frozen_st7_st8 diff -237.99 pct 12.7 choch2_skip diff -159.63 pct 2.5 sl_above_median_skip diff -119.61 pct 99.2
+[12:15:42] built minute segment_8: 27.8s, peak rss 504.7 MB
+[12:15:45] evaluated minute segment_8: units 917, setups/sess 3.7409, healthy True (dead share 0.0, longest frozen run 58 sessions), frozen_st7_st8 diff -62.47 pct 47.8 choch2_skip diff -315.95 pct 5.0 sl_above_median_skip diff -272.36 pct 17.7
+[12:16:13] built minute segment_9: 28.0s, peak rss 470.3 MB
+[12:16:17] evaluated minute segment_9: units 800, setups/sess 3.2713, healthy False (dead share 0.3725, longest frozen run 92 sessions), frozen_st7_st8 diff -180.23 pct 39.0 choch2_skip diff -88.88 pct 2.8 sl_above_median_skip diff -364.72 pct 21.8
+[12:16:18] minute done in 632s
+[12:16:18] minute gmm: built 8, healthy 8, certificate 8 {"choch2_skip": {"cert": [105.34, 246.98], "all_orig": [105.34, 246.98], "real": -72.5}, "frozen_st7_st8": {"cert": [-93.89, 23.0], "all_orig": [-93.89, 23.0], "real": -19.71}, "sl_above_median_skip": {"cert": [32.02, 96.58], "all_orig": [32.02, 96.58], "real": 12.07}}
+[12:16:18] minute segment: built 10, healthy 8, certificate 8 {"choch2_skip": {"cert": [-100.32, 144.79], "all_orig": [-61.29, 144.79], "real": -72.5}, "frozen_st7_st8": {"cert": [16.51, 272.51], "all_orig": [16.51, 272.51], "real": -19.71}, "sl_above_median_skip": {"cert": [-61.2, 129.55], "all_orig": [37.22, 129.55], "real": 12.07}}
+[12:16:18] minute session: built 10, healthy 8, certificate 8 {"choch2_skip": {"cert": [-78.84, 136.47], "all_orig": [-78.84, 136.47], "real": -72.5}, "frozen_st7_st8": {"cert": [29.83, 225.03], "all_orig": [76.99, 468.29], "real": -19.71}, "sl_above_median_skip": {"cert": [-22.91, 94.14], "all_orig": [-22.91, 94.14], "real": 12.07}}

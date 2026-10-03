@@ -1,0 +1,11 @@
+{
+ "tf": "minute",
+ "sessions": 1026,
+ "longest_frozen_run_sessions": 69,
+ "frozen_sessions_total": 410,
+ "longest_choch_free_sessions": 69,
+ "setups": 4502,
+ "setups_per_session": 4.3879,
+ "dead_tail_share": 0.0,
+ "definition": "a session is frozen when prot does not change inside it, equals the previous session's last prot and no CHoCH occurs; IS sessions only"
+}

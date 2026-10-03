@@ -1,0 +1,25 @@
+=== tables.py 2026-09-29T12:36:04 ===
+[minute] vocabulary: hour_bin, fz_read, dir, room_ahead_dist_atr<-cl7, touch_room_bars_ago<-cl11, card_first_bars<-cl13, ffd_close_dstar<-cl15, card_last_reject_dir<-cl9, last_bos_dir<-cl8, touch_swing_last<-cl37, (covered)<-cl33, n_choch_since_bos, hv3_dir_agree, hv3_bars_since, fz_visit_n
+[minute]   swap: cluster 7: representative `card_read=PENDING` not shown (`card_read=PENDING`: source column `fz_read` already shown (`card_read` == `fz_read` on every IS row)); shown through the highest-MDI admissible member `room_ahead_dist_atr` (MDI 0.00847) -> column `room_ahead_dist_atr`
+[minute]   swap: cluster 11: representative `card_read=ACCEPTED` not shown (`card_read=ACCEPTED`: source column `fz_read` already shown (`card_read` == `fz_read` on every IS row)); shown through the highest-MDI admissible member `touch_room_bars_ago` (MDI 0.00578) -> column `touch_room_bars_ago`
+[minute]   swap: cluster 13: representative `card_read=FIRST_PRINT` not shown (`card_read=FIRST_PRINT`: source column `fz_read` already shown (`card_read` == `fz_read` on every IS row)); shown through the highest-MDI admissible member `card_first_bars` (MDI 0.00359) -> column `card_first_bars`
+[minute]   swap: cluster 15: representative `n_events_asof` not shown (`n_events_asof`: calendar-time proxy (drift.json time_proxies), refused; `sl`: calendar-time proxy (drift.json time_proxies), refused); shown through the highest-MDI admissible member `ffd_close_dstar` (MDI 0.00483) -> column `ffd_close_dstar`
+[minute]   swap: cluster 9: representative `card_last_reject_dir=nan` is a one-hot level: its source column `card_last_reject_dir` is shown by level
+[minute]   swap: cluster 8: representative `last_bos_dir=none` is a one-hot level: its source column `last_bos_dir` is shown by level
+[minute]   swap: cluster 37: representative `touch_swing_last=held` is a one-hot level: its source column `touch_swing_last` is shown by level
+[minute]   swap: cluster 33: `hour_bin=>=15:20`: source column `hour_bin` already shown
+[minute] half A: rows 2408 sessions 324 columns 14 two-way 4 -> labelled cells 184 (suppressed 21, empty 39)
+[minute] half B: rows 2044 sessions 254 columns 14 two-way 4 -> labelled cells 181 (suppressed 23, empty 39)
+[5minute] vocabulary: hour_bin, fz_read, dir, touch_room_last<-cl17, fz_gate<-cl7, card_leave_kind<-cl12, days_to_expiry<-cl22, touch_prot_last<-cl16, ffd_close_dstar<-cl21, gap_pts<-cl8, (covered)<-cl38, n_choch_since_bos, hv3_dir_agree, hv3_bars_since, fz_visit_n
+[5minute]   swap: cluster 17: representative `touch_room_last=broke` is a one-hot level: its source column `touch_room_last` is shown by level
+[5minute]   swap: cluster 7: representative `fz_gate=TAKE` is a one-hot level: its source column `fz_gate` is shown by level
+[5minute]   swap: cluster 12: representative `card_read=LEAVE` not shown (`card_read=LEAVE`: source column `fz_read` already shown (`card_read` == `fz_read` on every IS row)); shown through the highest-MDI admissible member `card_leave_kind=normal` (MDI 0.00217) -> column `card_leave_kind`
+[5minute]   swap: cluster 16: representative `touch_prot_last=held` is a one-hot level: its source column `touch_prot_last` is shown by level
+[5minute]   swap: cluster 21: representative `n_events_asof` not shown (`n_events_asof`: calendar-time proxy (drift.json time_proxies), refused); shown through the highest-MDI admissible member `ffd_close_dstar` (MDI 0.00472) -> column `ffd_close_dstar`
+[5minute]   swap: cluster 8: representative `gap_pts__na` is a missing indicator: `gap_pts` is shown as an NA indicator (NA / not NA)
+[5minute]   swap: cluster 38: `touch_prot_last=broke`: source column `touch_prot_last` already shown
+[5minute] half A: rows 428 sessions 214 columns 14 two-way 4 -> labelled cells 122 (suppressed 42, empty 69)
+[5minute] half B: rows 398 sessions 194 columns 14 two-way 4 -> labelled cells 118 (suppressed 46, empty 68)
+registration half A: appended
+registration half B: appended
+done in 2.8 s

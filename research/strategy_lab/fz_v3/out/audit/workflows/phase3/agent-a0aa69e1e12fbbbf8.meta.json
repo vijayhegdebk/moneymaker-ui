@@ -1,0 +1,1 @@
+{"agentType":"workflow-subagent","description":"verify:operating_point_sizing:leakage","workflowPhase":"Verify","spawnDepth":1,"requestShape":"foreground","requestNonInteractive":true}

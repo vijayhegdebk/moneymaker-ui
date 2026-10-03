@@ -1,0 +1,2695 @@
+{
+ "model": "scorecard",
+ "desc": "(e) hour-bin / dir scorecard (L1 logistic, integer points)",
+ "stages": {
+  "oof12": {
+   "row": {
+    "id": "a8c1cd3ea062d7dd",
+    "family": "gate_family/context/scorecard",
+    "tf": "5minute",
+    "label": "L1",
+    "split": "IS",
+    "config": {
+     "sub": "context",
+     "model": "scorecard",
+     "stage": "oof12",
+     "label": "L1",
+     "vocabulary": "inside the frozen vocabulary (context columns)",
+     "c_search": "bisect",
+     "taus": [
+      0.4,
+      0.4,
+      0.35,
+      0.4,
+      0.4,
+      0.4,
+      0.1,
+      0.35,
+      0.1,
+      0.4,
+      0.4,
+      0.4
+     ]
+    },
+    "script": "run_gf.py",
+    "script_sha": "2de4837cb6bc1ed7",
+    "at": "2026-09-29T13:41:26",
+    "note": "sub-family I (context: hour_bin one-hot + dir; inside the frozen vocabulary)",
+    "n": 826,
+    "kept_n": 812,
+    "skipped_n": 14,
+    "kept_share": 0.9831,
+    "kept_net": -613810.34,
+    "skipped_net": -11514.82,
+    "kept_mean": -755.92,
+    "skipped_mean": -822.49,
+    "all_mean": -757.05,
+    "kept_win_rate": 0.2771,
+    "skipped_win_rate": 0.2857,
+    "kept_pf": 0.639,
+    "kept_t": -4.78,
+    "diff": 66.56,
+    "diff_top1_removed": -153.88,
+    "kept_mean_slip3": -495.95,
+    "kept_mean_slip8": -1145.89,
+    "loser_recall": 0.0168,
+    "loser_precision": 0.7143,
+    "winner_recall": 0.9825,
+    "winner_recall_weighted": 0.9812,
+    "top_decile_winners_skipped": 0.0,
+    "kept_sessions": 402,
+    "sign_blocks": 2,
+    "perm_p": 0.9615,
+    "control_pct": 96.0,
+    "control_p_beat": 0.041,
+    "control_p50": -627178.93
+   },
+   "taus": [
+    0.4,
+    0.4,
+    0.35,
+    0.4,
+    0.4,
+    0.4,
+    0.1,
+    0.35,
+    0.1,
+    0.4,
+    0.4,
+    0.4
+   ],
+   "tau_tables": [
+    [
+     {
+      "tau": 0.1,
+      "kept_n": 741,
+      "wrec": 1.0,
+      "kept_mean": -797.94
+     },
+     {
+      "tau": 0.15,
+      "kept_n": 741,
+      "wrec": 1.0,
+      "kept_mean": -797.94
+     },
+     {
+      "tau": 0.2,
+      "kept_n": 741,
+      "wrec": 1.0,
+      "kept_mean": -797.94
+     },
+     {
+      "tau": 0.25,
+      "kept_n": 741,
+      "wrec": 1.0,
+      "kept_mean": -797.94
+     },
+     {
+      "tau": 0.3,
+      "kept_n": 741,
+      "wrec": 1.0,
+      "kept_mean": -797.94
+     },
+     {
+      "tau": 0.35,
+      "kept_n": 720,
+      "wrec": 0.9878,
+      "kept_mean": -786.53
+     },
+     {
+      "tau": 0.4,
+      "kept_n": 698,
+      "wrec": 0.9769,
+      "kept_mean": -776.77
+     }
+    ],
+    [
+     {
+      "tau": 0.1,
+      "kept_n": 741,
+      "wrec": 1.0,
+      "kept_mean": -804.5
+     },
+     {
+      "tau": 0.15,
+      "kept_n": 741,
+      "wrec": 1.0,
+      "kept_mean": -804.5
+     },
+     {
+      "tau": 0.2,
+      "kept_n": 741,
+      "wrec": 1.0,
+      "kept_mean": -804.5
+     },
+     {
+      "tau": 0.25,
+      "kept_n": 741,
+      "wrec": 1.0,
+      "kept_mean": -804.5
+     },
+     {
+      "tau": 0.3,
+      "kept_n": 741,
+      "wrec": 1.0,
+      "kept_mean": -804.5
+     },
+     {
+      "tau": 0.35,
+      "kept_n": 724,
+      "wrec": 0.9887,
+      "kept_mean": -767.1
+     },
+     {
+      "tau": 0.4,
+      "kept_n": 718,
+      "wrec": 0.978,
+      "kept_mean": -759.1
+     }
+    ],
+    [
+     {
+      "tau": 0.1,
+      "kept_n": 784,
+      "wrec": 1.0,
+      "kept_mean": -785.87
+     },
+     {
+      "tau": 0.15,
+      "kept_n": 784,
+      "wrec": 1.0,
+      "kept_mean": -785.87
+     },
+     {
+      "tau": 0.2,
+      "kept_n": 784,
+      "wrec": 1.0,
+      "kept_mean": -785.87
+     },
+     {
+      "tau": 0.25,
+      "kept_n": 784,
+      "wrec": 1.0,
+      "kept_mean": -785.87
+     },
+     {
+      "tau": 0.3,
+      "kept_n": 777,
+      "wrec": 0.997,
+      "kept_mean": -769.42
+     },
+     {
+      "tau": 0.35,
+      "kept_n": 749,
+      "wrec": 0.9841,
+      "kept_mean": -746.52
+     },
+     {
+      "tau": 0.4,
+      "kept_n": 639,
+      "wrec": 0.8973,
+      "kept_mean": -650.66
+     }
+    ],
+    [
+     {
+      "tau": 0.1,
+      "kept_n": 742,
+      "wrec": 1.0,
+      "kept_mean": -742.6
+     },
+     {
+      "tau": 0.15,
+      "kept_n": 742,
+      "wrec": 1.0,
+      "kept_mean": -742.6
+     },
+     {
+      "tau": 0.2,
+      "kept_n": 742,
+      "wrec": 1.0,
+      "kept_mean": -742.6
+     },
+     {
+      "tau": 0.25,
+      "kept_n": 742,
+      "wrec": 1.0,
+      "kept_mean": -742.6
+     },
+     {
+      "tau": 0.3,
+      "kept_n": 742,
+      "wrec": 1.0,
+      "kept_mean": -742.6
+     },
+     {
+      "tau": 0.35,
+      "kept_n": 735,
+      "wrec": 0.997,
+      "kept_mean": -724.81
+     },
+     {
+      "tau": 0.4,
+      "kept_n": 694,
+      "wrec": 0.954,
+      "kept_mean": -694.41
+     }
+    ],
+    [
+     {
+      "tau": 0.1,
+      "kept_n": 754,
+      "wrec": 1.0,
+      "kept_mean": -742.65
+     },
+     {
+      "tau": 0.15,
+      "kept_n": 754,
+      "wrec": 1.0,
+      "kept_mean": -742.65
+     },
+     {
+      "tau": 0.2,
+      "kept_n": 754,
+      "wrec": 1.0,
+      "kept_mean": -742.65
+     },
+     {
+      "tau": 0.25,
+      "kept_n": 754,
+      "wrec": 1.0,
+      "kept_mean": -742.65
+     },
+     {
+      "tau": 0.3,
+      "kept_n": 754,
+      "wrec": 1.0,
+      "kept_mean": -742.65
+     },
+     {
+      "tau": 0.35,
+      "kept_n": 747,
+      "wrec": 0.9984,
+      "kept_mean": -731.23
+     },
+     {
+      "tau": 0.4,
+      "kept_n": 676,
+      "wrec": 0.9339,
+      "kept_mean": -653.97
+     }
+    ],
+    [
+     {
+      "tau": 0.1,
+      "kept_n": 747,
+      "wrec": 1.0,
+      "kept_mean": -704.41
+     },
+     {
+      "tau": 0.15,
+      "kept_n": 747,
+      "wrec": 1.0,
+      "kept_mean": -704.41
+     },
+     {
+      "tau": 0.2,
+      "kept_n": 747,
+      "wrec": 1.0,
+      "kept_mean": -704.41
+     },
+     {
+      "tau": 0.25,
+      "kept_n": 747,
+      "wrec": 1.0,
+      "kept_mean": -704.41
+     },
+     {
+      "tau": 0.3,
+      "kept_n": 747,
+      "wrec": 1.0,
+      "kept_mean": -704.41
+     },
+     {
+      "tau": 0.35,
+      "kept_n": 743,
+      "wrec": 0.9861,
+      "kept_mean": -717.6
+     },
+     {
+      "tau": 0.4,
+      "kept_n": 683,
+      "wrec": 0.931,
+      "kept_mean": -667.15
+     }
+    ],
+    [
+     {
+      "tau": 0.1,
+      "kept_n": 745,
+      "wrec": 1.0,
+      "kept_mean": -770.16
+     },
+     {
+      "tau": 0.15,
+      "kept_n": 745,
+      "wrec": 1.0,
+      "kept_mean": -770.16
+     },
+     {
+      "tau": 0.2,
+      "kept_n": 745,
+      "wrec": 1.0,
+      "kept_mean": -770.16
+     },
+     {
+      "tau": 0.25,
+      "kept_n": 745,
+      "wrec": 1.0,
+      "kept_mean": -770.16
+     },
+     {
+      "tau": 0.3,
+      "kept_n": 745,
+      "wrec": 1.0,
+      "kept_mean": -770.16
+     },
+     {
+      "tau": 0.35,
+      "kept_n": 745,
+      "wrec": 1.0,
+      "kept_mean": -770.16
+     },
+     {
+      "tau": 0.4,
+      "kept_n": 745,
+      "wrec": 1.0,
+      "kept_mean": -770.16
+     }
+    ],
+    [
+     {
+      "tau": 0.1,
+      "kept_n": 775,
+      "wrec": 1.0,
+      "kept_mean": -741.85
+     },
+     {
+      "tau": 0.15,
+      "kept_n": 775,
+      "wrec": 1.0,
+      "kept_mean": -741.85
+     },
+     {
+      "tau": 0.2,
+      "kept_n": 775,
+      "wrec": 1.0,
+      "kept_mean": -741.85
+     },
+     {
+      "tau": 0.25,
+      "kept_n": 768,
+      "wrec": 0.9983,
+      "kept_mean": -730.73
+     },
+     {
+      "tau": 0.3,
+      "kept_n": 768,
+      "wrec": 0.9983,
+      "kept_mean": -730.73
+     },
+     {
+      "tau": 0.35,
+      "kept_n": 731,
+      "wrec": 0.9701,
+      "kept_mean": -666.91
+     },
+     {
+      "tau": 0.4,
+      "kept_n": 696,
+      "wrec": 0.9316,
+      "kept_mean": -667.0
+     }
+    ],
+    [
+     {
+      "tau": 0.1,
+      "kept_n": 747,
+      "wrec": 1.0,
+      "kept_mean": -785.33
+     },
+     {
+      "tau": 0.15,
+      "kept_n": 747,
+      "wrec": 1.0,
+      "kept_mean": -785.33
+     },
+     {
+      "tau": 0.2,
+      "kept_n": 747,
+      "wrec": 1.0,
+      "kept_mean": -785.33
+     },
+     {
+      "tau": 0.25,
+      "kept_n": 747,
+      "wrec": 1.0,
+      "kept_mean": -785.33
+     },
+     {
+      "tau": 0.3,
+      "kept_n": 747,
+      "wrec": 1.0,
+      "kept_mean": -785.33
+     },
+     {
+      "tau": 0.35,
+      "kept_n": 747,
+      "wrec": 1.0,
+      "kept_mean": -785.33
+     },
+     {
+      "tau": 0.4,
+      "kept_n": 747,
+      "wrec": 1.0,
+      "kept_mean": -785.33
+     }
+    ],
+    [
+     {
+      "tau": 0.1,
+      "kept_n": 746,
+      "wrec": 1.0,
+      "kept_mean": -700.7
+     },
+     {
+      "tau": 0.15,
+      "kept_n": 746,
+      "wrec": 1.0,
+      "kept_mean": -700.7
+     },
+     {
+      "tau": 0.2,
+      "kept_n": 746,
+      "wrec": 1.0,
+      "kept_mean": -700.7
+     },
+     {
+      "tau": 0.25,
+      "kept_n": 746,
+      "wrec": 1.0,
+      "kept_mean": -700.7
+     },
+     {
+      "tau": 0.3,
+      "kept_n": 746,
+      "wrec": 1.0,
+      "kept_mean": -700.7
+     },
+     {
+      "tau": 0.35,
+      "kept_n": 746,
+      "wrec": 1.0,
+      "kept_mean": -700.7
+     },
+     {
+      "tau": 0.4,
+      "kept_n": 735,
+      "wrec": 0.9821,
+      "kept_mean": -697.39
+     }
+    ],
+    [
+     {
+      "tau": 0.1,
+      "kept_n": 794,
+      "wrec": 1.0,
+      "kept_mean": -736.37
+     },
+     {
+      "tau": 0.15,
+      "kept_n": 794,
+      "wrec": 1.0,
+      "kept_mean": -736.37
+     },
+     {
+      "tau": 0.2,
+      "kept_n": 794,
+      "wrec": 1.0,
+      "kept_mean": -736.37
+     },
+     {
+      "tau": 0.25,
+      "kept_n": 794,
+      "wrec": 1.0,
+      "kept_mean": -736.37
+     },
+     {
+      "tau": 0.3,
+      "kept_n": 794,
+      "wrec": 1.0,
+      "kept_mean": -736.37
+     },
+     {
+      "tau": 0.35,
+      "kept_n": 794,
+      "wrec": 1.0,
+      "kept_mean": -736.37
+     },
+     {
+      "tau": 0.4,
+      "kept_n": 766,
+      "wrec": 0.9964,
+      "kept_mean": -726.12
+     }
+    ],
+    [
+     {
+      "tau": 0.1,
+      "kept_n": 743,
+      "wrec": 1.0,
+      "kept_mean": -812.07
+     },
+     {
+      "tau": 0.15,
+      "kept_n": 743,
+      "wrec": 1.0,
+      "kept_mean": -812.07
+     },
+     {
+      "tau": 0.2,
+      "kept_n": 743,
+      "wrec": 1.0,
+      "kept_mean": -812.07
+     },
+     {
+      "tau": 0.25,
+      "kept_n": 743,
+      "wrec": 1.0,
+      "kept_mean": -812.07
+     },
+     {
+      "tau": 0.3,
+      "kept_n": 743,
+      "wrec": 1.0,
+      "kept_mean": -812.07
+     },
+     {
+      "tau": 0.35,
+      "kept_n": 743,
+      "wrec": 1.0,
+      "kept_mean": -812.07
+     },
+     {
+      "tau": 0.4,
+      "kept_n": 731,
+      "wrec": 0.9866,
+      "kept_mean": -796.01
+     }
+    ]
+   ],
+   "tau_constraint_satisfied": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_rules": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "rules_per_fold": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "caps": [
+    16029.2,
+    14989.1,
+    16746.1,
+    17645.5,
+    17388.5,
+    17538.4,
+    15993.9,
+    14972.0,
+    15251.0,
+    15279.1,
+    16532.0,
+    17624.1
+   ],
+   "kind": "score",
+   "tau_rows": {
+    "0.1": {
+     "id": "ab2e382566d50a19",
+     "kept_share": 1.0,
+     "diff": null,
+     "diff_top1_removed": null,
+     "sign_blocks": null
+    },
+    "0.15": {
+     "id": "7e5fc7bacfa37100",
+     "kept_share": 1.0,
+     "diff": null,
+     "diff_top1_removed": null,
+     "sign_blocks": null
+    },
+    "0.2": {
+     "id": "1b51eab72695cf6e",
+     "kept_share": 1.0,
+     "diff": null,
+     "diff_top1_removed": null,
+     "sign_blocks": null
+    },
+    "0.25": {
+     "id": "9188ba25f61a1dce",
+     "kept_share": 1.0,
+     "diff": null,
+     "diff_top1_removed": null,
+     "sign_blocks": null
+    },
+    "0.3": {
+     "id": "8bedc798d0715768",
+     "kept_share": 1.0,
+     "diff": null,
+     "diff_top1_removed": null,
+     "sign_blocks": null
+    },
+    "0.35": {
+     "id": "e4af63da3274a901",
+     "kept_share": 0.9939,
+     "diff": -251.18,
+     "diff_top1_removed": -469.21,
+     "sign_blocks": 1
+    },
+    "0.4": {
+     "id": "2d80767f4f229b98",
+     "kept_share": 0.9818,
+     "diff": -31.58,
+     "diff_top1_removed": -252.32,
+     "sign_blocks": 2
+    }
+   },
+   "oof_auc": 0.481,
+   "calibration": {
+    "brier": 0.23852,
+    "brier_base": 0.20038,
+    "brier_skill": -0.1903,
+    "ece": 0.1914,
+    "mean_p": 0.4686,
+    "base_rate": 0.2772,
+    "reliability": [
+     {
+      "bin": 3,
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 15,
+      "mean_p": 0.3654,
+      "win_rate": 0.3333
+     },
+     {
+      "bin": 4,
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 760,
+      "mean_p": 0.4655,
+      "win_rate": 0.2763
+     },
+     {
+      "bin": 5,
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 44,
+      "mean_p": 0.5352,
+      "win_rate": 0.2727
+     },
+     {
+      "bin": 6,
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 7,
+      "mean_p": 0.6093,
+      "win_rate": 0.2857
+     }
+    ]
+   },
+   "scorecards_per_fold": [
+    {
+     "card": {
+      "features": {
+       "hour_bin=10": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "10",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -3
+        }
+       },
+       "hour_bin=12": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "12",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -1
+        }
+       },
+       "hour_bin=13": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "13",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 1
+        }
+       },
+       "hour_bin=14": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "14",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 2
+        }
+       },
+       "hour_bin=15": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "15",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -20
+        }
+       },
+       "dir=down": {
+        "kind": "onehot",
+        "src": "dir",
+        "level": "down",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 2
+        }
+       }
+      },
+      "scale": 20
+     },
+     "score_min": -Infinity,
+     "n_src": 6,
+     "C": 0.379458,
+     "selected": [
+      "hour_bin=10",
+      "hour_bin=12",
+      "hour_bin=13",
+      "hour_bin=14",
+      "hour_bin=15",
+      "dir=down"
+     ],
+     "platt": [
+      -0.1206,
+      -0.02709
+     ]
+    },
+    {
+     "card": {
+      "features": {
+       "hour_bin=10": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "10",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -1
+        }
+       },
+       "hour_bin=15": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "15",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -20
+        }
+       },
+       "hour_bin=<09:25": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "<09:25",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 8
+        }
+       },
+       "dir=down": {
+        "kind": "onehot",
+        "src": "dir",
+        "level": "down",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 1
+        }
+       }
+      },
+      "scale": 20
+     },
+     "score_min": -Infinity,
+     "n_src": 4,
+     "C": 0.379458,
+     "selected": [
+      "hour_bin=10",
+      "hour_bin=15",
+      "hour_bin=<09:25",
+      "dir=down"
+     ],
+     "platt": [
+      -0.1129,
+      -0.02876
+     ]
+    },
+    {
+     "card": {
+      "features": {
+       "hour_bin=10": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "10",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -2
+        }
+       },
+       "hour_bin=11": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "11",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -8
+        }
+       },
+       "hour_bin=15": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "15",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -20
+        }
+       },
+       "hour_bin=<09:25": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "<09:25",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 7
+        }
+       },
+       "dir=down": {
+        "kind": "onehot",
+        "src": "dir",
+        "level": "down",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 7
+        }
+       }
+      },
+      "scale": 20
+     },
+     "score_min": -Infinity,
+     "n_src": 5,
+     "C": 0.271041,
+     "selected": [
+      "hour_bin=10",
+      "hour_bin=11",
+      "hour_bin=15",
+      "hour_bin=<09:25",
+      "dir=down"
+     ],
+     "platt": [
+      -0.0603,
+      -0.02478
+     ]
+    },
+    {
+     "card": {
+      "features": {
+       "hour_bin=11": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "11",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -6
+        }
+       },
+       "hour_bin=13": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "13",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 3
+        }
+       },
+       "hour_bin=14": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "14",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 4
+        }
+       },
+       "hour_bin=15": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "15",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -20
+        }
+       },
+       "hour_bin=<09:25": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "<09:25",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 13
+        }
+       },
+       "dir=down": {
+        "kind": "onehot",
+        "src": "dir",
+        "level": "down",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 2
+        }
+       }
+      },
+      "scale": 20
+     },
+     "score_min": -Infinity,
+     "n_src": 6,
+     "C": 0.379458,
+     "selected": [
+      "hour_bin=11",
+      "hour_bin=13",
+      "hour_bin=14",
+      "hour_bin=15",
+      "hour_bin=<09:25",
+      "dir=down"
+     ],
+     "platt": [
+      -0.088,
+      -0.02421
+     ]
+    },
+    {
+     "card": {
+      "features": {
+       "hour_bin=10": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "10",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -19
+        }
+       },
+       "hour_bin=11": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "11",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -1
+        }
+       },
+       "hour_bin=<09:25": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "<09:25",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 20
+        }
+       },
+       "dir=down": {
+        "kind": "onehot",
+        "src": "dir",
+        "level": "down",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 17
+        }
+       }
+      },
+      "scale": 20
+     },
+     "score_min": -Infinity,
+     "n_src": 4,
+     "C": 0.193601,
+     "selected": [
+      "hour_bin=10",
+      "hour_bin=11",
+      "hour_bin=<09:25",
+      "dir=down"
+     ],
+     "platt": [
+      -0.0935,
+      -0.01766
+     ]
+    },
+    {
+     "card": {
+      "features": {
+       "hour_bin=10": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "10",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -3
+        }
+       },
+       "hour_bin=11": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "11",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -1
+        }
+       },
+       "hour_bin=<09:25": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "<09:25",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 20
+        }
+       },
+       "dir=down": {
+        "kind": "onehot",
+        "src": "dir",
+        "level": "down",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 5
+        }
+       }
+      },
+      "scale": 20
+     },
+     "score_min": -Infinity,
+     "n_src": 4,
+     "C": 0.193601,
+     "selected": [
+      "hour_bin=10",
+      "hour_bin=11",
+      "hour_bin=<09:25",
+      "dir=down"
+     ],
+     "platt": [
+      -0.0774,
+      -0.01687
+     ]
+    },
+    {
+     "card": {
+      "features": {
+       "hour_bin=10": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "10",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -2
+        }
+       },
+       "hour_bin=14": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "14",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 5
+        }
+       },
+       "hour_bin=15": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "15",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -20
+        }
+       },
+       "hour_bin=<09:25": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "<09:25",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 11
+        }
+       },
+       "dir=down": {
+        "kind": "onehot",
+        "src": "dir",
+        "level": "down",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 4
+        }
+       }
+      },
+      "scale": 20
+     },
+     "score_min": -Infinity,
+     "n_src": 6,
+     "C": 0.531241,
+     "selected": [
+      "hour_bin=10",
+      "hour_bin=14",
+      "hour_bin=15",
+      "hour_bin=<09:25",
+      "dir=down"
+     ],
+     "platt": [
+      -0.0943,
+      -0.01065
+     ]
+    },
+    {
+     "card": {
+      "features": {
+       "hour_bin=10": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "10",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -1
+        }
+       },
+       "hour_bin=11": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "11",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -6
+        }
+       },
+       "hour_bin=13": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "13",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 3
+        }
+       },
+       "hour_bin=<09:25": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "<09:25",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 20
+        }
+       },
+       "dir=down": {
+        "kind": "onehot",
+        "src": "dir",
+        "level": "down",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 2
+        }
+       }
+      },
+      "scale": 20
+     },
+     "score_min": -Infinity,
+     "n_src": 5,
+     "C": 0.193601,
+     "selected": [
+      "hour_bin=10",
+      "hour_bin=11",
+      "hour_bin=13",
+      "hour_bin=<09:25",
+      "dir=down"
+     ],
+     "platt": [
+      -0.0806,
+      -0.03005
+     ]
+    },
+    {
+     "card": {
+      "features": {
+       "hour_bin=11": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "11",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -20
+        }
+       },
+       "hour_bin=12": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "12",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -9
+        }
+       },
+       "hour_bin=13": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "13",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 4
+        }
+       },
+       "hour_bin=15": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "15",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -6
+        }
+       },
+       "hour_bin=<09:25": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "<09:25",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 19
+        }
+       }
+      },
+      "scale": 20
+     },
+     "score_min": -Infinity,
+     "n_src": 5,
+     "C": 0.193601,
+     "selected": [
+      "hour_bin=11",
+      "hour_bin=12",
+      "hour_bin=13",
+      "hour_bin=15",
+      "hour_bin=<09:25"
+     ],
+     "platt": [
+      -0.1154,
+      -0.00349
+     ]
+    },
+    {
+     "card": {
+      "features": {
+       "hour_bin=10": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "10",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -3
+        }
+       },
+       "hour_bin=11": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "11",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -6
+        }
+       },
+       "hour_bin=14": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "14",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 3
+        }
+       },
+       "hour_bin=15": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "15",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -20
+        }
+       },
+       "hour_bin=<09:25": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "<09:25",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 12
+        }
+       },
+       "dir=down": {
+        "kind": "onehot",
+        "src": "dir",
+        "level": "down",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 5
+        }
+       }
+      },
+      "scale": 20
+     },
+     "score_min": -Infinity,
+     "n_src": 6,
+     "C": 0.271041,
+     "selected": [
+      "hour_bin=10",
+      "hour_bin=11",
+      "hour_bin=14",
+      "hour_bin=15",
+      "hour_bin=<09:25",
+      "dir=down"
+     ],
+     "platt": [
+      -0.0818,
+      -0.0147
+     ]
+    },
+    {
+     "card": {
+      "features": {
+       "hour_bin=10": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "10",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -3
+        }
+       },
+       "hour_bin=11": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "11",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -4
+        }
+       },
+       "hour_bin=12": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "12",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -4
+        }
+       },
+       "hour_bin=15": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "15",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -20
+        }
+       },
+       "hour_bin=<09:25": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "<09:25",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 4
+        }
+       },
+       "dir=down": {
+        "kind": "onehot",
+        "src": "dir",
+        "level": "down",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 3
+        }
+       }
+      },
+      "scale": 20
+     },
+     "score_min": -19.891,
+     "n_src": 6,
+     "C": 1.041233,
+     "selected": [
+      "hour_bin=10",
+      "hour_bin=11",
+      "hour_bin=12",
+      "hour_bin=15",
+      "hour_bin=<09:25",
+      "dir=down"
+     ],
+     "platt": [
+      -0.1156,
+      0.01457
+     ]
+    },
+    {
+     "card": {
+      "features": {
+       "hour_bin=11": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "11",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -4
+        }
+       },
+       "hour_bin=13": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "13",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 6
+        }
+       },
+       "hour_bin=14": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "14",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 4
+        }
+       },
+       "hour_bin=15": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "15",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": -20
+        }
+       },
+       "hour_bin=<09:25": {
+        "kind": "onehot",
+        "src": "hour_bin",
+        "level": "<09:25",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 8
+        }
+       },
+       "dir=down": {
+        "kind": "onehot",
+        "src": "dir",
+        "level": "down",
+        "ext": false,
+        "bins": null,
+        "points": {
+         "present": 4
+        }
+       }
+      },
+      "scale": 20
+     },
+     "score_min": -Infinity,
+     "n_src": 6,
+     "C": 0.531241,
+     "selected": [
+      "hour_bin=11",
+      "hour_bin=13",
+      "hour_bin=14",
+      "hour_bin=15",
+      "hour_bin=<09:25",
+      "dir=down"
+     ],
+     "platt": [
+      -0.0823,
+      -0.01559
+     ]
+    }
+   ],
+   "kept_share_by_hour": {
+    "09": {
+     "n": 96,
+     "kept_share": 1.0,
+     "kept_mean": -907.1,
+     "skipped_mean": null
+    },
+    "10": {
+     "n": 123,
+     "kept_share": 1.0,
+     "kept_mean": -1083.6,
+     "skipped_mean": null
+    },
+    "11": {
+     "n": 100,
+     "kept_share": 1.0,
+     "kept_mean": -1082.6,
+     "skipped_mean": null
+    },
+    "12": {
+     "n": 126,
+     "kept_share": 1.0,
+     "kept_mean": -987.8,
+     "skipped_mean": null
+    },
+    "13": {
+     "n": 149,
+     "kept_share": 1.0,
+     "kept_mean": -524.5,
+     "skipped_mean": null
+    },
+    "14": {
+     "n": 132,
+     "kept_share": 1.0,
+     "kept_mean": -346.1,
+     "skipped_mean": null
+    },
+    "15": {
+     "n": 45,
+     "kept_share": 1.0,
+     "kept_mean": -1089.9,
+     "skipped_mean": null
+    },
+    "<09:25": {
+     "n": 50,
+     "kept_share": 0.72,
+     "kept_mean": 496.2,
+     "skipped_mean": -822.5
+    },
+    ">=15:20": {
+     "n": 5,
+     "kept_share": 1.0,
+     "kept_mean": -1141.2,
+     "skipped_mean": null
+    }
+   },
+   "kept_share_by_regime": {
+    "choch<2_since_bos": {
+     "n": 567,
+     "kept_share": 0.9859,
+     "kept_mean": -686.5,
+     "skipped_mean": 44.7
+    },
+    "choch>=2_since_bos": {
+     "n": 259,
+     "kept_share": 0.9768,
+     "kept_mean": -909.3,
+     "skipped_mean": -1978.7
+    }
+   },
+   "kept_share_by_dir": {
+    "down": {
+     "n": 400,
+     "kept_share": 0.975,
+     "kept_mean": -582.9,
+     "skipped_mean": -1358.2
+    },
+    "up": {
+     "n": 426,
+     "kept_share": 0.9906,
+     "kept_mean": -915.8,
+     "skipped_mean": 516.8
+    }
+   },
+   "distill": {
+    "rules": {
+     "row": {
+      "id": "d046eab79137a8d4",
+      "family": "gate_family/context/scorecard/distill_rules",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "sub": "context",
+       "model": "scorecard",
+       "stage": "distill_rules_oof12",
+       "label": "L1",
+       "vocabulary": "inside the frozen vocabulary (context columns)",
+       "c_search": "bisect"
+      },
+      "script": "run_gf.py",
+      "script_sha": "2de4837cb6bc1ed7",
+      "at": "2026-09-29T13:41:28",
+      "note": "sub-family I (context: hour_bin one-hot + dir; inside the frozen vocabulary)",
+      "n": 826,
+      "kept_n": 810,
+      "skipped_n": 16,
+      "kept_share": 0.9806,
+      "kept_net": -606325.11,
+      "skipped_net": -19000.05,
+      "kept_mean": -748.55,
+      "skipped_mean": -1187.5,
+      "all_mean": -757.05,
+      "kept_win_rate": 0.2778,
+      "skipped_win_rate": 0.25,
+      "kept_pf": 0.642,
+      "kept_t": -4.73,
+      "diff": 438.95,
+      "diff_top1_removed": 218.04,
+      "kept_mean_slip3": -488.57,
+      "kept_mean_slip8": -1138.51,
+      "loser_recall": 0.0201,
+      "loser_precision": 0.75,
+      "winner_recall": 0.9825,
+      "winner_recall_weighted": 0.9812,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 402,
+      "sign_blocks": 2,
+      "perm_p": 0.6977,
+      "control_pct": 99.2,
+      "control_p_beat": 0.008,
+      "control_p50": -629292.82
+     },
+     "fidelity_oof": {
+      "agreement": 0.9976,
+      "skip_precision": 0.875,
+      "skip_recall": 1.0,
+      "model_skip_share": 0.0169,
+      "rule_skip_share": 0.0194
+     },
+     "fidelity_train": [
+      1.0,
+      1.0,
+      1.0,
+      0.9716981132075472,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.9785894206549118,
+      1.0
+     ],
+     "n_rules": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0
+     ],
+     "rules_per_fold": [
+      [],
+      [],
+      [],
+      [
+       {
+        "if": [
+         [
+          "hour_bin",
+          "==",
+          "<09:25"
+         ]
+        ],
+        "then": "skip"
+       }
+      ],
+      [
+       {
+        "if": [
+         [
+          "hour_bin",
+          "==",
+          "<09:25"
+         ]
+        ],
+        "then": "skip"
+       }
+      ],
+      [
+       {
+        "if": [
+         [
+          "hour_bin",
+          "==",
+          "<09:25"
+         ]
+        ],
+        "then": "skip"
+       }
+      ],
+      [],
+      [
+       {
+        "if": [
+         [
+          "hour_bin",
+          "==",
+          "<09:25"
+         ]
+        ],
+        "then": "skip"
+       }
+      ],
+      [],
+      [],
+      [
+       {
+        "if": [
+         [
+          "hour_bin",
+          "==",
+          "15"
+         ]
+        ],
+        "then": "skip"
+       }
+      ],
+      []
+     ]
+    },
+    "tree": {
+     "row": {
+      "id": "d1a54a0269bfdb8a",
+      "family": "gate_family/context/scorecard/distill_tree",
+      "tf": "5minute",
+      "label": "L1",
+      "split": "IS",
+      "config": {
+       "sub": "context",
+       "model": "scorecard",
+       "stage": "distill_tree_oof12",
+       "label": "L1",
+       "vocabulary": "inside the frozen vocabulary (context columns)",
+       "c_search": "bisect"
+      },
+      "script": "run_gf.py",
+      "script_sha": "2de4837cb6bc1ed7",
+      "at": "2026-09-29T13:41:30",
+      "note": "sub-family I (context: hour_bin one-hot + dir; inside the frozen vocabulary)",
+      "n": 826,
+      "kept_n": 810,
+      "skipped_n": 16,
+      "kept_share": 0.9806,
+      "kept_net": -606325.11,
+      "skipped_net": -19000.05,
+      "kept_mean": -748.55,
+      "skipped_mean": -1187.5,
+      "all_mean": -757.05,
+      "kept_win_rate": 0.2778,
+      "skipped_win_rate": 0.25,
+      "kept_pf": 0.642,
+      "kept_t": -4.73,
+      "diff": 438.95,
+      "diff_top1_removed": 218.04,
+      "kept_mean_slip3": -488.57,
+      "kept_mean_slip8": -1138.51,
+      "loser_recall": 0.0201,
+      "loser_precision": 0.75,
+      "winner_recall": 0.9825,
+      "winner_recall_weighted": 0.9812,
+      "top_decile_winners_skipped": 0.0,
+      "kept_sessions": 402,
+      "sign_blocks": 2,
+      "perm_p": 0.6957,
+      "control_pct": 98.8,
+      "control_p_beat": 0.013,
+      "control_p50": -629190.57
+     },
+     "fidelity_oof": {
+      "agreement": 0.9976,
+      "skip_precision": 0.875,
+      "skip_recall": 1.0,
+      "model_skip_share": 0.0169,
+      "rule_skip_share": 0.0194
+     },
+     "fidelity_train": [
+      1.0,
+      1.0,
+      1.0,
+      0.9716981132075472,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.9785894206549118,
+      1.0
+     ],
+     "n_rules": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0
+     ],
+     "rules_per_fold": [
+      [],
+      [],
+      [],
+      [
+       {
+        "if": [
+         [
+          "hour_bin",
+          "==",
+          "<09:25"
+         ]
+        ],
+        "then": "skip"
+       }
+      ],
+      [
+       {
+        "if": [
+         [
+          "hour_bin",
+          "==",
+          "<09:25"
+         ]
+        ],
+        "then": "skip"
+       }
+      ],
+      [
+       {
+        "if": [
+         [
+          "hour_bin",
+          "==",
+          "<09:25"
+         ]
+        ],
+        "then": "skip"
+       }
+      ],
+      [],
+      [
+       {
+        "if": [
+         [
+          "hour_bin",
+          "==",
+          "<09:25"
+         ]
+        ],
+        "then": "skip"
+       }
+      ],
+      [],
+      [],
+      [
+       {
+        "if": [
+         [
+          "hour_bin",
+          "==",
+          "15"
+         ]
+        ],
+        "then": "skip"
+       }
+      ],
+      []
+     ]
+    }
+   },
+   "decay": {
+    "id": "7c04a820ecdf73b5",
+    "kept_share": 0.9855,
+    "diff": 2696.73,
+    "diff_top1_removed": 2477.26,
+    "sign_blocks": 3,
+    "taus": [
+     0.1,
+     0.1,
+     0.4,
+     0.4,
+     0.4,
+     0.4,
+     0.1,
+     0.4,
+     0.4,
+     0.1,
+     0.4,
+     0.1
+    ]
+   },
+   "sens": {},
+   "seconds": 7.5,
+   "rss_mb": 236.1
+  },
+  "cpcv": {
+   "dist": {
+    "paths": 11,
+    "diff_median": -56.96,
+    "diff_p5": -1805.81,
+    "diff_min": -1821.8,
+    "diff_share_positive": 0.364,
+    "kept_share_median": 0.9794,
+    "control_pct_median": 93.2,
+    "control_pct_p5": 52.6
+   },
+   "path_ids": [
+    "643ba297c92cde6c",
+    "1f7b52bb1b0ea186",
+    "08874b98634fa007",
+    "c82cc492853e3326",
+    "e972a2490b600586",
+    "1265738a2ce7e8f1",
+    "86a2499d9a6440fd",
+    "f69454ceeaf90cda",
+    "b780ba2a25f23973",
+    "b29b00a2de0cfbbf",
+    "303d15dc8eb3643d"
+   ],
+   "path_diffs": [
+    null,
+    -1821.8,
+    1463.44,
+    -29.31,
+    -84.61,
+    -1786.26,
+    -530.8,
+    363.5,
+    -619.21,
+    2549.54,
+    204.2
+   ],
+   "path_ctrl": [
+    null,
+    91.2,
+    72.0,
+    99.6,
+    98.0,
+    92.0,
+    97.8,
+    82.7,
+    36.8,
+    95.5,
+    94.5
+   ],
+   "path_kept_share": [
+    1.0,
+    0.9867,
+    0.9939,
+    0.9697,
+    0.9322,
+    0.9903,
+    0.96,
+    0.9758,
+    0.9794,
+    0.9964,
+    0.8898
+   ],
+   "path_top1": [
+    null,
+    -2041.71,
+    1245.53,
+    -252.84,
+    -317.3,
+    -2005.27,
+    -111.06,
+    141.48,
+    -840.64,
+    2332.17,
+    216.89
+   ],
+   "taus": [
+    0.1,
+    0.4,
+    0.4,
+    0.1,
+    0.1,
+    0.1,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.35,
+    0.1,
+    0.4,
+    0.4,
+    0.4,
+    0.1,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.35,
+    0.4,
+    0.25,
+    0.1,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.1,
+    0.4,
+    0.4,
+    0.1,
+    0.4,
+    0.4,
+    0.4,
+    0.1,
+    0.4,
+    0.1,
+    0.1,
+    0.1,
+    0.35,
+    0.4,
+    0.4,
+    0.1,
+    0.1,
+    0.35,
+    0.1,
+    0.1,
+    0.1,
+    0.4,
+    0.1,
+    0.1,
+    0.4,
+    0.1,
+    0.4,
+    0.4
+   ],
+   "distill": {
+    "rules": {
+     "dist": {
+      "paths": 11,
+      "diff_median": 92.89,
+      "diff_p5": -835.66,
+      "diff_min": -1041.38,
+      "diff_share_positive": 0.455,
+      "kept_share_median": 0.9831,
+      "control_pct_median": 82.1,
+      "control_pct_p5": 71.0
+     },
+     "path_ids": [
+      "d54820effaca030f",
+      "8709e7fec1fcb70f",
+      "67c5f4455c7d2b56",
+      "bcd23aab0a88a074",
+      "03f0e7b700ad2a49",
+      "966bab93fc6cbce5",
+      "68200ec8042daaa6",
+      "e93d246f013b2553",
+      "1c4d437c996f73b9",
+      "178789766d9b366f",
+      "545d1a867fe6e111"
+     ],
+     "path_diffs": [
+      null,
+      null,
+      1620.27,
+      92.89,
+      -323.19,
+      -1041.38,
+      -527.08,
+      1089.88,
+      -370.24,
+      2549.54,
+      385.14
+     ],
+     "path_ctrl": [
+      null,
+      null,
+      71.7,
+      99.7,
+      98.0,
+      81.1,
+      92.6,
+      70.5,
+      82.1,
+      95.5,
+      80.0
+     ]
+    },
+    "tree": {
+     "dist": {
+      "paths": 11,
+      "diff_median": 92.89,
+      "diff_p5": -835.66,
+      "diff_min": -1041.38,
+      "diff_share_positive": 0.455,
+      "kept_share_median": 0.9831,
+      "control_pct_median": 82.2,
+      "control_pct_p5": 71.6
+     },
+     "path_ids": [
+      "96c2dd0e659e4360",
+      "3e7d78d22f34fcb8",
+      "3e21ab5162f28348",
+      "f54bcc972d9c2584",
+      "c106bb4239568ecb",
+      "69b9a0dff5a68b28",
+      "0763ecb896944659",
+      "ad833153c2e5aa0e",
+      "6097cc380b0e86d5",
+      "ae5c9b906d3abf5d",
+      "0c71f0d84700cad2"
+     ],
+     "path_diffs": [
+      null,
+      null,
+      1620.27,
+      92.89,
+      -323.19,
+      -1041.38,
+      -527.08,
+      1089.88,
+      -370.24,
+      2549.54,
+      385.14
+     ],
+     "path_ctrl": [
+      null,
+      null,
+      71.5,
+      99.5,
+      97.2,
+      80.0,
+      91.2,
+      71.7,
+      82.2,
+      95.8,
+      79.6
+     ]
+    }
+   },
+   "seconds": 61.7,
+   "rss_mb": 236.3
+  },
+  "frozen": {
+   "rules": {
+    "rules": [],
+    "n_rules": 0,
+    "trace": [],
+    "id": "2d301fb8cfd1283d",
+    "row": {
+     "id": "2d301fb8cfd1283d",
+     "family": "gate_family/context/scorecard/frozen_rules",
+     "tf": "5minute",
+     "label": "L1",
+     "split": "IS",
+     "config": {
+      "sub": "context",
+      "model": "scorecard",
+      "stage": "frozen_rules",
+      "label": "L1",
+      "vocabulary": "inside the frozen vocabulary (context columns)",
+      "c_search": "bisect",
+      "rules": []
+     },
+     "script": "run_gf.py",
+     "script_sha": "2de4837cb6bc1ed7",
+     "at": "2026-09-29T13:42:32",
+     "note": "sub-family I (context: hour_bin one-hot + dir; inside the frozen vocabulary); distilled from the pooled OOF decisions (selection on pooled OOF, one trial)",
+     "n": 826,
+     "kept_n": 826,
+     "skipped_n": 0,
+     "kept_share": 1.0,
+     "kept_net": -625325.16,
+     "skipped_net": 0.0,
+     "kept_mean": -757.05,
+     "skipped_mean": null,
+     "all_mean": -757.05,
+     "kept_win_rate": 0.2772,
+     "skipped_win_rate": null,
+     "kept_pf": 0.639,
+     "kept_t": -4.83,
+     "diff": null,
+     "diff_top1_removed": null,
+     "kept_mean_slip3": null,
+     "kept_mean_slip8": null,
+     "loser_recall": null,
+     "loser_precision": null,
+     "winner_recall": null,
+     "winner_recall_weighted": null,
+     "top_decile_winners_skipped": null,
+     "kept_sessions": 408,
+     "sign_blocks": null,
+     "perm_p": null,
+     "control_pct": null,
+     "control_p_beat": null
+    },
+    "fidelity": {
+     "agreement": 0.9831,
+     "skip_precision": null,
+     "skip_recall": 0.0,
+     "model_skip_share": 0.0169,
+     "rule_skip_share": 0.0
+    },
+    "features": [],
+    "ext_features": []
+   },
+   "scorecard": {
+    "card": {
+     "features": {
+      "hour_bin=10": {
+       "kind": "onehot",
+       "src": "hour_bin",
+       "level": "10",
+       "ext": false,
+       "bins": null,
+       "points": {
+        "present": -3
+       }
+      },
+      "hour_bin=11": {
+       "kind": "onehot",
+       "src": "hour_bin",
+       "level": "11",
+       "ext": false,
+       "bins": null,
+       "points": {
+        "present": -5
+       }
+      },
+      "hour_bin=15": {
+       "kind": "onehot",
+       "src": "hour_bin",
+       "level": "15",
+       "ext": false,
+       "bins": null,
+       "points": {
+        "present": -12
+       }
+      },
+      "hour_bin=<09:25": {
+       "kind": "onehot",
+       "src": "hour_bin",
+       "level": "<09:25",
+       "ext": false,
+       "bins": null,
+       "points": {
+        "present": 20
+       }
+      },
+      "dir=down": {
+       "kind": "onehot",
+       "src": "dir",
+       "level": "down",
+       "ext": false,
+       "bins": null,
+       "points": {
+        "present": 7
+       }
+      }
+     },
+     "scale": 20,
+     "skip_if_score_below": -12.0
+    },
+    "s_min": -12.0,
+    "id": "b240129da9a45d13",
+    "row": {
+     "id": "b240129da9a45d13",
+     "family": "gate_family/context/scorecard/frozen_scorecard",
+     "tf": "5minute",
+     "label": "L1",
+     "split": "IS",
+     "config": {
+      "sub": "context",
+      "model": "scorecard",
+      "stage": "frozen_scorecard",
+      "label": "L1",
+      "vocabulary": "inside the frozen vocabulary (context columns)",
+      "c_search": "bisect",
+      "card": {
+       "features": {
+        "hour_bin=10": {
+         "kind": "onehot",
+         "src": "hour_bin",
+         "level": "10",
+         "ext": false,
+         "bins": null,
+         "points": {
+          "present": -3
+         }
+        },
+        "hour_bin=11": {
+         "kind": "onehot",
+         "src": "hour_bin",
+         "level": "11",
+         "ext": false,
+         "bins": null,
+         "points": {
+          "present": -5
+         }
+        },
+        "hour_bin=15": {
+         "kind": "onehot",
+         "src": "hour_bin",
+         "level": "15",
+         "ext": false,
+         "bins": null,
+         "points": {
+          "present": -12
+         }
+        },
+        "hour_bin=<09:25": {
+         "kind": "onehot",
+         "src": "hour_bin",
+         "level": "<09:25",
+         "ext": false,
+         "bins": null,
+         "points": {
+          "present": 20
+         }
+        },
+        "dir=down": {
+         "kind": "onehot",
+         "src": "dir",
+         "level": "down",
+         "ext": false,
+         "bins": null,
+         "points": {
+          "present": 7
+         }
+        }
+       },
+       "scale": 20,
+       "skip_if_score_below": -12.0
+      }
+     },
+     "script": "run_gf.py",
+     "script_sha": "2de4837cb6bc1ed7",
+     "at": "2026-09-29T13:42:32",
+     "note": "sub-family I (context: hour_bin one-hot + dir; inside the frozen vocabulary); refit on all IS, s_min at the pooled OOF kept share (one trial)",
+     "n": 826,
+     "kept_n": 826,
+     "skipped_n": 0,
+     "kept_share": 1.0,
+     "kept_net": -625325.16,
+     "skipped_net": 0.0,
+     "kept_mean": -757.05,
+     "skipped_mean": null,
+     "all_mean": -757.05,
+     "kept_win_rate": 0.2772,
+     "skipped_win_rate": null,
+     "kept_pf": 0.639,
+     "kept_t": -4.83,
+     "diff": null,
+     "diff_top1_removed": null,
+     "kept_mean_slip3": null,
+     "kept_mean_slip8": null,
+     "loser_recall": null,
+     "loser_precision": null,
+     "winner_recall": null,
+     "winner_recall_weighted": null,
+     "top_decile_winners_skipped": null,
+     "kept_sessions": 408,
+     "sign_blocks": null,
+     "perm_p": null,
+     "control_pct": null,
+     "control_p_beat": null
+    },
+    "n_src": 5,
+    "C": 0.193601,
+    "selected": [
+     "hour_bin=10",
+     "hour_bin=11",
+     "hour_bin=15",
+     "hour_bin=<09:25",
+     "dir=down"
+    ],
+    "fidelity": {
+     "agreement": 0.9831,
+     "skip_precision": null,
+     "skip_recall": 0.0,
+     "model_skip_share": 0.0169,
+     "rule_skip_share": 0.0
+    }
+   },
+   "seconds": 0.0
+  },
+  "robust": {
+   "L0": {
+    "scored_on_label": {
+     "id": "4fb070344f836d10",
+     "kept_share": 0.994,
+     "diff": 1810.53,
+     "diff_top1_removed": 1028.96,
+     "sign_blocks": 1,
+     "kept_mean": -265.88,
+     "skipped_mean": -2076.41,
+     "winner_recall_weighted": 0.9992
+    },
+    "taus": [
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.4,
+     0.1,
+     0.1,
+     0.1
+    ],
+    "uniqueness": 1.0,
+    "n_is": 832
+   },
+   "L2x1": {
+    "scored_on_label": {
+     "id": "619691079746d502",
+     "kept_share": 0.9915,
+     "diff": 891.51,
+     "diff_top1_removed": 2513.29,
+     "sign_blocks": 1,
+     "kept_mean": -1059.97,
+     "skipped_mean": -1951.47,
+     "winner_recall_weighted": 0.9817
+    },
+    "taus": [
+     0.1,
+     0.4,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1
+    ],
+    "uniqueness": 0.9543,
+    "n_is": 826,
+    "scored_on_L1": {
+     "id": "c69a74a57d8cd778",
+     "kept_share": 0.9915,
+     "diff": -1324.79,
+     "diff_top1_removed": 1652.21,
+     "sign_blocks": 0,
+     "kept_mean": -768.28,
+     "skipped_mean": 556.51,
+     "winner_recall_weighted": 0.9737
+    }
+   },
+   "L2x2": {
+    "scored_on_label": {
+     "id": "b301ad65879db77b",
+     "kept_share": 0.9927,
+     "diff": 2313.77,
+     "diff_top1_removed": 2180.83,
+     "sign_blocks": 1,
+     "kept_mean": -861.07,
+     "skipped_mean": -3174.84,
+     "winner_recall_weighted": 0.9972
+    },
+    "taus": [
+     0.1,
+     0.4,
+     0.4,
+     0.4,
+     0.1,
+     0.4,
+     0.1,
+     0.4,
+     0.1,
+     0.1,
+     0.4,
+     0.1
+    ],
+    "uniqueness": 0.9312,
+    "n_is": 826,
+    "scored_on_L1": {
+     "id": "364ab6d800ed4965",
+     "kept_share": 0.9927,
+     "diff": 1620.27,
+     "diff_top1_removed": 1402.12,
+     "sign_blocks": 1,
+     "kept_mean": -745.28,
+     "skipped_mean": -2365.56,
+     "winner_recall_weighted": 0.9972
+    }
+   },
+   "L3": {
+    "scored_on_label": {
+     "id": "b4622ba94b77671c",
+     "kept_share": 0.9528,
+     "diff": 1.12,
+     "diff_top1_removed": 0.77,
+     "sign_blocks": 3,
+     "kept_mean": 0.21,
+     "skipped_mean": -0.91,
+     "winner_recall_weighted": 0.9613
+    },
+    "taus": [
+     0.1,
+     0.4,
+     0.4,
+     0.1,
+     0.4,
+     0.1,
+     0.1,
+     0.1,
+     0.4,
+     0.1,
+     0.4,
+     0.4
+    ],
+    "uniqueness": 0.7614,
+    "n_is": 826,
+    "scored_on_L1": {
+     "id": "8b929131d44814f1",
+     "kept_share": 0.9528,
+     "diff": 424.32,
+     "diff_top1_removed": 769.16,
+     "sign_blocks": 2,
+     "kept_mean": -737.02,
+     "skipped_mean": -1161.33,
+     "winner_recall_weighted": 0.9566
+    }
+   },
+   "seconds": 2.8
+  }
+ }
+}

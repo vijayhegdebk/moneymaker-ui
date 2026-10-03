@@ -1,0 +1,39 @@
+{
+ "tf": "minute",
+ "units": 5266,
+ "is_units": 4452,
+ "seconds": 9.7,
+ "checks": {
+  "l1_stop_exits": 1508,
+  "l2_reproduces_l1_stop": 1348,
+  "l2_stop_mismatch": [],
+  "no_bars": 0,
+  "l2_stop_mismatch_n": 0
+ },
+ "l1_is_mean": -1009.61,
+ "l1_is_win_rate": 0.1559,
+ "L2x1": {
+  "is_mean": -1038.4,
+  "is_win_rate": 0.3165,
+  "reasons": {
+   "stop": 2069,
+   "target": 2032,
+   "eod": 351
+  }
+ },
+ "L2x2": {
+  "is_mean": -959.32,
+  "is_win_rate": 0.3194,
+  "reasons": {
+   "stop": 2555,
+   "target": 1267,
+   "eod": 630
+  }
+ },
+ "L3": {
+  "is_mean_t": -0.1499,
+  "is_share_positive": 0.4971,
+  "is_nbars_lt5": 0,
+  "h_star_median": 39.0
+ }
+}

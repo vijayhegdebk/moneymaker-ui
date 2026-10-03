@@ -1,0 +1,78 @@
+[fit 5minute] IS sessions 1026 (full 1016, short 10), IS bars 76621, gaps 1025, GMM BIC {4: 681123.8409915149, 5: 675927.2864323154, 6: 668815.3806992443} -> K=6, 34.7s
+[12:06:19] generator refit reproduces the first build's GMM (BIC per K identical, K = 6): True
+[12:06:19] 5minute: 60 tapes (0 to build) in 35s
+[12:06:19] top-up round 1 5minute session: healthy 10 / 20 built (lock-out rate 0.50), need 10, generating 20 tapes k = 20..39
+[12:07:09] top-up round 1 5minute segment: healthy 16 / 20 built (lock-out rate 0.20), need 4, generating 5 tapes k = 20..24
+[12:07:27] top-up round 1 5minute gmm: healthy 14 / 20 built (lock-out rate 0.30), need 6, generating 9 tapes k = 20..28
+[12:10:56] built 5minute session_22: 56.8s, peak rss 388.9 MB
+[12:11:03] built 5minute session_20: 63.6s, peak rss 439.4 MB
+[12:11:05] built 5minute session_21: 65.2s, peak rss 428.7 MB
+[12:11:19] evaluated 5minute session_20: units 665, setups/sess 0.6559, healthy False (dead share 0.2076, longest frozen run 121 sessions), frozen_st7_st8 diff 198.83 pct 64.7 choch2_skip diff 427.59 pct 2.1 sl_above_median_skip diff -368.54 pct 96.9
+[12:11:25] evaluated 5minute session_21: units 1002, setups/sess 0.9834, healthy True (dead share 0.0, longest frozen run 46 sessions), frozen_st7_st8 diff 2.65 pct 93.6 choch2_skip diff -4.41 pct 12.3 sl_above_median_skip diff -501.01 pct 71.4
+[12:11:25] evaluated 5minute session_22: units 376, setups/sess 0.3723, healthy False (dead share 0.615, longest frozen run 631 sessions), frozen_st7_st8 diff 21.31 pct 82.5 choch2_skip diff -579.03 pct 0.6 sl_above_median_skip diff -256.1 pct 84.8
+[12:11:49] built 5minute session_23: 47.1s, peak rss 431.4 MB
+[12:12:03] evaluated 5minute session_23: units 727, setups/sess 0.7125, healthy True (dead share 0.114, longest frozen run 117 sessions), frozen_st7_st8 diff 122.85 pct 77.5 choch2_skip diff 681.0 pct 31.6 sl_above_median_skip diff -647.36 pct 18.1
+[12:12:12] built 5minute session_24: 53.1s, peak rss 443.6 MB
+[12:12:21] built 5minute session_25: 55.8s, peak rss 426.4 MB
+[12:12:30] evaluated 5minute session_24: units 869, setups/sess 0.8528, healthy True (dead share 0.1277, longest frozen run 131 sessions), frozen_st7_st8 diff -405.87 pct 55.4 choch2_skip diff -88.32 pct 2.1 sl_above_median_skip diff 64.59 pct 98.5
+[12:12:38] evaluated 5minute session_25: units 803, setups/sess 0.7885, healthy True (dead share 0.0858, longest frozen run 88 sessions), frozen_st7_st8 diff -232.12 pct 74.7 choch2_skip diff 352.88 pct 44.5 sl_above_median_skip diff -554.34 pct 32.6
+[12:12:58] built 5minute session_26: 54.8s, peak rss 426.4 MB
+[12:13:16] evaluated 5minute session_26: units 899, setups/sess 0.885, healthy True (dead share 0.0, longest frozen run 55 sessions), frozen_st7_st8 diff 17.38 pct 98.5 choch2_skip diff -423.87 pct 1.9 sl_above_median_skip diff 354.87 pct 98.5
+[12:13:23] built 5minute session_27: 53.1s, peak rss 419.1 MB
+[12:13:31] built 5minute session_28: 52.6s, peak rss 454.2 MB
+[12:13:32] evaluated 5minute session_27: units 600, setups/sess 0.5906, healthy False (dead share 0.3392, longest frozen run 348 sessions), frozen_st7_st8 diff 172.33 pct 98.3 choch2_skip diff 897.97 pct 78.1 sl_above_median_skip diff -394.71 pct 97.5
+[12:13:39] evaluated 5minute session_28: units 719, setups/sess 0.7135, healthy False (dead share 0.2164, longest frozen run 142 sessions), frozen_st7_st8 diff -453.26 pct 46.1 choch2_skip diff 324.84 pct 45.3 sl_above_median_skip diff 200.83 pct 73.8
+[12:13:59] built 5minute session_29: 43.2s, peak rss 411.2 MB
+[12:14:08] built 5minute session_30: 36.2s, peak rss 384.7 MB
+[12:14:09] built 5minute session_31: 30.6s, peak rss 448.4 MB
+[12:14:15] evaluated 5minute session_29: units 988, setups/sess 0.9737, healthy True (dead share 0.0, longest frozen run 44 sessions), frozen_st7_st8 diff 396.13 pct 97.5 choch2_skip diff 557.26 pct 2.5 sl_above_median_skip diff -139.34 pct 98.0
+[12:14:19] evaluated 5minute session_30: units 911, setups/sess 0.9035, healthy True (dead share 0.116, longest frozen run 119 sessions), frozen_st7_st8 diff 552.96 pct 99.5 choch2_skip diff -63.76 pct 8.8 sl_above_median_skip diff -772.47 pct 45.2
+[12:14:19] evaluated 5minute session_31: units 452, setups/sess 0.4444, healthy False (dead share 0.5302, longest frozen run 451 sessions), frozen_st7_st8 diff -57.58 pct 50.1 choch2_skip diff 82.72 pct 43.8 sl_above_median_skip diff -379.75 pct 75.7
+[12:14:37] built 5minute session_32: 21.8s, peak rss 414.3 MB
+[12:14:39] built 5minute session_34: 20.3s, peak rss 463.0 MB
+[12:14:40] built 5minute session_33: 21.5s, peak rss 420.1 MB
+[12:14:47] evaluated 5minute session_32: units 759, setups/sess 0.7476, healthy True (dead share 0.1248, longest frozen run 128 sessions), frozen_st7_st8 diff 231.94 pct 91.9 choch2_skip diff 1141.33 pct 69.4 sl_above_median_skip diff -593.12 pct 29.4
+[12:14:53] evaluated 5minute session_33: units 770, setups/sess 0.7593, healthy True (dead share 0.1394, longest frozen run 143 sessions), frozen_st7_st8 diff -23.68 pct 98.5 choch2_skip diff 185.32 pct 3.0 sl_above_median_skip diff -432.29 pct 78.7
+[12:14:53] evaluated 5minute session_34: units 962, setups/sess 0.9503, healthy True (dead share 0.0, longest frozen run 36 sessions), frozen_st7_st8 diff 588.05 pct 96.3 choch2_skip diff 56.8 pct 27.9 sl_above_median_skip diff -109.67 pct 56.7
+[12:15:07] built 5minute session_35: 19.7s, peak rss 443.2 MB
+[12:15:10] built 5minute session_36: 17.3s, peak rss 393.0 MB
+[12:15:11] built 5minute session_37: 17.9s, peak rss 452.3 MB
+[12:15:17] evaluated 5minute session_35: units 872, setups/sess 0.8626, healthy True (dead share 0.0, longest frozen run 63 sessions), frozen_st7_st8 diff 315.09 pct 60.0 choch2_skip diff -402.24 pct 3.0 sl_above_median_skip diff -548.12 pct 44.5
+[12:15:17] evaluated 5minute session_36: units 186, setups/sess 0.1832, healthy False (dead share 0.8665, longest frozen run 889 sessions), frozen_st7_st8 diff 1481.8 pct 83.5 choch2_skip diff 634.75 pct 8.0 sl_above_median_skip diff 460.15 pct 94.8
+[12:15:20] evaluated 5minute session_37: units 716, setups/sess 0.7037, healthy True (dead share 0.0, longest frozen run 62 sessions), frozen_st7_st8 diff 29.75 pct 57.5 choch2_skip diff -55.73 pct 5.9 sl_above_median_skip diff -880.96 pct 19.1
+[12:15:39] built 5minute session_39: 21.8s, peak rss 388.0 MB
+[12:15:39] built 5minute session_38: 22.9s, peak rss 429.8 MB
+[12:15:41] built 5minute segment_20: 20.2s, peak rss 428.5 MB
+[12:15:58] evaluated 5minute session_38: units 1097, setups/sess 1.0828, healthy True (dead share 0.0, longest frozen run 34 sessions), frozen_st7_st8 diff 76.22 pct 79.1 choch2_skip diff -16.44 pct 15.2 sl_above_median_skip diff -137.95 pct 99.5
+[12:15:58] evaluated 5minute session_39: units 770, setups/sess 0.7544, healthy True (dead share 0.1345, longest frozen run 138 sessions), frozen_st7_st8 diff 110.96 pct 78.8 choch2_skip diff 579.09 pct 38.3 sl_above_median_skip diff 222.47 pct 96.9
+[12:15:58] evaluated 5minute segment_20: units 851, setups/sess 0.8421, healthy True (dead share 0.0965, longest frozen run 99 sessions), frozen_st7_st8 diff 68.29 pct 93.8 choch2_skip diff 495.96 pct 26.1 sl_above_median_skip diff -294.79 pct 96.5
+[12:16:15] built 5minute segment_21: 21.9s, peak rss 426.6 MB
+[12:16:17] built 5minute segment_23: 19.3s, peak rss 424.3 MB
+[12:16:19] built 5minute segment_22: 21.6s, peak rss 425.5 MB
+[12:16:30] evaluated 5minute segment_21: units 920, setups/sess 0.9045, healthy True (dead share 0.1277, longest frozen run 131 sessions), frozen_st7_st8 diff -410.61 pct 81.3 choch2_skip diff -19.16 pct 0.0 sl_above_median_skip diff -177.79 pct 97.8
+[12:16:32] evaluated 5minute segment_22: units 915, setups/sess 0.8977, healthy True (dead share 0.0, longest frozen run 59 sessions), frozen_st7_st8 diff 549.88 pct 96.0 choch2_skip diff 146.11 pct 8.1 sl_above_median_skip diff -357.4 pct 60.0
+[12:16:32] evaluated 5minute segment_23: units 778, setups/sess 0.769, healthy True (dead share 0.1248, longest frozen run 128 sessions), frozen_st7_st8 diff -69.4 pct 60.5 choch2_skip diff -131.94 pct 0.5 sl_above_median_skip diff 8.59 pct 76.2
+[12:16:48] built 5minute segment_24: 18.0s, peak rss 460.6 MB
+[12:16:50] built 5minute gmm_21: 17.9s, peak rss 426.0 MB
+[12:16:51] built 5minute gmm_20: 20.3s, peak rss 386.7 MB
+[12:17:02] evaluated 5minute segment_24: units 932, setups/sess 0.9172, healthy True (dead share 0.0858, longest frozen run 88 sessions), frozen_st7_st8 diff -126.97 pct 81.2 choch2_skip diff 131.68 pct 23.8 sl_above_median_skip diff -186.94 pct 65.0
+[12:17:06] evaluated 5minute gmm_20: units 870, setups/sess 0.8635, healthy False (dead share 0.23, longest frozen run 236 sessions), frozen_st7_st8 diff 217.56 pct 36.9 choch2_skip diff -75.85 pct 14.7 sl_above_median_skip diff 122.28 pct 71.0
+[12:17:06] evaluated 5minute gmm_21: units 992, setups/sess 0.9756, healthy True (dead share 0.0, longest frozen run 46 sessions), frozen_st7_st8 diff 25.17 pct 82.0 choch2_skip diff -220.73 pct 0.8 sl_above_median_skip diff 2.86 pct 26.4
+[12:17:22] built 5minute gmm_22: 20.3s, peak rss 461.4 MB
+[12:17:27] built 5minute gmm_23: 21.2s, peak rss 426.8 MB
+[12:17:28] built 5minute gmm_24: 21.3s, peak rss 425.9 MB
+[12:17:31] evaluated 5minute gmm_22: units 1061, setups/sess 1.0448, healthy True (dead share 0.1121, longest frozen run 115 sessions), frozen_st7_st8 diff -16.86 pct 87.4 choch2_skip diff 414.01 pct 59.7 sl_above_median_skip diff -190.61 pct 86.0
+[12:17:41] evaluated 5minute gmm_23: units 1034, setups/sess 1.0244, healthy True (dead share 0.0, longest frozen run 25 sessions), frozen_st7_st8 diff 181.87 pct 96.0 choch2_skip diff 2.38 pct 7.1 sl_above_median_skip diff -96.76 pct 30.9
+[12:17:41] evaluated 5minute gmm_24: units 1056, setups/sess 1.0409, healthy True (dead share 0.0, longest frozen run 40 sessions), frozen_st7_st8 diff -391.03 pct 22.7 choch2_skip diff -354.09 pct 2.0 sl_above_median_skip diff 200.92 pct 93.8
+[12:17:53] built 5minute gmm_25: 22.2s, peak rss 431.0 MB
+[12:17:56] built 5minute gmm_27: 15.1s, peak rss 413.8 MB
+[12:18:01] built 5minute gmm_26: 20.0s, peak rss 426.3 MB
+[12:18:05] evaluated 5minute gmm_25: units 1105, setups/sess 1.0906, healthy True (dead share 0.0, longest frozen run 38 sessions), frozen_st7_st8 diff 257.56 pct 88.5 choch2_skip diff 122.89 pct 6.3 sl_above_median_skip diff -13.81 pct 99.2
+[12:18:08] evaluated 5minute gmm_26: units 1094, setups/sess 1.0877, healthy True (dead share 0.1111, longest frozen run 114 sessions), frozen_st7_st8 diff 311.97 pct 99.9 choch2_skip diff -74.66 pct 11.2 sl_above_median_skip diff -276.78 pct 61.6
+[12:18:08] evaluated 5minute gmm_27: units 457, setups/sess 0.4513, healthy False (dead share 0.6462, longest frozen run 539 sessions), frozen_st7_st8 diff 151.59 pct 95.8 choch2_skip diff 153.85 pct 15.9 sl_above_median_skip diff 109.25 pct 95.0
+[12:18:23] built 5minute gmm_28: 18.8s, peak rss 467.7 MB
+[12:18:30] evaluated 5minute gmm_28: units 1251, setups/sess 1.2398, healthy True (dead share 0.0, longest frozen run 24 sessions), frozen_st7_st8 diff 56.19 pct 73.0 choch2_skip diff -204.95 pct 1.4 sl_above_median_skip diff -142.97 pct 23.9
+[12:18:31] 5minute done in 766s
+[12:18:31] 5minute gmm: built 29, healthy 21, certificate 20 {"choch2_skip": {"cert": [37.88, 516.38], "all_orig": [91.75, 516.38], "real": 257.83}, "frozen_st7_st8": {"cert": [191.66, 530.0], "all_orig": [191.66, 708.82], "real": -365.62}, "sl_above_median_skip": {"cert": [16.74, 419.69], "all_orig": [97.75, 483.41], "real": 33.65}}
+[12:18:31] 5minute segment: built 25, healthy 21, certificate 20 {"choch2_skip": {"cert": [5.46, 500.14], "all_orig": [35.06, 441.96], "real": 257.83}, "frozen_st7_st8": {"cert": [105.51, 566.42], "all_orig": [164.72, 566.42], "real": -365.62}, "sl_above_median_skip": {"cert": [-191.32, 620.74], "all_orig": [-212.74, 620.74], "real": 33.65}}
+[12:18:31] 5minute session: built 40, healthy 24, certificate 20 {"choch2_skip": {"cert": [173.26, 827.38], "all_orig": [127.18, 700.52], "real": 257.83}, "frozen_st7_st8": {"cert": [45.8, 554.71], "all_orig": [85.92, 420.4], "real": -365.62}, "sl_above_median_skip": {"cert": [-346.06, 148.62], "all_orig": [-331.03, 131.37], "real": 33.65}}

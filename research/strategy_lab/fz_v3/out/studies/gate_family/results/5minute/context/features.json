@@ -1,0 +1,117 @@
+{
+ "fmeta": {
+  "sub": "context",
+  "n_features": 10,
+  "columns": [
+   "hour_bin=09",
+   "hour_bin=10",
+   "hour_bin=11",
+   "hour_bin=12",
+   "hour_bin=13",
+   "hour_bin=14",
+   "hour_bin=15",
+   "hour_bin=<09:25",
+   "hour_bin=>=15:20",
+   "dir=down"
+  ]
+ },
+ "smeta": {
+  "interaction_cst": "one group (all context columns)",
+  "monotonic_cst": null
+ },
+ "cols": [
+  "hour_bin=09",
+  "hour_bin=10",
+  "hour_bin=11",
+  "hour_bin=12",
+  "hour_bin=13",
+  "hour_bin=14",
+  "hour_bin=15",
+  "hour_bin=<09:25",
+  "hour_bin=>=15:20",
+  "dir=down"
+ ],
+ "info": {
+  "hour_bin=09": {
+   "kind": "onehot",
+   "src": "hour_bin",
+   "level": "09",
+   "ext": false
+  },
+  "hour_bin=10": {
+   "kind": "onehot",
+   "src": "hour_bin",
+   "level": "10",
+   "ext": false
+  },
+  "hour_bin=11": {
+   "kind": "onehot",
+   "src": "hour_bin",
+   "level": "11",
+   "ext": false
+  },
+  "hour_bin=12": {
+   "kind": "onehot",
+   "src": "hour_bin",
+   "level": "12",
+   "ext": false
+  },
+  "hour_bin=13": {
+   "kind": "onehot",
+   "src": "hour_bin",
+   "level": "13",
+   "ext": false
+  },
+  "hour_bin=14": {
+   "kind": "onehot",
+   "src": "hour_bin",
+   "level": "14",
+   "ext": false
+  },
+  "hour_bin=15": {
+   "kind": "onehot",
+   "src": "hour_bin",
+   "level": "15",
+   "ext": false
+  },
+  "hour_bin=<09:25": {
+   "kind": "onehot",
+   "src": "hour_bin",
+   "level": "<09:25",
+   "ext": false
+  },
+  "hour_bin=>=15:20": {
+   "kind": "onehot",
+   "src": "hour_bin",
+   "level": ">=15:20",
+   "ext": false
+  },
+  "dir=down": {
+   "kind": "onehot",
+   "src": "dir",
+   "level": "down",
+   "ext": false
+  }
+ },
+ "n_is": 826,
+ "tau_grid": [
+  0.1,
+  0.15,
+  0.2,
+  0.25,
+  0.3,
+  0.35,
+  0.4
+ ],
+ "taur_grid": [
+  -1500.0,
+  -1250.0,
+  -1000.0,
+  -750.0,
+  -500.0,
+  -250.0,
+  0.0,
+  250.0
+ ],
+ "min_leaf": 40
+}

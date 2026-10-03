@@ -1,0 +1,7 @@
+posthoc_minskip start Tue Sep 29 05:55:10 2026 ledger sha 56165b239dafbb98 min_skip_share 0.1 tf minute labels L0 studies h2 note 'repair'
+== h2 minute_L0: 201 cells
+  nested-CV_minskip OOF: kept 3879 (0.8616) diff -240.04 pct 20.9 p 0.3003 blocks 6 id 7310b7454e4b7d42
+  CPCV 11 paths: diff median -81.42 p5 -357.9 min -480.66 share>0 0.091 control pct median 40.2 p5 15.3
+  family (incl. this row): 203 candidates, eff 1.55, PBO diff 0.4618 kept 0.8667, SPA p 0.198 best {'rule': 'range', 'W': '3h', 'q': 0.3}, boot [-746.01, 200.17], DSR p 1.0, go False
+  pre-registered row 7b38016c4d64bed5 over the completed family: 203 candidates, PBO diff 0.4618, SPA p 0.196, DSR p 0.9997, go False
+posthoc done in 291.1s; ledger sha 15e23816134d950e

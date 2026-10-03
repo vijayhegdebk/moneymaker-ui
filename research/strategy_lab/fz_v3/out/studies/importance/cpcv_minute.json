@@ -1,0 +1,201 @@
+{
+ "cpcv": {
+  "paths": 11,
+  "diff_median": -18.66,
+  "diff_p5": -114.95,
+  "diff_min": -119.62,
+  "diff_share_positive": 0.455,
+  "kept_share_median": 0.9679,
+  "control_pct_median": 0.7,
+  "control_pct_p5": 0.0
+ },
+ "rows": [
+  {
+   "id": "266fa66e66f02136",
+   "config": {
+    "model": "bagging_dt",
+    "depth": 4,
+    "trees": 300,
+    "min_weight_fraction_leaf": 0.05,
+    "features": 276,
+    "weights": "|net| winsorised at train p99, class_weight balanced",
+    "tau": "train-fold OOB: max kept mean s.t. weighted winner recall >= 0.90",
+    "path": 0
+   },
+   "kept_share": 0.9679,
+   "diff": -109.25,
+   "control_pct": 0.5,
+   "perm_p": 0.6337
+  },
+  {
+   "id": "59b9e5a09f1974c0",
+   "config": {
+    "model": "bagging_dt",
+    "depth": 4,
+    "trees": 300,
+    "min_weight_fraction_leaf": 0.05,
+    "features": 276,
+    "weights": "|net| winsorised at train p99, class_weight balanced",
+    "tau": "train-fold OOB: max kept mean s.t. weighted winner recall >= 0.90",
+    "path": 1
+   },
+   "kept_share": 0.9888,
+   "diff": 114.81,
+   "control_pct": 12.1,
+   "perm_p": 0.7656
+  },
+  {
+   "id": "044f99bf7e12be99",
+   "config": {
+    "model": "bagging_dt",
+    "depth": 4,
+    "trees": 300,
+    "min_weight_fraction_leaf": 0.05,
+    "features": 276,
+    "weights": "|net| winsorised at train p99, class_weight balanced",
+    "tau": "train-fold OOB: max kept mean s.t. weighted winner recall >= 0.90",
+    "path": 2
+   },
+   "kept_share": 0.9277,
+   "diff": -87.45,
+   "control_pct": 0.0,
+   "perm_p": 0.5737
+  },
+  {
+   "id": "c6a74ff1d83040a5",
+   "config": {
+    "model": "bagging_dt",
+    "depth": 4,
+    "trees": 300,
+    "min_weight_fraction_leaf": 0.05,
+    "features": 276,
+    "weights": "|net| winsorised at train p99, class_weight balanced",
+    "tau": "train-fold OOB: max kept mean s.t. weighted winner recall >= 0.90",
+    "path": 3
+   },
+   "kept_share": 1.0,
+   "diff": null,
+   "control_pct": null,
+   "perm_p": null
+  },
+  {
+   "id": "eafa9c59aa56c055",
+   "config": {
+    "model": "bagging_dt",
+    "depth": 4,
+    "trees": 300,
+    "min_weight_fraction_leaf": 0.05,
+    "features": 276,
+    "weights": "|net| winsorised at train p99, class_weight balanced",
+    "tau": "train-fold OOB: max kept mean s.t. weighted winner recall >= 0.90",
+    "path": 4
+   },
+   "kept_share": 0.8895,
+   "diff": 31.54,
+   "control_pct": 0.1,
+   "perm_p": 0.7981
+  },
+  {
+   "id": "7678e9cecaad730e",
+   "config": {
+    "model": "bagging_dt",
+    "depth": 4,
+    "trees": 300,
+    "min_weight_fraction_leaf": 0.05,
+    "features": 276,
+    "weights": "|net| winsorised at train p99, class_weight balanced",
+    "tau": "train-fold OOB: max kept mean s.t. weighted winner recall >= 0.90",
+    "path": 5
+   },
+   "kept_share": 0.9111,
+   "diff": 37.31,
+   "control_pct": 0.0,
+   "perm_p": 0.7911
+  },
+  {
+   "id": "59f78b50ef71e21e",
+   "config": {
+    "model": "bagging_dt",
+    "depth": 4,
+    "trees": 300,
+    "min_weight_fraction_leaf": 0.05,
+    "features": 276,
+    "weights": "|net| winsorised at train p99, class_weight balanced",
+    "tau": "train-fold OOB: max kept mean s.t. weighted winner recall >= 0.90",
+    "path": 6
+   },
+   "kept_share": 0.9825,
+   "diff": -119.62,
+   "control_pct": 5.1,
+   "perm_p": 0.6847
+  },
+  {
+   "id": "8849cee352a41c6d",
+   "config": {
+    "model": "bagging_dt",
+    "depth": 4,
+    "trees": 300,
+    "min_weight_fraction_leaf": 0.05,
+    "features": 276,
+    "weights": "|net| winsorised at train p99, class_weight balanced",
+    "tau": "train-fold OOB: max kept mean s.t. weighted winner recall >= 0.90",
+    "path": 7
+   },
+   "kept_share": 0.9641,
+   "diff": -46.28,
+   "control_pct": 0.8,
+   "perm_p": 0.8311
+  },
+  {
+   "id": "b33ccc055491e983",
+   "config": {
+    "model": "bagging_dt",
+    "depth": 4,
+    "trees": 300,
+    "min_weight_fraction_leaf": 0.05,
+    "features": 276,
+    "weights": "|net| winsorised at train p99, class_weight balanced",
+    "tau": "train-fold OOB: max kept mean s.t. weighted winner recall >= 0.90",
+    "path": 8
+   },
+   "kept_share": 0.9933,
+   "diff": 8.95,
+   "control_pct": 5.0,
+   "perm_p": 0.989
+  },
+  {
+   "id": "f851ba72da5dda90",
+   "config": {
+    "model": "bagging_dt",
+    "depth": 4,
+    "trees": 300,
+    "min_weight_fraction_leaf": 0.05,
+    "features": 276,
+    "weights": "|net| winsorised at train p99, class_weight balanced",
+    "tau": "train-fold OOB: max kept mean s.t. weighted winner recall >= 0.90",
+    "path": 9
+   },
+   "kept_share": 0.9726,
+   "diff": -101.19,
+   "control_pct": 0.3,
+   "perm_p": 0.6957
+  },
+  {
+   "id": "1556be44be49c6c4",
+   "config": {
+    "model": "bagging_dt",
+    "depth": 4,
+    "trees": 300,
+    "min_weight_fraction_leaf": 0.05,
+    "features": 276,
+    "weights": "|net| winsorised at train p99, class_weight balanced",
+    "tau": "train-fold OOB: max kept mean s.t. weighted winner recall >= 0.90",
+    "path": 10
+   },
+   "kept_share": 0.9528,
+   "diff": 41.5,
+   "control_pct": 12.9,
+   "perm_p": 0.8216
+  }
+ ]
+}
